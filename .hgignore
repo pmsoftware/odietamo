@@ -1,0 +1,10 @@
+# .hgignore file for odietamo - example
+# NB by default uses Pyhton regex, to change use 
+# syntax: glob 
+
+ 
+.*~$       # ignore all ending in tilde
+\#.*\#$    #ignore emacs backup files
+\.pyc$     # ignore compiled pyc
+
+
