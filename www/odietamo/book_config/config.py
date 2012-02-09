@@ -41,7 +41,7 @@ PATH_FROM_DOCROOT = HTMLROOT
 DEPLOY_HTML_ROOT = HTML_DEPLOY_DIR
 
 ### setting front page
-frontpage_list_articles =  ["About/about.chp",]
+frontpage_list_articles =  ["About/about.chp", "JoinIn/gettingstarted.chp"]
 
 
 
