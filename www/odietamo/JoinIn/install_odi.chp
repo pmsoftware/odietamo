@@ -1,0 +1,66 @@
+==============
+Installing ODI
+==============
+
+installation, manual moving to CI
+=================================
+
+This is a guide to installing ODI, initially manually, but moving
+towards a CI style build eventually.
+
+1. Download.
+
+   You will need to create an Oracle online account (simple sing up form is here)
+   Then download, and extract, ofm_odi_companion_generic_11.1.1.6.0_disk1_1of1.zip.  This is the companion CD.  I use this because I am running on FreeBSD and frankly BSD is barely supported.  Otehrwise use the other two disks for a runnable solution.
+
+::
+
+   extract this to say ~/odihome
+   cd ~/odihome/studio/oracledi/client
+   we should run odi.sh but that is just a call like sh odi/bin/odi and sh is not bash on my machine.  AS such I run it from
+
+   $ bash ~/odihome/studio/oracledi/client/odi/bin/odi
+
+It will now ask for the location of your J2SE instance.
+
+::
+
+    Type the full pathname of a J2SE installation (or Ctrl-C to quit), the path will be stored in ~/.odi_jdk
+
+    ...
+    
+    Error: Java home /usr/local//bin/java is not a J2SE SDK.
+    Running ODI under a JRE is not suppored.
+
+    location of JDK:
+    /usr/local/jdk1.6.0
+    why is jdk not same as java executable?
+
+
+Extract and install all useful parts
+
+0. create a HOME directory, such as /home/pbrian/ODI/studio
+
+
+1. extract studio (formerly Designer)
+   cd  ODI_JAVA_HOME
+
+   unzip ../downloads/studio/oracledi-studio.zip 
+   unzip ../downloads/xml-reference/oracledi-xml-reference.zip
+   unzip ../downloads/demo/oracledi-demo.zip
+
+   ODI_JAVA_HOME='/usr/local/jdk1.6.0/bin'
+   export ODI_JAVA_HOME
+   JAVA_HOME=$ODI_JAVA_HOME
+   export JAVA_HOME
+   #the startdemo assumes JAVA_HOME
+
+   
+Whats the difference with JRE, JDK, Java.
+-----------------------------------------
+
+biblio
+------
+
+http://docs.oracle.com/cd/E23943_01/core.1111/e16453/companion.htm#CJHJECGC
+The official generic manual install.
