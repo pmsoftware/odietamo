@@ -1,0 +1,26 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\FitNesse${MOI_FITNESSE_ENV}]
+"Type"=dword:00000010
+"Start"=dword:00000002
+"ErrorControl"=dword:00000001
+"DisplayName"="FitNesse${MOI_FITNESSE_ENV}"
+"ObjectName"="LocalSystem"
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\FitNesse${MOI_FITNESSE_ENV}\Parameters]
+"Application"="${MOI_FITNESSE_ROOT}\\dbfit-complete-20080822_${MOI_FITNESSE_ENV}\\MoiStartFitnesse.bat"
+"AppDirectory"="${MOI_FITNESSE_ROOT}\\dbfit-complete-20080822_${MOI_FITNESSE_ENV}"
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\FitNesse${MOI_FITNESSE_ENV}\Security]
+"Security"=hex:01,00,14,80,90,00,00,00,9c,00,00,00,14,00,00,00,30,00,00,00,02,\
+  00,1c,00,01,00,00,00,02,80,14,00,ff,01,0f,00,01,01,00,00,00,00,00,01,00,00,\
+  00,00,02,00,60,00,04,00,00,00,00,00,14,00,fd,01,02,00,01,01,00,00,00,00,00,\
+  05,12,00,00,00,00,00,18,00,ff,01,0f,00,01,02,00,00,00,00,00,05,20,00,00,00,\
+  20,02,00,00,00,00,14,00,8d,01,02,00,01,01,00,00,00,00,00,05,0b,00,00,00,00,\
+  00,18,00,fd,01,02,00,01,02,00,00,00,00,00,05,20,00,00,00,23,02,00,00,01,01,\
+  00,00,00,00,00,05,12,00,00,00,01,01,00,00,00,00,00,05,12,00,00,00
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\FitNesse${MOI_FITNESSE_ENV}\Enum]
+"0"="Root\\LEGACY_FITNESSE${MOI_FITNESSE_ENV}\\0000"
+"Count"=dword:00000001
+"NextInstance"=dword:00000001
