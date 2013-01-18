@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="D:\work\dbfit\impl\dotnet\bin\Debug\dbfit.dll" total="12" failures="0" not-run="0" date="2008-06-13" time="13:48:50">
+  <environment nunit-version="2.4.3.0" clr-version="2.0.50727.1433" os-version="Microsoft Windows NT 5.1.2600 Service Pack 2" platform="Win32NT" cwd="d:\apps\nunit\bin" machine-name="MALI" user="Gojko Adzic" user-domain="MALI" />
+  <culture-info current-culture="en-GB" current-uiculture="en-US" />
+  <test-suite name="D:\work\dbfit\impl\dotnet\bin\Debug\dbfit.dll" success="True" time="0.750" asserts="0">
+    <results>
+      <test-suite name="dbfit" success="True" time="0.750" asserts="0">
+        <results>
+          <test-suite name="fixture" success="True" time="0.219" asserts="0">
+            <results>
+              <test-suite name="ExecuteProcedureTest" success="True" time="0.172" asserts="0">
+                <results>
+                  <test-case name="dbfit.fixture.ExecuteProcedureTest.SortAccessorsInRightOrder" executed="True" success="True" time="0.156" asserts="4" />
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+          <test-suite name="NameNormaliserTest" success="True" time="0.063" asserts="0">
+            <results>
+              <test-case name="dbfit.NameNormaliserTest.CheckNormaliseName" executed="True" success="True" time="0.063" asserts="6" />
+            </results>
+          </test-suite>
+          <test-suite name="OracleEnvironmentTest" success="True" time="0.438" asserts="0">
+            <results>
+              <test-case name="dbfit.OracleEnvironmentTest.CheckEmptyParams" executed="True" success="True" time="0.016" asserts="1" />
+              <test-case name="dbfit.OracleEnvironmentTest.CheckMultipleParams" executed="True" success="True" time="0.000" asserts="3" />
+              <test-case name="dbfit.OracleEnvironmentTest.CheckMultipleParamsRecurring" executed="True" success="True" time="0.000" asserts="3" />
+              <test-case name="dbfit.OracleEnvironmentTest.CheckSingleParam" executed="True" success="True" time="0.000" asserts="1" />
+              <test-case name="dbfit.OracleEnvironmentTest.CheckUnderscore" executed="True" success="True" time="0.000" asserts="1" />
+            </results>
+          </test-suite>
+          <test-suite name="util" success="True" time="0.016" asserts="0">
+            <results>
+              <test-suite name="ByteArrayHandlerTest" success="True" time="0.000" asserts="0">
+                <results>
+                  <test-case name="dbfit.util.ByteArrayHandlerTest.CheckNormaliseName" executed="True" success="True" time="0.000" asserts="3" />
+                </results>
+              </test-suite>
+              <test-suite name="DbConnectionPropertiesTest" success="True" time="0.016" asserts="0">
+                <results>
+                  <test-case name="dbfit.util.DbConnectionPropertiesTest.TestCommentsAndEmptyLines" executed="True" success="True" time="0.000" asserts="5" />
+                  <test-case name="dbfit.util.DbConnectionPropertiesTest.TestWithConnectionString" executed="True" success="True" time="0.000" asserts="5" />
+                  <test-case name="dbfit.util.DbConnectionPropertiesTest.TestWithConnectionStringWithEquals" executed="True" success="True" time="0.000" asserts="5" />
+                  <test-case name="dbfit.util.DbConnectionPropertiesTest.TestWithSplitProperties" executed="True" success="True" time="0.000" asserts="5" />
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
