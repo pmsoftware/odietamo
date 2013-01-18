@@ -1,0 +1,187 @@
+<project name="jisql" default="main" basedir=".">
+
+<!-- override any of the properties in build.properties -->
+    <property file="build.properties"/>
+ 
+<!-- location properties -->
+    <property name="src.dir" location="src" />
+    <property name="dest.classes.dir" location="classes" />
+    <property name="dest.lib.dir" location="lib" />
+    <property name="javadoc.dir" location="javadoc" />
+    <property name="build.dir" location="build" />
+
+<!-- value properties -->
+    <property name="dest.lib.name.prefix" value="jisql" />
+    <property name="javadoc.package.names" value="com.xigole.*" />
+
+<!-- compile time value properties -->
+    <property name="compile.debug" value="true" />
+    <property name="compile.optimize" value="false" />
+    <property name="compile.deprecation" value="true" />
+    <property name="compile.source" value="1.6"/>
+    <property name="compile.target" value="1.6"/>
+    <property name="compile.checked" value="-Xlint"/>
+
+    <property name="jisql.version" value="2.0.11" />
+
+    <!-- define the libraries that will be used in the project.  these
+         will be used elsewhere -->
+    <path id="joptsimple.jars">
+        <fileset dir="${dest.lib.dir}">
+            <include name="jopt-simple-3.2.jar" />
+        </fileset>
+    </path>
+
+    <path id="javacsv.jars">
+        <fileset dir="${dest.lib.dir}">
+            <include name="javacsv.jar" />
+        </fileset>
+    </path>
+
+
+<!-- define a timestamp for the build time -->
+    <tstamp>
+        <format property="build.start.time" pattern="MMM dd, yyyy 'at' hh:mm:ss aa zzz" />
+    </tstamp>
+
+    <!-- ==================== Build ==================== -->
+    <target name="main" depends="compile,jar" />
+
+    <target name="compile" depends="checks,get.svn.version,set.build.required" unless="build.not.required">
+        <mkdir dir="${build.dir}/${dest.lib.name.prefix}-${jisql.version}" />
+        <mkdir dir="${build.dir}/${dest.lib.name.prefix}-${jisql.version}/classes" />
+
+        <copy todir="${build.dir}/${dest.lib.name.prefix}-${jisql.version}">
+            <fileset dir=".">
+                <exclude name="build/**" />
+                <exclude name="**/*.jsp" />
+            </fileset>
+        </copy>
+
+        <echo message="package com.xigole.util.sql;${line.separator}/* this class is auto-generated during an ant build */${line.separator}public class Version {${line.separator}    public static final String version = &quot;${jisql.version}.${svn.revision.number}&quot;;${line.separator}    public static final String buildDate = &quot;${build.start.time}&quot;;${line.separator}}${line.separator}" file="${build.dir}/${dest.lib.name.prefix}-${jisql.version}/src/com/xigole/util/sql/Version.java" />
+
+        <javac srcdir="${build.dir}/${dest.lib.name.prefix}-${jisql.version}/src"
+                destdir="${build.dir}/${dest.lib.name.prefix}-${jisql.version}/classes"
+                debug="${compile.debug}"
+                deprecation="${compile.deprecation}"
+                optimize="${compile.optimize}"
+                source="${compile.source}"
+                includeantruntime="false"
+                target="${compile.target}" >
+            <compilerarg value="${compile.checked}" />
+            <classpath refid="joptsimple.jars" />
+            <classpath refid="javacsv.jars" />
+        </javac>
+    </target>
+
+  <!-- ==================== Cleanup & Packaging ==================== -->
+    <target name="clean" depends="checks">
+        <delete dir="${build.dir}"/>
+        <delete file="jisql.jsp" />
+    </target>
+
+    <target name="jar" depends="compile, get.svn.version" unless="build.not.required">
+        <jar destfile="${build.dir}/${dest.lib.name.prefix}-${jisql.version}/lib/${dest.lib.name.prefix}-${jisql.version}.jar" basedir="${build.dir}/${dest.lib.name.prefix}-${jisql.version}/classes">
+            <manifest>
+                <attribute name="Class-Path" value="${dest.lib.name.prefix}-${jisql.version}.jar jopt-simple-3.2.jar javacsv.jar"/>
+                <attribute name="Main-Class" value="com.xigole.util.sql.Jisql"/>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Built-On" value="${build.start.time}"/>
+                <attribute name="Build-Number" value="${jisql.version}.${svn.revision.number}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="package" depends="jar,javadoc">
+        <tar destfile="${build.dir}/jisql-${jisql.version}.tar.bz2"
+             compression="bzip2"
+             basedir="${build.dir}"
+             includes="**/*"
+             excludes="**/classes/** jisql-${jisql.version}.zip jisql-${jisql.version}.tar.bz2 jisql-${jisql.version}.tar.gz" />
+
+        <tar destfile="${build.dir}/jisql-${jisql.version}.tar.gz"
+             compression="gzip"
+             basedir="${build.dir}"
+             includes="**/*"
+             excludes="**/classes/** jisql-${jisql.version}.zip jisql-${jisql.version}.tar.bz2 jisql-${jisql.version}.tar.gz" />
+
+        <zip destfile="${build.dir}/jisql-${jisql.version}.zip"
+             basedir="${build.dir}"
+             includes="**/*"
+             excludes="**/classes/** jisql-${jisql.version}.zip jisql-${jisql.version}.tar.bz2 jisql-${jisql.version}.tar.gz" />
+
+        <copy file="jisql.template.jsp" tofile="jisql.jsp" overwrite="true">
+            <filterset>
+                <filter token="VERSION" value="${jisql.version}"/>
+                <filter token="BUILD_DATE" value="${build.start.time}"/>
+            </filterset>
+        </copy>
+    </target>
+
+   <!-- find out the revision number that this was built from -->
+    <target name="get.svn.version" unless="build.not.required" depends="set.build.required">
+        <exec executable="svn" outputproperty="svn.revision.number">
+            <arg line="info -r HEAD"/>
+            <redirector>
+                <outputfilterchain>
+                    <linecontainsregexp>
+                        <regexp pattern='^Revision' />
+                    </linecontainsregexp>
+                    <tokenfilter>
+                        <replaceregex pattern='[\D]+([\d]+)' replace="\1" />
+                    </tokenfilter>
+                </outputfilterchain>
+            </redirector>
+        </exec>
+    </target>
+
+    <target name="set.build.required">
+        <uptodate property="build.not.required" targetfile="${build.dir}/${dest.lib.name.prefix}-${jisql.version}/lib/${dest.lib.name.prefix}-${jisql.version}.jar">
+            <srcfiles dir="${src.dir}" includes="**/*.java" />
+        </uptodate>
+    </target>
+
+
+  <!-- ==================== Javadoc ==================== -->
+    <target name="javadoc">
+        <mkdir dir="${build.dir}/${dest.lib.name.prefix}-${jisql.version}/javadoc" />
+
+        <javadoc sourcepath="${build.dir}/${dest.lib.name.prefix}-${jisql.version}/src"
+                destdir="${build.dir}/${dest.lib.name.prefix}-${jisql.version}/javadoc"
+                author="true"
+                version="true" 
+                private="false"
+                packagenames="${javadoc.package.names}">
+            <classpath refid="joptsimple.jars" />
+            <classpath refid="javacsv.jars" />
+        </javadoc>
+    </target>
+
+  <!-- ==================== Logic and Guessing ==================== -->
+    <target name="checks" depends="check.src.dir.set, check.dest.classes.set, check.dest.lib.set, check.javadoc.dir.set, set.src.dir.exists, check.src.dir" />
+
+    <target name="check.src.dir.set" unless="src.dir" >
+        <fail message="The property src.dir is not set" />
+    </target>
+
+    <target name="check.dest.classes.set" unless="dest.classes.dir" >
+        <fail message="The property dest.classes.dir is not set" />
+    </target>
+
+    <target name="check.dest.lib.set" unless="dest.lib.dir" >
+        <fail message="The property dest.lib.dir is not set" />
+    </target>
+
+    <target name="check.javadoc.dir.set" unless="javadoc.dir" >
+        <fail message="The property javadoc.dir is not set" />
+    </target>
+
+    <target name="set.src.dir.exists" >
+        <available property="src.dir.exists" file="${src.dir}" />
+    </target>
+
+    <target name="check.src.dir" unless="src.dir.exists" >
+        <fail message="Source directory not found at ${src.dir}, make sure the src.dir property is set correctly" />
+    </target>
+
+</project>
