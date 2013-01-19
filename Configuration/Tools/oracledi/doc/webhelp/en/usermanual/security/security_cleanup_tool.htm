@@ -1,0 +1,115 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Cleaning up Unused Authorizations</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+ul.whs2 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nSecurity Manager\nManaging Rights\nCleaning up Unused Authorizations");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Cleaning up Unused Authorizations</h1>
+
+<p>Authorizations by object instance are stored in the Master Repository. 
+ However, if these objects are deleted from all work repositories, the 
+ authorization are not deleted. Indeed, you may wish to retain certain 
+ unused authorizations if they refer to objects currently stored in an 
+ exported file or in a stored solution, for instance. &nbsp;</p>
+
+<p>The Security Clean-up Tool should be used periodically to remove these 
+ unused authorizations from the master repository. Unused authorizations 
+ are removed if they refer to objects that do not exist in the Master Repository 
+ or in any Work Repository.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: All work repositories 
+ attached to the master repository must be accessible in order to check 
+ the existence of the objects in these repositories.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> Oracle Data Integrator 
+ objects themselves are never removed - only security privilege information.</p>
+
+<p class=HowTo>To remove unused authorizations:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Select <span class=ElementGUI>File</span> &gt;<span 
+ class=ElementGUI> Clean up Security Settings...</span> from the menu.</p></li>
+	
+	<li class=kadov-p><p>On the <span class=ElementGUI>Cleanable</span> 
+ tab, select any useless security settings you wish to remove.</p></li>
+	
+	<ul type="disc" class="whs2">
+		
+		<li class=kadov-p><p>Security settings that cannot be cleaned are 
+ shown on the Non-cleanable tab</p></li>
+		
+		<li class=kadov-p><p>Use the <span class=ElementGUI>Select All</span> 
+ button to select all settings for cleaning.</p></li>
+	</ul>
+	
+	<li class=kadov-p><p>Press <span class=ElementGUI>Delete Selected Security 
+ Settings</span>.</p></li>
+</ol>
+
+</body>
+</html>

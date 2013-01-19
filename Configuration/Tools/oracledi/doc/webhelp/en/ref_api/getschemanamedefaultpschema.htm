@@ -1,0 +1,297 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>GetSchemaNameDefaultPSchema()</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+td.whs1 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nGlobal Methods\nGetSchemaNameDefaultPSchema");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>GetSchemaNameDefaultPSchema() Method</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>public java.lang.String <b>getSchemaNameDefaultPSchema</b>(<br>
+java.lang.String&nbsp;pLogicalSchemaName,&nbsp;<br>
+java.lang.String&nbsp;pLocation)</span></p>
+
+<p><span class=Code>public java.lang.String <b>getSchemaNameDefaultPSchema(</b><br>
+java.lang.String&nbsp;pLogicalSchemaName,&nbsp;<br>
+java.lang.String&nbsp;pContextCode,&nbsp;<br>
+java.lang.String&nbsp;pLocation)</span></p>
+
+<p><span class=Code><span class=Code>p</span>ublic java.lang.String <b>getSchemaNameDefaultPSchema</b>(<br>
+java.lang.String&nbsp;pLocation)</span></p>
+
+<p><span class=Code>public java.lang.String <b>getSchemaNameDefaultPSchema</b>()</span></p>
+
+<h2>Description</h2>
+
+<p>Allows you to retrieve the name of the <span style="font-weight: bold;"><B>default</B></span> 
+ physical data schema or work schema for the data server to which is associated 
+ the physical schema corresponding to the tuple (logical schema, context). 
+ If no context is specified, the current context is used. &nbsp;If 
+ no logical schema name is specified, then the current logical schema is 
+ used. If no pLocation is specified, then the data schema is returned.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter</th>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Type</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau>pLogicalSchemaName</td>
+<td class=whs5>
+<p class=TexteTableau>String</td>
+<td class=whs6>
+<p class=TexteTableau>Name of the logical schema</td></tr>
+
+<tr>
+<td class=whs7>
+<p class=TexteTableau>pContextCode</td>
+<td class=whs8>
+<p class=TexteTableau>String</td>
+<td class=whs9>
+<p class=TexteTableau>Code of the enforced context of the schema</td></tr>
+
+<tr>
+<td class=whs10>
+<p class=TexteTableau>pLocation</td>
+<td class=whs11>
+<p class=TexteTableau>String</td>
+<td class=whs12>
+<table x-use-null-cells>
+
+<tr>
+<td>
+<p class=TexteTableau>&quot;W&quot;</td>
+<td>
+<p class=TexteTableau>Returns the work schema of the default physical schema 
+ associate to the data server to which the physical schema corresponding 
+ to the tuple (context, logical schema) is also attached.</td></tr>
+
+<tr>
+<td>
+<p class=TexteTableau>&quot;D&quot;</td>
+<td>
+<p class=TexteTableau>Returns the data schema of the physical schema corresponding 
+ to the tuple (context, logical schema)</td></tr>
+</table></td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>If you have defined the physical schemas:<span class=Code><br>
+Pluton.db_odi.dbo</span></p>
+
+<table x-use-null-cells>
+
+<tr>
+<td class=whs13
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>Data catalog:</td>
+<td class=whs14
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>db_odi</td></tr>
+
+<tr>
+<td class=whs15
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>Data schema:</td>
+<td class=whs16
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>dbo</td></tr>
+
+<tr>
+<td class=whs17
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>Work catalog:</td>
+<td class=whs18
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>tempdb</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Work schema:</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>temp_odi</td></tr>
+
+<tr>
+<td class=whs19
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau
+	style="font-weight: bold;">Default Schema</td>
+<td class=whs20
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau
+	style="font-weight: bold;">Yes</td></tr>
+</table>
+
+<p>that you have associated with this physical schema: MSSQL_ODI in 
+ the context CTX_DEV, and <span class=Code>Pluton.db_doc.doc</span></p>
+
+<table x-use-null-cells>
+
+<tr>
+<td class=whs13
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>Data catalog:</td>
+<td class=whs14
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>db_doc</td></tr>
+
+<tr>
+<td class=whs15
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>Data schema:</td>
+<td class=whs16
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>doc</td></tr>
+
+<tr>
+<td class=whs17
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>Work catalog:</td>
+<td class=whs18
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>tempdb</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Work schema:</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>temp_doc</td></tr>
+
+<tr>
+<td class=whs19
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau
+	style="font-weight: bold;">Default Schema</td>
+<td class=whs20
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau
+	style="font-weight: bold;">No</td></tr>
+</table>
+
+<p>that you have associated with this physical schema: MSSQL_DOC in the 
+ context CTX_DEV</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs21
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>The call to&nbsp;</th>
+<th class=whs22
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Returns</th></tr>
+
+<tr>
+<td class=whs23>
+<p class=TexteTableau><span class=Code>&lt;%=odiRef.getSchemaNameDefaultPSchema(&quot;MSSQL_DOC&quot;, 
+ &quot;CTX_DEV&quot;, &quot;W&quot;)%&gt;</span></td>
+<td class=whs24>
+<p class=TexteTableau>temp_odi</td></tr>
+
+<tr>
+<td class=whs25>
+<p class=TexteTableau><span class=Code>&lt;%=odiRef.getSchemaNameDefaultPSchema(&quot;MSSQL_DOC&quot;, 
+ &quot;CTX_DEV&quot;, &quot;D&quot;)%&gt;</span></td>
+<td class=whs26>
+<p>dbo</td></tr>
+</table>
+
+</body>
+</html>

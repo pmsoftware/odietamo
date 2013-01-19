@@ -1,0 +1,113 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>class</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Jython Quick Reference\nThe Basics\nSyntax\nInstructions\nclass");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>The class Statement</h1>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>class</B></span><span class=Code> class_name 
+ [(super_class1 [,super_class2]*)]:</span></p>
+
+<p><span class=Code>&nbsp;</span><span class=Code
+	style="font-style: italic;"><I>instructions</I></span></p>
+
+<p>&nbsp;</p>
+
+<p>Creates a new <span class=Code>class_name</span> class, that can then 
+ be instantiated to create objects.</p>
+
+<h2>Examples</h2>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>class</B></span><span class=Code> c:</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;def 
+ __init__(self, name, pos):</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;self.name 
+ = name</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;self.pos 
+ = pos</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;def 
+ showcol(self):</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;print 
+ &quot;Name : %s; Position :%d&quot; % (self.name, self.pos)</span></p>
+
+<p>&nbsp;</p>
+
+<p><span class=Code>col2 = c(&quot;CUSTNAME&quot;, &quot;2&quot;)</span></p>
+
+<p><span class=Code>col2.showcol()</span></p>
+
+<p>Returns:</p>
+
+<p><span class=Code>Name : CUSTNAME, Position :2</span></p>
+
+<p>&nbsp;</p>
+
+</body>
+</html>

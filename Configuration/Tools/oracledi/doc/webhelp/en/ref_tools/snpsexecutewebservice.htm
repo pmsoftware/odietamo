@@ -1,0 +1,271 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>OdiExecuteWebService</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+h1.whs1 { color:#808080; }
+th.whs2 { x-cell-content-align:top; }
+td.whs3 { x-cell-content-align:top; }
+ul.whs4 { list-style:square; }
+ul.whs5 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1 class="whs1">OdiExecuteWebService</h1>
+
+<p class=Remarque><span class=AlertTitre>Warning!</span> Since version 
+ 4.1.01.05, this tool is replaced with <a href="snpsinvokewebservice.htm">OdiInvokeWebService</a>. 
+ It is kept for to provide compatibility with earlier versions of . <span 
+ id=ctl00_LibFrame_MainContent>Avoid using this tool in new development 
+ work, and plan to modify packages that currently use it.</span></p>
+
+<h2>Usage</h2>
+
+<p><span class=Code>OdiExecuteWebService -URL=&lt;url&gt; -PORT=&lt;port&gt; 
+ -METHOD=&lt;method&gt; [-INPUT_PARAMS=&lt;inputParams&gt;] [-OUT_PARAMS=&lt;outputParams&gt;] 
+ -FILE_MODE=&lt;NO_FILE|</span><span class=Code
+									style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>NEW_FILE</U></span><span 
+ class=Code>|APPEND&gt; [-FILE=&lt;file&gt;] [-JAVA_CHARSET=&lt;xxx&gt;] 
+ [-XML_CHARSET=&lt;xxx&gt;] [-PURGE=YES|NO]</span></p>
+
+<h2>Description</h2>
+
+<p>Sends a client request to a Web Service and writes the returned response 
+ to an XML file.</p>
+
+<p>Invokes a specific &nbsp;operation 
+ on a port of a Web Service whose description file (WSDL) location is provided 
+ (URL). This operation may require input and output parameters. The response 
+ of the Web Service request is written to an XML file for use by .</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Parameters</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Mandatory</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-URL=&lt;url&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Yes</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>URL of the Web Service Description File (WSDL) file 
+ describing the Web Service.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-PORT=&lt;port&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Yes</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Name of a Web Service port to use.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-METHOD=&lt;method&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Yes</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Name of the Web Service operation to invoke.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-INPUT_PARAMS=&lt;inputParams&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>No</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Values of the input parameters for the operation.</p>
+<p class=TexteTableau>The values are specified in a string in the following 
+ format : </p>
+<p class=TexteTableau><span class=Code>&lt;PART_NAME&gt;;&lt;FIELD_TYPE&gt;;&lt;FIELD_NAME&gt;;&lt;FIELD_VALUE&gt;[|&lt;PART_NAME&gt;;&lt;FIELD_TYPE&gt;;&lt;FIELD_NAME&gt;;&lt;FIELD_VALUE&gt;]*</span></p>
+<ul type="square" class="whs4">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>&lt;PART_NAME&gt;:</span> 
+ name of the message part expected as an input parameter by the Web Service.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>&lt;FIELD_TYPE&gt;</span>: 
+ type of the simple field of the current parameter..</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>&lt;FIELD_NAME&gt;</span>: 
+ name of the field of the current parameter. If this field belongs to a 
+ simple part, its name can be directly specified. If it belongs to a complex 
+ object, then it can be specified with the complete object path in the 
+ following format: <span class=Code>&lt;OBJECT_NAME&gt;[.&lt;OBJECT_NAME&gt;]*.&lt;FIELD_NAME&gt;</span>.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>&lt;FIELD_VALUE&gt;</span>: 
+ value that will be sent to the Web Service for the field. </p></li>
+</ul>
+<p class=TexteTableau>If a part contains several fields, the pattern may 
+ be repeated for each field in the part, with the same <span class=Code>&lt;PART_NAME&gt;</span>.</p>
+<p class=Remarque><span class=RemarqueTitre>Note</span>: A graphical wizard 
+ is provided with Designer to help developers specify OdiExecuteWebService 
+ steps. It is recommended that you use this wizard.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-OUT_PARAMS=&lt;outputParams&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>No</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Output parameters returned by the Web Service. Parameters 
+ are specified in the following format:</p>
+<p class=TexteTableau><span class=Code>&lt;PART_NAME&gt;;&lt;OBJECT&gt;[|&lt;PART_NAME&gt;;&lt;OBJECT&gt;]*</span></p>
+<ul type="square" class="whs4">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>&lt;PART_NAME&gt;</span> 
+ name of the message part returned by the Web Service.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>&lt;OBJECT&gt;</span> 
+ Object returned by the Web Service.</p></li>
+</ul>
+<p class=Remarque><span class=RemarqueTitre>Note</span>: A graphical wizard 
+ is provided with Designer to help developers specify OdiExecuteWebService 
+ steps. It is recommended that you use this wizard.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-FILE_MODE=&lt;NO_FILE|</span><span 
+ class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>NEW_FILE</U></span><span 
+ class=Code>|APPEND&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Yes</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Management mode for the response of the Web Service 
+ request:</p>
+<ul type="square" class="whs4">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>NEW_FILE</span>: 
+ the response is stored in the specified XML file. If the file already 
+ exists, it is overwritten.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>APPEND</span>: 
+ the response is stored in the specified XML file. If the file already 
+ exists, the result is appended to the existing file.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>NO_FILE</span>: 
+ the response is not stored to disk.</p></li>
+</ul></td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-FILE=&lt;file&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>No</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Target XML file in which the response will be stored. 
+ Its path may be absolute or relative to the Execution Agent folder.</td></tr>
+
+
+
+<tr>
+	
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-JAVA_CHARSET=&lt;xxx&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>No</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Result file character encoding. Default value is 
+ ISO8859-1. You will find a list of supported encoding at the following 
+ URL: <a href="http://java.sun.com/j2se/1.4.2/docs/guide/intl/encoding.doc.html">http://java.sun.com/j2se/1.4.2/docs/guide/intl/encoding.doc.html</a></td></tr>
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-XML_CHARSET=&lt;xxx&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>No</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Character encoding indicated in the XML declaration 
+ header. Default value is ISO-8859-1. &nbsp;You 
+ will find a list of supported encoding at the following URL: <a href="http://java.sun.com/j2se/1.4.2/docs/guide/intl/encoding.doc.html">http://java.sun.com/j2se/1.4.2/docs/guide/intl/encoding.doc.html</a></td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-PURGE=YES|NO</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>No</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>This parameter defines if the temporary objects generated 
+ by OdiExecuteWebService must be flushed after usage or kept for future 
+ use in order to improve the performances of future calls. <span class=Code>PURGE</span> 
+ is set to <span class=Code>YES</span> by default. </p>
+<ul type="disc" class="whs5">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>If calling multiple 
+ times the OdiExecuteWebService tool within the same step with different 
+ sets of parameters, <span class=Code>PURGE</span> should not be set to 
+ <span class=Code>YES</span>. </p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>It should be 
+ set to <span class=Code>NO</span> if executing several times an OdiExecuteWebService 
+ step with the same set of parameters in a package.</p></li>
+</ul></td></tr>
+</table>
+
+</body>
+</html>

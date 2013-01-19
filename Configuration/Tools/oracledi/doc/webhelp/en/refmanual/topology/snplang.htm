@@ -1,0 +1,212 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Language</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+th.whs2 { x-cell-content-align:top; }
+td.whs3 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nTopology Manager\nLanguages\nLanguages");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Languages</h1>
+
+<p>Oracle Data Integrator uses computer languages to access <a href="snptechno.htm"><span 
+ class=ElementGUI>technologies</span></a>. These languages are used to 
+ generate the procedures executed on these technologies. The correct definition 
+ of the characteristics of a language is therefore essential for the correct 
+ generation and execution of the procedures.</p>
+
+<p>In Oracle Data Integrator, a language is described by its <a href="snplangelt.htm">language 
+ elements</a> assembled in <a href="snpsublang.htm">sub-languages</a>.</p>
+
+<p>The languages are used for:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Determining the language elements available in 
+ the <span class=ElementGUI>expression editor</span>.</p></li>
+	
+	<li class=kadov-p><p>Managing the <span class=ElementGUI>separators</span> 
+ and <span class=ElementGUI>delimiters</span> of language words when generating 
+ procedures.</p></li>
+</ul>
+
+<h2>Concepts</h2>
+
+<p>A language is made up of three types of <span style="font-weight: bold;"><B>words</B></span>:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Objects</B></span>: 
+ Named entities handled by the language (Tables, Schemas, Columns)</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Literals</B></span>: 
+ Values that the language handles (for example, content of a record column 
+ in a table, for SQL language).</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Reserved words</B></span>: 
+ which are specific to the language, and are usually the names of functions, 
+ commands, etc</p></li>
+</ul>
+
+<h2>Definition</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Property</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Name</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Name of the language</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">Delimiters</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">This section allows the characters used 
+ as delimiters to be defined for the language.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Objects</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Pairs of characters that allow the names of <span 
+ style="font-weight: bold;"><B>objects</B></span> to be delimited. This type of 
+ character is generally used to protect the case (upper/lower) or to protect 
+ the possible separators of special words or characters used in object 
+ names.</p>
+<p class=TexteTableau>Each pair is made up of a start character and an 
+ end character, and there cannot be more than two characters.</p>
+<p class=TexteTableau>Examples:</p>
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=Code>[]</span>.: <span class=Code>[Active 
+ Customers]</span>.The square bracket is necessary to protect the space 
+ and the case in the name of the object Active Customers. </p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>&quot;&quot; 
+ : &quot;Account&quot;.&quot;Licenses&quot;</span>. The quotation marks 
+ are used to protect the accents and the case in the name of the objects 
+ Account (schema) and Licenses (Datastore).</p></li>
+</ul></td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Literals </td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Pairs of characters allowing <span style="font-weight: bold;"><B>literals</B></span> 
+ (values) to be delimited.</p>
+<p class=TexteTableau>Each pair is made up of a start character and an 
+ end character, and there cannot be more than two characters.</p>
+<p class=TexteTableau>For example:</p>
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>'' 
+ : 'Welcome to Paris !'</span>. The quotation marks are used to protect 
+ the accents, the case and the special characters in this literal.</p></li>
+</ul></td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">Case sensitive</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">Determines the case-sensitivity for the 
+ language.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Objects</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Indicates whether the language differentiates upper 
+ and lower case for the names of the <span style="font-weight: bold;"><B>objects</B></span> 
+ it processes, such as the names of columns, tables, and schemas.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Reserved keywords</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Indicates whether the language differentiates upper 
+ and lower case for its <span style="font-weight: bold;"><B>reserved words</B></span>, 
+ such as SELECT or INSERT.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Word separators</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>The characters used to separate the <span style="font-weight: bold;"><B>words</B></span> 
+ of the language.</td></tr>
+</table>
+
+</body>
+</html>

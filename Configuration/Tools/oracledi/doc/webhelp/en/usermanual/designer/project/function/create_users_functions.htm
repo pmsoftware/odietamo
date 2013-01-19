@@ -1,0 +1,238 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Using User Functions</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+p.whs1 { margin-left:80px; }
+p.whs2 { margin-left:40px; }
+p.whs3 { margin-left:0px; }
+ol.whs4 { list-style:decimal; }
+ul.whs5 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript">
+<!--
+if ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion) == 4))
+{
+  var strNSS = "<style type='text/css'>";
+  strNSS += "p.whs3 {margin-left:1pt; }";
+  strNSS +="</style>";
+  document.write(strNSS);
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nDesigner\nProjects\nUsing User Functions");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Using User Functions</h1>
+
+<p>User functions allow one to define customized functions that can be 
+ used in interfaces or procedures. <br>
+These functions are implemented in one or more technologies.</p>
+
+<p>Example:</p>
+
+<p>The <span style="font-weight: bold;"><B>Oracle</B></span> <span class=Code>nvl(</span><span 
+ class=Code
+	style="font-weight: bold;"><B>VARIABLE</B></span><span class=Code>,</span><span 
+ class=Code
+	style="font-weight: bold;"><B>DEFAULT_VALUE</B></span><span class=Code>)</span>, 
+ function - which returns the value of <span class=Code
+											style="font-weight: bold;"><B>VARIABLE,</B></span> 
+ or <span class=Code
+			style="font-weight: bold;"><B>DEFAULT_VALUE</B></span> if <span class=Code
+	style="font-weight: bold;"><B>VARIABLE</B></span> is null - has no equivalent 
+ in all technologies and must be replaced by the formula:</p>
+
+<p><span class=Code>case when </span><span class=Code
+											style="font-weight: bold;"><B>VARIABLE</B></span><span 
+ class=Code> is null </span></p>
+
+<p class="whs1"><span class=Code>then </span><span class=Code
+	style="font-weight: bold;"><B>DEFAULT_VALUE</B></span></p>
+
+<p class="whs2"><span class=Code>else </span><span class=Code
+	style="font-weight: bold;"><B>VARIABLE</B></span><span class=Code> </span></p>
+
+<p class="whs3"><span class=Code
+									style="margin-left: 40px;">end</span></p>
+
+<p>With user functions, it is possible to declare a function called <span 
+ class=Code>NullValue(</span><span class=Code
+									style="font-weight: bold;"><B>VARIABLE</B></span><span 
+ class=Code>,</span><span class=Code
+							style="font-weight: bold;"><B>DEFAULT_VALUE</B></span><span 
+ class=Code>)</span> and to define two implementations for the syntax above. 
+ When executing, depending on the technology on which the order will executed, 
+ the <span class=Code>NullValue</span> function will be replaced by one 
+ syntax or the other.</p>
+
+<p>A function can be created as a <span class=ElementGUI>global</span> 
+ function or in a <span class=ElementGUI>project</span>. In the first case, 
+ it is common to all projects, and in the second, it is attached to the 
+ project in which it is defined. </p>
+
+<h2>Create a user function</h2>
+
+<h6>To create a user function:</h6>
+
+<ol type="1" class="whs4">
+	
+	<li class=kadov-p><p>Click the <span class=ElementGUI>user functions 
+ </span>node in the <span class=ElementGUI>project</span> or in <span class=ElementGUI>projects</span></p></li>
+	
+	<li class=kadov-p><p>Right click and select <span class=ElementGUI>Insert 
+ User Function</span>.</p></li>
+	
+	<li class=kadov-p><p>Fill in the following fields:</p></li>
+	
+	<ul type="disc" class="whs5">
+		
+		<li class=kadov-p><p><span class=ElementGUI>Name:</span> Name of 
+ the user function. Example: <span class=Code>NullValue</span></p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>Group:</span> Group 
+ of the user function. If you type a group name that does not exist, a 
+ new group will be created with this group name when the function is saved.</p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>Syntax:</span> &nbsp;Syntax 
+ of the user function that will appear in the expression editor; The arguments 
+ of the function must be specified in this syntax. Example: <span class=Code>NullValue($(variable), 
+ $(default))</span></p></li>
+	</ul>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK.</span></p></li>
+</ol>
+
+<p>The function appears in the tree view. Since it has no implementation, 
+ it is unusable.</p>
+
+<h6>To create an implementation:</h6>
+
+<ol type="1" class="whs4">
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>implementations</span> 
+ tab of the <span class=ElementGUI>user function</span>, click <span class=ElementGUI>add.</span></p></li>
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>Implementation syntax</span>, 
+ type the code of the implementation. For instance: <span class=Code>nvl($(variable), 
+ $(default))</span></p></li>
+	
+	<li class=kadov-p><p>Check the boxes for the implementation's <span 
+ class=ElementGUI>Associated technologies</span></p></li>
+	
+	<li class=kadov-p><p>Check the <span class=ElementGUI>Automatically 
+ include new technologies</span> box if you want the new technologies to 
+ use this syntax.</p></li>
+	
+	<li class=kadov-p><p>Click<span class=ElementGUI> OK</span>.</p></li>
+</ol>
+
+<h6>To change an implementation:</h6>
+
+<ol type="1" class="whs4">
+	
+	<li class=kadov-p><p>in the <span class=ElementGUI>implementations</span> 
+ tab of the <span class=ElementGUI>user function</span>, select an <span 
+ class=ElementGUI>implementation</span>, then click <span class=ElementGUI>Edit.</span></p></li>
+	
+	<li class=kadov-p><p>Change <span class=ElementGUI>Implementation syntax</span> 
+ and the <span class=ElementGUI>Associated technologies</span> to this 
+ implementation </p></li>
+	
+	<li class=kadov-p><p>Check the <span class=ElementGUI>Automatically 
+ include new technologies</span> box if you want the new technologies to 
+ use this syntax.</p></li>
+	
+	<li class=kadov-p><p>Click<span class=ElementGUI> OK</span>.</p></li>
+</ol>
+
+<h6>To remove an implementation:</h6>
+
+<ol type="1" class="whs4">
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>implementations</span> 
+ tab of the <span class=ElementGUI>user function</span>, select an <span 
+ class=ElementGUI>implementation</span> then click <span class=ElementGUI>Delete.</span></p></li>
+</ol>
+
+<h2>Using a User functions</h2>
+
+<p>The user functions can be used in all Oracle Data Integrator expressions: </p>
+
+<ul type="disc" class="whs5">
+	
+	<li class=kadov-p><p>Mapping,</p></li>
+	
+	<li class=kadov-p><p>Filters,</p></li>
+	
+	<li class=kadov-p><p>Joins,</p></li>
+	
+	<li class=kadov-p><p>Constraints,</p></li>
+	
+	<li class=kadov-p><p>...</p></li>
+</ul>
+
+<p>A user function can be used directly by specifying its <span class=ElementGUI>syntax</span>. 
+ Example:<span class=Code>NullValue(CITY_NAME, 'No City')</span></p>
+
+</body>
+</html>

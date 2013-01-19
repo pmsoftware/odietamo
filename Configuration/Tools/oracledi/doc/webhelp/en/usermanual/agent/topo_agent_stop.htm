@@ -1,0 +1,145 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Stopping an Agent</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+ul.whs2 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nTopology Manager\nManaging Agents\nStopping an Agent");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Stopping an Agent</h1>
+
+<p>You can stop a listener, scheduler or web agent which is listening on 
+ a TCP/IP port through the agentstop command. </p>
+
+<h6>To stop an agent:</h6>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Open a Unix shell, CMD, or QSH (for AS/400) session</p></li>
+	
+	<li class=kadov-p><p>Launch the appropriate command file (agentstop.bat 
+ on Windows, agentstop.sh on Unix or AS/400-QSH), with any required parameters.</p></li>
+</ol>
+
+<p>The listening agent is stopped.</p>
+
+<p class=Remarque><span class=AlertTitre>Important Note</span>: For security 
+ reasons, it is only possible to stop an agent from a command line launched 
+ on the same machine as where the agent's process was started.<span style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U><br>
+It is not possible to stop a remote agent.</U></span></p>
+
+<h6>Examples:</h6>
+
+<ul type="disc" class="whs2">
+	
+	<li class=kadov-p><p>On Windows: <span class=Code>agentstop &quot;-PORT=20300&quot;</span> 
+ stops the listener agent on the port 20300.</p></li>
+	
+	<li class=kadov-p><p>On UNIX: <span class=Code>./agentstop.sh </span>stops 
+ the listener agent on the default port.</p></li>
+</ul>
+
+<h2>Command Parameters</h2>
+
+<p>The table below lists the different parameters for the command.<span 
+ style="color: #ff0000;"> <font color=red ></font></span>The parameters are preceded by the &quot;-&quot; 
+ character and the possible values are preceded by the &quot;=&quot; character. 
+ You should take into account the syntax for delimiting strings used by 
+ the relevant operating system.</p>
+
+<p>&nbsp;</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th>
+<p class=TitreTableau>Parameters</th>
+<th>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td>
+<p class=TexteTableau><span class=Code>-PORT=&lt;port&gt;</span></td>
+<td>
+<p class=TexteTableau>Port on which the agent to be stopped is listening. 
+ If this parameter is not specified, the default port of 20910 is used.</td></tr>
+</table>
+
+<h6>See also:</h6>
+
+<ul type="disc" class="whs2">
+	
+	<li class=kadov-p><p><a HREF="topo_agent_startlistener.htm">Launching 
+ a listener agent</a></p></li>
+	
+	<li class=kadov-p><p><a href="topo_agent_startscheduler.htm">Launching 
+ a scheduler agent </a></p></li>
+	
+	<li class=kadov-p><p><a href="topo_agent_startweb.htm">Launching a 
+ web agent</a></p></li>
+</ul>
+
+</body>
+</html>

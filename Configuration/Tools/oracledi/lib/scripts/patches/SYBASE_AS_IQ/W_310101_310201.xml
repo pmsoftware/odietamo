@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">	
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+		alter table SNP_TRT add L_CODE <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>
+	]]></Field>				
+		
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[			
+		alter table SNP_TRT add L_CHECKSUM <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>
+	]]></Field>				
+	
+	<!-- Update Repository Version-->		
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_LOC_REPW set REP_VERSION = '3.1.02.01']]></Field>		
+									
+</Object>
+</SunopsisRepository>
+

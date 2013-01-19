@@ -1,0 +1,401 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>OdiWaitForData</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+col.whs2 { width:389px; }
+col.whs3 { width:70px; }
+col.whs4 { width:600px; }
+th.whs5 { width:389px; x-cell-content-align:top; }
+th.whs6 { width:70px; x-cell-content-align:top; }
+th.whs7 { width:600px; x-cell-content-align:top; }
+td.whs8 { width:389px; x-cell-content-align:top; }
+td.whs9 { width:70px; x-cell-content-align:top; }
+td.whs10 { width:600px; x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nEvent Detection\nOdiWaitForData");
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nChanged Data Capture\nOdiWaitForData");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>OdiWaitForData</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>OdiWaitForData -LSCHEMA=&lt;LSchema&gt; -TABLE_NAME=&lt;tableName&gt; 
+ [-OBJECT_TYPE=&lt;list of object types&gt;] [-CONTEXT=&lt;context&gt;] 
+ [-RESUME_KEY_VARIABLE=&lt;resumeKeyVariable&gt; -RESUME_KEY_COL=&lt;resumeKeyCol&gt; 
+ [-RESUME_KEY_OPERATOR=&lt;resumeKeyOperator&gt;]|-SQLFILTER=&lt;SQLFilter&gt;] 
+ [-TIMEOUT=&lt;timeout&gt;] [-POLLINT=&lt;pollInt&gt;] [-GLOBAL_ROWCOUNT=&lt;globalRowCount&gt;] 
+ [-UNIT_ROWCOUNT=&lt;unitRowCount&gt;] [-TIMEOUT_WITH_ROWS_OK=&lt;</span><span 
+ class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>yes</U></span><span 
+ class=Code>|no&gt;] [-INCREMENT_DETECTION=&lt;</span><span class=Code
+															style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>|yes&gt; [-INCREMENT_MODE=&lt;</span><span class=Code
+														style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>M</U></span><span 
+ class=Code>|P|I&gt;] [-INCREMENT_SEQUENCE_NAME=&lt;incrementSequenceName&gt;]]</span></p>
+
+<h2>Description</h2>
+
+<p>Waits for a number of rows in a table or a set of tables. This can also 
+ be applied to a number of objects containing data, such as views.</p>
+
+<p>The OdiWaitForData command tests that a table, or a set of tables, 
+ has been populated with a number of records. This test is repeated at 
+ regular intervals (<span class=Code>-POLLINT</span>) until one of the 
+ following conditions is fulfilled: the desired number of rows for one 
+ of the tables has been detected (<span class=Code>-UNIT_ROWCOUNT</span>), 
+ the desired, cumulated number of rows for all of the tables has been detected 
+ (<span class=Code>-GLOBAL_ROWCOUNT</span>), or a timeout (<span class=Code>-TIMEOUT</span>) 
+ has been reached.</p>
+
+<p>Filters may be applied to the set of counted rows. They are specified 
+ by an explicit SQL where clause (<span class=Code>-SQLFILTER)</span> and 
+ / or the <span class=Code>-RESUME_KEY_xxx</span> parameters to determine 
+ field-value-operator clause. These two methods are cumulative (AND).</p>
+
+<p>The row count may be considered either in absolute terms (with respect 
+ to the total number of rows in the table) or in differential terms (the 
+ difference between a stored reference value and the current row count 
+ value).</p>
+
+<p>When dealing with multiple tables:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>the <span class=Code>-SQLFILTER </span>and<span 
+ class=Code> -RESUME_KEY_xxx</span> parameters apply to <span style="font-weight: bold; x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U><B>ALL</B></U></span> 
+ tables concerned.</p></li>
+	
+	<li class=kadov-p><p>the <span class=Code>-UNIT_ROWCOUNT </span>parameter 
+ determines the row count to be expected for each one of the particular 
+ tables. The &nbsp;&nbsp;<span class=Code>-GLOBAL_ROWCOUNT</span> 
+ parameter determines the SUM of the row count number cumulated over the 
+ set of tables. When only 1 table is concerned, the <span class=Code>-UNIT_ROWCOUNT 
+ and</span> <span class=Code>-GLOBAL_ROWCOUNT</span> parameters are equivalent.</p></li>
+</ul>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+<col class="whs2">
+<col class="whs3">
+<col class="whs4">
+
+<tr>
+<th valign="top" width="389px" class="whs5">
+<p class=TitreTableau>Parameters</th>
+<th valign="top" width="70px" class="whs6">
+<p class=TitreTableau>Mandatory</th>
+<th valign="top" width="600px" class="whs7">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" width="389px" class="whs8">
+<p class=TexteTableau><span class=Code>-LSCHEMA=&lt;LSchema&gt;</span></td>
+<td valign="top" width="70px" class="whs9">
+<p class=TexteTableau>Yes</td>
+<td valign="top" width="600px" class="whs10">
+<p class=TexteTableau>Logical schema containing the tables.</td></tr>
+
+<tr>
+<td valign="top" width="389px" class="whs8">
+<p class=TexteTableau><span class=Code>-TABLE_NAME=&lt;tableName&gt;</span></td>
+<td valign="top" width="70px" class="whs9">
+<p class=TexteTableau>Yes</td>
+<td valign="top" width="600px" class="whs10">
+<p class=TexteTableau>Table name, mask or list of table names to check. 
+ This parameter accepts three formats :</p>
+<ul>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Table Name.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Table Name Mask: 
+ This mask selects the tables to poll. The mask is specified using the 
+ SQL LIKE syntax : the % symbol replaces an unspecified number of characters 
+ and the _ symbol is a single character wildcard.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Table Names List: 
+ Comma separated list of table names. Masks as defined above are allowed.</p></li>
+</ul></td></tr>
+
+<tr>
+<td valign="top" width="389px" class="whs8">
+<p class=TexteTableau><span class=Code>-OBJECT_TYPE=&lt;list of object 
+ types&gt;</span></td>
+<td valign="top" width="70px" class="whs9">
+<p class=TexteTableau>No</td>
+<td valign="top" width="600px" class="whs10">
+<p class=TexteTableau>Type of objects that are checked. By default, only 
+ tables are checked. To take into account other objects, specify a comma-separated 
+ list of object types. Supported object types are:</p>
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>T: Table</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>V: View</p></li>
+</ul></td></tr>
+
+<tr>
+<td valign="top" width="389px" class="whs8">
+<p class=TexteTableau><span class=Code>-CONTEXT=&lt;context&gt;</span></td>
+<td valign="top" width="70px" class="whs9">
+<p class=TexteTableau>No</td>
+<td valign="top" width="600px" class="whs10">
+<p class=TexteTableau>Context in which the logical schema will be resolved. 
+ If no context is specified, the execution context is used.</td></tr>
+
+<tr>
+<td valign="top" width="389px" class="whs8">
+<p class=TexteTableau><span class=Code>-SQLFILTER=&lt;SQLFilter&gt;</span></td>
+<td valign="top" width="70px" class="whs9">
+<p class=TexteTableau>No</td>
+<td valign="top" width="600px" class="whs10">
+<p class=TexteTableau>Explicit SQL Filter to be applied to the table(s). 
+ This statement must be valid for the technology containing the checked 
+ tables.</p>
+<p class=Remarque><span class=RemarqueTitre>Note</span>: This statement 
+ must not include the WHERE keyword.</td></tr>
+
+<tr>
+<td valign="top" width="389px" class="whs8">
+<p class=TexteTableau><span class=Code>-RESUME_KEY_VARIABLE=&lt;resumeKeyVariable&gt; 
+ </span></p>
+<p class=TexteTableau><span class=Code>-RESUME_KEY_COL=&lt;resumeKeyCol&gt; 
+ </span></p>
+<p class=TexteTableau><span class=Code>[-RESUME_KEY_OPERATOR=&lt;resumeKeyOperator&gt;]</span></td>
+<td valign="top" width="70px" class="whs9">
+<p class=TexteTableau>No</td>
+<td valign="top" width="600px" class="whs10">
+<p class=TexteTableau>The <span class=Code>RESUME_KEY_xxx</span> parameters 
+ allow filtering of the set of counted rows in the polled tables.</p>
+<ul>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>&lt;key_column&gt;</span>: 
+ Name of a column in the checked table.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>&lt;operator&gt;: 
+ </span>Valid comparison operator for the technology containing the checked 
+ tables. If this parameter is omitted, the value &quot;&gt;&quot; is used 
+ by default.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>&lt;variable_name&gt;: 
+ </span>Variable name whose value has been previously set. The variable 
+ name must be prefixed with &quot;:&quot; (bind) or &quot;#&quot; (substitution). 
+ The variable scope should be explicitly stated in the Oracle Data Integrator 
+ syntax; <span class=Code>GLOBAL.&lt;variable name&gt;</span> for <span 
+ class=ElementGUI>global</span> variables or <span class=Code>&lt;project 
+ code&gt;.&lt;variable name&gt;</span> for <span class=ElementGUI>project</span> 
+ variables.</p></li>
+</ul></td></tr>
+
+<tr>
+<td valign="top" width="389px" class="whs8">
+<p class=TexteTableau><span class=Code>-TIMEOUT=&lt;timeout&gt;</span></td>
+<td valign="top" width="70px" class="whs9">
+<p class=TexteTableau>No</td>
+<td valign="top" width="600px" class="whs10">
+<p class=TexteTableau>Maximum period of time in milliseconds over which 
+ data is polled. If this value is equal to zero, the timeout is infinite. 
+ Defaults to 0.</td></tr>
+
+<tr>
+<td valign="top" width="389px" class="whs8">
+<p class=TexteTableau><span class=Code>-POLLINT=&lt;pollInt&gt;</span></td>
+<td valign="top" width="70px" class="whs9">
+<p class=TexteTableau>No</td>
+<td valign="top" width="600px" class="whs10">
+<p class=TexteTableau>The period of time in milliseconds to wait between 
+ data polls. Defaults to 2000.</td></tr>
+
+<tr>
+<td valign="top" width="389px" class="whs8">
+<p class=TexteTableau><span class=Code>-UNIT_ROWCOUNT=&lt;unitRowCount&gt;</span></td>
+<td valign="top" width="70px" class="whs9">
+<p class=TexteTableau>No</td>
+<td valign="top" width="600px" class="whs10">
+<p class=TexteTableau>Number of rows expected in a polled table to terminate 
+ the command. Defaults to 1. </td></tr>
+
+<tr>
+<td valign="top" width="389px" class="whs8">
+<p class=TexteTableau><span class=Code>-GLOBAL_ROWCOUNT=&lt;globalRowCount&gt;</span></td>
+<td valign="top" width="70px" class="whs9">
+<p class=TexteTableau>No</td>
+<td valign="top" width="600px" class="whs10">
+<p class=TexteTableau>Total number of rows expected cumulatively, over 
+ the set of tables, to terminate the command. Defaults to 1. </td></tr>
+
+<tr>
+<td valign="top" width="389px" class="whs8">
+<p class=TexteTableau><span class=Code>-INCREMENT_DETECTION=&lt;</span><span 
+ class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>|yes&gt;</span></td>
+<td valign="top" width="70px" class="whs9">
+<p class=TexteTableau>No</td>
+<td valign="top" width="600px" class="whs10">
+<p class=TexteTableau>Defines the mode in which the command considers row 
+ count: either in absolute terms (with respect to the total number of rows 
+ in the table) or in differential terms (the difference between a stored 
+ reference value and the current row count value).</p>
+<ul>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>If set to <span 
+ class=Code>yes</span>, the row count is performed in differential mode. 
+ The number of additional rows in the table is compared to a stored <span 
+ style="font-weight: bold;"><B>reference value</B></span>. The reference value 
+ depends on the <span class=Code>INCREMENT_MODE</span> parameter.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>If set to <span 
+ class=Code>no</span>, the count is performed in absolute row count mode.</p></li>
+</ul>
+<p class=TexteTableau>Defaults to <span class=Code>no.</span></td></tr>
+
+<tr>
+<td valign="top" width="389px" class="whs8">
+<p class=TexteTableau><span class=Code>-INCREMENT_MODE=&lt;</span><span 
+ class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>M</U></span><span 
+ class=Code>|P|I&gt;</span></td>
+<td valign="top" width="70px" class="whs9">
+<p class=TexteTableau>No</td>
+<td valign="top" width="600px" class="whs10">
+<p class=TexteTableau>This parameter specifies the persistence mode of 
+ the <b>reference value</b> between successive OdiWaitForData calls.</p>
+<p class=TexteTableau>Possible values are:</p>
+<ul>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>M</span>: 
+ Memory. The <b>reference value <span style="font-weight: normal;">is</span> 
+ <span style="font-weight: normal;">non</span>-</b>persistent. When OdiWaitForData 
+ is called, the <b>reference value </b>takes a value equal to the number 
+ of &nbsp;rows 
+ in the polled table. When OdiWaitForData ends the value is lost. A following 
+ call in this mode sets a new reference value. </p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>P</span>: 
+ Persistent. The <b>reference value </b>is persistent. It is read from 
+ the <span style="font-weight: bold;"><B>increment sequence</B></span> when OdiWaitForData 
+ starts and saved in the increment sequence when OdiWaitForData ends. 
+ If the <span style="font-weight: bold;"><B>increment sequence</B></span> is not 
+ set (at initial call time) the current table row count is used.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>I</span>: 
+ Initial. The <b>reference value </b>is initialized and is persistent. 
+ When OdiWaitForData starts, the <b>reference value </b>takes a value 
+ equal to the number of rows in the polled table. When OdiWaitForData 
+ ends, it is saved in the increment sequence as for the persistent mode.</p></li>
+</ul>
+<p class=TexteTableau>Defaults to <span class=Code>M</span>.</p>
+<p class=Remarque><span class=RemarqueTitre>Note</span>: Using the Persistent 
+ or Initial modes is not supported when a mask or list of tables is polled.</td></tr>
+
+<tr>
+<td valign="top" width="389px" class="whs8">
+<p class=TexteTableau><span class=Code>-INCREMENT_SEQUENCE_NAME=&lt;incrementSequenceName&gt;</span></td>
+<td valign="top" width="70px" class="whs9">
+<p class=TexteTableau>No</td>
+<td valign="top" width="600px" class="whs10">
+<p class=TexteTableau>This parameter specifies the name of an automatically 
+ allocated storage space used for reference value persistence. This increment 
+ sequence is stored in the Repository. If this name is not specified, it 
+ takes the name of the table.</p>
+<p class=Remarque><span class=AlertTitre>Warning</span>: This Increment 
+ Sequence is not an Oracle Data Integrator Sequence and cannot be used as such 
+ outside a call to OdiWaitForData.</td></tr>
+
+<tr>
+<td valign="top" width="389px" class="whs8">
+<p class=TexteTableau><span class=Code>-TIMEOUT_WITH_ROWS_OK=&lt;</span><span 
+ class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>yes</U></span><span 
+ class=Code>|no&gt;</span></td>
+<td valign="top" width="70px" class="whs9">
+<p class=TexteTableau>No</td>
+<td valign="top" width="600px" class="whs10">
+<p class=TexteTableau>If this parameter is set to <span class=Code>Y</span>, 
+ at least one row was detected and the timeout occurs before the expected 
+ number of rows has been inserted, then the API exits with a return code 
+ of 0. Otherwise, it will signal an error. Defaults to <span class=Code>yes</span>. 
+ </td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>Waits for the <span class=Code>DE1P1</span> table in the <span class=Code>ORA_WAITFORDATA</span> 
+ schema to contain 200 records matching the filter.</p>
+
+<p><span class=Code>OdiWaitForData -LSCHEMA=ORA_WAITFORDATA -TABLE_NAME=DE1P1 
+ -GLOBAL_ROWCOUNT=200 &quot;-SQLFILTER=DATMAJ &gt; to_date('#MAX_DE1_DATMAJ_ORACLE_CHAR', 
+ 'DD/MM/YYYY HH24:MI:SS')&quot;</span></p>
+
+<p>Wait for a maximum of 4 hours for new data to appear in either the <span 
+ class=Code>CITY_SRC</span> or the <span class=Code>CITY_TRG</span> table 
+ in the <span class=Code>SQLSRV_SALES</span>.</p>
+
+<p><span class=Code>OdiWaitForData LSCHEMA=SQLSRV_SALES TABLE_NAME=CITY% 
+ TIMEOUT=14400000 -INCREMENT_DETECTION=yes</span></p>
+
+</body>
+</html>

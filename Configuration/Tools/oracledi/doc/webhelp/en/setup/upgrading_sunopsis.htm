@@ -1,0 +1,882 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Upgrading Sunopsis to Oracle Data Integrator</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+p.whs1 { x-condition:L10N_EXCLUDE; }
+h2.whs2 { x-condition:L10N_EXCLUDE; }
+ul.whs3 { x-condition:L10N_EXCLUDE; }
+p.whs4 { background-color:Transparent; }
+h3.whs5 { x-condition:L10N_EXCLUDE; }
+h4.whs6 { x-condition:L10N_EXCLUDE; }
+ul.whs7 { list-style:disc; x-condition:L10N_EXCLUDE; }
+ul.whs8 { list-style:disc; }
+p.whs9 { x-condition:L10N_EXCLUDE; background-color:Transparent; }
+ol.whs10 { list-style:square; list-style-type:square; list-style-position:outside; x-condition:L10N_EXCLUDE; }
+ul.whs11 { list-style:square; list-style-type:square; list-style-position:outside; }
+ol.whs12 { list-style:decimal; list-style-type:decimal; list-style-position:outside; x-condition:L10N_EXCLUDE; }
+ol.whs13 { list-style:disc; }
+ol.whs14 { x-condition:L10N_EXCLUDE; }
+ol.whs15 { list-style:decimal; x-condition:L10N_EXCLUDE; }
+h5.whs16 { x-condition:L10N_EXCLUDE; }
+p.whs17 { x-condition:L10N_EXCLUDE; color:#808080; }
+div.whs18 { width:100%; }
+-->
+</style><script type="text/javascript" language="JavaScript">
+<!--
+if ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion) == 4))
+{
+  var strNSS = "<style type='text/css'>";
+  strNSS += "p.whs4 {background-color:white; }";
+  strNSS += "p.whs9 {background-color:white; }";
+  strNSS +="</style>";
+  document.write(strNSS);
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Installation Guide\nUpgrading Sunopsis to Oracle Data Integrator");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Upgrading Sunopsis to Oracle Data Integrator</h1>
+
+<p class="whs1">The procedure below details the process 
+ for upgrading from a Sunopsis version 3.0.00.00 and later to Oracle Data 
+ Integrator. Please read the entire procedure carefully before starting 
+ the upgrade.</p>
+
+<p class=Remarque
+	style="x-condition: L10N_EXCLUDE;"><span class=AlertTitre>Note</span>: 
+ This procedure only applies to upgrade Sunopsis v3.0 and higher.<br>
+If you want to upgrade from an Oracle Data Integrator 10gR3 (10.1.3.x ) 
+ version, please refer to the section <a href="upgrading_oracle_integrator.htm">Upgrading 
+ Oracle Data Integrator</a>. <span style="font-weight: bold;"><B>Oracle Data 
+ Integrator 10.1.3</B></span> is the version following Sunopsis v4.1.</p>
+
+<h2 class="whs2">Important Notes</h2>
+
+<p class="whs1">Before running the upgrade, please 
+ note the following:</p>
+
+<ul class="whs3">
+	
+	<li style="/*begin!kadov{{*/ x-condition: L10N_EXCLUDE; /*}}end!kadov*/ "
+		class=kadov-p><p class="whs1">Throughout 
+ this procedure, <span class=Code>&lt;install_dir&gt;</span> refers to 
+ the existing installation directory of Sunopsis. <span class=Code>&lt;ODI_HOME&gt;</span> 
+ refers to installation directory for the new version.</p></li>
+	
+	<li class=kadov-p><p>The upgrade of a master and work repository performs 
+ modifications in the repository's structure. This sequence of modifications 
+ cannot be undone and must be done in one continuous step. <span style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>If 
+ an error occurs while upgrading the repository, you must restore the repository 
+ database backup before restarting the repository upgrade process.</U></span></p></li>
+	
+	<li class=kadov-p><p class="whs4">Oracle 
+ Data Integrator requires a Java virtual machine (JVM) 1.4. To use Web 
+ Services with Oracle Data Integrator a Java Development Kit (SDK) 1.4 
+ is required. A JVM 1.4 is provided with the installation programs.</p></li>
+	
+	<li class=kadov-p><p>Upgrading Metadata Navigator is not included in 
+ this procedure. Application servers' administrators should un-deploy then 
+ reinstall the Metadata Navigator application.</p></li>
+</ul>
+
+<h2 class="whs2">Step 1: Preparing to Upgrade</h2>
+
+<h3 class="whs5">1.1: Stopping agents services</h3>
+
+<p class="whs1">If you have started the Agent as 
+ a Windows Service, you should stop and uninstall this service before upgrading, 
+ then reinstall it afterwards. The original service configuration is stored 
+ in the backup directory.</p>
+
+<h3 class="whs5">1.2: Backup</h3>
+
+<p class="whs1">It is essential that you perform 
+ a backup copy of the Sunopsis installation directory and repositories 
+ before starting the upgrade process.</p>
+
+<ol>
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p>Make a backup copy of the installation directory 
+ of Sunopsis (referred to hereafter as the backup directory).</p></li>
+</ol>
+
+<ol start=2>
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p>Make a backup of the databases, libraries or schemas 
+ where the repositories are stored.</p></li>
+</ol>
+
+<h3 class="whs5">1.3: Preparing to Upgrade Profiles</h3>
+
+<h4 class="whs6">Customized Profiles</h4>
+
+<p class="whs1">Profiles are automatically reinitialized 
+ by the repositories upgrade process. If you have changed the default profiles, 
+ then you must make a copy of these modified profiles before proceeding 
+ with the upgrade. At the end of the process, you will have to reapply 
+ your changes to the profiles which will have been reset by the upgrade, 
+ using the duplicates as a reference. </p>
+
+<p class="whs1">If you have designed your own profiles, 
+ then you should update them at the end of the process to take into account 
+ &nbsp;the objects 
+ and methods added or deleted by the upgrade process. See below for a list 
+ of modified objects</p>
+
+<h4 class="whs6">Modified Objects</h4>
+
+<p class="whs1">Objects which changed in Sunopsis 
+ v4.0, grouped by feature:</p>
+
+<ul type="disc" class="whs7">
+	
+	<li class=kadov-p><p>Markers: <span style="font-weight: bold;"><B>Markers</B></span>, 
+ <span style="font-weight: bold;"><B>Marker Groups</B></span>. <span style="font-weight: bold;"><B>Life 
+ Cycle</B></span> States are deprecated.</p></li>
+	
+	<li class=kadov-p><p>Versioning: <span style="font-weight: bold;"><B>Solutions</B></span>, 
+ <span style="font-weight: bold;"><B>Solution Elements</B></span>, <span style="font-weight: bold;"><B>Versions</B></span>. 
+ Note that versioning methods are attached to each object.</p></li>
+</ul>
+
+<p class="whs1">Objects which were added in Sunopsis 
+ v4.1, grouped by feature:</p>
+
+<ul type="disc" class="whs8">
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p>Common Format Designer: <span style="font-weight: bold;"><B>Action 
+ Groups</B></span>, <span style="font-weight: bold;"><B>Actions</B></span>, <span 
+ style="font-weight: bold;"><B>Action Lines</B></span>, <span style="font-weight: bold;"><B>Model 
+ Folders</B></span>, <span style="font-weight: bold;"><B>Diagrams</B></span>.</p></li>
+</ul>
+
+<p class="whs9">Objects 
+ which were added/modified in Data Integrator 10.1.3.0:</p>
+
+<ul type="disc" class="whs8">
+	
+	<li style="x-condition: L10N_EXCLUDE; /*begin!kadov{{*/ x-condition: L10N_EXCLUDE; /*}}end!kadov*/ "
+		class=kadov-p><p class="whs9">The 
+ following object types are modified (new methods): datastore, model folders, 
+ model, variable, object, action group, action, action line, step report, 
+ version, procedure, interface, scenario, object, .</p></li>
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p><span style="background-color: Transparent;">New 
+ object types: </span><span style="font-weight: bold; background-color: Transparent;"><B>Scenario 
+ folder, Open Tools</B></span><span style="background-color: Transparent;"> 
+ (This object handles add/delete privileges on Open Tools)</span> </p></li>
+</ul>
+
+<h4 class="whs6">Upgrading Profiles for Versions 
+ Prior to Sunopsis 3.2.03.00</h4>
+
+<p class="whs1">If you are upgrading from a version 
+ prior to Sunopsis 3.2.03.00, make sure that you have the default profiles 
+ installed with the following <span class=ElementGUI>Internal ID</span> 
+ values (displayed on the <span class=ElementGUI>Version</span> tab of 
+ the <span class=ElementGUI>Profile</span> window): </p>
+
+<ol type="square" class="whs10">
+	
+	<ul type="square" class="whs11">
+		
+		<li class=kadov-p><p>CONNECT: 24999</p></li>
+		
+		<li class=kadov-p><p>DESIGNER: 25999</p></li>
+		
+		<li class=kadov-p><p>NG 
+ DESIGNER: 28999</p></li>
+		
+		<li class=kadov-p><p>METADATA ADMIN: 26999</p></li>
+		
+		<li class=kadov-p><p>NG 
+ METADATA ADMIN: 29999</p></li>
+		
+		<li class=kadov-p><p>TOPOLOGY ADMIN: 34999</p></li>
+		
+		<li class=kadov-p><p>SECURITY ADMIN: 33999</p></li>
+		
+		<li class=kadov-p><p>OPERATOR: 31999</p></li>
+		
+		<li class=kadov-p><p>REPOSITORY EXPLORER: 32999</p></li>
+		
+		<li class=kadov-p><p>NG 
+ REPOSITORY EXPLORER: 30999</p></li>
+	</ul>
+</ol>
+
+<p class="whs1">If the profiles already have these 
+ internal ID values, then you can proceed with the upgrade. At the end 
+ of the upgrade, check that changes automatically made to the profiles 
+ to take into account the new objects and methods are appropriate for your 
+ security policy.</p>
+
+<p class=HowTo
+	style="x-condition: L10N_EXCLUDE;">If at least one of your profiles 
+ has an identifier that does not match the list above:</p>
+
+<ol type="1" class="whs12">
+	
+	<li class=kadov-p><p>Delete all existing users and profiles using Security 
+ Manager.</p></li>
+	
+	<li class=kadov-p><p>Perform the upgrade.</p></li>
+	
+	<li class=kadov-p><p>At the end of the upgrade process, re-define the 
+ security policy using the profiles imported by the upgrade process.</p></li>
+</ol>
+
+<h2 class="whs2">Step 2: Upgrade the Installed Components</h2>
+
+<p class="whs1">The components upgrade needs to be 
+ performed on each machine where a Sunopsis module (Designer, Operator, 
+ Topology Manager, Security Manager or Agent) is installed. This upgrade 
+ can be performed either using a setup program (recommended) or manually.</p>
+
+<p class=Remarque
+	style="x-condition: L10N_EXCLUDE;"><span class=RemarqueTitre>Note</span>: 
+ The setup program is typically used for upgrading the client machines 
+ and graphical modules and the manual setup is typically used to upgrade 
+ agents on servers. </p>
+
+<p class=Remarque
+	style="x-condition: L10N_EXCLUDE;"><span class=RemarqueTitre>Note</span>: 
+ The setup program is available for a number of platforms. For other platforms, 
+ the manual upgrade process must be used. To retrieve the <span class=Code>/oracledi</span> 
+ directory necessary for the manual upgrade, download the Linux or Windows 
+ CD for <span style="background-color: Transparent;">Oracle Data Integrator 
+ from the <a href="http://otn.oracle.com/"
+			target=_blank
+			style="background-color: Transparent;">Oracle Technology Network</a> 
+ and use the </span><span class=Code
+							style="background-color: Transparent;">/oracledi</span><span 
+ style="background-color: Transparent;"> sub-directory located at the root 
+ of this CD.</span></p>
+
+<h3 class="whs5">Upgrade Notes</h3>
+
+<p class="whs9">The 
+ installation program assumes that you install Oracle Data Integrator in 
+ a different directory from the old installation directory. <br>
+As a consequence:</p>
+
+<ul>
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p class="whs4">The connection 
+ settings (stored in <span class=Code>/bin/snp_login_work.xml</span> and 
+ <span class=Code>/bin/snp_login_security.xml</span> files) are not recovered. 
+ </p></li>
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p class="whs4">Configuration 
+ parameters stored in <span class=Code>/bin/snpparams.bat</span> &nbsp;(<span 
+ class=Code>.sh</span>) are not recovered. </p></li>
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p class="whs4">Demo repositories 
+ and files (in <span class=Code>/demo/</span>)as well as the old drivers 
+ files (in <span class=Code>/bin/drivers) </span>are not recovered.</p></li>
+</ul>
+
+<p class="whs9">You 
+ need to perform manually the steps to carry out this configuration information 
+ to the new installation folder. These operations are detailed below in 
+ the section 2.3: <span style="font-style: italic;"><I>Restoring the Configuration.</I></span></p>
+
+<h3 class="whs5">2.1: Using the Setup Program to 
+ Upgrade</h3>
+
+<ol>
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p>Make sure that you have made a backup of <span 
+ class=Code>&lt;install_dir&gt;</span>.</p></li>
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p>Run the appropriate setup program for your platform. 
+ For more information, see <a HREF="setup.htm"
+								style="x-condition: L10N_EXCLUDE;">Installing 
+ </a> 
+ in the Oracle Data Integrator Installation Guide</span>. &nbsp;During 
+ the setup program, when prompted for the installation folder, select a 
+ folder different from the <span class=Code>&lt;install_dir&gt;</span> 
+ folder. This new installation folder is referred to in this procedure 
+ as <span class=Code>&lt;ODI_HOME&gt;</span>. Follow the instructions given 
+ by the setup program.</p></li>
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p>Restore the configuration as described in step 
+ 2.3, and then uninstall the old version of Sunopsis.</p></li>
+</ol>
+
+<h3 class="whs5">2.2: Upgrading Manually</h3>
+
+<ol>
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p>Make sure that you have made a backup of <span 
+ class=Code>&lt;install_dir&gt;</span>. You will need it later.</p></li>
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p class="whs4">If installing 
+ from an Oracle Data Integrator CD, copy the <span class=Code>/oracledi</span> 
+ directory contents of the CD into <span class=Code>&lt;ODI_HOME&gt; </span>directory. 
+ If installing from a downloaded archive file, decompress the Oracle Data 
+ Integrator archive file and copy the contents of the <span class=Code>/oracledi</span> 
+ directory into the <span class=Code>&lt;ODI_HOME&gt; </span>directory. 
+ If you transfer the files with FTP, use the BINARY transfer mode.</p></li>
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p>Set the following environment variable:</p></li>
+</ol>
+
+<ol>
+	
+	<ul>
+		
+		<li style="x-condition: L10N_EXCLUDE; list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=Code>ODI_JAVA_HOME</span>: This 
+ represents the installation directory of the Java Machine in use with 
+ Oracle Data Integrator. This directory should contain the java executable 
+ file. If this variable is not set, Oracle Data Integrator will use the 
+ default Java Machine.</p></li>
+	</ul>
+</ol>
+
+<h3 class="whs5">2.3: Restoring the Configuration</h3>
+
+<p><span style="x-condition: L10N_EXCLUDE;">You must perform the following 
+ steps for an installation made manually or using the setup program.</span></p>
+
+<ol>
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p>Manually copy into the installation directory 
+ any additional files saved in the backup directory during step 1, including 
+ drivers.</p></li>
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p>A new <span class=Code>odiparams</span> file replaces 
+ the old <span class=Code>snpparams</span>. &nbsp;With 
+ a text editor, restore the parameters in the new <span class=Code>odiparams 
+ </span>file in the <span class=Code>&lt;ODI_HOME&gt;/oracledi/bin</span> 
+ folder from the backup <span class=Code>snpparams</span> file. Once the 
+ <span class=Code>odiparams</span> file is up to date, you can remove the 
+ following environment variables if they exist as they are specified in 
+ the <span class=Code>odiparams</span> file.</p></li>
+</ol>
+
+<ol type="disc" class="whs13">
+	
+	<ul type="disc" class="whs8">
+		
+		<li style="x-condition: L10N_EXCLUDE; /*begin!kadov{{*/ x-condition: L10N_EXCLUDE; /*}}end!kadov*/ "
+			class=kadov-p><p class="whs1"><span class=Code>SNP_JAVA_HOME</span></p></li>
+		
+		<li style="x-condition: L10N_EXCLUDE; /*begin!kadov{{*/ x-condition: L10N_EXCLUDE; /*}}end!kadov*/ "
+			class=kadov-p><p class="whs1"><span class=Code>SNP_HOME</span></p></li>
+		
+		<li style="x-condition: L10N_EXCLUDE; /*begin!kadov{{*/ x-condition: L10N_EXCLUDE; /*}}end!kadov*/ "
+			class=kadov-p><p class="whs1"><span class=Code>SNP_ADDITIONAL_CLASSPATH</span></p></li>
+	</ul>
+</ol>
+
+<ol start=3>
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p>Copy the following files from the backup directory 
+ into the <span class=Code>&lt;ODI_HOME&gt;/oracledi/bin</span> directory:</p></li>
+</ol>
+
+<ol type="disc" class="whs13">
+	
+	<ul type="disc" class="whs7">
+		
+		<li class=kadov-p><p>all files with the extension <span class=Code>.xml 
+ </span></p></li>
+		
+		<li class=kadov-p><p>all files with the extension <span class=Code>.layout</span></p></li>
+	</ul>
+</ol>
+
+<h2 class="whs2">Step 3: Upgrade the Master Repository 
+ </h2>
+
+<p class=Remarque
+	style="x-condition: L10N_EXCLUDE;"><span class=RemarqueTitre>Note: 
+ Upgrading the repositories on Oracle versions before 9i</span><br>
+The repository upgrade uses the CHAR semantics syntax for creating VARCHAR 
+ columns on Oracle. This syntax is not supported on Oracle version before 
+ 9i. To install a repository on such an Oracle version, edit the <span 
+ class=Code>TECH_Oracle.xml</span> file in the <span class=Code>/lib/scripts/xml/</span> 
+ directory, and replace the <span class=Code>VARCHAR2(%L CHAR)</span>string 
+ by <span class=Code>VARCHAR2(%L)</span>.</p>
+
+<p class="whs1">You must perform this step once for 
+ each master repository that you have.</p>
+
+<p class=HowTo
+	style="x-condition: L10N_EXCLUDE;">To upgrade the master repository:</p>
+
+<ol class="whs14">
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>On Windows: From the <span class=ElementGUI>Start 
+ Menu</span>, select <span class=ElementGUI>Programs</span> &gt; <span 
+ class=ElementGUI>Oracle Data Integrator</span><span class=ElementGUI
+													style="font-weight: normal;"> 
+ &gt;</span> <span class=ElementGUI>Repository Management</span> &gt; <span 
+ class=ElementGUI>Master Repository Upgrade</span>, or run <span class=Code>&lt;ODI_HOME&gt;/oracledi/bin/mupgrade.bat</span><br>
+	<br>
+	On UNIX: Run <span class=Code>&lt;ODI_HOME&gt;/oracledi/bin/mupgrade.sh.</span><br>
+	<br>
+	The Master Repository Upgrade tool appears.</p></li>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p>
+	<p>Select the <span class=ElementGUI>Login Name</span> corresponding 
+ to your master repository connection, or fill in the fields: </p>
+	
+	<ul>
+			
+		
+		<li class=kadov-p><p><span class=ElementGUI>Driver</span>: the 
+ driver used to access the technology which hosts the repository. </p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>URL</span>: The complete 
+ path for the data server hosting the repository. </p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>User</span>: The id, 
+ or login, of the user who owns the tables </p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>Password</span>: This 
+ user's password.</p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>Technologies</span>: 
+ Select the technology your repository will be based on from the list.</p></li>
+	
+	</ul>
+	
+	</li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK.</span></p></li>
+</ol>
+
+<p class="whs1">The repository upgrade process will 
+ begin. You can follow its progress on the console. A message appears when 
+ the master repository has been upgraded.</p>
+
+<h2 class="whs2">Step 4: Upgrade the Work Repositories 
+ </h2>
+
+<p class="whs1">You must perform this step once for 
+ each work repository.</p>
+
+<p class=HowTo
+	style="x-condition: L10N_EXCLUDE;">To upgrade a work repository:</p>
+
+<ol class="whs14">
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>Connect to your master repository through <span 
+ class=ElementGUI>Topology Manager.</span></p></li>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>In the <span class=ElementGUI>Repositories</span> 
+ tree view select &nbsp;<span class=ElementGUI>Work 
+ repositories</span>, right click on the repository you want to upgrade 
+ and choose <span class=ElementGUI>Upgrade</span>. </p></li>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>Oracle Data Integrator will now upgrade this work 
+ repository. A window appears when the work repository has been upgraded.</p></li>
+</ol>
+
+<p class="whs1">Repeat these steps for each work 
+ repository.</p>
+
+<h2 class="whs2">Step 5: Import the New Objects&nbsp; 
+ </h2>
+
+<h3 class="whs5">5.1: Objects, Methods and Profiles 
+ </h3>
+
+<p class="whs1">This Oracle Data Integrator version 
+ introduces new objects and methods, and new privileges on these objects 
+ and methods. The objects, methods are automatically added. The default 
+ profiles built into Oracle Data Integrator are automatically updated by 
+ the upgrade process to include the appropriate privileges on all new objects 
+ and methods.</p>
+
+<h3 class="whs5">5.2: Technologies</h3>
+
+<p class="whs1">This version of Oracle Data Integrator 
+ includes new technology definitions. You must now import these new technologies.</p>
+
+<p class="whs1">Note the following informations:</p>
+
+<ul type="disc" class="whs8">
+	
+	<li style="x-condition: L10N_EXCLUDE; /*begin!kadov{{*/ x-condition: L10N_EXCLUDE; /*}}end!kadov*/ "
+		class=kadov-p><p class="whs1">If you want 
+ to use the <a HREF="../usermanual/designer/model/common_format_designer.htm"
+				style="x-condition: L10N_EXCLUDE;">Common Format Designer</a> 
+ feature for a given technology, you should re-import the definition for 
+ this technology. Re-importing this technology adds the <a HREF="../usermanual/topology/topology/actions_usage.htm"
+															style="x-condition: L10N_EXCLUDE;">Action 
+ Groups</a> defined for the technology, and sets the <span style="font-weight: bold;"><B>Specific 
+ Queries</B></span> required for the DDL generation.</p></li>
+	
+	<li style="x-condition: L10N_EXCLUDE; /*begin!kadov{{*/ x-condition: L10N_EXCLUDE; /*}}end!kadov*/ "
+		class=kadov-p><p class="whs1">It is also 
+ recommended that users upgrading from a version 3.2.03.01 or older update 
+ all their technologies to benefit from the <a HREF="../refmanual/topology/snptechno.htm">Current 
+ Date</a> query enabling connection recovery.</p></li>
+	
+	<li style="x-condition: L10N_EXCLUDE; /*begin!kadov{{*/ x-condition: L10N_EXCLUDE; /*}}end!kadov*/ "
+		class=kadov-p><p class="whs1">In Oracle Data 
+ Integrator 10g, most technologies have been updated with minor fixes/updates. 
+ It is recommended to updated the technologies that you use to benefit 
+ for all these changes.</p></li>
+</ul>
+
+<h4 class="whs6">New Technologies</h4>
+
+<p class="whs1">Technologies new to Sunopsis v3.1:</p>
+
+<ul type="disc" class="whs7">
+	
+	<li class=kadov-p><p>Oracle Data Integrator Engine&nbsp;</p></li>
+	
+	<li class=kadov-p><p>XML</p></li>
+</ul>
+
+<p class="whs1">Technologies new to Sunopsis v3.2:</p>
+
+<ul type="disc" class="whs7">
+	
+	<li class=kadov-p><p>Generic SQL</p></li>
+	
+	<li class=kadov-p><p>Java Beanshell</p></li>
+	
+	<li class=kadov-p><p>Javascript</p></li>
+	
+	<li class=kadov-p><p>Jython</p></li>
+	
+	<li class=kadov-p><p>NetRexx</p></li>
+	
+	<li class=kadov-p><p>PostgreSQL </p></li>
+	
+	<li class=kadov-p><p>SAP Java Connector</p></li>
+</ul>
+
+<p class="whs1">Technologies new to Sunopsis v4.0:</p>
+
+<ul type="disc" class="whs7">
+	
+	<li class=kadov-p><p>Teradata</p></li>
+	
+	<li class=kadov-p><p>Netezza</p></li>
+	
+	<li class=kadov-p><p>Hyperion Essbase</p></li>
+</ul>
+
+<p class="whs1">Technologies new to Sunopsis v4.1:</p>
+
+<ul type="disc" class="whs8">
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p>All &nbsp;technologies 
+ have been updated to support Common Format Designer.</p></li>
+</ul>
+
+<p class="whs1"><span style="x-condition: L10N_EXCLUDE;">Technologies 
+ new to Oracle Data Integrator 10.1.3:</span></p>
+
+<ul type="disc" class="whs7">
+	
+	<li class=kadov-p><p>Axis2</p></li>
+	
+	<li class=kadov-p><p>Derby</p></li>
+	
+	<li class=kadov-p><p>SAS</p></li>
+	
+	<li class=kadov-p><p>Salesforce.com</p></li>
+	
+	<li class=kadov-p><p>Oracle BAM</p></li>
+	
+	<li class=kadov-p><p>All &nbsp;technologies 
+ have been updated for use in Common Format Designer.</p></li>
+</ul>
+
+<h4 class="whs6">Importing Technologies</h4>
+
+<p class=Remarque
+	style="x-condition: L10N_EXCLUDE;"><span class=AlertTitre>Warning!</span> 
+ &nbsp;Importing 
+ a technology erases all the changes performed in the technology. It is 
+ recommended to perform copies of the technologies you have altered, and 
+ reapply the changes to the imported technologies.</p>
+
+<ol type="1" class="whs15">
+	
+	<li class=kadov-p><p>Run <span class=ElementGUI>Topology Manager. </span>Select 
+ the<span class=ElementGUI> Physical Architecture</span> view<span class=ElementGUI>.</span></p></li>
+	
+	<li class=kadov-p><p>Expand the <span class=ElementGUI>Technologies</span> 
+ node.</p></li>
+	
+	<li class=kadov-p><p>Right-click the <span class=ElementGUI>Technologies</span> 
+ node, and select <span class=ElementGUI>Import Technology.</span>&nbsp;</p></li>
+	
+	<li class=kadov-p><p>Select any missing or updated technologies from 
+ the <span class=Code>../impexp/</span> directory.</p></li>
+	
+	<li class=kadov-p><p>Select the <span class=ElementGUI>Synonymy Insert-Update</span> 
+ import mode.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span> to import 
+ the new technologies.</p></li>
+</ol>
+
+<h3 class="whs5">5.3: Languages</h3>
+
+<p class="whs1">This Oracle Data Integrator version 
+ includes new languages. These languages are automatically updated.</p>
+
+<p class=Remarque
+	style="x-condition: L10N_EXCLUDE;"><span class=AlertTitre>Warning!</span> 
+ &nbsp;Importing 
+ a language erases all the changes made to this language. It is recommended 
+ that you make a copy of the modified languages, and reapply your changes 
+ to the updated languages.</p>
+
+<h4 class="whs6">New Languages</h4>
+
+<p class="whs1">The updated language files are in 
+ the <span class=Code>&lt;ODI_HOME&gt;/oracledi/scripts/xml/</span> directory.</p>
+
+<p class="whs1">Languages new to Sunopsis v3.1:</p>
+
+<ul type="disc" class="whs7">
+	
+	<li class=kadov-p><p>SQL&nbsp;</p></li>
+	
+	<li class=kadov-p><p>SQL_FILE</p></li>
+</ul>
+
+<p class="whs1">Languages new to Sunopsis v3.2:</p>
+
+<ul type="disc" class="whs7">
+	
+	<li class=kadov-p><p>JYTHON</p></li>
+	
+	<li class=kadov-p><p>SAP</p></li>
+</ul>
+
+<p class="whs1">Languages new to Sunopsis v4.0 and 
+ 4.1:</p>
+
+<ul type="disc" class="whs8">
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p>SQL (Minor Updates in 4.1)</p></li>
+</ul>
+
+<p class="whs1"><span style="x-condition: L10N_EXCLUDE;">Languages 
+ new to Oracle Data Integrator 10.1.3:</span></p>
+
+<ul type="disc" class="whs8">
+	
+	<li style="x-condition: L10N_EXCLUDE;"
+		class=kadov-p><p>N/A</p></li>
+</ul>
+
+<h3 class="whs5">5.4: Generic Actions</h3>
+
+<p class="whs1">Oracle Data Integrator version includes 
+ new and updated actions enabling DDL script generation for the <a href="../usermanual/designer/model/common_format_designer.htm"
+	style="x-condition: L10N_EXCLUDE;">Common Format Designer</a>. These 
+ actions must be imported into the master repository.</p>
+
+<ol type="1" class="whs15">
+	
+	<li class=kadov-p><p>Run <span class=ElementGUI>Topology Manager. </span>Select 
+ the<span class=ElementGUI> Generic Actions</span> view<span class=ElementGUI>.</span></p></li>
+	
+	<li class=kadov-p><p>Right-click then select <span class=ElementGUI>Import 
+ Action.</span></p></li>
+	
+	<li class=kadov-p><p>Select all the actions from the <span class=Code>&lt;ODI_HOME&gt;/oracledi/scripts/xml/</span> 
+ directory. </p></li>
+	
+	<li class=kadov-p><p>Select the <span class=ElementGUI>Synonymy Insert-Update</span> 
+ import mode.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span> to import 
+ the actions.</p></li>
+</ol>
+
+<h3 class="whs5">5.5: Knowledge Modules</h3>
+
+<p class="whs1">New versions of existing knowledge 
+ modules and new knowledge modules are included in this version. </p>
+
+<p class="whs1">Although updating knowledge modules 
+ for existing projects is not required, it is recommended that you use 
+ the new knowledge modules for new projects. Existing scenarios compiled 
+ with old knowledge module should still work normally after the upgrade 
+ without having to re-generate them. However, one exception to this rule 
+ is the <span style="font-weight: bold;"><B>ISO SQL Incremental Update</B></span> 
+ <span style="font-weight: bold;"><B>IKM </B></span>(see below).</p>
+
+<p class="whs1">Before importing or updating knowledge 
+ modules, you should be aware of the following:</p>
+
+<ul type="disc" class="whs7">
+	
+	<li class=kadov-p><p>New knowledge modules should be imported into 
+ projects in <span class=ElementGUI>Duplication</span> mode.</p></li>
+	
+	<li class=kadov-p><p>Knowledge modules for new technologies should 
+ be imported <span style="font-weight: bold;"><B>after</B></span> the associated 
+ technologies have been imported.</p></li>
+	
+	<li class=kadov-p><p>Updating an existing knowledge module used into 
+ a project should be made using the <span class=ElementGUI>Import Replace</span> 
+ option in the context menu of the knowledge module to replace. This option 
+ automatically updates any interfaces using the selected knowledge modules. 
+ After replacing a knowledge module, the affected interfaces should be 
+ thoroughly checked and tested.</p></li>
+	
+	<li class=kadov-p><p>If you have customized the default knowledge modules 
+ included in Oracle Data Integrator to suit your needs, you will have to 
+ manually implement the latest changes to these original knowledge modules. 
+ The details of these changes are given below.</p></li>
+</ul>
+
+<h4 class="whs6">Important exception: KIM ISO SQL 
+ Incremental Update</h4>
+
+<p class="whs1"><span style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>If 
+ upgrading from a version prior to Sunopsis v3.2.03.15, you must update 
+ this knowledge module.</U></span> Any projects using this KM should be updated 
+ to use the &quot;IKM SQL Incremental Update&quot; provided in this release 
+ as described above. Scenarios that use this knowledge module should then 
+ be regenerated.</p>
+
+<h5 class="whs16">Details of Changes</h5>
+
+<p class="whs1">In this knowledge module, the following 
+ change was made in the <span style="font-style: italic;"><I>Update Existing 
+ Rows</I></span> command. The column metadata was modified from:</p>
+
+<p class="whs17"><span class=Code
+															style="color: #808080;"><font color=gray >$$CSV_COL_LST 
+ &lt;%=odiRef.getColList(&quot;&quot;, &quot;[COL_NAME]&quot;, &quot;, 
+ &quot;, &quot;&quot;, &quot;(UPD)&quot;)%&gt; $$CSV_COL_LST_END</font></span></p>
+
+<p class="whs1">to:</p>
+
+<p class="whs17"><span class=Code
+															style="color: #808080;"><font color=gray >$$CSV_COL_LST 
+ &lt;%=odiRef.getColList(&quot;&quot;, &quot;[COL_NAME]&quot;, &quot;, 
+ &quot;, &quot;, &quot;, &quot;(UPD AND (NOT UK) AND (NOT TRG))&quot;)%&gt;&lt;%=odiRef.getColList(&quot;&quot;, 
+ &quot;[COL_NAME]&quot;, &quot;, &quot;, &quot;&quot;, &quot;(UK)&quot;)%&gt; 
+ $$CSV_COL_LST_END</font></span></p>
+
+<p class="whs1">This change was made in order to 
+ comply with the new <span style="color: #808080;"><font color=gray >$$CSV_COL_LST</font></span> 
+ metadata syntax implemented in Sunopsis v3.2.03.10. Any customized knowledge 
+ module using the old syntax should also be updated.</p>
+
+<h2 class="whs2">Step 6: Finalize the Upgrade</h2>
+
+<p class="whs1">Reinstall the agent services which 
+ were stopped in step 1.1. </p>
+
+<p class="whs1">You can now run interfaces, packages, 
+ etc developed with previous versions of Oracle Data Integrator.</p>
+
+<p class="whs1">&nbsp;</p>
+
+<p class="whs1">Your version of Oracle Data Integrator 
+ is now up to date!</p>
+
+<div placeholder id="footer" class="whs18">
+ <p>&nbsp;</p>
+</div>
+</body>
+</html>

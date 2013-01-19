@@ -1,0 +1,173 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>def</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+p.whs1 { margin-left:40px; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Jython Quick Reference\nThe Basics\nSyntax\nInstructions\ndef");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>The def Statement</h1>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>def</B></span><span class=Code> func_name 
+ ([arg, arg=value, ... *arg, **arg]): </span></p>
+
+<p><span class=Code>&nbsp;&nbsp;</span><span 
+ class=Code
+	style="font-style: italic;"><I>instructions</I></span></p>
+
+<p>&nbsp;</p>
+
+<p>Defines a func_name function.</p>
+
+<p>The parameters are passed by value and can be defined as follows: </p>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau
+	style="font-weight: bold;">Parameter</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p>Description</th></tr>
+
+<tr>
+<td class=whs4>
+<p><span class=Code>arg</span></td>
+<td class=whs5>
+<p class=TexteTableau>Parameter passed by value</td></tr>
+
+<tr>
+<td class=whs6>
+<p><span class=Code>arg=value</span></td>
+<td class=whs7>
+<p>Parameter with a default value (if arg is not passed during the call)</td></tr>
+
+<tr>
+<td class=whs8>
+<p><span class=Code>*arg</span></td>
+<td class=whs9>
+<p>Free parameters. arg takes the value of a tuple of all parameters.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1
+	class=whs10>
+<p><span class=Code>**arg</span></td>
+<td colspan=1
+	rowspan=1
+	class=whs11>
+<p>Free parameters. arg takes the dictionary value for each parameter.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>Function with default parameters:</p>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>def</B></span><span class=Code> my_function(x, 
+ y=3):</span></p>
+
+<p class="whs1"><span class=Code>&nbsp;&nbsp;&nbsp;print 
+ x+y</span></p>
+
+<p>&nbsp;</p>
+
+<p><span class=Code>my_function(3,5)</span></p>
+
+<p>Displays <span class=Code>8</span></p>
+
+<p><span class=Code>my_function(3)</span></p>
+
+<p>Displays <span class=Code>6</span></p>
+
+<p>&nbsp;</p>
+
+<p>Function with free parameters:</p>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>def</B></span><span class=Code> my_print(*x):</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span 
+ class=Code
+	style="font-weight: bold;"><B>for</B></span><span 
+ class=Code> s </span><span class=Code
+							style="font-weight: bold;"><B>in</B></span><span class=Code> 
+ x:</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print 
+ s,</span></p>
+
+<p>&nbsp;</p>
+
+<p><span class=Code>my_print('a','b','c','d')</span></p>
+
+<p>Displays <span class=Code>a b c d</span></p>
+
+</body>
+</html>

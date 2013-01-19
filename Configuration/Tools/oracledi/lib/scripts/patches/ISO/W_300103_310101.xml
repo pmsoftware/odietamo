@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">
+	<!-- SNP_UFUNC :  -->											
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[													
+			create table SNP_UFUNC
+			(
+				I_UFUNC		<?=snpRef.getDataType("SRC_NUMERIC","10")?>	NOT NULL,
+				UFUNC_NAME	<?=snpRef.getDataType("SRC_VARCHAR","35")?>	NOT NULL,
+				I_PROJECT	<?=snpRef.getDataType("SRC_NUMERIC","10")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+				GROUP_NAME	<?=snpRef.getDataType("SRC_VARCHAR","35")?>	NOT NULL,
+				I_TXT_DEF	<?=snpRef.getDataType("SRC_NUMERIC","10")?>	NOT NULL,
+				I_TXT_DESC	<?=snpRef.getDataType("SRC_NUMERIC","10")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+				FIRST_DATE	<?=snpRef.getDataType("SRC_DATE")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+				FIRST_USER	<?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+				LAST_DATE	<?=snpRef.getDataType("SRC_DATE")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+				LAST_USER	<?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+			)			
+		]]></Field>								
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[															
+			ALTER TABLE SNP_UFUNC ADD CONSTRAINT PK_SNP_UFUNC PRIMARY KEY (I_UFUNC)
+		]]></Field>											
+			
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[																
+			ALTER TABLE SNP_UFUNC ADD CONSTRAINT AK_SNP_UFUNC UNIQUE (UFUNC_NAME, I_PROJECT, GROUP_NAME)
+		]]></Field>											
+
+	<!-- SNP_UFUNC_IMPL :  -->													
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[														
+			create table SNP_UFUNC_IMPL
+			(
+				I_UFUNC_IMPL	<?=snpRef.getDataType("SRC_NUMERIC","10")?>	NOT NULL,
+				I_UFUNC		<?=snpRef.getDataType("SRC_NUMERIC","10")?>	NOT NULL,
+				I_TXT_IMPL	<?=snpRef.getDataType("SRC_NUMERIC","10")?>	NOT NULL
+			)
+		]]></Field>																	
+			
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[																		
+			ALTER TABLE SNP_UFUNC_IMPL ADD CONSTRAINT PK_SNP_UFUNC_IMPL PRIMARY KEY (I_UFUNC_IMPL)
+		]]></Field>														
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[																						
+			ALTER TABLE SNP_UFUNC ADD CONSTRAINT FK_SNP_UFUNC_IMPL FOREIGN KEY (I_UFUNC) REFERENCES SNP_UFUNC (I_UFUNC)
+		]]></Field>																	
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			IGNORE_ERROR:CREATE INDEX SNP_UFUNC_IMPL_FK1 on SNP_UFUNC_IMPL(I_UFUNC)		
+		]]></Field>																				
+
+<!-- SNP_UFUNC_TECHNO :  -->													
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			create table SNP_UFUNC_TECHNO
+			(
+				I_UFUNC_IMPL	<?=snpRef.getDataType("SRC_NUMERIC","10")?>	NOT NULL,
+				TECH_INT_NAME	<?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+			)
+		]]></Field>																							
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[																					
+			ALTER TABLE SNP_UFUNC_TECHNO ADD CONSTRAINT FK_SNP_UFUNC_TECHNO fOREIGN key (I_UFUNC_IMPL) REFERENCES SNP_UFUNC_IMPL (I_UFUNC_IMPL)			
+		]]></Field>
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			IGNORE_ERROR:create index SNP_UFUNC_TECHNO_FK on SNP_UFUNC_TECHNO(I_UFUNC_IMPL)		
+		]]></Field>																									
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[		
+			ALTER TABLE SNP_TXT_CROSSR ADD I_UFUNC <?=snpRef.getDataType("SRC_NUMERIC","10")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+		]]></Field>																									
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			ALTER TABLE SNP_TXT_CROSSR ADD UFUNC_TECH_NAME <?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>	
+		]]></Field>	
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			ALTER TABLE SNP_TXT_CROSSR ADD CONSTRAINT FK_TXT_CROSSR_UFUNC FOREIGN KEY (I_UFUNC) REFERENCES SNP_UFUNC(I_UFUNC)				
+		]]></Field>	
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			IGNORE_ERROR:create index SNP_FK_UFUNC on SNP_TXT_CROSSR(I_UFUNC)
+		]]></Field>				
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			IGNORE_ERROR:create index SNP_FK_TECHNO_UFUNC on SNP_TXT_CROSSR(UFUNC_TECH_NAME)		
+		]]></Field>				
+		
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[		
+			ALTER TABLE SNP_MODEL ADD IND_EVO_JDBC <?=snpRef.getDataType("SRC_VARCHAR","1")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+		]]></Field>		
+		
+	<!-- SNP_FF_VALUEE -->					
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[		
+			create table SNP_FF_VALUEW
+			(
+				FF_CODE		<?=snpRef.getDataType("SRC_VARCHAR","35")?>	NOT NULL,
+				I_INSTANCE	<?=snpRef.getDataType("SRC_NUMERIC","10")?>	NOT NULL,
+				I_OBJECTS	<?=snpRef.getDataType("SRC_NUMERIC","10")?>	NOT NULL,
+				NUM_VALUE	<?=snpRef.getDataType("SRC_NUMERIC","10")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+				SHORT_TXT_VALUE	<?=snpRef.getDataType("SRC_VARCHAR","250")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+			)
+		]]></Field>			
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[							
+			ALTER TABLE SNP_FF_VALUEW ADD CONSTRAINT PK_SNP_FF_VALUEW PRIMARY KEY (FF_CODE, I_INSTANCE)
+		]]></Field>									
+		
+		
+	<!-- MODIFY SNP_POP.KEY_NAME -->					
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[												
+			IGNORE_ERROR:ALTER TABLE SNP_POP MODIFY KEY_NAME <?=snpRef.getDataType("SRC_VARCHAR","100")?>		
+		]]></Field>	
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			IGNORE_ERROR:ALTER TABLE SNP_POP ALTER COLUMN KEY_NAME <?=snpRef.getDataType("SRC_VARCHAR","100")?>		
+		]]></Field>	
+	
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			IGNORE_ERROR:ALTER TABLE SNP_POP ALTER COLUMN KEY_NAME SET DATA TYPE <?=snpRef.getDataType("SRC_VARCHAR","100")?>		
+		]]></Field>				
+		
+	<!-- Update Repository Version-->		
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_LOC_REPW set REP_VERSION = '3.1.01.01']]></Field>		
+								
+		
+</Object>
+</SunopsisRepository>
+

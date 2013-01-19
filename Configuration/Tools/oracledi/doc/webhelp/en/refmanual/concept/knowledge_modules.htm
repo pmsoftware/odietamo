@@ -1,0 +1,177 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Knowledge Modules</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nConcepts\nKnowledge Modules");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Knowledge Modules</h1>
+
+<h2>What are Knowledge Modules?</h2>
+
+<p>Knowledge Modules (KMs) are components of Oracle Data Integrator' Open Connector 
+ technology. KMs contain the knowledge required by Oracle Data Integrator to perform 
+ a specific set of tasks against a specific technology or set of technologies.</p>
+
+<p>Combined with a connectivity layer such as JDBC, JMS, JCA or other, 
+ KMs define an Open Connector that performs defined tasks against a technology, 
+ such as connecting to this technology, extracting data from it, transforming 
+ the data, checking it, integrating it, etc.</p>
+
+<p>Open Connectors contain a combination of:</p>
+
+<ul>
+	
+	<li class=kadov-p><p>Connection strategy (JDBC, database utilities 
+ for instance).</p></li>
+	
+	<li class=kadov-p><p>Correct syntax or protocol (SQL, JMS, etc.) for 
+ the technologies involved.</p></li>
+	
+	<li class=kadov-p><p>Control over the creation and deletion of all 
+ the temporary and work tables, views, triggers, etc.</p></li>
+	
+	<li class=kadov-p><p>Data processing and transformation strategies.</p></li>
+	
+	<li class=kadov-p><p>Data movement options (create target table, insert/delete, 
+ update etc.).</p></li>
+	
+	<li class=kadov-p><p>Transaction management (commit/rollback), depending 
+ on the technology capabilities.</p></li>
+</ul>
+
+<h2>Different types of Knowledge Modules</h2>
+
+<p>Oracle Data Integrator' Open Connectors use 6 different types of Knowledge 
+ Modules:</p>
+
+<ul>
+	
+	<li class=kadov-p><p><b style="font-weight: bold;">RKM (Reverse Knowledge 
+ Modules)</b> are used to perform a customized reverse-engineering of data 
+ models for a specific technology.</p></li>
+	
+	<li class=kadov-p><p><b style="font-weight: bold;">LKM (Loading Knowledge 
+ Modules)</b> are used to extract data from the source database tables 
+ and other systems (files, middleware, mainframe, etc.).</p></li>
+	
+	<li class=kadov-p><p><b style="font-weight: bold;">JKM (Journalizing 
+ Knowledge Modules)</b> are used to create a journal of data modifications 
+ (insert, update and delete) of the source databases to keep track of the 
+ changes.</p></li>
+	
+	<li class=kadov-p><p><b style="font-weight: bold;">IKM (Integration 
+ Knowledge Modules)</b> are used to integrate (load) data to the target 
+ tables.</p></li>
+	
+	<li class=kadov-p><p><b>CKM (Check Knowledge Modules)</b> are used 
+ to check that constraints on the sources and targets are not violated.</p></li>
+	
+	<li class=kadov-p><p><b>SKM (Service Knowledge Modules)</b> are used 
+ to generate the code required for creating data services.</p></li>
+</ul>
+
+<h2>How does it work?</h2>
+
+<h3>At design time</h3>
+
+<p>When designing Interfaces in Oracle Data Integrator, these Interfaces contain 
+ several phases, including data loading, data check, data integration, 
+ etc. For each of these phases, you will define:</p>
+
+<ul>
+	
+	<li class=kadov-p
+		class=kadov-p>The functional rules (mappings, constraints, etc.) 
+ for this phase</li>
+	
+	<li class=kadov-p
+		class=kadov-p>The Knowledge Module to be used for this phase. You 
+ can configure this Knowledge Module for this phase using its options.</li>
+</ul>
+
+<h3>At run time</h3>
+
+<p>Oracle Data Integrator will use the functional rules, Knowledge Module, Knowledge 
+ Module options and the metadata contained in the Repository (topology, 
+ models, etc.) to generate automatically a list of tasks to process the 
+ job you have defined. Tasks include connection, transaction management 
+ and the appropriate code for the job. These tasks will be orchestrated 
+ by the Agent via the Open Connectors and executed by the source, target 
+ and staging area servers involved.</p>
+
+<h2>Customization of Knowledge Modules</h2>
+
+<p>Beyond the KMs that are included with Oracle Data Integrator and cover most 
+ standard data transfer and integration needs, Knowledge Modules are fully 
+ open - their source code is visible to any user authorized by the administrator. 
+ This allows clients and partners to easily extend the Oracle Data Integrator 
+ Open Connectors to adjust them to a specific strategy, to implement a 
+ different approach and integrate other technologies.</p>
+
+<p>Knowledge Modules can be easily exported and imported into the Repository 
+ for easy distribution among Oracle Data Integrator installations. At the same 
+ time, Oracle Data Integrator allows partners and clients to protect their intellectual 
+ property (for example a specific approach, an advanced use of certain 
+ technologies) by giving the option of encrypting the code of their KMs.</p>
+
+</body>
+</html>

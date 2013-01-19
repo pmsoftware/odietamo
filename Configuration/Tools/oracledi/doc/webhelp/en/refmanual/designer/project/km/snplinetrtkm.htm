@@ -1,0 +1,507 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>KM Commands</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+ul.whs3 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nDesigner\nProjects\nKnowledge Modules\nKM Commands");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>KM Commands</h1>
+
+<p>A KM command is the unit of execution of a knowledge module.</p>
+
+<h2>Definition</h2>
+
+<p>This tab allows the command row to be defined.</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name of the command, as it appears in the graphical 
+ interface.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Log Counter</td>
+<td valign="top" class="whs2">
+<p>Shows which counter (Insert, Update, Delete or Errors) will record the 
+ number of rows processed by this command.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Log level</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Level of importance of the command, for consulting 
+ the execution log according to this level.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Ignore Errors</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Shows that the KM is not interrupted in the event 
+ of an invalid return code. If this box is checked, the command will go 
+ into &quot;warning&quot; instead of &quot;error&quot;, and the KM will 
+ not be stopped.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Journalizing (IKM)</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">These options only appear for a IKM command 
+ and define the behavior of the command when processing data from a journalized 
+ datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Journalized table in the Staging Area</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Execute command if the journalized table 
+ is in the Staging Area.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Journalized table source of current interface</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Execute command if the journalized table 
+ is source of the current interface.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Journalizing (LKM)</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">These options only appear for a LKM command 
+ and define the behavior of the command when processing data from a journalized 
+ datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Table Journalized in current space.</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Execute command if the current source 
+ set contains a journalized table.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Journalizing (JKM)</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">These options only appear for a JKM command. 
+ They define the behavior of the command when setting up journalizing.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Model Creation</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Execute command when starting a journal for a model.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Model Deletion</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Execute command when stopping a journal for a model.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Table Creation</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Execute command when starting a journal for a datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Table Deletion</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Execute command when stopping a journal for a datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Subscribe</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Execute command when creating a subscription.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Unsubscribe</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Execute command when deleting a subscription.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Consumption (JKM)</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">These options only appear for a JKM command. 
+ They define the behavior of the command when consuming from the journals.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Extend Window</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Execute command when performing an Extend Window 
+ operation on the CDC set.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Purge Journal</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Execute command when performing a Purge Journal operation 
+ on the CDC set.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Lock Subscribers</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Execute command when performing a Lock Subscriber 
+ operation on the CDC set.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Unlock Subscribers</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Execute command when performing an Unlock Subscriber 
+ operation on the CDC set.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Repeat for each table (JKM)</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">This option group defines if the command 
+ should be iterated for all the datastores when processing a CDC related 
+ operation on a group of datastores (model or CDC set) .</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>The command is not repeated.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Ascending Order</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>The command is repeated for each datastore. The repetition 
+ is performed in the ascending value of datastore<span class=ElementGUI> 
+ Order</span> in the CDC set.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Descending</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>The command is repeated for each datastore. The repetition 
+ is performed in the descending value of datastore<span class=ElementGUI> 
+ Order</span> in the CDC set.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Checks (CKM)</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">These options only appear for a CKM command. 
+ They indicate the types of action for which this command is required and 
+ must be executed.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Primary Key</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Execute command for a Primary Key check.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Alternate Key</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Execute command for a Alternate Key check.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Join</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Execute command for a reference or join 
+ check.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Condition</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Execute command for a Condition check.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Mandatory</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Execute command for a mandatory column 
+ (Not Null) check.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Remove Errors</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Execute command for error removal.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Loading (LKM)</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">These options only appear for a LKM command. 
+ They indicate when this command is required and must be executed.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Pre integration (IKM)</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Execute command before integration.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Post integration (IKM)</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: normal;">Execute command after integration.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Command</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">The command launched on the data server. 
+ Two similar tabs appear (Source Command and Destination Command) when 
+ dealing with a multi-connections KM.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Technology</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Technology on which the command will be executed.</p>
+<p class=Remarque><span class=RemarqueTitre>Note</span>: To use Oracle Data Integrator 
+ tools in KM commands or procedures commands, you must set the technology 
+ to <span class=Code>Sunopsis API</span>.<br>
+To use OS commands or to execute external programs, you must set the technology 
+ to <span class=Code>Operating System</span>.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Transaction Isolation</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The transaction isolation level for Select orders. 
+ The isolation levels shown are those of the SQL ISO. They are not supported 
+ by all data servers. </p>
+<p class=TexteTableau>The levels of isolation are:</p>
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Read Uncommitted: 
+ The transaction can read data not committed by another transaction.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Read Commited: 
+ The transaction can only read data committed by other transactions (in 
+ general, this is the default mode of many data servers).</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Repeatable Read: 
+ The transaction is certain to read the same information if it executes 
+ the same SQL query several times, even if the rows have been modified 
+ and committed by another transaction in the meantime.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Serializable: 
+ The transaction is certain to read the same information if it executes 
+ the same SQL query several times, even if the rows have been modified, 
+ deleted or created and committed by another transaction in the meantime.</p></li>
+</ul></td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Context</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Execution context of the query. If &quot;Execution 
+ context&quot; is left, the command will be executed in the execution context 
+ chosen on launching or on the step.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Schema</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Logical schema for execution. This logical schema, 
+ linked to the context, allows the physical execution schema to be defined.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Transaction</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>You can execute commands on several concurrent transactions 
+ (numbered from 0 to 9) or work off-transaction by choosing the option 
+ &quot;Autocommit&quot;. The latter may be more efficient.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Commit</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>If your command is being executed in a transaction 
+ (numbered 0 to 9), you can decide to continue or to commit the current 
+ transaction according to the following modes:</p>
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>No Commit: The 
+ transaction is not committed. In this case, it can be committed in a later 
+ command. If a session ends normally, all transactions are committed by 
+ default.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Commit: The transaction 
+ is committed.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Commit 1000 rows: 
+ Oracle Data Integrator commits every 1000 records processed. This choice is only 
+ possible on a loading command, that is, one containing a source command 
+ returning a result set and a destination command that carries out Inserts.</p></li>
+</ul></td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Command</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The text of the command expressed in a native or 
+ in a standard language (SQL, PL/SQL, Transact-SQL, shell, etc). You can 
+ use the expression editor, accessible through the button to the right 
+ of the text.</p>
+<p class=Remarque><span class=AlertTitre>Warning:</span> If the command 
+ seems to be made of random characters, then the KM is encrypted. For more 
+ details about encryption and decryption, please read <a href="../../../../usermanual/designer/project/km/encrypt_a_km.htm">Encrypt 
+ a KM or a Procedure</a>. Contact also the KM's provider.</td></tr>
+</table>
+
+<h2>Options</h2>
+
+<p>This tab allows you to specify whether or not the command is executed 
+ according to the value of a KM option.</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p>Always execute</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The command is executed regardless of the options 
+ values.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Options</td>
+<td valign="top" class="whs2">
+<p>This chart shows all the KM options. The checkbox preceding each option 
+ shows that the command is executed if the (checkbox-type) option has the 
+ value &quot;yes&quot;.</td></tr>
+</table>
+
+</body>
+</html>

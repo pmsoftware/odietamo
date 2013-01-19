@@ -1,0 +1,191 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Joins</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+ul.whs3 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nDesigner\nProjects\nInterfaces\nDiagram Tab\nJoins");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Joins</h1>
+
+<p>If your interface includes more than one source datastore, they must 
+ be linked with one another by a join. The number of joins on a source 
+ datastore cannot be lower than the number of source datastores minus one.</p>
+
+<p>To edit the properties of a join, click on the relation representing 
+ it within the diagram.</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Active Clause</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>This checkbox indicates that the Join must be taken 
+ in account when executing the interface.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Implementation</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>A join expression is usually expressed in SQL language. 
+ For sequenced joins (ISO), this is the text of the &quot;ON&quot; clause. 
+ </p>
+<p class=TexteTableau>For example: REG.REGION_ID=CIT.REGION_ID </td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Technical description</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>This field cannot be edited. It provides a version 
+ of the join with all column names replaced by their descriptions.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Business Rule</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>This field enables you to enter a business description 
+ and/or to provide notes and comments for the join.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p>Execute on:</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Transformation engine constructing the join.</p>
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=ElementGUI>Source</span>: 
+ This is the data server hosting the two source datastores. This server 
+ must have join capacities.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=ElementGUI>Staging 
+ Area</span>: Transformation engine selected on the <span class=ElementGUI>Definition</span> 
+ tab for the interface. By default, this is the Target engine.</p></li>
+</ul></td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Operator</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>According to the relational model, data sets can 
+ be joined with different operators. For two joined tables, one with 10 
+ rows and one with 20 rows: </p>
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>CROSS: product 
+ set systematically returning 200 rows (10 * 20).</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>INNER JOIN: retains 
+ in the two joined tables only the rows respecting the join clause, that 
+ is, between 0 and 20 rows.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>LEFT/RIGHT OUTER: 
+ join known as external, which returns only the rows of the table situated 
+ on the left or right of the join operator. According to the case, it will 
+ return 10 or 20 rows. </p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>FULL: is equivalent 
+ to an external join on each side. According to the case, this operator 
+ will return between 20 and 30 result rows.</p></li>
+</ul>
+<p class=TexteTableau>On some technologies, not all these operators are 
+ valid, in which case, the join symbol is crossed out in red.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Ordered Join (ISO)</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Check this box if the join is to be sequenced (also 
+ called ISO syntax).</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Order number </td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>For sequenced joins, this determines the order in which joins are resolved.</p>
+<p>For example, if there is a join between A and B, and another between 
+ A and C, you need to know if A and B are to be joined first, then the 
+ result with C, or rather, A and C, then the result with B. The order number 
+ allows this to be determined. A low order number shows the join will be 
+ resolved first.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Compute datastores</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>This button force Oracle Data Integrator to recalculate the join. It evaluates 
+ the code of the join, and specifies the datastores that are used. Errors 
+ may occur in specific cases (missing datastores, revoked privileges).</td></tr>
+</table>
+
+</body>
+</html>

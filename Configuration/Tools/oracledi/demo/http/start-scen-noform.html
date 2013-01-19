@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<title>Script Example of HTTP StartScen</title>
+		<script type="text/javascript">
+		<!--
+		function submitForm(form)
+			{
+				alert("The scenario is being launched");
+				w = window.open(form.action, "resultwindow", ",height=360,width=360,scrollbars=yes, resizable=yes, toolbar=no, status=yes, menubar=no");
+				w.focus();
+				form.submit();
+			}		
+		-->
+		</script>
+	</head>
+	<body>
+		<form method="post" name="form1" action="http://mars:8080/snpsrepexp/startscen.do" target="resultwindow">
+
+		<p> Click <a href="JavaScript:submitForm(document.form1)">HERE</a> to start the scenario  "</p>
+		<input type="hidden" name="agent_name" value="MARS"/>
+		<input type="hidden" name="agent_port" value="20910"/>
+		<input type="hidden" name="master_driver" value="oracle.jdbc.driver.OracleDriver"/>
+		<input type="hidden" name="master_url" value="jdbc:oracle:thin:@mars:1521:mars"/>
+		<input type="hidden" name="master_user" value="snpm32"/>
+		<input type="hidden" name="master_psw" value="NENDKGNEJMKCHBHDHEHJDBGBGFDGGH"/>
+		<input type="hidden" name="work_repository" value="WorkRep3D_DEMO_SGS"/>
+		<input type="hidden" name="snps_user" value="SUPERVISOR"/>
+		<input type="hidden" name="snps_psw" value="LELKIELGLJMDLKMGHEHJDBGBGFDGGH"/>
+		<input type="hidden" name="scen_name" value="LOAD_SALES"/>
+		<input type="hidden" name="scen_version" value="5"/>
+		<input type="hidden" name="context_code" value="GLOBAL"/>
+		<input type="hidden" name="log_level" value="5"/>
+		<input type="hidden" name="http_reply" value="HTML"/>
+		<!-- List of variables -->
+		<input type="hidden" name="PROJECT.VAR1" value="VAR1_VALUE"/>
+		<input type="hidden" name="PROJECT.VAR2" value="VAR2_VALUE"/>
+		</form>
+	</body>
+</html>

@@ -1,0 +1,2853 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisExport>
+<Object class="com.sunopsis.dwg.dbobj.SnpTrt">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:51.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
+	<Field name="IndJrnMethod" type="java.lang.String"><![CDATA[S]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IFolder" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IProject" type="com.sunopsis.sql.DbInt"><![CDATA[1041]]></Field>
+	<Field name="IState" type="com.sunopsis.sql.DbInt"><![CDATA[40001]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtTrtTxt" type="com.sunopsis.sql.DbInt"><![CDATA[299041]]></Field>
+	<Field name="KimMultiDserver" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="KmDefault" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="KmSrcTechno" type="java.lang.String">null</Field>
+	<Field name="KmTechno" type="java.lang.String"><![CDATA[TERADATA]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-09-01 20:19:57.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LChecksum" type="com.sunopsis.sql.DbInt"><![CDATA[5961]]></Field>
+	<Field name="LCode" type="java.lang.String"><![CDATA[TeradataConnectivity]]></Field>
+	<Field name="OrdFolder" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="TrtName" type="java.lang.String"><![CDATA[IKM SQL to Teradata (TTU)]]></Field>
+	<Field name="TrtType" type="java.lang.String"><![CDATA[KI]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[299041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[COMPONENT NAME: IKM SQL to Teradata (TTU)
+COMPONENT VERSION: 10.1.3.3
+AUTHOR: Oracle
+COMPATIBILITY: ODI 10.1.3.5.0 and above
+
+DESCRIPTION
+	Integration from any ISO SQL staging area to Teradata using either FastLoad, MultiLoad,
+	TPump or Parallel Transporter.	
+	This KM executes the following steps:
+		1. Unloads the data from the staging area to a flat file located in the TEMP_DIR
+		    directory using SnpsSqlUnload
+		2. Loads the data in the target table by using either fastload ,multiload, tpump or
+		    parallel transporter utility
+		3. Removes the temporary data files created (if specified with the
+		    DEL_TEMP_FILES option)
+	When used with NP_USE_NAMED_PIPED=1 the KM proceeds as follows:
+		1. Create names pipe (UNIX only)
+		2. Startup load utility and includes access module for named pipes
+		3. Wait for NP_TTU_STARTUP_TIME to let the utility initialize and on windows let it
+		    create the pipe
+		4. Verify that utility process is still alive before
+		5. Unload data from source into pipe using JSnpsSqlUnload class
+		6. Waits for load process to finish
+	Utility output is captured into log file in background thread.
+	If JSnpsSqlUnload raises an exception (e.g. SQL syntax error), utility process is killed and
+	named pipe is deleted (UNIX only)
+	Allows to use INSERT, UPSERT (default) or DELETE capabilities of MULTILOAD and TPUMP
+	Utilities (specified with the MULTILOAD_TPUMP_TYPE option)
+	In most of the cases, it is more efficient to use the "IKM Teradata Incremental Update" rather
+	than this KM to perform  Inserts and Updates. Both methods should be tested depending on
+	your environment.
+	Additional information can be found in the Teradata Utilities Documentation.
+
+BASIC CONFIGURATION
+	- Make sure that the Data Server checkbox is checked in your Topology for the Teradata 
+	  Technology and specify your Teradata server host in the Server field of your Data Server
+	  definition. To do that:
+		1. Edit the "Teradata" Technology definition in the Topology
+		2. Check the Naming Rules -> Using "Data Server" checkbox
+		3. Used Term : "Server"
+		4. Apply your changes
+		5. Edit your Teradata Dataserver definiton
+		6. In the Server field, enter the IP name of your Teradata Server (without "COPn") 
+	- The host of the ODI Agent running the job must have the Teradata Client Utilities installed
+	  (fastload ,multiload, tpump, tpt) 
+	- Set the staging area to a different location than the target by selecting logical schema of the
+	  source in the definition tab of the interface.
+	- An Update Key must be defined when using multiload and tpump UPSERT or DELETE mode.
+	- Error messages like
+		...snpssqlunload...java.io.FileNotFoundException: \\.\pipe\odi_pipe_209025_SS_0
+		 (The system cannot find the file specified)...
+	  may be raised due to insufficient NP_TTU_STARTUP_TIME
+	- When using TPT, you may need to remove TPT checkpoint files after having submitted an
+	   erroneous interface.
+	- When using TPT detailed logs are available using: tlogview -j <Job Id>
+
+OPTIONS (Refer to Option descriptions for more information on each option)
+	- REPORT_NB_ROWS: List summary of load report in ODI log?
+	- SESSIONS: Min and/or max number of Teradata load sessions to use
+	- DEL_TEMP_FILES: Remove temp files after load?
+	- FIELD_SEP: Column separator for dump file/ pipe
+	- TEMP_DIR: Directory for storing temporary files
+	- PRIMARY_INDEX: Specify primary index to be used on target table
+	- TERADATA_UTILITY: Which Teradata load utility to use?
+	- MAX_ALLOWED_ERRORS: specify Teradata ERRLIMIT
+	- DELETE_ALL: Delete all from target before loading?
+	- VALIDATE: Validate KM options?
+	- NP_USE_NAMED_PIPE: Use named pipe instead of file unload?
+	- NP_ACCESS_MODULE_NAME: Name of Teradata access module for piped mode
+	- NP_TTU_STARTUP_TIME: Delay to allow TTU to startup and create pipe
+	- NP_EXEC_ON_WINDOWS: Will executing agent run on Windows?
+	- CREATE_TARG_TABLE: Create target table?
+	- MULTILOAD_TPUMP_TYPE:insert, upsert or delete script for MLoad/ TPump
+	- DROP_TTU_TABLES: Drop Teradata utility tables before load?
+	- ODI_DDL: Specify, what DDL to be generated?
+
+LIMITATIONS
+	- An Update Key must be defined when using multiload and tpump UPSERT or DELETE mode.
+	- The REPORT_NB_ROWS option generates a warning in the ODI Log. The error message of
+	   the task contains the report of the number of rows processed.
+	- When using fastload utility, the KM will NOT DELETE all the data of the target table before
+	  calling the fastload utility for inserting the data of the generated file into the target table (use 
+	  the option DELETE_ALL in order to do so).
+	- The fastload or multiload command scripts should be stored in a secured directory as they
+	  may contain passwords for the Teradata database. They can be deleted by the KM at the
+	  end of the job if the DEL_TEMP_FILES option is set to Yes.
+	- FLOW_CONTROL not supported. Use LKM SQL to Teradata (TTU) + IKM instead.
+	- The STATIC_CONTROL option call the Check Knowledge Module to isolate invalid data (if no
+	  CKM is set, an error occurs). This option must be set to NO in the case when an Integration
+	  Interface populates a TEMPORARY target datastore.
+	- INTERVAL, TIME and TIME ZONEd data types are not/ partially supported. 
+	- DATE and TIMESTAMPs are handled down to miliseconds
+	- DATE and TIMESTAMPs are not supported for TERADATA_UTILITY=FASTLOAD and
+	  TPT-LOAD (FastLoad protocol permits only single data type conversion, but two are needed
+	  for DATE and TIMESTAMPs). Please use LKM SQL to Teradata (TTU) + IKM or MultiLoad
+	  instead
+	- Only a single source set supported]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[1041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-09-01 20:19:56.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-09-01 20:19:56.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpOrigTxt">
+		<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[1041]]></Field>
+	<Field name="OrigineName" type="java.lang.String"><![CDATA[Edit Command]]></Field>
+	<Field name="SnpsCol" type="java.lang.String"><![CDATA[I_TXT_TRT_TXT]]></Field>
+	<Field name="SnpsTable" type="java.lang.String"><![CDATA[SNP_TRT]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[300041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[123041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[20]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[REPORT_NB_ROWS]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[Report Number of Rows ]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[C]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[300041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Report the number of rows processed as an exception to the ODI Log (a task reporting the number of rows processed should appear as a warning in the log).]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:25.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:25.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpOrigTxt">
+		<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="OrigineName" type="java.lang.String"><![CDATA[User Exit help]]></Field>
+	<Field name="SnpsCol" type="java.lang.String"><![CDATA[I_TXT_UE_HELP]]></Field>
+	<Field name="SnpsTable" type="java.lang.String"><![CDATA[SNP_USER_EXIT]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[301041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[124041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[40]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[4]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[SESSIONS]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[Session number]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[V]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[301041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[The following example specifies four FastLoad sessions:
+SESSION 4
+
+The following example specifies ten FastLoad sessions with a minimum of five:
+SESSIONS 10 5]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:25.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:25.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[302041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[125041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[55]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[DEL_TEMP_FILES]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[Delete the Tempoprary file]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[C]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[302041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Uncheck this option if you want to keep the temporary TTU script after integration]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:26.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:26.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[303041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[126041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[90]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[|]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[FIELD_SEP]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[Fields Separator]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[V]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[303041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Fields Separator when generating temporary files. Data must never contain this character.
+Default is |]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:27.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:27.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[304041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[127041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[100]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[/tmp]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[TEMP_DIR]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[Temporary Directory]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[V]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[304041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Temporary directory where TTU scripts and temporary data files are stored.
+You can use relative URL, in this case URL should be relative to the folder where the ODI Agent has been launched.
+
+Notes:
+- Paths should use specified using "/" on Unix and "\" on Windows. 
+- When using TPT on windows paths must start with drive letter.
+- When using TPT paths must not contains any blanks.]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:28.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:28.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[305041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[128041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[150]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[[UK]]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[PRIMARY_INDEX]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[Primary index of target table]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[V]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[305041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Specify primary index for target table. Teradata uses the PI to spread data accross AMPs. It is important that the chosen PI has a high cardinality (many distint values) to ensure evenly spread data to allow maximum processing performance. Pleaes follow Teradata's recommandation on choosing a primary index, e.g. Teradata Database Design, Chapter "Primary Indexes"
+Valid options are
+[PK]	Primary key of target table
+[UK]	Update key set in interface
+<list of cols>	This comma separated list of target columns defines the primary index. 
+	If no value is set (empty), no index will be created.
+	NB: Teradata will automatically choose the first column of the table for the PI.
+[NOPI]	Do not specify primary index for target table (Teradata 13.0 & above only).]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-09-01 20:40:31.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-09-01 20:40:31.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[306041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[129041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[157]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[MLOAD]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[TERADATA_UTILITY]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[Choose Teradata utility]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[V]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[306041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Choose the teradata utility to load data 
+choose:
+	TPUMP 	to use tpump utility
+	MLOAD 	to use multiload utility
+	FASTLOAD	to use fastload utility
+	TPT-LOAD 	to use parallel transporter (load operator)
+	TPT-SQL-INSERT to use parallel transporter (sql insert operator)
+
+For details and appropriate choice of utility/ load operator, see Teradata documentation:
+TPUMP	Teradata Parallel Data Pump Reference
+MLOAD	Teradata MultiLoad Reference
+FASTLOAD	Teradata FastLoad Reference
+TPT-LOAD	Teradata Parallel Transporter Reference
+	Teradata Parallel Transporter User Guide
+TPT-SQL-INSERT Teradata Parallel Transporter Reference
+	Teradata Parallel Transporter User Guide]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:28.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:28.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[307041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[130041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[159]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[MAX_ALLOWED_ERRORS]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[Maximum number of tolerated errors]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[V]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[307041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Maximum number of tolerated errors. This corresponds to
+- ERRLIMIT command in FastLoad, MultiLoad and TPump
+- ErrorLimit attribute in TPT Load operator
+Note: TPT SQL Insert operator does not support any error limit. This option is ignored for TPT-SQL-INSERT.]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:29.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:29.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[309041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[132041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[160]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[VALIDATE]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[Validate use and KM options]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[C]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[309041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[This option generates an extra validation step during development. Validations performed are:
+- Validation of TERADATA_UTILITY option
+- Validation of MULTILOAD_TPUMP_TYPE option
+- Validation of ODI_DDL option
+- Validation of target data types for FastLoad and TPT-Load
+
+This option should be turned off for all production use in particular for high-frequency execution. There is not added value in production, only processing overhead.]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:29.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:29.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[308041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[131041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[160]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[DELETE_ALL]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[Delete all rows.]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[C]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[308041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Check this option if you wish to delete all the rows of the target datastore.]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:29.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:29.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[310041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[133041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[161]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[NP_USE_NAMED_PIPE]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[Use named pipes for data transport?]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[C]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[310041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[For more information about named pipes with Teradata utilities, see "Teradata Tools and Utilities Access Modules"]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:29.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:29.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[311041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[134041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[162]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[np_axsmod.so]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[NP_ACCESS_MODULE_NAME]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[TD access module for NP to use]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[V]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[311041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Depending on platform the Teradata utility is used, differnt Teradata access modules need to be used for named pipes:
+
+For FastLoad, MultiLoad and TPump:
+- np_axsmod.sl on HP-UX platforms
+- np_axsmod.so on MP-RAS; IBM-AIX; Solaris SPARC and Solaris
+Opteron platforms
+- np_axsmod.dll on Windows platforms
+
+For TPT:
+- np_axsmodTWB.sl on HP-UX platforms
+- np_axsmodTWB.so on MP-RAS; IBM-AIX; Solaris SPARC and Solaris
+Opteron platforms
+- np_axsmodTWB.dll on Windows platforms
+
+Please refer to TTU and TD access module documentation for more details.]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:29.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:29.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[312041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[135041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[163]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[10]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[NP_TTU_STARTUP_TIME]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[TTU startup time in seconds]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[V]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[312041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[When using named pipes, the TTU creates the named pipe and then accepts data. So before spooling out data into the pipe, the KM waits the specified number of seconds after starting the TTU before spooling data into pipe. The time depends on utility used, platform, CPU workload, network connectivity and so forth and need to be adapted to used systems. Please take into account that this time also needs to fit production environments.]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:30.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:30.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[313041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[136041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[164]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[NP_EXEC_ON_WINDOWS]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[Use names pipes on windows?]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[C]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[313041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[When using named pipes, this options specifies, whether the agent running this interface is on Windows.]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:30.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:30.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[314041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[137041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[170]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[CREATE_TARG_TABLE]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[Create the target table.]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[C]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[314041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Check this option if you wish to create the target table.]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:30.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:30.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[315041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[138041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[300]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[UPSERT]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[MULTILOAD_TPUMP_TYPE]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[Operation performed by utility]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[V]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[315041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Operation performed by load utility (only for MULTILOAD and TPUMP)
+
+choose:
+	INSERT  (insert new data)
+	UPSERT (insert new data and update exising)
+	DELETE (delete existing data)]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:30.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:30.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[316041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[139041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[310]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[DROP_TTU_TABLES]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[Drop all Teradata utility tables?]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[C]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[316041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[This option is intended for development use only. Do NOT use in production!
+
+If activated, drops all Teradata utility tables like
+- acquisition error table
+- application error table
+- log table
+- work table]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:31.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:31.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
+		<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[317041]]></Field>
+	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[140041]]></Field>
+	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[400]]></Field>
+	<Field name="ShortValue" type="java.lang.String"><![CDATA[DROP_CREATE]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[ODI_DDL]]></Field>
+	<Field name="UeSdesc" type="java.lang.String"><![CDATA[Specify handling of DDL commands]]></Field>
+	<Field name="UeType" type="java.lang.String"><![CDATA[V]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[317041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[The generation of DDL commands can be controlled by setting ODI_DDL:
+DROP_CREATE	Drop and recreate all ODI temp tables at every execution
+CREATE_DELETE_ALL	Create all temp tables (ignore warnings) and use DELETE ALL
+DELETE_ALL		Only submit DELETE ALL for all temp tables
+NONE		Do not submit any DDL
+]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:31.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:31.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
+		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechno" type="java.lang.String"><![CDATA[FILE]]></Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefITxt" type="com.sunopsis.sql.DbInt"><![CDATA[318041]]></Field>
+	<Field name="DefLschemaName" type="java.lang.String">null</Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechno" type="java.lang.String"><![CDATA[TERADATA]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="IndErr" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String">null</Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="KcmAk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmCond" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmErrDel" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmJoin" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmNull" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmPk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrnPop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmCreate" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmDrop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmExtend" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmLock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmPurge" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetInstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetUninstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmTableOrder" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnlock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnsubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KxmUsed" type="java.lang.String">null</Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-09-01 20:16:49.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[162]]></Field>
+	<Field name="SqlName" type="java.lang.String"><![CDATA[Create target table ]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[318041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[<% if (odiRef.getOption( "ODI_DDL" ).indexOf( "CREATE" )>-1) { %>
+
+create set table <%=odiRef.getTable("L", "TARG_NAME", "A")%>
+(
+	<%=odiRef.getTargetColList("", "[COL_NAME]\t[DEST_WRI_DT]", ",\n\t", "")%>
+)
+<% /* use update key for PI ? */
+      if (odiRef.getOption("PRIMARY_INDEX").equals("[UK]")) 
+          out.print( odiRef.getColList("primary index (", "[COL_NAME]", ",", ")", "UK") );
+      /* use primary key for PI ? */
+      else if (odiRef.getOption("PRIMARY_INDEX").equals("[PK]")) 
+          out.print( odiRef.getColList("unique primary index (", "[COL_NAME]", ",", ")", "PK") );
+     /* No PI ? */
+      else if (odiRef.getOption("PRIMARY_INDEX").equals("[NOPI]")) 
+          out.print( " no primary index " );
+      /* use column list for PI ? */
+      else if (odiRef.getOption("PRIMARY_INDEX").length() > 0) 
+          out.print( "primary index (" + odiRef.getOption("PRIMARY_INDEX") + ")" );
+%>
+
+<%} else {%>
+-- Disabled by ODI_DDL option
+<%}%>]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-09-01 20:16:49.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-09-01 20:16:49.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpOrigTxt">
+		<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3041]]></Field>
+	<Field name="OrigineName" type="java.lang.String"><![CDATA[Target Technology]]></Field>
+	<Field name="SnpsCol" type="java.lang.String"><![CDATA[DEF_I_TXT]]></Field>
+	<Field name="SnpsTable" type="java.lang.String"><![CDATA[SNP_LINE_TRT]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
+		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechno" type="java.lang.String">null</Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefITxt" type="com.sunopsis.sql.DbInt"><![CDATA[319041]]></Field>
+	<Field name="DefLschemaName" type="java.lang.String">null</Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechno" type="java.lang.String"><![CDATA[JYTHON]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String">null</Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="KcmAk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmCond" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmErrDel" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmJoin" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmNull" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmPk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrnPop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmCreate" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmDrop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmExtend" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmLock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmPurge" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetInstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetUninstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmTableOrder" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnlock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnsubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KxmUsed" type="java.lang.String">null</Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[112]]></Field>
+	<Field name="SqlName" type="java.lang.String"><![CDATA[Validate KM options]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[319041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[# Checking for valid value for TERADATA_UTILITY...
+<? if (	
+	!"<%=odiRef.getOption( "TERADATA_UTILITY" )%>".equals( "FASTLOAD" ) &&
+	!"<%=odiRef.getOption( "TERADATA_UTILITY" )%>".equals( "MLOAD" ) &&
+	!"<%=odiRef.getOption( "TERADATA_UTILITY" )%>".equals( "TPUMP" ) &&
+	!"<%=odiRef.getOption( "TERADATA_UTILITY" )%>".equals( "TPT-LOAD" ) &&
+	!"<%=odiRef.getOption( "TERADATA_UTILITY" )%>".equals( "TPT-SQL-INSERT" ) 
+) { 
+	?>raise "\n'<%=odiRef.getOption( "TERADATA_UTILITY" )%>' is not a valid value for TERADATA_UTILITY. Please choose valid value."
+<?} else {
+	?># => OK, '<%=odiRef.getOption( "TERADATA_UTILITY" )%>' is a valid value for TERADATA_UTILITY.
+<? }; 
+?>
+# Checking for valid value for MULTILOAD_TPUMP_TYPE...
+<? if (	
+	!"<%=odiRef.getOption( "MULTILOAD_TPUMP_TYPE" )%>".equals( "INSERT" ) &&
+	!"<%=odiRef.getOption( "MULTILOAD_TPUMP_TYPE" )%>".equals( "UPSERT" ) &&
+	!"<%=odiRef.getOption( "MULTILOAD_TPUMP_TYPE" )%>".equals( "DELETE" ) 
+) { 
+	?>raise "\n'<%=odiRef.getOption( "MULTILOAD_TPUMP_TYPE" )%>' is not a valid value for MULTILOAD_TPUMP_TYPE. Please choose valid value."
+<?} else {
+	?># => OK, '<%=odiRef.getOption( "MULTILOAD_TPUMP_TYPE" )%>' is a valid value for MULTILOAD_TPUMP_TYPE.
+<? }; 
+?>
+# Checking for valid value for ODI_DDL...
+<? if (	
+	!"<%=odiRef.getOption( "ODI_DDL" )%>".equals( "DROP_CREATE" ) &&
+	!"<%=odiRef.getOption( "ODI_DDL" )%>".equals( "CREATE_DELETE_ALL" ) &&
+	!"<%=odiRef.getOption( "ODI_DDL" )%>".equals( "DELETE_ALL" ) &&
+	!"<%=odiRef.getOption( "ODI_DDL" )%>".equals( "NONE" ) 
+) { 
+	?>raise "\n'<%=odiRef.getOption( "ODI_DDL" )%>' is not a valid value for ODI_DDL. Please choose valid value."
+<?} else {
+	?># => OK, '<%=odiRef.getOption( "ODI_DDL" )%>' is a valid value for ODI_DDL.
+<? }; 
+?>
+# Checking for use of DATEs and TIMESTAMPs in FastLoad or TPT Load...
+<? if (	("<%=odiRef.getOption( "TERADATA_UTILITY" )%>".equals("FASTLOAD") || 
+	"<%=odiRef.getOption( "TERADATA_UTILITY" )%>".equals("TPT-LOAD")) &&
+	(<%=odiRef.getColList("", 
+		/* Is this a date or timestamp field? */
+		"\t(\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022) ||"+
+		"\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP\u0022) ||"+
+		"\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022) ||"+
+		"\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP() WITH TIME ZONE\u0022) ||"+
+		"\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0) WITH TIME ZONE\u0022)"+
+		")", "||\n\t", "","(INS or UPD) and REW")%>)) {
+	?>raise "\nDATEs and TIMESTAMPs not supported for FastLoad and TPT Load. See KM description for details."
+<?} else {
+	?># => OK, either not FastLoad/TPT Load used or no DATEs/TIMESTAMPs found.
+<? }; 
+?>]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:31.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:31.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
+		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechno" type="java.lang.String">null</Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefITxt" type="com.sunopsis.sql.DbInt"><![CDATA[320041]]></Field>
+	<Field name="DefLschemaName" type="java.lang.String">null</Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechno" type="java.lang.String"><![CDATA[JYTHON]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String">null</Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="KcmAk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmCond" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmErrDel" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmJoin" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmNull" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmPk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrnPop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmCreate" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmDrop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmExtend" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmLock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmPurge" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetInstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetUninstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmTableOrder" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnlock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnsubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KxmUsed" type="java.lang.String">null</Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[412]]></Field>
+	<Field name="SqlName" type="java.lang.String"><![CDATA[Load/pipe data to target]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[320041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[from jarray		import array
+from java.lang	 import Thread
+from java.io		import BufferedOutputStream
+from java.io		import PrintStream
+from java.lang	import String
+from java.lang 	import Runtime
+from java.lang 	import System
+from java.io 		import StringWriter
+from java.io 		import InputStreamReader
+from java.io 		import OutputStreamWriter
+from java.io 		import BufferedReader
+from java.io 		import BufferedWriter
+from java.io 		import FileReader
+from java.io 		import FileWriter
+from jarray 		import array 
+from jarray 		import zeros
+import com.sunopsis.dwg.tools.SqlUnload as JSnpsSqlUnload
+import java.util.Vector as JVector
+import threading
+import time
+import os
+
+#
+# Source connection variables
+#
+srcdriver	= "<%=odiRef.getInfo("SRC_JAVA_DRIVER")%>"
+srcurl	= "<%=odiRef.getInfo("SRC_JAVA_URL")%>"
+srcuser	= "<%=odiRef.getInfo("SRC_USER_NAME")%>"
+srcpass	= "<%=odiRef.getInfo("SRC_ENCODED_PASS")%>"
+fetchsize	= "<%=odiRef.getInfo("SRC_FETCH_ARRAY")%>"
+
+#
+# Temporary Files variables
+#
+filename	= r"<%=odiRef.getOption("TEMP_DIR")%>/<%=odiRef.getTable("L", "TARG_NAME", "W")%>.%s"
+logname	= filename % "log"
+scriptname	= filename % "script"
+outname  	= filename % "out"
+dataname	= r"<% if (odiRef.getOption("NP_USE_NAMED_PIPE").equals("1") && odiRef.getOption("NP_EXEC_ON_WINDOWS").equals("1")) { 
+		out.print( ("//./pipe/odi_pipe_"+odiRef.getPop("I_POP") ).replaceAll("/","\\") );
+	} else {
+		out.print( odiRef.getOption("TEMP_DIR")+"/"+odiRef.getTable("L", "TARG_NAME", "W")+".data" );
+	}; %>" 
+
+#
+# Unload Options
+#
+fieldsep	= "<%=odiRef.getOption("FIELD_SEP")%>"
+datefmt	= "yyyyMMddHHmmss.SSS"
+query	= """select	<%=odiRef.getPop("DISTINCT_ROWS")%>
+<%=odiRef.getColList("", "\t[EXPRESSION]", ",\n", "", "(INS or UPD) and REW")%>
+from	<%=odiRef.getFrom()%>
+where	(1=1)
+<%=odiRef.getJoin()%>
+<%=odiRef.getFilter()%>
+<%=odiRef.getJrnFilter() %>
+<%=odiRef.getGrpBy()%>
+<%=odiRef.getHaving()%>
+"""
+
+#
+# Load Options
+#
+loadcmd	= r"""<% 
+	if (odiRef.getOption( "TERADATA_UTILITY" ).equals( "FASTLOAD" ))	{ %>fastload < "%s" > "%s"<% } else
+	if (odiRef.getOption( "TERADATA_UTILITY" ).equals( "MLOAD" ))		{ %>mload < "%s" > "%s"<% } else
+	if (odiRef.getOption( "TERADATA_UTILITY" ).equals( "TPUMP" )) 		{ %>tpump < "%s" > "%s"<% } else
+							{ %>tbuild -f "%s" > "%s"<%};%> """
+loadcmd = loadcmd % (scriptname, logname)
+utility	= r"""<% 
+	if (odiRef.getOption( "TERADATA_UTILITY" ).equals( "FASTLOAD" ))	{ %>fastload<% } else
+	if (odiRef.getOption( "TERADATA_UTILITY" ).equals( "MLOAD" ))		{ %>mload<% } else
+	if (odiRef.getOption( "TERADATA_UTILITY" ).equals( "TPUMP" )) 		{ %>tpump<% } else
+							{ %>tbuild -f %s<%};%> """ <%
+	if (odiRef.getOption( "TERADATA_UTILITY" ).startsWith( "TPT" ))		{ %> % (scriptname)<%};%>
+
+lf = None
+
+class Gobbler(Thread):
+	def __init__(self, stream, label):
+		self.br = BufferedReader(InputStreamReader(stream))
+		self.label = label
+	def run(self):
+		line=self.br.readLine()
+		while (line != None):
+			print >> lf, self.label + line
+			line=self.br.readLine()
+		#print >>lf, "ODI: End of polling of " + self.label
+
+
+class Writer(Thread):
+	def __init__(self, stream):
+		self.ps = PrintStream(BufferedOutputStream(stream))
+	def run(self):
+		fsrc = open(r"<%=odiRef.getOption("TEMP_DIR")%>/<%=odiRef.getTable("L", "TARG_NAME", "W")%>.script", "r")	
+		try:
+			for lsrc in fsrc.readlines():
+				self.ps.println(lsrc)
+		finally:
+			fsrc.close()
+		self.ps.flush()
+		self.ps.close()
+
+
+#===========================
+# snpssqlunload()
+# executes the SnpsSQLUnload API
+#===========================
+def snpssqlunload():
+	snpunload = JSnpsSqlUnload()
+	
+	# Set the parameters
+	cmdline = JVector()
+	cmdline.add(array(["-DRIVER", srcdriver], String))
+	cmdline.add(array(["-URL", srcurl], String))
+	cmdline.add(array(["-USER", srcuser], String))
+	cmdline.add(array(["-PASS", srcpass], String))
+	cmdline.add(array(["-FILE_FORMAT", "variable"], String))
+	cmdline.add(array(["-FIELD_SEP", fieldsep], String))
+	cmdline.add(array(["-FETCH_SIZE", fetchsize], String))
+	cmdline.add(array(["-FILE", dataname], String))
+	cmdline.add(array(["-DATE_FORMAT", datefmt], String))
+	cmdline.add(array(["-QUERY", query], String))
+	snpunload.setParameters(cmdline)
+	
+	# Start the unload process
+	snpunload.execute()
+
+
+#===========================
+# load()
+# executes the file based loadd
+#===========================
+def load():
+	if os.system(loadcmd) <> 0 :
+		raise "Load Error", "See %s for details" % logname
+
+	
+#===========================
+# pipedload()
+# executes the piped fast or multiload
+#===========================
+def pipedload():
+<%if (odiRef.getOption("NP_EXEC_ON_WINDOWS").equals("0")) {%>
+	pipename = dataname
+	# Create or Replace a unix fifo
+	os.system("rm %s" % pipename)
+	if os.system("mkfifo %s" % pipename) <> 0:
+		raise "mkfifo error", "Unable to create fifo %s" % pipename
+<%};%>
+
+	# Start the load command in a dedicated thread
+	proc = Runtime.getRuntime().exec( utility )
+	# Prepare stdin, stdout, stderr processing
+	stdOutGobbler = Gobbler(proc.getInputStream(),"")
+	stdErrGobbler = Gobbler(proc.getErrorStream(),"StdErr: ")
+	stdIn = Writer(proc.getOutputStream())
+	stdOutGobbler.start()
+	stdErrGobbler.start()
+	# Spool script into TTU 
+	stdIn.start()
+	# Wait for end of spool, just in case there is a timeout
+	stdIn.join(10000)
+
+	# now that the TTU thead has started, wait 
+	# some seconds to see if it is running
+	time.sleep(<%=odiRef.getOption("NP_TTU_STARTUP_TIME")%>)
+
+	# Check, if process is still alive
+	isAlive = 1
+	try:
+		rc = proc.exitValue()
+		isAlive = 0
+	except:
+		pass
+	if (isAlive == 0):
+<%if (odiRef.getOption("NP_EXEC_ON_WINDOWS").equals("0")) {%>
+		# Remove pipe before we stop
+		os.system("rm %s" % pipename)
+<%};%>
+		# Report error
+		raise "Load process did not start or has stopped immediately. See %s for details." % (logname)
+
+	# Start unload process
+	try:
+		snpssqlunload()
+	except:
+		# if the unload process fails, we have to kill
+		# the load process on the OS.
+		proc.destroy()
+<%if (odiRef.getOption("NP_EXEC_ON_WINDOWS").equals("0")) {%>
+		# remove the pipe
+		os.system("rm %s" % pipename)
+<%};%>
+		raise
+
+	#print >>lf, "ODI: Unload completed successfully. Waiting for load to finish..."
+	# At this point, the unload() process has finished, so we need to wait
+	# for the load process to finish
+	proc.waitFor()
+	#print >>lf, "ODI: Load completed. RC=%d" % rc
+	# Wait for last output to be processed by Gobblers, time out just in case
+	stdOutGobbler.join(10000)
+	stdErrGobbler.join(10000)	
+	rc = proc.exitValue()
+	if (rc <> 0):
+		raise "Load failed. Please see %s for details." % logname
+
+
+<% if (odiRef.getOption("NP_USE_NAMED_PIPE").equals("1")) { %>
+try:
+	lf = open(logname, "w+")
+	pipedload()
+finally:
+	lf.flush()
+	lf.close()
+<%} else {%>
+snpssqlunload()
+load()
+<%};%>
+]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:32.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:32.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
+		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[321041]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechno" type="java.lang.String">null</Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefITxt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="DefLschemaName" type="java.lang.String">null</Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechno" type="java.lang.String"><![CDATA[TERADATA]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String">null</Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="KcmAk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmCond" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmErrDel" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmJoin" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmNull" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmPk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrn" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="KimJrnPop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmCreate" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmDrop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmExtend" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmLock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmPurge" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetInstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetUninstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmTableOrder" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnlock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnsubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KxmUsed" type="java.lang.String">null</Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[4]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[452]]></Field>
+	<Field name="SqlName" type="java.lang.String"><![CDATA[Cleanup journalized table]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[321041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[<% if ("C".equals(odiRef.getJrnInfo( "JRN_METHOD"))) { %>
+/* Consistant journalization detected. */
+/* Lock should be done by a specific step in a package */
+<% } else { %>
+delete from	<%=odiRef.getTable("L","JRN_NAME","A")%>
+where	JRN_CONSUMED = '1'
+<%=odiRef.getJrnFilter()%>
+<% } %>]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[5041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:36.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:36.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpOrigTxt">
+		<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[5041]]></Field>
+	<Field name="OrigineName" type="java.lang.String"><![CDATA[Source Technology]]></Field>
+	<Field name="SnpsCol" type="java.lang.String"><![CDATA[COL_I_TXT]]></Field>
+	<Field name="SnpsTable" type="java.lang.String"><![CDATA[SNP_LINE_TRT]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
+		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechno" type="java.lang.String">null</Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefITxt" type="com.sunopsis.sql.DbInt"><![CDATA[322041]]></Field>
+	<Field name="DefLschemaName" type="java.lang.String">null</Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechno" type="java.lang.String"><![CDATA[JYTHON]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="IndErr" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String">null</Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="KcmAk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmCond" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmErrDel" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmJoin" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmNull" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmPk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrnPop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmCreate" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmDrop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmExtend" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmLock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmPurge" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetInstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetUninstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmTableOrder" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnlock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnsubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KxmUsed" type="java.lang.String">null</Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[462]]></Field>
+	<Field name="SqlName" type="java.lang.String"><![CDATA[Report number of rows]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[322041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[import re
+
+# Init Vars
+nbIns = 0
+nbErr1 = 0
+nbErr2 = 0
+nbDup = 0
+nbIns = 0
+nbUpd = 0
+nbDel = 0
+nbRej = 0
+strprt = ""
+c = 0
+
+# Open TTU log file
+f = open(logname, "r") 
+try:
+	lines = f.readlines()
+
+<% if (odiRef.getOption( "TERADATA_UTILITY" ).equals( "FASTLOAD" )) { %>
+
+	while c < len(lines):
+		line = lines[c]
+		if line.lstrip().startswith("Total Error Table 1"):
+			nbErr1 = int(re.findall("\d+", line)[1])
+		if line.lstrip().startswith("Total Error Table 2"):
+			nbErr2 = int(re.findall("\d+", line)[1])
+		if line.lstrip().startswith('Total Inserts Applied'):
+			nbIns = int(re.findall("\d+", line)[0])
+		if line.lstrip().startswith('Total Duplicate Rows'):
+			nbDup = int(re.findall("\d+", line)[0])
+		c+=1
+	strprt = "\n\tIns:\t%s\n\tErr1:\t%s\n\tErr2:\t%s\n\tDup:\t%s" % (nbIns, nbErr1, nbErr2, nbDup)
+	odiRef.setNbRows(nbIns);
+	odiRef.setNbInsert(nbIns);
+
+<% }; if (odiRef.getOption( "TERADATA_UTILITY" ).equals( "MLOAD" )) { %>
+
+	while c < len(lines):
+		line = lines[c]
+		if line.lstrip().startswith('Candidate records rejected'):
+			nbRej = int(re.findall("\d+", line)[0])
+		if line.lstrip().startswith('Inserts:'):
+			nbIns = int(re.findall("\d+", line)[0])
+		if line.lstrip().startswith('Updates:'):
+			nbUpd = int(re.findall("\d+", line)[0])
+		if line.lstrip().startswith('Deletes:'):
+			nbDel = int(re.findall("\d+", line)[0])
+		if line.rstrip().endswith('Error table statistics for:'):
+			nbErr1 = int(re.findall("\d+", lines[c+5])[0])
+			nbErr2 = int(re.findall("\d+", lines[c+6])[0])
+		c+=1
+	strprt = "\n\tIns:\t%s\n\tUpd:\t%s\n\tDel:\t%s\n\tReject:\t%s\n\tErr1:\t%s\n\tErr2:\t%s" % (nbIns, nbUpd, nbDel, nbRej, nbErr1, nbErr2)
+	odiRef.setNbInsert(nbIns);
+	odiRef.setNbUpdate(nbUpd);
+	odiRef.setNbDelete(nbDel);
+
+<% }; if (odiRef.getOption( "TERADATA_UTILITY" ).equals( "TPUMP" )) { %>
+
+	while c < len(lines):
+		line = lines[c]
+		if line.lstrip().startswith('Candidate records rejected'):
+			nbRej = int(re.findall("\d+", line)[0])
+		if line.lstrip().count('Statistics for Apply Label')>0:
+			# Get all statistic lines
+			list = []
+			list.append( [lines[c+2].split()[0], lines[c+2].split()[3]] )
+			if not(lines[c+3].startswith("****")):
+				list.append( [lines[c+3].split()[0], lines[c+3].split()[3]] )
+				if not(lines[c+4].startswith("****")):
+					list.append( [lines[c+4].split()[0], lines[c+4].split()[3]] )
+			# Store row counts in appropriate counters
+			for e in list:
+				if e[0]=="I":
+					nbIns = int(e[1])
+				if e[0]=="U":
+					nbUpd = int(e[1])
+				if e[0]=="D":
+					nbDel = int(e[1])
+		if line.lstrip().count("UTY0820 Error table")>0:
+			if line.count(".ET_")>0:
+				nbErr1 = int(re.findall("\d+", re.findall("contains \d+", line)[0])[0])
+			if line.count(".UV_")>0:
+				nbErr2 = int(re.findall("\d+", re.findall("contains \d+", line)[0])[0])
+		c+=1
+	strprt = "\n\tIns:\t%s\n\tUpd:\t%s\n\tDel:\t%s\n\tReject:\t%s\n\tErr1:\t%s\n\tErr2:\t%s" % (nbIns, nbUpd, nbDel, nbRej, nbErr1, nbErr2)
+	odiRef.setNbInsert(nbIns);
+	odiRef.setNbUpdate(nbUpd);
+	odiRef.setNbDelete(nbDel);
+
+<% }; if (odiRef.getOption( "TERADATA_UTILITY" ).startsWith( "TPT" )) { %>
+
+	strprt = "<No report available for TPT>"
+
+<%};%>
+
+finally:
+	f.close() 
+
+# Output summary to log
+raise "\nThis message is not an error. It lists the number of rows processed by TTU.\nNb Rows Report", strprt]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:37.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:37.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
+		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechno" type="java.lang.String"><![CDATA[FILE]]></Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefITxt" type="com.sunopsis.sql.DbInt"><![CDATA[323041]]></Field>
+	<Field name="DefLschemaName" type="java.lang.String">null</Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechno" type="java.lang.String"><![CDATA[TERADATA]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String">null</Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="KcmAk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmCond" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmErrDel" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmJoin" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmNull" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmPk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrnPop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmCreate" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmDrop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmExtend" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmLock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmPurge" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetInstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetUninstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmTableOrder" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnlock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnsubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KxmUsed" type="java.lang.String">null</Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[4]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[472]]></Field>
+	<Field name="SqlName" type="java.lang.String"><![CDATA[Post-integration control]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[323041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[<%@ INCLUDE CKM_STATIC%>]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:38.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:38.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
+		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechno" type="java.lang.String">null</Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefITxt" type="com.sunopsis.sql.DbInt"><![CDATA[324041]]></Field>
+	<Field name="DefLschemaName" type="java.lang.String">null</Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechno" type="java.lang.String"><![CDATA[JYTHON]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="IndErr" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String">null</Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="KcmAk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmCond" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmErrDel" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmJoin" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmNull" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmPk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrnPop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmCreate" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmDrop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmExtend" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmLock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmPurge" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetInstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetUninstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmTableOrder" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnlock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnsubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KxmUsed" type="java.lang.String">null</Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[492]]></Field>
+	<Field name="SqlName" type="java.lang.String"><![CDATA[Delete temporary files]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[324041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[try:
+	# Delete script file
+	os.remove(scriptname)
+finally:
+	pass
+
+<% if (odiRef.getOption("NP_USE_NAMED_PIPE").equals("0")) {%>
+try:
+	# Delete dump file
+	os.remove(dataname)
+finally:
+	pass
+<%};%>]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:38.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:38.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
+		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechno" type="java.lang.String">null</Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefITxt" type="com.sunopsis.sql.DbInt"><![CDATA[325041]]></Field>
+	<Field name="DefLschemaName" type="java.lang.String">null</Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechno" type="java.lang.String"><![CDATA[TERADATA]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="IndErr" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String">null</Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="KcmAk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmCond" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmErrDel" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmJoin" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmNull" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmPk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrnPop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmCreate" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmDrop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmExtend" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmLock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmPurge" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetInstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetUninstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmTableOrder" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnlock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnsubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KxmUsed" type="java.lang.String">null</Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[232]]></Field>
+	<Field name="SqlName" type="java.lang.String"><![CDATA[Release mload lock]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[325041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[<% if (odiRef.getOption("TERADATA_UTILITY").equals("MLOAD")) {%>
+release mload <%=odiRef.getTable("L", "TARG_NAME", "A")%>
+<%} else {%>
+-- Only needed for MLOAD
+<%};%>]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:38.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:38.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
+		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechno" type="java.lang.String">null</Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefITxt" type="com.sunopsis.sql.DbInt"><![CDATA[326041]]></Field>
+	<Field name="DefLschemaName" type="java.lang.String">null</Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechno" type="java.lang.String"><![CDATA[TERADATA]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="IndErr" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String">null</Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="KcmAk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmCond" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmErrDel" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmJoin" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmNull" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmPk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrnPop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmCreate" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmDrop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmExtend" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmLock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmPurge" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetInstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetUninstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmTableOrder" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnlock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnsubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KxmUsed" type="java.lang.String">null</Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[242]]></Field>
+	<Field name="SqlName" type="java.lang.String"><![CDATA[Drop TTU work table]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[326041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[drop table <%=odiRef.getTargetTable("WORK_SCHEMA")%>.<%{s="WT_"+odiRef.getTargetTable("RES_NAME");out.print(s.substring(0,java.lang.Math.min(s.length(),(new Integer( odiRef.getInfo("DEST_MAX_TAB_NAME_LEN") )).intValue()) ) );};%>]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:38.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:38.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
+		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechno" type="java.lang.String">null</Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefITxt" type="com.sunopsis.sql.DbInt"><![CDATA[327041]]></Field>
+	<Field name="DefLschemaName" type="java.lang.String">null</Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechno" type="java.lang.String"><![CDATA[TERADATA]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="IndErr" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String">null</Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="KcmAk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmCond" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmErrDel" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmJoin" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmNull" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmPk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrnPop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmCreate" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmDrop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmExtend" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmLock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmPurge" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetInstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetUninstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmTableOrder" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnlock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnsubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KxmUsed" type="java.lang.String">null</Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[312]]></Field>
+	<Field name="SqlName" type="java.lang.String"><![CDATA[Drop TTU log table]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[327041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[drop table <%=odiRef.getTargetTable("WORK_SCHEMA")%>.<%{s="LOG_"+odiRef.getTargetTable("RES_NAME");out.print(s.substring(0,java.lang.Math.min(s.length(),(new Integer( odiRef.getInfo("DEST_MAX_TAB_NAME_LEN") )).intValue()) ) );};%>]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:38.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:38.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
+		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechno" type="java.lang.String">null</Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefITxt" type="com.sunopsis.sql.DbInt"><![CDATA[328041]]></Field>
+	<Field name="DefLschemaName" type="java.lang.String">null</Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechno" type="java.lang.String"><![CDATA[TERADATA]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="IndErr" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String">null</Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="KcmAk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmCond" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmErrDel" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmJoin" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmNull" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmPk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrnPop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmCreate" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmDrop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmExtend" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmLock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmPurge" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetInstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetUninstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmTableOrder" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnlock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnsubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KxmUsed" type="java.lang.String">null</Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[332]]></Field>
+	<Field name="SqlName" type="java.lang.String"><![CDATA[Drop TTU error table 1]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[328041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[drop table <%=odiRef.getTargetTable("WORK_SCHEMA")%>.<%{s="ET_"+odiRef.getTargetTable("RES_NAME");out.print(s.substring(0,java.lang.Math.min(s.length(),(new Integer( odiRef.getInfo("DEST_MAX_TAB_NAME_LEN") )).intValue()) ) );};%>]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:38.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:38.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
+		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechno" type="java.lang.String">null</Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefITxt" type="com.sunopsis.sql.DbInt"><![CDATA[329041]]></Field>
+	<Field name="DefLschemaName" type="java.lang.String">null</Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechno" type="java.lang.String"><![CDATA[TERADATA]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="IndErr" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String">null</Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="KcmAk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmCond" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmErrDel" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmJoin" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmNull" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmPk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrnPop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmCreate" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmDrop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmExtend" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmLock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmPurge" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetInstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetUninstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmTableOrder" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnlock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnsubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KxmUsed" type="java.lang.String">null</Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[342]]></Field>
+	<Field name="SqlName" type="java.lang.String"><![CDATA[Drop TTU error table 2]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[329041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[drop table <%=odiRef.getTargetTable("WORK_SCHEMA")%>.<%{s="UV_"+odiRef.getTargetTable("RES_NAME");out.print(s.substring(0,java.lang.Math.min(s.length(),(new Integer( odiRef.getInfo("DEST_MAX_TAB_NAME_LEN") )).intValue()) ) );};%>]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:39.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:39.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
+		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechno" type="java.lang.String">null</Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefITxt" type="com.sunopsis.sql.DbInt"><![CDATA[330041]]></Field>
+	<Field name="DefLschemaName" type="java.lang.String">null</Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechno" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String">null</Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="KcmAk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmCond" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmErrDel" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmJoin" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmNull" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmPk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrnPop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmCreate" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmDrop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmExtend" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmLock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmPurge" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetInstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetUninstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmTableOrder" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnlock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnsubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KxmUsed" type="java.lang.String">null</Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[382]]></Field>
+	<Field name="SqlName" type="java.lang.String"><![CDATA[Generate TTU script]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[330041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiOutFile "-File=<%=odiRef.getOption("TEMP_DIR")%>/<%=odiRef.getTable("L", "TARG_NAME", "W")%>.script"
+<% if (odiRef.getOption("TERADATA_UTILITY").equals("FASTLOAD")) {
+
+/********************************************************************************/ 
+/* FastLoad Script 				*/ 
+/********************************************************************************/ %>
+
+
+SESSIONS <%=odiRef.getOption("SESSIONS")%>;
+<% if ((new java.lang.Integer(odiRef.getOption("MAX_ALLOWED_ERRORS"))).longValue()>0) {%>ERRLIMIT <%=odiRef.getOption("MAX_ALLOWED_ERRORS")%>;<%}; %>
+LOGON <%=odiRef.getInfo("DEST_DSERV_NAME")%>/<%=odiRef.getInfo("DEST_USER_NAME")%>,<%=odiRef.getInfo("DEST_PASS")%>;
+
+BEGIN LOADING <%=odiRef.getTargetTable("SCHEMA")%>.<%=odiRef.getTargetTable("RES_NAME")%>
+	ERRORFILES <%=odiRef.getTargetTable("WORK_SCHEMA")%>.<%{s="ET_"+odiRef.getTargetTable("RES_NAME");out.print(s.substring(0,java.lang.Math.min(s.length(),(new Integer( odiRef.getInfo("DEST_MAX_TAB_NAME_LEN") )).intValue()) ) );};%>, <%=odiRef.getTargetTable("WORK_SCHEMA")%>.<%{s="UV_"+odiRef.getTargetTable("RES_NAME");out.print(s.substring(0,java.lang.Math.min(s.length(),(new Integer( odiRef.getInfo("DEST_MAX_TAB_NAME_LEN") )).intValue()) ) );};%>;
+
+<% if (odiRef.getOption("NP_USE_NAMED_PIPE").equals("1")) {%>
+AXSMOD <%=odiRef.getOption("NP_ACCESS_MODULE_NAME")%> "fallback_directory='<%=odiRef.getOption("TEMP_DIR")%>'";
+<%};%>
+
+SET RECORD VARTEXT "<%=odiRef.getOption("FIELD_SEP")%>";
+DEFINE
+<%=odiRef.getColList("", "\t[CX_COL_NAME]\t("+
+	/* Is this a date or timestamp field? Then we set the buffer length independent of LONGC */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP() WITH TIME ZONE\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022))  {?>"+
+		"VARCHAR(19)"+
+	"<?} else ?>"+
+	/* Is this a numeric field? Then we add +2 to the length to include potential sign and decimal separator. */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022BIGINT\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022BYTE\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022BYTEINT\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022DECIMAL\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022DOUBLE PRECISION\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022FLOAT\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022INTEGER\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022NUMERIC\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022REAL\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022SMALLINT\u0022))  {?>"+
+		"VARCHAR(<?=(new Integer([LONGC]+2)).toString()?>)"+
+	"<? } else { 					?>"+
+		"VARCHAR([LONGC])"+
+	"<?};?>"+
+	")", ",\n", "","(INS or UPD) and REW")%>
+FILE=<% if (odiRef.getOption("NP_USE_NAMED_PIPE").equals("1") && odiRef.getOption("NP_EXEC_ON_WINDOWS").equals("1")) { 
+		out.print( ("//./pipe/odi_pipe_"+odiRef.getPop("I_POP")).replaceAll("/","\\") );
+	} else {
+		out.print( odiRef.getOption("TEMP_DIR")+"/"+odiRef.getTable("L", "TARG_NAME", "W")+".data" );
+	}; %>;
+
+
+INSERT INTO <%=odiRef.getTargetTable("SCHEMA")%>.<%=odiRef.getTargetTable("RES_NAME")%>
+(
+<%=odiRef.getColList("", "\t[CX_COL_NAME]", ",\n", "","INS and REW")%>
+)
+VALUES (
+<%=odiRef.getColList("", "\t:[CX_COL_NAME]"+
+	/* Is this a date or timestamp field? Then apply teradata cast. */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP() WITH TIME ZONE\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0) WITH TIME ZONE\u0022))  {?>"+
+		"\t(TIMESTAMP(3), FORMAT 'YYYYMMDDHHMISS.S(F)')"+
+	"<? };?>"
+	, ",\n", "","INS and REW")%>
+);
+
+END LOADING;
+LOGOFF;
+<%}%>
+<% if (odiRef.getOption("TERADATA_UTILITY").equals("MLOAD")) {
+
+/********************************************************************************/ 
+/* MLoad Script 				*/ 
+/********************************************************************************/ %>
+
+
+.LOGTABLE <%=odiRef.getTargetTable("WORK_SCHEMA")%>.<%{s="LOG_"+odiRef.getTargetTable("RES_NAME");out.print(s.substring(0,java.lang.Math.min(s.length(),(new Integer( odiRef.getInfo("DEST_MAX_TAB_NAME_LEN") )).intValue()) ) );};%>;
+.LOGON <%=odiRef.getInfo("DEST_DSERV_NAME")%>/<%=odiRef.getInfo("DEST_USER_NAME")%>,<%=odiRef.getInfo("DEST_PASS")%>;
+
+.BEGIN IMPORT MLOAD tables <%=odiRef.getTable("L","TARG_NAME","A")%>
+	WORKTABLES <%=odiRef.getTargetTable("WORK_SCHEMA")%>.<%{s="WT_"+odiRef.getTargetTable("RES_NAME");out.print(s.substring(0,java.lang.Math.min(s.length(),(new Integer( odiRef.getInfo("DEST_MAX_TAB_NAME_LEN") )).intValue()) ) );};%>
+	ERRORTABLES <%=odiRef.getTargetTable("WORK_SCHEMA")%>.<%{s="ET_"+odiRef.getTargetTable("RES_NAME");out.print(s.substring(0,java.lang.Math.min(s.length(),(new Integer( odiRef.getInfo("DEST_MAX_TAB_NAME_LEN") )).intValue()) ) );};%> <%=odiRef.getTargetTable("WORK_SCHEMA")%>.<%{s="UV_"+odiRef.getTargetTable("RES_NAME");out.print(s.substring(0,java.lang.Math.min(s.length(),(new Integer( odiRef.getInfo("DEST_MAX_TAB_NAME_LEN") )).intValue()) ) );};%>
+	SESSIONS <%=odiRef.getOption("SESSIONS")%>
+	<% if ((new java.lang.Integer(odiRef.getOption("MAX_ALLOWED_ERRORS"))).longValue()>0) {%>ERRLIMIT <%=odiRef.getOption("MAX_ALLOWED_ERRORS")%><%}; %>;
+
+
+.LAYOUT OdiCurrentLayout;
+<%=odiRef.getColList("", ".FIELD\t[CX_COL_NAME] *\t"+
+	/* Is this a date or timestamp field? Then we set the buffer length independent of LONGC */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP() WITH TIME ZONE\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022))  {?>"+
+		"VARCHAR(19)"+
+	"<?} else ?>"+
+	/* Is this a numeric field? Then we add +2 to the length to include potential sign and decimal separator. */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022BIGINT\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022BYTE\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022BYTEINT\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022DECIMAL\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022DOUBLE PRECISION\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022FLOAT\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022INTEGER\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022NUMERIC\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022REAL\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022SMALLINT\u0022))  {?>"+
+		"VARCHAR(<?=(new Integer([LONGC]+2)).toString()?>)"+
+	"<? } else { 					?>"+
+		"VARCHAR([LONGC])"+
+	"<?};?>"+
+	";", "\n", "","(INS or UPD) and REW")%>
+
+
+<% if (odiRef.getOption("MULTILOAD_TPUMP_TYPE").equals("INSERT")) {%>
+.DML LABEL SnpAction;
+INSERT INTO <%=odiRef.getTargetTable("SCHEMA")%>.<%=odiRef.getTargetTable("RES_NAME")%>
+(
+<%=odiRef.getColList("", "\t[COL_NAME]", ",\n", "","INS and REW")%>
+)
+VALUES (
+<%=odiRef.getColList("", 
+	/* Is this a date field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022))  {?>"+
+		"\tcast(substr(:[COL_NAME],1,8) as date FORMAT 'YYYYMMDD')"+
+	"<? } else ?>" +
+	/* Is this a timestamp 0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0) WITH TIME ZONE\u0022))  {?>"+
+		"\tcast(substr(:[COL_NAME],1,14) as TIMESTAMP(0) FORMAT 'YYYYMMDDHHMISS')"+
+	"<? } else ?>" +
+	/* Is this a timestamp >0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP() WITH TIME ZONE\u0022))  {?>"+
+		"\tcast(substr(:[COL_NAME],1,<?=(new Integer(15+[LONGC])).toString()?>) as TIMESTAMP([LONGC]) FORMAT 'YYYYMMDDHHMISS.S(F)')"+
+	"<? } ?>" +
+	/* for any other data type */
+	"<? else {?>\t:[COL_NAME]<?};?>"
+	, ",\n", "","INS and REW")%>
+);
+
+<%}%>
+
+<% if (odiRef.getOption("MULTILOAD_TPUMP_TYPE").equals("UPSERT")) {%>
+.DML LABEL SnpAction do insert for missing update rows;
+UPDATE <%=odiRef.getTargetTable("SCHEMA")%>.<%=odiRef.getTargetTable("RES_NAME")%> SET
+<%=odiRef.getColList("", 
+	/* Is this a date field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,8) as date FORMAT 'YYYYMMDD')"+
+	"<? } else ?>" +
+	/* Is this a timestamp 0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0) WITH TIME ZONE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,14) as TIMESTAMP(0) FORMAT 'YYYYMMDDHHMISS')"+
+	"<? } else ?>" +
+	/* Is this a timestamp >0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP() WITH TIME ZONE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,<?=(new Integer(15+[LONGC])).toString()?>) as TIMESTAMP([LONGC]) FORMAT 'YYYYMMDDHHMISS.S(F)')"+
+	"<? } ?>" +
+	/* for any other data type */
+	"<? else {?>\t[COL_NAME]\t= :[COL_NAME]<?};?>"
+	, ",\n", "","((UPD and !UK) and REW)")%>
+WHERE 
+<%=odiRef.getColList("", 
+	/* Is this a date field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,8) as date FORMAT 'YYYYMMDD')"+
+	"<? } else ?>" +
+	/* Is this a timestamp 0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0) WITH TIME ZONE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,14) as TIMESTAMP(0) FORMAT 'YYYYMMDDHHMISS')"+
+	"<? } else ?>" +
+	/* Is this a timestamp >0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP() WITH TIME ZONE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,<?=(new Integer(15+[LONGC])).toString()?>) as TIMESTAMP([LONGC]) FORMAT 'YYYYMMDDHHMISS.S(F)')"+
+	"<? } ?>" +
+	/* for any other data type */
+	"<? else {?>\t[COL_NAME]\t= :[COL_NAME]<?};?>"
+	, ",\n", "","(UK and REW)")%>
+;
+
+INSERT INTO <%=odiRef.getTargetTable("SCHEMA")%>.<%=odiRef.getTargetTable("RES_NAME")%>
+(
+<%=odiRef.getColList("", "\t[COL_NAME]", ",\n", "","INS and UPD")%>
+)
+VALUES (
+<%=odiRef.getColList("", 
+	/* Is this a date field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022))  {?>"+
+		"\tcast(substr(:[COL_NAME],1,8) as date FORMAT 'YYYYMMDD')"+
+	"<? } else ?>" +
+	/* Is this a timestamp 0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0) WITH TIME ZONE\u0022))  {?>"+
+		"\tcast(substr(:[COL_NAME],1,14) as TIMESTAMP(0) FORMAT 'YYYYMMDDHHMISS')"+
+	"<? } else ?>" +
+	/* Is this a timestamp >0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP() WITH TIME ZONE\u0022))  {?>"+
+		"\tcast(substr(:[COL_NAME],1,<?=(new Integer(15+[LONGC])).toString()?>) as TIMESTAMP([LONGC]) FORMAT 'YYYYMMDDHHMISS.S(F)')"+
+	"<? } ?>" +
+	/* for any other data type */
+	"<? else {?>\t:[COL_NAME]<?};?>"
+	, ",\n", "","INS and UPD")%>
+);
+<%}%>
+
+<% if (odiRef.getOption("MULTILOAD_TPUMP_TYPE").equals("DELETE")) {%>
+.DML LABEL SnpAction;
+DELETE FROM <%=odiRef.getTargetTable("SCHEMA")%>.<%=odiRef.getTargetTable("RES_NAME")%>
+WHERE 
+<%=odiRef.getColList("", 
+	/* Is this a date field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,8) as date FORMAT 'YYYYMMDD')"+
+	"<? } else ?>" +
+	/* Is this a timestamp 0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0) WITH TIME ZONE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,14) as TIMESTAMP(0) FORMAT 'YYYYMMDDHHMISS')"+
+	"<? } else ?>" +
+	/* Is this a timestamp >0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP() WITH TIME ZONE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,<?=(new Integer(15+[LONGC])).toString()?>) as TIMESTAMP([LONGC]) FORMAT 'YYYYMMDDHHMISS.S(F)')"+
+	"<? } ?>" +
+	/* for any other data type */
+	"<? else {?>\t[COL_NAME]\t= :[COL_NAME]<?};?>"
+	, ",\n", "","(UK and REW)")%>
+;
+<%}%>
+
+
+.IMPORT INFILE '<% if (odiRef.getOption("NP_USE_NAMED_PIPE").equals("1") && odiRef.getOption("NP_EXEC_ON_WINDOWS").equals("1")) { 
+		out.print( ("//./pipe/odi_pipe_"+odiRef.getPop("I_POP")).replaceAll("/","\\") );
+	} else {
+		out.print( odiRef.getOption("TEMP_DIR")+"/"+odiRef.getTable("L", "TARG_NAME", "W")+".data" );
+	}; %>'
+	<% if (odiRef.getOption("NP_USE_NAMED_PIPE").equals("1")) {%>AXSMOD <%=odiRef.getOption("NP_ACCESS_MODULE_NAME")%> 'fallback_directory=''<%=odiRef.getOption("TEMP_DIR")%>'''<%};%>
+	FORMAT VARTEXT '<%=odiRef.getOption("FIELD_SEP")%>'
+	LAYOUT OdiCurrentLayout
+	APPLY SnpAction;
+
+.END MLOAD;
+.LOGOFF;
+
+<%}%>
+<% if (odiRef.getOption("TERADATA_UTILITY").equals("TPUMP")) {
+
+/********************************************************************************/ 
+/* TPump Script 				*/ 
+/********************************************************************************/ %>
+
+
+.LOGTABLE <%=odiRef.getTargetTable("WORK_SCHEMA")%>.<%{s="LOG_"+odiRef.getTargetTable("RES_NAME");out.print(s.substring(0,java.lang.Math.min(s.length(),(new Integer( odiRef.getInfo("DEST_MAX_TAB_NAME_LEN") )).intValue()) ) );};%>;
+.LOGON <%=odiRef.getInfo("DEST_DSERV_NAME")%>/<%=odiRef.getInfo("DEST_USER_NAME")%>,<%=odiRef.getInfo("DEST_PASS")%>;
+
+.BEGIN LOAD
+	SESSIONS <%=odiRef.getOption("SESSIONS")%>
+	ERRORTABLE <%=odiRef.getTargetTable("WORK_SCHEMA")%>.<%{s="ET_"+odiRef.getTargetTable("RES_NAME");out.print(s.substring(0,java.lang.Math.min(s.length(),(new Integer( odiRef.getInfo("DEST_MAX_TAB_NAME_LEN") )).intValue()) ) );};%>
+	SERIALIZE OFF
+	<% if ((new java.lang.Integer(odiRef.getOption("MAX_ALLOWED_ERRORS"))).longValue()>0) {%>ERRLIMIT <%=odiRef.getOption("MAX_ALLOWED_ERRORS")%><%}; %>;
+
+.LAYOUT OdiCurrentLayout;
+<%=odiRef.getColList("", ".FIELD\t[CX_COL_NAME] *\t"+
+	/* Is this a date or timestamp field? Then we set the buffer length independent of LONGC */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP() WITH TIME ZONE\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022))  {?>"+
+		"VARCHAR(19)"+
+	"<?} else ?>"+
+	/* Is this a numeric field? Then we add +2 to the length to include potential sign and decimal separator. */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022BIGINT\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022BYTE\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022BYTEINT\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022DECIMAL\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022DOUBLE PRECISION\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022FLOAT\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022INTEGER\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022NUMERIC\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022REAL\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022SMALLINT\u0022))  {?>"+
+		"VARCHAR(<?=(new Integer([LONGC]+2)).toString()?>)"+
+	"<? } else { 					?>"+
+		"VARCHAR([LONGC])"+
+	"<?};?>"+
+	";", "\n", "","")%>
+
+
+<% if (odiRef.getOption("MULTILOAD_TPUMP_TYPE").equals("INSERT")) {%>
+.DML LABEL SnpAction;
+INSERT INTO <%=odiRef.getTargetTable("SCHEMA")%>.<%=odiRef.getTargetTable("RES_NAME")%>
+(
+<%=odiRef.getColList("", "\t[COL_NAME]", ",\n", "","")%>
+)
+VALUES (
+<%=odiRef.getColList("", 
+	/* Is this a date field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022))  {?>"+
+		"\tcast(substr(:[COL_NAME],1,8) as date FORMAT 'YYYYMMDD')"+
+	"<? } else ?>" +
+	/* Is this a timestamp 0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0) WITH TIME ZONE\u0022))  {?>"+
+		"\tcast(substr(:[COL_NAME],1,14) as TIMESTAMP(0) FORMAT 'YYYYMMDDHHMISS')"+
+	"<? } else ?>" +
+	/* Is this a timestamp >0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP() WITH TIME ZONE\u0022))  {?>"+
+		"\tcast(substr(:[COL_NAME],1,<?=(new Integer(15+[LONGC])).toString()?>) as TIMESTAMP([LONGC]) FORMAT 'YYYYMMDDHHMISS.S(F)')"+
+	"<? } ?>" +
+	/* for any other data type */
+	"<? else {?>\t:[COL_NAME]<?};?>"
+	, ",\n", "","")%>
+);
+
+<%}%>
+
+<% if (odiRef.getOption("MULTILOAD_TPUMP_TYPE").equals("UPSERT")) {%>
+.DML LABEL SnpAction do insert for missing update rows;
+UPDATE <%=odiRef.getTargetTable("SCHEMA")%>.<%=odiRef.getTargetTable("RES_NAME")%> SET
+<%=odiRef.getColList("", 
+	/* Is this a date field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,8) as date FORMAT 'YYYYMMDD')"+
+	"<? } else ?>" +
+	/* Is this a timestamp 0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0) WITH TIME ZONE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,14) as TIMESTAMP(0) FORMAT 'YYYYMMDDHHMISS')"+
+	"<? } else ?>" +
+	/* Is this a timestamp >0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP() WITH TIME ZONE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,<?=(new Integer(15+[LONGC])).toString()?>) as TIMESTAMP([LONGC]) FORMAT 'YYYYMMDDHHMISS.S(F)')"+
+	"<? } ?>" +
+	/* for any other data type */
+	"<? else {?>\t[COL_NAME]\t= :[COL_NAME]<?};?>"
+	, ",\n", "","((UPD and !UK) and REW)")%>
+WHERE 
+<%=odiRef.getColList("", 
+	/* Is this a date field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,8) as date FORMAT 'YYYYMMDD')"+
+	"<? } else ?>" +
+	/* Is this a timestamp 0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0) WITH TIME ZONE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,14) as TIMESTAMP(0) FORMAT 'YYYYMMDDHHMISS')"+
+	"<? } else ?>" +
+	/* Is this a timestamp >0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP() WITH TIME ZONE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,<?=(new Integer(15+[LONGC])).toString()?>) as TIMESTAMP([LONGC]) FORMAT 'YYYYMMDDHHMISS.S(F)')"+
+	"<? } ?>" +
+	/* for any other data type */
+	"<? else {?>\t[COL_NAME]\t= :[COL_NAME]<?};?>"
+	, ",\n", "","(UK and REW)")%>
+;
+
+INSERT INTO <%=odiRef.getTargetTable("SCHEMA")%>.<%=odiRef.getTargetTable("RES_NAME")%>
+(
+<%=odiRef.getColList("", "\t[COL_NAME]", ",\n", "","")%>
+)
+VALUES (
+<%=odiRef.getColList("", 
+	/* Is this a date field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022))  {?>"+
+		"\tcast(substr(:[COL_NAME],1,8) as date FORMAT 'YYYYMMDD')"+
+	"<? } else ?>" +
+	/* Is this a timestamp 0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0) WITH TIME ZONE\u0022))  {?>"+
+		"\tcast(substr(:[COL_NAME],1,14) as TIMESTAMP(0) FORMAT 'YYYYMMDDHHMISS')"+
+	"<? } else ?>" +
+	/* Is this a timestamp >0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP() WITH TIME ZONE\u0022))  {?>"+
+		"\tcast(substr(:[COL_NAME],1,<?=(new Integer(15+[LONGC])).toString()?>) as TIMESTAMP([LONGC]) FORMAT 'YYYYMMDDHHMISS.S(F)')"+
+	"<? } ?>" +
+	/* for any other data type */
+	"<? else {?>\t:[COL_NAME]<?};?>"
+	, ",\n", "","")%>
+);
+<%}%>
+
+<% if (odiRef.getOption("MULTILOAD_TPUMP_TYPE").equals("DELETE")) {%>
+.DML LABEL SnpAction;
+DELETE FROM <%=odiRef.getTargetTable("SCHEMA")%>.<%=odiRef.getTargetTable("RES_NAME")%>
+WHERE 
+<%=odiRef.getColList("", 
+	/* Is this a date field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,8) as date FORMAT 'YYYYMMDD')"+
+	"<? } else ?>" +
+	/* Is this a timestamp 0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0) WITH TIME ZONE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,14) as TIMESTAMP(0) FORMAT 'YYYYMMDDHHMISS')"+
+	"<? } else ?>" +
+	/* Is this a timestamp >0 field? */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP() WITH TIME ZONE\u0022))  {?>"+
+		"\t[COL_NAME]\t= cast(substr(:[COL_NAME],1,<?=(new Integer(15+[LONGC])).toString()?>) as TIMESTAMP([LONGC]) FORMAT 'YYYYMMDDHHMISS.S(F)')"+
+	"<? } ?>" +
+	/* for any other data type */
+	"<? else {?>\t[COL_NAME]\t= :[COL_NAME]<?};?>"
+	, ",\n", "","(UK and REW)")%>
+;
+<%}%>
+
+.IMPORT INFILE '<% if (odiRef.getOption("NP_USE_NAMED_PIPE").equals("1") && odiRef.getOption("NP_EXEC_ON_WINDOWS").equals("1")) { 
+		out.print( ("//./pipe/odi_pipe_"+odiRef.getPop("I_POP") ).replaceAll("/","\\") );
+	} else {
+		out.print( odiRef.getOption("TEMP_DIR")+"/"+odiRef.getTable("L", "TARG_NAME", "W")+".data" );
+	}; %>'
+	<% if (odiRef.getOption("NP_USE_NAMED_PIPE").equals("1")) {%>AXSMOD <%=odiRef.getOption("NP_ACCESS_MODULE_NAME")%> 'fallback_directory=''<%=odiRef.getOption("TEMP_DIR")%>'''<%};%>
+	FORMAT VARTEXT '<%=odiRef.getOption("FIELD_SEP")%>'
+	LAYOUT OdiCurrentLayout
+	APPLY SnpAction;
+
+.END LOAD;
+.LOGOFF;
+<%}%>
+<% if (odiRef.getOption("TERADATA_UTILITY").startsWith("TPT")) { 
+
+/********************************************************************************/ 
+/* Parallel Transporter Script 			*/ 
+/********************************************************************************/ %>
+
+DEFINE JOB ODILoad<%=odiRef.getStep("SESS_NO")%>
+DESCRIPTION 'ODI step name: <%=odiRef.getStep("STEP_NAME")%> ODI step #:<%=odiRef.getStep("NNO")%> from session #<%=odiRef.getStep("SESS_NO")%>'
+(
+DEFINE SCHEMA TargetTable
+DESCRIPTION 'Target table <%=odiRef.getTable("L", "TARG_NAME", "D")%>'
+(
+<%=odiRef.getColList("", "\t[CX_COL_NAME]\t"+
+	/* Is this a date? Then we need to translate into ANSIDATE type */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022)) { ?>"+
+		"ANSIDATE"+
+	/* otherwise use standard data type */
+	"<? } else { ?>"+
+		"[DEST_WRI_DT]"+
+	"<?};?> "+ odiRef.getInfo("DEST_DDL_NULL"),  
+	",\n", "","")%>
+);
+
+DEFINE SCHEMA SourceFile
+DESCRIPTION 'Source file for <%=odiRef.getTable("L", "TARG_NAME", "D")%>'
+(
+<%=odiRef.getColList("", "\t[CX_COL_NAME]\t"+
+	/* Is this a date or timestamp field? Then we set the buffer length independent of LONGC */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP() WITH TIME ZONE\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022))  {?>"+
+		"VARCHAR(19)"+
+	"<?} else ?>"+
+	/* Is this a numeric field? Then we add +2 to the length to include potential sign and decimal separator. */
+	"<? if (\u0022[DEST_DT]\u0022.equals(\u0022BIGINT\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022BYTE\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022BYTEINT\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022DECIMAL\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022DOUBLE PRECISION\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022FLOAT\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022INTEGER\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022NUMERIC\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022REAL\u0022) ||"+
+	"         \u0022[DEST_DT]\u0022.equals(\u0022SMALLINT\u0022))  {?>"+
+		"VARCHAR(<?=(new Integer([LONGC]+2)).toString()?>)"+
+	"<? } else { 					?>"+
+		"VARCHAR([LONGC])"+
+	"<?};?>"+
+	"", ",\n", "","")%>
+);
+
+DEFINE OPERATOR FileReader
+DESCRIPTION 'Read File Using DataConnector'
+TYPE DATACONNECTOR PRODUCER
+SCHEMA SourceFile
+ATTRIBUTES
+(
+	VARCHAR PrivateLogName,
+<% if (odiRef.getOption("NP_USE_NAMED_PIPE").equals("1")) {%>
+	VARCHAR AccessModuleName = '<%=odiRef.getOption("NP_ACCESS_MODULE_NAME")%>',
+	VARCHAR AccessModuleInitStr = 'fallback_directory=''<%=odiRef.getOption("TEMP_DIR")%>''',
+<%};%>	
+	VARCHAR FileName = '<% if (odiRef.getOption("NP_USE_NAMED_PIPE").equals("1") && odiRef.getOption("NP_EXEC_ON_WINDOWS").equals("1")) { 
+		out.print( ("//./pipe/odi_pipe_"+odiRef.getPop("I_POP")).replaceAll("/","\\") );
+	} else {
+		out.print( odiRef.getOption("TEMP_DIR")+"/"+odiRef.getTable("L", "TARG_NAME", "W")+".data" );
+	}; %>', /*Name of the file read from or written to*/
+	VARCHAR OpenMode = 'Read', /*How to open the file: read, write, or writeappend*/
+	VARCHAR Format = 'delimited', 
+	VARCHAR TextDelimiter = '<%=odiRef.getOption("FIELD_SEP")%>',
+	VARCHAR IndicatorMode = 'N', /*Whether indicator bytes are used in the operation*/
+	INTEGER RowsPerInstance,
+	INTEGER VigilWaitTime,
+	VARCHAR VigilStartTime,
+	VARCHAR VigilStopTime,
+	VARCHAR VigilNoticeFileName,
+	VARCHAR TraceLevel = 'none'
+);
+
+<% if (odiRef.getOption("TERADATA_UTILITY").equals("TPT-LOAD")) { %>
+DEFINE OPERATOR LoadTargetTable
+TYPE LOAD
+SCHEMA *
+ATTRIBUTES
+(
+	INTEGER MaxSessions = <%=odiRef.getOption("SESSIONS")%>,
+	<% if ((new java.lang.Integer(odiRef.getOption("MAX_ALLOWED_ERRORS"))).longValue()>0) {%>INTEGER ErrorLimit = <%=odiRef.getOption("MAX_ALLOWED_ERRORS")%>,<%}; %>
+	VARCHAR UserName = '<%=odiRef.getInfo("DEST_USER_NAME")%>',
+	VARCHAR UserPassword = '<%=odiRef.getInfo("DEST_PASS")%>',
+	VARCHAR LogTable = '<%=odiRef.getTable("L", "COLL_NAME", "W").replaceAll("<.=","<?s=").replaceAll("..>",".replaceAll((char)92+\\u0022.\\u0022,\\u0022.LOG_\\u0022); out.print(s.substring(0,s.indexOf(\\u0022.\\u0022)+1+java.lang.Math.min(s.length()-s.indexOf(\\u0022.\\u0022)-1,"+ odiRef.getInfo("DEST_MAX_TAB_NAME_LEN") +")));?>")%>',
+	VARCHAR TargetTable = '<%=odiRef.getTable("L", "TARG_NAME", "D")%>',
+	VARCHAR ErrorTable1 = '<%=odiRef.getTable("L", "TARG_NAME", "W").replaceAll("<.=","<?s=").replaceAll("..>",".replaceAll((char)92+\\u0022.\\u0022,\\u0022.ET_\\u0022); out.print(s.substring(0,s.indexOf(\\u0022.\\u0022)+1+java.lang.Math.min(s.length()-s.indexOf(\\u0022.\\u0022)-1,"+ odiRef.getInfo("DEST_MAX_TAB_NAME_LEN") +")));?>")%>',
+	VARCHAR ErrorTable2 = '<%=odiRef.getTable("L", "TARG_NAME", "W").replaceAll("<.=","<?s=").replaceAll("..>",".replaceAll((char)92+\\u0022.\\u0022,\\u0022.UV_\\u0022); out.print(s.substring(0,s.indexOf(\\u0022.\\u0022)+1+java.lang.Math.min(s.length()-s.indexOf(\\u0022.\\u0022)-1,"+ odiRef.getInfo("DEST_MAX_TAB_NAME_LEN") +")));?>")%>',
+	VARCHAR PauseAcq,
+	VARCHAR PrivateLogName,
+	VARCHAR TdpId ='<%=odiRef.getInfo("DEST_DSERV_NAME")%>'
+);
+<% }; if (odiRef.getOption("TERADATA_UTILITY").equals("TPT-SQL-INSERT")) { %>
+DEFINE OPERATOR LoadTargetTable
+TYPE INSERTER
+SCHEMA *
+ATTRIBUTES
+(
+	VARCHAR UserName = '<%=odiRef.getInfo("DEST_USER_NAME")%>',
+	VARCHAR UserPassword ='<%=odiRef.getInfo("DEST_PASS")%>',
+	VARCHAR PrivateLogName,
+	VARCHAR TdpId ='<%=odiRef.getInfo("DEST_DSERV_NAME")%>'
+);
+<%}%>
+
+APPLY
+(
+	'INSERT INTO <%=odiRef.getTargetTable("SCHEMA")%>.<%=odiRef.getTargetTable("RES_NAME")%>
+	(
+	<%=odiRef.getColList("", "\t[CX_COL_NAME]", ",\n\t", "","")%>
+	)
+	VALUES 
+	(
+		<%=odiRef.getColList("", 
+		/* Is this a date field? Then apply teradata cast. */
+		"<? if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022)) {?>"+
+			"cast(substr(:[CX_COL_NAME],1,8) as date format ''YYYYMMDD'')"+
+		"<?} else "+
+		/* Is this a timestamp field? Then apply teradata cast. */
+		"if (\u0022[DEST_DT]\u0022.equals(\u0022DATE\u0022) ||"+
+		"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP\u0022) ||"+
+		"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0)\u0022) ||"+
+		"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP() WITH TIME ZONE\u0022) ||"+
+		"         \u0022[DEST_DT]\u0022.equals(\u0022TIMESTAMP(0) WITH TIME ZONE\u0022))  {?>"+
+			"cast(substr(:[CX_COL_NAME],1,<?=(new Integer(15+java.lang.Math.min([LONGC],3))).toString()?>) as timestamp([LONGC]) format ''YYYYMMDDHHMISS.S(F)'')"+
+		"<? } else { ?>"+
+		":[CX_COL_NAME]<?};?>"
+		, ",\n\t\t", "","")%>
+	);'
+)
+TO OPERATOR 
+(
+	LoadTargetTable[1]
+)
+	SELECT 
+	<%=odiRef.getColList("", "\t[CX_COL_NAME]", ",\n\t", "", "")%>
+	FROM OPERATOR(FileReader[1]); 
+);
+
+
+<%}%>]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:39.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:39.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
+		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[331041]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechno" type="java.lang.String">null</Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefITxt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="DefLschemaName" type="java.lang.String">null</Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechno" type="java.lang.String"><![CDATA[TERADATA]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String">null</Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="KcmAk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmCond" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmErrDel" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmJoin" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmNull" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmPk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrn" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="KimJrnPop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmCreate" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmDrop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmExtend" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmLock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmPurge" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetInstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetUninstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmTableOrder" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnlock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnsubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KxmUsed" type="java.lang.String">null</Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:53.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[4]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[392]]></Field>
+	<Field name="SqlName" type="java.lang.String"><![CDATA[Lock journalized table]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[331041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[<%if ("C".equals(odiRef.getJrnInfo("JRN_METHOD"))){%>
+/* Consistant journalization detected. */
+/* Lock should be done by a specific step in a package */
+<% } else { %>
+update	<%=odiRef.getTable( "L" , "JRN_NAME" , "A" )%>
+set	JRN_CONSUMED = '1'
+where	(1=1)
+<%=odiRef.getJrnFilter()%>
+<% } %>]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[5041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:51.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:51.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
+		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechno" type="java.lang.String"><![CDATA[FILE]]></Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefITxt" type="com.sunopsis.sql.DbInt"><![CDATA[332041]]></Field>
+	<Field name="DefLschemaName" type="java.lang.String">null</Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechno" type="java.lang.String"><![CDATA[TERADATA]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:54.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="KcmAk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmCond" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmErrDel" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmJoin" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmNull" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmPk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrnPop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmCreate" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmDrop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmExtend" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmLock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmPurge" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetInstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetUninstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmTableOrder" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnlock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnsubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KxmUsed" type="java.lang.String">null</Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:54.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[402]]></Field>
+	<Field name="SqlName" type="java.lang.String"><![CDATA[Delete target table]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[332041]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[delete from <%=odiRef.getTable("L","TARG_NAME","A")%>]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3041]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:51.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2009-08-31 23:48:51.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[AZHANG]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
+		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[123041]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[462]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
+		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[125041]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[492]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
+		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[131041]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[402]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
+		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[132041]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[112]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
+		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[137041]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[162]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
+		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[139041]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[232]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
+		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[139041]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[242]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
+		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[139041]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[312]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
+		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[139041]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[332]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
+		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[11041]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[139041]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[342]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.DwgExportSummary">
+		<Field name="ExpTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="InstObjNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="JoinColNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="JoinNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="KeyColNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="KeyNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="LinkDiagNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="MorigTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="MtxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="OrigTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
+	<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA[44]]></Field>
+	<Field name="PlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="StepNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="TxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[34]]></Field>
+	<Field name="UeOrigNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="UeUsedNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="VarPlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="OriginRepositoryID" type="com.sunopsis.sql.DbInt"><![CDATA[41]]></Field>
+</Object>
+</SunopsisExport>

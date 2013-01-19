@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">
+
+	<!-- Modify table structure -->		
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_SCEN_TXT MODIFY (TXT_ORD <?=snpRef.getDataType("SRC_NUMERIC","10")?>)]]>
+	</Field>
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_TASK_TXT MODIFY (TXT_ORD <?=snpRef.getDataType("SRC_NUMERIC","10")?>)]]>
+	</Field>
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_SESS_TXT_LOG MODIFY (TXT_ORD <?=snpRef.getDataType("SRC_NUMERIC","10")?>)]]>
+	</Field>
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[ALTER TABLE SNP_SCEN_TXT  ADD COLUMN ENC <?=snpRef.getDataType("SRC_VARCHAR","1")?>]]>
+	</Field>			
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[ALTER TABLE SNP_SCEN_TXT  ADD COLUMN ENC_KEY <?=snpRef.getDataType("SRC_VARCHAR","250")?>]]>
+	</Field>				
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[ALTER TABLE SNP_TASK_TXT  ADD COLUMN ENC <?=snpRef.getDataType("SRC_VARCHAR","1")?>]]>
+	</Field>				
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[ALTER TABLE SNP_TASK_TXT  ADD COLUMN ENC_KEY <?=snpRef.getDataType("SRC_VARCHAR","250")?>]]>
+	</Field>					
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[ALTER TABLE SNP_SESS_TXT_LOG  ADD COLUMN ENC <?=snpRef.getDataType("SRC_VARCHAR","1")?>]]>
+	</Field>				
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[ALTER TABLE SNP_SESS_TXT_LOG  ADD COLUMN ENC_KEY <?=snpRef.getDataType("SRC_VARCHAR","250")?>]]>
+	</Field>					
+	
+	<!-- Update Repository Version-->	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_LOC_REPW set MIN_EXE_VERSION = '3.0.01.04']]></Field>
+
+</Object>
+</SunopsisRepository>
+

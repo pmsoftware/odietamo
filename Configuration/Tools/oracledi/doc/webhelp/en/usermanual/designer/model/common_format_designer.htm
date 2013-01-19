@@ -1,0 +1,522 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Common Format Designer</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+ol.whs2 { list-style:decimal; }
+img_whs3 { border:none; width:16px; height:16px; float:none; border-style:none; }
+img_whs4 { border:none; width:27px; height:27px; float:none; border-style:none; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nDesigner\nModels\nCommon Format Designer");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Common Format Designer</h1>
+
+<h2>Introduction</h2>
+
+<h3>Common Format Designer</h3>
+
+<p><b style="font-weight: bold;">Common Format Designer</b> (CFD) is used 
+ to quickly design a data model from the Designer user interface. This 
+ data model may be designed as an entirely new model or assembled&nbsp;using 
+ elements from other data models. CFD can automatically generate the Data 
+ Definition Language (DDL) scripts for implementing this model in a data 
+ server.</p>
+
+<p>CFD enables a user to modify an existing model design through the user 
+ interface. It can automatically generate the DDL scripts for synchronizing 
+ differences between a data model described in Oracle Data Integrator and 
+ its implementation in the data server.</p>
+
+<p>Users can for example use Common Format Designer to create operational 
+ datastores, datamarts, or master data canonical format by assembling heterogeneous 
+ sources.</p>
+
+<h2>Designing a Data Model</h2>
+
+<h3>What is a Diagram?</h3>
+
+<p>A diagram is a graphical view of a subset of the datastores contained 
+ in a sub-model (or data model). A data model may have several diagrams 
+ attached to it.</p>
+
+<p>A diagram is built:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>by assembling datastores from models and sub-models.</p></li>
+	
+	<li class=kadov-p><p>by creating blank datastores, then:</p></li>
+	
+	<ul type="disc" class="whs1">
+		
+		<li class=kadov-p><p>assembling in these datastores columns from 
+ other datastores, </p></li>
+		
+		<li class=kadov-p><p>creating new columns in these datastores.</p></li>
+	</ul>
+</ul>
+
+<h3>Why assemble datastores and columns from other models?</h3>
+
+<p>When assembling datastores and columns from other models or sub-models 
+ in a diagram, Oracle Data Integrator keeps track of the origin of the 
+ datastore or column that is added to the model. <br>
+These references to the original datastores and columns enable Oracle Data 
+ Integrator to automatically generate the integration interfaces to the 
+ assembled datastores (Interfaces IN)</p>
+
+<p>Automatic interface generation does not work to load datastores and 
+ columns that are not created from other model's datastores and columns. 
+ It is still possible to create the integration interfaces manually, or 
+ complete generated interface for columns not automatically mapped.</p>
+
+<h3>Graphical Synonyms</h3>
+
+<p>In a diagram, a datastore may appear several times as a <span style="font-weight: bold;"><B>Graphical 
+ Synonym</B></span>. A synonym is a graphical representation of a datastore. 
+ Graphical synonyms are used to make the diagram more readable.</p>
+
+<p>If you delete a datastore from a diagram, Designer prompts you to delete 
+ either the synonym (the datastore remains), or the datastore itself (all 
+ synonyms for this datastore are deleted).</p>
+
+<p>References in the diagram are attached to a datastore's graphical synonym. 
+ It is possible create graphical synonyms at will, and move the references 
+ graphical representation to any graphical synonym of the datastores involved 
+ in the references. </p>
+
+<h3><a name=DIAGRAM></a>Using the Diagram</h3>
+
+<p>From a diagram, you can edit all the model elements (datastore, columns, 
+ references, filters, etc) visible in this diagram, using their popup menu, 
+ directly available from the diagram.<br>
+Changes performed in the diagram immediately apply to the model.</p>
+
+<p class=HowTo>To create a new diagram:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>In the models view, expand the data model, then 
+ select the <span class=ElementGUI>Diagrams</span> node.</p></li>
+	
+	<li class=kadov-p><p>Right-click, then select <span class=ElementGUI>Insert 
+ Diagram</span>.</p></li>
+	
+	<li class=kadov-p><p>Type in the <span class=ElementGUI>Diagram Name</span>, 
+ and the <span class=ElementGUI>Description</span>.</p></li>
+</ol>
+
+<p>The new diagram appears under the <span class=ElementGUI>Diagrams</span> 
+ node of the model.</p>
+
+<p class=HowTo>To insert an existing datastore in a diagram:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>In the Diagram edition window, select the <span 
+ class=ElementGUI>Diagram</span> tab.</p></li>
+	
+	<li class=kadov-p><p>Select the datastore from a model</p></li>
+	
+	<li class=kadov-p><p>Drag this datastore to the diagram.<br>
+	If the datastore comes from a model/sub-model different from the current 
+ model/sub-model, Designer will prompt you to create a copy of this datastore 
+ in the current model.<br>
+	If the datastore already exists in the diagram, Oracle Data Integrator 
+ will prompt you to either create new graphical synonym, or create a duplicate 
+ of the datastore.</p></li>
+</ol>
+
+<p>The new graphical synonym for the datastore appears in the diagram.<br>
+If you have added a datastore from another model, or chosen to create a 
+ duplicate, the new datastore appears in model. </p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: To create a graphical 
+ synonym of a datastore already in the diagram select Create Graphical 
+ Synonym in the popup menu of the datastore.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: If references 
+ (join) existed in the original models between tables inserted to the diagram, 
+ these references are also copied. </p>
+
+<p class=HowTo>To create a new datastore in a diagram:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>In the Diagram window, select the <span class=ElementGUI>Diagram</span> 
+ tab.</p></li>
+	
+	<li class=kadov-p><p>In the tool bar, click the <span class=ElementGUI>Add 
+ Datastore <img src="../../../images/action_new_table.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs3"> </span>button.</p></li>
+	
+	<li class=kadov-p><p>Click the diagram workbench.</p></li>
+	
+	<li class=kadov-p><p>The new datastore window appears. For other operations 
+ on the datastore (creating new columns, adding keys, etc.) please refer 
+ to <a HREF="create_datastore.htm">Creating a Datastore</a>.</p></li>
+</ol>
+
+<p><b style="font-weight: bold;">To add columns from other datastores:</b></p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>In the Diagram edition window, select the <span 
+ class=ElementGUI>Diagram</span> tab.</p></li>
+	
+	<li class=kadov-p><p>Select a column from a datastore</p></li>
+	
+	<li class=kadov-p><p>Drag this column to a datastore in the diagram.<br>
+	A datastore window appears with the new column that will be added to 
+ this datastore</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span>. The new 
+ column appear in the datastore.</p></li>
+</ol>
+
+<p class=HowTo>To create a graphical synonym for a datastore:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>In the Diagram, select the datastore.</p></li>
+	
+	<li class=kadov-p><p>Right-click, then select<span class=ElementGUI> 
+ Create Graphical Synonym</span>.</p></li>
+</ol>
+
+<p>The new graphical synonym appears in the diagram.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: This operation 
+ does not add a new datastore. It creates only a new representation for 
+ the datastore in the diagram.</p>
+
+<p class=HowTo>To add columns, condition, filters, keys to a datastore:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>In the Diagram, select the datastore.</p></li>
+	
+	<li class=kadov-p><p>Right-click then select Add Key, Add Filter, etc,</p></li>
+</ol>
+
+<p><span class=ElementGUI>To add an existing condition, reference or filter 
+ to a diagram:</span></p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Drag and drop an existing condition, reference 
+ or filter onto the diagram.</p></li>
+</ol>
+
+<p>The datastore to which the condition, reference or filter is attached 
+ must already exist in the diagram. This is useful if you have created 
+ these objects after adding the datastore to the diagram.</p>
+
+<p class=HowTo>To edit a key on a column:</p>
+
+<p>If a column is part of a key (Primary, Alternate), it is possible to 
+ edit the key from this column in the diagram.</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>In the Diagram, select the column.</p></li>
+	
+	<li class=kadov-p><p>Right-click then select the name of the key in 
+ the pop-up menu, then select <span class=ElementGUI>Edit</span> in the 
+ sub-menu.</p></li>
+</ol>
+
+<p><b style="font-weight: bold;">To create a reference between two datastores:</b></p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>In the Diagram edition window, select the <span 
+ class=ElementGUI>Diagram</span> tab.</p></li>
+	
+	<li class=kadov-p><p>In the toolbar the <span class=ElementGUI>Add 
+ Reference</span> <img src="../../../images/cursor_new_ref.gif" x-maintain-ratio="TRUE" width="27px" height="27px" border="0" class="img_whs4"> button.</p></li>
+	
+	<li class=kadov-p><p>Click the first datastore of the reference, then 
+ drag the cursor to the second datastore while keeping the mouse button 
+ pressed. </p></li>
+	
+	<li class=kadov-p><p>Release the mouse button. The new <a HREF="../../../refmanual/designer/model/snpjoin.htm">reference</a> 
+ window appears.</p></li>
+	
+	<li class=kadov-p><p>Set this reference's parameters, then click <span 
+ class=ElementGUI>OK</span>.</p></li>
+</ol>
+
+<p class=HowTo>To move a reference to another graphical synonym:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>In the Diagram, select the reference.</p></li>
+	
+	<li class=kadov-p><p>Right-click and select <span class=ElementGUI>Display 
+ Options</span>.<br>
+	A <span class=ElementGUI>Display Options</span> window appears.</p></li>
+	
+	<li class=kadov-p><p>Select the synonyms to be used as the parent and 
+ child of the reference.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span>.<br>
+	The reference representation appears now on the selected synonyms.</p></li>
+</ol>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: This operation 
+ does not changes the reference. It alters only its representation in the 
+ diagram.</p>
+
+<h2><a name=DDL></a>Generating DDL scripts</h2>
+
+<p>When data structure changes have been performed in a data server, you 
+ usually perform an incremental reverse-engineering in Oracle Data Integrator 
+ to retrieve the new meta-data from the data server.</p>
+
+<p>When a diagram or data model is designed or modified in Oracle Data 
+ Integrator, it is necessary to implement the data model or the changes 
+ in the data server containing the model implementation. This operation 
+ is performed by generated DDL scripts. The DDL scripts are generated in 
+ the form of Oracle Data Integrator procedures containing DDL commands 
+ (create table, alter table, etc). This procedure may be executed by on 
+ the data server to impact the changes.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: The templates 
+ for the DDL scripts are defined as <i style="font-style: normal;"><a HREF="../../topology/topology/actions_usage.htm">Action 
+ Groups</a></i>. Check in Topology Manager that you have the appropriate 
+ action group for the technology of the model before starting DDL scripts 
+ generation.</p>
+
+<p class=HowTo>To generate the DDL scripts:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Select the data model you want to generate the 
+ DDL scripts for.</p></li>
+	
+	<li class=kadov-p><p>Right-click, then select <span class=ElementGUI>Generate 
+ DDL</span>.<br>
+	Oracle Data Integrator retrieves the data structure from the data schema, 
+ and compares it to the model definition. The progression is displayed 
+ in the status bar. The <span class=ElementGUI>Generate DDL</span> window 
+ appears, with the detected differences.</p></li>
+	
+	<li class=kadov-p><p>Select the <span class=ElementGUI>Action Group</span> 
+ to use to generate the DDL script.</p></li>
+	
+	<li class=kadov-p><p>Click the <span class=ElementGUI>...</span> button 
+ to select the folder into which the procedure will be created.</p></li>
+	
+	<li class=kadov-p><p>Filter the type of changes you want to display 
+ using the <span class=ElementGUI>Filters</span> check boxes.</p></li>
+</ol>
+
+<p class=Remarque><span class=ElementGUI>Note</span>: These filters may 
+ be changed at any time, and apply only to the display. A change already 
+ selected may not be visible due to a filtering option.</p>
+
+<ol start="6" type="1" class="whs2">
+	
+	<li class=kadov-p><p>Select the changes you want to apply by checking 
+ the <span class=ElementGUI>Synchronization</span> column checkbox. <br>
+	The following icons indicate the type of changes:</p></li>
+	
+	<ul type="disc" class="whs1">
+		
+		<li class=kadov-p><p><span style="font-weight: bold; font-size: medium;"><font size=4 style="font-weight: bold; font-size: medium;"><B>-</B></font></span> 
+ : Element existing in the data model but not in the data server.</p></li>
+		
+		<li class=kadov-p><p><span style="font-size: medium;"><font size=4 style="font-size: medium;">+</font></span> 
+ : Element existing in the data server but not in the data model.</p></li>
+		
+		<li class=kadov-p><p><span style="font-size: medium;"><font size=4 style="font-size: medium;">=</font></span> 
+ : Element existing in both the data model and the data server, but with 
+ differences in its properties (example: a column resized) or attached 
+ elements (example: a table including new columns).</p></li>
+	</ul>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span> to generate 
+ the DDL script.</p></li>
+</ol>
+
+<p>Oracle Data Integrator generates the DDL scripts, and opens the procedure 
+ containing the DDL commands.</p>
+
+<h2><a name=IN></a><a name=OUT></a>Generate Interface IN/OUT</h2>
+
+<p>For a given model or datastore assembled using Common Format Designer, 
+ Oracle Data Integrator is able to generate:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Interfaces IN</B></span>: 
+ These integration interfaces are used to load the model's datastores assembled 
+ from other datastores/columns. They are the integration process merging 
+ data from the original datastores into the composite datastores.</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Interfaces OUT</B></span>: 
+ These integration interfaces are used to extract data from the model's 
+ datastores. They are generated using the interfaces (including the <span 
+ class=ElementGUI>interfaces IN</span>) already loading the model's datastore. 
+ They reverse the integration process to propagate the data from the composite 
+ datastore to the original datastores.</p></li>
+</ul>
+
+<p>Example: An AIH assembles bits of information coming from several other 
+ applications. &nbsp;It 
+ is made up of composite datastores built from several data models, that 
+ are assembled in a diagram. The AIH is loaded using the Interfaces IN, 
+ and is able to send its data to the original systems using the Interfaces 
+ OUT.</p>
+
+<p class=HowTo>To generate the Interfaces IN:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Select a data model or datastore.</p></li>
+	
+	<li class=kadov-p><p>Right-click, then select <span class=ElementGUI>Generate 
+ Interfaces IN</span>.<br>
+	Oracle Data Integrator looks for the original datastores and columns 
+ used to build the current model or datastore.<br>
+	A <span class=ElementGUI>Generate Interfaces IN</span> window appears 
+ with a list of datastores for which Interfaces IN may be generated.</p></li>
+	
+	<li class=kadov-p><p>Select the <span class=ElementGUI>Optimization 
+ Context</span> for your interfaces.</p></li>
+	
+	<li class=kadov-p><p>Click the <span class=ElementGUI>...</span> button 
+ to select the folder into which the interfaces will be generated.</p></li>
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>Candidate Datastores</span>, 
+ check the <span class=ElementGUI>Generate Interface</span> checkbox for 
+ the datastores to load.</p></li>
+	
+	<li class=kadov-p><p>Edit the content of the <span class=ElementGUI>Interface 
+ Name</span> column to rename the integration interfaces.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span>.<br>
+	Interface generation starts.</p></li>
+</ol>
+
+<p>The generated interfaces appear in the specified folder.</p>
+
+<p class=Remarque><span class=AlertTitre>Warning!</span> Interfaces automatically 
+ generated are built using the available metadata and do not always render 
+ the expected rules. These interfaces must be carefully reviewed and modified 
+ before execution.</p>
+
+<p class=Remarque><span class=AlertTitre>Important Note</span>: If no candidate 
+ datastore is found when generating the interfaces IN, then it is likely 
+ that the datastores you are trying to load are not built from other datastores 
+ or columns. Automatic interface generation does not work to load datastores 
+ and columns that are not created from other model's datastores and columns.</p>
+
+<p class=HowTo>To generate the Interface OUT:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Select a data model or datastore.</p></li>
+	
+	<li class=kadov-p><p>Right-click, then select <span class=ElementGUI>Generate 
+ Interfaces OUT</span>.<br>
+	Oracle Data Integrator looks for the existing Interfaces loading these 
+ the datastores.<br>
+	A <span class=ElementGUI>Generate Interfaces OUT</span> window appears 
+ with a list of datastores for which Interfaces OUT may be generated.</p></li>
+	
+	<li class=kadov-p><p>Select the <span class=ElementGUI>Optimization 
+ Context</span> for your interfaces.</p></li>
+	
+	<li class=kadov-p><p>Click the <span class=ElementGUI>...</span> button 
+ to select the folder into which the interfaces will be generated.</p></li>
+	
+	<li class=kadov-p><p>In the Candidate Datastores, check the <span class=ElementGUI>Generation</span> 
+ and <span class=ElementGUI>Generate Interface</span> checkboxes to select 
+ either all or some of the candidate datastore to load from the target 
+ datastore of the existing interfaces.</p></li>
+	
+	<li class=kadov-p><p>Edit the content of the <span class=ElementGUI>Interface 
+ Name</span> column to rename the integration interfaces.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span>.<br>
+	Interface generation starts.</p></li>
+</ol>
+
+<p>The generated interfaces appear in the specified folder.</p>
+
+<p class=Remarque><span class=AlertTitre>Warning!</span> Interfaces automatically 
+ generated are built using the available metadata and do not always render 
+ the expected rules. These interfaces must be carefully reviewed and modified 
+ before execution.</p>
+
+<p class=Remarque><span class=AlertTitre>Important Note</span>: If no candidate 
+ datastore is found when generating the interfaces OUT, then it is likely 
+ that no interface loads the datastores you have selected to generate the 
+ interfaces OUT. The interfaces OUT from a datastore are generated from 
+ the interfaces loading this datastore. Without any valid interface loading 
+ a datastore, not propagation interface from this datastore can be generated.</p>
+
+</body>
+</html>

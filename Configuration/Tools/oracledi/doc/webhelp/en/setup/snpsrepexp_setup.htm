@@ -1,0 +1,148 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Installing Metadata Navigator</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+ul.whs2 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Installation Guide\nInstallation Procedure\nInstalling Metadata Navigator");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Installing Metadata Navigator</h1>
+
+<p>Metadata Navigator is a Servlet/JSP application that enables access 
+ to the Repository through a Web interface. This application requires a 
+ Web server with a Servlet/JSP container such as Jakarta Tomcat or Oracle 
+ Container for Java (OC4J).</p>
+
+
+<h2>Deploying Metadata Navigator</h2>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: To deploy Metadata 
+ Navigator, refer to the documentation of your application server to find 
+ the recommended method for deploying a web application from a web application 
+ resource (WAR) file or from a set of JSP pages.</p>
+
+<p class=HowTo>To install Metadata Navigator: </p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Insert the Oracle Data Integrator CD-ROM in your 
+ CD-ROM drive.</p></li>
+	
+	<li class=kadov-p><p>To install Metadata Navigator, you may either:</p></li>
+	
+	<ul type="disc" class="whs2">
+		
+		<li class=kadov-p><p>Use the web application deployment feature 
+ of the application server with the <span class=Code>oracledimn.war</span> 
+ &nbsp;file located 
+ in the <span class=Code>/setup/manual/ </span>directory on the CD. This 
+ solution is recommended for OC4J (Use the <span class=ElementGUI>Deploy</span> 
+ button in the <span class=ElementGUI>Applications</span> tab).</p></li>
+		
+		<li class=kadov-p><p>if the application server allows it, copy 
+ the <span class=Code>/oracledimn</span> directory from the CD to the application 
+ server's web applications directory (<span class=Code>Webapps</span> for 
+ Tomcat).</p></li>
+	</ul>
+	
+	<li class=kadov-p><p>Restart the web server hosting the application.</p></li>
+</ol>
+
+<h2>Install the JDBC driver</h2>
+
+<p>Metadata Navigator uses the JDBC connectivity to access the database 
+ server hosting the Repository to explore. It is necessary to configure 
+ the JDBC connectivity on the machine where Metadata Navigator is installed. 
+ </p>
+
+<p>The Java classes of the JDBC driver must be copied in the <span class=Code>/WEB-INF/lib</span> 
+ sub-directory of the Metadata Navigator installation folder, and must 
+ have the <span class=Code>.jar</span> extension. Rename the file extension 
+ to .jar if necessary (e.g., from <span class=Code>.zip</span> to <span 
+ class=Code>.jar</span>). Refer to the installation documentation for the 
+ JDBC driver provided with your database for more information.</p>
+
+<h2>Configure Metadata Navigator Connections</h2>
+
+<p>Metadata Navigator is installed with default connections. It is necessary 
+ to configure the connections to your repositories in the web application.</p>
+
+<p class=HowTo>To configure Metadata Navigator connections:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Configure the <a HREF="connect_work.htm">connection 
+ to the work repository</a> in Designer.</p></li>
+	
+	<li class=kadov-p><p>Go to your Oracle Data Integrator installation 
+ folder's <span class=Code>/bin</span> sub-directory.</p></li>
+	
+	<li class=kadov-p><p>Copy the <span class=Code>snps_login_work.xml</span> 
+ file from this directory into <span class=Code>/WEB_INF</span> sub-directory 
+ of the Metadata Navigator deployment folder's.</p></li>
+</ol>
+
+</body>
+</html>

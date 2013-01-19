@@ -1,0 +1,162 @@
+<html>
+<head>
+<title>Oracle Data Integrator</title>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="generator" content="RoboHelp by eHelp Corporation   www.ehelp.com">
+<meta name="description" content="FlashHelp 1.5">
+</head>
+<body>
+<script language="javascript1.2" src="whver.js"></script>
+<script language="javascript1.2" src="whutils.js"></script>
+<script language="JavaScript">
+<!--
+var gaCsh=new Array();
+
+var gaWindow=new Array();
+
+var gaRmtProj=new Array();
+
+var gsProjPath=_getPath(document.location.href);
+
+function CshEntityItem(strAliasId,nTopicNum,strUrl)
+{
+	this.strAliasId=strAliasId;
+	this.nTopicNum=nTopicNum;
+	this.strUrl=strUrl;
+}
+
+function CshWindow(sWName,bBUseDefault,nWBOptions,sWBLeft,sWBTop,sWBWidth,sWBHeight,sWCaption,nWPanes,nWPOptions,sWPButtons,sWPDefBtn)
+{
+	this.sName=sWName;
+	this.bUseDefault=bBUseDefault;
+	if(!this.bUseDefault)
+	{
+		this.nBOptions=nWBOptions;
+		this.sBLeft=sWBLeft;
+		this.sBTop=sWBTop;
+		this.sBWidth=sWBWidth;
+		this.sBHeight=sWBHeight;
+	}
+	this.sCaption=sWCaption;
+	this.nPanes=nWPanes;
+	if(this.nPanes==2)
+	{
+		this.nPOptions=nWPOptions;
+		this.sPButtons=sWPButtons;
+		this.sPDefBtn=sWPDefBtn;
+	}
+}
+
+function addRemoteProject(sPath)
+{
+	if(sPath.length!=0)
+	{
+		if(sPath.lastIndexOf("/")!=sPath.length-1)
+			sPath+="/";
+		gaRmtProj[gaRmtProj.length]=sPath;	
+	}
+}
+
+//Set Context-sensitive help entity...
+function SetCsh(n,strAliasId,nTopicNum,strUrl)
+{
+	gaCsh[n]=new CshEntityItem(strAliasId,nTopicNum,strUrl);
+}
+
+function addWindow(sWName,bBUseDefault,nWBOptions,sWBLeft,sWBTop,sWBWidth,sWBHeight,sWCaption,nWPanes,nWPOptions,sWPButtons,sWPDefBtn)
+{
+	gaWindow[gaWindow.length]=new CshWindow(sWName,bBUseDefault,nWBOptions,sWBLeft,sWBTop,sWBWidth,sWBHeight,sWCaption,nWPanes,nWPOptions,sWPButtons,sWPDefBtn);
+}
+
+SetCsh(0,"snphost_htm",16,"refmanual/common/security.htm#treeview");
+SetCsh(1,"snpobject_htm",56,"refmanual/security/snpobject.htm");
+SetCsh(2,"snpprofmeth_htm",53,"refmanual/security/snpprofmeth.htm");
+SetCsh(3,"snpsublang_htm",48,"refmanual/topology/snpsublang.htm");
+SetCsh(4,"snpjoin_htm",14,"refmanual/designer/model/snpjoin.htm");
+SetCsh(5,"snpuserexit_htm",27,"refmanual/designer/project/km/snpuserexit.htm");
+SetCsh(6,"SnpsDialogADHGeneratePopOut_htm",68,"usermanual/designer/model/common_format_designer.htm#OUT");
+SetCsh(7,"snpsessfolder_htm",24,"refmanual/common/operator.htm#treeview");
+SetCsh(8,"snpinstobj_htm",52,"refmanual/security/snpinstobj.htm");
+SetCsh(9,"snpkey_htm",9,"refmanual/designer/model/snpkey.htm");
+SetCsh(10,"SECURITY",39,"refmanual/common/security.htm");
+SetCsh(11,"Sunopsis.loginDetailUrl",42,"refmanual/connexion/login_detail_url.htm");
+SetCsh(12,"Sunopsis.loginDetail",44,"refmanual/connexion/login_detail_secu.htm");
+SetCsh(13,"snpsession_htm",45,"refmanual/operator/snpsession.htm");
+SetCsh(14,"SnpsDialogADHGenerateDDL_htm",62,"usermanual/designer/model/common_format_designer.htm#DDL");
+SetCsh(15,"TOPOLOGY",37,"refmanual/common/topology.htm");
+SetCsh(16,"snplocrep_htm",26,"refmanual/topology/snplocrep.htm");
+SetCsh(17,"snpfolder_htm",17,"refmanual/designer/project/folder/snpfolder.htm");
+SetCsh(18,"snppop_htm",18,"refmanual/designer/project/folder/interface/snppop.htm");
+SetCsh(19,"snpcontext_htm",29,"refmanual/topology/snpcontext.htm");
+SetCsh(20,"login_detail.htm",40,"refmanual/connexion/login_detail.htm");
+SetCsh(21,"SnpsDialogSynchroniseSolution_htm",72,"usermanual/designer/project/versionning/versionning.htm#SOLUTION");
+SetCsh(22,"snplangelt_htm",47,"refmanual/topology/snplangelt.htm");
+SetCsh(23,"snpgrpstate_htm",1,"usermanual/designer/project/def_life_cycle.htm");
+SetCsh(24,"snpsolution_htm",5,"usermanual/designer/project/versionning/versionning.htm");
+SetCsh(25,"snpmodfolder_htm",75,"refmanual/designer/model/snpmodfolder.htm");
+SetCsh(26,"snptrtuser_htm",46,"refmanual/designer/project/folder/procedure/snptrtuser.htm");
+SetCsh(27,"snpconnect_htm",35,"refmanual/topology/snpconnect.htm");
+SetCsh(28,"OPERATOR",32,"refmanual/common/operator.htm");
+SetCsh(29,"snpaction_htm",51,"refmanual/topology/snpaction.htm");
+SetCsh(30,"snpvar_htm",2,"refmanual/designer/project/folder/variable/snpvar.htm");
+SetCsh(31,"login_htm",6,"refmanual/connexion/login.htm");
+SetCsh(32,"snpcol_htm",10,"refmanual/designer/model/snpcol.htm");
+SetCsh(33,"snpproject_htm",21,"refmanual/designer/project/snpproject.htm");
+SetCsh(34,"snpagent_htm",50,"refmanual/topology/snpagent.htm");
+SetCsh(35,"SnpsDialogVersionBrowser_htm",73,"usermanual/designer/project/versionning/versionning.htm#SOLUTION2");
+SetCsh(36,"snplineaction_htm",61,"refmanual/topology/snplineaction.htm");
+SetCsh(37,"snpgrpaction_htm",25,"refmanual/topology/snpgrpaction.htm");
+SetCsh(38,"OBJECTTRACE",7,"refmanual/common/objecttrace.htm");
+SetCsh(39,"snpsubmodel_htm",15,"refmanual/designer/model/snpsubmodel.htm");
+SetCsh(40,"snpplanagent_htm",20,"refmanual/designer/project/folder/package/scenario/snpplanagent.htm");
+SetCsh(41,"snplang_htm",30,"refmanual/topology/snplang.htm");
+SetCsh(42,"generate_scen_htm",64,"refmanual/designer/project/folder/package/scenario/generate_scen.htm");
+SetCsh(43,"snpsexpressioneditor_htm",66,"usermanual/designer/general/snpsexpeditor.htm");
+SetCsh(44,"DESIGNER",8,"refmanual/common/designer.htm");
+SetCsh(45,"snptable_htm",12,"refmanual/designer/model/snptable.htm");
+SetCsh(46,"snpuser_htm",58,"refmanual/security/snpuser.htm");
+SetCsh(47,"snpremrep_htm",31,"refmanual/topology/snpremrep.htm");
+SetCsh(48,"snptechno_htm",36,"refmanual/topology/snptechno.htm");
+SetCsh(49,"Sunopsis.loginDetailDriver",41,"refmanual/connexion/login_detail_driver.htm");
+SetCsh(50,"snplinetrtuser_htm",71,"refmanual/designer/project/folder/procedure/snplinetrtuser.htm");
+SetCsh(51,"snpufunc_htm",65,"refmanual/designer/project/folder/usersfunction/snpufunc.htm");
+SetCsh(52,"snpsesstasklog_htm",49,"refmanual/operator/snpsesstasklog.htm");
+SetCsh(53,"snpcond_htm",11,"refmanual/designer/model/snpcond.htm");
+SetCsh(54,"snplagent_htm",28,"refmanual/topology/snplagent.htm");
+SetCsh(55,"snpdt_htm",38,"refmanual/topology/snpdt.htm");
+SetCsh(56,"snpdiagram_htm",74,"usermanual/designer/model/common_format_designer.htm#DIAGRAM");
+SetCsh(57,"snpprofile_htm",57,"refmanual/security/snpprofile.htm");
+SetCsh(58,"snppschema_htm",34,"refmanual/topology/snppschema.htm");
+SetCsh(59,"Sunopsis.login",43,"refmanual/connexion/login_secu.htm");
+SetCsh(60,"SnpsDialogADHGeneratePopIn_htm",67,"usermanual/designer/model/common_format_designer.htm#IN");
+SetCsh(61,"snpusermeth_htm",54,"refmanual/security/snpusermeth.htm");
+SetCsh(62,"snpmodel_htm",13,"refmanual/designer/model/snpmodel.htm");
+SetCsh(63,"snpstep_htm",3,"usermanual/designer/project/package/create_package.htm#Define Steps Sequences");
+SetCsh(64,"snptrtkm_htm",4,"refmanual/designer/project/km/snptrtkm.htm");
+SetCsh(65,"snplinetrtkm_htm",60,"refmanual/designer/project/km/snplinetrtkm.htm");
+SetCsh(66,"snpmethod_htm",55,"refmanual/security/snpmethod.htm");
+SetCsh(67,"snpscenreport_htm",69,"refmanual/designer/project/folder/package/scenario/snpscenreport.htm");
+SetCsh(68,"snppackage_htm",19,"refmanual/designer/project/folder/package/snppackage.htm");
+SetCsh(69,"snpstepreport_htm",70,"refmanual/designer/project/folder/package/step/snpstepreport.htm");
+SetCsh(70,"snpscen_htm",22,"refmanual/designer/project/folder/package/scenario/snpscen.htm");
+SetCsh(71,"snpsequence_htm",23,"refmanual/designer/project/folder/sequence/snpsequence.htm");
+SetCsh(72,"snplschema_htm",33,"refmanual/topology/snplschema.htm");
+SetCsh(73,"snpsteplog_htm",59,"refmanual/operator/snpsteplog.htm");
+SetCsh(74,"snpstate_htm",63,"refmanual/designer/project/lifecycle/snpstate.htm");
+
+
+
+
+window.onload=window_OnLoad;
+
+function window_OnLoad()
+{
+	if(parent&&parent!=this&&parent.putCshData)
+	{
+		parent.putCshData(gsProjPath,gaCsh,gaWindow,gaRmtProj);
+	}
+}
+//-->
+</script>
+</body>
+</html>

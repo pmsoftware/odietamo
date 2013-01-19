@@ -1,0 +1,138 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Data Replication</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nConcepts\nReplication and Transformation");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Replication and Transformation</h1>
+
+<h2>Data replication</h2>
+
+<p>Replication is a relatively simple technological process sometimes integrated 
+ in the RDBMS (Relational Data Base Management System) and/or the Software 
+ Engineering Workbench. </p>
+
+<p>Replication allows you to manage the data flow between two similar data 
+ models, with the same number of tables and the same data validation rules. 
+ The data consistency constraints being the same on both source and target 
+ models, data errors are not handled. The number of rows or records is 
+ the same in both source and target, making it impossible to have, for 
+ example, a history level of 18 months on the source and 36 months on the 
+ target. </p>
+
+<p>Creation of a replication interface does not require detailed knowledge 
+ of the application. The resources most commonly implemented are: file 
+ copying, logging on a mirror base, Snapshots (Oracle), etc,. </p>
+
+<h2>Data transformation</h2>
+
+<p>The concept of data transformation makes it possible to have a real 
+ difference in data modeling between the source and the target. These differences 
+ can occur on several levels: </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>the type of data model being radically different 
+ between the source and the target (star, snowflake, normalized, etc), 
+ </p></li>
+	
+	<li class=kadov-p><p>integrity constraints (declared in the RDBMS if 
+ necessary), involving an error processing and recycling procedure, </p></li>
+	
+	<li class=kadov-p><p>storage technologies (files, RDBMS, etc), </p></li>
+	
+	<li class=kadov-p><p>logging level (for example, 18 months on the source 
+ and 36 months on the target). </p></li>
+</ul>
+
+<p>This difference in modeling is normal in datawarehouse, datamart and 
+ migration projects. Different modeling implies different data validation 
+ rules and therefore potential errors on the transferred data. </p>
+
+<p>The types of transformation carried out by an interface are: </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Mapping, which allows target information (a table 
+ column) to be mapped using a calculation rule (numeric calculation, chained 
+ calculation, concatenation, aggregation, etc), on source information possibly 
+ coming from different environments. </p></li>
+	
+	<li class=kadov-p><p>Filters, which allow only functionally useful 
+ records to be returned, for example, a filter on the customer file that 
+ returns only active customers.</p></li>
+	
+	<li class=kadov-p><p>Incremental or asynchronous loading, allowing 
+ procedures to be speeded up by avoiding the regular transfer of unchanged 
+ data. </p></li>
+	
+	<li class=kadov-p><p>Artificial id codes (sequences) may need to be 
+ created when re-designing a data model. This type of id code is used in 
+ both migrations and Data Warehouse projects for star modeling.</p></li>
+</ul>
+
+</body>
+</html>

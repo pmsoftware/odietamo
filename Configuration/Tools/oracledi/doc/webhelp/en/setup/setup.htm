@@ -1,0 +1,499 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Installing Oracle Data Integrator and Oracle Data Quality Products</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+ol.whs2 { list-style:decimal; }
+table.whs3 { margin-left:24px; }
+p.whs4 { margin-left:24px; background-color:Transparent; }
+p.whs5 { margin-left:0px; background-color:Transparent; }
+p.whs6 { margin-left:24px; }
+p.whs7 { margin-left:0px; }
+p.whs8 { font-weight:bold; margin-left:0px; text-indent:12px; }
+ul.whs9 { list-style:decimal; }
+ul.whs10 { list-style:lower-alpha; }
+ol.whs11 { list-style:lower-alpha; }
+p.whs12 { margin-left:88px; }
+p.whs13 { margin-left:48px; }
+p.whs14 { margin-left:24px; font-weight:normal; background-color:Transparent; }
+p.whs15 { margin-left:84px; }
+-->
+</style><script type="text/javascript" language="JavaScript">
+<!--
+if ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion) == 4))
+{
+  var strNSS = "<style type='text/css'>";
+  strNSS += "p.whs4 {background-color:white; }";
+  strNSS += "p.whs5 {margin-left:1pt;background-color:white; }";
+  strNSS += "p.whs7 {margin-left:1pt; }";
+  strNSS += "p.whs8 {margin-left:1pt; }";
+  strNSS += "p.whs14 {background-color:white; }";
+  strNSS +="</style>";
+  document.write(strNSS);
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Installation Guide\nInstallation Procedure\nInstalling Oracle Data Integrator and Oracle Data Quality Products");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Installing and Uninstalling Oracle Data Integrator and Oracle Data 
+ Quality Products</h1>
+
+<h2>Installing Oracle Data Integrator and Oracle Data Quality Products</h2>
+
+<p>The <span class=ElementGUI>Oracle Data Integrator </span>installation 
+ program includes three products and gives you four installation options 
+ depending on the solution you want to install:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>The complete installation<span class=ElementGUI> 
+ </span>includes <span class=ElementGUI>Oracle Data Integrator</span>, 
+ <span class=ElementGUI>Oracle Data Profiling</span> and <span class=ElementGUI>Oracle 
+ Data Quality for Oracle Data Integrator</span>.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Oracle Data Integrator</span> 
+ is a comprehensive data integration platform that covers all data integration 
+ requirements.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Oracle Data Profiling</span> 
+ is a data investigation and quality monitoring tool.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Oracle Data Quality</span> 
+ for Oracle Data Integrator is a comprehensive award-winning data quality 
+ platform that covers even the most complex data quality needs.</p></li>
+</ul>
+
+<p class=HowTo>To install Oracle Data Integrator and Oracle Data Quality 
+ Products:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Open the directory containing the Oracle Data 
+ Integrator setup.</p></li>
+	
+	<li class=kadov-p><p>Start Oracle Universal Installer as follows:</p></li>
+</ol>
+
+<table x-use-null-cells class="whs3">
+<col>
+<col>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>On... &nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Do This... </th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau>UNIX/Linux &nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td class=whs6>
+<p class=TexteTableau>Enter the following command at the operating system 
+ prompt: <span class=Code>&nbsp;./runInstaller</span></td></tr>
+
+<tr>
+<td class=whs7>
+<p class=TexteTableau>Windows &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td class=whs9>
+<p class=TexteTableau>Double-click <span class=Code>setup.bat</span>. </td></tr>
+</table>
+
+<p class="whs4">The Welcome 
+ screen appears.</p>
+
+<ol start="5" type="1" class="whs2">
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>Next</span>.</p></li>
+</ol>
+
+<p class="whs4">The <span 
+ class=ElementGUI>Select Product To Install</span> screen appears.</p>
+
+<ol start="6" type="1" class="whs2">
+	
+	<li class=kadov-p><p class="whs5">Select 
+ the product to install.</p></li>
+	
+	<li class=kadov-p><p class="whs5">Click 
+ <span class=ElementGUI>Next</span>.</p></li>
+</ol>
+
+<p class="whs6">The Select Installation Type screen appears.</p>
+
+<ol start="8" type="1" class="whs2">
+	
+	<li class=kadov-p><p class="whs7">Select the installation 
+ Type</p></li>
+	
+	<ul type="disc" class="whs1">
+		
+		<li style="margin-left: -20px;"
+			class=kadov-p><p class="whs8">Client: <span style="font-weight: normal;">Installs 
+ the client components for the product you have specified in step 6.</span> 
+ </p></li>
+	</ul>
+</ol>
+
+<ul start="8" type="1" class="whs9">
+	
+	<ul type="disc" class="whs1">
+		
+		<li style="margin-left: -20px;"
+			class=kadov-p><p class="whs8">Server : <span 
+ style="font-weight: normal;">Installs the server components for the product 
+ you have specified in step 6.</span> </p></li>
+	</ul>
+</ul>
+
+<ul start="8" type="1" class="whs9">
+	
+	<ul type="disc" class="whs1">
+		
+		<li style="margin-left: -20px;"
+			class=kadov-p><p class="whs8">Complete:<span 
+ style="font-weight: normal;"> Installs both client and server components 
+ of Oracle Data Integrator and Oracle Data Quality products you have specified 
+ in step 6.</span> </p></li>
+	</ul>
+</ul>
+
+<ol start="9" type="1" class="whs2">
+	
+	<li class=kadov-p><p class="whs7">Click <span class=ElementGUI>Next</span>.</p></li>
+	
+	<li class=kadov-p><p>In the Home Details screen select the Oracle home 
+ name and directory path where you want to install the products.</p></li>
+</ol>
+
+<ol start="11" type="1" class="whs2">
+	
+	<li class=kadov-p><p class="whs7">Click <span class=ElementGUI>Next</span>. 
+ </p></li>
+</ol>
+
+<p class="whs6">If you are installing &nbsp;<span 
+ style="font-weight: bold;"><B>Oracle Data Profiling 
+ </B></span>and / or<span style="font-weight: bold;"><B> Oracle Data Quality for 
+ Oracle Data Integrator </B></span>you will be asked to configure the Metabase 
+ servers and to define for the client the Metabase you will connect to. 
+ Ignore this step if you do not install <span style="font-weight: bold;"><B>Oracle 
+ Data Profiling </B></span>or<span style="font-weight: bold;"><B> Oracle Data 
+ Quality for Oracle Data Integrator</B></span>.<span style="font-weight: bold;"> 
+ <B></B></span></p>
+
+<p class="whs6">Depending on the installation type specified 
+ in step 8 the following screens appear:</p>
+
+<ul type="a" class="whs10">
+	
+	<ol type="a" class="whs11">
+		
+		<li class=kadov-p><p>The<span class=ElementGUI> </span><span class=ElementGUI
+	style="font-weight: normal;">Metabase Connection</span> screen appears 
+ if you have selected the <span style="font-weight: bold;"><B>Client installation 
+ type</B></span>. This screen configures the client to connect to a specific 
+ Metabase and repository. <span style="margin-left: 48px;">Specify the 
+ Metabase connection as follows: </span></p></li>
+	</ol>
+</ul>
+
+<p class="whs12"><span class=ElementGUI>Hostname</span>: Name 
+ of the host where the Oracle Data Profiling or Oracle Data Quality for 
+ Data Integrator server components are installed. If you are installing 
+ these components on the same machine, enter <span class=Code>localhost</span>.</p>
+
+<p class="whs12"><span class=ElementGUI>Scheduler Port</span>: 
+ Port for the Oracle Data Quality scheduler. Default is <span class=Code>7601</span>.</p>
+
+<p class="whs12"><span class=ElementGUI>Repository Port</span>: 
+ Port for the Metabase Repository. Default is <span class=Code>7600</span>.</p>
+
+<p class="whs12"><span class=ElementGUI>Repository Name</span><span 
+ style="margin-left: 0px;">: Name of the Repository.</span></p>
+
+<ol start="2" type="a" class="whs11">
+	
+	<li class=kadov-p><p class="whs6">The Metabase Configuration 
+ screen appears if you have selected the <span style="font-weight: bold;"><B>Sever 
+ installation type</B></span>.</p></li>
+</ol>
+
+<p class="whs13">Define the Metabase configuration as follows: 
+ </p>
+
+<p class="whs12"><span class=ElementGUI>Repository Port</span>: 
+ Port for the Metabase repository. Default is &nbsp;<span 
+ class=Code>7600</span>.</p>
+
+<p class="whs12"><span class=ElementGUI>Scheduler Port:</span> 
+ Port for the Oracle Data Quality scheduler. Default is <span class=Code>7601</span>.</p>
+
+<p class="whs12"><span class=ElementGUI>Administrator Name</span>: 
+ Metabase administrator name. Default is <span class=Code>madmin</span>.</p>
+
+<p class="whs12"><span class=ElementGUI>Administrator Password:</span> 
+ Metabase administrator password.</p>
+
+<ol start="12" type="1" class="whs2">
+	
+	<li class=kadov-p><p class="whs7">Click <span class=ElementGUI>Next</span>.<span 
+ style="margin-left: 24px;"> </span></p></li>
+</ol>
+
+<p class="whs14">The Oracle Data Quality ODBC 
+ Adapter Configuration screen appears only if you have chosen the server 
+ or complete installation type for Oracle Data Profiling. In this case 
+ define the Adapter Configuration as described below. If not, skip this 
+ step.</p>
+
+<p class="whs4">Set the ODBC 
+ Adapter port as follows:</p>
+
+<p class="whs15">ODBC Port: <span class=Code>7602</span></p>
+
+<ol start="13" type="1" class="whs2">
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>Next</span>.<span 
+ style="margin-left: 24px;"> </span></p></li>
+</ol>
+
+<p class="whs4">The<span style="font-weight: bold;"> 
+ <B></B></span><span class=ElementGUI>Summary</span> screen appears.</p>
+
+<ol start="14" type="1" class="whs2">
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>Install</span>.</p></li>
+</ol>
+
+<p class="whs6">The Installation Progress screen appears.</p>
+
+<p class="whs4">The installer 
+ automatically executes each configuration assistant in sequence, displaying 
+ the progress in the Status column. No action is required on this screen.</p>
+
+<p class="whs6">When installation completes, the End of Installation 
+ screen appears with information for your review.</p>
+
+<ol start="13" type="1" class="whs2">
+		
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>Exit</span> and confirm 
+ when prompted.</p></li>
+	
+	<li class=kadov-p><p>On UNIX platforms add the following environment 
+ variables for the user who has installed Oracle Data &nbsp;Integrator:</p></li>
+	
+	<ul type="disc" class="whs1">
+		
+		<li class=kadov-p><p><span class=Code>ODI_JAVA_HOME=&lt;ODI_HOME&gt;/jre/1.4.2</span></p></li>
+		
+		<li class=kadov-p><p><span class=Code>TS_QUALITY=&lt;ODI_HOME&gt;/oracledq/quality_server/tsq11r0s/Software</span></p></li>
+		
+		<li class=kadov-p><p><span class=Code>LD_LIBRARY_PATH=&lt;ODI_HOME&gt;/oracledq/quality_server/tsq11r0s/Software/bin</span></p></li>
+	</ul>
+
+	</ol>
+
+
+<p class="whs6">This completes the installation procedures.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> Oracle Data Integrator 
+ can be installed as a standalone component without running the setup program 
+ in specific cases (platform not supported by the setup program). Refer 
+ to the <a HREF="manual_install_odi.htm">Manual Installation of Oracle 
+ Data Integrator</a> and <a HREF="install_java_as400.htm">installing the 
+ Java Agent on iSeries and AS/400</a> topics for more details.</p>
+
+<h2>Uninstalling Oracle Data Integrator and Oracle Data Quality Products</h2>
+
+<p class=HowTo>To uninstall Oracle Data Integrator and Oracle Data Quality 
+ Products:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Open the directory containing the Oracle Data 
+ Integrator setup.</p></li>
+	
+	<li class=kadov-p><p>Start Oracle Universal Installer as follows:</p></li>
+</ol>
+
+<table x-use-null-cells class="whs3">
+<col>
+<col>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>On... &nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Do This... </th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau>UNIX/Linux &nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td class=whs6>
+<p class=TexteTableau>Double-click <span class=Code>setup.sh</span> or 
+ enter the following command at the operating system prompt: <span class=Code>&nbsp;./runInstaller</span></td></tr>
+
+<tr>
+<td class=whs7>
+<p class=TexteTableau>Windows &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td class=whs9>
+<p class=TexteTableau>Double-click <span class=Code>setup.bat</span>. </td></tr>
+</table>
+
+<p class="whs6">The Welcome screen appears.</p>
+
+<ol start="5" type="1" class="whs2">
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>Installed Products..</span>..</p></li>
+	
+	<li class=kadov-p><p>Select the products to remove from the Installed 
+ Products window. </p></li>
+	
+	<li class=kadov-p><p>Select the <span class=ElementGUI>Remove</span> 
+ button.</p></li>
+</ol>
+
+<h3>Removing the Oracle Data Quality Services on UNIX</h3>
+
+<p>In order to successfully uninstall the Oracle Data Quality server, you 
+ may need to remove various directories and also entries from several files 
+ on certain UNIX platforms.</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Verify that there are no users logged on to the 
+ Metabase Server.</p></li>
+	
+	<li class=kadov-p><p>Log on to the UNIX server as Root.</p></li>
+	
+	<li class=kadov-p><p>Stop the scheduler server</p></li>
+	
+	<ol type="1" class="whs2">
+		
+		<li class=kadov-p><p>Change directories to &lt;<span class=Code>ODI_HOME&gt;/oracledq/metabase_server/metabase/bin</span></p></li>
+		
+		<li class=kadov-p><p>Type the command:<span class=Code> ./scheduler 
+ -stop</span></p></li>
+	</ol>
+	
+	<li class=kadov-p><p>Delete the data quality information</p></li>
+	
+	<ol type="1" class="whs2">
+		
+		<li class=kadov-p><p>Change directories to &lt;<span class=Code>ODI_HOME&gt;/oracledq</span></p></li>
+		
+		<li class=kadov-p><p>Type the command:<span class=Code> rm -R /metabase_server</span></p></li>
+		
+		<li class=kadov-p><p>Type the command:<span class=Code> rm -R /metabase_data</span>.Note 
+ that this command deletes all the repository and metabase data.</p></li>
+	</ol>
+	
+	<li class=kadov-p><p>Remove the services</p></li>
+	
+	<ol type="1" class="whs2">
+		
+		<li class=kadov-p><p>Make a backup copy of the<span class=Code> 
+ /etc/services</span> file.</p></li>
+		
+		<li class=kadov-p><p>Open this file for editing and go to the end 
+ of the file.</p></li>
+		
+		<li class=kadov-p><p>Here you will see two lines referring to services 
+ you have created for the metabase server and scheduler.</p></li>
+		
+		<li class=kadov-p><p>Delete these two lines from the services file.</p></li>
+		
+		<li class=kadov-p><p>Save your changes and close the file.</p></li>
+	</ol>
+	
+	<li class=kadov-p><p>Remove the inetd configuration the entry corresponding 
+ to the metabase server.</p></li>
+	
+	<ol type="1" class="whs2">
+		
+		<li class=kadov-p><p>Make a backup copy of the<span class=Code> 
+ /etc/inetd.conf</span> file. Open this file for editing, then find in 
+ it the entry referring to the metabase serve, then remove it and save 
+ the file.</p></li>
+		
+		<li class=kadov-p><p>If using Linux, you must remove instead the<span 
+ class=Code> /etc/xinetd.d/TSDiscovery</span> file.</p></li>
+	</ol>
+	
+	<li class=kadov-p><p>Restart inetd.</p></li>
+</ol>
+
+<p class=howto>&nbsp;</p>
+
+</body>
+</html>

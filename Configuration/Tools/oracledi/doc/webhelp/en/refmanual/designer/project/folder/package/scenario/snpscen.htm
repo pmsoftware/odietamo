@@ -1,0 +1,180 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Scenario</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { text-align:left; x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+ul.whs3 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nDesigner\nProjects\nScenarios\nScenarios");
+addTocInfo("Reference Manual\nOperator\nScenarios\nScenarios");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Scenarios</h1>
+
+<p>A scenario is designed to put a source component (interface, package, 
+ procedure, variable) into production. A scenario results from the generation 
+ of code (SQL, shell, etc) for this component.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> Once generated, 
+ the scenario is stored inside the work repository. The scenario can be 
+ exported then imported to another repository (remote or not) and used 
+ in different contexts. </p>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> The scenario code 
+ (the language generated) is frozen, and all subsequent modifications of 
+ the components which contributed to creating it will not change it in 
+ any way.</p>
+
+<p>The scenario properties are displayed on the <span class=ElementGUI>Definition</span> 
+ tab in the <span class=ElementGUI>Scenario</span> window in the <span 
+ class=ElementGUI>Designer</span> module, or via the <span class=ElementGUI>Operator</span> 
+ module. <a href="#Exploitation scénario">Operation</a> of a scenario takes 
+ place from the same window or from an operating system command window. 
+ In the Designer module, scenarios are grouped under their respective source 
+ components.</p>
+
+<h2>Properties</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" align="left" class="whs1">
+<p class=TitreTableau>Properties</th>
+<th valign="top" align="left" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p>Package/Interface/Variable/Procedure</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name of the component used to create the scenario</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Name</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Name of the scenario </td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Version</td>
+<td valign="top" class="whs2">
+<p>Version of the scenario </td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Description</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Detailed description of the scenario</td></tr>
+</table>
+
+<h2>Execution </h2>
+
+<p>This tab allows you, by using the <span class=ElementGUI>Execute</span> 
+ button, to launch the scenario The window for selecting the <a href="../execution.htm">execution 
+ options</a> opens.</p>
+
+<h2>Variables</h2>
+
+<p>This tab allows you to select the scenario variables. They will be displayed 
+ as parameters when starting the scenario using Metadata Navigator or when 
+ creating a schedule. This selection of parameter variables lets you hide 
+ from the user variables that cannot be parameterized.</p>
+
+<p>If the<span class=ElementGUI> Use All</span> value is selected, then 
+ all variables are considered as parameters. If the <span class=ElementGUI>Selective 
+ Use</span> value if selected, you can select the variables to use as parameters.</p>
+
+<h2><a name="Exploitation scénario"></a>Operating a scenario</h2>
+
+<p>A scenario is operated from the work repository it is stored in. The 
+ same scenario can be executed in several contexts from the same work repository.</p>
+
+<p>A scenario can be:</p>
+
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p><p><a href="../../../../../../usermanual/designer/general/execute_scenario_gui.htm">launched 
+ from Designer or Operator</a></p></li>
+	
+	<li class=kadov-p><p>Scheduled with <a href="snpplanagent.htm">Data 
+ Integrator scheduler</a></p></li>
+	
+	<li class=kadov-p><p>launched from an Operating System <a href="../../../../../../usermanual/agent/scenario_os.htm">command</a> 
+ line interface, using a <a HREF="../../../../../../usermanual/agent/execute_ws.htm">Web 
+ Service</a> or an <a HREF="../../../../../../usermanual/agent/execute_http.htm">HTTP 
+ URL</a>.</p></li>
+	
+	<li class=kadov-p><p>Scheduled with any <a href="../../../../../../usermanual/designer/project/scenario/plan_scenario_external.htm">Scheduler</a></p></li>
+	
+	<li class=kadov-p><p>exported to another work repository where it can 
+ be similarly launched or scheduled. See <a href="../../../../../../usermanual/designer/project/scenario/move_scen.htm">Operating 
+ in another repository</a>.</p></li>
+	
+	<li class=kadov-p><p><a HREF="../../../../../../usermanual/operator/import_scen_prod.htm">Import 
+ a scenario in production</a>.</p></li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Starting Oracle Data Integrator</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+img_whs1 { border:none; float:none; width:425px; height:169px; border-style:none; }
+ol.whs2 { list-style:decimal; }
+img_whs3 { border:none; float:none; width:445px; height:431px; border-style:none; }
+ul.whs4 { list-style:disc; }
+img_whs5 { border:none; float:none; width:640px; height:480px; border-style:none; }
+p.whs6 { text-align:right; x-condition:PRINT_EXCLUDE; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Getting Started with an ETL Project\nStarting Oracle Data Integrator\nStarting the Demonstration Environment");
+addTocInfo("Getting Started with an ETL Project\nStarting Oracle Data Integrator\nStarting Designer");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>First Run</h1>
+
+<h2><a name=BEFORE_START></a>Starting the Demonstration Environment</h2>
+
+<p>Oracle Data Integrator provides the databases that contain the data 
+ used in these examples as well as the initial repository. Before looking 
+ at the different examples, <span style="font-weight: bold; color: #ff0000;"><font color=red ><B>you 
+ must do this first:</B></font></span></p>
+
+<p>Select <span class=ElementGUI>Start Menu</span> &gt; <span class=ElementGUI>Programs</span> 
+ &gt; <span class=ElementGUI>Oracle Data Integrator</span> &gt; <span class=ElementGUI>Examples</span>, 
+ then select <span class=ElementGUI>Start Demo Environment</span><span 
+ class=ElementGUI
+	style="font-weight: normal;">. &nbsp;This</span> 
+ starts the Repository database server as well as the source and target 
+ databases.</p>
+
+<p>To stop these database servers, you can use the <span class=ElementGUI>Stop 
+ Demo Environment </span>shortcut in the same folder. <span style="color: #ff0000; font-weight: bold;"><font color=red ><B>Do 
+ not shut down the databases by using the [CTRL-C] keyboard shortcut, or 
+ by closing their execution windows</B></font></span>. This may corrupt the data in 
+ the database.</p>
+
+<p>If you are in a UNIX environment, you can use the command prompt to 
+ run the appropriate .sh files located in your Oracle Data Integrator install/bin 
+ directory by adding &quot;<span class=Code>&amp;</span>&quot; to start 
+ the servers as a background task (for example, type: <span class=Code>startdemo.sh&amp;</span> 
+ to start the Repository database and <span class=Code>stopdemo.sh</span> 
+ to stop it.)</p>
+
+<h2><a name=START_DESIGNER></a>Starting Designer</h2>
+
+<ol>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>Select <span class=ElementGUI>Start Menu</span> 
+ &gt; <span class=ElementGUI>Programs</span> &gt; <span class=ElementGUI>Oracle 
+ Data Integrator</span> &nbsp;&gt; 
+ <span class=ElementGUI>Designer</span>. The following window is displayed, 
+ prompting you to select the repository you wish to connect to:<br>
+	<br>
+	<img src="login_etl.jpg" x-maintain-ratio="TRUE" width="425px" height="169px" border="0" class="img_whs1"></p></li>
+	
+	<li class=kadov-p><p>Select the appropriate login from the <span class=ElementGUI>Login 
+ Name</span> from the dropdown menu. &nbsp;Choose 
+ <span style="font-style: italic;"><I>Getting Started – ETL Project</I></span>.</p></li>
+	
+	<li class=kadov-p><p>Click on <span class=ElementGUI>OK</span> to connect 
+ to the Repository.</p></li>
+</ol>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span><span style="font-weight: bold;"> 
+ <B></B></span>Make sure you have <span style="font-weight: bold;"><B>started the 
+ Repository server</B></span> as specified in the previous section, as well 
+ as the &quot;Orders Application&quot; and &quot;Sales Administration&quot; 
+ applications database servers.</p>
+
+<ol start="4" type="1" class="whs2">
+	
+	<li class=kadov-p>
+		<p><span class=ElementGUI>Designer</span> starts</p></li>
+	
+</ol>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: When Designer 
+ opens, a Wizard window may appear. &nbsp;You 
+ can close this window by clicking <span class=ElementGUI>Close</span>.<br>
+<br>
+<img src="../common/wizard_start.jpg" x-maintain-ratio="TRUE" width="445px" height="431px" border="0" class="img_whs3"><br>&nbsp;</p>
+
+<h2>Designer Interface</h2>
+
+<p>Designer manages:</p>
+
+<ul type="disc" class="whs4">
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>The data models</B></span> 
+ for your applications: all of the metadata in your data servers (tables, 
+ columns, constraints, descriptions, cross-references, etc.)</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>The projects</B></span>: 
+ all of the loading and transformation rules for your data servers (interfaces, 
+ procedures, variables, etc.)</p></li>
+</ul>
+
+<p>The Designer GUI appears as follow:</p>
+
+<p><img src="../common/designer_layout.jpg" x-maintain-ratio="TRUE" width="640px" height="480px" border="0" class="img_whs5"></p>
+
+<h3>The Menu</h3>
+
+<p>The <span class=ElementGUI>Menu</span> contains pull-down menus to access 
+ the following features:</p>
+
+<ul type="disc" class="whs4">
+	
+	<li class=kadov-p><p>Import/Export</p></li>
+	
+	<li class=kadov-p><p>Wizards</p></li>
+	
+	<li class=kadov-p><p>Display options</p></li>
+	
+	<li class=kadov-p><p>Open modules or tree views</p></li>
+	
+	<li class=kadov-p><p>Change the user's password and options</p></li>
+</ul>
+
+<h3>The Toolbar</h3>
+
+<p>The <span class=ElementGUI>Toolbar</span> enables you to:</p>
+
+<ul type="disc" class="whs4">
+	
+	<li class=kadov-p><p>Open other Oracle Data Integrator modules</p></li>
+	
+	<li class=kadov-p><p>Refresh the Tree views</p></li>
+	
+	<li class=kadov-p><p>Open the on-online help</p></li>
+	
+	<li class=kadov-p><p>Choose the default <span class=ElementGUI>context. 
+ </span>The context used for this project is called <span style="font-style: italic;"><I>Global</I></span>.</p></li>
+</ul>
+
+<h3>The Tree Views</h3>
+
+<p>Designer objects available to the current user are organized into the 
+ following tree views: <span class=ElementGUI>Projects</span>, <span class=ElementGUI>Models</span>, 
+ <span class=ElementGUI>Solutions </span>and <span class=ElementGUI>Other</span> 
+ (User Functions, Global Variables and Sequences).</p>
+
+<p>You will perform most actions on the objects via pop-up menus (by selecting 
+ the object, then right-clicking to display a menu). </p>
+
+<p>Each tree view appears in a floatable frames that may be docked to the 
+ sides of the Designer main window. These frames can also be stacked up. 
+ When several frames are stacked up, tabs appear at the bottom of the frame 
+ window to access each frame of the stack.</p>
+
+<p>Tree view frames can be moved, docked and stacked by selecting and dragging 
+ the frame title or tab. If a tree view frame does not appear in the Designer 
+ main window or has been closed, it can be opened using the <span class=ElementGUI>Windows</span> 
+ &gt; <span class=ElementGUI>Show View</span> menu.</p>
+
+<p>Objects already exist in the demo repository:</p>
+
+<ul type="disc" class="whs4">
+	
+	<li class=kadov-p><p>In the <span style="font-weight: bold;"><B>Models</B></span> 
+ view, you will find all the data models corresponding to the <span style="font-style: italic;"><I>Orders 
+ Application</I></span>, <span style="font-style: italic;"><I>Parameters</I></span> 
+ and <span style="font-style: italic;"><I>Sales Administration</I></span> applications.</p></li>
+	
+	<li class=kadov-p><p>In the <span style="font-weight: bold;"><B>Projects 
+ </B></span>view, you will find the <span style="font-style: italic;"><I>Demo</I></span> 
+ project and the <span style="font-style: italic;"><I>Sales Administration</I></span> 
+ folder which already contains several interfaces. You will develop your 
+ new interfaces in this folder.</p></li>
+</ul>
+
+<h3><a name=workbench></a>The Workbench</h3>
+
+<p>The windows for object being edited or displayed appear in the <span 
+ class=ElementGUI>Workbench</span>.</p>
+
+<p align="right" class="whs6"><a href="introduction.htm"
+					style="x-condition: PRINT_EXCLUDE;">&lt;&lt; Introduction</a> 
+ | <a href="ctrl_intro.htm"
+		style="x-condition: PRINT_EXCLUDE;">Introduction to Data Integrity 
+ Control &gt;&gt;</a></p>
+
+</body>
+</html>

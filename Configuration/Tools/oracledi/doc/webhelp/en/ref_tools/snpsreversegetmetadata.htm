@@ -1,0 +1,159 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>OdiReverseGetMetaData</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nMetadata\nOdiReverseGetMetaData");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>OdiReverseGetMetaData</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>OdiReverseGetMetaData -MODEL=&lt;model_id&gt; </span></p>
+
+<h2>Description</h2>
+
+<p>During a personalized reverse, it is possible to load temporary tables:</p>
+
+<ul>
+	
+	<li class=kadov-p
+		class=kadov-p>SNP_REV_TABLE: Table of the datastores</li>
+	
+	<li class=kadov-p
+		class=kadov-p>SNP_REV_COL: Table of the columns</li>
+	
+	<li class=kadov-p
+		class=kadov-p>SNP_REV_KEY: Table of the unique keys</li>
+	
+	<li class=kadov-p
+		class=kadov-p>SNP_REV_KEY_COL: Table of the key columns&nbsp;</li>
+	
+	<li class=kadov-p
+		class=kadov-p>SNP_REV_JOIN: Table of the foreign keys</li>
+	
+	<li class=kadov-p
+		class=kadov-p>SNP_REV_JOIN_COL: Table of the foreign keys columns</li>
+	
+	<li class=kadov-p
+		class=kadov-p>SNP_REV_COND: Table of the conditions (check constraints)</li>
+</ul>
+
+<p>with meta-data through a specific processing, from a Knowledge Module 
+ or from Oracle Data Integrator interfaces. The processing can be summarized in 
+ three major steps:</p>
+
+<ul>
+	
+	<li class=kadov-p
+		class=kadov-p>Purge the temporary tables of the reverse engineering</li>
+	
+	<li class=kadov-p
+		class=kadov-p>Personalized processing to feed these reverse engineering 
+ tables from the meta-data</li>
+	
+	<li class=kadov-p
+		class=kadov-p>Execution of the integration of the meta-data in 
+ the Repository</li>
+</ul>
+
+<p>This command allows to reverse-engineer the given model in the temporary 
+ reverse tables. This command is preceded by <a HREF="snpsreverseresettable.html">OdiReverseResetTable</a>, 
+ and is followed by <a HREF="snpsreversesetmetadata.html">OdiReverseSetMetaData</a>.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: This command uses 
+ the same technique as the standard reverse-engineering, and depends on 
+ the capabilities of the driver.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Parameters</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Mandatory</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p><span class=Code>-MODEL=&lt;model_id&gt;</span></td>
+<td valign="top" class="whs2">
+<p>Yes</td>
+<td valign="top" class="whs2">
+<p>Model to reverse-engineer.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>Reverse the RKM's current model.</p>
+
+<p><span class=Code>OdiReverseGetMetaData -MODEL=&lt;%=odiRef.getModel(&quot;ID&quot;)%&gt;</span></p>
+
+</body>
+</html>

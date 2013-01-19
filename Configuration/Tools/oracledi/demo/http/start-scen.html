@@ -1,0 +1,81 @@
+<!--
+This is an exemple of script that interacts with StartScen Servlet.
+See the Sunopsis documentation's topic "Execute a scenario from a HTTP URL".
+-->
+<html>
+	<title>Script Example of HTTP StartScen</title>
+	<body>
+		<h1>Enter appropriate values in order to execute your Sunopsis Scenario</h1>
+		<form method="post" name="form1" action="./startscen.do">
+			<table>
+				<tr>
+					<td><b>HTTP Parameter Name</b></td>
+					<td><b>HTTP Parameter Value</b></td>
+				</tr>
+				<tr>
+					<td><b>agent_name</b></td>
+					<td><input type="text" name="agent_name" value=""/></td>
+				</tr>
+				<tr>
+					<td><b>agent_port</b></td>
+					<td><input type="text" name="agent_port" value=""/></td>
+				</tr>
+				<tr>
+					<td><b>master_driver</b></td>
+					<td><input type="text" name="master_driver" value=""/></td>
+				</tr>
+				<tr>
+					<td><b>master_url</b></td>
+					<td><input type="text" name="master_url" value=""/></td>
+				</tr>
+				<tr>
+					<td><b>master_user</b></td>
+					<td><input type="text" name="master_user" value=""/></td>
+				</tr>
+				<tr>
+					<td><b>master_psw</b></td>
+					<td><input type="text" name="master_psw" value=""/></td>
+				</tr>
+				<tr>
+					<td><b>work_repository</b></td>
+					<td><input type="text" name="work_repository" value=""/></td>
+				</tr>
+				<tr>
+					<td><b>snps_user</b></td>
+					<td><input type="text" name="snps_user" value=""/></td>
+				</tr>
+				<tr>
+					<td><b>snps_psw</b></td>
+					<td><input type="text" name="snps_psw" value=""/></td>
+				</tr>
+				<tr>
+					<td><b>scen_name</b></td>
+					<td><input type="text" name="scen_name" value=""/></td>
+				</tr>
+				<tr>
+					<td><b>scen_version</b></td>
+					<td><input type="text" name="scen_version" value=""/></td>
+				</tr>
+				<tr>
+					<td><b>context_code</b></td>
+					<td><input type="text" name="context_code" value=""/></td>
+				</tr>
+				<tr>
+					<td><b>log_level<b></td>
+					<td><input type="text" name="log_level" value=""/></td>
+				</tr>
+				<tr>
+					<td><b>http_reply</b> (XML|HTML|TXT)</td>
+					<td><input type="text" name="http_reply" value=""/></td>
+				</tr>
+				<tr>
+					<td>You could add here all necessary variables for your scenario</td>
+					<td/>
+					<td><b>NAME_OF_YOUR_VARIABLE</b></td>
+					<td><input type="text" name="NAME_OF_YOUR_VARIABLE"/></td>
+				</tr>
+			</table>			
+			<p><input type="submit"/></p>
+		</form>
+	</body>
+</html>

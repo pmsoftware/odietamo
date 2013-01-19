@@ -1,0 +1,132 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Generating a group of Scenarios</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+ul.whs2 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nDesigner\nProjects\nCreating Scenarios\nGenerating a Group of Scenarios");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Generating a Group of Scenarios</h1>
+
+<p>When a set of <span class=ElementGUI>packages, interfaces, procedures 
+ and variables </span>grouped under a <span class=ElementGUI>project</span> 
+ or <span class=ElementGUI>folder</span> is finished and tested, you can 
+ prepare them for operation by generating the scenarios. This operation 
+ takes place in the <span class=ElementGUI>Designer</span> module.</p>
+
+<h6>To generate a group of scenarios:</h6>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Select the <span class=ElementGUI>Project</span> 
+ or <span class=ElementGUI>Folder</span> containing the group of objects.</p></li>
+	
+	<li class=kadov-p><p>Right click and select <span class=ElementGUI>Generate 
+ all scenarios...</span></p></li>
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>Scenario Generation</span> 
+ window , select the scenario <span class=ElementGUI>Generation Mode:</span></p></li>
+	
+	<ul type="disc" class="whs2">
+		
+		<li class=kadov-p><p><span class=ElementGUI>Replace:</span> causes 
+ the last scenario generated to be replaced by the new one generated.</p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>Creation:</span> creates 
+ a new scenario named the same as the last scenario generated, with the 
+ version number automatically increased. If no scenario is created yet, 
+ the new scenario will have the source component's name.</p></li>
+	</ul>
+</ol>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> If the <span class=ElementGUI>version</span> 
+ of the last scenario is an integer, it will be automatically incremented 
+ by 1 when selecting a <span class=ElementGUI>Creation</span> <span class=ElementGUI>Generation 
+ Mode</span>. If not, the version will be automatically set to the current 
+ date.</p>
+
+<ol start="4" type="1" class="whs1">
+	
+	<li class=kadov-p><p>Select the types of objects for which you want 
+ to generate scenarios.</p></li>
+	
+	<li class=kadov-p><p>Filter the components to generate according to 
+ a marker from a marker group.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span>.</p></li>
+	
+	<li class=kadov-p><p>If you use variables in the scenario, you can 
+ define in the <span class=ElementGUI>Scenario Variables</span> window 
+ the variables that will be considered as parameters for the scenario. 
+ Select <span class=ElementGUI>Use All</span> if you want all variables 
+ to<span class=ElementGUI
+		style="font-weight: normal;"> be parameters, or </span><span class=ElementGUI>Selective 
+ Use</span><span class=ElementGUI
+				style="font-weight: normal;">, then check the parameter 
+ variables.</span></p></li>
+</ol>
+
+</body>
+</html>

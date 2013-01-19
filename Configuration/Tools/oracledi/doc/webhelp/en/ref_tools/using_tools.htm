@@ -1,0 +1,264 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Using the Oracle Data IntegratorTools</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+p.whs2 { color:#008080; }
+ul.whs3 { list-style:square; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Tools Reference\nUsing the Oracle Data Integrator Tools");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Using the Oracle Data Integrator Tools</h1>
+
+<p>Oracle Data Integrator Tools (also called Oracle Data Integrator Commands) are commands 
+ provided for performing specific tasks at run-time. These tasks may be 
+ as simple as waiting for a certain time or producing a sound, or as sophisticated 
+ as executing ANT Scripts or reading emails from a server.</p>
+
+<p>The tools may be added while working with Designer. They may be used 
+ into Packages, or into Procedures Commands or Knowledge Modules Commands. 
+ It is also possible to use them directly from an OS command line.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: In ODI version 
+ 10.1.3 and above, the tools are renamed <span style="font-weight: bold;"><B>Odi</B></span><span 
+ style="font-weight: bold; font-style: italic;"><I><B>Xxx</B></I></span>. The old naming 
+ convention <span style="font-weight: bold;"><B>Snp</B></span><span style="font-weight: bold; font-style: italic;"><I><B>Xxx</B></I></span> 
+ still works but is deprecated.</p>
+
+<h6>To use an Oracle Data Integrator Tool into a Package:</h6>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Open the <span class=ElementGUI>Package</span> 
+ you want to modify.</p></li>
+	
+	<li class=kadov-p><p>If the <span class=ElementGUI>Toolbox</span> window 
+ is not displayed, click the <span class=ElementGUI>Display Toolbox</span> 
+ button in the menu bar of the <span class=ElementGUI>Package</span> window. 
+ The <span class=ElementGUI>Toolbox</span> window appears.</p></li>
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>Toolbox</span>, 
+ Select the icon of the <span class=ElementGUI>Tool</span> you want to 
+ use and click into the package window. A step with the tool icon appears 
+ in the package. </p></li>
+	
+	<li class=kadov-p><p>Click the <span class=ElementGUI>Selection</span> 
+ button in the menu bar, then double click this step.</p></li>
+	
+	<li class=kadov-p><p>A <span class=ElementGUI>Properties</span> window 
+ for this tool appears. Set the value of the parameters in this properties 
+ window.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>Apply</span>.</p></li>
+</ol>
+
+<p>It is possible to sequence the tools steps within the package, and organize 
+ them according to their success or failure.</p>
+
+<h6>To use an Oracle Data Integrator Tool into a Knowledge Module or a Procedure 
+ Command:</h6>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Open an existing (or add a new) <span class=ElementGUI>Command</span> 
+ in the <span class=ElementGUI>Knowledge Module</span> or a <span class=ElementGUI>Specific 
+ Procedure</span>.</p></li>
+	
+	<li class=kadov-p><p>Select the <span class=ElementGUI>Target</span> 
+ Tab, and set the <span class=ElementGUI>Technology</span> to <span class=Code>Sunopsis 
+ API</span>.</p></li>
+	
+	<li class=kadov-p><p>Open the <span class=ElementGUI>Expression Editor</span>, 
+ and type in the command. The expression editor provides code hints for 
+ the command syntax.</p></li>
+	
+	<li class=kadov-p><p>Select the <span class=ElementGUI>Log Level</span> 
+ for your command, and check the <span class=ElementGUI>Ignore Error</span> 
+ box if you want this command only to issue a warning in case of failure.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>Apply</span>.</p></li>
+</ol>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: It is possible 
+ to use Oracle Data Integrator commands in both the <span class=ElementGUI>Source</span> 
+ or <span class=ElementGUI>Target</span> tabs. </p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: The <span class=Code>Sunopsis 
+ API</span> technology do not support transaction or commit options.</p>
+
+<h6>To use an Oracle Data Integrator Tool from a command line:</h6>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Launch a <span class=ElementGUI>Shell</span> (UNIX), 
+ a <span class=ElementGUI>Command Prompt</span> (Windows) or a <span class=ElementGUI>QSH</span> 
+ session (AS/400).</p></li>
+	
+	<li class=kadov-p><p>Go to the<span class=Code> /bin</span> sub-directory 
+ of the Oracle Data Integrator installation directory.</p></li>
+	
+	<li class=kadov-p><p>Launch the <span class=Code>startcmd.bat</span> 
+ (on Windows) or <span class=Code>startcmd.sh</span> (on UNIX and AS/400) 
+ command, with the following syntax: <span class=Code><br>
+	<br>
+	startcmd &lt;command_name&gt; [&lt;command_parameters&gt;]*<br>
+	&nbsp;</span></p></li>
+</ol>
+
+<p class=Remarque><span class=AlertTitre>Warning</span>: On Windows platforms, 
+ it is necessary to surround the command arguments containing &quot;=&quot; 
+ signs or spaces, by using double quotes. The command call may differ from 
+ the UNIX command call. For instance :<span class=Code><br>
+startcmd.bat OdiSleep &quot;-DELAY=5000&quot; </span>(Windows)<span class=Code><br>
+./call startcmd.sh OdiSleep -DELAY=5000</span> (UNIX)</p>
+
+<p class=Remarque><span class=AlertTitre>Warning</span>: The <span class=Code>&lt;command_name&gt;</span> 
+ parameter is a case-sensitive.</p>
+
+<h2>Advanced Tools Usage</h2>
+
+<p>It is possible to use directly in the tool parameters value variables, 
+ sequences, Oracle Data Integrator API calls or the results from a SELECT statement.</p>
+
+<h3>Variables and Sequences</h3>
+
+<p>Using a variable or sequence into a tool parameter is straightforward. 
+ You can specify the variable with the syntax <span class=Code>#&lt;project_code&gt;.&lt;variable 
+ or sequence name&gt;</span> for project variables/sequences or <span class=Code>#GLOBAL.&lt;variable 
+ or sequence name&gt;</span> for global variables/sequences. It is not 
+ necessary to surround the variable value by quotes. </p>
+
+<p>You may use the expression editor to insert sequence or variables into 
+ a command code. In this case, it is not necessary to prefix the variable 
+ or sequence name by the project code or GLOBAL.</p>
+
+<h6>Example:</h6>
+
+<p><span class=Code>OdiOutFile -FILE=/temp/testsequence.txt<br>
+I have the (incremented) sequence value </span><span class=Code
+													style="color: #008080;"><font color=teal >#SEQ01_NEXTVAL</font></span><span 
+ class=Code> and variable value </span><span class=Code
+											style="color: #008080;"><font color=teal >#VAR01</font></span><span 
+ class=Code> </span></p>
+
+<h3>Oracle Data Integrator API Calls</h3>
+
+<p>Oracle Data Integrator API Methods are used to generate code from the metadata 
+ contained into Repository. The calls can be performed into the values 
+ of the API. See <a HREF="../ref_api/syntaxe_functions.html">Syntax for 
+ using the methods</a> for more information.</p>
+
+<p class=Remarque><span class=ElementGUI>Note</span>: The APIs available 
+ depend on the location the tool is used (For instance, the getOption method 
+ that retrieves a knowledge modules or procedures option value has no meaning 
+ is used in a package step).</p>
+
+<h6>Example:</h6>
+
+<p class="whs2"><span class=Code><font color=teal >OdiOutFile -FILE=/temp/testoption.txt<br>
+The Knowledge Module Option called MY_KM_OPTION has value</font></span><span class=Code
+	style="color: #008080;"><font color=teal > &lt;%=odiRef.getOption( &quot;MY_KM_OPTION&quot; 
+ )%&gt;</font></span></p>
+
+<h3>Using the Result of a SELECT Statement</h3>
+
+<p>When designing a knowledge module or a procedure command, it is possible 
+ to specify in the source tab of the command a SQL SELECT statement (performed 
+ on a technology having SQL capabilities), and on the target tab a Data 
+ Integrator Tool usage (performed on the <span class=Code>Sunopsis 
+ API</span> technology).</p>
+
+<p>For each row returned by the SELECT statement, the Oracle Data Integrator Tool 
+ command will be executed. It is possible to use the values of the fields 
+ returned by the SELECT statement in the Oracle Data Integrator Tool command syntax, 
+ prefixing them with a # character. These fields names will be substituted 
+ before the execution of the command.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: If using aliases 
+ for expressions, then the alias name should be used as the field name 
+ returned by the SQL SELECT statement.</p>
+
+<h6>Example:</h6>
+
+<ul type="square" class="whs3">
+	
+	<li class=kadov-p><p>Source Command (<span class=Code>Oracle</span>):<span 
+ class=Code><br>
+	select </span><span class=Code
+						style="color: #008080;"><font color=teal >COUNTRY_NAME</font></span><span 
+ class=Code>, POPULATION/1000 as </span><span class=Code
+												style="color: #008080;"><font color=teal >POP_SMALL</font></span><span 
+ class=Code> from COUNTR</span>Y</p></li>
+	
+	<li class=kadov-p><p>Target Command (<span class=Code>Sunopsis 
+ API</span>):<span class=Code><br>
+	OdiOutFile -FILE=/temp/testsequence.txt<br>
+	There is </span><span class=Code
+							style="color: #008080;"><font color=teal >#POP_SMALL</font></span><span 
+ class=Code> thousands inhabitants in </span><span class=Code
+													style="color: #008080;"><font color=teal >#COUNTRY_NAME</font></span></p></li>
+</ul>
+
+</body>
+</html>

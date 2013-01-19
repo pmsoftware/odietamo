@@ -1,0 +1,186 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Dictionaries</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Jython Quick Reference\nThe Basics\nData Types\nDictionaries");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Dictionaries</h1>
+
+<p>Dictionaries are arrays of objects indexed on a key (string value) and 
+ not by an index.</p>
+
+<p>A dictionary is accessed with a tuple <span class=ElementGUI>key:value 
+ </span>separated by commas and in brackets.</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=Code>{}</span> is an empty dictionary</p></li>
+	
+	<li class=kadov-p><p><span class=Code>{'P1':'Watch', 'P2': 'Birds', 
+ 'P3':'Horses'}</span> is a dictionary with 3 elements with the following 
+ keys: P1, P2 and P3</p></li>
+	
+	<li class=kadov-p><p><span class=Code>adict = {'FR_US':{</span><span 
+ class=Code
+	style="margin-left: 40px;">'Bonjour':'Hello', </span><span class=Code
+	style="margin-left: 160px;">'Au revoir':'Goodbye'}, 'US_FR':{'Hello': 
+ 'Bonjour','Goodbye':'Au Revoir'}} </span>is a dictionary that contains 
+ other dictionaries. To translate 'Hello' in French:: <span class=Code>adict['US_FR']['Hello'] 
+ </span></p></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<h2>Some methods to handle dictionaries</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau
+	style="font-weight: bold;">Method</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau
+	style="font-weight: bold;">Description </th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau><span class=Code>adict.has_key(k)</span></td>
+<td class=whs5>
+<p class=TexteTableau>Returns TRUE (1) if the key <span class=Code>k</span> 
+ exists in the dictionary</td></tr>
+
+<tr>
+<td class=whs6>
+<p class=TexteTableau><span class=Code>adict.keys()</span></td>
+<td class=whs7>
+<p class=TexteTableau>Returns the list of dictionary keys</td></tr>
+
+<tr>
+<td class=whs8>
+<p class=TexteTableau><span class=Code>adict.values()</span></td>
+<td class=whs9>
+<p class=TexteTableau>Returns a list of dictionary values</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1
+	class=whs10>
+<p class=TexteTableau><span class=Code>adict.items()</span></td>
+<td colspan=1
+	rowspan=1
+	class=whs11>
+<p>Returns a list of tuples (key, value) for each element of the dictionary</td></tr>
+
+<tr>
+<td class=whs12>
+<p class=TexteTableau><span class=Code>adict.clear()</span></td>
+<td class=whs13>
+<p class=TexteTableau>Deletes all elements of <span class=Code>adict</span></td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>adict.copy()</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Returns a copy of <span class=Code>adict</span></td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>dic1.update(dic2)</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Update the dictionary <span class=Code>dic1</span> 
+ with the values of <span class=Code>dic2</span> &nbsp;based 
+ on the values of the keys</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>adict.get(k[,default])</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Equivalent to<span class=Code> adict[k]</span> but 
+ returns <span class=Code>default</span> if <span class=Code>k</span> cannot 
+ be found.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>adict.popitem()</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Retrieves an element and deletes it from the dictionary</td></tr>
+</table>
+
+</body>
+</html>

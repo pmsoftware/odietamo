@@ -1,0 +1,128 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Jython variable persistence in a session</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+p.whs1 { margin-left:40px; }
+p.whs2 { margin-left:0px; }
+-->
+</style><script type="text/javascript" language="JavaScript">
+<!--
+if ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion) == 4))
+{
+  var strNSS = "<style type='text/css'>";
+  strNSS += "p.whs2 {margin-left:1pt; }";
+  strNSS +="</style>";
+  document.write(strNSS);
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Jython Quick Reference\nUsing Jython in Oracle Data Integrator\nJython variables persistence in a session");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Jython variable persistence in a session</h1>
+
+<p>All the Jython variables used are persistent in an execution session. 
+ </p>
+
+<p>If a <span class=ElementGUI> Procedure</span> <span class=Code>TRT1</span> 
+ has 3 <span class=ElementGUI>command lines</span> defined as:</p>
+
+<p>Line 1 : <span class=Code>Set value for x</span></p>
+
+<p class="whs1"><span class=Code>x = 'My Taylor is Rich'</span></p>
+
+<p class="whs1">&nbsp;</p>
+
+<p class="whs2">Line 2 : <span class=Code>Set value for y</span></p>
+
+<p class="whs1"><span class=Code>y = 'I wish I could say 
+ :'</span></p>
+
+<p class="whs1">&nbsp;</p>
+
+<p class="whs2">Line 3 : <span class=Code>Write output file</span></p>
+
+<p class="whs1"><span class=Code>f = open('test.txt', 'w')</span></p>
+
+<p class="whs1"><span class=Code>f.write('Result : %s %s' 
+ &nbsp;% (y, x))</span></p>
+
+<p class="whs1"><span class=Code>f.close()</span></p>
+
+<p>&nbsp;</p>
+
+<p>After running <span class=Code>TRT1</span>, the content of the resulting 
+ <span class=Code>test.txt</span> file will be<span class=Code> Result 
+ : I wish I could say : My Taylor is Rich</span></p>
+
+<p>The Jython variables <span class=Code>x</span> and <span class=Code>y</span> 
+ have kept their values within the same procedure across several command 
+ lines.</p>
+
+<p>Likewise, a process <span class=Code>TRT2</span> that would be executed 
+ after <span class=Code>TRT1</span> in a package could use the variables<span 
+ class=Code> x</span> and <span class=Code>y</span> within the same execution 
+ session.</p>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">
+
+	<!-- Modify table structure -->		
+	
+	<!-- SNP_VAR_SCEN : Modify VAR_NAME -->									
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			IGNORE_ERROR:ALTER TABLE SNP_VAR_SCEN ALTER COLUMN VAR_NAME SET DATA TYPE <?=snpRef.getDataType("SRC_VARCHAR","71")?>		
+		]]></Field>		
+		
+	
+	<!-- SNP_SCEN_STEP : Modify VAR_NAME -->									
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			IGNORE_ERROR:ALTER TABLE SNP_SCEN_STEP ALTER COLUMN VAR_NAME SET DATA TYPE <?=snpRef.getDataType("SRC_VARCHAR","71")?>		
+		]]></Field>			
+	
+	<!-- SNP_VAR_SESS : Modify VAR_NAME -->									
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			IGNORE_ERROR:ALTER TABLE SNP_VAR_SESS ALTER COLUMN VAR_NAME SET DATA TYPE <?=snpRef.getDataType("SRC_VARCHAR","71")?>		
+		]]></Field>		
+		
+	
+	<!-- SNP_SESS_STEP : Modify VAR_NAME -->									
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			IGNORE_ERROR:ALTER TABLE SNP_SESS_STEP ALTER COLUMN VAR_NAME SET DATA TYPE <?=snpRef.getDataType("SRC_VARCHAR","71")?>		
+		]]></Field>					
+		
+		
+	<!-- SNP_SESS_TASK : Add Collecte and Default Techno -->										
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[													
+			ALTER TABLE SNP_SESS_TASK ADD DEF_TECH_INT_NAME <?=snpRef.getDataType("SRC_VARCHAR","35")?> DEFAULT <?=snpRef.getInfo("SRC_DDL_NULL")?>	
+		]]></Field>					
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[													
+			ALTER TABLE SNP_SESS_TASK ADD COL_TECH_INT_NAME <?=snpRef.getDataType("SRC_VARCHAR","35")?>	DEFAULT <?=snpRef.getInfo("SRC_DDL_NULL")?>
+		]]></Field>							
+		
+		
+	<!-- SNP_FF_VALUEE -->					
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[		
+			create table SNP_FF_VALUEE
+			(
+				FF_CODE		<?=snpRef.getDataType("SRC_VARCHAR","35")?>	NOT NULL,
+				I_INSTANCE	<?=snpRef.getDataType("SRC_NUMERIC","10")?>	NOT NULL,
+				I_OBJECTS	<?=snpRef.getDataType("SRC_NUMERIC","10")?>	NOT NULL,
+				NUM_VALUE	<?=snpRef.getDataType("SRC_NUMERIC","10")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+				SHORT_TXT_VALUE	<?=snpRef.getDataType("SRC_VARCHAR","250")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+			)
+		]]></Field>			
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[							
+			ALTER TABLE SNP_FF_VALUEE ADD CONSTRAINT PK_FF_VALUEE PRIMARY KEY (FF_CODE, I_INSTANCE)
+		]]></Field>		
+		
+		
+	<!-- SNP_SCEN_TASK : Collect and default techno -->							
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[		
+			ALTER TABLE SNP_SCEN_TASK ADD DEF_TECH_INT_NAME <?=snpRef.getDataType("SRC_VARCHAR","35")?> DEFAULT <?=snpRef.getInfo("SRC_DDL_NULL")?>
+		]]></Field>				
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			ALTER TABLE SNP_SCEN_TASK ADD COL_TECH_INT_NAME <?=snpRef.getDataType("SRC_VARCHAR","35")?> DEFAULT <?=snpRef.getInfo("SRC_DDL_NULL")?>
+		]]></Field>		
+		
+		
+	<!-- Add USER_NAME -->									
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[				
+			ALTER TABLE SNP_SESSION ADD USER_NAME <?=snpRef.getDataType("SRC_VARCHAR","35")?> DEFAULT <?=snpRef.getInfo("SRC_DDL_NULL")?>
+		]]></Field>					
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[						
+			ALTER TABLE SNP_PLAN_AGENT ADD USER_NAME <?=snpRef.getDataType("SRC_VARCHAR","35")?> DEFAULT <?=snpRef.getInfo("SRC_DDL_NULL")?>
+		]]></Field>																	
+		
+	<!-- Update Repository Version-->	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[update SNP_LOC_REPW set MIN_EXE_VERSION = '3.1.01.01']]>
+	</Field>		
+	
+</Object>
+</SunopsisRepository>
+

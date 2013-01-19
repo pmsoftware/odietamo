@@ -1,0 +1,312 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Creating and using sequences</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+ol.whs2 { list-style:decimal; }
+img_whs3 { border:none; width:16px; height:16px; float:none; border-style:none; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nDesigner\nProjects\nCreating Variables & Sequences\nCreating and Using Sequences");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Creating and Using Sequences</h1>
+
+<p>A sequence is a value that increments automatically when used. </p>
+
+<p>Oracle Data Integrator sequences are intended primarily to compensate for the 
+ lack of native sequences on certain RDBMS. The value can be stored in 
+ the Repository or managed within a cell of an external RDBMS table.</p>
+
+<p>A sequence can be created as a <span class=ElementGUI>global</span> 
+ sequence or in a <span class=ElementGUI>project</span>. Global sequences 
+ are common to all projects, whereas project sequences are only available 
+ in the project where they are defined.</p>
+
+<p>Oracle Data Integrator supports two types of sequences:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=ElementGUI>Standard sequences</span>, 
+ whose current values ares stored in the Repository.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Specific sequences </span>, 
+ whose current values are stored in an RDBMS table cell. Oracle Data Integrator 
+ reads the value, locks the row (for concurrent updates) and updates the 
+ row after the last increment.</p></li>
+</ul>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> Oracle Data Integrator 
+ locks the sequence when it is being used for multi-user management, but 
+ does not handle the sequence restart points. In other words, the SQL statement 
+ ROLLBACK does not return the sequence to its value at the beginning of 
+ the transaction.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note: </span>Oracle Data Integrator 
+ sequences were developed to compensate for their absence on some RDBMS. 
+ If RDBMS sequences exist, they should be used. This may prove to be faster 
+ because it reduces the dialog between the agent and the database.</p>
+
+<h2>Creating Sequences</h2>
+
+<p class=HowTo>To create a standard sequence:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Click the <span class=ElementGUI>Sequences</span> 
+ node in the project or on the node <span class=ElementGUI>Global Sequences</span>.</p></li>
+	
+	<li class=kadov-p><p>Right click and select I<span class=ElementGUI>nsert 
+ Sequence</span>.</p></li>
+	
+	<li class=kadov-p><p>Enter the sequence <span class=ElementGUI>Name</span>, 
+ then select <span class=ElementGUI>Standard Sequence</span>.</p></li>
+	
+	<li class=kadov-p><p>Enter the initial <span class=ElementGUI>Position</span> 
+ and the <span class=ElementGUI>Increment</span>.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span>.</p></li>
+</ol>
+
+<p>The sequence appears in the tree view.</p>
+
+<p class=HowTo>To create a specific sequence:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Click the <span class=ElementGUI>Sequences</span> 
+ node in the project or on the node <span class=ElementGUI>Global Sequences</span>.</p></li>
+	
+	<li class=kadov-p><p>Right click and select <span class=ElementGUI>Insert 
+ Sequence</span>.</p></li>
+	
+	<li class=kadov-p><p>Enter the sequence <span class=ElementGUI>Name</span>, 
+ then select <span class=ElementGUI>Specific Sequence</span>.</p></li>
+	
+	<li class=kadov-p><p>Enter the <span class=ElementGUI>Increment</span> 
+ value.</p></li>
+	
+	<li class=kadov-p><p>Enter the names of the <span class=ElementGUI>Schema</span>, 
+ <span class=ElementGUI>Table</span> and <span class=ElementGUI>Column</span> 
+ that contain the sequence value.</p></li>
+	
+	<li class=kadov-p><p>Type in a <span class=ElementGUI>Filter</span> 
+ which will allow Oracle Data Integrator to locate a specific row in the <span 
+ class=ElementGUI>table</span>. You can use the Expression Editor by clicking 
+ <img src="../../../../images/exp_edit.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs3">. Click <img src="../../../../images/exp_check.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs3"> to validate the expression.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK.</span></p></li>
+</ol>
+
+<p>The sequence appears in the tree view.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: When Oracle Data Integrator 
+ wants to access the specific sequence value, the query executed on the 
+ schema will be <span class=Code>SELECT </span><span class=ElementGUI>column</span><span 
+ class=Code> FROM </span><span class=ElementGUI>table</span><span class=Code> 
+ WHERE </span><span class=ElementGUI>filter</span>.</p>
+
+<p class=HowTo>To delete a sequence:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Click the <span class=ElementGUI>sequence</span> 
+ in the tree view.</p></li>
+	
+	<li class=kadov-p><p>Right click and select <span class=ElementGUI>Delete</span></p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span></p></li>
+</ol>
+
+<p>The sequence disappears from the tree view.</p>
+
+<h2>Using sequences and identity columns</h2>
+
+<h3>Sequence Scope</h3>
+
+<p>Unlike for variables, you do not need to state the scope of sequences 
+ explicitly in code.</p>
+
+<h3>Using Sequences</h3>
+
+<p>The sequences can be used in all Oracle Data Integrator expressions, such as 
+ in: </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Mappings,</p></li>
+	
+	<li class=kadov-p><p>Filters,</p></li>
+	
+	<li class=kadov-p><p>Joins,</p></li>
+	
+	<li class=kadov-p><p>Constraints,</p></li>
+	
+	<li class=kadov-p><p>...</p></li>
+</ul>
+
+<p>A sequence can be used in all statements with the following syntax:</p>
+
+<ul type="disc" class="whs1">
+		
+	
+	<li class=kadov-p><p><span class=Code>#&lt;SEQUENCE_NAME&gt;_NEXTVAL 
+ </span>- the sequence value is incremented then substituted directly into 
+ the text of the expression.</p></li>
+
+</ul>
+
+
+<p>In <span style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>SQL 
+ statements only</U></span>, sequences can be used in binding mode with the 
+ following syntax<span class=Code>:</span></p>
+
+<ul type="disc" class="whs1">
+		
+	
+	<li class=kadov-p><p><span class=Code>:&lt;SEQUENCE_NAME&gt;_NEXTVAL 
+ </span>- the sequence value is incremented, then passed to the RDBMS as 
+ a parameter of the query.</p></li>
+
+</ul>
+
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> A sequence is 
+ resolved by an agent, it can therefore be incremented only when the agent 
+ itself processes one record. <span style="margin-left: 13px;"><br>
+For example: <br>
+- In the SQL statement &nbsp;</span><span class=Code
+	style="margin-left: 13px;">insert into 
+ fac select&nbsp;:NO_FAC_NEXTVAL, date_fac, mnt_fac </span><span style="margin-left: 13px;">the 
+ sequence value will be incremented only once, even if the SQL statement 
+ processes 10,000 rows, because the agent does not process each records, 
+ but just sends the command to the database engine.<br>
+- To increment every row, the data must transit via the agent. To do this, 
+ use the SELECT/INSERT syntax specific to Oracle Data Integrator:</span><span 
+ class=Code
+	style="margin-left: 13px;"><br>
+SELECT date_fac, mnt_fac&nbsp;/* on the source connection */<br>
+INSERT into FAC (ORDER_NO, ORDER_DAT, ORDER_AMNT) values (:NO_FAC_NEXTVAL, 
+ :date_fac, :mnt_fac) /* on the target connection */</span></p>
+
+<h3>Tips for Using Sequences</h3>
+
+<p>To make sure that a sequence is updated for each row inserted into a 
+ table, each row must be processed by the Agent. To make this happen, follow 
+ the steps below:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Make the mapping containing the sequence be executed 
+ on the target. </p></li>
+	
+	<li class=kadov-p><p>Set the mapping to be active for inserts only. 
+ &nbsp;Updates 
+ are not supported for sequences.</p></li>
+	
+	<li class=kadov-p><p>If you are using an &quot;incremental update&quot; 
+ IKM, you should make sure that the update key in use does not contain 
+ a column populated with the sequence. For example, if the sequence is 
+ used to load the primary key for a datastore, you should use an alternate 
+ key as the update key for the interface.</p></li>
+	
+	<li class=kadov-p><p>If using Oracle Data Integrator sequences with bind syntax 
+ (<span class=Code>:&lt;SEQUENCE_NAME&gt;_NEXTVAL</span>), you must configure 
+ the data flow such that the IKM transfers all the data through the agent. 
+ You can verify this by checking the generated integration step in Operator 
+ . It should have separate INSERT and SELECT commands executed on different 
+ connections, rather than a single SELECT...INSERT statement.</p></li>
+</ol>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> Please note the 
+ following limitations:<br>
+- A column mapped with a sequence should not be checked for not null.<br>
+- Similarly, static control and flow control are cannot be performed on 
+ a primary or alternate key that references the sequence.</p>
+
+<h3>Identity Columns</h3>
+
+<p>Sequences in Oracle Data Integrator exist as a solution to emulate native sequences. 
+ Certain databases also natively provide identity columns, which are automatically 
+ populated with unique, self-incrementing values.</p>
+
+<p>When populating an identity column, you should follow these steps:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>The mapping loading the identity column should 
+ be blank and inactive. It should not be activated for inserts or updates.</p></li>
+	
+	<li class=kadov-p><p>If you are using &quot;incremental update&quot; 
+ IKMs, make sure that the update key in use does not contain the identity 
+ column. If the identity column is part of the primary key, you should 
+ define an alternate key as the update key for the interface.</p></li>
+</ol>
+
+<p class=Remarque><span style="font-weight: bold;"><B>Note:</B></span> Please 
+ note the following limitations:<br>
+- Not null cannot be checked for an identity column.<br>
+- Static and flow control cannot be performed on a primary or alternate 
+ key containing the identity column.</p>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Common Errors with XML</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nUsing Oracle Data Integrator with ...\nXML\nCommon Errors with XML");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Common Errors with XML</h1>
+
+<h2>Detect the errors coming from XML</h2>
+
+<p>Errors appear often in Oracle Data Integrator in the following way:</p>
+
+<p><span class=Code>java.sql.SQLException: </span><span class=Code
+														style="font-weight: bold;"><B>No 
+ suitable driver</B></span><span class=Code><br>
+at ...<br>
+at ...<br>
+...</span></p>
+
+<p>the <span class=Code>java.sql.SQLException</span> code simply indicates 
+ that a query was made through the JDBC driver, which has returned an error. 
+ This error is frequently a database or driver error, and must be interpreted 
+ in this direction.</p>
+
+<p>Only the part of text in bold must first be taken in account. It must 
+ be searched in the XML driver documentation. If its contains a specific 
+ error code, like here, the error can be immediately identified.</p>
+
+<p>If such an error is identified in the execution log, it is necessary 
+ to analyze the SQL code send to the database to find the source of the 
+ error. The code is displayed in the <span class=ElementGUI>description</span> 
+ tab of the <span class=ElementGUI>task</span> in error.</p>
+
+<p>The most common errors with XML are detailed below, with their principal 
+ causes.</p>
+
+<h2>Common Errors</h2>
+
+<h3>Connection Errors</h3>
+
+<h6>No suitable driver</h6>
+
+<p>The Oracle Data Integrator Driver for XML is not correctly installed.</p>
+
+<h3>Errors in the interfaces</h3>
+
+<h6>File &lt;XML file&gt; is already locked by another instance of the 
+ XML driver.</h6>
+
+<p>The XML file is locked by another user/application. Close all application 
+ that might be using the XML file. If such an application has crashed, 
+ then remove the .lck file remaining in the XML file's directory.</p>
+
+<h6>The DTD file &quot;xxxxxxx.dtd&quot; doesn't exist</h6>
+
+<p>This exception may occur when trying to load an XML file by the command 
+ LOAD FILE. The error message can have two causes: </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>The path of the DTD file is incorrect.</p></li>
+	
+	<li class=kadov-p><p>The corresponding XML file was already opened 
+ by another schema (during connection for instance). </p></li>
+</ul>
+
+<h6>Table not found: S0002 Table not found: &lt;table name&gt; in statement 
+ [&lt;SQL statement&gt;]</h6>
+
+<p>The table you are trying to access does not exist in the schema.</p>
+
+<h6>Column not found: S0022 Column not found: &lt;column name&gt; in statement 
+ [&lt;SQL statement&gt;]</h6>
+
+<p>The column you are trying to access does not exist in the tables specified 
+ in the statement.</p>
+
+</body>
+</html>

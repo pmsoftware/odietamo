@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">	
+
+	<!-- Replacing Populate Variable Steps by Declare Variable Steps -->		
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+		UPDATE SNP_STEP SET STEP_TYPE = 'VD' WHERE STEP_TYPE = 'VP'	
+	]]></Field>		
+
+	<!-- Update Repository Version -->	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+	        UPDATE SNP_LOC_REPW SET REP_VERSION = '3.2.03.01'
+	]]></Field>		
+									
+</Object>
+</SunopsisRepository>

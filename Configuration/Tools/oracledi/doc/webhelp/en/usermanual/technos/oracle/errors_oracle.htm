@@ -1,0 +1,197 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Common Errors with Oracle</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nUsing Oracle Data Integrator with ...\nOracle\nCommon Errors with Oracle");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Common Errors with Oracle</h1>
+
+<h2>Detect the errors coming from Oracle</h2>
+
+<p>Errors appear often in Oracle Data Integrator in the following way:</p>
+
+<p><span class=Code>java.sql.SQLException: </span><span class=Code
+														style="font-weight: bold; color: #ff0000;"><font color=red ><B>ORA-01017</B></font></span><span 
+ class=Code
+	style="font-weight: bold;"><B>: invalid username/password; logon denied</B></span><span 
+ class=Code><br>
+at ...<br>
+at ...<br>
+...</span></p>
+
+<p>the <span class=Code>java.sql.SQLException</span> code simply indicates 
+ that a query was made to the database through the JDBC driver, which has 
+ returned an error. This error is frequently a database or driver error, 
+ and must be interpreted in this direction.</p>
+
+<p>Only the part of text in bold must first be taken in account. It must 
+ be searched in the Oracle documentation. If its contains an error code 
+ specific to Oracle, like here (in red), the error can be immediately identified.</p>
+
+<p>If such an error is identified in the execution log, it is necessary 
+ to analyze the SQL code send to the database to find the source of the 
+ error. The code is displayed in the <span class=ElementGUI>description</span> 
+ tab of the erroneous <span class=ElementGUI>task</span>.</p>
+
+<p>The most common errors with an Oracle server are detailed below, with 
+ their principal causes.</p>
+
+<h2>Common Errors</h2>
+
+<h3>Connection Errors</h3>
+
+<h6>UnknownDriverException</h6>
+
+<p>The JDBC driver is incorrect. Check the name of the driver.</p>
+
+<h6>I/O Exception: Connection refused(DESCRIPTION=(TMP=)(VSNNUM=135290880)(ERR=12505)(ERROR_STACK=(ERROR=(CODE=12505)(EMFI=4))))</h6>
+
+<p>The instance name in the JDBC URL is invalid.</p>
+
+<h6>I/O Exception: The Network Adapter could not establish the connection</h6>
+
+<p>The IP address, machine name of Oracle listener port is incorrect in 
+ the JDBC URL.</p>
+
+<h6>ORA-01017: invalid username/password; logon denied</h6>
+
+<p>The user and/or password specified in the data server definition is 
+ invalid. This error may also appear for certain Oracle Data Integrator 
+ commands, such as SqlUnload.</p>
+
+<h6>Protocol violation</h6>
+
+<p>This error indicates an incompatibility between the Oracle JDBC driver 
+ and the database you connect to. If it occurs at connection time, or at 
+ the first operation launched on the Oracle database, then install the 
+ version of the Oracle JDBC driver provided with your database installation.</p>
+
+<h6>ORA-00600 internal error code</h6>
+
+<p>Internal error of the Oracle database. May be caused by a driver incompatibility.</p>
+
+<h6><span class=ElementGUI>ORA-12154 TNS:could not resolve service name</span></h6>
+
+<p>TNS alias resolution. This problem may occur when using the OCI driver, 
+ or a KM using DBLinks. Check the configuration of the TNS aliases on the 
+ machines.</p>
+
+<h6>ORA-02019 connection description for remote database not found</h6>
+
+<p>You use a KM using non existing DBLinks. Check the KM options and pre-requisites.</p>
+
+<h3>Errors in the interfaces</h3>
+
+<h6>ORA-00900 invalid SQL statement<br>
+ORA-00923 FROM Keyword not found where expected.</h6>
+
+<p>The code generated by the interface, or typed in a procedure is invalid 
+ for Oracle. This is usually related to an input error in the mapping, 
+ filter of join. The typical case is a missing quote or an unclosed bracket.</p>
+
+<p>A frequent cause is also the call made to a non SQL syntax, like the 
+ call to an Oracle stored procedure using the syntax <span class=Code>EXECUTE 
+ SCHEMA.PACKAGE.PROC(PARAM1, PARAM2)</span>.</p>
+
+<p>The valid SQL call for a stored procedure is:</p>
+
+<p><span class=Code>BEGIN<br>
+SCHEMA.PACKAGE.PROC(PARAM1, PARAM2);<br>
+END;</span></p>
+
+<p>The syntax <span class=Code>EXECUTE SCHEMA.PACKAGE.PROC(PARAM1, PARAM2)</span> 
+ is specific to SQL*PLUS, and do not work on the Oracle JDBC Thin driver.</p>
+
+<h6>ORA-00904 invalid column name</h6>
+
+<p>Keying error in a mapping/join/filter. A string which is not a column 
+ name is interpreted as a column name, or a column name is misspelled.</p>
+
+<p>This error may also appear when accessing an error table associated 
+ to a datastore with a recently modified structure. It is necessary to 
+ impact in the error table the modification, or drop the error tables and 
+ let Oracle Data Integrator recreate it in the next execution.</p>
+
+<h6>ORA-00903 invalid table name</h6>
+
+<p>The table used (source or target) does not exist in the Oracle schema. 
+ Check the mapping logical/physical schema for the context, and check that 
+ the table physically exists on the schema accessed for this context.</p>
+
+<h6>ORA-00972 Identifier is too Long</h6>
+
+<p>There is a limit in the object identifier in Oracle (usually 30 characters). 
+ When going over this limit, this error appears. A table created during 
+ the execution of the interface went over this limit. and caused this error 
+ (see the execution log for more details).</p>
+
+<p>Check in the topology for the oracle technology, that the maximum lengths 
+ for the object names (tables and columns) correspond to your Oracle configuration.</p>
+
+<h6>ORA-01790 expression must have same datatype as corresponding expression</h6>
+
+<p>You are trying to connect two different values that can not be implicitly 
+ converted (in a mapping, a join...). Use the explicit conversion functions 
+ on these values.</p>
+
+</body>
+</html>

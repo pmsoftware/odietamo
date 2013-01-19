@@ -1,0 +1,224 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Choosing the Right KMs for Microsoft Excel</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+col.whs2 { width:145px; }
+col.whs3 { width:178px; }
+col.whs4 { width:397px; }
+th.whs5 { width:145px; x-cell-content-align:top; }
+th.whs6 { width:178px; x-cell-content-align:top; }
+th.whs7 { width:397px; x-cell-content-align:top; }
+td.whs8 { width:145px; x-cell-content-align:top; }
+td.whs9 { width:178px; x-cell-content-align:top; }
+td.whs10 { width:397px; x-cell-content-align:top; }
+p.whs11 { font-weight:bold; }
+col.whs12 { width:57px; }
+col.whs13 { width:88px; }
+col.whs14 { width:241px; }
+col.whs15 { width:325px; }
+th.whs16 { width:57px; x-cell-content-align:top; }
+th.whs17 { width:88px; x-cell-content-align:top; }
+th.whs18 { width:241px; x-cell-content-align:top; }
+th.whs19 { width:325px; x-cell-content-align:top; }
+td.whs20 { width:57px; x-cell-content-align:top; }
+td.whs21 { width:88px; x-cell-content-align:top; }
+td.whs22 { width:241px; x-cell-content-align:top; }
+td.whs23 { width:325px; x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nUsing Oracle Data Integrator with ...\nExcel\nChoosing the Right KMs for Microsoft Excel");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Choosing the Right KMs for Microsoft Excel</h1>
+
+<p>The choice of KMs in an interface determines the abilities and performances 
+ of this interface or check. The recommendations below help choose the 
+ right KM according to specific situations with a Microsoft Excel Server.</p>
+
+<p>For generic information about the KM, see <a href="../../../refmanual/designer/project/km/km.htm">Knowledge 
+ Modules</a></p>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> Only knowledge 
+ modules imported into a project are available for use by the project's 
+ interfaces. To import a KM, see <a href="../../designer/project/km/import_km.htm">Import 
+ a KM</a>.</p>
+
+<p class=Remarque><span class=ElementGUI>Note</span>: It is possible, for 
+ simple Excel spreadsheets, to use the File access using CSV (comma delimited) 
+ file format, this method does not use ODBC access, and can manage voluminous 
+ files faster.</p>
+
+<h2>Loading data to and from Microsoft Excel</h2>
+
+<p>Microsoft Excel can be used as an interface's source or target (Not 
+ as a staging area). The choice of the LKM (in the <a href="../../../refmanual/designer/project/folder/interface/pop_flux.htm">Interface 
+ Flow</a> tab) used to load data between Microsoft Excel and another type 
+ of data server is essential for the execution of the interfaces.</p>
+
+<h3>LKM Choice when data is coming from Microsoft Excel</h3>
+
+<p>LKM recommendations in the following cases:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Microsoft Excel Source to a Staging Area</p></li>
+</ul>
+
+<p>If several solutions are possible, they are indicated in the order of 
+ preference and performance. Generic KM are in bold.</p>
+
+<table x-use-null-cells>
+<col class="whs2">
+<col class="whs3">
+<col class="whs4">
+
+<tr>
+<th valign="top" width="145px" class="whs5">
+<p class=TitreTableau>Target or Staging Area Technology</th>
+<th colspan="1" rowspan="1" valign="top" width="178px" class="whs6">
+<p class=TitreTableau>Recommended KM</th>
+<th valign="top" width="397px" class="whs7">
+<p class=TitreTableau>Notes</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" width="145px" class="whs8">
+<p class=TexteTableau>Sybase</td>
+<td colspan="1" rowspan="1" valign="top" width="178px" class="whs9">
+<p class=TexteTableau>LKM ISO SQL to Sybase (bcp)</td>
+<td colspan="1" rowspan="1" valign="top" width="397px" class="whs10">
+<p class=TexteTableau>Faster than the Generic LKM (Uses Bulk Loading)</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" width="145px" class="whs8">
+<p class=TexteTableau>Microsoft SQL Server</td>
+<td colspan="1" rowspan="1" valign="top" width="178px" class="whs9">
+<p class=TexteTableau>LKM ISO SQL to MSSQL (bulk)</td>
+<td colspan="1" rowspan="1" valign="top" width="397px" class="whs10">
+<p class=TexteTableau>Faster than the Generic LKM (Uses Bulk Loading)</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" width="145px" class="whs8">
+<p class=TexteTableau>Oracle</td>
+<td colspan="1" rowspan="1" valign="top" width="178px" class="whs9">
+<p class=TexteTableau>LKM ISO SQL to Oracle</td>
+<td colspan="1" rowspan="1" valign="top" width="397px" class="whs10">
+<p class=TexteTableau>Faster than the Generic LKM (Uses Statistics)</td></tr>
+
+<tr>
+<td valign="top" width="145px" class="whs8">
+<p class="whs11">All</td>
+<td colspan="1" rowspan="1" valign="top" width="178px" class="whs9">
+<p class=TexteTableau
+	style="font-weight: bold;">LKM ISO SQL to SQL</td>
+<td valign="top" width="397px" class="whs10">
+<p class=TexteTableau
+	style="font-weight: bold;">Generic KM</td></tr>
+</table>
+
+<h2>Integrating data into Microsoft Excel</h2>
+
+<h3>IKM choice for Microsoft Excel</h3>
+
+<p>IKM recommendations in the following cases:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Staging Area to Microsoft Excel Target.</p></li>
+</ul>
+
+<p>The Staging Area cannot be Microsoft Excel. <span class=ElementGUI>Staging 
+ Area Different From Target</span> option must be checked.</p>
+
+<table x-use-null-cells>
+<col class="whs12">
+<col class="whs13">
+<col class="whs14">
+<col class="whs15">
+
+<tr>
+<th colspan="1" rowspan="1" valign="top" width="57px" class="whs16">
+<p class=TitreTableau>Mode</th>
+<th colspan="1" rowspan="1" valign="top" width="88px" class="whs17">
+<p class=TitreTableau>Target</th>
+<th colspan="1" rowspan="1" valign="top" width="241px" class="whs18">
+<p class=TitreTableau>Recommended KM</th>
+<th valign="top" width="325px" class="whs19">
+<p class=TitreTableau>Notes</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" width="57px" class="whs20">
+<p class=TexteTableau
+	style="font-weight: bold;">Append</td>
+<td colspan="1" rowspan="1" valign="top" width="88px" class="whs21">
+<p class=TexteTableau
+	style="font-weight: bold;">&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" width="241px" class="whs22">
+<p class=TexteTableau
+	style="font-weight: bold;">IKM ISO SQL to SQL Append</td>
+<td colspan="1" rowspan="1" valign="top" width="325px" class="whs23">
+<p class="whs11">No flow control. Static control is not possible 
+ in Excel.</td></tr>
+</table>
+
+</body>
+</html>

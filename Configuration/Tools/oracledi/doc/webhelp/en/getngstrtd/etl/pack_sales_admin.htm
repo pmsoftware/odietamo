@@ -1,0 +1,290 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Load Sales Administration Package</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+img_whs1 { border:none; width:258px; height:328px; border-style:none; float:left; }
+ul.whs2 { list-style:disc; }
+ol.whs3 { list-style:decimal; }
+img_whs4 { border:none; width:282px; height:221px; float:none; border-style:none; }
+img_whs5 { border:none; width:16px; height:16px; float:none; border-style:none; }
+img_whs6 { border:none; float:none; border-style:none; width:689px; height:451px; }
+img_whs7 { border:none; width:358px; height:189px; float:none; border-style:none; }
+p.whs8 { text-align:right; x-condition:PRINT_EXCLUDE; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Getting Started with an ETL Project\nOperating\n\"Load Sales Administration\" Package");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>&quot;Load Sales Administration&quot; Package</h1>
+
+<h2>Objective</h2>
+
+<p>The purpose of this package is to define the complete workflow for the 
+ loading of the &quot;Sales Administration&quot; application and to set 
+ the execution sequence.</p>
+
+<h2>Developments Provided with Oracle Data Integrator</h2>
+
+<p>In addition to the two interfaces you have developed, a number of developments 
+ are provided with the demo repository:</p>
+
+<p>&nbsp;</p>
+
+<p><img src="interface_result.jpg" x-maintain-ratio="TRUE" width="258px" height="328px" align="left" border="0" class="img_whs1"></p>
+
+<h3>Interfaces</h3>
+
+<ul type="disc" class="whs2">
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Pop. TRG_COUNTRY</B></span>: 
+ an interface that populates the TRG_COUNTRY table</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Pop. TRG_REGION</B></span>: 
+ an interface that populates the TRG_REGION table</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Pop. TRG_CITY</B></span>: 
+ an interface that populates the TRG_CITY table</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Pop. TRG_PROD_FAMILY</B></span>: 
+ an interface that populates the TRG_PROD_FAMILY table</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Pop. TRG_PRODUCT</B></span>: 
+ an interface populates the TRG_PRODUCT table</p></li>
+</ul>
+
+<h3>Procedures</h3>
+
+<ul type="disc" class="whs2">
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Delete Targets</B></span> 
+ a procedure that empties all of the tables in the &quot;Sales Administration&quot; 
+ application. This operation is performed by using a &quot;Delete&quot; 
+ statement on each table.</p></li>
+</ul>
+
+<h2><a name=Trad_prob></a>Problem Analysis</h2>
+
+<p>In order to load the &quot;Sales Administration&quot; application correctly 
+ (in accordance with the referential integrity constraints), we must execute 
+ the tasks in the following order:</p>
+
+<ol type="1" class="whs3">
+	
+	<li class=kadov-p><p>Empty the &quot;Sales Administration&quot; tables 
+ with the &quot;Delete Targets&quot; procedure</p></li>
+	
+	<li class=kadov-p><p>Load the TRG_COUNTRY table with the &quot;Pop. 
+ TRG_COUNTRY&quot; interface</p></li>
+	
+	<li class=kadov-p><p>Load the TRG_REGION table with the &quot;Pop. 
+ TRG_REGION&quot; interface</p></li>
+	
+	<li class=kadov-p><p>Load the TRG_CITY table with the &quot;Pop. TRG_CITY&quot; 
+ interface</p></li>
+	
+	<li class=kadov-p><p>Load the TRG_PROD_FAMILY table with the &quot;Pop. 
+ TRG_PROD_FAMILY&quot; interface</p></li>
+	
+	<li class=kadov-p><p>Load the TRG_PRODUCT table with the &quot;Pop. 
+ TRG_PRODUCT&quot; interface</p></li>
+	
+	<li class=kadov-p><p>Load the TRG_CUSTOMER table with the &quot;Pop. 
+ TRG_CUSTOMER&quot; interface</p></li>
+	
+	<li class=kadov-p><p>Load the TRG_SALES table with the &quot;Pop. TRG_SALES&quot; 
+ interface</p></li>
+</ol>
+
+<p>Such an integration process is built in Oracle Data Integrator in the form 
+ of a <span class=ElementGUI>Package</span>.</p>
+
+<h2>Steps</h2>
+
+<h3>Creation of the Package</h3>
+
+<ol type="1" class="whs3">
+	
+	<li class=kadov-p><p>Select the <span class=ElementGUI>Package</span> 
+ object, right-click and select <span class=ElementGUI>insert package</span><br>
+	<br>
+	<img src="insert_package.jpg" x-maintain-ratio="TRUE" width="282px" height="221px" border="0" class="img_whs4"><br>&nbsp;</p></li>
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>Name</span> field 
+ type &quot;Load Sales Administration&quot;.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>Apply</span> to save 
+ this empty package.</p></li>
+</ol>
+
+<h3>Define the Steps of the Package</h3>
+
+<ol>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>In the <span class=ElementGUI>Package</span> window, 
+ click on the <span class=ElementGUI>Diagram</span> tab</p></li>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>To define the steps in the package, select each 
+ component that you wish to integrate into the package from the <span class=ElementGUI>Projects</span> 
+ tree and drag-and-drop it into the <span class=ElementGUI>Diagram.</span><br>
+	These components appear as steps in the package. They are not sequenced 
+ yet.</p></li>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>To indicate the first step to execute in the package 
+ (the <span style="font-style: italic;"><I>Delete Target</I></span> procedure), 
+ select and right-click this step, then select <span class=ElementGUI>First 
+ Step</span> from the contextual menu. A small green arrow will appear 
+ on this step.</p></li>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>Select the <span class=ElementGUI>Next Step on 
+ Success</span> <img src="../common/green_go_arrow.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs5"> icon in the diagram toolbar.</p></li>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p>
+	<p>To sequence the steps with this tool, click on one step, then click 
+ on the step that should be executed next.<br>
+	Repeat this operation to sequence all the steps, to sequence developments 
+ as below:</p>
+	
+	<ol>
+		
+		<li style="list-style: decimal;"
+			type=1
+			class=kadov-p><p>Delete Targets (First Step)</p></li>
+		
+		<li style="list-style: decimal;"
+			type=1
+			class=kadov-p><p>Pop. TRG_COUNTRY</p></li>
+		
+		<li style="list-style: decimal;"
+			type=1
+			class=kadov-p><p>Pop. TRG_REGION</p></li>
+		
+		<li style="list-style: decimal;"
+			type=1
+			class=kadov-p><p>Pop. TRG_CITY</p></li>
+		
+		<li style="list-style: decimal;"
+			type=1
+			class=kadov-p><p>Pop. TRG_CUSTOMER</p></li>
+		
+		<li style="list-style: decimal;"
+			type=1
+			class=kadov-p><p>Pop. TRG_PROD_FAMILY</p></li>
+		
+		<li style="list-style: decimal;"
+			type=1
+			class=kadov-p><p>Pop. TRG_PRODUCT</p></li>
+		
+		<li style="list-style: decimal;"
+			type=1
+			class=kadov-p><p>Pop. TRG_SALES</p></li>
+	</ol>
+	</li>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>The resulting package should look as follows:<br>
+	<br>
+	<img src="package_diagram.jpg" x-maintain-ratio="TRUE" width="689px" height="451px" border="0" class="img_whs6"><br>&nbsp;</p></li>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>Click <span class=ElementGUI>Apply</span> to save 
+ the changes to the package</p></li>
+</ol>
+
+<h3>Run the Package</h3>
+
+<ol type="1" class="whs3">
+	
+	<li class=kadov-p><p>To run this package, click on the <span class=ElementGUI>Execute</span> 
+ button.</p></li>
+	
+	<li class=kadov-p><p>Click <span style="font-weight: bold;"><B>OK</B></span> 
+ in the <span class=ElementGUI>Execution</span> and <span class=ElementGUI>Information</span> 
+ windows.</p></li>
+</ol>
+
+<h3>Follow the Execution of the Package in Operator</h3>
+
+<p>By reviewing the execution in Operator, you will find the same results 
+ as those obtained when you executed the individual interfaces.<br>&nbsp;</p>
+
+<p><img src="package_log.jpg" x-maintain-ratio="TRUE" width="358px" height="189px" border="0" class="img_whs7"><br>&nbsp;</p>
+
+<p align="right" class="whs8"><a href="introd_mise_prod.htm"
+					style="x-condition: PRINT_EXCLUDE;">&lt;&lt; Introduction 
+ to operating</a> | <a href="sales_admin_scen.htm"
+						style="x-condition: PRINT_EXCLUDE;">Deployment 
+ &gt;&gt;</a></p>
+
+</body>
+</html>

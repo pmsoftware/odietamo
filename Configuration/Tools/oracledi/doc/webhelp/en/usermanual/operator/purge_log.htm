@@ -1,0 +1,111 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Purging the Log</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nOperator\nPurging the Log");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Purging the Log</h1>
+
+<p>Purging the log allows you to remove the information of past sessions. 
+ This procedure cleans the Work Repository from these past sessions. It 
+ is advised to perform a purge regularly. This purge can be automated using 
+ the <a HREF="../../ref_tools/snpspurgelog.html">OdiPurgeLog</a> tool.</p>
+
+<h6>To purge the Log:</h6>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Open <span class=ElementGUI>Operator</span></p></li>
+	
+	<li class=kadov-p><p>Click on the <span class=ElementGUI>Purge Log</span> 
+ button in the toolbar, or select <span class=ElementGUI>File</span> &gt; 
+ <span class=ElementGUI>Purge Log</span> in the menu bar.</p></li>
+	
+	<li class=kadov-p><p>Set the date and time range for the sessions to 
+ delete, and optionally specify <span class=ElementGUI>context</span>, 
+ <span class=ElementGUI>agent</span> and<span class=ElementGUI> user</span> 
+ filters. You can also specify a <span class=ElementGUI>session name</span> 
+ mask, using % as a wildcard.<br>
+	Only the sessions in the time range and matching the three filters 
+ and the session mask will be removed.<br>
+	If you check the <span class=ElementGUI>purge scenario reports</span> 
+ box, scenario reports (appearing under the <span class=ElementGUI>execution</span> 
+ node of each scenario) will also be purged.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span>.</p></li>
+</ol>
+
+<p>Oracle Data Integrator removes the sessions from the log.</p>
+
+<p class=Remarque><span class=ElementGUI>Note:</span> It is also possible 
+ to delete sessions by selecting one or more sessions in Operator and pressing 
+ the <span class=RemarqueTitre>DEL</span> key. Be cautious when using this 
+ method. It might lead to performance problems when deleting a lot of sessions. 
+ In that case, the <span class=ElementGUI>Purge Log</span> button in the 
+ toolbar should be used.</p>
+
+</body>
+</html>

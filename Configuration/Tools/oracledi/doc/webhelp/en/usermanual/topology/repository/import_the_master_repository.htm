@@ -1,0 +1,182 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Importing the Master Repository</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nTopology Manager\nManaging Repositories\nImporting the Master Repository");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Importing the Master Repository</h1>
+
+<p>The Master Repository Import/Export procedure allows you to transfer 
+ the whole repository (Topology and Security domains included) from one 
+ repository to another.</p>
+
+<p>It can be performed in Topology, to import the exported objects in an 
+ existing repository, or while creating a new master repository.</p>
+
+<p class=HowTo>To import a master repository in an existing master repository:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>In Topology Manager, click on <span class=ElementGUI>File</span> 
+ &gt; <span class=ElementGUI>Import </span>&gt; <span class=ElementGUI>Master 
+ Repository ...</span></p></li>
+	
+	<li class=kadov-p><p>Select the <span class=ElementGUI><a href="../../../refmanual/common/import_modes.htm">Import 
+ Mode</a></span>, the import <span class=ElementGUI>Folder</span> or <span 
+ class=ElementGUI>Zip File</span> and click on <span class=ElementGUI>OK</span>.</p></li>
+</ol>
+
+<p>The specified file(s) are imported into the current master repository.</p>
+
+<p class=HowTo>To create a new master repository using an export:</p>
+
+<ol>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>In the <span class=ElementGUI>Start Menu</span>, 
+ select <span class=ElementGUI>Programs</span> &gt; <span class=ElementGUI>Oracle 
+ Data Integrator </span>&gt; <span class=ElementGUI>Repository Management</span> 
+ &gt; <span class=ElementGUI>Master Repository Import</span>, or Launch 
+ <span class=Code>bin/mimport.bat</span> or <span class=Code>bin/mimport.sh.</span></p></li>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>Fill in the following fields: </p></li>
+</ol>
+
+<ul>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Driver</span>: the driver 
+ used to access the technology which will host the repository. For more 
+ information, refer to the section <a href="../../../refmanual/connexion/jdbcdriversample.htm">JDBC 
+ URL Sample</a>.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>URL</span>: The complete 
+ path for the data server to host the repository. For more information, 
+ refer to the section <a href="../../../refmanual/connexion/jdbcdriversample.htm">JDBC 
+ URL Sample</a>.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>User</span>: The user id 
+ / login of the owner of the tables (previously created under the name 
+ <b>snpm</b>).</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Password</span>: This user's 
+ password.</p></li>
+</ul>
+
+<ol start="3" type="1" class="whs1">
+	
+	<li class=kadov-p><p>Click the <span class=ElementGUI>Test</span> button 
+ to test your connection. The result should be successful.</p></li>
+	
+	<li class=kadov-p><p>Fill in the following fields</p></li>
+</ol>
+
+<ul>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Identifier</span>: Numeric 
+ identifier of the new master repository. </p></li>
+</ul>
+
+<p class=Remarque><span class=AlertTitre>Warning!</span> All master repositories 
+ should have distinct identifiers. Check that the identifier you are choosing 
+ is not the identifier of an existing repository.</p>
+
+<ul>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Technologies</span>: From 
+ the list, select the technology your repository will be based on.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Language:</span> Select 
+ the language of your master repository.</p></li>
+</ul>
+
+<ol start=5>
+	
+	<li class=kadov-p><p>If using a compressed export file, check the <span 
+ class=ElementGUI>Use a Zip File</span> box and select the file containing 
+ your master repository export. If using an uncompressed export, select 
+ the directory containing the export.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK.</span></p></li>
+</ol>
+
+<p>A new repository is created and the exported components are imported 
+ in this master repository.</p>
+
+<h6><span class=ElementGUI>See also:</span></h6>
+
+<p><a href="export_the_master_repository.htm">Exporting the Master Repository</a></p>
+
+<p><a href="../topology/export_the_topology.htm">Exporting the Topology</a></p>
+
+<p><a href="../topology/import_the_topology.htm">Importing the Topology</a></p>
+
+<p><a HREF="../../../refmanual/common/import_modes.htm">Import Modes</a></p>
+
+</body>
+</html>

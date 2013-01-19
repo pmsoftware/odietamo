@@ -1,0 +1,223 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>OdiPurgeLog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="StyleSheet" href="../include/common.css"><style>
+<!--
+th.whs1 { x-cell-content-align:top; }
+th.whs2 { x-cell-content-align:top; }
+th.whs3 { x-cell-content-align:top; }
+td.whs4 { x-cell-content-align:top; }
+td.whs5 { x-cell-content-align:top; }
+td.whs6 { x-cell-content-align:top; }
+td.whs7 { x-cell-content-align:top; }
+td.whs8 { x-cell-content-align:top; }
+td.whs9 { x-cell-content-align:top; }
+-->
+</style><style>
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+p.WebHelpNavBar { text-align:right; }
+LI.kadov-p-CWebHelpNavBar { text-align:right; }
+-->
+</style><script language=javascript
+		title=WebHelpSplitCss><!--
+if (navigator.appName !="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='../../include/common.css'>");}
+//--></script>
+
+<script language=javascript
+		title=WebHelpInlineScript><!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+//--></script>
+
+<style type="text/css">
+<!--
+td.whs1 { x-cell-content-align:top; }
+ul.whs2 { list-style:disc; }
+-->
+</style><style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nUtilities\nOdiPurgeLog");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>OdiPurgeLog</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>OdiPurgeLog [-FROMDATE=&lt;fromdate&gt;] [-TODATE=&lt;todate&gt;] 
+ [-CONTEXT_CODE=&lt;context_code&gt;] [-USER_NAME=&lt;user_name&gt;] [-AGENT_NAME=&lt;agent_name&gt;] 
+ [-PURGE_REPORTS=&lt;</span><span class=Code
+									style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>0</U></span><span 
+ class=Code>|1&gt;] [-SESSION_STATUS=&lt;D|E|M&gt;]</span></p>
+
+<h2>Description</h2>
+
+<p>Allows the purge of the execution logs.</p>
+
+<p>If <span class=Code>-FROMDATE</span> is omitted, the purge is done starting 
+ with the oldest session.</p>
+
+<p>If <span class=Code>-TODATE</span> is omitted, the purge is done up 
+ to the current date</p>
+
+<p>If both parameters are omitted, the whole log is purged.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: Running, waiting 
+ or queued sessions cannot be purged.</p>
+
+<h2>Parameter</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameters</th>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Mandatory</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau><span class=Code>-FROMDATE=&lt;fromdate&gt;</span></td>
+<td class=whs5>
+<p class=TexteTableau>No</td>
+<td class=whs6>
+<p class=TexteTableau>Starting date for the purge, using the format yyyy/MM/dd 
+ hh:mm:ss.</td></tr>
+
+<tr>
+<td class=whs7>
+<p class=TexteTableau><span class=Code>-TODATE=&lt;todate&gt;</span></td>
+<td class=whs8>
+<p class=TexteTableau>No</td>
+<td class=whs9>
+<p class=TexteTableau>Ending date for the purge, using the format yyyy/MM/dd 
+ hh:mm:ss.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau><span class=Code>-CONTEXT_CODE=&lt;context_code&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Purges only sessions executed in &lt;context_code&gt;</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau><span class=Code>-USER_NAME=&lt;user_name&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Purges only sessions launched by &lt;user_name&gt;</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau><span class=Code>-AGENT_NAME=&lt;agent_name&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Purges only sessions executed by &lt;agent_name&gt;</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau><span class=Code>-PURGE_REPORTS=&lt;</span><span 
+ class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>0</U></span><span 
+ class=Code>|1&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>If this parameter has a value of 1, the scenario 
+ reports (appearing under the <span class=ElementGUI>execution</span> node 
+ of each scenario) will also be purged.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau><span class=Code>-SESSION_STATUS=&lt;D|E|M&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Purges only the sessions &nbsp;with 
+ the specified state:</p>
+<ul type="disc" class="whs2">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>D: Done</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>E: Error</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>M: Warning</p></li>
+</ul>
+<p class=TexteTableau>If this parameter is not specified, sessions in all 
+ the states above are purged.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p><b style="font-weight: bold;"><span class=Code>OdiPurgeLog</b> &quot;-FROMDATE=2001/03/25 
+ 00:00:00&quot; &quot;-TODATE=2001/08/31 21:59:00&quot;</span></p>
+
+<p>&nbsp;</p>
+
+<p><b style="font-weight: bold;"><span class=Code>OdiPurgeLog</b> &quot;-FROMDATE=2001/03/25 
+ 00:00:00&quot;</span></p>
+
+<p>&nbsp;</p>
+
+<p><b style="font-weight: bold;"><span class=Code>OdiPurgeLog</b> &quot;-TODATE=2001/08/31 
+ 21:59:00&quot;</span></p>
+
+</body>
+</html>

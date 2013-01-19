@@ -1,0 +1,146 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Exporting the Master Repository</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nTopology Manager\nManaging Repositories\nExporting the Master Repository");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Exporting the Master Repository</h1>
+
+<p>The Master Repository Import/Export procedure allows you to transfer 
+ the whole repository (Topology and Security domains included) from one 
+ repository to another.</p>
+
+<p class=HowTo><span class=ElementGUI>To export a master repository:</span></p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>In Topology Manager, click on <span class=ElementGUI>File</span> 
+ &gt; <span class=ElementGUI>Export</span> &gt; <span class=ElementGUI>Master 
+ Repository ...</span></p></li>
+	
+	<li class=kadov-p><p>Fill in the export parameters:</p></li>
+	
+	<ul>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>Export to directory</span>: 
+ Directory in which the export file(s) 
+ will be created.</p></li>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>Export to zip file</span>: 
+ When this option is selected, a unique compressed file containing all 
+ export files will be created. Otherwise, a set of export files is created.</p></li>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>Zip File name</span>: 
+ Name of the compressed file if the option <span class=ElementGUI>Make 
+ a Compressed Export</span> is selected.</p></li>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>Character Set</span>: 
+ Encoding specified in the export file. Parameter <span class=Code>encoding</span> 
+ in the XML file header.</p></li>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>Java Character Set</span>: 
+ Java character set used to generate the file.</p></li>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>Export versions</span>: 
+ Exports all stored versions of objects that are stored in the repository. 
+ You may wish to unselect 
+ this option in order to reduce the size of the exported repository, and 
+ to avoid transferring irrelevant project work.</p></li>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>Export solutions</span>: 
+ Exports all stored solutions that are stored in the repository. You may 
+ wish to unselect this option for similar reasons.</p></li>
+	</ul>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span>.</p></li>
+</ol>
+
+<p>The export file(s) are created in the Export Directory specified.</p>
+
+<h6><span class=ElementGUI>See also:</span></h6>
+
+<p><a HREF="import_the_master_repository.htm">Importing the Master Repository</a></p>
+
+<p><a HREF="../topology/export_the_topology.htm">Exporting the Topology</a></p>
+
+<p><a HREF="../topology/import_the_topology.htm">Importing the Topology</a></p>
+
+</body>
+</html>

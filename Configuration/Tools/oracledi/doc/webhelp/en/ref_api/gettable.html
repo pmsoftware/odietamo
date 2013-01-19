@@ -1,0 +1,449 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>getTable()</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="StyleSheet" href="../include/common.css"><script language=javascript
+		title=WebHelpSplitCss><!--
+if (navigator.appName !="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='../../include/common.css'>");}
+//--></script>
+
+<script language=javascript
+		title=WebHelpInlineScript><!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+//--></script>
+
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nJournalizing Methods (JKM)\ngetTable");
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nLoading Methods (LKM)\ngetTable");
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nControl Methods (CKM)\ngetTable");
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nIntegration Methods (IKM)\ngetTable");
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nAction methods\ngetTable");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>getTable() Method</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>public java.lang.String <b>getTable</b>(<br>
+java.lang.String&nbsp;pMode,&nbsp;<br>
+java.lang.String&nbsp;pProperty,&nbsp;<br>
+java.lang.String&nbsp;pLocation)</span>&nbsp;</p>
+
+<p><span class=Code>public java.lang.String <b>getTable</b>(<br>
+java.lang.String&nbsp;pProperty,&nbsp;<br>
+java.lang.String&nbsp;pLocation)</span>&nbsp;</p>
+
+<p><span class=Code>public java.lang.String <b>getTable</b>(<br>
+java.lang.String&nbsp;pProperty)</span>&nbsp;</p>
+
+<h2>Description</h2>
+
+<p>Allows the retrieval of the full name of temporary and permanent tables 
+ handled by odi.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter</th>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Type</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau>pMode</td>
+<td class=whs5>
+<p class=TexteTableau>String</td>
+<td class=whs6>
+<p class=TexteTableau>&quot;L&quot; uses the local object mask to build 
+ the complete path of the object. This value is used when pMode is not 
+ specified.</p>
+<p class=TexteTableau>&quot;R&quot; uses the object mask to build the complete 
+ path of the object</p>
+<p class=TexteTableau>&quot;A&quot; Automatic. Defines automatically the 
+ adequate mask to use.</td></tr>
+
+<tr>
+<td class=whs7>
+<p class=TexteTableau>pProperty</td>
+<td class=whs8>
+<p class=TexteTableau>String</td>
+<td class=whs9>
+<p class=TexteTableau>Parameter that indicates the name of the table to 
+ be built. The list of possible values is provided hereafter: </p>
+<table x-use-null-cells>
+
+<tr>
+<th class=whs10
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter value</th>
+<th class=whs11
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td>
+<p class=TexteTableau>ID</td>
+<td>
+<p class=TexteTableau>Datastore identifier.</td></tr>
+
+<tr>
+<td>
+<p class=TexteTableau>TARG_NAME</td>
+<td>
+<p class=TexteTableau>Full name of the target datastore. In actions, this 
+ parameter returns the name of the current table handled by the DDL command</td></tr>
+
+<tr>
+<td>
+<p class=TexteTableau>COLL_NAME</td>
+<td>
+<p class=TexteTableau>Full name of the loading datastore.</td></tr>
+
+<tr>
+<td>
+<p class=TexteTableau>INT_NAME</td>
+<td>
+<p class=TexteTableau>Full name of the integration datastore.</td></tr>
+
+<tr>
+<td>
+<p class=TexteTableau>ERR_NAME</td>
+<td>
+<p class=TexteTableau>Full name of the error datastore.</td></tr>
+
+<tr>
+<td>
+<p class=TexteTableau>CHECK_NAME</td>
+<td>
+<p class=TexteTableau>Name of the error summary datastore.</td></tr>
+
+<tr>
+<td>
+<p class=TexteTableau>CT_NAME</td>
+<td>
+<p class=TexteTableau>Full name of the checked datastore.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>FK_PK_TABLE_NAME</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the datastore referenced by a Foreign 
+ Key</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>JRN_NAME</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the journalized datastore.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>JRN_VIEW</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the view linked to the journalized datastore.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>JRN_DATA_VIEW</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the data view linked to the journalized 
+ datastore.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>JRN_TRIGGER</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the trigger linked to the journalized 
+ datastore.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>JRN_ITRIGGER</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the Insert trigger linked to the journalized 
+ datastore.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>JRN_UTRIGGER</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the Update trigger linked to the journalized 
+ datastore.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>JRN_DTRIGGER</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the Delete trigger linked to the journalized 
+ datastore.</td></tr>
+
+<tr>
+<td>
+<p class=TexteTableau>SUBSCRIBER_TABLE</td>
+<td>
+<p class=TexteTableau>Full name of the datastore containing the subscribers 
+ list.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>CDC_SET_TABLE</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the table containing list of CDC sets.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>CDC_TABLE_TABLE</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the table containing the list of tables 
+ journalized through CDC sets.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>CDC_SUBS_TABLE</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the table containing the list of subscribers 
+ to CDC sets.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>CDC_OBJECTS_TABLE</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the table containing the journalizing 
+ parameters and objects.</td></tr>
+
+<tr>
+<td class=whs55>
+<p class=TexteTableau>&lt;flexfield code&gt;</td>
+<td class=whs56>
+<p class=TexteTableau>Flexfield value for the current target table.</td></tr>
+</table>
+<p class=TexteTableau>&nbsp;</td></tr>
+
+<tr>
+<td class=whs12>
+<p class=TexteTableau>pLocation</td>
+<td class=whs13>
+<p class=TexteTableau>String</td>
+<td class=whs14>
+<table x-use-null-cells>
+
+<tr>
+<td class=whs15>
+<p class=TexteTableau>&quot;W&quot;</td>
+<td class=whs16>
+<p class=TexteTableau>Returns the full name of the object in the physical 
+ catalog and the physical work schema that corresponds to the current tuple 
+ (context, logical schema)</td></tr>
+
+<tr>
+<td class=whs17>
+<p class=TexteTableau>&quot;D&quot;</td>
+<td class=whs18>
+<p class=TexteTableau>Returns the full name of the object in the physical 
+ catalog and the physical data schema that corresponds to the current tuple 
+ (context, logical schema).</td></tr>
+
+<tr>
+<td class=whs19>
+<p class=TexteTableau>&quot;A&quot;</td>
+<td class=whs20>
+<p class=TexteTableau>Lets odi determine the default location of the 
+ object. This value is used if pLocation is not specified.</td></tr>
+</table></td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>If you have defined the following elements:</p>
+
+<p>&nbsp;physical schema: Pluton.db_odi.dbo</p>
+
+<table x-use-null-cells>
+
+<tr>
+<td class=whs21>
+<p class=TexteTableau>Data catalog:</td>
+<td class=whs22>
+<p class=TexteTableau>db_odi</td></tr>
+
+<tr>
+<td class=whs23>
+<p class=TexteTableau>Data schema:</td>
+<td class=whs24>
+<p class=TexteTableau>dbo</td></tr>
+
+<tr>
+<td class=whs25>
+<p class=TexteTableau>Work catalog:</td>
+<td class=whs26>
+<p class=TexteTableau>tempdb</td></tr>
+
+<tr>
+<td class=whs27>
+<p class=TexteTableau>Work schema:</td>
+<td class=whs28>
+<p class=TexteTableau>temp_owner</td></tr>
+
+<tr>
+<td class=whs29>
+<p class=TexteTableau>Local Mask:</td>
+<td class=whs30>
+<p class=TexteTableau>%CATALOG.%SCHEMA.%OBJECT</td></tr>
+
+<tr>
+<td class=whs31>
+<p class=TexteTableau>Remote mask:&nbsp;</td>
+<td class=whs32>
+<p class=TexteTableau>%DSERVER:%CATALOG.%SCHEMA.%OBJECT</td></tr>
+
+<tr>
+<td class=whs33>
+<p class=TexteTableau>Loading prefix:</td>
+<td class=whs34>
+<p class=TexteTableau>CZ_</td></tr>
+
+<tr>
+<td class=whs35>
+<p class=TexteTableau>Error prefix:</td>
+<td class=whs36>
+<p class=TexteTableau>ERR_</td></tr>
+
+<tr>
+<td class=whs37>
+<p class=TexteTableau>Integration prefix:&nbsp;</td>
+<td class=whs38>
+<p class=TexteTableau>I$_</td></tr>
+</table>
+
+<p>and you have associated this physical schema to the logical schema: 
+ MSSQL_ODI in your context CTX_DEV </p>
+
+<p>and you table is named CUSTOMER </p>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs39
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>A call to&nbsp;</th>
+<th class=whs40
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Returns</th></tr>
+
+<tr>
+<td class=whs41>
+<p class=TexteTableau><span class=Code>&lt;%=odiRef.getTable(&quot;L&quot;, 
+ &quot;COLL_NAME&quot;, &quot;W&quot;)%&gt;</span></td>
+<td class=whs42>
+<p class=TexteTableau>tempdb.temp_owner.CZ_0CUSTOMER</td></tr>
+
+<tr>
+<td class=whs43>
+<p class=TexteTableau><span class=Code>&lt;%=odiRef.getTable(&quot;R&quot;, 
+ &quot;COLL_NAME&quot;, &quot;D&quot;)%&gt;</span></td>
+<td class=whs44>
+<p class=TexteTableau>MyServer:db_odi.dbo.CZ_0CUSTOMER</td></tr>
+
+<tr>
+<td class=whs45>
+<p class=TexteTableau><span class=Code>&lt;%=odiRef.getTable(&quot;L&quot;, 
+ &quot;INT_NAME&quot;, &quot;W&quot;)%&gt;</span></td>
+<td class=whs46>
+<p class=TexteTableau>tempdb.temp_owner.I$_CUSTOMER</td></tr>
+
+<tr>
+<td class=whs47>
+<p class=TexteTableau><span class=Code>&lt;%=odiRef.getTable(&quot;R&quot;, 
+ &quot;ERR_NAME&quot;, &quot;D&quot;)%&gt;</span></td>
+<td class=whs48>
+<p class=TexteTableau>MyServer:db_odi.dbo.ERR_CUSTOMER</td></tr>
+</table>
+
+</body>
+</html>

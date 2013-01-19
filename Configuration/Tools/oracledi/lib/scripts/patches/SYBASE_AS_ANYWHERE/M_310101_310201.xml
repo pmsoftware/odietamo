@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">
+
+	<!-- Modification des structures de données -->
+	<!-- SNP_HOST -->															
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[			
+			create table SNP_HOST
+			(
+				I_HOST 			<?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+				HOST_NAME 		<?=snpRef.getDataType("SRC_VARCHAR","35")?> NOT NULL,
+				HOST_IP_NAME 	<?=snpRef.getDataType("SRC_VARCHAR","35")?> NOT NULL
+			)
+		]]></Field>				
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[						
+			ALTER TABLE SNP_HOST ADD CONSTRAINT PK_SNP_HOST PRIMARY KEY (I_HOST)
+		]]></Field>			         			
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[							
+			ALTER TABLE SNP_HOST ADD CONSTRAINT AK_SNP_HOST UNIQUE (HOST_NAME)
+		]]></Field>	
+				         			
+
+	<!-- SNP_MODULE -->																	
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[				
+			create table SNP_MODULE
+			(
+				I_MODULE <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+				MODULE_NAME <?=snpRef.getDataType("SRC_VARCHAR","35")?> NOT NULL,
+				CLASS_NAME <?=snpRef.getDataType("SRC_VARCHAR","100")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+			)
+		]]></Field>							
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[										
+			ALTER TABLE SNP_MODULE ADD CONSTRAINT PK_SNP_MODULE PRIMARY KEY (I_MODULE)
+		]]></Field>										
+			
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[										
+			ALTER TABLE SNP_MODULE add CONSTRAINT AK_SNP_MODULE UNIQUE (MODULE_NAME)
+		]]></Field>										
+
+
+	<!-- SNP_HOST_MOD -->																			
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[					
+			create table SNP_HOST_MOD
+			(
+				I_HOST <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+				I_MODULE <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+				IND_PRIV <?=snpRef.getDataType("SRC_VARCHAR","1")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+				LAST_CHECK_DATE <?=snpRef.getDataType("SRC_DATE")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>
+			)
+		]]></Field>										
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[							
+			ALTER TABLE SNP_HOST_MOD ADD CONSTRAINT PK_SNP_HOST_MOD PRIMARY KEY (I_HOST,I_MODULE)
+		]]></Field>										
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[					
+			ALTER TABLE SNP_HOST_MOD ADD CONSTRAINT FK_SNP_MOD FOREIGN KEY (I_MODULE) REFERENCES SNP_MODULE (I_MODULE)
+		]]></Field>										
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[					
+			ALTER TABLE SNP_HOST_MOD ADD CONSTRAINT FK_SNP_HOST FOREIGN KEY (I_HOST) REFERENCES SNP_HOST (I_HOST)		
+		]]></Field>										
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			IGNORE_ERROR:create index SNP_HM_FK1 on SNP_HOST_MOD (I_HOST)
+		]]></Field>			
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			IGNORE_ERROR:create index SNP_HM_FK2 on SNP_HOST_MOD (I_MODULE)
+		]]></Field>						
+
+	
+		
+	<!-- Update Repository Version-->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[update SNP_LOC_REP set REP_VERSION = '3.1.02.01']]>
+	</Field>		
+		
+</Object>
+</SunopsisRepository>
+					

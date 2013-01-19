@@ -1,0 +1,355 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>OdiFileWait</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nFiles\nOdiFileWait");
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nEvent Detection\nOdiFileWait");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<h1>OdiFileWait</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>OdiFileWait -DIR=&lt;dir&gt; -PATTERN=&lt;pattern&gt; 
+ [-ACTION=&lt;DELETE|COPY|MOVE|APPEND|ZIP|</span><span class=Code
+														style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>NONE</U></span><span 
+ class=Code>&gt;] -TODIR=&lt;dest_dir&gt; -TOFILE=&lt;dest_file&gt; [-OVERWRITE=&lt;yes|</span><span 
+ class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>&gt;] [-CASESENS=&lt;yes|</span><span class=Code
+													style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>&gt;] [-FILECOUNT=&lt;n&gt;] [-TIMEOUT=&lt;n&gt;] [-POLLINT=&lt;n&gt;] 
+ [-HEADER=&lt;n&gt;] [-KEEP_FIRST_HEADER=&lt;</span><span class=Code
+															style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>yes</U></span><span 
+ class=Code>|no&gt;] [-NOFILE_ERROR=&lt;yes|</span><span class=Code
+														style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>&gt;]</span></p>
+
+<h2>Description</h2>
+
+<p>Scans the directory <span class=Code>DIR</span> and waits for files 
+ matching the mask given in <span class=Code>PATTERN</span>. When the specified 
+ files are found, the action indicated by the parameter <span class=Code>ACTION</span> 
+ is triggered. </p>
+
+<p>The execution agent is in standby mode waiting to receive <span class=Code>FILECOUNT</span> 
+ files unless the timeout limit, given by <span class=Code>TIMEOUT</span> 
+ is reached. The directory is scanned every <span class=Code>POLLINT</span> 
+ milliseconds.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Parameters</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Mandatory</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-ACTION=</span></p>
+<p class=TexteTableau><span class=Code>&lt;DELETE|COPY|MOVE|APPEND|ZIP|</span><span 
+ class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>NONE</U></span><span 
+ class=Code>&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Action taken on the files found:</p>
+<p class=TexteTableau><span class=Code>DELETE</span>: Delete the files 
+ found</p>
+<p class=TexteTableau><span class=Code>COPY</span>: Copy the files found 
+ into the directory <span class=Code>TODIR</span></p>
+<p class=TexteTableau><span class=Code>MOVE</span>: Move or rename the 
+ files found into folder <span class=Code>TODIR</span> by naming them as 
+ specified by <span class=Code>TOFILE</span></p>
+<p class=TexteTableau><span class=Code>APPEND</span>: Concatenates all 
+ files found and creates a result file <span class=Code>TOFILE</span>. 
+ Source files are deleted.</p>
+<p class=TexteTableau><span class=Code>ZIP</span>: Zip the files found 
+ and store them into the ZIP file <span class=Code>TOFILE</span></p>
+<p class=TexteTableau><span class=Code>NONE</span>: No action is performed. 
+ This is the default behaviour.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-DIR=&lt;dir&gt;</span></td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Yes</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Directory (or folder) to scan</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-PATTERN=&lt;pattern&gt;</span></td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Yes</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Mask of filenames to scan. Use * to specify the generic 
+ characters.</p>
+<p class=TexteTableau>Examples:</p>
+<p class=TexteTableau>*.log (All files with the &quot;log&quot; extension)</p>
+<p class=TexteTableau>arch_*.lst (All files starting with arch_ and with 
+ the extension &quot;lst&quot;)</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-TODIR=&lt;dest_dir&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Target directory of the action. When the action is:</p>
+<p class=TexteTableau><span class=Code>COPY</span>: Directory where the 
+ files are copied</p>
+<p class=TexteTableau><span class=Code>MOVE</span>: Directory where the 
+ files are moved</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-TOFILE=&lt;dest_file&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</p>
+<p class=TexteTableau>&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Destination file(s). When the action is:</p>
+<p class=TexteTableau><span class=Code>MOVE</span>: Renaming mask of the 
+ moved files.</p>
+<p class=TexteTableau><span class=Code>APPEND</span>: Name of the file 
+ resulting from the concatenation.</p>
+<p class=TexteTableau><span class=Code>ZIP</span>: Name of the resulting 
+ ZIP file.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-OVERWRITE=&lt;yes|</span><span 
+ class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Indicates if the destination file(s) will be overwritten 
+ if they exist. By default, the value is set to <span class=Code>no</span></p>
+<p class=TexteTableau>Note that if this option is used with <span class=Code>APPEND</span>, 
+ then the target file will only have the contents of the latest file processed.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-CASESENS=&lt;yes|</span><span class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>&gt;</span></td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Indicates if file search is case sensitive. By default, 
+ searched files are uppercase.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-FILECOUNT=&lt;n&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Maximum number of files to wait for (default is 0). 
+ If this number is reached, the command ends.</p>
+<p class=TexteTableau>The value 0 indicates that we wait for all files 
+ until the timeout is reached.</p>
+<p class=TexteTableau>If this parameter is 0 and the timeout is also 0, 
+ this parameter is then forced implicitly to 1.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-TIMEOUT=&lt;n&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Maximum waiting time in milliseconds (default is 
+ 60000)</p>
+<p class=TexteTableau>If this delay is reached, the command yields control 
+ to the following command, and this no matter what is the value of parameter 
+ <span class=Code>FILECOUNT</span>.</p>
+<p class=TexteTableau>The value 0 is used to specify an infinite waiting 
+ time (wait until the maximum number of messages to read as specified in 
+ parameter <span class=Code>FILECOUNT</span>).</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-POLLINT=&lt;n&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Interval in milliseconds to search for new files. 
+ Default is set to 2000 (2 seconds), which means that Oracle Data Integrator looks 
+ for new messages every 2 seconds. Files written during the OdiFileWait 
+ are taken in account only after being closed (File size unchanged) during 
+ this interval.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-HEADER=&lt;n&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>This parameter is valid only for the <span class=Code>APPEND</span> 
+ action.</p>
+<p class=TexteTableau>Number of header lines to suppress from the files 
+ before concatenation. Default is no processing.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-KEEP_FIRST_HEADER=&lt;</span><span 
+ class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>yes</U></span><span 
+ class=Code>|no&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>This parameter is only valid for the action <span 
+ class=Code>APPEND</span>.</p>
+<p class=TexteTableau>It is used to keep the header lines of the first 
+ file during the concatenation</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-NOFILE_ERROR=&lt;yes|</span><span 
+ class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Indicates the behavior to have if no file is found.</p>
+<p class=TexteTableau>The value no (default) indicates that no error must 
+ be generated if no file is found.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>Wait indefinitely for file flag.txt in directory c:\events and proceed 
+ when this file is detected.</p>
+
+<p><span class=Code>OdiFileWait -ACTION=NONE -DIR=c:\events -PATTERN=flag.txt 
+ -FILECOUNT=1 -TIMEOUT=0 -POLLINT=1000 </span></p>
+
+<p>&nbsp;</p>
+
+<p>Wait indefinitely for file flag.txt in directory c:\events and suppress 
+ this file when it is detected.</p>
+
+<p><span class=Code>OdiFileWait -ACTION=DELETE -DIR=c:\events -PATTERN=flag.txt 
+ -FILECOUNT=1 -TIMEOUT=0 -POLLINT=1000 </span></p>
+
+<p>&nbsp;</p>
+
+<p>Wait for the sales files *.dat for 5 minutes and scan every second in 
+ directory c:\sales_in, then concatenate into file sales.dat in directory 
+ C:\sales_ok. Keep the header of the first file.</p>
+
+<p><span class=Code>OdiFileWait -ACTION=APPEND -DIR=c:\sales_in -PATTERN=*.dat 
+ -TOFILE=c:\sales_ok\sales.dat -FILECOUNT=0 -TIMEOUT=350000 -POLLINT=1000 
+ -HEADER=1 -KEEP_FIRST_HEADER=yes -OVERWRITE=yes</span></p>
+
+<p>&nbsp;</p>
+
+<p>Wait for the sales files *.dat for 5 minutes every second in directory 
+ c:\sales_in, then copy these files into directory C:\sales_ok. Do not 
+ overwrite.</p>
+
+<p><span class=Code>OdiFileWait -ACTION=COPY -DIR=c:\sales_in -PATTERN=*.dat 
+ -TODIR=c:\sales_ok -FILECOUNT=0 -TIMEOUT=350000 -POLLINT=1000 -OVERWRITE=no</span></p>
+
+<p>&nbsp;</p>
+
+<p>Wait for the sales files *.dat for 5 minutes every second in directory 
+ c:\sales_in then archive these files into a zip file</p>
+
+<p><span class=Code>OdiFileWait -ACTION=ZIP -DIR=c:\sales_in -PATTERN=*.dat 
+ -TOFILE=c:\sales_ok\sales.zip -FILECOUNT=0 -TIMEOUT=350000 -POLLINT=1000 
+ -OVERWRITE=yes</span></p>
+
+<p>&nbsp;</p>
+
+<p>Wait for the sales files *.dat for 5 minutes every second into directory 
+ c:\sales_in, then move these files into directory C:\sales_ok. Do not 
+ overwrite. Append .bak to the file names.</p>
+
+<p><span class=Code>OdiFileWait -ACTION=MOVE -DIR=c:\sales_in -PATTERN=*.dat 
+ -TODIR=c:\sales_ok -TOFILE=*.bak -FILECOUNT=0 -TIMEOUT=350000 -POLLINT=1000 
+ -OVERWRITE=no</span></p>
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Creating an Oracle Data Server</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+ol.whs2 { list-style:decimal; }
+p.whs3 { margin-left:0px; }
+-->
+</style><script type="text/javascript" language="JavaScript">
+<!--
+if ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion) == 4))
+{
+  var strNSS = "<style type='text/css'>";
+  strNSS += "p.whs3 {margin-left:1pt; }";
+  strNSS +="</style>";
+  document.write(strNSS);
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nUsing Oracle Data Integrator with ...\nOracle\nCreate an Oracle Data Server");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Creating an Oracle Data Server</h1>
+
+<p>An Oracle <span class=ElementGUI>Data Server </span>corresponds to an 
+ Oracle Database Instance connected with a specific Oracle user account. 
+ This User will have access to several schemas in this instance, corresponding 
+ to the <span class=ElementGUI>Physical Schemas </span>in Oracle Data Integrator 
+ created under the data server.</p>
+
+<h2>Pre-requisites</h2>
+
+<h3>JDBC Driver</h3>
+
+<p>You must install on each machine on which Oracle Data Integrator is installed 
+ the Oracle Type 4 JDBC Driver - <span style="font-weight: bold;"><B>Oracle 
+ Thin Driver</B></span>. This drivers directly uses the TCP/IP network layer 
+ and requires no other installed component. This driver appears as a <span 
+ class=Code>classes12.zip </span>file that you must copy into your Data 
+ Integrator installation directory's <span class=Code>/drivers</span> sub-directory. 
+ Oracle Data Integrator installs a default version of this driver. It is advised, 
+ if you have problems with Oracle, to replace the default driver by the 
+ one provided with your version of Oracle.</p>
+
+<p>It is also possible to connect an Oracle Server through the Oracle JDBC 
+ OCI Driver, or even using ODBC. These methods do not provide very good 
+ performance. &nbsp;It 
+ is recommended to use the Type 4 driver.</p>
+
+<h3>Connection Informations</h3>
+
+<p>You must ask the Oracle DBA the following information:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Network Name or IP address of the machine hosting 
+ the Oracle Database.</p></li>
+	
+	<li class=kadov-p><p>Listening port of the Oracle listener.</p></li>
+	
+	<li class=kadov-p><p>Name of the Oracle Instance (SID).</p></li>
+	
+	<li class=kadov-p><p>TNS alias of the connected instance.</p></li>
+	
+	<li class=kadov-p><p>Login and password of an Oracle User.</p></li>
+</ul>
+
+<h2>Creation of the Data Server</h2>
+
+<h6>To create an Oracle Data Server:</h6>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Connect to <span class=ElementGUI>Topology Manager</span></p></li>
+	
+	<li class=kadov-p><p>Select <span class=ElementGUI>Topology</span> 
+ &gt; <span class=ElementGUI>Physical Architecture </span>&gt; <span class=ElementGUI>Technologies</span> 
+ &gt; <span class=ElementGUI>Oracle</span> from the tree.</p></li>
+	
+	<li class=kadov-p><p>Right click and select <span class=ElementGUI>Insert 
+ Data Server</span></p></li>
+	
+	<li class=kadov-p><p>Fill in the following fields in the <span class=ElementGUI>Definition</span> 
+ tab:</p></li>
+	
+	<ul type="disc" class="whs1">
+		
+		<li class=kadov-p><p class="whs3"><span class=ElementGUI>Name</span>: 
+ Name of the Data Server that will appear in Oracle Data Integrator.</p></li>
+		
+		<li class=kadov-p><p class="whs3"><span class=ElementGUI>Instance/dblink</span>: 
+ TNS Alias used for this Oracle instance. It will be used to identify the 
+ objects on this server from remote servers. This field is necessary for 
+ OCI drivers and for DBLink use.</p></li>
+		
+		<li class=kadov-p><p class="whs3"><span class=ElementGUI>User/Password:</span> 
+ Oracle user (with its password), having select privileges on the data 
+ schema and select/insert/object creation on the work schemas that will 
+ be indicated in the Oracle &nbsp;<span class=ElementGUI>Physical 
+ Schemas </span>created under this data server.</p></li>
+	</ul>
+	
+	<li class=kadov-p><p>Fill in the following fields in the <span class=ElementGUI>JDBC</span> 
+ tab:</p></li>
+	
+	<ul>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p class="whs3"><span class=ElementGUI>JDBC 
+ Driver</span>: <span class=Code>oracle.jdbc.driver.OracleDriver</span></p></li>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p class="whs3"><span class=ElementGUI>JDBC</span> 
+ <span class=ElementGUI>URL</span>: <span class=Code>jdbc:oracle:thin:@&lt;network 
+ name or ip address of the Oracle machine&gt;:&lt;port of the Oracle listener 
+ (1521)&gt;:&lt;name of the Oracle instance&gt;</span></p></li>
+	</ul>
+	
+	<li class=kadov-p><p>Click<span class=ElementGUI> Test</span>.</p></li>
+	
+	<li class=kadov-p><p>Click<span class=ElementGUI> Test </span>in the 
+ <span class=ElementGUI>Test Connection</span> windows.</p></li>
+	
+	<li class=kadov-p><p>A window indicating a <span class=ElementGUI>Successful 
+ Connection </span>appears. Click <span class=ElementGUI>OK</span>. If 
+ the connection is not successful, please refer to the <a HREF="errors_oracle.htm">Common 
+ Errors with Oracle</a>.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span> to validate 
+ the creation of the data server</p></li>
+</ol>
+
+<p>The creation window for this data server's first <span class=ElementGUI>Physical 
+ Schema </span>appears.<br>
+See <a HREF="create_pchema_oracle.htm">Creating an Oracle Physical Schema</a></p>
+
+</body>
+</html>

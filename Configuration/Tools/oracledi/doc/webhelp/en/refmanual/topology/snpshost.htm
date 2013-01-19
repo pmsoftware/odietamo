@@ -1,0 +1,146 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Hosts</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+ul.whs3 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nTopology Manager\nHosts");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Hosts</h1>
+
+<p>Oracle Data Integrator gives you access to a number of &nbsp;module 
+ (Designer, Topology, etc.). Hosts and Usages let you <a HREF="../../usermanual/topology/general/manage_hosts_usages.htm">manage 
+ access to these modules</a>.</p>
+
+<h2>Definition</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Property</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Machine Name</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Unique name identifying the machine. It is usually 
+ the machine's network name.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>IP Address</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>IP address of the machine on the network common to 
+ the machine and the Repository server.</td></tr>
+</table>
+
+<h2>Usage</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Property</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Module</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Module name. </td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Usage Type</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Type of usage: </p>
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=ElementGUI>Always 
+ allowed</span>: The host can always use the given module.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Denied</span>: The host 
+ cannot use the given module.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Automatic</span> (default 
+ behaviour): The host automatically takes access to the given module when 
+ connecting to the repository with this module.</p></li>
+</ul></td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Last usage</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Date and time of the last use of this module on this 
+ host.</td></tr>
+</table>
+
+</body>
+</html>

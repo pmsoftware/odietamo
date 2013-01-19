@@ -1,0 +1,172 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Lists</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Jython Quick Reference\nThe Basics\nData Types\nLists");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Lists</h1>
+
+<p>Lists are arrays of modifiable references to objects, accessed with 
+ an index.</p>
+
+<p>A list is a series of values separated by commas and enclosed in brackets.</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=Code>[]</span> is an empty list</p></li>
+	
+	<li class=kadov-p><p><span class=Code>[0, 1, 2, 3, 4, 5]</span> is 
+ a list of 6 elements indexed from 0 to 5</p></li>
+	
+	<li class=kadov-p><p><span class=Code>mylist = ['john', 1, ['albert', 
+ 'collin']]</span> is a list of 3 elements where the &nbsp;2 
+ index (third element) is also a list</p></li>
+</ul>
+
+<p><span class=Code>mylist[2]</span> returns <span class=Code>['albert', 
+ 'collin']</span></p>
+
+<p><span class=Code>mylist[2][1]</span> returns <span class=Code>'collin'</span></p>
+
+<h2>Some list functions</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau
+	style="font-weight: bold;">Method</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau
+	style="font-weight: bold;">Description </th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau><span class=Code>mylist.append(x)</span></td>
+<td class=whs5>
+<p class=TexteTableau>Adds an element at the end of the list</td></tr>
+
+<tr>
+<td class=whs6>
+<p class=TexteTableau><span class=Code>mylist.sort([function])</span></td>
+<td class=whs7>
+<p class=TexteTableau>Sorts the list with the optional [function] comparison 
+ function</td></tr>
+
+<tr>
+<td class=whs8>
+<p class=TexteTableau><span class=Code>mylist.reverse()</span></td>
+<td class=whs9>
+<p class=TexteTableau>Reverses the list (from last to first)</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1
+	class=whs10>
+<p class=TexteTableau><span class=Code>mylist.index(x)</span></td>
+<td colspan=1
+	rowspan=1
+	class=whs11>
+<p class=TexteTableau>Seeks the index x</td></tr>
+
+<tr>
+<td class=whs12>
+<p class=TexteTableau><span class=Code>mylist.insert(i, x)</span></td>
+<td class=whs13>
+<p class=TexteTableau>Inserts x at index i</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>mylist.count(x)</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Returns the number of occurrences of x in the list</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>mylist.remove(x)</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Deletes the first occurrence of x in the list</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>mylist.pop([i])</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Deletes and return the last element in the list or 
+ the element at index i</td></tr>
+</table>
+
+</body>
+</html>

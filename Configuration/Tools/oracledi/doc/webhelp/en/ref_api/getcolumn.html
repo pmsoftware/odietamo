@@ -1,0 +1,373 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>getColumn()</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+td.whs2 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nAction methods\ngetColumn");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>getColumn() Method</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>public java.lang.String <b>getColumn</b>( <br>
+java.lang.String&nbsp;pPattern,&nbsp;<br>
+java.lang.String&nbsp;pSelector)</span></p>
+
+<p><span class=Code><span class=Code>p</span>ublic java.lang.String <b>getColumn</b>( 
+ <br>
+java.lang.String&nbsp;pPattern)</span></p>
+
+<h2>Description</h2>
+
+<p>In an action, returns information on a column being handled by an the 
+ action.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs4
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter</th>
+<th class=whs5
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Type</th>
+<th class=whs6
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs10>
+<p class=TexteTableau>pPattern</td>
+<td class=whs11>
+<p class=TexteTableau>String</td>
+<td class=whs12>
+<p class=TexteTableau>Pattern of values rendered for the column.</p>
+<p class=TexteTableau>The list of the attributes usable in a pattern is 
+ detailed in the table «&nbsp;<a href="#ATTR_MOTIF">Pattern Attributes 
+ List</a>&nbsp;»</p>
+<p class=TexteTableau>Each occurrence of the attributes in the pattern 
+ string is replaced by its value. Attributes must be between brackets ([ 
+ and ])</p>
+<p class=TexteTableau>Example «&nbsp;My string [COL_NAME] is a column&nbsp;»</td></tr>
+
+<tr>
+<td class=whs19>
+<p class=TexteTableau>pSelector</td>
+<td class=whs20>
+<p class=TexteTableau>String</td>
+<td class=whs21>
+<p class=TexteTableau>The Selector may take one of the following value:</p>
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>NEW: returns 
+ the new version of the modified column or the new column.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>OLD: returns 
+ the old version of the modified column or the dropped column.</p></li>
+</ul>
+<p class=TexteTableau>If the selector is omitted, it is set to OLD for 
+ all <span style="font-style: italic;"><I>drop</I></span> actions. Otherwise, 
+ it is set to NEW.</td></tr>
+</table>
+
+<h3><a name=ATTR_MOTIF></a>Pattern Attributes List</h3>
+
+<p>The following table lists different parameters values as well as their 
+ associated description. </p>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs22
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter value</th>
+<th class=whs23
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs24>
+<p class=TexteTableau>I_COL</td>
+<td class=whs25>
+<p class=TexteTableau>Internal identifier of the column</td></tr>
+
+<tr>
+<td class=whs26>
+<p class=TexteTableau>COL_NAME</td>
+<td class=whs27>
+<p class=TexteTableau>Name of the column</td></tr>
+
+<tr>
+<td class=whs28>
+<p class=TexteTableau>COL_HEADING</td>
+<td class=whs29>
+<p class=TexteTableau>Header of the column</td></tr>
+
+<tr>
+<td class=whs30>
+<p class=TexteTableau>COL_DESC</td>
+<td class=whs31>
+<p class=TexteTableau>Description of the column</td></tr>
+
+<tr>
+<td class=whs32>
+<p class=TexteTableau>POS</td>
+<td class=whs33>
+<p class=TexteTableau>Position of the column</td></tr>
+
+<tr>
+<td class=whs34>
+<p class=TexteTableau>LONGC</td>
+<td class=whs35>
+<p class=TexteTableau>Column length (Precision)</td></tr>
+
+<tr>
+<td class=whs36>
+<p class=TexteTableau>SCALE</td>
+<td class=whs37>
+<p class=TexteTableau>Scale of the column</td></tr>
+
+<tr>
+<td class=whs38>
+<p class=TexteTableau>FILE_POS</td>
+<td class=whs39>
+<p class=TexteTableau>Beginning (index) of the column</td></tr>
+
+<tr>
+<td class=whs40>
+<p class=TexteTableau>BYTES</td>
+<td class=whs41>
+<p class=TexteTableau>Number of physical bytes in the column</td></tr>
+
+<tr>
+<td class=whs42>
+<p class=TexteTableau>FILE_END_POS</td>
+<td class=whs43>
+<p class=TexteTableau>End of the column (FILE_POS + BYTES)</td></tr>
+
+<tr>
+<td class=whs44>
+<p class=TexteTableau>IND_WRITE</td>
+<td class=whs45>
+<p class=TexteTableau>Write right flag of the column</td></tr>
+
+<tr>
+<td class=whs46>
+<p class=TexteTableau>COL_MANDATORY</td>
+<td class=whs47>
+<p class=TexteTableau>Mandatory character of the column (0: null authorized, 
+ 1: not null)</td></tr>
+
+<tr>
+<td class=whs48>
+<p class=TexteTableau>CHECK_FLOW</td>
+<td class=whs49>
+<p class=TexteTableau>Flow control flag of the column (0: do not check, 
+ 1: check)</td></tr>
+
+<tr>
+<td class=whs50>
+<p class=TexteTableau>CHECK_STAT</td>
+<td class=whs51>
+<p class=TexteTableau>Static control flag of the column (0: do not check, 
+ 1: check)</td></tr>
+
+<tr>
+<td class=whs52>
+<p class=TexteTableau>COL_FORMAT</td>
+<td class=whs53>
+<p class=TexteTableau>Logical format of the column</td></tr>
+
+<tr>
+<td class=whs54>
+<p class=TexteTableau>COL_DEC_SEP</td>
+<td class=whs55>
+<p class=TexteTableau>Decimal symbol of the column</td></tr>
+
+<tr>
+<td class=whs56>
+<p class=TexteTableau>REC_CODE_LIST</td>
+<td class=whs57>
+<p class=TexteTableau>List of the record codes retained in the column</td></tr>
+
+<tr>
+<td class=whs58>
+<p class=TexteTableau>COL_NULL_IF_ERR</td>
+<td class=whs59>
+<p class=TexteTableau>Processing flag of the column (0 = Reject, 1 = Set 
+ to null active trace, 2= set to null inactive trace)</td></tr>
+
+<tr>
+<td class=whs60>
+<p class=TexteTableau>DEF_VALUE</td>
+<td class=whs61>
+<p class=TexteTableau>Default value of the column</td></tr>
+
+<tr>
+<td class=whs62>
+<p class=TexteTableau>EXPRESSION</td>
+<td class=whs63>
+<p class=TexteTableau>Text of the expression executed on the source (expression 
+ as typed in the mapping or column name making an expression executed on 
+ the staging area).</td></tr>
+
+<tr>
+<td class=whs64>
+<p class=TexteTableau>CX_COL_NAME</td>
+<td class=whs65>
+<p class=TexteTableau>Computed name of the column used as a container for 
+ the current expression on the staging area </td></tr>
+
+<tr>
+<td class=whs66>
+<p class=TexteTableau>ALIAS_SEP</td>
+<td class=whs67>
+<p class=TexteTableau>Separator used for the alias (from the technology)</td></tr>
+
+<tr>
+<td class=whs68>
+<p class=TexteTableau>SOURCE_DT</td>
+<td class=whs69>
+<p class=TexteTableau>Code of the column's datatype.</td></tr>
+
+<tr>
+<td class=whs70>
+<p class=TexteTableau>SOURCE_CRE_DT</td>
+<td class=whs71>
+<p class=TexteTableau>Create table syntax for the column's datatype.</td></tr>
+
+<tr>
+<td class=whs70>
+<p class=TexteTableau>SOURCE_WRI_DT</td>
+<td class=whs71>
+<p class=TexteTableau>Create table syntax for the column's writable datatype.</td></tr>
+
+<tr>
+<td class=whs72>
+<p class=TexteTableau>DEST_DT</td>
+<td class=whs73>
+<p class=TexteTableau>Code of the column's datatype converted to a datatype 
+ on the target technology.</td></tr>
+
+<tr>
+<td class=whs74>
+<p class=TexteTableau>DEST_CRE_DT</td>
+<td class=whs75>
+<p class=TexteTableau>Create table syntax for the column's datatype converted 
+ to a datatype on the target technology.</td></tr>
+
+<tr>
+<td class=whs74>
+<p class=TexteTableau>DEST_WRI_DT</td>
+<td class=whs75>
+<p class=TexteTableau>Create table syntax for the column's writable datatype 
+ converted to a datatype on the target technology.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>SCD_COL_TYPE</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Behavior defined for the Slowly Changing Dimensions 
+ for this column in the data model.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>MANDATORY_CLAUSE</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Returns <span class=Code>NOT NULL</span> is the column 
+ is mandatory. Otherwise, returns the null keyword &nbsp;for 
+ the technology.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>DEFAULT_CLAUSE</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Returns <span class=Code>DEFAULT &lt;default value&gt;</span> 
+ if any default value exists. Otherwise, returns and empty string.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>COL_DESC</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Description (comment) of the column. Quotes and double 
+ quotes are replaced with spaces.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>&lt;flexfield code&gt;</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Flexfield value for the current column.</td></tr>
+</table>
+
+</body>
+</html>

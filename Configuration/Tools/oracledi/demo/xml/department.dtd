@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT family (#PCDATA)>
+<!ELEMENT given (#PCDATA)>
+<!ELEMENT name (family, given)>
+<!ELEMENT employee (name, (email | url))>
+<!ATTLIST employee id CDATA #REQUIRED>
+<!ELEMENT department (employee)*>
+<!ELEMENT url EMPTY>
+<!ATTLIST url href CDATA #REQUIRED>
+

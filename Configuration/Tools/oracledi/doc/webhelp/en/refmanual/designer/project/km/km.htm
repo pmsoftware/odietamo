@@ -1,0 +1,177 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Knowledge Modules</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nDesigner\nProjects\nKnowledge Modules\nKnowledge Modules");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Knowledge Modules</h1>
+
+<p>Oracle Data Integrator uses knowledge modules to define methods related to 
+ a given technology. These modules enable processes generation for the 
+ technology, dedicated to a precise function.</p>
+
+<p>It is possible to <a href="../../../../usermanual/designer/project/km/encrypt_a_km.htm">encrypt 
+ a Knowledge Module (KM)</a> to make it unreadable by its users, protecting 
+ valuable development.</p>
+
+<h2>LKM - Loading</h2>
+
+<p>The LKM - Loading Knowledge Modules - load (or extract data) from one 
+ data server to another.</p>
+
+<p>They are named as follows:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=ElementGUI>LKM &lt;source server technology&gt; 
+ to &lt;target server technology&gt; (&lt;module specificity&gt;)</span></p></li>
+</ul>
+
+<p class=Remarque><span class=RemarqueTitre>Note: </span>Some KM use a 
+ generic ISO (SQL or JMS) to reach the data servers.(for source, target 
+ or staging area). The KM indicated with an ISO technology work with data 
+ servers supporting the standards.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note: </span>The specificity 
+ of the knowledge module indicates often a method or feature specific to 
+ the technologies managed by the module, allowing a faster data processing, 
+ and which is used actively in the module. </p>
+
+<h2>JKM - Journalizing</h2>
+
+<p>The JKM - Journalizing Knowledge Modules - setup journalizing on a datastore 
+ in a data model.</p>
+
+<p>They are named as follows:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=ElementGUI>JKM &lt;technology to journalize&gt;</span></p></li>
+</ul>
+
+<p class=Remarque><span class=RemarqueTitre>Note: </span>Journalizing uses 
+ triggers and views. Therefore technologies that do not support these functions 
+ generally do not have an associated JKM.</p>
+
+<h2>IKM - Integration</h2>
+
+<p>The IKM - Integration Knowledge Modules - integrate data in a target 
+ data server from a Staging Area. Frequently, the Staging Area and target 
+ space are on the same data server. The IKM can manage options such as 
+ data insertion (<span style="font-weight: bold;"><B>Append</B></span>), or update 
+ (<span style="font-weight: bold;"><B>Incremental Update</B></span>), etc.</p>
+
+<p>They are named as follows:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=ElementGUI>IKM &lt;Staging Area data 
+ server technology&gt; to &lt;target data server technology&gt; &lt;option 
+ managed in the module&gt; (&lt;module specificity&gt;)</span></p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>IKM &lt;Staging Area and 
+ target data server technology&gt; &lt;option managed in the module&gt; 
+ (&lt;module specificity&gt;)</span></p></li>
+</ul>
+
+<p class=Remarque><span class=RemarqueTitre>Note: </span>The option managed 
+ by the module frequently indicate the more complex option supported in 
+ this knowledge module. For instance, a module <span style="font-weight: bold;"><B>Incremental 
+ Update</B></span><span> (update) should also be able to manage the option 
+ </span><span style="font-weight: bold;"><B>append</B></span><span>, which is 
+ data insertion, and suppression of data in the target..</span></p>
+
+<h2>CKM - Check</h2>
+
+<p>The CKM - Check Knowledge Modules - manage the data quality and cleansing, 
+ on static data and on data flows.</p>
+
+<p>They are named as follows: </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=ElementGUI>CKM &lt;Checked Technology&gt; 
+ (&lt;module specificity&gt;)</span></p></li>
+</ul>
+
+<h2>RKM - Reverse-engineering</h2>
+
+<p>The RKM - Reverse Knowledge Module - reverse-engineer a data model stored 
+ in a given technology. As default, the <span class=ElementGUI>standard</span> 
+ <span class=ElementGUI>reverse </span>allows to reverse all the information 
+ and meta-data in most models. It is required for certain technologies 
+ (files for instance) to use a <span class=ElementGUI>personalized reverse</span> 
+ and therefore a RKM. They are named specifically.</p>
+
+<h2>SKM - Services</h2>
+
+<p><b style="font-weight: normal;"><span style="font-weight: normal;">SKM 
+ (Service Knowledge Modules)</b> are used to generate the code required</span> 
+ for creating data services. This code (typically Java) can be automatically 
+ compiled and deployed to a web service container.</p>
+
+</body>
+</html>

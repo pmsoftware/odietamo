@@ -1,0 +1,169 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Exporting Multiple Objects</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+ul.whs2 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nDesigner\nOther Tasks\nImport/Export\nExporting Multiple Objects");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Exporting Multiple Objects</h1>
+
+<p>You can export one or more objects at once, using the <span class=ElementGUI>Export 
+ Multiple Objects</span> menu item. This lets you export them to a zip 
+ file or a directory, and lets you re-use an existing list of objects to 
+ export.</p>
+
+<p>A more powerful mechanism for doing this is using Solutions. See <a 
+ href="../designer/project/versionning/versionning.htm">Using Version Management</a>.</p>
+
+<p class=HowTo>How to export multiple objects at once:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Select <span class=ElementGUI>Export Multiple 
+ Objects</span> from the menu of Designer, Topology Manager, Security Manager 
+ or Operator.</p></li>
+	
+	<li class=kadov-p><p>Specify the options of the export:</p></li>
+	
+	<ul>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>Export to directory:</span> 
+ the directory to export to. This must be an existing directory.</p></li>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>Export as zip file:</span> 
+ Specify whether to produce a zip file or not. The objects are either exported 
+ as .xml files directly into the directory, or as a zip file containing 
+ .xml files.</p></li>
+		
+		<ul type="disc" class="whs2">
+			
+			<li class=kadov-p><p><span class=ElementGUI>Zip file name:</span> 
+ If producing a zip file, you must name it.</p></li>
+		</ul>
+	</ul>
+	
+	<ul>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>Export child objects:</span> 
+ Choose whether to export child objects (steps of packages, folders of 
+ projects etc) or not. Usually you should check this box.</p></li>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>Replace existing files 
+ without warning:</span> If unchecked, a warning message is displayed before 
+ overwriting any files in the export process.</p></li>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>XML Version:</span> 
+ The version of XML that will be written to the headers of the exported 
+ files.</p></li>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>Character set:</span> 
+ The name of the character set that will be written to the XML headers.</p></li>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>Java character set:</span> 
+ The name of the Java character set that will be used during the encoding 
+ process. For non-European character sets, you must change this.</p></li>
+	</ul>
+	
+	<li class=kadov-p><p>Specify the list of objects to export</p></li>
+	
+	<ul type="disc" class="whs2">
+		
+		<li class=kadov-p><p>Drag and drop objects from Oracle Data Integrator' 
+ graphical modules. You can mix objects from Topology Manager with objects 
+ from Designer, for instance.</p></li>
+		
+		<li class=kadov-p><p>Click <span class=ElementGUI>Load a list of 
+ objects...</span> to load a previously saved list of objects. This is 
+ useful if regularly exporting the same list of objects.</p></li>
+		
+		<li class=kadov-p><p>To save a list of objects, check <span class=ElementGUI>Save 
+ this list in:</span> and specify a file name. If the file exists already, 
+ it will be overwritten without warning.</p></li>
+	</ul>
+</ol>
+
+<p>To import multiple objects at once, you must use a Solution.</p>
+
+<h6>See also:</h6>
+
+<p><a HREF="export_an_object.htm">Exporting an Object</a></p>
+
+</body>
+</html>

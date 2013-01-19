@@ -1,0 +1,256 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>getHavingList()</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="StyleSheet" href="../include/common.css"><style>
+<!--
+th.whs1 { x-cell-content-align:bottom; }
+th.whs2 { x-cell-content-align:bottom; }
+th.whs3 { x-cell-content-align:bottom; }
+td.whs4 { x-cell-content-align:bottom; }
+td.whs5 { x-cell-content-align:bottom; }
+td.whs6 { x-cell-content-align:bottom; }
+td.whs7 { x-cell-content-align:bottom; }
+td.whs8 { x-cell-content-align:bottom; }
+td.whs9 { x-cell-content-align:bottom; }
+td.whs10 { x-cell-content-align:bottom; }
+td.whs11 { x-cell-content-align:bottom; }
+td.whs12 { x-cell-content-align:bottom; }
+td.whs13 { x-cell-content-align:bottom; }
+td.whs14 { x-cell-content-align:bottom; }
+td.whs15 { x-cell-content-align:bottom; }
+th.whs16 { x-cell-content-align:top; }
+th.whs17 { x-cell-content-align:top; }
+td.whs18 { x-cell-content-align:top; }
+td.whs19 { x-cell-content-align:top; }
+td.whs20 { x-cell-content-align:top; }
+td.whs21 { x-cell-content-align:top; }
+-->
+</style><style>
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+p.WebHelpNavBar { text-align:right; }
+LI.kadov-p-CWebHelpNavBar { text-align:right; }
+-->
+</style><script language=javascript
+		title=WebHelpSplitCss><!--
+if (navigator.appName !="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='../../include/common.css'>");}
+//--></script>
+
+<script language=javascript
+		title=WebHelpInlineScript><!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+//--></script>
+
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nLoading Methods (LKM)\ngetHavingList");
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nIntegration Methods (IKM)\ngetHavingList");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>getHavingList() Method</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>public java.lang.String <b>getHavingList</b>( java.lang.String&nbsp;pStart,&nbsp;<br>
+java.lang.String&nbsp;pPattern,&nbsp;<br>
+java.lang.String&nbsp;pSeparator,&nbsp;<br>
+java.lang.String&nbsp;pEnd)</span></p>
+
+<p>Alternative syntax:</p>
+
+<p><span class=Code>public java.lang.String <b>getHavingList</b>( <br>
+java.lang.String&nbsp;pPattern,&nbsp;<br>
+java.lang.String&nbsp;pSeparator)</span></p>
+
+<h2>Description</h2>
+
+<p>Offers a list of the occurrences of SQL HAVING of an interface.</p>
+
+<p>The parameter pPattern is interpreted and repeated for each element 
+ of the list, and separated from its predecessor with the parameter pSeparator. 
+ The generated string begins with pStart and ends with pEnd.</p>
+
+<p>This list contains one element for each HAVING expression to execute 
+ on the source or target (depends on the Knowledge module that uses it).</p>
+
+<p>In the alternative syntax, any parameters not set are set to an empty 
+ string.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: bottom;"
+	valign=bottom>
+<p class=TitreTableau>Parameter</th>
+<th class=whs2
+	style="x-cell-content-align: bottom;"
+	valign=bottom>
+<p class=TitreTableau>Type</th>
+<th class=whs3
+	style="x-cell-content-align: bottom;"
+	valign=bottom>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau>pStart</td>
+<td class=whs5>
+<p class=TexteTableau>String</td>
+<td class=whs6>
+<p class=TexteTableau>This parameter marks the beginning of the string 
+ to generate.</td></tr>
+
+<tr>
+<td class=whs7>
+<p class=TexteTableau>pPattern</td>
+<td class=whs8>
+<p class=TexteTableau>String</td>
+<td class=whs9>
+<p class=TexteTableau>The pattern is repeated for each occurrence in the 
+ list.</p>
+<p class=TexteTableau>The list of authorized attributes in a pattern is 
+ detailed in the table «&nbsp;<a href="#ATTR_MOTIF">Pattern Attributes 
+ List</a>&nbsp;»</p>
+<p class=TexteTableau>Each attribute occurrence in the pattern string is 
+ substituted with its value. The attributes must be between brackets ([ 
+ and ])</p>
+<p class=TexteTableau>Example «&nbsp;My string [COL_NAME] is a column&nbsp;»</td></tr>
+
+<tr>
+<td class=whs10>
+<p class=TexteTableau>pSeparator</td>
+<td class=whs11>
+<p class=TexteTableau>String</td>
+<td class=whs12>
+<p class=TexteTableau>This parameter separates each pattern from its predecessor.</td></tr>
+
+<tr>
+<td class=whs13>
+<p class=TexteTableau>pEnd</td>
+<td class=whs14>
+<p class=TexteTableau>String</td>
+<td class=whs15>
+<p class=TexteTableau>This parameter marks the end of the string to generate.</td></tr>
+</table>
+
+<h3><a name=ATTR_MOTIF></a>Pattern Attributes List</h3>
+
+<p>The following table lists the different values of the parameters as 
+ well as the associated description. </p>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs16
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter value</th>
+<th class=whs17
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs18>
+<p class=TexteTableau>ID</td>
+<td class=whs19>
+<p class=TexteTableau>Internal identifier of the clause</td></tr>
+
+<tr>
+<td class=whs20>
+<p class=TexteTableau>EXPRESSION</td>
+<td class=whs21>
+<p class=TexteTableau>Text of the having expression</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p><span class=Code>insert into &lt;%=odiRef.getTable(&quot;L&quot;, &quot;COLL_NAME&quot;, 
+ &quot;W&quot;)%&gt;<br>
+select &lt;%=getColList(&quot;&quot;, &quot;[EXPRESSION]&quot;, &quot;, 
+ &quot;, &quot;&quot;, &quot;INS=1&quot;)%&gt;<br>
+from &lt;%=odiRef.getFrom()%&gt;<br>
+where (1=1)<br>
+&lt;%=odiRef.getJoin()%&gt;<br>
+&lt;%=odiRef.getFilter()%&gt;<br>
+&lt;%=odiRef.getGrpByList(&quot;group by &quot;, &quot;[EXPRESSION]&quot;, 
+ &quot; , &quot;, &quot;&quot;)%&gt;<b><br>
+&lt;%=odiRef.getHavingList(&quot;having &quot;, &quot;([EXPRESSION])&quot;, 
+ &quot; and &quot;, &quot;&quot;)%&gt;</b></span></p>
+
+<p>Explanation: The getHavingList function will be used to generate the 
+ having clause of the select order that must start with &quot;having&quot; 
+ and that repeats a pattern (each aggregated filtered expression) separated 
+ by &quot;and&quot; &nbsp; for each expression.</p>
+
+<ul>
+	
+	<li class=kadov-p><p>The first parameter <b>&quot;having &quot;</b> 
+ of the function indicates that we want to start the string with <span 
+ class=Code>&quot;having&quot;</span></p></li>
+	
+	<li class=kadov-p><p>The second parameter <b>&quot;([EXPRESSION])&quot; 
+ </b>indicates that we want to repeat this pattern for each aggregated 
+ filter. The keyword [EXPRESSION] references a valid keyword of the table 
+ <a href="#ATTR_MOTIF">Pattern Attributes List</a></p></li>
+	
+	<li class=kadov-p><p>The third parameter<b>&quot; and &quot;</b> indicates 
+ that we want to separate each interpreted occurrence of the pattern with 
+ the string <span class=Code>&quot; and &quot;</span>.</p></li>
+	
+	<li class=kadov-p><p>The fourth parameter <b>&quot;&quot;</b> of the 
+ function indicates that we want to end the string with no specific character</p></li>
+</ul>
+
+</body>
+</html>

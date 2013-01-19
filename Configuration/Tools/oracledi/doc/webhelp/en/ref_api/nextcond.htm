@@ -1,0 +1,109 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>nextCond()</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nWeb services methods (SKM)\nnextCond");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>nextCond() Method</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>public java.lang.Boolean </span><span class=Code
+															style="font-weight: bold;"><B>nextCond()</B></span></p>
+
+<h2>Description</h2>
+
+<p>This method moves to the next condition (check constraint) of the datastore 
+ for which a Web service is being generated.</p>
+
+<p>When first called, this method returns true and positions the current 
+ condition to the first condition of the datastore. If there is no condition 
+ for the datastore, it returns false.</p>
+
+<p>Subsequent calls position the current condition to the next conditions 
+ of the datastore, and return true. If the is no next condition, the method 
+ returns false.</p>
+
+<p>This method can be used only in SKMs.</p>
+
+<h2>Examples</h2>
+
+<p>In the example below, we iterate of all the conditions of the datastore. 
+ In each iteration of the while loop, the <span class=Code>getCK </span>method 
+ return information on the various conditions of the datastore.</p>
+
+<p><span class=Code>&lt;% while (</span><span class=Code
+												style="font-weight: bold;"><B>odiRef.nextCond()</B></span><span 
+ class=Code>) { %&gt;</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;%=odiRef.getCK(&quot;COND_NAME&quot;)%&gt;</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL 
+ :&lt;%=odiRef.getCK(&quot;COND_SQL&quot;)%&gt;</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESS 
+ :&lt;%=odiRef.getCK(&quot;MESS&quot;)%&gt;</span></p>
+
+<p><span class=Code>&lt;% } %&gt;</span></p>
+
+</body>
+</html>

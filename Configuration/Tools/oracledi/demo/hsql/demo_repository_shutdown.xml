@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="myproject" default="runsql" basedir="/">
+<target name="runsql">
+<sql
+    driver="org.hsqldb.jdbcDriver"
+    url="jdbc:hsqldb:hsql://localhost"
+    userid="sa"
+    password=""
+    >
+shutdown compact;
+</sql>
+</target>
+</project>
+

@@ -1,0 +1,465 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Managing Loader Connections</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+table.whs2 { margin-left:24px; }
+col.whs3 { width:135px; }
+col.whs4 { width:875px; }
+td.whs5 { width:135px; }
+td.whs6 { width:875px; }
+ul.whs7 { list-style:disc; }
+col.whs8 { width:207px; }
+col.whs9 { width:803px; }
+td.whs10 { width:207px; }
+td.whs11 { width:803px; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Installation Guide\nAdministering Oracle Data Quality Products\nManaging Loader Connections");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Managing Loader Connections</h1>
+
+<h2>Manage Loader Connections</h2>
+
+<p>To import data into a Metabase, you must have at least one Loader Connection 
+ for each type of data source that you intend to profile.</p>
+
+<p>You must be logged on the Metabase Manager as the Metabase Administrator 
+ to add, edit, and delete Loader Connections.</p>
+
+<p class=Remarque><span class=AlertTitre>Important Note</span>: A Loader 
+ Connection is accessible by all Metabases in a Repository; therefore, 
+ take precautions to ensure that security for data sources is adequate 
+ and will prevent unauthorized access.</p>
+
+<p class=HowTo>To add a Loader Connection</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Log on the Metabase Manager.</p></li>
+	
+	<li class=kadov-p><p>Expand the <span class=ElementGUI>Control Admin</span> 
+ folder.</p></li>
+	
+	<li class=kadov-p><p>Right-click Metabase <span class=ElementGUI>Loader 
+ Connections</span> and select <span class=ElementGUI>Add Loader Connection....</span> 
+ You can also select <span class=ElementGUI>Tools &gt; Add Load Connection</span> 
+ from the Metabase Manager main menu.</p></li>
+	
+	<li class=kadov-p><p>Specify a <span class=ElementGUI>Name</span> and 
+ <span class=ElementGUI>Description</span>. You’ll see this name and description 
+ again in the Create Entity Wizard of the client user interface.</p></li>
+	
+	<li class=kadov-p><p>Select a <span class=ElementGUI>Type</span>. No 
+ matter which <span class=ElementGUI>Type</span> is selected, you will 
+ have the option to specify a <span class=ElementGUI>Default Filter</span>. 
+ This filter limits the number of files to display in the<span class=ElementGUI> 
+ Create Entity Wizard</span> of the client interface. The default is *, 
+ which indicates all files in the specified directory will be shown.</p></li>
+	
+	<li class=kadov-p><p>Depending on the type that you select, you will 
+ be prompted for type-specific parameters. Fill in the type-specfic parameters.</p></li>
+</ol>
+
+<p>You can also edit a loader connection by double-clicking it in the list 
+ of users. and delete it using its <span class=ElementGUI>Delete...</span> 
+ context menu.</p>
+
+<p class=HowTo>To view all defined Loader Connections</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Log on the Metabase Manager.</p></li>
+	
+	<li class=kadov-p><p>Expand the <span class=ElementGUI>Control Admin</span> 
+ folder.</p></li>
+	
+	<li class=kadov-p><p>Double-click <span class=ElementGUI>Loader Connections</span>. 
+ A list of all Loader Connections defined for this Repository (and all 
+ its Metabases) is displayed in the List View pane.</p></li>
+	
+	<li class=kadov-p><p>Examine row information to find out the following.</p></li>
+</ol>
+
+<table x-use-null-cells class="whs2">
+<col class="whs3">
+<col class="whs4">
+
+<tr>
+<th class=whs1
+	style="width: 135px; x-cell-content-align: top;"
+	valign=top
+	width=135px>
+<p class=TitreTableau>Field</th>
+<th class=whs3
+	style="width: 875px; x-cell-content-align: top;"
+	valign=top
+	width=875px>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" width="135px" class="whs5">
+<p class=TexteTableau>Name</td>
+<td colspan="1" rowspan="1" width="875px" class="whs6">
+<p class=TexteTableau>Name of the Loader Connection - displayed in the 
+ Import Data window of the client application.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" width="135px" class="whs5">
+<p class=TexteTableau>Type</td>
+<td colspan="1" rowspan="1" width="875px" class="whs6">
+<p class=TexteTableau>Type of the Loader Connection. Valid types are COBOL, 
+ DB2, Delimited, ODBC, ORACLE, and Trillium.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" width="135px" class="whs5">
+<p class=TexteTableau>Description</td>
+<td colspan="1" rowspan="1" width="875px" class="whs6">
+<p class=TexteTableau>Description of the Loader Connection - displayed 
+ in the Import Data window of the client application.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" width="135px" class="whs5">
+<p class=TexteTableau>Parameters</td>
+<td colspan="1" rowspan="1" width="875px" class="whs6">
+<p class=TexteTableau>Parameters describing file locations or relational 
+ source information. Varies depending on the Type.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" width="135px" class="whs5">
+<p class=TexteTableau>Filter</td>
+<td colspan="1" rowspan="1" width="875px" class="whs6">
+<p class=TexteTableau>Default filter used in the <span class=ElementGUI>Create 
+ Entity Wizard</span>.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" width="135px" class="whs5">
+<p class=TexteTableau>Edited By</td>
+<td colspan="1" rowspan="1" width="875px" class="whs6">
+<p class=TexteTableau>User that last edited the connection.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" width="135px" class="whs5">
+<p class=TexteTableau>Edited Date</td>
+<td colspan="1" rowspan="1" width="875px" class="whs6">
+<p class=TexteTableau>Date that the connection was last modified.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" width="135px" class="whs5">
+<p class=TexteTableau>Created By</td>
+<td colspan="1" rowspan="1" width="875px" class="whs6">
+<p class=TexteTableau>User that created the connection.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" width="135px" class="whs5">
+<p class=TexteTableau>Created Date</td>
+<td colspan="1" rowspan="1" width="875px" class="whs6">
+<p class=TexteTableau>Date that the connection was created.</td></tr>
+</table>
+
+<h2>Changing Loader Settings to Optimize Performance</h2>
+
+<p>There are four settings in the Metabase Manager that can impact data 
+ import performance:</p>
+
+<ul type="disc" class="whs7">
+	
+	<li class=kadov-p><p><span class=ElementGUI>Loader Cache Size: </span>maximum 
+ memory available for load process</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Run Dependencies at Load 
+ Time: </span>enables Dependency Analysis</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Run Keys at Load Time: 
+ </span>enables Key Analysis</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Find Duplicate Rows at 
+ Load Time: </span>enables Duplicate Key discovery</p></li>
+</ul>
+
+<p>These settings are available in the <span class=ElementGUI>Edit Loader 
+ Settngs</span> option when you right-click <span class=ElementGUI>Loader 
+ Connections</span> in the <span class=ElementGUI>Control Admin</span>. 
+ They are described in detail in the following topics.</p>
+
+<h3>Change Loader Cache Size</h3>
+
+<p>The Loader Cache Size specifies the maximum memory allowed for the load 
+ process. If possible, configure the cache size value to be the maximum 
+ size your hardware allows without relying on virtual memory.</p>
+
+<p class=HowTo>To change the loader cache size</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: Changing these 
+ settings affects the entire Repository.</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Log on the Metabase Manager.</p></li>
+	
+	<li class=kadov-p><p>Expand <span class=ElementGUI>Control Admin</span>.</p></li>
+	
+	<li class=kadov-p><p>Right-click <span class=ElementGUI>Loader Connections</span> 
+ and select <span class=ElementGUI>Edit Loader Settings....</span></p></li>
+	
+	<li class=kadov-p><p>Make changes based on the information below.</p></li>
+</ol>
+
+<table x-use-null-cells class="whs2">
+<col class="whs3">
+<col class="whs4">
+
+<tr>
+<th class=whs1
+	style="width: 135px; x-cell-content-align: top;"
+	valign=top
+	width=135px>
+<p class=TitreTableau>Setting </th>
+<th class=whs3
+	style="width: 875px; x-cell-content-align: top;"
+	valign=top
+	width=875px>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs4
+	style="width: 135px;"
+	width=135px>
+<p class=TexteTableau>Loader Cache Size</p>
+<p class=TexteTableau>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td class=whs6
+	style="width: 875px;"
+	width=875px>
+<p class=TexteTableau>Specifies maximum memory allowed for the load process.</p>
+<p class=TexteTableau
+	style="font-weight: bold;">**Be sure to change this value to be as 
+ large as your site’s hardware will tolerate without relying on virtual 
+ memory.</p>
+<p class=TexteTableau>On multiple CPU systems, this process can run multiple 
+ times in parallel. In this scenario, memory is shared across all processes 
+ to ensure that it does not exceed the limit you define.</td></tr>
+</table>
+
+<ol start="5" type="1" class="whs1">
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span>.</p></li>
+</ol>
+
+<h3>Disable Key/Dependency Checks at Load Time</h3>
+
+<p>By default, Oracle Data Profiling automatically performs Key and Dependency 
+ analysis on a sample of your data (10,000 rows) during data import to 
+ find possible Keys and Dependencies. If you are not interested in finding 
+ Keys or Dependencies during data import, you can disable this setting.</p>
+
+<p>Disabling the Key and/or Dependency Analysis improves the load performance 
+ when you import data. However, if the Dependency or Key Analysis is not 
+ run during the data import process, you must manually perform the analysis 
+ using the Oracle Data Quality user interface. For more information, see 
+ the Oracle Data Quality user interface Help.</p>
+
+<p class=HowTo>To disable Key and Dependency Analysis on data import</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Log on the Metabase Manager</p></li>
+	
+	<li class=kadov-p><p>Expand <span class=ElementGUI>Control Admin</span>.</p></li>
+	
+	<li class=kadov-p><p>Right-click<span class=ElementGUI> Loader Connections</span> 
+ and select <span class=ElementGUI>Edit Loader Settings... .</span></p></li>
+	
+	<li class=kadov-p><p>Make changes using the information below.</p></li>
+</ol>
+
+<table x-use-null-cells class="whs2">
+<col class="whs8">
+<col class="whs9">
+
+<tr>
+<th class=whs1
+	style="width: 207px; x-cell-content-align: top;"
+	valign=top
+	width=207px>
+<p class=TitreTableau>To disable...</th>
+<th class=whs3
+	style="width: 803px; x-cell-content-align: top;"
+	valign=top
+	width=803px>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" width="207px" class="whs10">
+<p class=TexteTableau>Dependency analysis at load time</td>
+<td colspan="1" rowspan="1" width="803px" class="whs11">
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Click <span class=ElementGUI>Run 
+ Dependencies at Load Tim</span>e.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Remove the check 
+ from the box.</p></li>
+</ol></td></tr>
+
+<tr>
+<td class=whs4
+	style="width: 207px;"
+	width=207px>
+<p class=TexteTableau>Key analysis at load time</td>
+<td class=whs6
+	style="width: 803px;"
+	width=803px>
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Click <span class=ElementGUI>Run 
+ Keys at Load Time</span>.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Remove the check 
+ from the box.</p></li>
+</ol></td></tr>
+</table>
+
+<ol start="5" type="1" class="whs1">
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span>.</p></li>
+</ol>
+
+<h3>Set Duplicate Rows at Load Time</h3>
+
+<p>By default, Oracle Data Profiling finds duplicate rows when data is 
+ imported to a Metabase. You can improve load performance when you disable 
+ this setting.</p>
+
+<p>If you do not want duplicate rows identified, follow these steps:</p>
+
+<p class=HowTo>To disable finding duplicate rows at load time</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Log on the Metabase Manager.</p></li>
+	
+	<li class=kadov-p><p>Expand the <span class=ElementGUI>Control Admin</span> 
+ folder.</p></li>
+	
+	<li class=kadov-p><p>Right-click <span class=ElementGUI>Loader Connections</span> 
+ and select <span class=ElementGUI>Edit Loader Settings....</span></p></li>
+	
+	<li class=kadov-p><p>Make changes based on the information below.</p></li>
+</ol>
+
+<table x-use-null-cells class="whs2">
+<col class="whs8">
+<col class="whs9">
+
+<tr>
+<th class=whs1
+	style="width: 207px; x-cell-content-align: top;"
+	valign=top
+	width=207px>
+<p class=TitreTableau>To disable...</th>
+<th class=whs3
+	style="width: 803px; x-cell-content-align: top;"
+	valign=top
+	width=803px>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" width="207px" class="whs10">
+<p class=TexteTableau>duplicate rows at load time</td>
+<td colspan="1" rowspan="1" width="803px" class="whs11">
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Click the tab 
+ <span class=ElementGUI>Find Duplicate Rows at Load Time</span>.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Remove the check 
+ from the box.</p></li>
+</ol></td></tr>
+</table>
+
+<ol start="5" type="1" class="whs1">
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span>.</p></li>
+</ol>
+
+<p class=HowTo>To reduce load time by specifying a processing limit</p>
+
+<p>If the number of duplicate rows discovered has the potential to be high, 
+ you can limit the number of duplicate rows found during the initial processing.</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Follow Steps 1 through 4 above.</p></li>
+	
+	<li class=kadov-p><p>Verify that <span class=ElementGUI>Discover duplicated 
+ rows</span> is checked.</p></li>
+	
+	<li class=kadov-p><p>In <span class=ElementGUI>Potential duplicates 
+ threshold</span>, type a number to specify a limit for the number of duplicated 
+ rows the initial process is allowed to find.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span>.</p></li>
+</ol>
+
+</body>
+</html>

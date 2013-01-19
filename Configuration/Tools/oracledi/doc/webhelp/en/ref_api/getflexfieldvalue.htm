@@ -1,0 +1,142 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>getFlexFieldValue()</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nGlobal Methods\ngetFlexFieldValue");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>getFlexFieldValue Method</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>public java.lang.String getFlexFieldValue(java.lang.String 
+ pI_Instance, java.lang.String pI_Object, java.lang.String pFlexFieldCode)</span></p>
+
+<h2>Description</h2>
+
+<p>This method returns the value of an Object Instance's Flexfield.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter</th>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Type</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>pI_Instance</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>String</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=ElementGUI>Internal Identifier</span> 
+ of the Object Instance, as it appears in the <span class=ElementGUI>version</span> 
+ tab of the object instance window.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>pI_Object</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>String</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=ElementGUI>Internal Identifier</span> 
+ of the Object type, as it appears in the <span class=ElementGUI>version</span> 
+ tab of the <span class=ElementGUI>object</span> window for the object 
+ type.</td></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau>pPropertyName</td>
+<td class=whs5>
+<p class=TexteTableau>String</td>
+<td class=whs6>
+<p class=TexteTableau>Flexfield Code which value should be returned.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p><b style="font-weight: bold;"><span class=Code>&lt;%=odiRef.getFlexFieldValue(&quot;32001&quot;,&quot;2400&quot;,&quot;MY_DATASTORE_FIELD&quot;)%&gt;</span></b> 
+ </p>
+
+Returns the value of the flexfield <span class=Code>MY_DATASTORE_FIELD</span>, 
+ for the object instance of type datastore (Internal ID for datastores 
+ is <span class=Code>2400</span>), with the internal ID <span class=Code>32001</span>. 
+ 
+
+</body>
+</html>

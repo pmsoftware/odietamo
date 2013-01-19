@@ -1,0 +1,274 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Session Task</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+p.whs3 { font-weight:normal; }
+p.whs4 { font-weight:bold; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nOperator\nSessions\nSession Tasks");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Session Tasks</h1>
+
+<p>The task is the smallest execution unit. It corresponds to a procedure 
+ command in a KM, a procedure, assignment of a variable, etc</p>
+
+<h2>Definition</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Description</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Description of the type of task. Shows the type of operation in which 
+ the task participates. For an interface, this shows which procedure phase 
+ the interface is located in (loading, integration, check, etc)</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Name of the object handled by the task</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Detailed name of the task</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Order</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>These two fields detail the order of the task in the session (unique 
+ for the session), and the task order in the KM or the procedure which 
+ contributed to its creation.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class="whs3">Type</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class="whs3">Type of task executed. </td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Details</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Logging level of the task.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class="whs3">Ignore Errors</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class="whs3">Shows if this task sets up an error tolerance, 
+ and therefore, if errors for this task are blocking.</td></tr>
+</table>
+
+<h2>Description</h2>
+
+<p>This tab contains the command or commands launched on the source connections 
+ and, by default, during the task. These orders are in code in the native 
+ language of the technology. Nevertheless, they contain the <a href="../designer/project/folder/variable/snpvar.htm">variables</a> 
+ in clear, as these are interpreted when the order is actually executed.</p>
+
+<h2>Execution </h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class="whs4">Default/Loading Connection</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class="whs4">The connection on which the default or loading 
+ commands of the description tab are launched.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Context</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>The execution context of the task </td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Schema</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>The logical schema for execution of the task</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Connection</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>The data server for execution of the task</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Transaction</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Transaction Number in which the command is executed</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Transaction Isolation</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>The transaction isolation level for Select orders. For more information 
+ on transaction isolation, refer to <a href="../designer/project/folder/procedure/snplinetrtuser.htm">Specific 
+ procedure command</a>.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Commit</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Managing Commit for the transaction. For more information, refer to 
+ <a href="../designer/project/folder/procedure/snplinetrtuser.htm">Specific 
+ procedure command</a>.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class="whs4">Execution </td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class="whs4">Details the result of execution of the task</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Start</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Start date and time of execution of the task.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>End</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>End date and time of execution of the task.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Duration</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>The time taken for execution of the task.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>State</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>State of the task (Done, Error, Running, Waiting or Warning).</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Return code</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Return code for the task.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Message</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Task execution error message, if needed.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p>No. of inserts</td>
+<td valign="top" class="whs2">
+<p>Number of rows inserted during the task.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p>No.of Deletes</td>
+<td valign="top" class="whs2">
+<p>Number of rows deleted during the task.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p>No. of Updates</td>
+<td valign="top" class="whs2">
+<p>Number of rows updated during the task.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>No. of Errors</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Number of rows in error in the task.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p>No. of Rows</td>
+<td valign="top" class="whs2">
+<p>Total number of rows handled during this task.</td></tr>
+</table>
+
+</body>
+</html>

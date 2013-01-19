@@ -1,0 +1,223 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Common Errors with DB2/400</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nUsing Oracle Data Integrator with ...\nDB2 for iSeries\nCommon Errors with DB2/400");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Common Errors with DB2/400</h1>
+
+<h2>Decoding the error messages</h2>
+
+<p>Errors in Oracle Data Integrator appear often in the following way:</p>
+
+<h6>Error message with the ODBC driver</h6>
+
+<p><span class=Code>java.sql.SQLException: 
+ </span><span class=Code
+				style="font-weight: bold;"><B>[IBM][Client Access ODBC Driver][32 
+ bits][DB2/400 SQL]Communication link failure. Comm RC=0xb</B></span><span 
+ class=Code><br>
+at sun.jdbc.odbc.JdbcOdbc.createSQLException(Unknown Source)<br>
+at sun.jdbc.odbc.JdbcOdbc.standardError(Unknown Source)<br>
+...</span></p>
+
+<h6>Error message with the IBM JT/400 driver</h6>
+
+<p><span class=Code>java.sql.SQLException: </span><span class=Code
+														style="font-weight: bold;"><B>The 
+ application server rejected the connection.(Signon was canceled.)</B></span><span 
+ class=Code><br>
+at com.ibm.as400.access.JDError.throwSQLException(JDError.java:336)<br>
+at com.ibm.as400.access.AS400JDBCConnection.setProperties(AS400JDBCConnection.java:1984)<br>
+...</span></p>
+
+<h6>Error message with the HiT JDBC/400 driver</h6>
+
+<p><span class=Code>java.sql.SQLException: </span><span class=Code
+														style="font-weight: bold;"><B>Cannot 
+ open a socket on host: ha, port: 8471 (Exception: java.net.UnknownHostException: 
+ ha).</B></span><span class=Code><br>
+at hit.as400sql.d.&lt;init&gt;([DashoPro-V1.3-013000])<br>
+at hit.as400.As400Driver.newConnection([DashoPro-V1.3-013000])<br>
+...</span></p>
+
+<p>the <span class=Code>java.sql.SQLException</span> code simply indicates 
+ that a query was made to the database through the JDBC driver (or JDBC/ODBC 
+ bridge), which has returned an error. This error is frequently a database 
+ or driver error, and must be interpreted in this direction.</p>
+
+<p>Only the part of text in bold must first be taken in account. It must 
+ be searched in the driver or database documentation. If it contains an 
+ error code specific to DB2/400, the error can be immediately identified.</p>
+
+<p>If such an error is identified in the execution log, it is necessary 
+ to analyze the SQL code sent to the database to find the source of the 
+ error. The code is displayed in the <span class=ElementGUI>description</span> 
+ tab of the erroneous <span class=ElementGUI>task</span>.</p>
+
+<p>The most common errors with a DB2/400 server are detailed below along 
+ with their principal causes.</p>
+
+<h2>Common Errors</h2>
+
+<h3>Connection Errors</h3>
+
+<h6>UnknownDriverException</h6>
+
+<p>The JDBC driver is incorrect. Check the name of the driver.</p>
+
+<h6>The application requester cannot establish the connection.(<span class=Code
+	style="font-weight: normal;">&lt;name or IP address&gt;</span>)<br>
+Cannot open a socket on host: <span class=Code
+									style="font-weight: normal;">&lt;name 
+ or IP address&gt;</span>, port: 8471 (Exception: java.net.UnknownHostException:<span 
+ class=Code
+	style="font-weight: normal;">&lt;name or IP address&gt;</span>)</h6>
+
+<p>Oracle Data Integrator cannot connect to the database. Either the machine 
+ name or IP address is invalid, the DB2/400 Services are not started or 
+ the TCP/IP interface on AS/400 is not started.<br>
+Try to ping the AS/400 machine using the same machine name or IP address, 
+ and check with the system administrator that the appropriate services 
+ are started.</p>
+
+<h6>Datasource not found or driver name not specified</h6>
+
+<p>The ODBC Datasource specified in the JDBC URL is incorrect.</p>
+
+<h6>The application server rejected the connection.(Signon was canceled.)<br>
+Database login failed, please verify userid and password.<br>
+Communication Link Failure. Comm RC=8001 - CWBSY0001 - ...</h6>
+
+<p>The user profile used is not valid. This error occurs when typing an 
+ invalid user name or an incorrect password.</p>
+
+<h6>Communication Link Failure.</h6>
+
+<p>An error occurred with the ODBC connectivity. Refer to the Client Access 
+ documentation for more information.</p>
+
+<h3>Errors in the interfaces</h3>
+
+<h6>SQL7008 &amp;1 in &amp;2 not valid for operation. The reason code is 
+ 3.</h6>
+
+<p>The iSeries 400 system implements commitment control by journaling. 
+ Any application that takes advantage of commitment control will require 
+ that the files used be journaled. Most of the Knowledge modules make use 
+ of commitment control in the staging area, and to write in the target 
+ datastores. We strongly recommend you use <span style="font-weight: bold;"><B>collections</B></span> 
+ as staging areas on AS/400 and have the target tables journaled. It is 
+ possible to remove the use of commitment control in the knowledge modules 
+ by modifying them.</p>
+
+<h6>SQL5001 - Column qualifier or table &amp;2 undefined.<br>
+SQL5016 - Object name &amp;1 not valid for naming convention</h6>
+
+<p>Your JDBC connection or ODBC Datasource is configured to use the wrong 
+ naming convention. Use the ODBC Administrator to change your datasource 
+ to use the proper (*SQL or *SYS) naming convention, or use the appropriate 
+ option in the JDBC URL to force the naming conversion (for instance <span 
+ class=Code>jdbc:as400://195.10.10.13;naming=system</span>) .&nbsp; Note 
+ that if using the system naming convention in the <span class=ElementGUI>Local 
+ Object Mask</span> of the <span class=ElementGUI>Physical Schema</span>, 
+ you must enter <span class=Code>%SCHEMA/%OBJECT</span> instead of <span 
+ class=Code>%SCHEMA.%OBJECT</span>.</p>
+
+<p>&quot;*SQL&quot; should always be used unless your application is specifically 
+ designed for *SYS. Oracle Data Integrator uses the *SQL naming convention 
+ by default.</p>
+
+<h6>SQL0204 &amp;1 in &amp;2 type *&amp;3 not found. </h6>
+
+<p>The table you are trying to access does not exist. This may be linked 
+ to an error in the context choice, or in the sequence of operations (E.g. 
+ : The table is a temporary table which must be created by another interface).</p>
+
+<h6>Hexadecimal characters appear in the target tables. Accentuated characters 
+ are incorrectly transferred.</h6>
+
+<p>The iSeries computer attaches a language identifier or CCSID to files, 
+ tables and even fields (columns). CCSID 65535 is a generic code that identifies 
+ a file or field as being language independent: i.e. hexadecimal data. 
+ By definition, no translation is performed by the drivers. If you do not 
+ wish to update the CCSID of the file, then translation can be forced, 
+ in the JDBC URL, thanks to the flags <span class=Code>ccsid=&lt;ccsid 
+ code&gt;</span> and <span class=Code>convert _ccsid_65535=yes|no</span>. 
+ See the driver's documentation for more information.</p>
+
+<h6>SQL0901 SQL system error</h6>
+
+<p>This error is an internal error of the DB2/400 system.</p>
+
+<h6>SQL0206 Column &amp;1 not in specified tables. </h6>
+
+<p>Keying error in a mapping/join/filter. A string which is not a column 
+ name is interpreted as a column name, or a column name is misspelled.</p>
+
+<p>This error may also appear when accessing an error table associated 
+ to a datastore with a structure recently modified. It is necessary to 
+ impact in the error table the modification, or drop the error tables and 
+ let Oracle Data Integrator recreate it in the next execution.</p>
+
+</body>
+</html>

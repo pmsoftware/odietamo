@@ -1,0 +1,146 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Diagram tab</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+th.whs2 { x-cell-content-align:top; }
+td.whs3 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nDesigner\nProjects\nInterfaces\nDiagram Tab\nDiagram Tab");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Diagram Tab</h1>
+
+<p>The sources, the target, and the transformation and mapping rules are 
+ defined in the <span class=ElementGUI>Diagram</span> tab of the <span 
+ class=ElementGUI>Interface</span> window.</p>
+
+<p>Use this tab to define: </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>A source data model in the form of an &quot;entity-relation&quot; 
+ diagram (like in an SQL query editor). It appears in the <span class=ElementGUI>composition 
+ panel</span> on the left side of the window. A data model is made up of 
+ <a href="datastores_sources.htm">source datastores</a> (permanent or temporary), 
+ <a href="pop_join.htm">joins</a> and <a href="pop_join.htm">filters</a>.</p></li>
+	
+	<li class=kadov-p><p>A <a href="pop_trg.htm">target datastore</a>.</p></li>
+	
+	<li class=kadov-p><p>A <a href="pop_mapping.htm">mapping</a>, the set 
+ of correspondence rules between source and target data.</p></li>
+</ul>
+
+<h2>Diagram options</h2>
+
+<p>The options, which are displayed above the diagram, are as follows:</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Columns</td>
+<td valign="top" class="whs3">
+<p>Display column-to-column joins (as black lines).</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Datastores</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Display only the joins between tables (blue lines), 
+ which can be useful when there are many joins.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Sets</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Draw green arrows to represent the construction order 
+ of the sets resulting from the joins. The order number that appears in 
+ the join properties allows the set construction order to be modified. 
+ This display will be modified accordingly. (A join with a order number 
+ near 1 will be constructed first).</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Errors</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Allow errors detected on the interface to be displayed. 
+ When an error is detected, the text of the button turns red. It may also 
+ appear yellow when there are some warnings.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Properties</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Displays the properties of joins or tables (bottom 
+ panel).</td></tr>
+</table>
+
+</body>
+</html>

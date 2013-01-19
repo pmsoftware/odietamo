@@ -1,0 +1,180 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Sequences</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+p.whs2 { font-weight:normal; }
+th.whs3 { x-cell-content-align:top; }
+td.whs4 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nDesigner\nProjects\nSequences");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Sequences</h1>
+
+<p>A sequence is a variable that increments itself each time it is used. 
+ Between two uses, the value can be stored in the repository or managed 
+ within an external RDBMS table.</p>
+
+<p>Oracle Data Integrator supports two types of sequences:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=ElementGUI>Standard sequences</span>, 
+ whose last value is stored in the Repository.</p></li>
+	
+	<li class=kadov-p><p class="whs2"><span class=ElementGUI>Specific 
+ sequences </span>, whose last value is stored in an RDBMS table cell. 
+ Oracle Data Integrator undertakes to read the value, to lock the row (for concurrent 
+ updates) and to update the row after the last increment.</p></li>
+</ul>
+
+<h2>General Properties</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs3">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs3">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs4">
+<p class=TexteTableau>Name</td>
+<td valign="top" class="whs4">
+<p class=TexteTableau>Name of the sequence, in the form it will be used. 
+ This name should not contain characters that could be interpreted as word 
+ separators (blanks, etc) by the technologies the sequence will be used 
+ on. Upper and lower case are not distinguished during interpretation.</p>
+<p class=TexteTableau>For example: <span class=Code>ORDER_NO</span></td></tr>
+
+<tr>
+<td valign="top" class="whs4">
+<p class=TexteTableau>Scope</td>
+<td valign="top" class="whs4">
+<p class=TexteTableau>The validity range of the sequence, either &quot;Global&quot; 
+ or &quot;Project&quot;. A sequence can be valid for all projects (a global 
+ sequence), or only for the current project. Oracle Data Integrator examines &quot;Project&quot;-level 
+ sequences first, before evaluating &quot;Global&quot;-level sequences. 
+ Thus, if a sequence ORDER_NO exists at both project level and global level, 
+ only the project-level sequence value can be evaluated. </td></tr>
+
+<tr>
+<td valign="top" class="whs4">
+<p class=TexteTableau>Increment</td>
+<td valign="top" class="whs4">
+<p class=TexteTableau>Value of the increment. This value can be positive 
+ or negative.</td></tr>
+
+<tr>
+<td valign="top" class="whs4">
+<p class=TexteTableau
+	style="font-weight: bold;">Standard sequence </td>
+<td valign="top" class="whs4">
+<p class=TexteTableau
+	style="font-weight: bold;">&nbsp;</td></tr>
+
+<tr>
+<td valign="top" class="whs4">
+<p class=TexteTableau>Position</td>
+<td valign="top" class="whs4">
+<p class=TexteTableau>Last value allocated for a standard sequence.</td></tr>
+
+<tr>
+<td valign="top" class="whs4">
+<p class=TexteTableau
+	style="font-weight: bold;">Specific sequence</td>
+<td valign="top" class="whs4">
+<p>&nbsp;</td></tr>
+
+<tr>
+<td valign="top" class="whs4">
+<p class=TexteTableau>Schema</td>
+<td valign="top" class="whs4">
+<p class=TexteTableau>Logical schema containing the sequences table</td></tr>
+
+<tr>
+<td valign="top" class="whs4">
+<p class=TexteTableau>Table</td>
+<td valign="top" class="whs4">
+<p class=TexteTableau>Table containing the sequence value</td></tr>
+
+<tr>
+<td valign="top" class="whs4">
+<p class=TexteTableau>Column</td>
+<td valign="top" class="whs4">
+<p class=TexteTableau>Name of the column containing the sequence value.</td></tr>
+
+<tr>
+<td valign="top" class="whs4">
+<p class=TexteTableau>Filter to retrieve a single row</td>
+<td valign="top" class="whs4">
+<p class=TexteTableau>When the latter table contains more than one row, 
+ a filter should be completed in order to locate this row in the table. 
+ This filter picks up the SQL syntax of the data server. </p>
+<p class=TexteTableau>For example: <span class=Code>CODE_TAB = '3'</span></td></tr>
+</table>
+
+</body>
+</html>

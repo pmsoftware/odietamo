@@ -1,0 +1,128 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>General Points</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Jython Quick Reference\nThe Basics\nPoints to Remember");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Points to Remember</h1>
+
+<p>The basic rules to write a Jython program are:</p>
+
+<h2>Code execution</h2>
+
+<p>Statements are executed in sequence up to a control structure: <span 
+ class=Code>if</span>, <span class=Code>for</span>, <span class=Code>while</span>, 
+ <span class=Code>raise</span> , or a function call.</p>
+
+<h2>Block</h2>
+
+<p>A block is defined by lines with the same indentation level (spaces 
+ or tabulations).</p>
+
+<h2>Statements</h2>
+
+<p>A statement stops at the end of a line, and can be continued on several 
+ lines if they end with a <span class=Code>\</span>, or if they are enclosed 
+ in <span class=Code>()</span>, <span class=Code>[]</span>,<span class=Code> 
+ {}</span> or<span class=Code> '''</span>. &nbsp;Several 
+ instructions can be on the same line if they are separated with a <span 
+ class=Code>;</span>.</p>
+
+<h2>Comments</h2>
+
+<p>A comment starts with a hash character <span class=Code>#</span> and 
+ ends at the end of the physical line.</p>
+
+<h2>String Documentation</h2>
+
+<p>If a function, a module or a class starts with a string constant, this 
+ string is stored in the <span class=Code>__doc__</span> attribute of the 
+ object.</p>
+
+<h2>Examples</h2>
+
+<p>Simple program that displays &quot;Hello World&quot;</p>
+
+<p><span class=Code># Assign a value to a string</span></p>
+
+<p><span class=Code>s = 'Hello World'</span></p>
+
+<p><span class=Code># Display the value</span></p>
+
+<p><span class=Code>print s</span></p>
+
+<p>&nbsp;</p>
+
+<p>Program that displays &quot;Hello World&quot; 4 times</p>
+
+<p><span class=Code>s = 'Hello World %d'</span></p>
+
+<p><span class=Code>for i in range(4):</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;j 
+ = i * 2</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;print 
+ s % j</span></p>
+
+</body>
+</html>

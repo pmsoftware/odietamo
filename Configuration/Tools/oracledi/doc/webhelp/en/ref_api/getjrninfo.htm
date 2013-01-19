@@ -1,0 +1,293 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>getJrnInfo()</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+td.whs1 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nJournalizing Methods (JKM)\ngetJrnInfo");
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nLoading Methods (LKM)\ngetJrnInfo");
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nIntegration Methods (IKM)\ngetJrnInfo");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>getJrnInfo() Method</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>public java.lang.String <b>getJrnInfo</b>(java.lang.String&nbsp;pPropertyName)</span></p>
+
+<h2>Description</h2>
+
+<p>Returns generic information about a datastore's journalizing for a JKM 
+ while journalizing a model/datastore, or for a LKM/IKM in an interface.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter</th>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Type</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau>pPropertyName</td>
+<td class=whs5>
+<p class=TexteTableau>String</td>
+<td class=whs6>
+<p class=TexteTableau>String containing the name of the requested property.</td></tr>
+</table>
+
+<h6>pPropertyName&nbsp;values</h6>
+
+<p>The following table lists the different values possible for pPropertyName&nbsp;:</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs7
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter value</th>
+<th class=whs8
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>FULL_TABLE_NAME</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Full name of the journalized datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_FULL_NAME</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Full name of the journal datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_FULL_VIEW</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Full name of the view linked to the journalized datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_FULL_DATA_VIEW</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Full name of the data view linked to the journalized 
+ datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_FULL_TRIGGER</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Full name of the trigger linked to the journalized 
+ datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_FULL_ITRIGGER</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Full name of the Insert trigger linked to the journalized 
+ datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_FULL_UTRIGGER</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Full name of the Update trigger linked to the journalized 
+ datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_FULL_DTRIGGER</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Full name of the Delete trigger linked to the journalized 
+ datastore.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>JRN_SUBSCRIBER</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Name of the subscriber table in the work schema .</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_NAME</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Name of the journalized datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_VIEW</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Name of the view linked to the journalized datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_DATA_VIEW</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Name of the data view linked to the journalized datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_TRIGGER</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Name of the trigger linked to the journalized datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_ITRIGGER</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Name of the Insert trigger linked to the journalized 
+ datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_UTRIGGER</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Name of the Update trigger linked to the journalized 
+ datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_DTRIGGER</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Name of the Delete trigger linked to the journalized 
+ datastore.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>JRN_SUBSCRIBER</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Name of the subscriber.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p>JRN_COD_MODE</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Code of the journalized data model.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p>JRN_METHOD</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Journalizing Mode (consistent or simple).</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>CDC_SET_TABLE</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the table containing list of CDC sets.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>CDC_TABLE_TABLE</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the table containing the list of tables 
+ journalized through CDC sets.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>CDC_SUBS_TABLE</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the table containing the list of subscribers 
+ to CDC sets.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>CDC_OBJECTS_TABLE</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the table containing the journalizing 
+ parameters and objects.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>The table being journalized is <b><span class=Code>&lt;%=odiRef.getJrnInfo(&quot;FULL_TABLE_NAME&quot;)%&gt;</span></b></p>
+
+</body>
+</html>

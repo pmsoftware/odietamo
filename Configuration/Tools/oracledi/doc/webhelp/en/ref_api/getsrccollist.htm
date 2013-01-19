@@ -1,0 +1,423 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>getSrcColList()</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+td.whs1 { x-cell-content-align:top; }
+p.whs2 { width:500px; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nLoading Methods (LKM)\ngetSrcColList");
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nIntegration Methods (IKM)\ngetSrcColList");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>getSrcColList() Method</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>public java.lang.String <b>getSrcColList</b>( java.lang.String&nbsp;pStart,&nbsp;<br>
+java.lang.String&nbsp;pUnMappedPattern,&nbsp;<br>
+java.lang.String&nbsp;pMappedPattern,&nbsp;<br>
+java.lang.String&nbsp;pSeparator,&nbsp;<br>
+java.lang.String&nbsp;pEnd)</span></p>
+
+<h2>Description</h2>
+
+<p>This method available in LKMs and IKMs, returns properties for a list 
+ of columns. This list includes all the columns of the sources processed 
+ by the LKM (from the source) or the IKM (from the staging area). The list 
+ is sorted on the column position in the source tables.</p>
+
+<p>The properties displayed depend on whether the column is mapped or not. 
+ If the column is mapped, the properties returned are defined in the <span 
+ class=Code>pMappedPattern</span> pattern. If the column is not mapped, 
+ the properties returned are defined in the <span class=Code>pUnMappedPattern</span> 
+ pattern.</p>
+
+<p>The attributes usable in a pattern are detailed in &quot;<a href="#ATTR_MOTIF">Pattern 
+ Attributes List</a>&quot;. Each occurrence of the attributes in the pattern 
+ string is replaced by its value. Attributes must be between brackets ([ 
+ and ]). Example: &quot;My string [COL_NAME] is a column&quot;.</p>
+
+<p class=MsoNormal>The <span class=Code>pMappedPattern</span> or <span 
+ class=Code>pUnMappedPattern</span> parameter is interpreted and then repeated 
+ for each element of the list. Patterns are separated with <span class=Code>pSeparator</span>. 
+ The generated string begins with <span class=Code>pStart</span> and ends 
+ with <span class=Code>pEnd</span>.</p>
+
+<p>If there is a journalized datastore in the source of the interface, 
+ the three journalizing pseudo columns <span class=Code>JRN_FLG</span>, 
+ <span class=Code>JRN_DATE</span>,and <span class=Code>JRN_SUBSCRIBER</span> 
+ are added as columns of the journalized source datastore.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs4
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter</th>
+<th class=whs5
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Type</th>
+<th class=whs6
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs7>
+<p class=TexteTableau>pStart</td>
+<td class=whs8>
+<p class=TexteTableau>String</td>
+<td class=whs9>
+<p class=TexteTableau>This sequence marks the beginning of the string to 
+ generate.</td></tr>
+
+<tr>
+<td class=whs10>
+<p class=TexteTableau>pUnMappedPattern</td>
+<td class=whs11>
+<p class=TexteTableau>String</td>
+<td class=whs12>
+<p class=TexteTableau>The pattern is repeated for each occurrence in the 
+ list if the column is not mapped.</td></tr>
+
+<tr>
+<td class=whs10>
+<p class=TexteTableau>pMappedPattern</td>
+<td class=whs11>
+<p class=TexteTableau>String</td>
+<td class=whs12>
+<p class=TexteTableau>The pattern is repeated for each occurrence in the 
+ list, if the column is mapped.</td></tr>
+
+<tr>
+<td class=whs13>
+<p class=TexteTableau>pSeparator</td>
+<td class=whs14>
+<p class=TexteTableau>String</td>
+<td class=whs15>
+<p class=TexteTableau>This parameter separates patterns.</td></tr>
+
+<tr>
+<td class=whs16>
+<p class=TexteTableau>pEnd</td>
+<td class=whs17>
+<p class=TexteTableau>String</td>
+<td class=whs18>
+<p class=TexteTableau>This sequence marks the end of the string to generate.</td></tr>
+</table>
+
+<h3><a name=ATTR_MOTIF></a>Pattern Attributes List</h3>
+
+<p>The following table lists different parameters values as well as their 
+ associated description. </p>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs22
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter value</th>
+<th class=whs23
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs24>
+<p class=TexteTableau>I_COL</td>
+<td class=whs25>
+<p class=TexteTableau>Internal identifier of the column</td></tr>
+
+<tr>
+<td class=whs26>
+<p class=TexteTableau>COL_NAME</td>
+<td class=whs27>
+<p class=TexteTableau>Name of the column</td></tr>
+
+<tr>
+<td class=whs26>
+<p class=TexteTableau>ALIAS_NAME</td>
+<td class=whs27>
+<p class=TexteTableau>Name of the column. Unlike COL_NAME, this attribute 
+ returns the column name without the optional technology delimiters. These 
+ delimiters appear when the column name contains for instance spaces.</td></tr>
+
+<tr>
+<td class=whs28>
+<p class=TexteTableau>COL_HEADING</td>
+<td class=whs29>
+<p class=TexteTableau>Header of the column</td></tr>
+
+<tr>
+<td class=whs30>
+<p class=TexteTableau>COL_DESC</td>
+<td class=whs31>
+<p class=TexteTableau>Description of the column</td></tr>
+
+<tr>
+<td class=whs32>
+<p class=TexteTableau>POS</td>
+<td class=whs33>
+<p class=TexteTableau>Position of the column</td></tr>
+
+<tr>
+<td class=whs34>
+<p class=TexteTableau>LONGC</td>
+<td class=whs35>
+<p class=TexteTableau>Column length (Precision)</td></tr>
+
+<tr>
+<td class=whs36>
+<p class=TexteTableau>SCALE</td>
+<td class=whs37>
+<p class=TexteTableau>Scale of the column</td></tr>
+
+<tr>
+<td class=whs38>
+<p class=TexteTableau>FILE_POS</td>
+<td class=whs39>
+<p class=TexteTableau>Beginning (index) of the column</td></tr>
+
+<tr>
+<td class=whs40>
+<p class=TexteTableau>BYTES</td>
+<td class=whs41>
+<p class=TexteTableau>Number of physical bytes in the column</td></tr>
+
+<tr>
+<td class=whs42>
+<p class=TexteTableau>FILE_END_POS</td>
+<td class=whs43>
+<p class=TexteTableau>End of the column (FILE_POS + BYTES)</td></tr>
+
+<tr>
+<td class=whs44>
+<p class=TexteTableau>IND_WRITE</td>
+<td class=whs45>
+<p class=TexteTableau>Write right flag of the column</td></tr>
+
+<tr>
+<td class=whs46>
+<p class=TexteTableau>COL_MANDATORY</td>
+<td class=whs47>
+<p class=TexteTableau>Mandatory character of the column (0: null authorized, 
+ 1: not null)</td></tr>
+
+<tr>
+<td class=whs48>
+<p class=TexteTableau>CHECK_FLOW</td>
+<td class=whs49>
+<p class=TexteTableau>Flow control flag of the column (0: do not check, 
+ 1: check)</td></tr>
+
+<tr>
+<td class=whs50>
+<p class=TexteTableau>CHECK_STAT</td>
+<td class=whs51>
+<p class=TexteTableau>Static control flag of the column (0: do not check, 
+ 1: check)</td></tr>
+
+<tr>
+<td class=whs52>
+<p class=TexteTableau>COL_FORMAT</td>
+<td class=whs53>
+<p class=TexteTableau>Logical format of the column</td></tr>
+
+<tr>
+<td class=whs54>
+<p class=TexteTableau>COL_DEC_SEP</td>
+<td class=whs55>
+<p class=TexteTableau>Decimal symbol of the column</td></tr>
+
+<tr>
+<td class=whs56>
+<p class=TexteTableau>REC_CODE_LIST</td>
+<td class=whs57>
+<p class=TexteTableau>List of the record codes retained in the column</td></tr>
+
+<tr>
+<td class=whs58>
+<p class=TexteTableau>COL_NULL_IF_ERR</td>
+<td class=whs59>
+<p class=TexteTableau>Processing flag of the column (0 = Reject, 1 = Set 
+ to null active trace, 2= set to null inactive trace)</td></tr>
+
+<tr>
+<td class=whs60>
+<p class=TexteTableau>DEF_VALUE</td>
+<td class=whs61>
+<p class=TexteTableau>Default value of the column</td></tr>
+
+<tr>
+<td class=whs62>
+<p class=TexteTableau>EXPRESSION</td>
+<td class=whs63>
+<p class=TexteTableau>Text of the expression (as typed in the mapping field) 
+ executed on the source (LKM) or the staging area (IKM). If the column 
+ is not mapped, this parameter returns an empty string.</td></tr>
+
+<tr>
+	
+<td class=whs64>
+<p class=TexteTableau>CX_COL_NAME</td>
+<td class=whs65>
+<p class=TexteTableau
+	style="font-style: italic;">Not supported.</td></tr>
+<tr>
+<td class=whs66>
+<p class=TexteTableau>ALIAS_SEP</td>
+<td class=whs67>
+<p class=TexteTableau>Separator used for the alias (from the technology)</td></tr>
+
+<tr>
+<td class=whs68>
+<p class=TexteTableau>SOURCE_DT</td>
+<td class=whs69>
+<p class=TexteTableau>Code of the column's datatype.</td></tr>
+
+<tr>
+<td class=whs70>
+<p class=TexteTableau>SOURCE_CRE_DT</td>
+<td class=whs71>
+<p class=TexteTableau>Create table syntax for the column's datatype.</td></tr>
+
+<tr>
+<td class=whs70>
+<p class=TexteTableau>SOURCE_WRI_DT</td>
+<td class=whs71>
+<p class=TexteTableau>Create table syntax for the column's writable datatype.</td></tr>
+
+<tr>
+<td class=whs72>
+<p class=TexteTableau>DEST_DT</td>
+<td class=whs73>
+<p class=TexteTableau>Code of the column's datatype converted to a datatype 
+ on the target (IKM) or staging area (LKM) &nbsp;technology.</td></tr>
+
+<tr>
+<td class=whs74>
+<p class=TexteTableau>DEST_CRE_DT</td>
+<td class=whs75>
+<p class=TexteTableau>Create table syntax for the column's datatype converted 
+ to a datatype on the target technology.</td></tr>
+
+<tr>
+<td class=whs74>
+<p class=TexteTableau>DEST_WRI_DT</td>
+<td class=whs75>
+<p class=TexteTableau>Create table syntax for the column's writable datatype 
+ converted to a datatype on the target technology.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>SCD_COL_TYPE</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Behavior defined for the Slowly Changing Dimensions 
+ for this column in the data model.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>MANDATORY_CLAUSE</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Returns <span class=Code>NOT NULL</span> if the column 
+ is mandatory. Otherwise, returns the null keyword for the technology.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>DEFAULT_CLAUSE</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Returns <span class=Code>DEFAULT &lt;default value&gt;</span> 
+ if any default value exists. Otherwise, returns and empty string.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>COL_DESC</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Description (comment) of the column. Quotes and double 
+ quotes are replaced with spaces.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>&lt;flexfield code&gt;</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Flexfield value for the current column.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p class="whs2">To create a table similar to a source file:</p>
+
+<p><span class=Code>create table &lt;%=odiRef.getTable(&quot;L&quot;,&quot;COLL_NAME&quot;, 
+ &quot;D&quot;)%&gt;_F<br>
+(<br>
+&lt;%=odiRef.getSrcColList(&quot;&quot;,&quot;[COL_NAME] [DEST_CRE_DT]&quot;,&quot;[COL_NAME] 
+ [DEST_CRE_DT]&quot;,&quot;,\n&quot;,&quot;&quot;)%&gt;<br>
+)</span></p>
+
+</body>
+</html>

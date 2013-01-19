@@ -1,0 +1,452 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Using Version Management</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+img_whs2 { border:none; width:16px; height:16px; float:none; border-style:none; }
+ol.whs3 { list-style:decimal; }
+-->
+</style><script type="text/javascript" language="JavaScript">
+<!--
+function ehlp_showtip(current,e,text)
+{
+  if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape'))
+  {
+    document.tooltip.document.write("<layer bgColor='yellow' style='border:1px solid black;font-size:12px;'>"+ text + "</layer>");
+    document.tooltip.document.close();
+    document.tooltip.left=e.pageX+5;
+    document.tooltip.top=e.pageY+5;
+    document.tooltip.visibility="show";
+  }
+}
+function ehlp_hidetip()
+{
+  document.tooltip.visibility="hidden";
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nDesigner\nProjects\nUsing Version Management");
+addTocInfo("User's Guide\nOperator\nUsing Version Management");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Using Version Management</h1>
+
+<p>Oracle Data Integrator provides project managers with a comprehensive 
+ system for managing and safeguarding changes. The version management system 
+ allows <span style="font-weight: bold;"><B>flags</B></span> on developed objects 
+ (such as projects, models, etc) to be automatically set, to indicate their 
+ status, such as new or modified. It also allows these objects to be backed 
+ up as stable checkpoints, and later restored from these checkpoints. These 
+ checkpoints are created for individual objects in the form of <span style="font-weight: bold;"><B>versions</B></span>, 
+ and for consistent groups of objects in the form of <span style="font-weight: bold;"><B>solutions</B></span>.</p>
+
+<p class=Remarque><span class=AlertTitre>Important Note</span>: Version 
+ management is supported for master repositories installed on the following 
+ database engines: Hypersonic SQL, IBM DB2 UDB, IBM DB2/400, Informix, 
+ Microsoft SQL Server, Oracle, Sybase AS Anywhere, Sybase AS Enterprise.</p>
+
+<h2>Working with Object Flags</h2>
+
+<p>When an object in Designer is created or modified, a flag is displayed 
+ in the tree view on the object icon to indicate its status:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><img src="ind_change_i.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs2">: Object status is <span style="font-weight: bold;"><B>inserted</B></span>.</p></li>
+	
+	<li class=kadov-p><p><img src="ind_change_u.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs2">: Object status is <span style="font-weight: bold;"><B>updated</B></span>.</p></li>
+</ul>
+
+<p>When an object is inserted, updated or deleted, its parent objects are 
+ recursively flagged as updated. For example, when a step is inserted into 
+ a package, it is flagged as <span style="font-weight: bold;"><B>inserted</B></span>, 
+ and the package, folder(s) 
+ and project containing this step are flagged as <span style="font-weight: bold;"><B>updated</B></span>. 
+ </p>
+
+<p>When an object version is checked in (see <a href="#Version">versions</a> 
+ for more informations), the flags on this object are reset.</p>
+
+<h2><a name=VERSION></a>Working with Versions</h2>
+
+<p>A version is a backup copy of an object. It is checked in at a given 
+ time and may be restored later. Versions are saved in the master repository. 
+ They are displayed in the <span class=ElementGUI>Version</span> tab of 
+ the object &nbsp;window.</p>
+
+<p>The following objects of a project can be checked in as versions: </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Project, Folder</p></li>
+	
+	<li class=kadov-p><p>Package, Scenario</p></li>
+	
+	<li class=kadov-p><p>Interface, Procedure, Knowledge Module</p></li>
+	
+	<li class=kadov-p><p>Sequence, User Function, Variable</p></li>
+	
+	<li class=kadov-p><p>Model</p></li>
+</ul>
+
+<p class=HowTo><a name=Check_in_version></a>To check in a version:</p>
+
+<ol type="1" class="whs3">
+	
+	<li class=kadov-p><p>Select the object for which you want to check 
+ in a version.</p></li>
+	
+	<li class=kadov-p><p>Right-click, then select <span class=ElementGUI>Version</span> 
+ &gt; <span class=ElementGUI>Create</span>.</p></li>
+	
+	<li class=kadov-p><p>A window appears. In this window, the <span class=ElementGUI>Previous 
+ Versions</span> (&gt;&gt;) button expands the list of versions already 
+ checked in.</p></li>
+	
+	<li class=kadov-p><p>A version number is automatically generated in 
+ the <span class=ElementGUI>Version</span> field. Modify this version number 
+ if necessary.</p></li>
+	
+	<li class=kadov-p><p>Enter details for this version into the <span 
+ class=ElementGUI>Description</span> field.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span>.</p></li>
+</ol>
+
+<p>When a version is checked in, the flags for the object are reset.</p>
+
+<p class=HowTo>To display previous versions of an object:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>When editing the object, the <span class=ElementGUI>Version</span> 
+ tab provides a list of versions checked in, with the check in date and 
+ the name of the user who performed the check in operation.</p></li>
+</ul>
+
+<p class=HowTo>To restore a version:</p>
+
+<ol type="1" class="whs3">
+	
+	<li class=kadov-p><p>Select the object for which you want to restore 
+ a version.</p></li>
+	
+	<li class=kadov-p><p>Right-click, then select <span class=ElementGUI>Version</span> 
+ &gt; <span class=ElementGUI>Restore</span>.</p></li>
+	
+	<li class=kadov-p><p>A window appears with the list of existing versions. 
+ </p></li>
+	
+	<li class=kadov-p><p>Select the version you want to restore and then 
+ click <span class=ElementGUI>OK</span>.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span> to confirm 
+ the restore operation.</p></li>
+</ol>
+
+<p class=Remarque><span class=AlertTitre>Warning</span>: Restoring a version 
+ cannot be undone. It permanently erases the current object and replaces 
+ it by the selected version.</p>
+
+<p><span class=ElementGUI>To browse versions:</span></p>
+
+<p>Oracle Data Integrator contains a tool, the <span class=ElementGUI>Version 
+ Browser</span>, which is used to display the versions stored in the repository.</p>
+
+<ol type="1" class="whs3">
+	
+	<li class=kadov-p><p>In the Designer menu, select <span class=ElementGUI>File</span> 
+ &gt; <span class=ElementGUI>Version Browser...</span>.</p></li>
+	
+	<li class=kadov-p><p>Use the object type and object &nbsp;name 
+ drop-down boxes to filter the objects for which you want to display the 
+ list of versions.</p></li>
+</ol>
+
+<p>From the Version Browser, you can <span class=ElementGUI>Restore</span>, 
+ <span class=ElementGUI>Export</span> to XML file or <span class=ElementGUI>Delete</span> 
+ existing versions.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: The Version Browser 
+ displays the versions that existed when you opened it. Click the Refresh 
+ button to view all new versions created since then.</p>
+
+<p class=HowTo>To delete a version with the Version Browser:</p>
+
+<ol type="1" class="whs3">
+	
+	<li class=kadov-p><p>Open the Version Browser.</p></li>
+	
+	<li class=kadov-p><p>Select the version you want to delete.</p></li>
+	
+	<li class=kadov-p><p>Right-click, then select <span class=ElementGUI>Delete</span>.</p></li>
+</ol>
+
+<p>The version is deleted.</p>
+
+<p class=HowTo>To restore a version with the Version Browser:</p>
+
+<ol type="1" class="whs3">
+	
+	<li class=kadov-p><p>Open the Version Browser.</p></li>
+	
+	<li class=kadov-p><p>Select the version you want to restore.</p></li>
+	
+	<li class=kadov-p><p>Right-click, then select <span class=ElementGUI>Restore</span>.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span> to confirm 
+ the restore operation.</p></li>
+</ol>
+
+<p>The version is restored in the repository.</p>
+
+<p class=HowTo>To export a version with the Version Browser:</p>
+
+<p>This operation exports the version to a file without restoring it. This 
+ export can be imported in another repository.</p>
+
+<ol type="1" class="whs3">
+	
+	<li class=kadov-p><p>Open the Version Browser.</p></li>
+	
+	<li class=kadov-p><p>Select the version you want to export.</p></li>
+	
+	<li class=kadov-p><p>Right-click, then select <span class=ElementGUI>Export</span>.</p></li>
+	
+	<li class=kadov-p><p>Select the<span class=ElementGUI> Export Directory</span> 
+ and specify the <span class=ElementGUI>Export Name</span>. Check the <span 
+ class=ElementGUI>Replace Existing Files without Warning</span> checkbox 
+ to erase existing export files without confirmation.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span>.</p></li>
+</ol>
+
+<p>The version is exported in the given location.</p>
+
+<p><span style="font-weight: bold;"><B>To view the differences between two 
+ versions</B></span>, use the <a title="version comparison tool" href="version_comparison_tool.htm" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'version comparison tool');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">version 
+ comparison tool</a>.</p>
+
+<h2><a name=SOLUTION></a><a name=SOLUTION2></a>Working with Solutions</h2>
+
+<p>A solution is a comprehensive and consistent set of interdependent versions 
+ of objects. Like other objects, it can be checked in at a given time as 
+ a version, and may be restored at a later date. Solutions are saved into 
+ the master repository. A solution assembles a group of versions called 
+ the solution's <span style="font-weight: bold;"><B>elements</B></span>. </p>
+
+<p>A solution is automatically assembled using cross-references. By scanning 
+ cross-references, a solution automatically includes all dependant objects 
+ required for a particular object . For example, when adding a project 
+ to a solution, versions for all the models used in this project's interfaces 
+ are automatically checked in and added to the solution. You can also manually 
+ add or remove elements into and from the solution.</p>
+
+<p>Solutions are displayed in the <span class=ElementGUI>Solutions</span> 
+ tree view in Designer.</p>
+
+<p>The following objects may be added into solutions:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Projects</p></li>
+	
+	<li class=kadov-p><p>Models</p></li>
+	
+	<li class=kadov-p><p>Scenarios</p></li>
+	
+	<li class=kadov-p><p>Global Variables, User Functions and Sequences.</p></li>
+</ul>
+
+<p class=HowTo>To create a solution:</p>
+
+<ol type="1" class="whs3">
+	
+	<li class=kadov-p><p>Open the <span class=ElementGUI>Solutions</span> 
+ tree view.</p></li>
+	
+	<li class=kadov-p><p>Right-click, then select <span class=ElementGUI>Insert 
+ Solution</span>. A <span class=ElementGUI>New Solution</span> window appears.</p></li>
+	
+	<li class=kadov-p><p>Enter the <span class=ElementGUI>Name</span> of 
+ your solution and a <span class=ElementGUI>Description</span>.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>Apply</span>.</p></li>
+</ol>
+
+<p>The resulting solution is an empty shell into which elements may then 
+ be added.</p>
+
+<p><span class=ElementGUI>To work with elements in a solution:</span></p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>To add an element, drag the object from the tree 
+ view into the <span class=ElementGUI>Elements</span> list in the solution 
+ window.<br>
+	Oracle Data Integrator scans the cross-references and adds any <span 
+ class=ElementGUI>Required Elements</span> needed for this element to work 
+ correctly. If the objects being added have been inserted or updated since 
+ their last checked in version, you will be prompted to create new versions 
+ for these objects.</p></li>
+	
+	<li class=kadov-p><p>To remove an element from a solution, select the 
+ element you want to remove in the <span class=ElementGUI>Elements</span> 
+ list and then click the <span class=ElementGUI>Delete</span> button. This 
+ element disappears from the list. Existing checked in versions of the 
+ object are not affected.</p></li>
+	
+	<li class=kadov-p><p>To roll an object back to a version stored in 
+ the solution, select the elements you want &nbsp;to 
+ restore and then click the <span class=ElementGUI>Restore</span> button. 
+ The elements selected are all restored from the solution's versions.</p></li>
+	
+	<li class=kadov-p><p>Pressing the <span class=ElementGUI>Synchronize</span> 
+ option automatically adds required elements, removes unused elements and 
+ brings the solution up to date.</p></li>
+</ul>
+
+<p class=HowTo>To synchronize a solution:</p>
+
+<p>Synchronizing a solution automatically adds required elements that have 
+ not yet been included in the solution, creates new versions of modified 
+ elements and automatically removes unnecessary elements. The synchronization 
+ process brings the content of the solution up to date with the elements 
+ (projects, models, etc) stored in the repository.</p>
+
+<ol type="1" class="whs3">
+	
+	<li class=kadov-p><p>Open the solution you want to synchronize.</p></li>
+	
+	<li class=kadov-p><p>Click the <span class=ElementGUI>Synchronize</span> 
+ button.</p></li>
+	
+	<li class=kadov-p><p>Oracle Data Integrator scans the cross-references. 
+ If the cross-reference indicates that the solution is up to date, then 
+ a message appears. Otherwise, a list of elements to add or remove from 
+ the solution is shown. <br>
+	These elements are grouped into <span class=ElementGUI>Principal Elements</span> 
+ (added manually), <span class=ElementGUI>Required Elements</span> (directly 
+ or indirectly referenced by the principal elements) and <span class=ElementGUI>Unused 
+ Elements</span> (no longer referenced by the principal elements). </p></li>
+	
+	<li class=kadov-p><p>Check the <span class=ElementGUI>Accept</span> 
+ boxes to version and include the required elements or delete the unused 
+ ones.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK </span>to synchronize 
+ the solution. Version creation windows may appear for elements requiring 
+ a new version to be created.</p></li>
+</ol>
+
+<p>You should do this regularly to keep the solution contents up-to-date. 
+ You should also do it before checking in a solution version.</p>
+
+<p class=HowTo>To check in and restore a solution:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>The procedure for checking in and restoring a 
+ solution version is similar to the method used for single elements. See 
+ <a href="#Version">version</a> for more details.</p></li>
+</ul>
+
+<p class=Remarque><span class=AlertTitre>Important</span>: When restoring 
+ a solution, elements in the solution are not automatically restored. They 
+ must be restored manually from the <span class=ElementGUI>Solution</span> 
+ window.</p>
+
+<h2><a name=Operator></a>Versions in Operator</h2>
+
+<p>You can use solutions to import scenarios into production in Operator.</p>
+
+<p class=HowTo>To restore a scenario from a solution:</p>
+
+<ol type="1" class="whs3">
+	
+	<li class=kadov-p><p>Go to the <span class=ElementGUI>Solutions</span> 
+ tab</p></li>
+	
+	<li class=kadov-p><p>Double-click a solution to open it</p></li>
+	
+	<li class=kadov-p><p>Select a scenario. Other elements such as projects 
+ and interfaces cannot be restored.</p></li>
+	
+	<li class=kadov-p><p>Press the <span class=ElementGUI>Restore</span> 
+ button.</p></li>
+</ol>
+
+<p>The scenario is now accessible in the <span class=ElementGUI>Scenarios</span> 
+ tab.</p>
+
+<p>You can also use the <span class=ElementGUI>Version Browser</span> to 
+ restore scenarios.</p>
+
+<script type="text/javascript" language="JavaScript">
+<!--
+ if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape'))
+  document.write("<div id='tooltip' class='WebHelpPopupMenu'></div>");
+//-->
+</script>
+</body>
+</html>

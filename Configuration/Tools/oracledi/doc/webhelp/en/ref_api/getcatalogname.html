@@ -1,0 +1,259 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>getCatalogName()</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="StyleSheet" href="../include/common.css"><style>
+<!--
+th.whs1 { x-cell-content-align:top; }
+th.whs2 { x-cell-content-align:top; }
+th.whs3 { x-cell-content-align:top; }
+td.whs4 { x-cell-content-align:top; }
+td.whs5 { x-cell-content-align:top; }
+td.whs6 { x-cell-content-align:top; }
+td.whs7 { x-cell-content-align:top; }
+td.whs8 { x-cell-content-align:top; }
+td.whs9 { x-cell-content-align:top; }
+td.whs10 { x-cell-content-align:top; }
+td.whs11 { x-cell-content-align:top; }
+td.whs12 { x-cell-content-align:top; }
+td.whs13 { x-cell-content-align:top; }
+td.whs14 { x-cell-content-align:top; }
+td.whs15 { x-cell-content-align:top; }
+td.whs16 { x-cell-content-align:top; }
+td.whs17 { x-cell-content-align:top; }
+td.whs18 { x-cell-content-align:top; }
+td.whs19 { x-cell-content-align:top; }
+td.whs20 { x-cell-content-align:top; }
+th.whs21 { x-cell-content-align:top; }
+th.whs22 { x-cell-content-align:top; }
+td.whs23 { x-cell-content-align:top; }
+td.whs24 { x-cell-content-align:top; }
+td.whs25 { x-cell-content-align:top; }
+td.whs26 { x-cell-content-align:top; }
+-->
+</style><style>
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+p.WebHelpNavBar { text-align:right; }
+LI.kadov-p-CWebHelpNavBar { text-align:right; }
+-->
+</style><script language=javascript
+		title=WebHelpSplitCss><!--
+if (navigator.appName !="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='../../include/common.css'>");}
+//--></script>
+
+<script language=javascript
+		title=WebHelpInlineScript><!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+//--></script>
+
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nGlobal Methods\ngetCatalogName");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>getCatalogName() Method</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>public java.lang.String <b>getCatalogName</b>(<br>
+java.lang.String&nbsp;pLogicalSchemaName,&nbsp;<br>
+java.lang.String&nbsp;pLocation)</span></p>
+
+<p><span class=Code>public java.lang.String <b>getCatalogName</b>(<br>
+java.lang.String&nbsp;pLogicalSchemaName,&nbsp;<br>
+java.lang.String&nbsp;pContextCode,&nbsp;<br>
+java.lang.String&nbsp;pLocation)</span></p>
+
+<p><span class=Code>public java.lang.String <b>getCatalogName</b>(<br>
+java.lang.String&nbsp;pLocation)</span></p>
+
+<p><span class=Code>public java.lang.String <b>getCatalogName</b>()</span></p>
+
+<p>&nbsp;</p>
+
+<h2>Description</h2>
+
+<p>Allows you to retrieve the name of a physical data catalog or work catalog, 
+ from its logical schema.</p>
+
+<p>If the first syntax is used, the returned catalog name matches the current 
+ context.</p>
+
+<p>If the second syntax is used,&nbsp; the returned catalog name is that 
+ of the context specified in the pContextCode parameter.</p>
+
+<p>The third syntax returns the name of the data catalog (D) or work catalog 
+ (W) for the current logical schema in the current context.</p>
+
+<p>The fourth syntax returns the name of the data catalog (D) for the current 
+ logical schema in the current context.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter</th>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Type</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau>pLogicalSchemaName</td>
+<td class=whs5>
+<p class=TexteTableau>String</td>
+<td class=whs6>
+<p class=TexteTableau>Name of the logical schema</td></tr>
+
+<tr>
+<td class=whs7>
+<p class=TexteTableau>pContextCode</td>
+<td class=whs8>
+<p class=TexteTableau>String</td>
+<td class=whs9>
+<p class=TexteTableau>Code of the enforced context of the schema</td></tr>
+
+<tr>
+<td class=whs10>
+<p class=TexteTableau>pLocation</td>
+<td class=whs11>
+<p class=TexteTableau>String</td>
+<td class=whs12>
+<table x-use-null-cells>
+
+<tr>
+<td>
+<p class=TexteTableau>&quot;W&quot;</td>
+<td>
+<p class=TexteTableau>Returns the work catalog of the physical schema that 
+ corresponds to the tuple (context, logical schema)</td></tr>
+
+<tr>
+<td>
+<p class=TexteTableau>&quot;D&quot;</td>
+<td>
+<p class=TexteTableau>Returns the data catalog of the physical schema corresponding 
+ to the tuple (context, logical schema)</td></tr>
+</table></td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>If you have defined the physical schema:<span class=Code><br>
+Pluton.db_odi.dbo</span></p>
+
+<table x-use-null-cells>
+
+<tr>
+<td class=whs13>
+<p class=TexteTableau>Data catalog:</td>
+<td class=whs14>
+<p class=TexteTableau>db_odi</td></tr>
+
+<tr>
+<td class=whs15>
+<p class=TexteTableau>Data schema:</td>
+<td class=whs16>
+<p class=TexteTableau>dbo</td></tr>
+
+<tr>
+<td class=whs17>
+<p class=TexteTableau>Work catalog:</td>
+<td class=whs18>
+<p class=TexteTableau>tempdb</td></tr>
+
+<tr>
+<td class=whs19>
+<p class=TexteTableau>Work schema:</td>
+<td class=whs20>
+<p class=TexteTableau>temp_owner</td></tr>
+</table>
+
+<p>that you have associated with this physical schema: MSSQL_ODI in 
+ the context CTX_DEV</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs21
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>The call to&nbsp;</th>
+<th class=whs22
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Returns</th></tr>
+
+<tr>
+<td class=whs23>
+<p class=TexteTableau><span class=Code>&lt;%=odiRef.getCatalogName(&quot;MSSQL_ODI&quot;, 
+ &quot;CTX_DEV&quot;, &quot;W&quot;)%&gt;</span></td>
+<td class=whs24>
+<p class=TexteTableau>tempdb</td></tr>
+
+<tr>
+<td class=whs25>
+<p class=TexteTableau><span class=Code>&lt;%=odiRef.getCatalogName(&quot;MSSQL_ODI&quot;, 
+ &quot;CTX_DEV&quot;, &quot;D&quot;)%&gt;</span></td>
+<td class=whs26>
+<p class=TexteTableau>db_odi</td></tr>
+</table>
+
+</body>
+</html>

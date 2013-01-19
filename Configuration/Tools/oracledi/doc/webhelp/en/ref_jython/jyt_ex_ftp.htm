@@ -1,0 +1,152 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Using FTP</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+p.whs1 { font-weight:bold; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Jython Quick Reference\nExamples\nUsing FTP");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Using FTP</h1>
+
+<p>In some environments, it can be useful to use FTP (File Transfer Protocol) 
+ to transfer files between heterogeneous systems. Oracle Data Integrator provides 
+ an additional Jython module to further integrate FTP.</p>
+
+<p>The following examples show how to use this module:</p>
+
+<p>Pull the <span class=Code>*.txt</span> files from <span class=Code>/home/odi</span> 
+ of the server <span class=Code>ftp.myserver.com</span> into the local 
+ directory <span class=Code>c:\temp</span></p>
+
+<p>&nbsp;</p>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>import</B></span><span class=Code> </span><span 
+ class=Code
+	style="font-weight: bold; color: #800000;"><font color=maroon ><B>snpsftp</B></font></span></p>
+
+<p><span class=Code>ftp = </span><span class=Code
+										style="font-weight: bold; color: #800000;"><font color=maroon ><B>snpsftp</B></font></span><span 
+ class=Code
+	style="color: #800000;"><font color=maroon >.</font></span><span class=Code
+											style="font-weight: bold; color: #800000;"><font color=maroon ><B>SnpsFTP</B></font></span><span 
+ class=Code>('ftp.myserver.com', 'mylogin', 'mypasswd')</span></p>
+
+<p class="whs1"><span class=Code><B>try:</B></span></p>
+
+<p><span class=Code>&nbsp;&nbsp;ftp.</span><span 
+ class=Code
+	style="font-weight: bold; color: #800000;"><font color=maroon ><B>setmode</B></font></span><span class=Code>('ASCII')</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;ftp.</span><span 
+ class=Code
+	style="font-weight: bold; color: #800000;"><font color=maroon ><B>mget</B></font></span><span class=Code>('/home/odi', 
+ '*.txt', 'c:/temp')</span></p>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>finally</B></span><span class=Code>:</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;ftp.</span><span 
+ class=Code
+	style="font-weight: bold; color: #800000;"><font color=maroon ><B>close</B></font></span><span class=Code>()</span></p>
+
+<p>&nbsp;</p>
+
+<p>Push the files <span class=Code>*.zip</span> from <span class=Code>C:\odi\lib</span> 
+ onto <span class=Code>ftp.myserver.com</span> in the remote directory 
+ <span class=Code>/home/odi/lib</span></p>
+
+<p>&nbsp;</p>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>import</B></span><span class=Code> </span><span 
+ class=Code
+	style="font-weight: bold; color: #800000;"><font color=maroon ><B>snpsftp</B></font></span></p>
+
+<p><span class=Code>ftp = </span><span class=Code
+										style="color: #800000; font-weight: bold;"><font color=maroon ><B>snpsftp.SnpsFTP</B></font></span><span 
+ class=Code>('ftp.myserver.com', 'mylogin', 'mypasswd')</span></p>
+
+<p><span class=Code>try:</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;ftp.</span><span 
+ class=Code
+	style="font-weight: bold; color: #800000;"><font color=maroon ><B>setmode</B></font></span><span class=Code>('BINARY')</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;ftp.</span><span 
+ class=Code
+	style="font-weight: bold; color: #800000;"><font color=maroon ><B>mput</B></font></span><span class=Code>('C:/odi/lib', 
+ '*.zip', '/home/odi/lib')</span></p>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>finally</B></span><span class=Code>:</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;ftp.</span><span 
+ class=Code
+	style="font-weight: bold; color: #800000;"><font color=maroon ><B>close</B></font></span><span class=Code>()</span></p>
+
+<p>&nbsp;</p>
+
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Condition</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+th.whs2 { x-cell-content-align:top; }
+td.whs3 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nDesigner\nModels\nDatastore\nConditions");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Conditions</h1>
+
+<p>A condition is a Where-type SQL expression attached to a Datastore based 
+ on a RDBMS that supports SQL. The purpose of this condition is to filter 
+ or check the data in the Datastore in question.</p>
+
+<h2>What is the point of declaring a condition in Oracle Data Integrator?</h2>
+
+<p>An Oracle Data Integrator condition is useful in several ways:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>It allows the consistency of the datastore data 
+ to be checked according to a rule, for example.</p></li>
+	
+	<li class=kadov-p><p>The conditions will allow a flow control to be 
+ generated in this Datastore. For example, if you declare a condition that 
+ checks customers' age on the &quot;Client&quot; datastore, all the interfaces 
+ loading the &quot;Client&quot; datastore will exclude those where the 
+ age is outside the limits. </p></li>
+</ul>
+
+<p class=Remarque><span class=AlertTitre>Caution: </span>Only technologies 
+ supporting SQL language support static control. </p>
+
+<h2>General Properties</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Name</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Name of the condition </td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Type</td>
+<td valign="top" class="whs3">
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>&nbsp;<span 
+ style="font-weight: bold;"><B>Filters</B></span> 
+ are a way of targeting the rows in a table involved in check and interface 
+ processes. A filter is used when a Datastore is used as source by an interface. 
+ <br>
+	An example&nbsp;of a filter that allows active customers to be targeted: 
+ <span class=Code>CLI.TYPE_CLIENT like 'A%'</span></p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span style="font-weight: bold;"><B>Oracle Data Integrator 
+ controls</B></span> represent a data consistency rule attached to the Datastore. 
+ This rule can be checked synchronously or asynchronously. Flows having 
+ this Datastore as target are also checked. Erroneous data can be isolated 
+ on the application workspace.<br>
+	An example&nbsp;of an Oracle Data Integrator condition that allows customers' 
+ age to be checked: CLI.AGE between 0 and 130</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span style="font-weight: bold;"><B>DBMS 
+ constraints</B></span> represent check constraints that have been reverse-engineered 
+ from an RDBMS or another application dictionary. </p></li>
+</ul></td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Where</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Where-type expression defining the condition. This 
+ expression must use the table alias (defined in the Datastore window) 
+ before each column.</p>
+<p class=TexteTableau>An example of an expression on the datastore &quot;CLIENT&quot; 
+ with the alias &quot;CLI&quot;: &nbsp;<span 
+ class=Code>CLI.TYPE_CLIENT like 'A%'</span></td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Message</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Error message listed in the error table for rows 
+ in a Datastore containing an error. This information is not applicable 
+ to filters.</td></tr>
+</table>
+
+<h2>Control</h2>
+
+<p>The quality control properties are taken into account during a <a href="../../concept/dataquality.htm#FlowQuality">flow 
+ control </a>or during a <a href="../../concept/dataquality.htm#StaticQuality">static 
+ control</a>. Control information is not available for filters conditions, 
+ as a filter is not checked.</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Property</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Defined in the database</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Shows if this condition is defined in the database 
+ dictionary (or in the described application). A condition that has been 
+ reversed has been defined in the database.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Active</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Shows if the condition is active in the database. 
+ In some technologies, the dictionary may contain active (Enable) or non-active 
+ (Disable) conditions, that is, where the data server does not check data 
+ consistency.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">Control</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">Shows the type of control for which this 
+ condition will be checked.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Flow</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>During an flow control for this datastore, the condition 
+ will be verified if this box is checked. This information is a default 
+ value that can be modified when the interface is designed. It is recommended 
+ to activate this type of control to ensure data quality, even if the target 
+ technology also checks the information.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Static</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>During a static quality control, that is, of data 
+ already present in this datastore, the condition will be verified if the 
+ box is checked.</td></tr>
+</table>
+
+<p>When the <span class=ElementGUI>Check </span>button is clicked, the 
+ static control is executed by the graphical interface, and the number 
+ of erroneous rows is displayed on the <span class=ElementGUI>Control</span> 
+ tab. To obtain a list of the rows in error, a static control (called asynchronous) 
+ must be launched from either the <span class=ElementGUI>Datastore</span> 
+ or the <span class=ElementGUI>Model</span> window.</p>
+
+</body>
+</html>

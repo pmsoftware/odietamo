@@ -1,0 +1,182 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Datatype</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+ul.whs3 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nTopology Manager\nPhysical Architecture\nTechnologies\nDatatypes");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Datatypes</h1>
+
+<p>The technologies storing the formatted data allocate to each of them 
+ a type that defines their nature. <span style="font-style: italic;"><I>For 
+ example:</I></span> numerical, character, Date, etc</p>
+
+<p>Some data server access drivers allow you to <a href="../../usermanual/topology/topology/topo_reverse_datatypes.htm">Reverse 
+ the datatypes automatically</a> from the <span class=ElementGUI>Technology</span> 
+ window, using the <span class=ElementGUI>Reverse</span> button.</p>
+
+<h2>Definition</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Property</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Code</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Code used in Oracle Data Integrator to refer to this datatype. 
+ This code is unique for this technology. The code is stored in models 
+ and flows in order to refer to the datatype.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name </td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name of the datatype, as it appears in the graphic 
+ interface and the reports.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Reversed Code</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Code returned by the driver and/or an SQL reverse 
+ query.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Create Table Syntax</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>The syntax used to create a column of this type. 
+ The tags <span class=Code>%L</span> (Length) and <span class=Code>%P</span> 
+ (Precision) can be used in this syntax.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Writable Datatype Syntax</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>This alternate syntax is used to create a column 
+ storing data for a non writable datatype. The tags <span class=Code>%L</span> 
+ (Length) and <span class=Code>%P</span> (Precision) can be used in this 
+ syntax.</p>
+<p class=TexteTableau>If the type is writable then the Writable Datatype 
+ Syntax and Create Table Syntax should be the same.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Letter used for the icon</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>The letter used to represent the datatype (Graphic 
+ id code for this datatype).</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Writable</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Check this box if this datatype can be used in an 
+ INSERT or UPDATE command. This is not the case, for example, for datatypes 
+ which values are automatically set and cannot be modified such as IDENTITY 
+ columns.</p>
+<p class=TexteTableau>Columns reversed with a datatype not writable are 
+ flagged read-only.</p>
+<p class=TexteTableau>A datatype that is not writable should have an alternate 
+ Writable Datatype Syntax defined, to enable Oracle Data Integrator to create 
+ temporary tables storing data of this type.<br>
+&nbsp;</td></tr>
+</table>
+
+<h2>Converted to</h2>
+
+<p>The <span class=ElementGUI>Converted to</span> tab allows you to specify 
+ for the other technologies, the datatype corresponding to the current 
+ type. This datatype will be used if Oracle Data Integrator needs to create a 
+ work table on another technology that is a reflection of a datastore in 
+ the current technology.</p>
+
+<p>For example:</p>
+
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p><p>The Oracle datatype VARCHAR2 will be transformed 
+ into VARCHAR on a Microsoft SQL Server data server.</p></li>
+</ul>
+
+<p>For the data flow of an Oracle instance towards an SQL Server instance, 
+ the language generation engine may require conversion in both directions 
+ (for example from Oracle to SQL Server and from SQL Server to Oracle).</p>
+
+<h2>Converted from</h2>
+
+<p>This tab shows, (read only), the other technologies' datatypes that 
+ correspond to the current datatype.</p>
+
+</body>
+</html>

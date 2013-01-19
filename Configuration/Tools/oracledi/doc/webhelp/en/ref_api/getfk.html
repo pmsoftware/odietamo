@@ -1,0 +1,258 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>getFK()</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="StyleSheet" href="../include/common.css"><style>
+<!--
+th.whs1 { x-cell-content-align:top; }
+th.whs2 { x-cell-content-align:top; }
+th.whs3 { x-cell-content-align:top; }
+td.whs4 { x-cell-content-align:top; }
+td.whs5 { x-cell-content-align:top; }
+td.whs6 { x-cell-content-align:top; }
+th.whs7 { x-cell-content-align:top; }
+th.whs8 { x-cell-content-align:top; }
+td.whs9 { x-cell-content-align:top; }
+td.whs10 { x-cell-content-align:top; }
+td.whs11 { x-cell-content-align:top; }
+td.whs12 { x-cell-content-align:top; }
+td.whs13 { x-cell-content-align:top; }
+td.whs14 { x-cell-content-align:top; }
+td.whs15 { x-cell-content-align:top; }
+td.whs16 { x-cell-content-align:top; }
+td.whs17 { x-cell-content-align:top; }
+td.whs18 { x-cell-content-align:top; }
+td.whs19 { x-cell-content-align:top; }
+td.whs20 { x-cell-content-align:top; }
+td.whs21 { x-cell-content-align:top; }
+td.whs22 { x-cell-content-align:top; }
+td.whs23 { x-cell-content-align:top; }
+td.whs24 { x-cell-content-align:top; }
+td.whs25 { x-cell-content-align:top; }
+td.whs26 { x-cell-content-align:top; }
+td.whs27 { x-cell-content-align:top; }
+td.whs28 { x-cell-content-align:top; }
+td.whs29 { x-cell-content-align:top; }
+td.whs30 { x-cell-content-align:top; }
+td.whs31 { x-cell-content-align:top; }
+td.whs32 { x-cell-content-align:top; }
+-->
+</style><style>
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+p.WebHelpNavBar { text-align:right; }
+LI.kadov-p-CWebHelpNavBar { text-align:right; }
+-->
+</style><script language=javascript
+		title=WebHelpSplitCss><!--
+if (navigator.appName !="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='../../include/common.css'>");}
+//--></script>
+
+<script language=javascript
+		title=WebHelpInlineScript><!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+//--></script>
+
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nControl Methods (CKM)\ngetFK");
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nAction methods\ngetFK");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>getFK() Method</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>public java.lang.String <b>getFK</b>(java.lang.String&nbsp;pPropertyName)</span></p>
+
+<h2>Description</h2>
+
+<p>This method returns information relative to the foreign key (or join 
+ or reference) of a datastore during a check procedure. It is accessible 
+ from a Knowledge Module only if the current task is tagged as a &quot;reference&quot;.</p>
+
+<p>In an action, this method returns information related to the foreign 
+ key currently handled by the DDL command.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter</th>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Type</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau>pPropertyName</td>
+<td class=whs5>
+<p class=TexteTableau>String</td>
+<td class=whs6>
+<p class=TexteTableau>String containing the name of the requested property.</td></tr>
+</table>
+
+<p>The following table lists the different possible values for pPropertyName&nbsp;</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs7
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter value</th>
+<th class=whs8
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs9>
+<p class=TexteTableau>ID</td>
+<td class=whs10>
+<p class=TexteTableau>Internal number of the reference constraint.</td></tr>
+
+<tr>
+<td class=whs11>
+<p class=TexteTableau>FK_NAME</td>
+<td class=whs12>
+<p class=TexteTableau>Name of the reference constraint.</td></tr>
+
+<tr>
+<td class=whs13>
+<p class=TexteTableau>FK_TYPE</td>
+<td class=whs14>
+<p class=TexteTableau>Type of the reference constraint.</td></tr>
+
+<tr>
+<td class=whs15>
+<p class=TexteTableau>FK_ALIAS</td>
+<td class=whs16>
+<p class=TexteTableau>Alias of the reference table (only used in case of 
+ a complex expression)</td></tr>
+
+<tr>
+<td class=whs17>
+<p class=TexteTableau>PK_ALIAS</td>
+<td class=whs18>
+<p class=TexteTableau>Alias of the referenced table (only used in case 
+ of a complex expression)</td></tr>
+
+<tr>
+<td class=whs19>
+<p class=TexteTableau>ID_TABLE_PK</td>
+<td class=whs20>
+<p class=TexteTableau>Internal number of the referenced table.</td></tr>
+
+<tr>
+<td class=whs21>
+<p class=TexteTableau>PK_I_MOD</td>
+<td class=whs22>
+<p class=TexteTableau>Number of the referenced model.</td></tr>
+
+<tr>
+<td class=whs23>
+<p class=TexteTableau>PK_CATALOG</td>
+<td class=whs24>
+<p class=TexteTableau>Catalog of the referenced table.</td></tr>
+
+<tr>
+<td class=whs25>
+<p class=TexteTableau>PK_SCHEMA</td>
+<td class=whs26>
+<p class=TexteTableau>Physical schema of the referenced table.</td></tr>
+
+<tr>
+<td class=whs27>
+<p class=TexteTableau>PK_TABLE_NAME</td>
+<td class=whs28>
+<p class=TexteTableau>Name of the referenced table.</td></tr>
+
+<tr>
+<td class=whs29>
+<p class=TexteTableau>COMPLEX_SQL</td>
+<td class=whs30>
+<p class=TexteTableau>Complex SQL statement of the join clause (if appropriate).</td></tr>
+
+<tr>
+<td class=whs31>
+<p class=TexteTableau>MESS</td>
+<td class=whs32>
+<p class=TexteTableau>Error message of the reference constraint</td></tr>
+
+<tr>
+<td class=whs13>
+<p class=TexteTableau>FULL_NAME</td>
+<td class=whs14>
+<p>Full name of the foreign key generated with the local object mask.</td></tr>
+
+<tr>
+<td class=whs31>
+<p class=TexteTableau>&lt;flexfield code&gt;</td>
+<td class=whs32>
+<p class=TexteTableau>Flexfield value for this reference.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>The current reference key of my table is called: <b><span class=Code>&lt;%=odiRef.getFK(&quot;FK_NAME&quot;)%&gt;</span></b>. 
+ It references the table <b><span class=Code>&lt;%=odiRef.getFK(&quot;PK_TABLE_NAME&quot;)%&gt;</span> 
+ </b>that is in the schema <b><span class=Code>&lt;%=odiRef.getFK(&quot;PK_SCHEMA&quot;)%&gt;</span></b></p>
+
+</body>
+</html>

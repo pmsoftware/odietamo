@@ -1,0 +1,763 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Technology</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+p.whs1 { font-style:normal; }
+th.whs2 { x-cell-content-align:top; }
+td.whs3 { x-cell-content-align:top; }
+ul.whs4 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nTopology Manager\nPhysical Architecture\nTechnologies\nTechnologies");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Technology</h1>
+
+<p>In the Oracle Data Integrator terminology, this is any type of technology 
+ accessible by JDBC, ODBC, JMS, JNDI, JCA, or any operating system.</p>
+
+<p>Oracle Data Integrator allows scripts to be generated and executed in the languages 
+ compatible with the technologies defined in its repository. Any type of 
+ technology can be declared and defined provided that Oracle Data Integrator can 
+ access it through appropriate middleware (JDBC, ODBC, JMS) or through 
+ an operating system command.</p>
+
+<p class="whs1"><span class=RemarqueTitre>Example of technologies:</span> 
+ Oracle, Sybase, Sybase IQ, DB2, Files, etc</p>
+
+<h2>Definition</h2>
+
+<table x-use-null-cells>
+<col>
+<col>
+
+<tr>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Name</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Name of the technology, as it appears in the different 
+ lists in the graphical interface.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p>Code</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>The technology code allows the technology to be referenced 
+ among the different repositories. </p>
+<p class=Remarque><span class=AlertTitre>Caution</span>: Avoid changing 
+ this code, as this could make some Oracle Data Integrator objects inconsistent 
+ if referencing a technology from another repository.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Technology type </td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Classification of the technology. The possible values 
+ are:</p>
+<ul type="disc" class="whs4">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau
+										style="font-weight: normal; x-text-underline: off; /*begin!kadov{{*/ text-decoration: none; /*}}end!kadov*/ "><span 
+ class=ElementGUI>Database or files:</span> Any technology accessible through 
+ ODBC and/or JDBC. Flat and XML files are part of this category, as Data 
+ Integrator includes a JDBC access driver for flat files, and a JDBC driver 
+ for XML files.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau
+										style="font-weight: normal; x-text-underline: off; /*begin!kadov{{*/ text-decoration: none; /*}}end!kadov*/ "><span 
+ class=ElementGUI>Operating system:</span> Any operating system on which 
+ Oracle Data Integrator can launch commands via a Java virtual machine.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau
+										style="font-weight: normal; x-text-underline: off; /*begin!kadov{{*/ text-decoration: none; /*}}end!kadov*/ "><span 
+ class=ElementGUI>Topics (JMS)</span>: Any MOM accessible through JMS and 
+ including topic management (publication and subscription). </p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau
+										style="font-weight: normal; x-text-underline: off; /*begin!kadov{{*/ text-decoration: none; /*}}end!kadov*/ "><span 
+ class=ElementGUI>Queue (JMS)</span>: Any MOM accessible through JMS.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau
+										style="font-weight: normal; x-text-underline: off; /*begin!kadov{{*/ text-decoration: none; /*}}end!kadov*/ "><span 
+ class=ElementGUI>Oracle Data Integrator API</span>: Technology allowing calls 
+ to the Oracle Data Integrator tools.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau
+										style="font-weight: normal; x-text-underline: off; /*begin!kadov{{*/ text-decoration: none; /*}}end!kadov*/ "><span 
+ class=ElementGUI>Oracle Data Integrator Connector</span>: Technology allowing 
+ calls to a Java API.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau
+										style="font-weight: normal; x-text-underline: off; /*begin!kadov{{*/ text-decoration: none; /*}}end!kadov*/ "><span 
+ class=ElementGUI>Bean Scripting Framework</span>: Technology allowing 
+ calls to a script interpreter.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau
+										style="font-weight: normal; x-text-underline: off; /*begin!kadov{{*/ text-decoration: none; /*}}end!kadov*/ "><span 
+ class=ElementGUI>Web Service Container</span>: Technology allowing the 
+ deployment of web services.</p></li>
+</ul></td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Logical/Physical</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Defines if the technology is physical and/or logical. 
+ </p>
+<p class=TexteTableau>Three cases are possible:</p>
+<ul type="disc" class="whs4">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span style="font-weight: bold;"><B>Logical 
+ and Physical Technology</B></span>: If a technology is both logical and physical, 
+ it can support logical and physical schemas. Its logical schemas can be 
+ mapped in the contexts exclusively on physical schemas <span style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>of 
+ this technology only</U></span>.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span style="font-weight: bold;"><B>Logical 
+ Technology</B></span>: If a technology is exclusively logical, it can support 
+ logical schemas only, that can be mapped in the contexts on physical schemas 
+ <span style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>of 
+ any technology</U></span>.<br>
+	Example: If you define an exclusively logical technology GENERIC_ISO_SQL, 
+ its logical schemas can give access to physical schemas based on Oracle, 
+ DB2, ... data servers.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span style="font-weight: bold;"><B>Physical 
+ Technology</B></span>: &nbsp;If 
+ a technology is exclusively physical, it can support physical schemas 
+ only, and its schemas can be accessed only through the logical schemas 
+ of an exclusively logical technology.</p></li>
+</ul></td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">Data handling</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">This section details the technology's data 
+ handling capacities.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Select</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>The technology's capacity to construct a data array 
+ resulting from a query.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p>Where</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>The technology's capacity to filter this array according 
+ to conditions</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Reference</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>The technology's capacity to join several arrays 
+ (two-dimensional data sets) into one only. This capacity can take several 
+ forms:</p>
+<ul type="disc" class="whs4">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=ElementGUI>None</span>: 
+ The technology does not accept joins.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=ElementGUI>Not 
+ ordered</span>: The specified joins will be used in a not ordered way, 
+ these are usually joins specified in SQL Where-type clauses in the form 
+ <span class=Code>where emp.empno = dept.deptno</span></p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=ElementGUI>Ordered 
+ (SQL ISO)</span>: The specified joins will be used in an ordered way, 
+ that is, the final result data array is constructed by adding elementary 
+ sets in a sequenced way. This syntax is adapted to a specified ISO syntax 
+ in a &quot;From&quot; clause in SQL language, for example. For example: 
+ <span class=Code>FROM emp INNER dept ON (emp.empno = dept.deptno)</span>.</p></li>
+</ul></td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">Naming rules</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">This section shows how to locate and name 
+ the data containers for this technology.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>File</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Shows if this technology is based on the use of files.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Using &quot;Data server&quot; </td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Shows that the technology uses a data server whose 
+ name can be used to name objects. If the box is checked, the term used 
+ to describe the data servers for the technology must be specified. </p>
+<p class=TexteTableau>For example, in &quot;Oracle&quot; technology, the 
+ data server is accessed by a &quot;Instance/DBLink&quot;. </td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Using &quot;Catalog&quot;</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Shows that the technology uses a catalog to name 
+ its datastores. If the box is checked, the term used to describe the catalog 
+ concept in the technology must be specified.</p>
+<p class=TexteTableau>For example, Microsoft SQL Server uses a catalog 
+ named &quot;Database&quot;, IBM AS/400 uses a catalog named &quot;Library&quot;, 
+ Oracle does not use catalog.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Using &quot;Schema&quot;</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Shows that the technology uses a schema to name its 
+ datastores. &nbsp;&nbsp;If 
+ the box is checked, the term used to describe the schema concept in the 
+ technology must be specified.</p>
+<p class=TexteTableau>For example, Microsoft SQL Server uses a schema named 
+ &quot;Owner&quot;, Oracle uses a schema named &quot;Schema/User&quot;, 
+ Microsoft Access does not use schema.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Local object mask</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>The local object mask defines how an object is named 
+ when you are connected to the data server the object is based on.</p>
+<p class=TexteTableau>For example, for Oracle, you should indicate <span 
+ class=Code>%SCHEMA.%OBJECT</span> to symbolize the syntax &quot;SCOTT.EMP&quot; 
+ giving access to the table EMP belonging to the user SCOTT.</p>
+<p class=TexteTableau>In Oracle Data Integrator, the tags available for this mask 
+ are: </p>
+<ul type="disc" class="whs4">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>%CATALOG</span> 
+ to symbolize the catalog name (property of the physical schema),</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>%SCHEMA</span> 
+ to symbolize the schema name (property of the physical schema),</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>%OBJECT</span> 
+ to symbolize the datastore name.</p></li>
+</ul>
+<p class=Remarque><span class=AlertTitre>Caution</span>: These tags are 
+ case-sensitive. </td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Remote object mask </td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>The remote object mask defines how an object is named 
+ when you are connected to a different data server from the one the object 
+ is based on.</p>
+<p class=TexteTableau>For example, for Oracle, you should indicate <span 
+ class=Code>%SCHEMA.%OBJECT@DSERVER</span> to symbolize the syntax <span 
+ class=Code>SCOTT.EMP@NYORK</span> allowing access to the EMP table of 
+ the user SCOTT of the instance (remote data server) NYORK.</p>
+<p class=TexteTableau>The tags available for this mask are the same as 
+ for local objects, to which must be added <span class=Code>%DSERVER</span> 
+ representing the name of the data server (property of the connection).</td></tr>
+</table>
+
+<h2>SQL</h2>
+
+<p>The SQL properties are reserved for technologies with data and/or join 
+ filtering capacities (Where).</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">Where</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">This section details the syntax used for 
+ filter clauses. It is only displayed for technologies with a data array 
+ filtering capacity.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: normal;">Order by</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p>Shows the type of syntax used in SQL for the technology, following an 
+ ORDER BY clause. The possible values are:</p>
+<ul type="disc" class="whs4">
+	
+	<li class=kadov-p><p><span class=ElementGUI>Complex Expression</span>: 
+ The clause is followed by a complex expression or the column name.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Column Number</span>: The 
+ ORDER BY clause is followed by the column numbers.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Alias</span>: The ORDER 
+ BY clause is followed by the column aliases.</p></li>
+</ul></td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: normal;">Group by</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: normal;">Shows the type of syntax used in SQL for 
+ the technology, following a GROUP BY clause. The possible values are the 
+ same as for an ORDER BY clause.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: normal;">Having</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: normal;">Shows the type of syntax used in SQL for 
+ the technology, following a HAVING clause. The possible values are the 
+ same as for an ORDER BY clause.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">Ordered joins (ISO)</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">This section details the syntax used for 
+ sequenced joins (SQL ISO). It is only displayed for technologies with 
+ a join sequencing capacity.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Clause Location</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Shows whether the join clause is located on the &quot;FROM&quot; 
+ level or the &quot;WHERE&quot; level in the query syntax.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p>Brackets Supported in the ON clauses</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Shows whether the technology accepts sub-sets delimited 
+ by parentheses (this is the case with SQL ISO syntax).</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>INNER</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Shows that the technology supports inner joins.<br>
+The key word specifying an inner join must be given, for example, &quot;INNER 
+ JOIN&quot;.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>CROSS</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Shows that the technology supports Cartesian product.<br>
+The key word specifying a product set must be given, for example, &quot;CROSS 
+ JOIN&quot; or &quot;,&quot;.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>LEFT OUTER</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Shows that the technology supports left outer joins.<br>
+The key word specifying a left outer join must be given, for example, &quot;LEFT 
+ OUTER JOIN&quot;.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>RIGHT OUTER</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Shows that the technology supports right outer joins.<br>
+The key word specifying a right outer join must be given, for example, 
+ &quot;RIGHT OUTER JOIN&quot;.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>FULL OUTER</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Shows that the technology supports full outer joins.<br>
+The key word specifying a full outer join must be given, for example, &quot;FULL 
+ OUTER JOIN&quot;.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">Not ordered join</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">The parameters of non-sequenced joins allow 
+ outer join clauses to be generated in the WHERE clause.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Outer Keyword</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Keyword or sign imposed by the syntax as a reminder 
+ that an element is considered external.<br>
+For Oracle, for example the Outer Keyword is: (+)</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Outer location</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Shows if the <span class=ElementGUI>OUTER Keyword</span> 
+ is located outside (OUTER side) or inside (INNER side) the join syntax.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Before/After column</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Shows if the <span class=ElementGUI>OUTER Keyword</span> 
+ should be placed before or after the name of the object contributing to 
+ the join. </td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">Specific Queries</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">Queries used by Oracle Data Integrator to performed 
+ specific tasks. These queries are technology-specific.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Indexes Reverse</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Query used to reverse-engineer indexes. This query 
+ should return a recordset (one row per index column) containing the following 
+ VARCHAR fields:</p>
+<ul type="disc" class="whs4">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>INDEX_NAME: Name 
+ of the index.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>COLUMN_NAME: 
+ Name of the index column.</p></li>
+</ul>
+<p class=TexteTableau>The recordset should be ordered by INDEX_NAME and 
+ by the position of COLUMN_NAME in the index.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p>Check Constraints Reverse</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Query used to reverse-engineer check constraints. 
+ This query should return a recordset (one row per check constraint) containing 
+ the following VARCHAR fields:</p>
+<ul type="disc" class="whs4">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>CHECK_NAME: Name 
+ of the check constraint.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>CHECK_TXT: SQL 
+ statement of the constraint.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>CHECK_STATUS: 
+ Status of the check constraint - '1' for enabled, '0' for disabled.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>CHECK_DESC: Description 
+ of the check constraint.</p></li>
+</ul></td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p>Alternate Key Reverse</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Query used to reverse-engineer alternate keys. This 
+ query should return a recordset (one row per alternate key column) containing 
+ the following VARCHAR fields:</p>
+<ul type="disc" class="whs4">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>AK_NAME: Name 
+ of the alternate key. </p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>COLUMN_NAME: 
+ Name of the alternate key column.</p></li>
+</ul>
+<p class=TexteTableau>The recordset should be ordered by AK_NAME and by 
+ the position of COLUMN_NAME in the alternate key.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Current Date</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Query that can be sent at anytime to a data server 
+ of this technology to return the current date and time of the server. 
+ This query is used internally to recover connections.</td></tr>
+</table>
+
+<h2>Others</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Column-alias separator</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>The element designed to separate a column from its 
+ alias in an SQL SELECT clause. </p>
+<p class=TexteTableau>In the ISO standard, this separator is &quot;AS&quot;, 
+ however, it is not supported by all databases and may therefore be left 
+ incomplete.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Table-alias separator</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>The element designed to separate a table from its 
+ alias in an SQL FROM clause. This element may be left incomplete.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Date Function</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>The function allowing the date and the time to be 
+ returned.<br>
+For example:<span class=Code> getdate()</span> for Microsoft SQL Server<span 
+ style="font-style: italic; color: #0000ff;"> <font color=blue ><I></I></font></span>or <span class=Code>sysdate</span> 
+ under Oracle</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>String datatype mask</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>The syntax used to describe Chain-type data in DDL 
+ orders (table creation). The Oracle Data Integrator tags <span class=Code>%L</span> 
+ (data Length) and <span class=Code>%P</span> (data Precision) can be used 
+ in the syntax description.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Date datatype mask</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>The syntax used to describe Date-type data in DDL 
+ orders (table creation).</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Numerical datatype mask</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>The syntax used to describe Numerical-type data in 
+ DDL orders (table creation). The Oracle Data Integrator tags <span class=Code>%L</span> 
+ (data Length) and <span class=Code>%P</span> (data Precision) can be used 
+ in the syntax description.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>DDL Null key word</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>The word used to describe a column that can contain 
+ empty values (column known as NULLABLE).</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Maximum column name length </td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>The maximum length of a column name in number of 
+ characters. All column names generated by Oracle Data Integrator are truncated 
+ to this size.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Maximum table name length </td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>The maximum length of a datastore (table) name in 
+ number of characters. All table names generated by Oracle Data Integrator are 
+ truncated to this size.</td></tr>
+</table>
+
+<h2>Language</h2>
+
+<p>This tab describes the <a href="snplang.htm">languages</a> implemented 
+ by the technology and allows overwriting any of the properties of the 
+ language.</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Language</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>The language that is totally or partially implemented 
+ by the technology, selected from the list of defined <a href="snplang.htm">languages</a>.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Compatible</td>
+<td valign="top" class="whs3">
+<p>Shows that the language for the technology inherits all the language 
+ elements marked as <span class=ElementGUI>standard</span>. For more information, 
+ refer to <a href="snplangelt.htm">language element</a>.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p>Default</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Shows that this is the default language for this 
+ technology.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p>Object delimiter</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>The character used to delimit object names. Replaces 
+ the standard delimiter given in the language.</p>
+<p class=TexteTableau><span class=AlertTitre>Caution:</span> If the two 
+ delimiters (before and after the object name) are different, then you 
+ should use both of them. If not, one delimiter is enough.</p>
+<p class=TexteTableau>Use a single double-quote &quot; to generate code 
+ like this:</p>
+<p class=TexteTableau><span class=Code>create table MySchema.&quot;My_Table&quot; 
+ ( ...</span></p>
+<p class=TexteTableau>Use two square brackets [] to generate code like 
+ this:</p>
+<p class=TexteTableau><span class=Code>create table MySchema.[My_Table] 
+ ( ...</span></td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Word separator</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>The characters that can be used to separate language 
+ words (objects, key words, literals).</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Literal delimiter</p>
+<p>&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>The character used to delimit the literal names (values). 
+ Replaces the standard delimiter given in the language.</p>
+<p class=TexteTableau><span class=AlertTitre>Caution:</span> If the two 
+ delimiters (before and after the literal) are different, then you should 
+ use both of them. If not, one delimiter is enough.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Objects case-sensitive</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>The object names in this technology are case-sensitive.</p>
+<p class=TexteTableau>For example objects are not case sensitive in the 
+ SQL Language by default. Therefore code like this will be generated to 
+ preserve names using upper and lowercase letters:</p>
+<p class=TexteTableau><span class=Code>create table Snps_Temp.dbo.&quot;My_Table&quot;<br>
+(<br>
+&quot;My_Column1&quot; VARCHAR(20) NULL,<br>
+MY_COLUMN2 VARCHAR(20) NULL,<br>
+)</span></p>
+<p class=TexteTableau>If &quot;Objects case-sensitive&quot; is selected, 
+ then code like the following will be generated:</p>
+<p class=TexteTableau><span class=Code>create table Snps_Temp.dbo.My_Table<br>
+(<br>
+My_Column1 VARCHAR(20) NULL,<br>
+MY_COLUMN2 VARCHAR(20) NULL<br>
+)</span></td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Words case-sensitive</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>The keywords of this language are case-sensitive.</td></tr>
+</table>
+
+<p>The following operations are possible on a technology:</p>
+
+<ul type="disc" class="whs4">
+	
+	<li class=kadov-p><p><a href="../../usermanual/topology/topology/topo_reverse_datatypes.htm">Automatically 
+ reversing the datatypes</a></p></li>
+</ul>
+
+</body>
+</html>

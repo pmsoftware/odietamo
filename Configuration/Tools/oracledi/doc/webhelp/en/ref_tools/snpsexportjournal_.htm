@@ -1,0 +1,236 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>OdiExportLog</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nOracle Data Integrator Objects\nOdiExportLog");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>OdiExportLog</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>OdiExportLog -TODIR=&lt;toDir&gt; [-ZIPFILE_NAME=&lt;zipFileName&gt;] 
+ [-XML_CHARSET=&lt;charset&gt;] [-JAVA_CHARSET=&lt;charset&gt;] [-FROMDATE=&lt;fromdate&gt;] 
+ [-TODATE=&lt;todate&gt;] [-AGENT=&lt;agent&gt;] [-CONTEXT=&lt;context&gt;] 
+ [-STATUS=&lt;status&gt;] [-USER_FILTER=&lt;user&gt;] [-SESS_NAME=&lt;session&gt;]</span></p>
+
+<h2>Description</h2>
+
+<p>Exports information of past sessions into a ZIP export file.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameters</th>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Mandatory</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs10>
+<p><span class=Code>-TODIR=&lt;toDir&gt;</span></td>
+<td class=whs11>
+<p>Yes</td>
+<td class=whs12>
+<p>Target directory for the export.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-ZIPFILE_NAME=&lt;zipFileName&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>Name of the compressed file.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-XML_CHARSET=&lt;charset&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>XML Version specified in the export file. Parameter xml version in the 
+ XML file header. <span class=Code>&lt;?</span><span class=Code
+													style="font-weight: bold;"><B>xml 
+ version=&quot;1.0&quot;</B></span><span class=Code> encoding=&quot;ISO-8859-1&quot;?&gt;. 
+ </span>Default value is <span class=Code>ISO-8859-1</span>. You will find 
+ a list of supported encoding at the following URL: <a href="http://java.sun.com/j2se/1.4.2/docs/guide/intl/encoding.doc.html">http://java.sun.com/j2se/1.4.2/docs/guide/intl/encoding.doc.html</a></td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-JAVA_CHARSET=&lt;charset&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>Result file java character encoding. Default value is <span class=Code>ISO8859_1</span>. 
+ You will find a list of supported encoding at the following URL: <a href="http://java.sun.com/j2se/1.4.2/docs/guide/intl/encoding.doc.html">http://java.sun.com/j2se/1.4.2/docs/guide/intl/encoding.doc.html</a></td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-FROMDATE=&lt;fromdate&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>Beginning date for the export, using the format yyyy/MM/dd hh:mm:ss. 
+ All sessions from this date will be exported.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-TODATE=&lt;todate&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>End date for the export, using the format yyyy/MM/dd hh:mm:ss. All sessions 
+ until this date will be exported.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-AGENT=&lt;agent&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>Exports only sessions executed by the agent named like &lt;<span class=Code>agent</span>&gt;.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-CONTEXT=&lt;context&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>Exports only sessions executed in the context which code is <span class=Code>&lt;context&gt;</span>.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-STATUS=&lt;status&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>Exports only sessions in the specified state. The possible states are 
+ Done, Error, Queued, Running, Waiting and Warning.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-USER_FILTER=&lt;user&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>Exports only sessions launched by <span class=Code>&lt;user&gt;.</span></td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-SESS_NAME=&lt;session&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>Name of the session to be exported.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>Export and zip the log into the <span class=Code>/temp/log2.zip </span>export<span 
+ class=Code> </span>file .</p>
+
+<p><span class=Code>OdiExportLog &quot;-TODIR=/temp/&quot; &quot;-ZIPFILE_NAME=log2.zip&quot; 
+ &quot;-XML_CHARSET=ISO-8859-1&quot; &quot;-JAVA_CHARSET=ISO8859_1&quot;</span></p>
+
+<p>&nbsp;</p>
+
+</body>
+</html>

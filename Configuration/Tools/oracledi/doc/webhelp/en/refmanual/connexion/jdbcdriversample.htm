@@ -1,0 +1,326 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>JDBC Drivers Samples</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+ul.whs3 { list-style:disc; }
+p.whs4 { color:#808080; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nAppendices\nJDBC Drivers & URL Samples");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>JDBC URL Samples</h1>
+
+<p>Oracle Data Integrator does not include any licenses for JDBC Drivers. Some 
+ drivers are provided free if you have already purchased certain server 
+ products.</p>
+
+<p>A list of all available JDBC drivers is maintained at the following 
+ URL: <a href="http://java.sun.com/products/jdbc/jdbc.drivers.html">http://java.sun.com/products/jdbc/jdbc.drivers.html</a></p>
+
+<p>Not all drivers have been validated for use with Oracle Data Integrator. Below 
+ is a list of drivers that have been tested and are recommended for use 
+ with Oracle Data Integrator.</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Driver</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Driver and URL parameters, comments</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Oracle Data Integrator Driver for File (new version)</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=ElementGUI>driver:</span> <span class=Code>com.sunopsis.jdbc.driver.file.FileDriver</span></p>
+<p class=TexteTableau><span class=ElementGUI>URL:</span> <span class=Code>jdbc:snps:dbfile?&lt;option1&gt;&amp;&lt;option2&gt;&amp;...</span></p>
+<p class=TexteTableau>Options:</p>
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p><p><span class=Code>ENCODING=&lt;encoding_code&gt;</span>: 
+  File encoding. The list of supported encodings is available at <a href="http://java.sun.com/j2se/1.4.2/docs/guide/intl/encoding.doc.html">http://java.sun.com/j2se/1.4.2/docs/guide/intl/encoding.doc.html</a>. 
+ The default encoding value is <span class=Code>ISO8859_1</span>.</p></li>
+	
+	<li class=kadov-p><p><span class=Code>TRUNC_FIXED_STRINGS=TRUE|</span><span 
+ class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>FALSE</U></span>: 
+ Truncates strings from fixed-column-width files to the field size. Default 
+ value is <span class=Code>FALSE</span>.</p></li>
+	
+	<li class=kadov-p><p><span class=Code>TRUNC_DEL_STRINGS=TRUE|</span><span 
+ class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>FALSE</U></span>: 
+ Truncates strings from delimited files to the field size. Default value 
+ is <span class=Code>FALSE</span>.</p></li>
+	
+	<li class=kadov-p><p><span class=Code>OPT=TRUE|</span><span class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>FALSE</U></span>: 
+ Optimizes file access on multiprocessor machines for better performance. 
+ Using this option on single processor machines may actually decrease performance. 
+ Default value is <span class=Code>FALSE</span>.</p></li>
+</ul>
+<p class=Remarque><span class=AlertTitre>Warning:</span> Although this 
+ driver is not fully JDBC compliant, it supports certain methods used by 
+ the agent</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau
+	style="color: #808080;">Oracle Data Integrator Driver for File (old version - deprecated)</td>
+<td valign="top" class="whs2">
+<p class=Remarque
+	style="color: #808080;"><span class=AlertTitre
+									style="color: #808080;"><font color=gray >Warning:</font></span> 
+ This driver version is deprecated.</p>
+<p class=TexteTableau
+	style="color: #808080;"><span class=ElementGUI>driver:</span> <span 
+ class=Code
+	style="color: #808080;"><font color=gray >com.sunopsis.jdbc.driver.FileDriver</font></span></p>
+<p class=TexteTableau
+	style="color: #808080;"><span class=ElementGUI>URL:</span> <span class=Code
+	style="color: #808080;"><font color=gray >jdbc:snps:file</font></span></p>
+<p class=TexteTableau
+	style="color: #808080;">Other URL:</p>
+<ul type="disc" class="whs3">
+	
+	<li style="/*begin!kadov{{*/ color: #808080; color: #808080; /*}}end!kadov*/ "
+		class=kadov-p><p class="whs4"><span class=Code
+														style="color: #808080;"><font color=gray >jdbc.snps.file?CHARSET_ENCODING=&lt;encoding&gt;&amp;RAW_HEADERS=true|false</font></span> 
+ <span class=Code
+		style="color: #808080;"><font color=gray ><br>
+	- CHARSET_ENCODING </font></span>enables you to indicate the encoding of the 
+ target file. The list of supported encodings is available at the URL: 
+ <a href="http://java.sun.com/j2se/1.3/docs/guide/intl/encoding.doc.html"
+	style="color: #808080;">http://java.sun.com/j2se/1.3/docs/guide/intl/encoding.doc.html</a><br>
+	- <span class=Code
+			style="color: #808080;"><font color=gray >RAW_HEADERS</font></span> enables you to read 
+ the header line as raw data. This lets you retrieve special characters 
+ in this line to generate column names during a reverse-engineering.</p></li>
+</ul>
+<p class=Remarque
+	style="color: #808080;"><span class=AlertTitre
+									style="color: #808080;"><font color=gray >Warning:</font></span> 
+ This driver is not fully JDBC compliant, it supports certain methods used 
+ by the agent</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Sun ODBC/JDBC Bridge (JDBC 2 Type 1)</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=ElementGUI>driver:</span> <span class=Code>sun.jdbc.odbc.JdbcOdbcDriver</span></p>
+<p class=TexteTableau><span class=ElementGUI>URL:</span> <span class=Code>jdbc:odbc:&lt;odbc 
+ datasource name&gt;</span></p>
+<p class=Remarque><span class=RemarqueTitre>Note:</span> You must have 
+ installed an ODBC Driver and created an ODBC datasource with the ODBC 
+ Administrator before using the type 1 JDBC Driver.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Oracle JDBC Driver (JDBC 1 type 4)</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=ElementGUI>driver:</span> <span class=Code>oracle.jdbc.driver.OracleDriver</span></p>
+<p class=TexteTableau><span style="font-weight: bold;"><B>URL:</B></span> <span 
+ class=Code>jdbc:oracle:thin:@&lt;IP address or name&gt;:&lt;listener port&gt;:&lt;SID&gt;</span></p>
+<p class=Remarque><span class=ElementGUI>Note:</span> The SQL*Net client 
+ is not required on the client machine.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Inet Software JDBC Driver for Microsoft SQL/Server 
+ (Type 4)</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=ElementGUI>driver:</span> <span class=Code>com.inet.tds.TdsDriver</span> 
+ </p>
+<p class=TexteTableau><span class=ElementGUI>URL:</span> <span class=Code>jdbc:inetdae:&lt;IP 
+ adress or name&gt;:&lt;listener port&gt;</span></p>
+<p class=Remarque><span class=ElementGUI>Note:</span> Open Client and ODBC 
+ are not required on the client machine.<br>
+This driver loads each result set into the client's virtual memory before 
+ fetching rows. </p>
+<p class=TexteTableau>Other sub-protocols:</p>
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>jdbc:inetdae: 
+ ....</span> classic</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>jdbc:inetdae6: 
+ ....</span> SQL Server 6.5 compatible mode (on Sprinta Driver)</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>jdbc:inetdae7: 
+ ....</span> supporting of the SQL Server 7.0 (or higher) (On Sprinta Driver)</p></li>
+</ul>
+<p class=TexteTableau>Other URLs:</p>
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>jdbc:inetdae:hostname:portnumber</span></p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>jdbc:inetdae:hostname</span> 
+ -&gt; with default port 1433</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>jdbc:inetdae:hostname:portnumber?database=MyDb&amp;language=deutsch</span></p></li>
+</ul>
+<p class=TexteTableau>-&gt; with properties</p>
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>jdbc:inetdae://servername/pipe/pipename</span> 
+ -&gt; with named pipes</p></li>
+</ul></td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Sybase JConnect (Type 4)</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=ElementGUI>driver:</span> <span class=Code>com.sybase.jdbc2.jdbc.SybDriver</span></p>
+<p class=TexteTableau><span class=ElementGUI>URL:</span> <span class=Code>jdbc:sybase:Tds:&lt;IP 
+ address or name&gt;:&lt;listener port&gt;/&lt;database&gt;</span></p>
+<p class=Remarque><span class=RemarqueTitre>Note:</span> DB-LIB, CT_LIB 
+ and ODBC are not required on the client machine.</p>
+<p class=Remarque><span class=AlertTitre>Warning:</span> Array Fetch is 
+ not available if you do not have a Unique Index on Table (leave the Array 
+ Fetch empty in Oracle Data Integrator). Batch Update is available.</p>
+<p class=Remarque><span class=AlertTitre>Warning:</span> You must run the 
+ correct SQL script sql_server.sql (provided with the driver distribution) 
+ on sql/server before use.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Hit JDBC Driver for AS/400 via Client/Access (Type 
+ 4)</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=ElementGUI>driver:</span> <span class=Code>hit.as400.As400Driver</span></p>
+<p class=TexteTableau><span class=ElementGUI>URL:</span> <span class=Code>jdbc:as400://&lt;IP 
+ adress or name&gt;</span></p>
+<p class=Remarque><span class=RemarqueTitre>Notes:</span> No extra middleware 
+ is required on the client machine. ALL Client/Access services must be 
+ started on AS/400 (STRHOSTSVR *ALL)</p>
+<p class=TexteTableau>Other options:= </p>
+<p class=TexteTableau><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;[;user=&lt;user&gt;] 
+ </span></p>
+<p class=TexteTableau><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;[;password=&lt;password&gt;] 
+ </span></p>
+<p class=TexteTableau><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;[;options=[secure,][http][&lt;Compressorclass&gt;,][Cryptographerclass&gt;,] 
+ </span></p>
+<p class=TexteTableau><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;[;license=&lt;serial 
+ number&gt;] </span></p>
+<p class=TexteTableau><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;[;libraries=&lt;lib1,lib2,...,libn&gt;] 
+ </span></p>
+<p class=TexteTableau><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;[;ccsid=&lt;number&gt;] 
+ </span></p>
+<p class=TexteTableau><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;[;use_packages=&lt;YES|NO&gt;] 
+ </span></p>
+<p class=TexteTableau><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;[;use_package_library=&lt;package 
+ library&gt;] </span></p>
+<p class=TexteTableau><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;[;use_package_name=&lt;package 
+ name&gt;] </span></p>
+<p class=TexteTableau><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;[;allow_package_update=&lt;YES|NO&gt;] 
+ </span></p>
+<p class=TexteTableau><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;[;convert_ccsid_65535=&lt;YES|NO&gt;] 
+ </span></p>
+<p class=TexteTableau><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;[;fetch_block_size=&lt;Ksize&gt;] 
+ </span></p>
+<p class=TexteTableau><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;[;naming=&lt;sql|system]</span> 
+ </td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>IBM TOOLBOX JDBC Driver for AS/400 (Type 4)</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=ElementGUI>driver:</span> <span class=Code>com.ibm.as400.access.AS400JDBCDriver</span></p>
+<p class=TexteTableau><span class=ElementGUI>URL:</span> <span class=Code>jdbc:as400://&lt;IP 
+ adress or name&gt;</span></p>
+<p class=Remarque><span class=RemarqueTitre>Note:</span> No extra middleware 
+ is required on the client machine.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Oracle Data Integrator AS/400 Driver Wrapper</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=ElementGUI>driver:</span> <span class=Code>com.sunopsis.jdbc.driver.wrapper.SnpsDriverWrapper</span></p>
+<p class=TexteTableau><span class=ElementGUI>URL:</span> <span class=Code>jdbc:snps400:&lt;machine_name/IP_address&gt;[;param1=valeur1[;param2=valeur2...]]</span></p>
+<p class=TexteTableau>This driver wrapper enables the use of the Native 
+ of JT/400 driver depending on the situation. This driver wrapper connects 
+ using the Native driver when a connection to the local AS/400 machine 
+ (the one where the agent is runs) is requested. Otherwise it uses the 
+ JT/400 driver. This wrapper uses 3 Java properties:</p>
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>HOST_NAME</span>: 
+ Comma-separated list of names for the local AS/400 machine.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>HOST_IP</span>: 
+ IP address of the local AS/400 machine. It is used if the connection is 
+ requested with the IP address.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>SNPS_VERBOSE</span>: 
+ Driver trace level. Values: 0 (no trace) &nbsp;to 
+ 5 (full trace).</p></li>
+</ul>
+<p class=TexteTableau>For more information, see <a HREF="../../usermanual/technos/db2_400/create_data_server_db2_400.htm">Creating 
+ a DB2/400 Data Server</a>.</td></tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>OdiReadMail</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+ <link rel="stylesheet" type="text/css" href="common.css"><style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+ul.whs3 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nInternet\nOdiReadMail");
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nEvent Detection\nOdiReadMail");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<h1>OdiReadMail</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>OdiReadMail -MAILHOST=&lt;mail_host&gt; -USER=&lt;mail_user&gt; 
+ -PASS=&lt;mail_user_password&gt; -FOLDER=&lt;folder_path&gt; [-PROTOCOL=&lt;</span><span 
+ class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>pop3</U></span><span 
+ class=Code>|imap&gt;] [-FOLDER_OPT=&lt;</span><span class=Code
+													style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>none</U></span><span 
+ class=Code>|sender|subject&gt;] [-KEEP=&lt;</span><span class=Code
+														style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>|yes&gt;] [-EXTRACT_MSG=&lt;</span><span class=Code
+													style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>yes</U></span><span 
+ class=Code>|no&gt;] [-EXTRACT_ATT=&lt;</span><span class=Code
+													style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>yes</U></span><span 
+ class=Code>|no&gt;] [-MSG_PRF=&lt;my_prefix&gt;] [-ATT_PRF=&lt;my_prefix&gt;] 
+ [-USE_UCASE=&lt;</span><span class=Code
+								style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>|yes&gt;] [-NOMAIL_ERROR=&lt;</span><span class=Code
+														style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>|yes&gt;] [-TIMEOUT=&lt;timeout&gt;] [-POLLINT=&lt;pollint&gt;] 
+ [-MAX_MSG=&lt;max_msg&gt;] [-SUBJECT=&lt;subject_filter&gt;] [-SENDER=&lt;sender_filter&gt;] 
+ [-TO=&lt;to_filter&gt;] [-CC=&lt;cc_filter&gt;] [-BCC=&lt;bcc_filter&gt;]</span></p>
+
+<h2>Description</h2>
+
+<p>Can be used to read emails as well as their attachments from a POP or 
+ IMAP internet mail service.</p>
+
+<p>The use of this command allows the connection to the mail hosted on 
+ the server <span class=Code>MAILHOST</span> using the connection parameters 
+ specified by <span class=Code>USER</span> and <span class=Code>PASS</span>. 
+ The execution agent is then in waiting mode until <span class=Code>MAX_MSG</span> 
+ messages are received or the maximum waiting time specified by <span class=Code>TIMEOUT</span> 
+ is reached. The extracted messages must match the filters like those specified 
+ by the parameters <span class=Code>SUBJECT</span> and <span class=Code>SENDER</span>. 
+ When a message satisfies these criteria, its content as well as its attachment 
+ are extracted in a directory specified by the parameter <span class=Code>FOLDER</span>. 
+ If the parameter <span class=Code>KEEP</span> is set to &quot;no&quot;, 
+ the retrieved message is then suppressed from the mailbox.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Parameters</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Mandatory</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-MAILHOST=&lt;mail_host&gt;</span></td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Yes</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>IP address of the POP or IMAP mail server</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-USER=&lt;mail_user&gt;</span></td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Yes</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Valid mail server account.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-PASS=&lt;mail_user_password&gt;</span></td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Yes</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Password of the mail server account.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-FOLDER=&lt;folder_path&gt;</span></td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Yes</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Full path of the storage folder for attachments and 
+ messages</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-PROTOCOL=&lt;</span><span class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>pop3</U></span><span 
+ class=Code>|imap&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Type of mail accessed (POP3 or IMAP). Default is 
+ POP3</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-FOLDER_OPT=&lt;</span><span class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>none</U></span><span 
+ class=Code>|sender|subject&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Allows the creation of a sub-directory in the directory 
+ FOLDER according to the following parameters:</p>
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=ElementGUI>none</span> 
+ (default): no action</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=ElementGUI>sender</span>: 
+ a sub-directory is created with the external name of the sender</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=ElementGUI>subject</span>: 
+ a sub-directory is created with the subject of the message</p></li>
+</ul>
+<p class=Remarque><span class=RemarqueTitre>Note:</span> For the <span 
+ class=ElementGUI>sender</span> and <span class=ElementGUI>subject</span> 
+ folder option, the spaces and non alphanumeric characters (such as @) 
+ are replaced by underscores in the generated folders name.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-KEEP=&lt;</span><span class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>|yes&gt;</span></td>
+<td colspan="1" rowspan="1" no valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>yes: keep the messages that match the filters in 
+ the mailbox after reading them.</p>
+<p class=TexteTableau>no (default): delete the messages that match the 
+ filters of the mailbox after reading them</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-EXTRACT_MSG=&lt;</span><span class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>yes</U></span><span 
+ class=Code>|no&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>yes (default): extract the body of the message into 
+ a file</p>
+<p class=TexteTableau>no: do not extract the body of the message into a 
+ file</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-EXTRACT_ATT=&lt;</span><span class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>yes</U></span><span 
+ class=Code>|no&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>yes (default): extract the attachments into files</p>
+<p class=TexteTableau>no: do not extract attachments</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-MSG_PRF=&lt;my_prefix&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Prefix of the file that contains the body of the 
+ message. Default is MSG.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-ATT_PRF=&lt;my_prefix&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Prefix of the files that contain the attachments. 
+ The original file names are kept.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-USE_UCASE=&lt;</span><span class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>|yes&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>yes: force the file names to uppercase</p>
+<p class=TexteTableau>no (default): keep the original letter case</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-NOMAIL_ERROR=&lt;</span><span class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>|yes&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>yes: generate an error if no mail matches the specified 
+ criteria</p>
+<p class=TexteTableau>no (default): do not generate an error when no mail 
+ corresponds to the specified criteria.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-TIMEOUT=&lt;timeout&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Maximum waiting time in milliseconds (default is 
+ 0).</p>
+<p class=TexteTableau>If this waiting time is reached, the command ends.</p>
+<p class=TexteTableau>The value 0 (default) means an infinite waiting time 
+ (as long as needed for the maximum number of messages specified into the 
+ parameter MAX_MSG to be received).</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-POLLINT=&lt;pollint&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Searching interval in milliseconds to scan for new 
+ messages. Default is 1000 (1 second).</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-MAX_MSG=&lt;max_msg&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Maximum number of messages to extract (default is 
+ 1). If this number is reached, the command ends.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-SUBJECT=&lt;subject_filter&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Parameter used to filter the messages according to 
+ their subjects. </td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-SENDER=&lt;sender_filter&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Parameter used to filter messages according to their 
+ sender. </td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-TO=&lt;to_filter&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Parameter used to filter messages according to their 
+ addresses. This option can be repeated to create multiple filters.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-CC=&lt;cc_filter&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Parameter used to filter messages according to their 
+ addresses in copy. This option can be repeated to create multiple filters.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-BCC=&lt;bcc_filter&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Parameter used to filter messages according to their 
+ addresses in blind copy. This option can be repeated to create multiple 
+ filters.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>Automatic reception of the mails of support with attachments detached 
+ in the folder C:\support on the machine of the agent. Wait for all messages 
+ with a maximum waiting time of 10 seconds:</p>
+
+<p>&nbsp;</p>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>OdiReadMail</B></span><span class=Code> 
+ -MAILHOST=mail.mymail.com -USER=myaccount -PASS=mypass -KEEP=no -FOLDER=c:\support 
+ -TIMEOUT=10000 -MAX_MSG=0 -SENDER=support@mycompany.com -EXTRACT_MSG=yes 
+ -MSG_PRF=TXT -EXTRACT_ATT=yes</span></p>
+
+<p>&nbsp;</p>
+
+<p>Wait indefinitely for 10 messages and check for new messages every minute:</p>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>OdiReadMail</B></span><span class=Code> 
+ -MAILHOST=mail.mymail.com -USER=myaccount -PASS=mypass -KEEP=no -FOLDER=c:\support 
+ -TIMEOUT=0 -MAX_MSG=10 -POLLINT=60000 -SENDER=support@mycompany.com -EXTRACT_MSG=yes 
+ -MSG_PRF=TXT -EXTRACT_ATT=yes</span></p>
+
+</body>
+</html>

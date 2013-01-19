@@ -1,0 +1,170 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Introduction to Data Control</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+p.whs2 { text-align:right; x-condition:PRINT_EXCLUDE; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Getting Started with an ETL Project\nData Integrity Control\nIntroduction to Data Integrity Control");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Introduction to Data Integration</h1>
+
+<p>With multiple applications in your IT infrastructure reading and writing 
+ to and from different data stores in varying formats, it is imperative 
+ to implement a process that will let you integrate the data so that they 
+ can be easily used by anyone in your company. There are numerous Data 
+ Integration methods to accomplish this – ETL, Data Replication/Synchronization, 
+ etc. In all of these cases, the first step in successfully integrating 
+ your Information System’s data with your organization’s applications is 
+ ensuring the integrity of that data.</p>
+
+<h2>Introduction to Data Integrity Control</h2>
+
+<p>Data integrity control is essential in ensuring the overall consistency 
+ of the data in your information system's applications.</p>
+
+<p>Application data is not always valid for the constraints and declarative 
+ rules imposed by the information system. You may, for instance, find orders 
+ with no customer, or order lines with no product, etc.</p>
+
+<p>Oracle Data Integrator provides a working environment to detect these 
+ constraint violation and store them for recycling or reporting purposes.</p>
+
+<p>There are two different types of controls: <span style="font-weight: bold;"><B>Static 
+ Control</B></span> and <span style="font-weight: bold;"><B>Flow Control</B></span>. 
+ We will examine the differences between the two.</p>
+
+<h3>Static Control</h3>
+
+<p>Static Control implies the existence of rules that are used to verify 
+ the integrity of your application data. Some of these rules (referred 
+ to as constraints) may already be implemented in your data servers (using 
+ primary keys, reference constraints, etc.)</p>
+
+<p>With Oracle Data Integrator, you can refine the validation of your data 
+ by defining additional constraints, without declaring them directly in 
+ your servers. This procedure is called <span style="font-weight: bold;"><B>Static 
+ Control</B></span> since it allows you to perform checks directly on existing 
+ - or static - data.</p>
+
+<h3>Flow Control</h3>
+
+<p>The information systems targeted by transformation and integration processes 
+ often implement their own declarative rules. &nbsp;The 
+ <span style="font-weight: bold;"><B>Flow Control</B></span> function is used 
+ to verify an application's incoming data according to these constraints 
+ before loading the data into these targets. &nbsp;The 
+ flow control procedure is detailed in the &quot;Interfaces&quot; chapter.</p>
+
+<h3>Benefits</h3>
+
+<p>The main advantages of performing data integrity checks are as follow:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Increased productivity by using the target database 
+ for its entire life cycle. Business rule violations in the data slow down 
+ application programming throughout the target database’s life-cycle. Cleaning 
+ the transferred data can therefore reduce application programming time.</p></li>
+	
+	<li class=kadov-p><p>Validation of the target database’s model. The 
+ rule violations detected do not always imply insufficient source data 
+ integrity. They may reveal a degree of incompleteness in the target model. 
+ Migrating the data before an application is rewritten makes it possible 
+ to validate a new data model while providing a test database in line with 
+ reality.</p></li>
+	
+	<li class=kadov-p><p>Improved quality of service for the End-users 
+ will benefit from using data that has been pre-treated to filter out business 
+ rule violations.</p></li>
+</ul>
+
+<p>Ensuring data integrity is not always a simple task. &nbsp;Indeed, 
+ it requires that any data violating declarative rules must be isolated 
+ and recycled. This implies the development of complex programming, in 
+ particular when the target database incorporates a mechanism for verifying 
+ integrity constraints. &nbsp;In 
+ terms of operational constraints, it is most efficient to implement a 
+ method for correcting erroneous data (on the source, target or recycled 
+ flows) and then to reuse this method throughout the enterprise.</p>
+
+<h3>Examples</h3>
+
+<p>The following example &nbsp;will 
+ guide you through the data integrity audit process (Static Control).</p>
+
+<p>The &quot;Orders Application - HSQL&quot; application contains data 
+ which do not satisfy business rule constraints on a number of different 
+ levels. &nbsp;The 
+ objective is to determine which data in this application does not satisfy 
+ the constraints imposed by the information system.</p>
+
+<p align="right" class="whs2"><a href="first_run.htm"
+					style="x-condition: PRINT_EXCLUDE;">&lt;&lt; Starting 
+ Oracle Data Integrator</a> | <a HREF="ctr_src_customer.htm"
+								style="x-condition: PRINT_EXCLUDE;">&quot;SRC_CUSTOMER&quot; 
+ Control &gt;&gt;</a></p>
+
+</body>
+</html>

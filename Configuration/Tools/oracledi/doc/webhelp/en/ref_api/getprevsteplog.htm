@@ -1,0 +1,328 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>getPrevStepLog()</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nGlobal Methods\ngetPrevStepLog");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>getPrevStepLog() Method</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>public java.lang.String <b>getPrevStepLog</b>(java.lang.String&nbsp;pPropertyName)</span></p>
+
+<h2>Description</h2>
+
+<p>Returns information about the most recently executed step in a package. 
+ The information requested is specified through the pPropertyName parameter. 
+ If there is no previous step (for example, if the getPrevStepLog step 
+ is executed from outside a package), the exception &quot;No previous step&quot; 
+ is raised.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter</th>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Type</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau>pPropertyName</td>
+<td class=whs5>
+<p class=TexteTableau>String</td>
+<td class=whs6>
+<p class=TexteTableau>String that contains the name of the requested property 
+ about the previous step. See the list of valid properties below.</td></tr>
+</table>
+
+<h6>Values for pPropertyName </h6>
+
+<p>The following table lists the different possible values for pPropertyName:</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs7
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter value</th>
+<th class=whs8
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs9>
+<p class=TexteTableau>SESS_NO</td>
+<td class=whs10>
+<p class=TexteTableau>The number of the session.</td></tr>
+
+<tr>
+<td class=whs11>
+<p class=TexteTableau>NNO</td>
+<td class=whs12>
+<p class=TexteTableau>The number of the step within a package. The first 
+ step executed is 0.</td></tr>
+
+<tr>
+<td class=whs13>
+<p class=TexteTableau>STEP_NAME</td>
+<td class=whs14>
+<p class=TexteTableau>The name of the step.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>STEP_TYPE</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>A code indicating the type of step. The following 
+ values may be returned:</p>
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>F: Interface</p></li>
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>VD: Variable 
+ declaration</p></li>
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>VS: Set/Increment 
+ variable</p></li>
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>VE: Evaluate 
+ variable</p></li>
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>V: Refresh variable</p></li>
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>T: Procedure</p></li>
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>OE: OS command</p></li>
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>SE: odi 
+ Tool</p></li>
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>RM: Reverse-engineer 
+ model</p></li>
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>CM: Check model</p></li>
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>CS: Check sub-model</p></li>
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>CD: Check datastore</p></li>
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>JM: Journalize 
+ model</p></li>
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>JD: Journalize 
+ datastore</p></li>
+</ul></td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>CONTEXT_NAME</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>The name of the context in which the step was executed.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>MAX_ERR</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>The maximum number or percentage of errors tolerated.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>MAX_ERR_PRCT</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Returns 1 if the maximum number of errors is expressed 
+ as a percentage, 0 otherwise.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>RUN_COUNT</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>The number of times this step has been executed.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>BEGIN</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>The date and time that the step began.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>END</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>The date and time that the step terminated.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>DURATION</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Time the step took to execute in seconds.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>STATUS</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Returns the one-letter code indicating the status 
+ with which the previous step terminated. The state R (Running) is never 
+ returned.</p>
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>D: Done (success)</p></li>
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>E: Error</p></li>
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>Q: Queued</p></li>
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>W: Waiting</p></li>
+	
+	<li class=kadov-P-CTexteTableau><p class=TexteTableau>M: Warning</p></li>
+</ul></td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>RC</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Return code. 0 indicates no error.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>MESSAGE</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Error message returned by previous step, if any. 
+ Blank string if no error.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>INSERT_COUNT</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Number of rows inserted by the step.</td></tr>
+
+<tr>
+<td class=whs15>
+<p class=TexteTableau>DELETE_COUNT</td>
+<td class=whs16>
+<p class=TexteTableau>Number of rows deleted by the step.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>UPDATE_COUNT</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Number of rows updated by the step.</td></tr>
+
+<tr>
+<td class=whs17>
+<p class=TexteTableau>ERROR_COUNT</td>
+<td class=whs18>
+<p class=TexteTableau>Number of erroneous rows detected by the step, for 
+ quality control steps.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p><span class=Code><b style="font-weight: bold;">Previous step '&lt;%=odiRef.</b></span><span 
+ class=Code><b>getPrevStepLog</b></span><span class=Code><b>(&quot;STEP_NAME&quot;)%&gt;' 
+ executed in </b></span><span class=Code><b>'&lt;%=odiRef.</b></span><span 
+ class=Code><b>getPrevStepLog</b></span><span class=Code><b>(&quot;DURATION&quot;)%&gt;' 
+ seconds.</b></span></p>
+
+</body>
+</html>

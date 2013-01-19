@@ -1,0 +1,333 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Version Comparison Tool</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+p.whs2 { font-weight:bold; }
+ol.whs3 { list-style:decimal; }
+table.whs4 { left:0px; top:1252px; width:419px; }
+col.whs5 { width:100px; }
+col.whs6 { width:290px; }
+th.whs7 { width:100px; x-cell-content-align:top; }
+th.whs8 { width:290px; x-cell-content-align:top; }
+td.whs9 { width:100px; x-cell-content-align:top; background-color:#ffffff; }
+td.whs10 { width:290px; x-cell-content-align:top; }
+td.whs11 { width:100px; x-cell-content-align:top; background-color:#ff0000; }
+td.whs12 { width:100px; x-cell-content-align:top; background-color:#00ff00; }
+td.whs13 { width:100px; x-cell-content-align:top; background-color:#ffff00; }
+p.whs14 { background-color:Transparent; }
+p.whs15 { margin-left:24px; }
+-->
+</style><script type="text/javascript" language="JavaScript">
+<!--
+if ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion) == 4))
+{
+  var strNSS = "<style type='text/css'>";
+  strNSS += "p.whs14 {background-color:white; }";
+  strNSS +="</style>";
+  document.write(strNSS);
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nDesigner\nProjects\nVersion Comparison Tool");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Version Comparison Tool</h1>
+
+<p>Oracle Data Integrator provides developers with a comprehensive version 
+ comparison tool. This graphical tool is to view and compare two different 
+ versions of an object.</p>
+
+<p>The version comparison tool provides the following features :</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Color-coded side-by-side 
+ display of comparison results</B></span>: The comparison results are displayed 
+ in two panes, side-by-side, and the differences between the two compared 
+ versions are color coded. </p></li>
+	
+	<li class=kadov-p><p class="whs2">Comparison results 
+ organized in tree view:<span style="font-weight: normal;"> &nbsp;The 
+ tree view of the comparison tool displays the comparison results in a 
+ hierarchical list of node objects in which expanding and collapsing the 
+ nodes is synchronized.</span></p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Report creation 
+ and printing in PDF format</B></span>: The version comparison tool is able 
+ to generate and print a PDF report listing the differences between two 
+ particular versions of an object.</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Supported objects</B></span>: 
+ The version comparison tool supports the following objects: Project, Folder, 
+ Package, Scenario, Interface, Procedure, Knowledge Module, Sequence, User 
+ Function, Variable, Model, Model folder, and Solution.</p></li>
+</ul>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Difference viewer 
+ functionality:</B></span> This version comparison tool is a difference viewer 
+ and is provided only for consultation purposes. Editing or merging object 
+ versions is not supported. If you want to edit the object or merge the 
+ changes between two versions, you have to make the changes manually directly 
+ in the concerned objects.</p></li>
+</ul>
+
+<h2>Using the Version Comparison Tool</h2>
+
+<p>Once the version of an object is created, the comparison tool can be 
+ used at different points in time.</p>
+
+<p>Creating or checking in a version is covered in the topic <a href="versionning.htm#Check_in_version">Using 
+ Version Management</a>.</p>
+
+<h3>Viewing the Differences between two Versions</h3>
+
+<p>To view the differences between two particular versions of an object, 
+ open the version comparison tool.</p>
+
+<p>There are three different way of opening the version comparison tool:</p>
+
+<p class=HowTo>By selecting the object in the Projects tree view</p>
+
+<ol type="1" class="whs3">
+	
+	<li class=kadov-p><p>From the <span class=ElementGUI>Projects</span> 
+ tree view in Designer, select the object whose versions you want to compare.</p></li>
+	
+	<li class=kadov-p><p>Right-click the object.</p></li>
+	
+	<li class=kadov-p><p>Select <span class=ElementGUI>Version</span> &gt; 
+ <span class=ElementGUI>Compare</span>.</p></li>
+	
+	<li class=kadov-p><p>The <span style="font-weight: bold;"><B>Compare with</B></span> 
+ window appears.</p></li>
+	
+	<li class=kadov-p><p>Select the version with which you want to compare 
+ the current version.</p></li>
+	
+	<li class=kadov-p><p>Click <span style="font-weight: bold;"><B>OK</B></span><span>.</span></p></li>
+	
+	<li class=kadov-p><p>The version comparison tool opens.</p></li>
+</ol>
+
+<p class=HowTo>Via the Versions tab of the object</p>
+
+<ol type="1" class="whs3">
+	
+	<li class=kadov-p><p>In Designer, open the object whose versions you 
+ want to compare.</p></li>
+	
+	<li class=kadov-p><p>Go to the <span class=ElementGUI>Version</span> 
+ tab.<br>
+	The <span class=ElementGUI>Version</span> tab provides the list of 
+ all versions created for this object. This list also indicates the creation 
+ date, the name of the user who created the version, and a description 
+ (if specified).</p></li>
+	
+	<li class=kadov-p><p>Select the two versions you want to compare &nbsp;by 
+ keeping the &lt;CTRL&gt; key pressed.</p></li>
+	
+	<li class=kadov-p><p>Right-click and select <span style="font-weight: bold;"><B>Compare</B></span>.</p></li>
+	
+	<li class=kadov-p><p>The version comparison tool opens.</p></li>
+</ol>
+
+<p class=HowTo><span class=RemarqueTitre>Via the Version Browser</span></p>
+
+<ol type="1" class="whs3">
+	
+	<li class=kadov-p><p>In Designer, select <span style="font-weight: bold;"><B>File</B></span> 
+ &gt; <span style="font-weight: bold;"><B>Version Browser ....</B></span> </p></li>
+	
+	<li class=kadov-p><p>Select the two versions you want to compare.</p></li>
+	
+	<li class=kadov-p><p>Right-click and select <span style="font-weight: bold;"><B>Compare</B></span>. 
+ </p></li>
+	
+	<li class=kadov-p><p>The version comparison tool opens.</p></li>
+</ol>
+
+<p>The comparison window shows the differences between two versions: on 
+ the left pane the newer version and on the right pane the older version 
+ of your selected object. </p>
+
+<p>The differences are color highlighted. The following color code is applied:</p>
+
+<table x-use-null-cells width="419" class="whs4">
+<col class="whs5">
+<col class="whs6">
+
+<tr>
+<th valign="top" width="100px" class="whs7">
+<p class=TitreTableau>Color</th>
+<th valign="top" width="290px" class="whs8">
+<p class=TitreTableau>Description </th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" bgcolor="#FFFFFF" valign="top" width="100px" class="whs9">
+<p class=TexteTableau
+	style="background-color: #ffffff;">White (default)</td>
+<td colspan="1" rowspan="1" valign="top" width="290px" class="whs10">
+<p class=TexteTableau>unchanged</td></tr>
+
+<tr>
+<td bgcolor="#FF0000" valign="top" width="100px" class="whs11">
+<p class=TexteTableau
+	style="background-color: #ff0000;">Red</td>
+<td valign="top" width="290px" class="whs10">
+<p class=TexteTableau>deleted</td></tr>
+
+<tr>
+<td bgcolor="#00FF00" valign="top" width="100px" class="whs12">
+<p class=TexteTableau
+	style="background-color: #00ff00;">Green</td>
+<td valign="top" width="290px" class="whs10">
+<p class=TexteTableau>added/new</td></tr>
+
+<tr>
+<td bgcolor="#FFFF00" valign="top" width="100px" class="whs13">
+<p class=TexteTableau
+	style="background-color: #ffff00;">Yellow</td>
+<td valign="top" width="290px" class="whs10">
+<p class=TexteTableau>modified (the value inside of this field has changed)</td></tr>
+</table>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: If one object 
+ does not exist in one of the versions (for example, when it has been deleted), 
+ it is represented as an empty object (with empty values).</p>
+
+<h3>Using Comparison Filters</h3>
+
+<p>The version comparison tool provides two different types of filters 
+ for customizing the comparison results:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p class="whs2">Object filters: <span 
+ style="font-weight: normal;">By checking the corresponding check boxes 
+ (</span>New<span style="font-weight: normal;"> and/or </span>Deleted<span 
+ style="font-weight: normal;">) you can</span> <span style="font-weight: normal;">decide 
+ whether you want only newly added and/or deleted objects to be displayed.</span></p></li>
+	
+	<li class=kadov-p><p class="whs2">Field filters<span 
+ style="font-weight: normal;">: By selecting the corresponding radio button 
+ (</span>All fields<span style="font-weight: normal;">,</span> Modified 
+ fields<span style="font-weight: normal;"> or</span> No field<span style="font-weight: normal;">) 
+ you can decide whether you want all fields, modified fields or only objects 
+ (no fields) to be displayed.</span></p></li>
+</ul>
+
+<h3>Generating and Printing a Report of your Comparison Results</h3>
+
+<p>To generate a report in Designer:</p>
+
+<ol type="1" class="whs3">
+	
+	<li class=kadov-p><p class="whs14">In the 
+ version comparison window, click the <span style="font-weight: bold;"><B>printer</B></span> 
+ icon.</p></li>
+	
+	<li class=kadov-p><p class="whs14">In the 
+ Report Generation window, set the object and field filters according to 
+ your needs.</p></li>
+	
+	<li class=kadov-p><p class="whs14">In the 
+ PDF file location field, specify a file name to write the report to. If 
+ no path is specified, the file will be written to the default directory 
+ for PDF files. This is a <a href="../../../../refmanual/common/userparameters.htm" style="background-color: Transparent;">user 
+ preference</a>.</p></li>
+	
+	<li class=kadov-p><p class="whs14">Check the 
+ box next to <span style="font-weight: bold;"><B>Open file after generation</B></span> 
+ if you want to view the file after its generation.<span style="margin-left: 0px;"> 
+ </span></p></li>
+</ol>
+
+<p class="whs15"><span style="margin-left: 0px;">If the </span><span 
+ class=ElementGUI
+	style="margin-left: 0px;">Open the file after the generation</span><span 
+ style="margin-left: 0px;"> option is selected, Oracle Data Integrator 
+ will open Acrobat&#174; 
+ Reader&#8482; to view the 
+ generated report.</span></p>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> In order to view 
+ the generated report, you must specify the location of <span class=ElementGUI>Acrobat&#174; Reader&#8482;</span> in 
+ the <a href="../../../../refmanual/common/userparameters.htm" style="background-color: Transparent;">user parameters</a>.</p>
+
+<ol start="5" type="1" class="whs3">
+	
+	<li class=kadov-p><p class="whs14">Click <span 
+ class=ElementGUI>Generate</span>.</p></li>
+</ol>
+
+<p class="whs14">A report is written to the file 
+ specified in step 3, in <span class=ElementGUI>Adobe&#8482; 
+ PDF</span> format.</p>
+
+<p>&nbsp;</p>
+
+</body>
+</html>

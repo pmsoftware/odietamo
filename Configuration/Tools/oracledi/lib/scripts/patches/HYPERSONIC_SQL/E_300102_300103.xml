@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_STEP_REPORT drop constraint PK_STEP_REPORT 
+]]></Field>
+
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_LOC_REPW set MIN_EXE_VERSION = '3.0.01.03']]></Field>
+
+</Object>
+</SunopsisRepository>
+

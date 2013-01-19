@@ -1,0 +1,160 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>What is the Topology ?</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nTopology Manager\nWhat is the Topology?");
+addTocInfo("Reference Manual\nTopology Manager\nWhat is the Topology?");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>What is the Topology?</h1>
+
+<p>Through the <span style="font-weight: bold;"><B>Topology Manager</B></span> 
+ module, the user has at his disposal a genuine physical and logical cartography 
+ of the architecture and the components he works on through Oracle Data 
+ Integrator.</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><a HREF="../../usermanual/topology/topology/create_topology.htm">Create 
+ the Topology</a></p></li>
+</ul>
+
+<h2>Physical Architecture</h2>
+
+<p>The physical architecture defines the different elements of the information 
+ system, as well as the characteristics taken into account by Oracle Data 
+ Integrator.</p>
+
+<p>A <a href="snptechno.htm">technology</a> handles formatted data. Therefore 
+ each technology is associated with one or more <a href="snpdt.htm">Datatypes</a> 
+ that allow Oracle Data Integrator to generate data handling scripts.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> Each type of database 
+ (Oracle, DB2, etc) , file format (XML, File), or application software 
+ is represented in Oracle Data Integrator by a technology.</p>
+
+<p>The physical components that store and return data are defined as <a href="snpconnect.htm">Data Servers</a>. A data server that can store different 
+ information according to a business logic, can be divided into <a href="snppschema.htm">Physical 
+ Schemas</a>. A data server is always linked to a single technology.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> Every database 
+ server, JMS message file, group of flat files, etc, that is used in Data 
+ Integrator, must be declared as a data server.<br>
+Every schema, database, JMS Topic, etc, used in Oracle Data Integrator, 
+ must be declared as a physical schema.</p>
+
+<p>Finally, the physical architecture includes definition of the <a href="snpagent.htm">Physical 
+ Agents</a>, the Java software components that allow Oracle Data Integrator 
+ jobs to be executed on a remote machine.</p>
+
+<h2>Contexts</h2>
+
+<p><a href="snpcontext.htm">Contexts</a> bring together components of the 
+ physical architecture (the real Architecture) of the information system 
+ with components of the Oracle Data Integrator logical architecture (the 
+ Architecture on which the user works).</p>
+
+<h2>Logical Architecture</h2>
+
+<p>The logical architecture allows a user to group physical schemas containing 
+ datastores that are structurally identical but located in separate places, 
+ into <a href="snplschema.htm">Logical Schemas</a>, structured per technology.</p>
+
+<p>According to the same philosophy, the logical architecture defines the 
+ <a href="snplagent.htm">Logical Agents</a>, allowing a unique name to 
+ be given to all the physical agents with the same function in different 
+ contexts.</p>
+
+<p class=Remarque><span class=RemarqueTitre>For example:</span> The <span 
+ class=ElementGUI>logical schema</span> &quot;Accounting&quot; may correspond 
+ to two <span class=ElementGUI>physical schemas:<br>
+- </span>&quot;Accounting Oracle sample&quot;, used in the &quot;development&quot; 
+ <span class=ElementGUI>context</span> <br>
+- &quot;Accounting corporate&quot;, used in the &quot;production&quot; 
+ <span class=ElementGUI>context</span>. <br>
+The two <span class=ElementGUI>physical schemas</span> are structurally 
+ identical (they contain accounting data), but physically different. They 
+ are located on two Oracle schemas, and perhaps on two different Oracle 
+ servers (data servers).</p>
+
+<h2>Languages</h2>
+
+<p>This type of component defines the characteristics specific to each 
+ <a href="snplang.htm">language</a> linked to a technology and used by 
+ Oracle Data Integrator.</p>
+
+<h2>Repositories</h2>
+
+<p>This branch of the topology contains information relating to the two 
+ types of repositories: the <a href="snplocrep.htm">master repository</a> 
+ and the <a href="snpremrep.htm">work repositories</a>.</p>
+
+<h2>Hosts</h2>
+
+<p><a href="snpshost.htm">Hosts</a> and Usages enable to <a href="../../usermanual/topology/general/manage_hosts_usages.htm">manage 
+ user access to the graphical modules</a>.</p>
+
+</body>
+</html>

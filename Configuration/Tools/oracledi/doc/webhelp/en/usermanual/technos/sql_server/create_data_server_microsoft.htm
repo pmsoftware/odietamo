@@ -1,0 +1,261 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Creating a Microsoft SQLServer Data Server</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+ol.whs2 { list-style:decimal; }
+p.whs3 { margin-left:0px; }
+p.whs4 { margin-left:40px; }
+ul.whs5 { list-style:decimal; }
+-->
+</style><script type="text/javascript" language="JavaScript">
+<!--
+if ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion) == 4))
+{
+  var strNSS = "<style type='text/css'>";
+  strNSS += "p.whs3 {margin-left:1pt; }";
+  strNSS +="</style>";
+  document.write(strNSS);
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Creating a Microsoft SQL Server Data Server</h1>
+
+<p>A Microsoft SQL Server <span class=ElementGUI>Data Server </span>corresponds 
+ to a SQL Server Instance connected with a specific SQL Server user account. 
+ This user will have access to several databases in this machine, corresponding 
+ to the <span class=ElementGUI>Physical Schemas</span> created under this 
+ data server.</p>
+
+<h2>Pre-requisites</h2>
+
+<h3>JDBC Driver</h3>
+
+<p>It is preferable to use a Type 4 JDBC Driver for Microsoft SQL Server. 
+ Two drivers are recommended : The <b>i-net GATE Driver</b>, or the <b>Microsoft 
+ SQL Server 2000 Driver for JDBC</b>. These drivers directly use the TCP/IP 
+ network layer and require no other component installation on the client 
+ machine.</p>
+
+<h4>Microsoft SQL Server 2000 Driver for JDBC</h4>
+
+<p>The <b>Microsoft SQL Server 2000 Driver for JDBC </b>drivers appear 
+ as <span class=Code>mssqlserver.jar, msutil.jar, msbase.jar </span>files 
+ that you must copy into your installation directory's <span class=Code>/drivers</span> 
+ sub-directory. This driver is available for download to all licensed SQL 
+ Server 2000 customers at no charge at <a href="http://www.microsoft.com/sql/downloads"
+											target=_blank>http://www.microsoft.com/sql/downloads</a>. 
+ </p>
+
+<p class=Remarque><span class=RemarqueTitre>Note :</span> This driver has 
+ some known limitations that impact . It is designed to work only with 
+ SQL Server 2000 or more.</p>
+
+<h4>i-net GATE Driver</h4>
+
+<p>The <b>i-net GATE Driver</b> appears as a <span class=Code>gate.jar</span> 
+ file that you must copy intoyour installation directory's <span class=Code>/drivers</span> 
+ sub-directory. This driver is a licensed product. For more information, 
+ contact Oracle or see <a href="http://www.inetsoftware.de/"
+							target=_blank>http://www.inetsoftware.de/</a>.</p>
+
+<p>It is also possible to connect an Microsoft SQL Server using ODBC. This 
+ method is limited and does not have very good performances. &nbsp;It 
+ is recommended that you use a Type 4 driver.</p>
+
+<h3>Connection Informations</h3>
+
+<p>You must ask the Microsoft SQL Server administrator the following information:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Network Name or IP address of the machine supporting 
+ the Microsoft SQL Server Instance.</p></li>
+	
+	<li class=kadov-p><p>Listening port of the Microsoft SQL Server.</p></li>
+	
+	<li class=kadov-p><p>Name of the Microsoft SQL Server Instance.</p></li>
+	
+	<li class=kadov-p><p>Login and password of an Microsoft SQL Server 
+ User.</p></li>
+</ul>
+
+<h2>Creation of the SQL Server Data Server</h2>
+
+<h6>To create a Microsoft SQL Server Data Server:</h6>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Connect to <span class=ElementGUI>Topology Manager</span></p></li>
+	
+	<li class=kadov-p><p>Select <span class=ElementGUI>Topology</span> 
+ &gt; <span class=ElementGUI>Physical Architecture </span>&gt; <span class=ElementGUI>Technologies</span> 
+ &gt; <span class=ElementGUI>Microsoft SQL Server</span> in the tree.</p></li>
+	
+	<li class=kadov-p><p>Right-click then select <span class=ElementGUI>Insert 
+ Data Server</span></p></li>
+	
+	<li class=kadov-p><p>Fill in the following fields in the <span class=ElementGUI>Definition</span> 
+ tab:</p></li>
+	
+	<ul type="disc" class="whs1">
+		
+		<li class=kadov-p><p class="whs3"><span class=ElementGUI>Name</span>: 
+ Name of the Data Server that will appear in Oracle Data Integrator.</p></li>
+		
+		<li class=kadov-p><p class="whs3"><span class=ElementGUI>Server</span>: 
+ Server name used for this Microsoft SQL Server database. It will be used 
+ to identify the objects on this server from remote servers.</p></li>
+		
+		<li class=kadov-p><p class="whs3"><span class=ElementGUI>User/Password:</span> 
+ Microsoft SQL Server user (with its password), having select privileges 
+ on the databases and select/insert/object creation on the work databases 
+ that will be indicated in the Microsoft SQL Server &nbsp;<span 
+ class=ElementGUI>Physical Schemas </span>created 
+ under this data server.</p></li>
+	</ul>
+	
+	<li class=kadov-p><p>Fill in the following fields in the <span class=ElementGUI>JDBC</span> 
+ tab:</p></li>
+</ol>
+
+<p class="whs4">If using the <b>Microsoft SQL Server 2000 
+ Driver for JDBC:</b></p>
+
+<ul type="1" class="whs5">
+	
+	<ul>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p class="whs3"><span class=ElementGUI>JDBC 
+ Driver</span>: <span class=Code>com.microsoft.jdbc.sqlserver.SQLServerDriver</span></p></li>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p class="whs3"><span class=ElementGUI>JDBC</span> 
+ <span class=ElementGUI>URL</span>: <span class=Code>jdbc:microsoft:sqlserver://:&lt;network 
+ name or IP address of the Microsoft SQL Server machine&gt;:&lt;port of 
+ the Microsoft SQL Server Database (1433)&gt;[;property=value...]</span></p></li>
+	</ul>
+</ul>
+
+<p class=Remarque><span class=RemarqueTitre>Note :</span> It is advised 
+ to pass the property <span class=Code>SelectMethod=cursor</span> when 
+ using this driver against the Developer version of SQL Server. Otherwise, 
+ the number of connections is limited below the Oracle Data Integrator' 
+ requirements. The URL should look like : <span class=Code>jdbc:microsoft:sqlserver://:&lt;network 
+ name or IP address of the machine&gt;:&lt;port&gt;;SelectMethod=cursor</span> 
+ </p>
+
+<p class="whs4">If using the &nbsp;<b>i-net 
+ GATE Driver:</b></p>
+
+<ul type="1" class="whs5">
+	
+	<ul>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p class="whs3"><span class=ElementGUI>JDBC 
+ Driver</span>: <span class=Code>com.inet.tds.TdsDriver</span></p></li>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p class="whs3"><span class=ElementGUI>JDBC</span> 
+ <span class=ElementGUI>URL</span>: <span class=Code>jdbc:inetdae:&lt;network 
+ name or ip address of the Microsoft SQL Server machine&gt;:&lt;port of 
+ the Microsoft SQL Server Database (1433)&gt;[;property=value...]</span></p></li>
+	</ul>
+</ul>
+
+<p class=Remarque><span class=RemarqueTitre>Note :</span> This driver implements 
+ several versions of the protocol to reach SQL Servers. It is advised, 
+ when connecting to a SQL Server 2000 or above, to force the protocol to 
+ intetdae7, to improve performances and avoid network issues. The URL should 
+ look like : &nbsp;<span class=Code>jdbc:inetdae7:&lt;network 
+ name or IP address of the machine&gt;:&lt;port&gt;</span></p>
+
+<ol start="6" type="1" class="whs2">
+	
+	<li class=kadov-p><p>Click on <span class=ElementGUI>Test</span>.</p></li>
+	
+	<li class=kadov-p><p>Click on <span class=ElementGUI>Test </span>in 
+ the <span class=ElementGUI>Test Connection</span> windows.</p></li>
+	
+	<li class=kadov-p><p>A window indicating a <span class=ElementGUI>Successful 
+ Connection </span>should appear. Click on <span class=ElementGUI>OK</span>.</p></li>
+	
+	<li class=kadov-p><p>Click on <span class=ElementGUI>OK</span> to validate 
+ the creation of the data server</p></li>
+</ol>
+
+<p>The creation window for the first <span class=ElementGUI>Physical Schema 
+ </span>for this data server appears.<br>
+See <a HREF="create_pchema_sql.htm">Creating a Physical Schema for MS SQL 
+ Server</a>.</p>
+
+</body>
+</html>

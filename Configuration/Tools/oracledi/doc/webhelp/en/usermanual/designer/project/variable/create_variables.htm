@@ -1,0 +1,255 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Creating and using variables</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+img_whs2 { border:none; width:16px; height:16px; float:none; border-style:none; }
+ul.whs3 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nDesigner\nProjects\nCreating Variables & Sequences\nCreating and Using Variables");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Creating and Using Variables</h1>
+
+<p>A variable is an object that stores a single value. This value can be 
+ a string, a number or a date. The value is stored in Oracle Data Integrator, 
+ and can be updated at run-time.</p>
+
+<p>The value of a variable can be updated from the result of a query executed 
+ on a logical schema. For example, it can retrieve the current date and 
+ time from a database.</p>
+
+<p>A variable can be created as a <span class=ElementGUI>global</span> 
+ variable or in a <span class=ElementGUI>project</span>. Global variables 
+ can be used in all projects, while project variables can only be used 
+ within the project in which they are defined. </p>
+
+<h2>Creating Variables</h2>
+
+<p class=HowTo>To create a variable:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Click the <span class=ElementGUI>Variables</span> 
+ node in a project, or the <span class=ElementGUI>Global Variables</span> 
+ node in the <span class=ElementGUI>Others</span> view.</p></li>
+	
+	<li class=kadov-p><p>Right-click and select <span class=ElementGUI>Insert 
+ Variable</span>.</p></li>
+	
+	<li class=kadov-p><p>Specify a<span class=ElementGUI> Name</span>, 
+ &nbsp;<span class=ElementGUI>Action, 
+ Datatype</span> and <span class=ElementGUI>Default Value</span>. See <a href="../../../../refmanual/designer/project/folder/variable/snpvar.htm">Variable</a> 
+ for more information.</p></li>
+	
+	<li class=kadov-p><p>If you want the variable's value to be set by 
+ a query:</p></li>
+	
+	<ol type="1" class="whs1">
+		
+		<li class=kadov-p><p>Select the <span class=ElementGUI>Refreshing</span> 
+ tab.</p></li>
+		
+		<li class=kadov-p><p>Select the logical schema where the command 
+ will be executed, then edit the command text in the language of the schema's 
+ technology. You can use the Expression Editor by clicking <img src="../../../../images/exp_edit.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs2">. </p></li>
+		
+		<li class=kadov-p><p>Click <img src="../../../../images/exp_check.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs2"> to check the syntax of 
+ your expression.</p></li>
+		
+		<li class=kadov-p><p>The <span class=ElementGUI>Refresh</span> 
+ button allows you to test the variable by executing the query immediately.</p></li>
+	</ol>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK.</span></p></li>
+</ol>
+
+<p>The variable appears in the tree view.</p>
+
+<p class=HowTo>&nbsp;</p>
+
+<p class=HowTo>To delete a variable:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Click the variable in the appropriate tree view.</p></li>
+	
+	<li class=kadov-p><p>Right click and select <span class=ElementGUI>Delete.</span></p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK.</span></p></li>
+</ol>
+
+<h2>Using variables</h2>
+
+<p class=HowTo>To use a variable in a package:</p>
+
+<p>Variables can be used in packages in several different ways, as follows:</p>
+
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Declaration</B></span>: 
+ When a variable is used in a package (or in certain elements of the topology 
+ which are used in the package), it is strongly recommended that you insert 
+ a <span class=ElementGUI>Declare Variable</span> step in the package. 
+ This step explicitly declares the variable in the package.</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Refreshing</B></span>: 
+ A <span class=ElementGUI>Refresh Variable</span> step allows you to re-execute 
+ the command or query that computes the variable value.</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Assigning</B></span>: 
+ A <span class=ElementGUI>Set Variable</span> step of type <span class=ElementGUI>Assign 
+ </span>sets the current value of a variable.</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Incrementing</B></span>: 
+ A <span class=ElementGUI>Set Variable </span>step of type <span class=ElementGUI>Increment 
+ </span>increases or decreases a numeric value by the specified amount.</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Conditional evaluation</B></span>: 
+ An <span class=ElementGUI>Evaluate Variable</span> step tests the current 
+ value of a variable and branches depending on the result of the comparison.</p></li>
+	
+	<li class=kadov-p><p>In expressions in other steps, such as interfaces, 
+ procedures, OS Commands and so forth.</p></li>
+</ul>
+
+<h3>Variable scope</h3>
+
+<p>A variable can and should be used by explicitly specifying its scope, 
+ using the syntax <span class=Code>#GLOBAL.</span><span class=Code
+														style="font-style: italic;"><I>&lt;variable 
+ name&gt;</I></span> for <span class=ElementGUI>global</span> variables or 
+ <span class=Code>#</span><span class=Code
+								style="font-style: italic;"><I>&lt;project 
+ code&gt;</I></span><span class=Code>.</span><span class=Code
+												style="font-style: italic;"><I>&lt;variable 
+ name&gt;</I></span> for <span class=ElementGUI>project</span> variables.</p>
+
+<h3>Using the value of the variable</h3>
+
+<p>Variables can be used in all Oracle Data Integrator expressions: </p>
+
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p><p>Mapping,</p></li>
+	
+	<li class=kadov-p><p>Filters,</p></li>
+	
+	<li class=kadov-p><p>Joins,</p></li>
+	
+	<li class=kadov-p><p>Constraints,</p></li>
+	
+	<li class=kadov-p><p>...</p></li>
+</ul>
+
+<p>To substitute the value of the variable into the text of an expression, 
+ precede its name by the '#' character. The agent or the graphical interface 
+ will substitute the value of the variable in the command before executing 
+ it.</p>
+
+<p>The following example shows the use of a global variable named 'YEAR':</p>
+
+<p><span class=Code>Update CLIENT set LASTDATE = sysdate where DATE_YEAR 
+ = '</span><span class=Code
+				style="font-weight: bold;"><B>#GLOBAL.YEAR</B></span><span class=Code>' 
+ /* DATE_YEAR is CHAR type */ </span></p>
+
+<p><span class=Code>Update CLIENT set LASTDATE = sysdate where DATE_YEAR 
+ = </span><span class=Code
+				style="font-weight: bold;"><B>#GLOBAL.YEAR</B></span><span class=Code> 
+ /* DATE_YEAR is NUMERIC type */ </span></p>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> the &quot;bind 
+ variable&quot; mechanism of the SQL language can also be used, however, 
+ this is less efficient, because the relational database engine does not 
+ know the value of the variable when it constructs the execution plan for 
+ the query. To use this mechanism, precede the variable by the ':' character, 
+ and make sure that the datatype being searched is compatible with that 
+ of the variable.<br>
+For example: <span class=Code>u</span><span class=Code>pdate CLIENT set 
+ LASTDATE = sysdate where DATE_YEAR =</span><span class=Code
+													style="font-weight: bold;"><B>:GLOBAL.YEAR</B></span></p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: You can drag-and-drop 
+ a variable into most expressions with the Expression Editor. It is also 
+ possible to use variables as substitution variables in graphical module 
+ fields such as resource names or schema names in the topology. You must 
+ use the name of the variable (Example: <span class=Code>#GLOBAL.MYTABLENAME</span>) 
+ directly in the Oracle Data Integrator graphical module's field.<br>
+<br>
+Using this method, you can parameterize elements for execution, such as 
+ the physical names of files and tables (<span class=ElementGUI>Resource</span> 
+ field in the <span class=ElementGUI>datastore</span>) or their location 
+ (<span class=ElementGUI>Physical schema's schema (data)</span> in the 
+ topology)</p>
+
+<h3>Passing a variable to a scenario</h3>
+
+<p>It is also possible to pass a variable to a scenario in order to customize 
+ its behavior. To do this, pass the name of the variable and its value 
+ on the OS command line which executes the scenario. For more information, 
+ see <a href="../../../agent/scenario_os.htm">Launching a scenario from 
+ an OS command</a>.</p>
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Importing a Scenario in Production</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nOperator\nImporting a Scenario in Production");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Importing Scenarios in Production</h1>
+
+<p>A scenario generated from Designer can be imported in a development 
+ or execution repository through the Operator Module, to run in production. 
+ </p>
+
+<p>Similarly, a solution containing several scenarios can be imported to 
+ easily transfer a group of scenarios at once. See <a href="../designer/project/versionning/versionning.htm">Using 
+ Version Management</a> for more information.</p>
+
+<p class=HowTo>To import a scenario in production:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Open <span class=ElementGUI>Operator.</span></p></li>
+	
+	<li class=kadov-p><p>Select <span class=ElementGUI>File</span> &gt; 
+ <span class=ElementGUI>Import Scenario...</span> in the menu bar, or right-click 
+ in the <span class=ElementGUI>Scenarios</span> view and select <span class=ElementGUI>Import 
+ Scenario...</span>.</p></li>
+	
+	<li class=kadov-p><p>Specify the <span class=ElementGUI>Import Directory,</span> 
+ and select one or more scenarios to import.</p></li>
+	
+	<li class=kadov-p><p>Select the <a href="../../refmanual/common/import_modes.htm">Import 
+ Mode</a>.</p></li>
+	
+	<li class=kadov-p><p>Check the <span class=ElementGUI>Import schedules</span> 
+ option if you want to import the schedules exported with the scenario 
+ as well.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK.</span></p></li>
+</ol>
+
+<p>The imported scenarios appear on the <span class=ElementGUI>scenarios</span> 
+ node. If the scenario was in a scenario folder at the time it was exported, 
+ it will be re-imported into the same scenario folder.</p>
+
+<p>&nbsp;</p>
+
+<p class=HowTo>To import a solution:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p
+		class=kadov-p>Go to the <span class=ElementGUI>Solutions</span> 
+ view.</li>
+	
+	<li class=kadov-p><p>Right-click the tree view and select <span class=ElementGUI>Import 
+ Solution...</span></p></li>
+	
+	<li class=kadov-p><p>Specify the <span class=ElementGUI>Import Directory</span>, 
+ and select one or more solutions to import.</p></li>
+	
+	<li class=kadov-p><p>Select the <a href="../../refmanual/common/import_modes.htm">Import 
+ Mode</a>.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK.</span></p></li>
+	
+	<li class=kadov-p><p>Double click the solution to open it.</p></li>
+	
+	<li class=kadov-p><p>Select one or more scenarios that you wish to 
+ restore, from either the <span class=ElementGUI>Principal Elements</span> 
+ or <span class=ElementGUI>Required Elements</span> views.</p></li>
+	
+	<li class=kadov-p><p>&nbsp;Click 
+ the <span class=ElementGUI>Restore</span> button.</p></li>
+</ol>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: Only scenarios 
+ may be restored from within Operator.</p>
+
+</body>
+</html>

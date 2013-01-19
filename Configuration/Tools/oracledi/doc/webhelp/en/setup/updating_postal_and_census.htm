@@ -1,0 +1,442 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Updating Postal and Census/DPV Directories</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+p.whs2 { margin-left:24px; background-color:#ffff00; }
+img_whs3 { border:none; width:715px; height:176px; border-style:none; }
+p.whs4 { background-color:#ffff00; }
+ul.whs5 { list-style:decimal; }
+ol.whs6 { list-style:lower-alpha; }
+p.whs7 { margin-left:0px; }
+ol.whs8 { list-style:disc; }
+ul.whs9 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript">
+<!--
+if ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion) == 4))
+{
+  var strNSS = "<style type='text/css'>";
+  strNSS += "p.whs7 {margin-left:1pt; }";
+  strNSS +="</style>";
+  document.write(strNSS);
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Updating Postal and Census/DPV Directories</h1>
+
+<p>The Postal and Census/DPV Directories are used by Oracle Data Quality 
+ for Data Integrator to enrich addresses with postal data.</p>
+
+<p>This chapter describes how to update and validate the postal and census/DPV 
+ directories for Oracle Data Quality Server. </p>
+
+<h2><a name=About_Update_Options>About Update Options</a></h2>
+
+<p>The CITY Tables, Country Templates, and Census/DPV directory files<span 
+ style="background-color: #ffff00;"> are delivered on CD/DVD and are initially 
+ installed as part of the Oracle DQ Quality Core product.</span></p>
+
+<p>You must download Postal Table updates from the Oracle FTP site. The 
+ Postal Table updates are compressed into a single file that is used as 
+ input to the<span style="background-color: #ffff00;"> </span><span class=Code
+	style="background-color: #ffff00;">TableUpdate.exe</span> installation 
+ program. When you install the Postal Table updates, the CITY Tables are 
+ updated.</p>
+
+<p>We recommend that you periodically perform a Postal Table update.</p>
+
+<h3>Installation Location</h3>
+
+<p>Oracle Software requires that postal directory files be installed on 
+ the server where<span style="background-color: #ffff00;"> the Oracle Data 
+ Quality Server software is located.</span> By default, postal files are 
+ installed in <span class=Code
+					style="background-color: #ffff00;">C:\TrilliumSoftware\tsq11r0s\tables\postal_tables</span><span 
+ style="background-color: #ffff00;"> </span>and<span style="background-color: #ffff00;"> 
+ </span><span class=Code
+				style="background-color: #ffff00;">census/</span><span 
+ style="background-color: #ffff00;">DPV files are installed in </span><span 
+ class=Code
+	style="background-color: #ffff00;">C:\TrilliumSoftware\tsq11r0s\tables-\census_tables</span><span 
+ style="background-color: #ffff00;">.</span> By default, postal files for 
+ China, Japan, Korea, and Taiwan are installed in<span style="background-color: #ffff00;"> 
+ </span><span class=Code
+				style="background-color: #ffff00;">C:\TrilliumSoftware\tsq11r0s\tables\aptables</span><span 
+ style="background-color: #ffff00;">.</span></p>
+
+<p>Your location may differ, but will be prefixed by a drive letter.</p>
+
+<h3>Update Procedures</h3>
+
+<p>You may use one of two methods to update postal and census/DPV directory 
+ files:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Use an automated program supplied by Oracle to 
+ uncompress the files, install to your selected location, and update the 
+ server software installation log with this information.</p></li>
+	
+	<li class=kadov-p><p>Manually uncompress the files, move them to your 
+ selected location, and manually update the server software installation 
+ log with this information.</p></li>
+</ol>
+
+<p>Method #1 is strongly recommended for new installations and can be executed 
+ by anyone with write access to the server.</p>
+
+<h2><a name=Updating_Postal_or_Census>Updating Postal or Census/DPV Directory 
+ Files</a></h2>
+
+<p>You can use the <span class=Code>TableUpdate.exe</span> automated program 
+ to update the postal and/or census/DPV directory files. The <span class=Code>TableUpdate.exe</span> 
+ program is<span style="background-color: #ffff00;"> packaged with the 
+ directory files on the same CD/DVD.</span></p>
+
+<h3>Update with the Automated Program</h3>
+
+<p class=HowTo>To update using the automated program</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>C<span style="background-color: #ffff00;">opy 
+ </span><span class=Code
+				style="background-color: #ffff00;">TableUpdate.exe</span><span 
+ style="background-color: #ffff00;"> from the CD/DVD</span> or FTP site 
+ to a temporary location where you will extract the directory files. If 
+ you received <span class=Code>TableUpdate.tsq</span> from the FTP site, 
+ rename it to <span class=Code>TableUpdate.exe</span> first. This location 
+ should be different from your production location so that file integrity 
+ can be validated prior to being implemented by production Oracle Data 
+ Quality Server processes.</p></li>
+	
+	<li class=kadov-p><p>Double-click the program name in <span style="font-weight: bold;"><B>Windows 
+ Explorer</B></span>. Or, select <span style="font-weight: bold; background-color: #ffff00;"><B>Start</B></span><span 
+ style="background-color: #ffff00;"> &gt; </span><span style="font-weight: bold; background-color: #ffff00;"><B>Programs</B></span><span 
+ style="background-color: #ffff00;"> &gt; </span><span style="font-weight: bold; background-color: #ffff00;"><B>Trillium 
+ Software System</B></span><span style="background-color: #ffff00;"> &gt;</span><span 
+ style="font-weight: bold; background-color: #ffff00;"><B>TS Quality</B></span><span 
+ style="background-color: #ffff00;"> &gt; </span><span style="font-weight: bold; background-color: #ffff00;"><B>v11</B></span><span 
+ style="background-color: #ffff00;"> &gt; </span><span style="font-weight: bold; background-color: #ffff00;"><B>Update 
+ Postal Tables</B></span> on the desktop. The Table Update window appears.</p></li>
+</ol>
+
+<p class="whs2"><img src="../image1.jpg" width="715px" height="176px" border="0" class="img_whs3"></p>
+
+<p class="whs4">&nbsp;</p>
+
+<ul type="1" class="whs5">
+	
+	<ol type="1" class="whs1">
+		
+		<li style="list-style: lower-alpha;"
+			type=a
+			class=kadov-p><p>In the Tables File text box, specify the location 
+ of the compressed file containing the directory files. This file is located 
+ on the CD/DVD or was installed on your machine from an FTP session. The 
+ file name will use the format<span class=Code> XXMMM.exe</span> if on 
+ a CD/DVD or<span class=Code> XXMMM.tsq</span> if downloaded from the FTP 
+ site.</p></li>
+		
+		<li style="list-style: lower-alpha;"
+			type=a
+			class=kadov-p><p>In the Install Directory text box, specify 
+ the target location for the uncompressed directory files. It is recommended 
+ that this be a temporary location and that file integrity be validated 
+ prior to moving to a production location.</p></li>
+		
+		<li style="list-style: lower-alpha;"
+			type=a
+			class=kadov-p><p>Click <span class=ElementGUI>Update Tables</span>. 
+ The files will be installed and the appropriate install log file updated.</p></li>
+		
+		<li style="list-style: lower-alpha;"
+			type=a
+			class=kadov-p><p>Should the program not automatically identify 
+ the server location, you will see the following screen.&lt;ORACLE GRAPHIC 
+ PLACE HOLDER&gt;</p></li>
+	</ol>
+</ul>
+
+<ol start="3" type="1" class="whs1">
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span>. The following 
+ screen appears; specify the server location and click OK.&lt;ORACLE GRAPHIC 
+ PLACE HOLDER&gt;</p></li>
+	
+	<li class=kadov-p><p>Locate the server software (such as <span class=Code
+	style="background-color: #ffff00;">C:\TrilliumSoftware\tsq11r0s</span>) 
+ as shown above. Your directory files have been successfully installed 
+ to the temporary location. It is recommended that you validate the integrity 
+ of the files. See “<span style="background-color: #ffff00;">Validating 
+ Postal/Census/DPV Directory File Integrity”on pageXXXfor more informatio</span>n.</p></li>
+</ol>
+
+<h3>Update Directory Files Manually</h3>
+
+<p class=HowTo>To update directory files manually</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Copy the compressed file <span style="background-color: #ffff00;">from 
+ the CD/DVD or FTP</span> site to a temporary location.</p></li>
+	
+	<li class=kadov-p><p>Double-click the file name in <span style="font-weight: bold;"><B>Windows 
+ Explorer</B></span> to uncompress it. The expanded files will be placed into 
+ the temporary folder location.</p></li>
+	
+	<ol type="a" class="whs6">
+		
+		<li class=kadov-p><p class="whs7">If these files are 
+ updates, proceed to Step 3.</p></li>
+		
+		<li class=kadov-p><p class="whs7">If these files are 
+ being installed for the first time, copy the files to the desired production 
+ location on the server and proceed to Step 4.</p></li>
+	</ol>
+	
+	<li class=kadov-p><p>Before the postal and census/DPV directory files 
+ can be updated, you must perform the following steps:</p></li>
+	
+	<ol type="a" class="whs6">
+		
+		<li class=kadov-p><p>Stop any real-time or batch <span style="background-color: #ffff00;">Oracle 
+ Data Quality Server processes</span></p></li>
+		
+		<li class=kadov-p><p>Copy the files into the production location</p></li>
+		
+		<li class=kadov-p><p>Restart production <span style="background-color: #ffff00;">Oracle 
+ Data Quality Server processes</span></p></li>
+	</ol>
+	
+	<li class=kadov-p><p>For a new installation of postal and/or census/DPV 
+ directory files, the Oracle DQT - Quality Core software installation log 
+ must be updated to reflect the files installed. This file is named <span 
+ class=Code>install_log.txt</span> and is located in the server install 
+ location at <span class=Code
+					style="background-color: #ffff00;">\TrilliumSoftware\tsq11r0s\Settings</span><span 
+ style="background-color: #ffff00;">.</span> The file must contain one 
+ entry per country of postal directory files installed, as in this example:</p></li>
+</ol>
+
+<ol type="disc" class="whs8">
+	
+	<ul type="disc" class="whs9">
+		
+		<li class=kadov-p><p class="whs7">postal US</p></li>
+		
+		<li class=kadov-p><p class="whs7">postal CA</p></li>
+	</ul>
+</ol>
+
+<p>The two-letter country code represents the country of postal file directories 
+ installed on the server. The entries start in the first column of the 
+ file; only one country entry per line is allowed.</p>
+
+<h2><a name=Validating_Postal_Census>Validating Postal/Census/DPV Directory 
+ File Integrity</a></h2>
+
+<p>It is strongly recommended that you check the file integrity of postal/census/DPV 
+ directory files before using them in your projects. Do this to ensure 
+ the integrity of the installed files.</p>
+
+<h3>Validate with the TUHASH Utility</h3>
+
+<p>To validate newly-installed postal and census/DPV files, you should 
+ run the <span class=ElementGUI>TUHASH</span> utility and compare the hash 
+ values to those included with the update.</p>
+
+<p>The<span class=Code> HASHVAL.TXT</span> file, included on each CD/DVD, 
+ contains a list of values generated by <span class=ElementGUI>TUHASH</span>. 
+ Use these values to check the integrity of the data after installation.</p>
+
+<p>If your resulting hash values differ from the ones included with the 
+ software, please contact Oracle Software Customer Support.</p>
+
+<h3>Find the Hash Value of a File (tuhash)</h3>
+
+<p>The <span class=ElementGUI>tuhash</span> utility provides a means to 
+ determine if two files are the same. It performs a byte-by-byte evaluation 
+ of the input file and returns a resulting numerical value (called the<span 
+ class=ElementGUI> hash value</span>) to the screen. You can then run the 
+ utility on another file and compare the hash values to see if they are 
+ the same value.</p>
+
+<p>This utility generates values for monthly postal updates that are delivered 
+ with updates. Customers can install the postal directories on their system, 
+ run the utility on each file, and compare the values to the ones provided. 
+ If the values match, the postal directories are installed properly. This 
+ process can be applied to any file.</p>
+
+<p>The default record length is 1. Note that, for larger files, using a 
+ record length of 1 makes the hash program run very slowly. For Z/OS specify 
+ the record length of the file. For other systems, specify the logical 
+ record length of the file if it is fixed-length. Otherwise, specify a 
+ number that can be divided evenly into the file size.</p>
+
+<h4>Syntax</h4>
+
+<table x-use-null-cells>
+<col>
+<col>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter value &nbsp;&nbsp;&nbsp;</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau>-i &lt;input_file&gt;</td>
+<td class=whs6>
+<p class=TexteTableau>Specifies the input file name.</td></tr>
+
+<tr>
+<td class=whs7>
+<p class=TexteTableau>-l &lt;lrecl&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td class=whs9>
+<p class=TexteTableau>Specifies the record length of the file.</td></tr>
+</table>
+
+<p>&nbsp;</p>
+
+<h4>Example</h4>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>tuhash</B></span><span class=Code> -i ..\tables\PMBUBD 
+ -l 2</span></p>
+
+<h5>Error Codes for tuhash</h5>
+
+<p>The following table describes the tuhash error codes.</p>
+
+<table x-use-null-cells>
+<col>
+<col>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Code &nbsp;&nbsp;&nbsp;</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau>0</td>
+<td class=whs6>
+<p class=TexteTableau>Program completed successfully.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>1</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>The error code ‘1’ can reflect any of the following 
+ errors:</p>
+<ul type="disc" class="whs9">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Input file name 
+ not specified</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Unable to open 
+ input file</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Missing or invalid 
+ (less than zero) record length</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Unable to allocate 
+ enough memory – try smaller record length</p></li>
+</ul></td></tr>
+
+<tr>
+<td class=whs7>
+<p class=TexteTableau>91</td>
+<td class=whs9>
+<p class=TexteTableau>Invalid command line option – check spelling.</td></tr>
+</table>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+</body>
+</html>

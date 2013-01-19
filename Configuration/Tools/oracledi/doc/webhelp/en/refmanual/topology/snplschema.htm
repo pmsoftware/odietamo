@@ -1,0 +1,192 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Logical schema</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+th.whs2 { x-cell-content-align:top; }
+td.whs3 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nTopology Manager\nLogical Architecture\nLogical Schemas");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Logical Schemas</h1>
+
+<p>A logical schema is an alias that allows a unique name to be given to 
+ all the <a href="snppschema.htm"><span class=ElementGUI>physical schemas</span></a> 
+ containing the same datastore structures. </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>The aim of the logical schema is to ensure the 
+ portability of the procedures and models on the different physical schemas. 
+ In this way, all developments in <span class=ElementGUI>Designer</span> 
+ are carried out exclusively on logical schemas. </p></li>
+	
+	<li class=kadov-p><p>A logical schema can have one or more physical 
+ implementations on separate physical schemas, but they must be based on 
+ <a href="snpconnect.htm"><span class=ElementGUI>data servers</span></a> 
+ of the same <a href="snptechno.htm"><span class=ElementGUI>technology</span></a>. 
+ A logical schema is always directly linked to a technology.</p></li>
+	
+	<li class=kadov-p><p>To be usable, a logical schema must be declared 
+ in a <a href="snpcontext.htm"><span class=ElementGUI>context</span></a>. 
+ Declaring a logical schema in a context consists of indicating which physical 
+ schema corresponds to the alias - logical schema - for this context.</p></li>
+</ul>
+
+<h6>For example:</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>The logical schema LEDGER is the set of Sybase 
+ tables required for the functioning of the accounting application. These 
+ tables are stored in a physical schema for each installation of the accounting 
+ application. The application was installed once in Boston and twice in 
+ Seattle (in production and in test).</p></li>
+</ul>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Name of the logical schema</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Context</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Physical Schema</th></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>LEDGER</td>
+<td valign="top" class="whs3">
+<p>Boston</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Sybase Boston LDG </td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>LEDGER</td>
+<td valign="top" class="whs3">
+<p>Seattle Production</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Sybase SEATTLE PROD LDG</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>LEDGER</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Seattle Test</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Sybase SEATTLE TEST LDG</td></tr>
+</table>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Work in <span class=ElementGUI>Designer</span> 
+ or<span class=ElementGUI> Operator</span> is always done on the logical 
+ schema LEDGER. Only the context allows the physical schema on which the 
+ operations are actually done to be determined. Thus, the user can switch 
+ from one physical environment to another in a single action.</p></li>
+</ul>
+
+<h2>Definition</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Property</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Name</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Name of the logical schema. It is advisable to give 
+ a name that suggests the functional content of the schema (program or 
+ application name). For example: LEDGER, CRM, ACOUNTING.</p>
+<p class=Remarque><span class=AlertTitre>Caution:</span> This name is used 
+ as id code by the objects contained in the work repositories accessed 
+ by other Oracle Data Integrator modules. Uncontrolled modification of this name 
+ may cause a manual readjustment of the references from the graphical interfaces.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Contexts</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>List of the <a href="snpcontext.htm"><span class=ElementGUI>contexts</span></a> 
+ declared in Oracle Data Integrator.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Physical Schemas</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Shows the <a href="snppschema.htm"><span class=ElementGUI>physical 
+ schema</span></a> that corresponds to the logical schema in this context. 
+ An undefined value shows that the logical schema does not exist in the 
+ context.</td></tr>
+</table>
+
+</body>
+</html>

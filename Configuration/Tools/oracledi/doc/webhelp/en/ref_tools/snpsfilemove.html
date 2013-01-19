@@ -1,0 +1,242 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>OdiFileMove</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nFiles\nOdiFileMove");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<h1>OdiFileMove</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>OdiFileMove -FILE=&lt;file&gt; -TODIR=&lt;dest_dir&gt;|-TOFILE=&lt;dest_file&gt; 
+ [-OVERWRITE=&lt;yes|</span><span class=Code
+									style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>&gt;] [-RECURSE=&lt;</span><span class=Code
+											style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>yes</U></span><span 
+ class=Code>|no&gt;] [-CASESENS=&lt;yes|</span><span class=Code
+													style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>&gt;]</span></p>
+
+<p><span class=Code>OdiFileMove -DIR=&lt;dir&gt; -TODIR=&lt;dest_dir&gt; 
+ [-OVERWRITE=&lt;yes|</span><span class=Code
+									style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>&gt;] [-RECURSE=&lt;</span><span class=Code
+											style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>yes</U></span><span 
+ class=Code>|no&gt;] [-CASESENS=&lt;yes|</span><span class=Code
+													style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>&gt;]</span></p>
+
+<h2>Description</h2>
+
+<p>Moves files or a directory into files or a directory on the machine 
+ of the execution agent.</p>
+
+<p>This command can also be used to rename files or directories.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Parameters</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Mandatory</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p><span class=Code>-DIR=&lt;dir&gt;</span></td>
+<td valign="top" class="whs2">
+<p>Yes if -FILE is omitted</td>
+<td valign="top" class="whs2">
+<p>Directory (or folder) to move or rename.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p><span class=Code>-FILE=&lt;file&gt;</span></td>
+<td valign="top" class="whs2">
+<p>Yes if -DIR is omitted</td>
+<td valign="top" class="whs2">
+<p>Full path of the file(s) to move or rename. Use * for generic characters.</p>
+<p>Examples:</p>
+<p>/var/tmp/*.log (All files with the &quot;log&quot; extension in the 
+ directory /var/tmp)</p>
+<p>arch_*.lst (all files starting with arch_ and with &quot;lst&quot; extension)</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p><span class=Code>-TODIR=&lt;dest_dir&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Yes if -DIR is specified</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Target directory of the move.</p>
+<p>If a directory is moved (-DIR), this parameter indicates the new name 
+ of the directory.</p>
+<p>If a file or several files are moved (-FILE), this parameter indicates 
+ the target directory.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p><span class=Code>-TOFILE=&lt;dest_file&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Yes if -TODIR is omitted</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Target file(s). This parameter cannot be used with parameter -DIR.</p>
+<p>This parameter is:</p>
+<p>- The new name of the target file if one single file is moved (no generic 
+ character)</p>
+<p>- The mask of the new files names if several files are moved.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p><span class=Code>-OVERWRITE=&lt;yes|</span><span class=Code
+													style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Indicates if the files or directory are overwritten if they exist. By 
+ default, the value is <span class=Code>no</span></td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p><span class=Code>-RECURSE=&lt;</span><span class=Code
+												style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>yes</U></span><span 
+ class=Code>|no&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Indicates if files are moved recursively when the directory contains 
+ other directories. The value <span class=Code>no</span> indicates that 
+ only the files contained in the directory to move (not the sub-directories) 
+ will be moved.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p><span class=Code>-CASESENS=&lt;yes|</span><span class=Code
+													style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>&gt;</span></td>
+<td valign="top" class="whs2">
+<p>No</td>
+<td valign="top" class="whs2">
+<p>Indicates if Oracle Data Integrator should be case sensitive when looking for 
+ the files. By default, all searched files are uppercases.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>Rename the &quot;host&quot; file into &quot;hosts.old&quot;</p>
+
+<p><span class=Code>OdiFileMove -FILE=/etc/hosts -TOFILE=/etc/hosts.old</span></p>
+
+<p>&nbsp;</p>
+
+<p>Move the file &quot;hosts&quot; from the directory &quot;/etc&quot; 
+ to the directory &quot;/home/odi&quot;:</p>
+
+<p><span class=Code>OdiFileMove -FILE=/etc/hosts -TOFILE=/home/odi/hosts</span></p>
+
+<p>&nbsp;</p>
+
+<p>Move all files *.csv from directory &quot;/etc&quot; to directory &quot;/home/odi&quot; 
+ with overwrite:</p>
+
+<p><span class=Code>OdiFileMove -FILE=/etc/*.csv -TODIR=/home/odi -OVERWRITE=yes</span></p>
+
+<p>&nbsp;</p>
+
+<p>Move all *.csv files from directory &quot;/etc&quot; to directory &quot;/home/odi&quot; 
+ and change their extension to &quot;.txt&quot;:</p>
+
+<p><span class=Code>OdiFileMove -FILE=/etc/*.csv -TOFILE=/home/odi/*.txt 
+ -OVERWRITE=yes</span></p>
+
+<p>&nbsp;</p>
+
+<p>Rename the directory C:\odi into C:\odi_is_wonderful</p>
+
+<p><span class=Code>OdiFileMove -DIR=C:\odi -TODIR=C:\odi_is_wonderful</span></p>
+
+<p>&nbsp;</p>
+
+<p>Move the directory C:\odi and its sub-folders into the directory C:\Program 
+ Files\odi</p>
+
+<p><span class=Code>OdiFileMove -DIR=C:\odi &quot;-TODIR=C:\Program Files\odi&quot; 
+ -RECURSE=yes</span></p>
+
+</body>
+</html>

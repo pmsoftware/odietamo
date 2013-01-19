@@ -1,0 +1,125 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Import Modes</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Import Modes</h1>
+
+<p>Oracle Data Integrator can import objects, the topology or a master repository using 
+ several modes:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=ElementGUI>Duplication</span>: This 
+ mode creates a new object (with a new Internal ID), and inserts all the 
+ elements in the export file.</p></li>
+</ul>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> This mode is designed 
+ to insert 'new' elements.<br>
+The Duplication mode is used to transfer objects between two different 
+ repositories. To transfer objects from one repository to another, with 
+ the possibility to ship new versions of these objects, or to make updates, 
+ it is better to use the three <span class=ElementGUI>Synonym </span>modes.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> This import mode 
+ is not available for importing master repositories. Creating a new master 
+ repository using the export of an existing one is performed using the 
+ Mimport tool.</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=ElementGUI>Synonym Mode INSERT</span> 
+ : Tries to insert the same object (with the same internal ID) in the repository. 
+ If it is not possible (for instance an object of the same type with the 
+ same internal ID already exists) then nothing is inserted.</p></li>
+</ul>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> The <span class=ElementGUI>Internal 
+ ID</span> enables object identification:<br>
+- It is unique for the object type within the repository<br>
+- It is unique between repositories for the object type because it contains 
+ the repository unique ID<br>
+The <span class=ElementGUI>Internal ID</span> appears on the <span class=ElementGUI>version</span> 
+ tab of each object.</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=ElementGUI>Synonym Mode UPDATE</span> 
+ : Tries to modify the same object (with the same internal ID) in the repository. 
+ If the object does not exist, nothing happens. Note that this mode is 
+ able to delete information in the object (such as sub-objects) if they 
+ do not exist in the export file.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Synonym Mode INSERT / UPDATE</span> 
+ : combination of the two previous modes. It tries first to insert, and 
+ the object exists, does the update. Note that this mode is able to delete 
+ information in the object (such as sub-objects) if they do not exist in 
+ the export file.</p></li>
+</ul>
+
+</body>
+</html>

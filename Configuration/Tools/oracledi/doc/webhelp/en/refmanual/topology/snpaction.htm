@@ -1,0 +1,209 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Action</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nTopology Manager\nPhysical Architecture\nActions\nAction");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Actions</h1>
+
+<p><b>Actions</b> are templates for Data Definition Language (DDL) commands. 
+ They are used by the Common Format Designer to generate the scripts implementing 
+ a data model into a data server or synchronizing the differences between 
+ a data model described in Oracle Data Integrator and its implementation in the 
+ data server.</p>
+
+<p>An action corresponds to a DDL operation (create table, drop reference, 
+ etc). </p>
+
+<h2>Definition</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name of the action, as it appears in the graphical 
+ interface.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Type</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Type of operation performed by the action. See below 
+ for the list of action types.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Description</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Detailed description of the action.</td></tr>
+</table>
+
+<h3>Action Types</h3>
+
+<p>The following action types are available:</p>
+
+<ul>
+	
+	<li class=kadov-p><p>&lt;Unknown&gt;</p></li>
+	
+	<li class=kadov-p>
+	<p>Add </p>
+	
+	<ul>
+		
+		<li class=kadov-p><p>Alternate Key</p></li>
+		
+		<li class=kadov-p><p>Check Constraint</p></li>
+		
+		<li class=kadov-p><p>Column</p></li>
+		
+		<li class=kadov-p><p>Foreign Key</p></li>
+		
+		<li class=kadov-p><p>Index</p></li>
+		
+		<li class=kadov-p><p>Primary Key</p></li>
+	</ul>
+	</li>
+	
+	<li class=kadov-p><p>Begin</p></li>
+	
+	<li class=kadov-p>
+	<p>Modify </p>
+	
+	<ul>
+		
+		<li class=kadov-p><p>Column Attribute</p></li>
+		
+		<li class=kadov-p><p>Key Type</p></li>
+		
+		<li class=kadov-p><p>Column Comment</p></li>
+		
+		<li class=kadov-p><p>Table Comment</p></li>
+	</ul>
+	</li>
+	
+	<li class=kadov-p><p>Create Table</p></li>
+	
+	<li class=kadov-p><p>Disable Key</p></li>
+	
+	<li class=kadov-p>
+	<p>Drop </p>
+	
+	<ul>
+		
+		<li class=kadov-p><p>Alternate Key</p></li>
+		
+		<li class=kadov-p><p>Check Constraint</p></li>
+		
+		<li class=kadov-p><p>Column</p></li>
+		
+		<li class=kadov-p><p>Foreign Key</p></li>
+		
+		<li class=kadov-p><p>Index</p></li>
+		
+		<li class=kadov-p><p>Primary Key</p></li>
+		
+		<li class=kadov-p><p>Table</p></li>
+	</ul>
+	</li>
+	
+	<li class=kadov-p><p>Enable Key</p></li>
+	
+	<li class=kadov-p><p>End</p></li>
+	
+	<li class=kadov-p>
+	<p>Rename </p>
+	
+	<ul>
+		
+		<li class=kadov-p><p>Column</p></li>
+		
+		<li class=kadov-p><p>Table</p></li>
+	</ul>
+	</li>
+</ul>
+
+<h2>Details</h2>
+
+<p>Each action contains several <b>Action Lines</b>, corresponding to the 
+ commands required to perform the DDL operation (for example, dropping 
+ a table requires dropping all its constraints first). The detail tab lists 
+ these action lines, which you can create, delete and organize using the 
+ buttons beside the grid. To edit an existing action, double-click on the 
+ row in the grid. To duplicate an action line, right-click it and select 
+ <span class=ElementGUI>Duplicate</span>.</p>
+
+</body>
+</html>

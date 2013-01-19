@@ -1,0 +1,261 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Procedure commands</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+ul.whs3 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nDesigner\nProjects\nProcedures\nProcedure Commands");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Procedure Commands</h1>
+
+<p>A procedure command is the unit of execution of a procedure.</p>
+
+<h2>Definition</h2>
+
+<p>This tab allows the command row to be defined.</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name of the command, as it appears in the graphical 
+ interface.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Log Counter</td>
+<td valign="top" class="whs2">
+<p>Shows which counter (Insert, Update, Delete or Errors) will record the 
+ number of rows processed by this command.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Log level</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Level of importance of the command, for consulting 
+ the execution log according to this level.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Ignore Errors</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Shows that the procedure is not interrupted in case 
+ of an invalid return code. If this box is checked, the procedure command 
+ will go into &quot;warning&quot; instead of &quot;error&quot;, and the 
+ procedure will not be stopped.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Command</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">The command launched on the data server. 
+ Two similar tabs (Command Source and Command Destination) appear in the 
+ case of a multi-connection procedure.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Technology</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Technology on which the command will be executed.</p>
+<p class=Remarque><span class=RemarqueTitre>Note</span>: To use Oracle Data Integrator 
+ Tools (commands) in KM procedure commands or procedures commands, you 
+ must set the technology to<span class=Code> Sunopsis API</span>.<br>
+To use OS commands or to execute external programs, you must set the technology 
+ to <span class=Code>Operating System</span>.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Transaction Isolation</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The transaction isolation level for Select orders. 
+ The isolation levels shown are those of the SQL ISO. They are not supported 
+ by all data servers. </p>
+<p class=TexteTableau>The levels of isolation are:</p>
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Default: The 
+ transaction keeps the connection's isolation level.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Read Uncommitted: 
+ The transaction can read data not committed by another transaction.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Read Commited: 
+ The transaction can only read data committed by other transactions (in 
+ general, this is the default mode of many data servers).</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Repeatable Read: 
+ The transaction is certain to read the same information if it executes 
+ the same SQL query several times, even if the rows have been modified 
+ and committed by another transaction in the meantime.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Serializable: 
+ The transaction is certain to read the same information if it executes 
+ the same SQL query several times, even if the rows have been modified, 
+ deleted or created and committed by another transaction in the meantime.</p></li>
+</ul></td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Context</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Execution context of the query. If &quot;Execution 
+ context&quot; is left, the command will be executed in the execution context 
+ chosen on launching or on the step.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Schema</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Logical schema for execution. This logical schema, 
+ linked to the context, allows the physical execution schema to be defined.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Transaction</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>You can execute commands on several concurrent transactions 
+ (numbered from 0 to 9) or work off-transaction by choosing the option 
+ &quot;Autocommit&quot;. The latter may be more efficient.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Commit</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>If your command is being executed in a transaction 
+ (numbered 0 to 9), you can decide to continue or to commit the current 
+ transaction according to the following modes:</p>
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>No Commit: The 
+ transaction is not committed. In this case, it can be committed in a later 
+ command. If a session ends normally, all transactions are committed by 
+ default.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Commit: The transaction 
+ is committed.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Commit 1000 rows: 
+ Oracle Data Integrator commits every 1000 records processed. This choice is only 
+ possible on a loading procedure command, that is, one containing a source 
+ command returning a result set and a destination command that carries 
+ out Inserts.</p></li>
+</ul></td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Command</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The text of the command expressed in a native language 
+ or in a standard language (such as SQL, PL/SQL, Transact-SQL, shell, etc). 
+ You can use the expression editor, accessible through the button to the 
+ right of the text.</p>
+<p class=Remarque><span class=AlertTitre>Warning:</span> If the command 
+ seems to be made of random characters, then the procedure is encrypted. 
+ For more details about encryption and decryption, please read <a HREF="../../../../../usermanual/designer/project/km/encrypt_a_km.htm">Encrypt 
+ a KM or a Procedure</a>. Contact also the procedure's provider.</td></tr>
+</table>
+
+<h2>Options</h2>
+
+<p>This tab allows you to specify whether the procedure command is to be 
+ executed or not, according to the value of a procedure option.</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p>Always execute</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The procedure command is executed regardless of the 
+ options values.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Options</td>
+<td valign="top" class="whs2">
+<p>This chart shows all options. The checkbox preceding each option shows 
+ that the procedure command is executed if the (checkbox-type) option has 
+ the value &quot;yes&quot;.</td></tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_FOLDER MODIFY ( FOLDER_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_FOLDER ALTER COLUMN FOLDER_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_FOLDER ALTER COLUMN FOLDER_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "400")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_PACKAGE MODIFY ( PACK_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_PACKAGE ALTER COLUMN PACK_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_PACKAGE ALTER COLUMN PACK_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "400")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_POP MODIFY ( POP_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_POP ALTER COLUMN POP_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_POP ALTER COLUMN POP_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "400")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SEQUENCE MODIFY ( SEQ_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SEQUENCE ALTER COLUMN SEQ_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SEQUENCE ALTER COLUMN SEQ_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "400")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_STEP MODIFY ( STEP_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_STEP ALTER COLUMN STEP_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_STEP ALTER COLUMN STEP_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "400")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_TXT_CROSSR MODIFY ( STRING_ELT <?=snpRef.getDataType("SRC_VARCHAR", "409")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_TXT_CROSSR ALTER COLUMN STRING_ELT <?=snpRef.getDataType("SRC_VARCHAR", "409")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_TXT_CROSSR ALTER COLUMN STRING_ELT SET <?=snpRef.getDataType("SRC_VARCHAR", "409")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_UFUNC MODIFY ( UFUNC_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_UFUNC ALTER COLUMN UFUNC_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_UFUNC ALTER COLUMN UFUNC_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "400")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_VAR MODIFY ( VAR_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_VAR ALTER COLUMN VAR_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_VAR ALTER COLUMN VAR_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "400")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+UPDATE SNP_LOC_REPW SET REP_VERSION = '4.2.02.01'
+]]></Field>
+
+</Object>
+</SunopsisRepository>

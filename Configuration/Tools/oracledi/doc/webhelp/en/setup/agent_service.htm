@@ -1,0 +1,600 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Run an Agent as a Windows Service</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+th.whs2 { x-cell-content-align:top; }
+td.whs3 { x-cell-content-align:top; }
+ul.whs4 { list-style:square; }
+p.whs5 { color:#808080; }
+p.whs6 { color:#008000; }
+p.whs7 { color:#0000ff; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Installation Guide\nAppendices\nRunning an Agent as a Windows Service");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Running an Agent as a Windows Service</h1>
+
+<p>The Agent or Scheduler Agent can be installed on a windows NT, 2000,2003 
+ or XP platform as a service.</p>
+
+<p>When running the setup, you must choose the <span class=ElementGUI>Tools</span> 
+ option in the setup. This option installs the Java Wrapper tool that is 
+ used to run the agent as a service.</p>
+
+<h6>To install the Agent as a Service:</h6>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Edit the <span class=Code>/bin/odiparams.bat </span>file 
+ to match your configuration. The service created uses the agent startup 
+ parameters specified in this file.</p></li>
+	
+	<li class=kadov-p><p>Launch a Windows <span class=ElementGUI>Command 
+ Prompt</span> (Windows).</p></li>
+	
+	<li class=kadov-p><p>Go to the <span class=Code>/bin</span> sub-directory 
+ of your Oracle Data Integrator installation folder.</p></li>
+	
+	<li class=kadov-p><p>Run the <span class=Code>agentservice.bat</span> 
+ script with appropriate parameters to install the service.</p></li>
+	
+	<li class=kadov-p><p>Once the service is installed, you must go to 
+ the Windows' service manager to start the service.</p></li>
+</ol>
+
+<h2>Syntax</h2>
+
+<p><span class=Code>agentservice.bat -i|-r -a|-s</span> <span class=Code>[&lt;agent_name&gt; 
+ [&lt;agent_port&gt; [&lt;wrapper_configuration_file&gt;]]]</span></p>
+
+<p>&nbsp;</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Parameters</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p><span class=Code>-i|-r</span></td>
+<td valign="top" class="whs3">
+<p><span class=Code>-i</span> option installs the service</p>
+<p><span class=Code>-r</span> option un-installs the service.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-a|-s</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-a</span> Installs the listener 
+ agent (it uses the <span class=Code>snpsagent.conf </span>parameter file)</p>
+<p class=TexteTableau><span class=Code>-s</span> Installs the Scheduler 
+ agent (it uses the <span class=Code>snpsagentscheduler.conf </span>parameter 
+ file)</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>&lt;agent_name&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Name of the physical agent as declared in the topology. 
+ This parameter is mandatory for a Scheduler Agent, and optional for a 
+ listener agent.</p>
+<p class=Remarque><span class=RemarqueTitre>Note</span>: This parameter 
+ affects the definition of the created service. When un-installing a service, 
+ you must specify the same <span class=Code>&lt;agent_name&gt;</span> that 
+ was used to install it.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>&lt;agent_port&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Listening port for the agent.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>&lt;wrapper_configuration_file&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Name of the wrapper configuration file. This file 
+ must be located in the <span class=Code>tools/wrapper/conf/</span> sub-directory 
+ of your Oracle Data Integrator installation folder. This parameter is optional.</td></tr>
+</table>
+
+<h2>Configuration File</h2>
+
+<p>The agent startup configuration (connected repository, java parameters) 
+ is defined in the <span class=Code>odiparams.bat</span> file.</p>
+
+<p>The wrapper configuration file, located in the <span class=Code>tools/wrapper/conf/</span> 
+ sub-directory of your Oracle Data Integrator installation folder, defines how 
+ the service will be launched. It contains part of the parameters of the 
+ agent, and may be changed according to your configuration.</p>
+
+<p>For example, the following elements could be changed:</p>
+
+<ul type="square" class="whs4">
+	
+	<li class=kadov-p><p>Additional drivers need to be added in the classpath, 
+ as <span class=Code>wrapper.java.classpath.xx</span> properties.</p></li>
+	
+	<li class=kadov-p><p>The properties related to the of log files management 
+ &nbsp;(<span 
+ class=Code>wrapper.logfile.xx)</span> may be changed depending on the 
+ log size and level required.</p></li>
+	
+	<li class=kadov-p><p>Increase the ping timeout (<span class=Code>wrapper.ping.timeout</span>) 
+ for a machine with a high CPU load.</p></li>
+</ul>
+
+<p>The reference for this configuration file is given at the following 
+ URL: <a href="http://wrapper.tanukisoftware.org/"
+		target=_blank>http://wrapper.tanukisoftware.org/</a>.</p>
+
+<p class=Remarque><span class=AlertTitre>Warning</span>: You should not 
+ change a configuration file used by an existing service. The service should 
+ be un-installed first. </p>
+
+<h3>Configuration file sample</h3>
+
+<p>This sample file highlights the key parameters to adapt to your configuration, 
+ in <span class=Code
+			style="color: #008000;"><font color=green >green</font></span>.</p>
+
+<p class="whs5"><span><font color=gray ><span class=Code
+										style="color: #808080;"><font color=gray >#********************************************************************</font></span></font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Java wrapper 
+ Properties properties file for an Agent Scheduler</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Note that most 
+ parameters are set in the odiparams.bat file, or on </font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># the agentservice.bat 
+ command line. </font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># They are displayed 
+ in this file for information.</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >#********************************************************************</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># *** Set the path 
+ to reference the jvm used for your Agent</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># This parameter 
+ is read in odiparams.bat</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># wrapper.java.command=java.exe</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >wrapper.working.dir=../../../bin/</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># &nbsp;Java 
+ Main class.</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >wrapper.java.mainclass=org.tanukisoftware.wrapper.WrapperSimpleApp</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Java Classpath. 
+ Add class path elements as needed starting from 1</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.1=../tools/wrapper/lib/wrapper.jar</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.2=../lib/.</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.3=../lib/sunopsis.zip</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.4=../lib/snpshelp.zip</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.5=../lib/jakarta-ant-1.4.1-optional.jar</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.6=../lib/NetComponents.jar</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.7=../lib/sunjce_provider.jar</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.8=../lib/jce1_2_2.jar</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.9=../lib/local_policy.jar</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.10=../lib/US_export_policy.jar</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.11=../lib/scripting/.</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.12=../lib/scripting/bsf.jar</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.13=../lib/scripting/bsh-1.2b7.jar</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.14=../lib/scripting/js.jar</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.15=../lib/scripting/jython.jar</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.16=../drivers/.</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.17=../drivers/classes12.zip</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.18=../drivers/db2java.zip</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.19=../drivers/jt400.zip</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.20=../drivers/mysql.zip</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.21=../drivers/snpsmq.zip</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.22=../drivers/snpsxmlo.zip</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.23=../drivers/sqlj.zip</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.24=../drivers/common.jar</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.25=../drivers/db2fs.jar</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.26=../drivers/db2jcc.jar</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.27=../drivers/jconn2.jar</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.java.classpath.28=../drivers/xerces.jar</font></span></p>
+
+<p class="whs7"><span class=Code
+								style="color: #0000ff;"><font color=blue ># *** add here 
+ the aditionnal driver classes that do not appear in the list above</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Java Library 
+ Path (location of Wrapper.DLL or libwrapper.so)</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >wrapper.java.library.path.1=../tools/wrapper/lib/</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Java Additional 
+ Parameters</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >wrapper.java.additional.1=-Djava.security.policy=server.policy</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Initial Java 
+ Heap Size (in MB)</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># This parameter 
+ is read in odiparams.bat</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># wrapper.java.initmemory=64</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Maximum Java 
+ Heap Size (in MB)</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># This parameter 
+ is read in odiparams.bat</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># wrapper.java.maxmemory=128</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Application parameters. 
+ &nbsp;</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >wrapper.app.parameter.1=oracle.odi.Agent</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># The parameters 
+ below, related to the repository connection, are read in odiparams.bat</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># update them in 
+ odiparams.sh</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># wrapper.app.parameter.1=oracle.odi.Agent</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># wrapper.app.parameter.2=&quot;-SECU_DRIVER=org.hsqldb.jdbcDriver&quot;</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># wrapper.app.parameter.3=&quot;-SECU_URL=jdbc:hsqldb:hsql://localhost&quot;</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># wrapper.app.parameter.4=&quot;-SECU_USER=sa&quot;</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># wrapper.app.parameter.5=&quot;-SECU_PASS=&quot;</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># wrapper.app.parameter.6=&quot;-WORK_REPOSITORY=WORKREP2&quot;</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >#</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Add additionnal 
+ parameters below, starting from parameter number 10</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >#********************************************************************</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Wrapper Logging 
+ Properties</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >#********************************************************************</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Format of output 
+ for the console. &nbsp;(See 
+ docs for formats)</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >wrapper.console.format=PM</font></span></p>
+
+<p class="whs7"><span class=Code
+								style="color: #0000ff;"><font color=blue ># Log Level for 
+ console output. &nbsp;(See 
+ docs for log levels)</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.console.loglevel=INFO</font></span></p>
+
+<p class="whs7"><span class=Code
+								style="color: #0000ff;"><font color=blue ># Log file to use 
+ for wrapper output logging.</font></span></p>
+
+<p class="whs6"><span><font color=green ><span class=Code
+										style="color: #808080;"><font color=gray ><span class=Code
+	style="color: #008000;"><font color=green >w</font></span>rapper.logfile=agentservice.log</font></span></font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Format of output 
+ for the log file. &nbsp;(See 
+ docs for formats)</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >wrapper.logfile.format=LPTM</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Log Level for 
+ log file output. &nbsp;(See 
+ docs for log levels)</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >wrapper.logfile.loglevel=INFO</font></span></p>
+
+<p class="whs7"><span class=Code
+								style="color: #0000ff;"><font color=blue ># Maximum size 
+ that the log file will be allowed to grow to before</font></span></p>
+
+<p class="whs7"><span class=Code
+								style="color: #0000ff;"><font color=blue ># &nbsp;the 
+ log is rolled. Size is specified in bytes. &nbsp;The 
+ default value</font></span></p>
+
+<p class="whs7"><span class=Code
+								style="color: #0000ff;"><font color=blue ># &nbsp;of 
+ 0, disables log rolling. &nbsp;May 
+ abbreviate with the 'k' (kb) or</font></span></p>
+
+<p class="whs7"><span class=Code
+								style="color: #0000ff;"><font color=blue ># &nbsp;'m' 
+ (mb) suffix. &nbsp;For 
+ example: 10m = 10 megabytes.</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.logfile.maxsize=1m</font></span></p>
+
+<p class="whs7"><span class=Code
+								style="color: #0000ff;"><font color=blue ># Maximum number 
+ of rolled log files which will be allowed before old</font></span></p>
+
+<p class="whs7"><span class=Code
+								style="color: #0000ff;"><font color=blue ># &nbsp;files 
+ are deleted. &nbsp;The 
+ default value of 0 implies no limit.</font></span></p>
+
+<p class="whs6"><span class=Code
+								style="color: #008000;"><font color=green >wrapper.logfile.maxfiles=10</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Log Level for 
+ sys/event log output. &nbsp;(See 
+ docs for log levels)</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >wrapper.syslog.loglevel=FATAL</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >#********************************************************************</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Wrapper NT Service 
+ Properties</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >#********************************************************************</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># WARNING - Do 
+ not modify any of these properties when an application</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># &nbsp;using 
+ this configuration file has been installed as a service.</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># &nbsp;Please 
+ uninstall the service before modifying this section. &nbsp;The</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># &nbsp;service 
+ can then be reinstalled.</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Name of the service</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># This parameter 
+ is set depending on the agent Name</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >wrapper.ntservice.name=SnpsAgent</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Display name 
+ of the service</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >wrapper.ntservice.displayname=Oracle 
+ Data Integrator Agent</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Description of 
+ the service</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >wrapper.ntservice.description=Executes 
+ Oracle Data Integrator Sessions</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Service dependencies. 
+ &nbsp;Add dependencies 
+ as needed starting from 1</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >wrapper.ntservice.dependency.1=</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Mode in which 
+ the service is installed. &nbsp;AUTO_START 
+ or DEMAND_START</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >wrapper.ntservice.starttype=AUTO_START</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray ># Allow the service 
+ to interact with the desktop.</font></span></p>
+
+<p class="whs5"><span class=Code
+								style="color: #808080;"><font color=gray >wrapper.ntservice.interactive=false</font></span></p>
+
+<p class="whs7"><span class=Code
+								style="color: #0000ff;"><font color=blue >#********************************************************************</font></span></p>
+
+<p class="whs7"><span class=Code
+								style="color: #0000ff;"><font color=blue ># Wrapper JVM Timeouts 
+ in seconds (0 = No timeout limit)</font></span></p>
+
+<p class="whs7"><span class=Code
+								style="color: #0000ff;"><font color=blue >#********************************************************************</font></span></p>
+
+<p class="whs7"><span class=Code
+								style="color: #0000ff;"><font color=blue ># wrapper.ping.timeout=10</font></span></p>
+
+<p class="whs7"><span class=Code
+								style="color: #0000ff;"><font color=blue ># wrapper.cpu.timeout=30</font></span></p>
+
+</body>
+</html>

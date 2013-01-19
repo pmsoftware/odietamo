@@ -1,0 +1,864 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>getInfo()</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="StyleSheet" href="../include/common.css"><style>
+<!--
+th.whs1 { x-cell-content-align:top; }
+th.whs2 { x-cell-content-align:top; }
+th.whs3 { x-cell-content-align:top; }
+td.whs4 { x-cell-content-align:top; }
+td.whs5 { x-cell-content-align:top; }
+td.whs6 { x-cell-content-align:top; }
+th.whs7 { x-cell-content-align:top; }
+th.whs8 { x-cell-content-align:top; }
+td.whs9 { x-cell-content-align:top; }
+td.whs10 { x-cell-content-align:top; }
+td.whs11 { x-cell-content-align:top; }
+td.whs12 { x-cell-content-align:top; }
+td.whs13 { x-cell-content-align:top; }
+td.whs14 { x-cell-content-align:top; }
+td.whs15 { x-cell-content-align:top; }
+td.whs16 { x-cell-content-align:top; }
+td.whs17 { x-cell-content-align:top; }
+td.whs18 { x-cell-content-align:top; }
+td.whs19 { x-cell-content-align:top; }
+td.whs20 { x-cell-content-align:top; }
+td.whs21 { x-cell-content-align:top; }
+td.whs22 { x-cell-content-align:top; }
+td.whs23 { x-cell-content-align:top; }
+td.whs24 { x-cell-content-align:top; }
+td.whs25 { x-cell-content-align:top; }
+td.whs26 { x-cell-content-align:top; }
+td.whs27 { x-cell-content-align:top; }
+td.whs28 { x-cell-content-align:top; }
+td.whs29 { x-cell-content-align:top; }
+td.whs30 { x-cell-content-align:top; }
+td.whs31 { x-cell-content-align:top; }
+td.whs32 { x-cell-content-align:top; }
+td.whs33 { x-cell-content-align:top; }
+td.whs34 { x-cell-content-align:top; }
+td.whs35 { x-cell-content-align:top; }
+td.whs36 { x-cell-content-align:top; }
+td.whs37 { x-cell-content-align:top; }
+td.whs38 { x-cell-content-align:top; }
+td.whs39 { x-cell-content-align:top; }
+td.whs40 { x-cell-content-align:top; }
+td.whs41 { x-cell-content-align:top; }
+td.whs42 { x-cell-content-align:top; }
+td.whs43 { x-cell-content-align:top; }
+td.whs44 { x-cell-content-align:top; }
+td.whs45 { x-cell-content-align:top; }
+td.whs46 { x-cell-content-align:top; }
+td.whs47 { x-cell-content-align:top; }
+td.whs48 { x-cell-content-align:top; }
+td.whs49 { x-cell-content-align:top; }
+td.whs50 { x-cell-content-align:top; }
+td.whs51 { x-cell-content-align:top; }
+td.whs52 { x-cell-content-align:top; }
+td.whs53 { x-cell-content-align:top; }
+td.whs54 { x-cell-content-align:top; }
+td.whs55 { x-cell-content-align:top; }
+td.whs56 { x-cell-content-align:top; }
+td.whs57 { x-cell-content-align:top; }
+td.whs58 { x-cell-content-align:top; }
+td.whs59 { x-cell-content-align:top; }
+td.whs60 { x-cell-content-align:top; }
+td.whs61 { x-cell-content-align:top; }
+td.whs62 { x-cell-content-align:top; }
+td.whs63 { x-cell-content-align:top; }
+td.whs64 { x-cell-content-align:top; }
+td.whs65 { x-cell-content-align:top; }
+td.whs66 { x-cell-content-align:top; }
+td.whs67 { x-cell-content-align:top; }
+td.whs68 { x-cell-content-align:top; }
+td.whs69 { x-cell-content-align:top; }
+td.whs70 { x-cell-content-align:top; }
+td.whs71 { x-cell-content-align:top; }
+td.whs72 { x-cell-content-align:top; }
+td.whs73 { x-cell-content-align:top; }
+td.whs74 { x-cell-content-align:top; }
+td.whs75 { x-cell-content-align:top; }
+td.whs76 { x-cell-content-align:top; }
+td.whs77 { x-cell-content-align:top; }
+td.whs78 { x-cell-content-align:top; }
+td.whs79 { x-cell-content-align:top; }
+td.whs80 { x-cell-content-align:top; }
+td.whs81 { x-cell-content-align:top; }
+td.whs82 { x-cell-content-align:top; }
+td.whs83 { x-cell-content-align:top; }
+td.whs84 { x-cell-content-align:top; }
+td.whs85 { x-cell-content-align:top; }
+td.whs86 { x-cell-content-align:top; }
+td.whs87 { x-cell-content-align:top; }
+td.whs88 { x-cell-content-align:top; }
+td.whs89 { x-cell-content-align:top; }
+td.whs90 { x-cell-content-align:top; }
+td.whs91 { x-cell-content-align:top; }
+td.whs92 { x-cell-content-align:top; }
+td.whs93 { x-cell-content-align:top; }
+td.whs94 { x-cell-content-align:top; }
+td.whs95 { x-cell-content-align:top; }
+td.whs96 { x-cell-content-align:top; }
+td.whs97 { x-cell-content-align:top; }
+td.whs98 { x-cell-content-align:top; }
+td.whs99 { x-cell-content-align:top; }
+td.whs100 { x-cell-content-align:top; }
+td.whs101 { x-cell-content-align:top; }
+td.whs102 { x-cell-content-align:top; }
+td.whs103 { x-cell-content-align:top; }
+td.whs104 { x-cell-content-align:top; }
+td.whs105 { x-cell-content-align:top; }
+td.whs106 { x-cell-content-align:top; }
+td.whs107 { x-cell-content-align:top; }
+td.whs108 { x-cell-content-align:top; }
+td.whs109 { x-cell-content-align:top; }
+td.whs110 { x-cell-content-align:top; }
+td.whs111 { x-cell-content-align:top; }
+td.whs112 { x-cell-content-align:top; }
+td.whs113 { x-cell-content-align:top; }
+td.whs114 { x-cell-content-align:top; }
+td.whs115 { x-cell-content-align:top; }
+td.whs116 { x-cell-content-align:top; }
+td.whs117 { x-cell-content-align:top; }
+td.whs118 { x-cell-content-align:top; }
+td.whs119 { x-cell-content-align:top; }
+td.whs120 { x-cell-content-align:top; }
+td.whs121 { x-cell-content-align:top; }
+td.whs122 { x-cell-content-align:top; }
+td.whs123 { x-cell-content-align:top; }
+td.whs124 { x-cell-content-align:top; }
+td.whs125 { x-cell-content-align:top; }
+td.whs126 { x-cell-content-align:top; }
+td.whs127 { x-cell-content-align:top; }
+td.whs128 { x-cell-content-align:top; }
+td.whs129 { x-cell-content-align:top; }
+td.whs130 { x-cell-content-align:top; }
+td.whs131 { x-cell-content-align:top; }
+td.whs132 { x-cell-content-align:top; }
+td.whs133 { x-cell-content-align:top; }
+td.whs134 { x-cell-content-align:top; }
+td.whs135 { x-cell-content-align:top; }
+td.whs136 { x-cell-content-align:top; }
+td.whs137 { x-cell-content-align:top; }
+td.whs138 { x-cell-content-align:top; }
+td.whs139 { x-cell-content-align:top; }
+td.whs140 { x-cell-content-align:top; }
+td.whs141 { x-cell-content-align:top; }
+td.whs142 { x-cell-content-align:top; }
+td.whs143 { x-cell-content-align:top; }
+td.whs144 { x-cell-content-align:top; }
+td.whs145 { x-cell-content-align:top; }
+td.whs146 { x-cell-content-align:top; }
+-->
+</style><style>
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+p.WebHelpNavBar { text-align:right; }
+LI.kadov-p-CWebHelpNavBar { text-align:right; }
+-->
+</style><script language=javascript
+		title=WebHelpSplitCss><!--
+if (navigator.appName !="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='../../include/common.css'>");}
+//--></script>
+
+<script language=javascript
+		title=WebHelpInlineScript><!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+//--></script>
+
+<style type="text/css">
+<!--
+td.whs1 { x-cell-content-align:top; }
+-->
+</style><style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nGlobal Methods\ngetInfo");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>getInfo() Method</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>public java.lang.String <b>getInfo</b>(java.lang.String&nbsp;pPropertyName)</span></p>
+
+<h2>Description</h2>
+
+<p>Generic method that returns generic information about the current task. 
+ The list of available information is described in the <span class=ElementGUI>pPropertyName&nbsp;values</span> 
+ table.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter</th>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Type</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau>pPropertyName</td>
+<td class=whs5>
+<p class=TexteTableau>String</td>
+<td class=whs6>
+<p class=TexteTableau>String containing the name of the requested property.</td></tr>
+</table>
+
+<h6>pPropertyName&nbsp;values</h6>
+
+<p>The following table lists the different values possible for pPropertyName&nbsp;:</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs7
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter value</th>
+<th class=whs8
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs9>
+<p class=TexteTableau>I_SRC_SET</td>
+<td class=whs10>
+<p class=TexteTableau>Internal identifier of the current Source Set if 
+ the task belongs to a Loading Knowledge Module</td></tr>
+
+<tr>
+<td class=whs11>
+<p class=TexteTableau>SRC_SET_NAME</td>
+<td class=whs12>
+<p class=TexteTableau>Name of the current Source Set if the task belongs 
+ to a Loading Knowledge Module</td></tr>
+
+<tr>
+<td class=whs13>
+<p class=TexteTableau>COLL_NAME</td>
+<td class=whs14>
+<p class=TexteTableau>Name of the current loading resource (C$) if the 
+ task belongs to a Loading Knowledge Module</td></tr>
+
+<tr>
+<td class=whs15>
+<p class=TexteTableau>INT_NAME</td>
+<td class=whs16>
+<p class=TexteTableau>Name of the current integration resource (I$) if 
+ the task belongs to a string Loading, Integration or Check Knowledge Module.</td></tr>
+
+<tr>
+<td class=whs17>
+<p class=TexteTableau>ERR_NAME</td>
+<td class=whs18>
+<p class=TexteTableau>Name of the current error resource (E$) if the task 
+ is part of a Loading, Integration or Check Knowledge Module</td></tr>
+
+<tr>
+<td class=whs19>
+<p class=TexteTableau>TARG_NAME</td>
+<td class=whs20>
+<p class=TexteTableau>Name of the target resource if the task is part of 
+ a Loading, Integration or Check Knowledge Module</td></tr>
+
+<tr>
+<td class=whs21>
+<p class=TexteTableau>SRC_CATALOG</td>
+<td class=whs22>
+<p class=TexteTableau>Name of the data catalog in the source environment</td></tr>
+
+<tr>
+<td class=whs23>
+<p class=TexteTableau>SRC_SCHEMA</td>
+<td class=whs24>
+<p class=TexteTableau>Name of the data schema in the source environment</td></tr>
+
+<tr>
+<td class=whs25>
+<p class=TexteTableau>SRC_WORK_CATALOG</td>
+<td class=whs26>
+<p class=TexteTableau>Name of the work catalog in the source environment</td></tr>
+
+<tr>
+<td class=whs27>
+<p class=TexteTableau>SRC_WORK_SCHEMA</td>
+<td class=whs28>
+<p class=TexteTableau>Name of the work schema in the source environment</td></tr>
+
+<tr>
+<td class=whs29>
+<p class=TexteTableau>DEST_CATALOG</td>
+<td class=whs30>
+<p class=TexteTableau>Name of the data catalog in the target environment</td></tr>
+
+<tr>
+<td class=whs31>
+<p class=TexteTableau>DEST_SCHEMA</td>
+<td class=whs32>
+<p class=TexteTableau>Name of the data schema in the target environment</td></tr>
+
+<tr>
+<td class=whs33>
+<p class=TexteTableau>DEST_WORK_CATALOG</td>
+<td class=whs34>
+<p class=TexteTableau>Name of the work catalog in the target environment</td></tr>
+
+<tr>
+<td class=whs35>
+<p class=TexteTableau>DEST_WORK_SCHEMA</td>
+<td class=whs36>
+<p class=TexteTableau>Name of the work schema in the target environment</td></tr>
+
+<tr>
+<td class=whs37>
+<p class=TexteTableau>SRC_TECHNO_NAME</td>
+<td class=whs38>
+<p class=TexteTableau>Name of the source technology</td></tr>
+
+<tr>
+<td class=whs39>
+<p class=TexteTableau>SRC_CON_NAME</td>
+<td class=whs40>
+<p class=TexteTableau>Name of the source connection</td></tr>
+
+<tr>
+<td class=whs41>
+<p class=TexteTableau>SRC_DSERV_NAME</td>
+<td class=whs42>
+<p class=TexteTableau>Name of the data server of the source machine</td></tr>
+
+<tr>
+<td class=whs43>
+<p class=TexteTableau>SRC_CONNECT_TYPE</td>
+<td class=whs44>
+<p class=TexteTableau>Connection type of the source machine</td></tr>
+
+<tr>
+<td class=whs45>
+<p class=TexteTableau>SRC_IND_JNDI</td>
+<td class=whs46>
+<p class=TexteTableau>JNDI URL flag</td></tr>
+
+<tr>
+<td class=whs47>
+<p class=TexteTableau>SRC_JAVA_DRIVER</td>
+<td class=whs48>
+<p class=TexteTableau>Name of the JDBC driver of the source connection</td></tr>
+
+<tr>
+<td class=whs49>
+<p class=TexteTableau>SRC_JAVA_URL</td>
+<td class=whs50>
+<p class=TexteTableau>JDBC URL of the source connection</td></tr>
+
+<tr>
+<td class=whs51>
+<p class=TexteTableau>SRC_JNDI_AUTHENT</td>
+<td class=whs52>
+<p class=TexteTableau>JNDI authentication type</td></tr>
+
+<tr>
+<td class=whs53>
+<p class=TexteTableau>SRC_JNDI_PROTO</td>
+<td class=whs54>
+<p class=TexteTableau>JNDI source protocol</td></tr>
+
+<tr>
+<td class=whs55>
+<p class=TexteTableau>SRC_JNDI_FACTORY</td>
+<td class=whs56>
+<p class=TexteTableau>JNDI source Factory</td></tr>
+
+<tr>
+<td class=whs57>
+<p class=TexteTableau>SRC_JNDI_URL</td>
+<td class=whs58>
+<p class=TexteTableau>Source JNDI URL</td></tr>
+
+<tr>
+<td class=whs59>
+<p class=TexteTableau>SRC_JNDI_RESSOURCE</td>
+<td class=whs60>
+<p class=TexteTableau>Accessed source JNDI resource</td></tr>
+
+<tr>
+<td class=whs61>
+<p class=TexteTableau>SRC_USER_NAME</td>
+<td class=whs62>
+<p class=TexteTableau>User name of the source connection</td></tr>
+
+<tr>
+	
+<td class=whs65>
+<p class=TexteTableau>SRC_ENCODED_PASS</td>
+<td class=whs66>
+<p class=TexteTableau>Encrypted password of the source connection</td></tr>
+<tr>
+<td class=whs67>
+<p class=TexteTableau>SRC_FETCH_ARRAY</td>
+<td class=whs68>
+<p class=TexteTableau>Size of the source array fetch</td></tr>
+
+<tr>
+<td class=whs69>
+<p class=TexteTableau>SRC_BATCH_UPDATE</td>
+<td class=whs70>
+<p class=TexteTableau>Size of the source batch update</td></tr>
+
+<tr>
+<td class=whs71>
+<p class=TexteTableau>SRC_EXE_CHANNEL</td>
+<td class=whs72>
+<p class=TexteTableau>Execution canal of the source connection</td></tr>
+
+<tr>
+<td class=whs73>
+<p class=TexteTableau>SRC_COL_ALIAS_WORD</td>
+<td class=whs74>
+<p class=TexteTableau>Term used to separated the columns from their aliases 
+ for the source technology</td></tr>
+
+<tr>
+<td class=whs75>
+<p class=TexteTableau>SRC_TAB_ALIAS_WORD</td>
+<td class=whs76>
+<p class=TexteTableau>Term used to separated the tables from their aliases 
+ for the source technology</td></tr>
+
+<tr>
+<td class=whs77>
+<p class=TexteTableau>SRC_DATE_FCT</td>
+<td class=whs78>
+<p class=TexteTableau>Function returning the current date for the source 
+ technology</td></tr>
+
+<tr>
+<td class=whs79>
+<p class=TexteTableau>SRC_DDL_NULL</td>
+<td class=whs80>
+<p class=TexteTableau>Returns the definition used for the keyword NULL 
+ during the creation of a table on the source</td></tr>
+
+<tr>
+<td class=whs81>
+<p class=TexteTableau>SRC_MAX_COL_NAME_LEN</td>
+<td class=whs82>
+<p class=TexteTableau>Maximum number of characters for the column name 
+ on the source technology</td></tr>
+
+<tr>
+<td class=whs83>
+<p class=TexteTableau>SRC_MAX_TAB_NAME_LEN</td>
+<td class=whs84>
+<p class=TexteTableau>Maximum number of characters for the table name on 
+ the source technology</td></tr>
+
+<tr>
+<td class=whs85>
+<p class=TexteTableau>SRC_REM_OBJ_PATTERN</td>
+<td class=whs86>
+<p class=TexteTableau>Substitution model for a remote object on the source 
+ technology.</td></tr>
+
+<tr>
+<td class=whs87>
+<p class=TexteTableau>SRC_LOC_OBJ_PATTERN</td>
+<td class=whs88>
+<p class=TexteTableau>Substitution model for a local object name on the 
+ source technology.</td></tr>
+
+<tr>
+<td class=whs89>
+<p class=TexteTableau>DEST_TECHNO_NAME</td>
+<td class=whs90>
+<p class=TexteTableau>Name of the target technology</td></tr>
+
+<tr>
+<td class=whs91>
+<p class=TexteTableau>DEST_CON_NAME</td>
+<td class=whs92>
+<p class=TexteTableau>Name of the target connection</td></tr>
+
+<tr>
+<td class=whs93>
+<p class=TexteTableau>DEST_DSERV_NAME</td>
+<td class=whs94>
+<p class=TexteTableau>Name of the data server of the target machine</td></tr>
+
+<tr>
+<td class=whs95>
+<p class=TexteTableau>DEST_CONNECT_TYPE</td>
+<td class=whs96>
+<p class=TexteTableau>Connection type of the target machine</td></tr>
+
+<tr>
+<td class=whs97>
+<p class=TexteTableau>DEST_IND_JNDI</td>
+<td class=whs98>
+<p class=TexteTableau>Target JNDI URL flag</td></tr>
+
+<tr>
+<td class=whs99>
+<p class=TexteTableau>DEST_JAVA_DRIVER</td>
+<td class=whs100>
+<p class=TexteTableau>Name of the JDBC driver of the target connection</td></tr>
+
+<tr>
+<td class=whs101>
+<p class=TexteTableau>DEST_JAVA_URL</td>
+<td class=whs102>
+<p class=TexteTableau>JDBC URL of the target connection</td></tr>
+
+<tr>
+<td class=whs103>
+<p class=TexteTableau>DEST_JNDI_AUTHENT</td>
+<td class=whs104>
+<p class=TexteTableau>JNDI authentication type of the target</td></tr>
+
+<tr>
+<td class=whs105>
+<p class=TexteTableau>DEST_JNDI_PROTO</td>
+<td class=whs106>
+<p class=TexteTableau>JNDI target protocol</td></tr>
+
+<tr>
+<td class=whs107>
+<p class=TexteTableau>DEST_JNDI_FACTORY</td>
+<td class=whs108>
+<p class=TexteTableau>JNDI target Factory</td></tr>
+
+<tr>
+<td class=whs109>
+<p class=TexteTableau>DEST_JNDI_URL</td>
+<td class=whs110>
+<p class=TexteTableau>JNDI URL of the target</td></tr>
+
+<tr>
+<td class=whs111>
+<p class=TexteTableau>DEST_JNDI_RESSOURCE</td>
+<td class=whs112>
+<p class=TexteTableau>Target JNDI resource that is accessed</td></tr>
+
+<tr>
+<td class=whs113>
+<p class=TexteTableau>DEST_USER_NAME</td>
+<td class=whs114>
+<p class=TexteTableau>Name of the user for the target connection</td></tr>
+
+<tr>
+	
+<td class=whs117>
+<p class=TexteTableau>DEST_ENCODED_PASS</td>
+<td class=whs118>
+<p class=TexteTableau>Encrypted password for the target connection</td></tr>
+<tr>
+<td class=whs119>
+<p class=TexteTableau>DEST_FETCH_ARRAY</td>
+<td class=whs120>
+<p class=TexteTableau>Size of the target array fetch</td></tr>
+
+<tr>
+<td class=whs121>
+<p class=TexteTableau>DEST_BATCH_UPDATE</td>
+<td class=whs122>
+<p class=TexteTableau>Size of the target batch update</td></tr>
+
+<tr>
+<td class=whs123>
+<p class=TexteTableau>DEST_EXE_CHANNEL</td>
+<td class=whs124>
+<p class=TexteTableau>Execution canal of the target connection</td></tr>
+
+<tr>
+<td class=whs125>
+<p class=TexteTableau>DEST_COL_ALIAS_WORD</td>
+<td class=whs126>
+<p class=TexteTableau>Term used to separate the columns from their aliases 
+ on the target technology</td></tr>
+
+<tr>
+<td class=whs127>
+<p class=TexteTableau>DEST_TAB_ALIAS_WORD</td>
+<td class=whs128>
+<p class=TexteTableau>Term used to separate the tables from their aliases 
+ on the target technology</td></tr>
+
+<tr>
+<td class=whs129>
+<p class=TexteTableau>DEST_DATE_FCT</td>
+<td class=whs130>
+<p class=TexteTableau>Function returning the current date on the target 
+ technology</td></tr>
+
+<tr>
+<td class=whs131>
+<p class=TexteTableau>DEST_DDL_NULL</td>
+<td class=whs132>
+<p class=TexteTableau>Function returning the definition used for the keyword 
+ NULL during the creation on a table on the target</td></tr>
+
+<tr>
+<td class=whs133>
+<p class=TexteTableau>DEST_MAX_COL_NAME_LEN</td>
+<td class=whs134>
+<p class=TexteTableau>Maximum number of characters of the column in the 
+ target technology</td></tr>
+
+<tr>
+<td class=whs135>
+<p class=TexteTableau>DEST_MAX_TAB_NAME_LEN</td>
+<td class=whs136>
+<p class=TexteTableau>Maximum number of characters of the table name on 
+ the target technology</td></tr>
+
+<tr>
+<td class=whs137>
+<p class=TexteTableau>DEST_REM_OBJ_PATTERN</td>
+<td class=whs138>
+<p class=TexteTableau>Substitution model for a remote object on the target 
+ technology</td></tr>
+
+<tr>
+<td class=whs139>
+<p class=TexteTableau>DEST_LOC_OBJ_PATTERN</td>
+<td class=whs140>
+<p class=TexteTableau>Substitution model for a local object name on the 
+ target technology</td></tr>
+
+<tr>
+<td class=whs141>
+<p class=TexteTableau>CT_ERR_TYPE</td>
+<td class=whs142>
+<p class=TexteTableau>Error type (F: Flow, S: Static). Applies only in 
+ the case of a Check Knowledge Module</td></tr>
+
+<tr>
+<td class=whs143>
+<p class=TexteTableau>CT_ERR_ID</td>
+<td class=whs144>
+<p class=TexteTableau>Error identifier (Table # for a static control or 
+ interface number for flow control. Applies only in the case of a Check 
+ Knowledge Module</td></tr>
+
+<tr>
+<td class=whs145>
+<p class=TexteTableau>CT_ORIGIN</td>
+<td class=whs146>
+<p class=TexteTableau>Name that identifies the origin of an error (Name 
+ of a table for static control, or name of an interface prefixed with the 
+ project code). Applies only in the case of a Check Knowledge Module</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_NAME</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Name of the journalized datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_VIEW</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Name of the view linked to the journalized datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_DATA_VIEW</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Name of the data view linked to the journalized datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_TRIGGER</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Name of the trigger linked to the journalized datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_ITRIGGER</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Name of the Insert trigger linked to the journalized 
+ datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_UTRIGGER</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Name of the Update trigger linked to the journalized 
+ datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>JRN_DTRIGGER</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>Name of the Delete trigger linked to the journalized 
+ datastore.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>SUBSCRIBER_TABLE</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Name of the datastore containing the subscribers 
+ list.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>CDC_SET_TABLE</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the table containing list of CDC sets.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>CDC_TABLE_TABLE</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the table containing the list of tables 
+ journalized through CDC sets.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>CDC_SUBS_TABLE</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the table containing the list of subscribers 
+ to CDC sets.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>CDC_OBJECTS_TABLE</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Full name of the table containing the journalizing 
+ parameters and objects.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>SRC_DEF_CATALOG</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Default catalog for the source data server.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>SRC_DEF_SCHEMA</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Default schema for the source data server.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>SRC_DEFW_CATALOG</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Default work catalog for the source data server.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>SRC_DEFW_SCHEMA</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Default work schema for the source data server.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>DEST_DEF_CATALOG</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Default catalog for the target data server.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>DEST_DEF_SCHEMA</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Default schema for the target data server.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>DEST_DEFW_CATALOG</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Default work catalog for the target data server.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>DEST_DEFW_SCHEMA</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Default work schema for the target data server.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>SRC_LSCHEMA_NAME</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Source logical schema name.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>DEST_LSCHEMA_NAME</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Target logical schema name.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>The current source connection is:<b> <span class=Code>&lt;%=odiRef.getInfo(&quot;SRC_CON_NAME&quot;)%&gt;</span></b> 
+ &nbsp;<br>
+on server: <b><span class=Code>&lt;%=odiRef.getInfo(&quot;SRC_DSERV_NAME&quot;)%&gt;</span></b></p>
+
+</body>
+</html>

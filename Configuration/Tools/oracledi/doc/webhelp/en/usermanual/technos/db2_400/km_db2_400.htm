@@ -1,0 +1,364 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Choosing the Right KMs with DB2/400</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+col.whs2 { width:145px; }
+col.whs3 { width:178px; }
+col.whs4 { width:397px; }
+th.whs5 { width:145px; x-cell-content-align:top; }
+th.whs6 { width:178px; x-cell-content-align:top; }
+th.whs7 { width:397px; x-cell-content-align:top; }
+td.whs8 { width:145px; x-cell-content-align:top; }
+td.whs9 { width:178px; x-cell-content-align:top; }
+td.whs10 { width:397px; x-cell-content-align:top; }
+p.whs11 { font-weight:bold; }
+col.whs12 { width:57px; }
+col.whs13 { width:88px; }
+col.whs14 { width:241px; }
+col.whs15 { width:325px; }
+th.whs16 { width:57px; x-cell-content-align:top; }
+th.whs17 { width:88px; x-cell-content-align:top; }
+th.whs18 { width:241px; x-cell-content-align:top; }
+th.whs19 { width:325px; x-cell-content-align:top; }
+td.whs20 { width:57px; x-cell-content-align:top; }
+td.whs21 { width:88px; x-cell-content-align:top; }
+td.whs22 { width:241px; x-cell-content-align:top; }
+td.whs23 { width:325px; x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nUsing Oracle Data Integrator with ...\nDB2 for iSeries\nChoosing the Right KMs for DB2/400");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Choosing the Right KMs for DB2/400</h1>
+
+<p>The KM choice for an interface or a check determines the abilities and 
+ performances of this interface or check. The recommendations below help 
+ in the selection of the KM for different situations concerning a DB2/400 
+ Server.</p>
+
+<p>For generic information about the KM, see <a href="../../../refmanual/designer/project/km/km.htm">Knowledge 
+ Modules</a></p>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> Only knowledge 
+ modules imported into a project are available for the interfaces of this 
+ project. To import a KM, see <a href="../../designer/project/km/import_km.htm">Import 
+ a KM</a>.</p>
+
+<h2>Load data from and to DB2/400</h2>
+
+<p>DB2/400 can be used as a source, target or staging area of an interface. 
+ The LKM choice in the <a href="../../../refmanual/designer/project/folder/interface/pop_flux.htm">Interface 
+ Flow</a> tab to load data between DB2/400 and another type of data server 
+ is essential for interfaces' performances.</p>
+
+<h3>LKM Choice from DB2/400</h3>
+
+<p>Recommendations for LKM in the following cases:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>DB2/400 Source to a Staging Area</p></li>
+</ul>
+
+<p>If several solutions are possible, they are indicated in the order of 
+ &nbsp;preference 
+ and performance. Generic KM are in bold.</p>
+
+<table x-use-null-cells>
+<col class="whs2">
+<col class="whs3">
+<col class="whs4">
+
+<tr>
+<th valign="top" width="145px" class="whs5">
+<p class=TitreTableau>Target or Staging Area Technology</th>
+<th colspan="1" rowspan="1" valign="top" width="178px" class="whs6">
+<p class=TitreTableau>Recommended KM</th>
+<th valign="top" width="397px" class="whs7">
+<p class=TitreTableau>Notes</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" width="145px" class="whs8">
+<p class=TexteTableau>Oracle</td>
+<td colspan="1" rowspan="1" valign="top" width="178px" class="whs9">
+<p class=TexteTableau>LKM ISO SQL to Oracle</td>
+<td colspan="1" rowspan="1" valign="top" width="397px" class="whs10">
+<p class=TexteTableau>Faster than the Generic LKM (Uses Statistics)</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" width="145px" class="whs8">
+<p class=TexteTableau>MS SQL Server</td>
+<td colspan="1" rowspan="1" valign="top" width="178px" class="whs9">
+<p class=TexteTableau>LKM ISO SQL to MSSQL (bulk)</td>
+<td colspan="1" rowspan="1" valign="top" width="397px" class="whs10">
+<p class=TexteTableau>Uses SQL Server's bulk loader.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" width="145px" class="whs8">
+<p class=TexteTableau>Sybase</td>
+<td colspan="1" rowspan="1" valign="top" width="178px" class="whs9">
+<p class=TexteTableau>LKM ISO SQL to Sybase (bcp)</td>
+<td colspan="1" rowspan="1" valign="top" width="397px" class="whs10">
+<p class=TexteTableau>Uses Sybase's bulk loader.</td></tr>
+
+<tr>
+<td valign="top" width="145px" class="whs8">
+<p class="whs11">All</td>
+<td colspan="1" rowspan="1" valign="top" width="178px" class="whs9">
+<p class=TexteTableau
+	style="font-weight: bold;">LKM ISO SQL to SQL</td>
+<td valign="top" width="397px" class="whs10">
+<p class=TexteTableau
+	style="font-weight: bold;">Generic KM</td></tr>
+</table>
+
+<h3>LKM Choice to DB2/400</h3>
+
+<p>Recommendations for LKM in the following cases:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Source to DB2/400 Staging Area</p></li>
+</ul>
+
+<p>If several solutions are possible, they are indicated in the order of 
+ &nbsp;preference 
+ and performance. Generic KM are in bold.</p>
+
+<table x-use-null-cells>
+<col class="whs2">
+<col class="whs3">
+<col class="whs4">
+
+<tr>
+<th valign="top" width="145px" class="whs5">
+<p class=TitreTableau>Source or Staging Area Technology</th>
+<th colspan="1" rowspan="1" valign="top" width="178px" class="whs6">
+<p class=TitreTableau>Recommended KM</th>
+<th valign="top" width="397px" class="whs7">
+<p class=TitreTableau>Notes</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" width="145px" class="whs8">
+<p class=TexteTableau>JMS</td>
+<td colspan="1" rowspan="1" valign="top" width="178px" class="whs9">
+<p class=TexteTableau>LKM ISO JMS to SQL</td>
+<td colspan="1" rowspan="1" valign="top" width="397px" class="whs10">
+<p>JMS cannot be Staging Area</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" width="145px" class="whs8">
+<p class=TexteTableau>File</td>
+<td colspan="1" rowspan="1" valign="top" width="178px" class="whs9">
+<p class=TexteTableau>LKM ISO File to SQL</td>
+<td colspan="1" rowspan="1" valign="top" width="397px" class="whs10">
+<p class=TexteTableau>File cannot be Staging Area.</td></tr>
+
+<tr>
+<td valign="top" width="145px" class="whs8">
+<p class=TexteTableau
+	style="font-weight: bold;">All</td>
+<td colspan="1" rowspan="1" valign="top" width="178px" class="whs9">
+<p class=TexteTableau
+	style="font-weight: bold;">LKM ISO SQL to SQL</td>
+<td valign="top" width="397px" class="whs10">
+<p class=TexteTableau
+	style="font-weight: bold;">Generic KM</td></tr>
+</table>
+
+<h2>Check data in DB2/400</h2>
+
+<p>The control strategies for DB2/400 can be chosen in a DB2/400 <a href="../../../refmanual/designer/model/snpmodel.htm">Model</a> 
+ for a static control, but also for a <a href="../../../refmanual/designer/project/folder/interface/pop_controle.htm">Flow 
+ Control</a> when the Staging Area is on DB2/400.</p>
+
+<h3>CKM choice for DB2/400</h3>
+
+<p>Recommendations for the KM to perform a check on DB2/400. If several 
+ solutions are possible, they are indicated in the order of &nbsp;preference 
+ and performance. Generic KM are in bold.</p>
+
+<table x-use-null-cells>
+<col class="whs3">
+<col class="whs4">
+
+<tr>
+<th colspan="1" rowspan="1" valign="top" width="178px" class="whs6">
+<p class=TitreTableau>Recommended KM</th>
+<th valign="top" width="397px" class="whs7">
+<p class=TitreTableau>Notes</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" width="178px" class="whs9">
+<p class=TexteTableau
+	style="font-weight: bold;">CKM ISO SQL</td>
+<td colspan="1" rowspan="1" valign="top" width="397px" class="whs10">
+<p class=TexteTableau
+	style="font-weight: bold;">Uses the PK to identify records</td></tr>
+</table>
+
+<h2>Integrate data in DB2/400</h2>
+
+<p>The data integration strategies in DB2/400 are numerous and cover several 
+ modes. The IKM choice &nbsp;in 
+ the <a href="../../../refmanual/designer/project/folder/interface/pop_flux.htm">Interface 
+ Flow</a> tab determines the performances and possibilities for integrating.</p>
+
+<h3>IKM choice for DB2/400</h3>
+
+<p>Recommendations for the KM to perform an integration on DB2/400, depending 
+ on the chosen integration mode. </p>
+
+<p>The IKM listed with a specific target are multi-technology KM. they 
+ are usable when DB2/400 is the Staging Area. They do not support flow 
+ control.</p>
+
+<p>If several solutions are possible, they are indicated in the order of 
+ preference and performance. Generic KM are in bold.</p>
+
+<table x-use-null-cells>
+<col class="whs12">
+<col class="whs13">
+<col class="whs14">
+<col class="whs15">
+
+<tr>
+<th colspan="1" rowspan="1" valign="top" width="57px" class="whs16">
+<p class=TitreTableau>Mode</th>
+<th colspan="1" rowspan="1" valign="top" width="88px" class="whs17">
+<p class=TitreTableau>Target</th>
+<th colspan="1" rowspan="1" valign="top" width="241px" class="whs18">
+<p class=TitreTableau>Recommended KM</th>
+<th valign="top" width="325px" class="whs19">
+<p class=TitreTableau>Notes</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" width="57px" class="whs20">
+<p class=TexteTableau>Update</td>
+<td colspan="1" rowspan="1" valign="top" width="88px" class="whs21">
+<p>&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" width="241px" class="whs22">
+<p class=TexteTableau>IKM DB2/400 Incremental Update</td>
+<td colspan="1" rowspan="1" valign="top" width="325px" class="whs23">
+<p class=TexteTableau>Optimized for DB2/400</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" width="57px" class="whs20">
+<p class=TexteTableau
+	style="font-weight: bold;">Update</td>
+<td colspan="1" rowspan="1" valign="top" width="88px" class="whs21">
+<p>&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" width="241px" class="whs22">
+<p class=TexteTableau
+	style="font-weight: bold;">IKM ISO SQL Incremental Update</td>
+<td valign="top" width="325px" class="whs23">
+<p class=TexteTableau
+	style="font-weight: bold;">Generic KM</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" width="57px" class="whs20">
+<p class=TexteTableau>Append</td>
+<td colspan="1" rowspan="1" valign="top" width="88px" class="whs21">
+<p class=TexteTableau>Any DBMS</td>
+<td colspan="1" rowspan="1" valign="top" width="241px" class="whs22">
+<p class=TexteTableau>IKM ISO SQL to SQL Append</td>
+<td colspan="1" rowspan="1" valign="top" width="325px" class="whs23">
+<p>No flow control</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" width="57px" class="whs20">
+<p class=TexteTableau>Append</td>
+<td colspan="1" rowspan="1" valign="top" width="88px" class="whs21">
+<p class=TexteTableau>JMS</td>
+<td colspan="1" rowspan="1" valign="top" width="241px" class="whs22">
+<p class=TexteTableau>IKM ISO SQL to JMS Append</td>
+<td colspan="1" rowspan="1" valign="top" width="325px" class="whs23">
+<p>No flow control</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" width="57px" class="whs20">
+<p class=TexteTableau>Append</td>
+<td colspan="1" rowspan="1" valign="top" width="88px" class="whs21">
+<p class=TexteTableau>File</td>
+<td colspan="1" rowspan="1" valign="top" width="241px" class="whs22">
+<p class=TexteTableau>IKM ISO SQL to File Append</td>
+<td colspan="1" rowspan="1" valign="top" width="325px" class="whs23">
+<p class=TexteTableau>No flow control</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" width="57px" class="whs20">
+<p class=TexteTableau
+	style="font-weight: bold;">Append</td>
+<td colspan="1" rowspan="1" valign="top" width="88px" class="whs21">
+<p class=TexteTableau
+	style="font-weight: bold;">&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" width="241px" class="whs22">
+<p class=TexteTableau
+	style="font-weight: bold;">IKM ISO SQL Control Append</td>
+<td colspan="1" rowspan="1" valign="top" width="325px" class="whs23">
+<p class=TexteTableau
+	style="font-weight: bold;">Generic KM</td></tr>
+</table>
+
+</body>
+</html>

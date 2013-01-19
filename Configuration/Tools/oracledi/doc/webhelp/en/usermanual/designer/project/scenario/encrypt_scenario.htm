@@ -1,0 +1,155 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Encrypting a Scenario</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+ul.whs2 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nDesigner\nProjects\nCreating Scenarios\nEncrypting a Scenario");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Encrypting a Scenario</h1>
+
+<p>Encrypting a scenario allows you to protect valuable code. With an encrypted 
+ scenario the commands that appear in the log are executed while being 
+ unreadable for the user.</p>
+
+<p>Oracle Data Integrator uses a DES Encryption algorithm based on a <span class=ElementGUI>personal 
+ encryption key</span>. This key can be saved in a file and reused to perform 
+ encryption or decryption operations.</p>
+
+<p class=Remarque><span class=AlertTitre>Warning:</span> <span style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>There 
+ is no way to decrypt an encrypted scenario without the </U></span><span class=ElementGUI
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>encryption 
+ key</U></span>. It is therefore strongly advised to keep this key in a safe 
+ location. It is also advised to use a unique key for all the developments.</p>
+
+<p class=HowTo>To Encrypt a Scenario:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Right click the scenario you want to encrypt.</p></li>
+	
+	<li class=kadov-p><p>Select <span class=ElementGUI>Encrypt</span>.</p></li>
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>Encryption Options</span> 
+ window, either:</p></li>
+</ol>
+
+<ul type="disc" class="whs2">
+	
+	<ul type="disc" class="whs2">
+		
+		<li class=kadov-p><p>select the <span class=ElementGUI>Encrypt 
+ with a personal key</span> option , then select an existing Encryption 
+ Key file,</p></li>
+		
+		<li class=kadov-p><p>select the <span class=ElementGUI>Encrypt 
+ with a personal key</span> option, &nbsp;then 
+ type in (or paste) the string corresponding to your <span class=ElementGUI>personal 
+ key,</span></p></li>
+		
+		<li class=kadov-p><p>or let Oracle Data Integrator generate a key using 
+ the <span class=ElementGUI>Get a new encryption key</span> option.</p></li>
+	</ul>
+</ul>
+
+<ol start="4" type="1" class="whs1">
+	
+	<li class=kadov-p><p>The <span class=ElementGUI>Encryption Key</span> 
+ window appears when the encryption is finished. From this window, you 
+ can save the key.</p></li>
+</ol>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> If you type in 
+ a personal key with too few characters, an <span class=ElementGUI>invalid 
+ key size</span> error appears. In this case, please type in a longer personal 
+ key. A personal key of 10 or more characters is required.</p>
+
+<p class=HowTo>To Decrypt a Scenario:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Right click the scenario you want to decrypt.</p></li>
+	
+	<li class=kadov-p><p>Select <span class=ElementGUI>Decrypt</span>.</p></li>
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>Scenario Decryption</span> 
+ window, either </p></li>
+</ol>
+
+<ul type="disc" class="whs2">
+	
+	<ul type="disc" class="whs2">
+		
+		<li class=kadov-p><p>select an existing Encryption Key file,</p></li>
+		
+		<li class=kadov-p><p>or type in (or paste) the string corresponding 
+ to your <span class=ElementGUI>personal Key.</span></p></li>
+	</ul>
+</ul>
+
+<p>A message appears when decryption is finished.</p>
+
+</body>
+</html>

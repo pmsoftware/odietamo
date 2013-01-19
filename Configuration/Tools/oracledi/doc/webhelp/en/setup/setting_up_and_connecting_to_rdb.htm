@@ -1,0 +1,422 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Setting Up and Connecting to Relational Databases</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+ol.whs2 { list-style:decimal; }
+p.whs3 { margin-left:24px; }
+table.whs4 { margin-left:24px; }
+p.whs5 { margin-left:40px; }
+ul.whs6 { list-style:decimal; }
+p.whs7 { margin-left:0px; }
+table.whs8 { margin-left:48px; }
+p.whs9 { margin-left:48px; }
+p.whs10 { margin-left:36px; }
+img_whs11 { border:none; width:327px; height:372px; border-style:none; }
+-->
+</style><script type="text/javascript" language="JavaScript">
+<!--
+if ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion) == 4))
+{
+  var strNSS = "<style type='text/css'>";
+  strNSS += "p.whs7 {margin-left:1pt; }";
+  strNSS +="</style>";
+  document.write(strNSS);
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Setting Up and Connecting to Relational Databases</h1>
+
+<p>This chapter guides you through the configuration steps. The topics 
+ include:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Setting Up ODBC Source Connections</p></li>
+	
+	<li class=kadov-p><p>Setting Up Oracle/IBM DB2 Data Source Connections</p></li>
+	
+	<li class=kadov-p><p>Troubleshooting</p></li>
+</ul>
+
+<h2>Setting Up ODBC Source Connections</h2>
+
+<p class=HowTo>Before you can import data from an ODBC source, you must:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Determine a configuration,</p></li>
+	
+	<li class=kadov-p><p>Install Oracle DQ ODBC support,</p></li>
+	
+	<li class=kadov-p><p>Create or validate ODBC system DSN, and</p></li>
+	
+	<li class=kadov-p><p>Create a Oracle DQ Loader Connection to access 
+ the ODBC Source.</p></li>
+</ol>
+
+<h3>Determine Configuration</h3>
+
+<p>In order to import data from ODBC sources, you must install Oracle DQ 
+ ODBC support on a Windows Server.</p>
+
+<p>Oracle DQ ODBC support does not have to reside on the same machine as 
+ the Oracle DQ server or client.&lt;ORACLE GRAPHIC PLACE HOLDER&gt;</p>
+
+<h3>Install Oracle DQ ODBC Support</h3>
+
+<p class=HowTo>To install Oracle DQ ODBC Support on a Windows Server</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Log on the server (where you want to apply Oracle 
+ DQ</p></li>
+	
+	<li class=kadov-p><p>Oracle DQ ODBC Support) as the Windows Administrator.</p></li>
+	
+	<li class=kadov-p><p>Insert the Oracle Data Quality CD into the appropriate 
+ drive of your PC.</p></li>
+</ol>
+
+<p class="whs3">If the installation wizard does not start 
+ automatically, explore the CD using Windows Explorer, navigate to the 
+ DscWIM directory and double-click the DscWIM.exe file.</p>
+
+<ol start="4" type="1" class="whs2">
+	
+	<li class=kadov-p><p>From the Oracle DQ installation menu, click ODBC 
+ Connectivity.</p></li>
+	
+	<li class=kadov-p><p>Click Next at the following window.&lt;ORACLE 
+ GRAPHIC PLACE HOLDER&gt;</p></li>
+	
+	<li class=kadov-p><p>Read the License Agreement. If you agree to comply, 
+ select I accept the terms in the license agreement.</p></li>
+	
+	<li class=kadov-p><p>Click Next.&lt;ORACLE GRAPHIC PLACE HOLDER&gt;</p></li>
+	
+	<li class=kadov-p><p>The License Agreement window displays. Enter your 
+ User Name and the name of your Organization.</p></li>
+	
+	<li class=kadov-p><p>In <span class=ElementGUI>Install this application 
+ for</span>, select one of the following options</p></li>
+</ol>
+
+<table x-use-null-cells class="whs4">
+<col>
+<col>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>User</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Related access </th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau>&nbsp;anyone 
+ who uses the computer (all users)</td>
+<td class=whs6>
+<p class=TexteTableau>Means anyone who logs on this computer can access 
+ it</td></tr>
+
+<tr>
+<td class=whs7>
+<p class=TexteTableau>&nbsp;only 
+ me &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td class=whs9>
+<p class=TexteTableau>Means only you will be able to access this application</td></tr>
+</table>
+
+<p>&nbsp;</p>
+
+<ol start="10" type="1" class="whs2">
+	
+	<li class=kadov-p><p>Click Next.&lt;ORACLE GRAPHIC PLACE HOLDER&gt;</p></li>
+	
+	<li class=kadov-p><p>Select a location for the Oracle DQ ODBC binaries.&lt;ORACLE 
+ GRAPHIC PLACE HOLDER&gt;</p></li>
+	
+	<li class=kadov-p><p>Click Next.</p></li>
+	
+	<li class=kadov-p><p>Specify where you want the application log file 
+ installed.&lt;ORACLE GRAPHIC PLACE HOLDER&gt;</p></li>
+	
+	<li class=kadov-p><p>Click Next.</p></li>
+	
+	<li class=kadov-p><p>Specify an ODBC Adapter Port, and note the assigned 
+ port number.</p></li>
+</ol>
+
+<p class="whs3">This is the port for the Oracle DQ ODBC Service. 
+ You will be asked for this port number when you define the ODBC Loader 
+ Connections (see page&nbsp;6-9). This port must not be used by any other 
+ service on the machine. Take note of this port number.&lt;ORACLE GRAPHIC 
+ PLACE HOLDER&gt;</p>
+
+<ol start="16" type="1" class="whs2">
+	
+	<li class=kadov-p><p>Click Next.</p></li>
+	
+	<li class=kadov-p><p>Click Install.&lt;ORACLE GRAPHIC PLACE HOLDER&gt;</p></li>
+	
+	<li class=kadov-p><p>The Oracle DQ ODBC Adapter install status window 
+ displays. Please wait while the installation completes.&lt;ORACLE GRAPHIC 
+ PLACE HOLDER&gt;</p></li>
+	
+	<li class=kadov-p><p>After the installation completes, click Finish.&lt;ORACLE 
+ GRAPHIC PLACE HOLDER&gt;</p></li>
+	
+	<li class=kadov-p><p>Restart the computer on which Oracle DQ ODBC component 
+ has been installed.</p></li>
+	
+	<li class=kadov-p><p>If you intend to import data from Oracle or IBM 
+ DB2, continue to those sections now. Otherwise, return to the installation 
+ checklist for your server (Windows on page&nbsp;1-3; UNIX on page&nbsp;1-3).</p></li>
+</ol>
+
+<h3>Create or Validate ODBC System DSN</h3>
+
+<p>Have your System Administrator verify the existence of an ODBC system 
+ DSN for the ODBC source that you will access to import data. Depending 
+ on your site, youmay already have an ODBC system DSN established for the 
+ ODBC source. If you do not have one, create one.</p>
+
+<h3>Validate Login Access to the ODBC Source</h3>
+
+<p>To import data directly into Oracle Data Quality from an ODBC source, 
+ a Oracle DQ user must have login access to the ODBC source. Ensure that 
+ the login credentials are valid.</p>
+
+<h2>Setting Up Oracle/IBM DB2 Data Source Connections</h2>
+
+<h3>Process Overview</h3>
+
+<p class=HowTo>Make sure that you complete all of these steps:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Ensure the Oracle DQ Server Application is installed.</p></li>
+	
+	<li class=kadov-p><p>Ensure that the appropriate Oracle/IBM DB2 client 
+ is installed on the Oracle DQ server.</p></li>
+	
+	<li class=kadov-p><p>Ensure that you can connect to Oracle/DB2 from 
+ an Oracle/IBM DB2 client that is installed on the Oracle DQ server machine.</p></li>
+</ol>
+
+<p class="whs3">For Oracle, try to connect using Net Assist, 
+ or similar application.</p>
+
+<p class="whs3">For IBM DB2, try to connect through Command 
+ Center or Control Center, or a similar application.</p>
+
+<ol start="4" type="1" class="whs2">
+	
+	<li class=kadov-p><p>For Oracle, find out how the database (that Oracle 
+ DQ will access for data imports) is named by checking the name specified 
+ in the tnsnames.ora file.</p></li>
+	
+	<li class=kadov-p><p>For Oracle DQ Server on UNIX, modify the Oracle 
+ Data Profiling file .TSDiscovery to reflect your site configuration. See 
+ the task below for details.</p></li>
+	
+	<li class=kadov-p><p>Ensure that IBM DB2 and Oracle asynchronous I/O 
+ processes have not been removed to increase available memory. This action 
+ could result in connectivity failure to these RDBMS applications.</p></li>
+	
+	<li class=kadov-p><p>Ensure that you have login access to your IBM 
+ DB2 or Oracle data sources.</p></li>
+	
+	<li class=kadov-p><p>Define an IBM DB2 or Oracle Loader Connection 
+ using the Metabase Manager.</p></li>
+	
+	<li class=kadov-p><p>If you installed Oracle or DB2 clients after the 
+ Oracle DQ Server installation, reboot the Server to set environment variables.</p></li>
+</ol>
+
+<p>&nbsp;</p>
+
+<p class=HowTo
+	style="margin-left: 40px;">To modify the Oracle Data Profiling file 
+ on a UNIX Server</p>
+
+<p class="whs5">The following steps are only necessary for 
+ Oracle DQ Servers on UNIX. If an Oracle/DB2 client is installed on the 
+ Oracle DQ Server for Windows, the environment information is automatically 
+ located through the system environment variables.</p>
+
+<p class="whs5">When working with Oracle Data Quality, Inetd 
+ accesses the Oracle Data Profiling file to gather environment information. 
+ By making the following changes to the Oracle Data Profiling file, you 
+ are ensuring that the Oracle Data Quality knows how to access Oracle and 
+ IBM DB2 databases.</p>
+
+<ul type="1" class="whs6">
+	
+	<ul type="1" class="whs6">
+		
+		<ol type="1" class="whs2">
+			
+			<li class=kadov-p><p class="whs7">Log on the Oracle 
+ DQ Server as UNIX root user.</p></li>
+			
+			<li class=kadov-p><p class="whs7">Stop the Scheduler.</p></li>
+			
+			<li class=kadov-p><p class="whs7">See “To stop 
+ the Oracle DQ Scheduler” on page&nbsp;11-10.</p></li>
+			
+			<li class=kadov-p><p class="whs7">Go to the home 
+ directory of the user that installed Oracle Data Quality.</p></li>
+			
+			<li class=kadov-p><p class="whs7">Type the command 
+ ls -al and locate the file named .TSDiscovery.</p></li>
+			
+			<li class=kadov-p><p class="whs7">Open the file 
+ named .TSDiscovery for editing.</p></li>
+			
+			<li class=kadov-p><p class="whs7">Add an entry 
+ to the file based on the following table:</p></li>
+		</ol>
+	</ul>
+</ul>
+
+<table x-use-null-cells class="whs8">
+<col>
+<col>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Relational Database</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Add...</th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau
+	style="margin-left: 3px;">&nbsp;Oracle</p>
+<p class=TexteTableau>&nbsp;</td>
+<td class=whs6>
+<p class=TexteTableau>the entry:</p>
+<p class=TexteTableau><span class=Code>export ORACLE_HOME=&lt;path to Oracle 
+ client&gt;</span></td></tr>
+
+<tr>
+<td class=whs7>
+<p class=TexteTableau>IBM DB2</p>
+<p class=TexteTableau>&nbsp;&nbsp;</td>
+<td class=whs9>
+<p class=TexteTableau>an entry to run the<span class=Code> db2profile</span> 
+ script that is supplied with IBM DB2. Precede the script with a “.” to 
+ ensure the environment gets updated.</p>
+<p class=TexteTableau>For example:<span class=Code>. /home/db2inst/lib/db2profile</span></td></tr>
+</table>
+
+<p class="whs9">You may be able to copy the required Oracle 
+ and IBM DB2 information from the file named .profile found in the home 
+ directory of the user that installed Oracle Data Quality.</p>
+
+<p class="whs10">&nbsp;</p>
+
+<ol start="10" type="1" class="whs2">
+	
+	<li class=kadov-p><p>Save and close the file.</p></li>
+	
+	<li class=kadov-p><p>Restart the Scheduler.</p></li>
+	
+	<li class=kadov-p><p>See “To start the Oracle DQ Scheduler” on page&nbsp;3-15.</p></li>
+	
+	<li class=kadov-p><p>Return to the installation checklist for your 
+ server (Windows on page&nbsp;1-3; UNIX on page&nbsp;1-3).</p></li>
+</ol>
+
+<h3>Validate Access to the Relational Source</h3>
+
+<p>To import data into Oracle Data Quality directly from IBM DB2 or Oracle, 
+ a Oracle DQ user must have login access to IBM DB2 or Oracle. Ensure that 
+ you have a valid RDBMS user name and password.</p>
+
+<h2>Troubleshooting</h2>
+
+<h3>Sybase</h3>
+
+<p>If you receive the following error when trying to load data from a Sybase 
+ source: Remote command failed, [DataDirect][ODBC Sybase Wire Protocol 
+ driver][SQL Server]Incorrect syntax near x, make sure that the Sybase 
+ ASE ODBC Driver configuration settings (Advanced tab) has the option Enable 
+ Quoted Identifiers selected.</p>
+
+<p><img src="../image3.jpg" width="327px" height="372px" border="0" class="img_whs11"></p>
+
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>OdiImportObject</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nOracle Data Integrator Objects\nOdiImportObject");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>OdiImportObject</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>OdiImportObject -FILE_NAME=&lt;FileName&gt; [-WORK_REP_NAME=&lt;workRepositoryName&gt;] 
+ [-IMPORT_MODE=&lt;</span><span class=Code
+								style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>DUPLICATION</U></span><span 
+ class=Code> | SYNONYM_INSERT | SYNONYM_UPDATE | SYNONYM_INSERT_UPDATE&gt;]</span></p>
+
+<h2>Description</h2>
+
+<p>Imports the contents of an XML export file to a repository. This command 
+ reproduces the behavior of the import feature available from the user 
+ interface. The object is imported into the connected master/work repository 
+ or into the <span class=Code>&lt;workRepositoryName&gt; </span>work repository 
+ attached to the connected master repository.</p>
+
+<p class=Remarque><span class=AlertTitre>Warning</span>: The import mode 
+ and the order in which objects are imported into a repository should be 
+ carefully specified. For example, importing interfaces before the models 
+ used in these interfaces may signal errors. Importing an interface in 
+ <span class=Code>SYNONYM_INSERT_UPDATE </span>mode may erase any interface 
+ or sub-object having identical Internal Identifiers.</p>
+
+<p class=Remarque><span class=AlertTitre>Warning</span>: This API may work 
+ incorrectly use when importing objects that depend on other objects that 
+ do not exist in the repository. It is recommended that you use this API 
+ for importing high-level objects (Projects, models, etc).</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameters</th>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Mandatory</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs10>
+<p class=TexteTableau><span class=Code>-FILE_NAME=&lt;FileName&gt;</span></td>
+<td class=whs11>
+<p class=TexteTableau>Yes</td>
+<td class=whs12>
+<p class=TexteTableau>Name of the XML export file to import.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>-WORK_REP_NAME=&lt;workRepositoryName&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>No</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Name of the work repository into which the object 
+ must be imported. This work repository must be defined in the connected 
+ master repository. If this parameter is not specified then the object 
+ is imported into the current master or work repository.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>-IMPORT_MODE=&lt;</span><span class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>DUPLICATION</U></span><span 
+ class=Code> | SYNONYM_INSERT | SYNONYM_UPDATE | SYNONYM_INSERT_UPDATE&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>No</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Import mode for the object. Default value is <span 
+ class=Code>DUPLICATION</span>. For more information see <a HREF="../refmanual/common/import_modes.htm">Import 
+ Modes</a>.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>Imports the <span class=Code>/temp/DW01.xml</span> export file (a project) 
+ into the <span class=Code>WORKREP</span> work repository using <span class=Code>DUPLICATION</span> 
+ mode .</p>
+
+<p><span class=Code>OdiImportObject -FILE_NAME=/temp/DW01.xml -WORK_REP_NAME=WORKREP 
+ -IMPORT_MODE=DUPLICATION</span></p>
+
+</body>
+</html>

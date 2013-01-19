@@ -1,0 +1,139 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>What is an Interface ?</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nDesigner\nProjects\nCreating Interfaces\nWhat is an Interface?");
+addTocInfo("Reference Manual\nDesigner\nProjects\nInterfaces\nWhat is an Interface?");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>What is an Interface?</h1>
+
+<p>An interface consists of a set of rules that define the loading of a 
+ datastore or a temporary target structure from one or more source datastores. 
+ </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><a HREF="../../../../../usermanual/designer/project/interface/create_interface.htm">Create 
+ an Interface</a></p></li>
+</ul>
+
+<h2>Components of an Interface </h2>
+
+<h3>Target Datastore </h3>
+
+<p>The <span class=ElementGUI>target datastore</span> is the element that 
+ will be loaded by the interface. This datastore may be permanent (defined 
+ in a model) or temporary (created by the interface in the staging area).</p>
+
+<h3>Source Datastores </h3>
+
+<p>The <span class=ElementGUI>source datastores</span> contain data used 
+ to load the target datastore. Two types of datastores can be used as a 
+ source of an interface: The datastores from the models, and temporary 
+ datastores target of an interface.</p>
+
+<p>The source datastores of an interface can be filtered during the loading 
+ process, and must be put in relation through joins. <span class=ElementGUI>Joins</span> 
+ and <span class=ElementGUI>filters</span> can be recovered from the models 
+ definitions, and can also be defined for the interface.</p>
+
+<h3>Mapping</h3>
+
+<p>The <span class=ElementGUI>mapping</span> defines the transformation 
+ rules on the sources enabling to generate data to load the target.</p>
+
+<h3>Flow</h3>
+
+<p>The <span class=ElementGUI>flow</span> is the set of loading and integration 
+ strategies for mapped data, based on <span class=ElementGUI>knowledge 
+ modules</span>.</p>
+
+<h3>Control Strategy</h3>
+
+<p>The <span class=ElementGUI>flow control strategy</span> lets you define 
+ the method used to check the flow before the insertion in the target. 
+ The control strategy is defined by a <span class=ElementGUI>Check Knowledge 
+ Module</span> (CKM).</p>
+
+<p>The interfaces use the following components:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=ElementGUI>Datastores</span> defined 
+ in the models as sources and target or the loading process.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Knowledge Modules</span> 
+ to generate the appropriate processes.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Variables</span> and <span 
+ class=ElementGUI>Sequence</span> to store values or counters in the expressions.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Users functions</span> 
+ to ease the transformation rule coding.</p></li>
+</ul>
+
+</body>
+</html>

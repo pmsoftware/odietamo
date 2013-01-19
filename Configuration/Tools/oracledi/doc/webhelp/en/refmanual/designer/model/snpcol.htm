@@ -1,0 +1,394 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Columns</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+ul.whs3 { list-style:square; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nDesigner\nModels\nDatastore\nColumns");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Columns</h1>
+
+<p>Datastores describe data accessed by Oracle Data Integrator through two-dimensional 
+ tabular &nbsp;structures. 
+ Oracle Data Integrator contains the metadata related to the columns. The data 
+ contained in the applications is stored in rows.</p>
+
+<h2>Definition</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Property</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name of the column, as recognized by the data server.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Datatype</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The datatype, corresponding to a type recognized 
+ by the data server.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Short description</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Descriptive label of the column. This label makes 
+ the graphical interface easier to read if the column names are not explicit.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Physical format</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Description of the physical storage format 
+ of the data </td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Order</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Order number or physical rank of the column in the 
+ datastore.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Start</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Physical position of the column. This information 
+ is to be given for fixed format files. The first position is position 
+ 1.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Length</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The physical length in number of bytes. A column 
+ with start position '1' and length '4' occupies bytes 1,2,3,4 in each 
+ row. </p>
+<p class=TexteTableau><span class=RemarqueTitre>Note:</span>For delimited 
+ files, the maximum length taken by the column should be shown. If the 
+ maximum length is not known beforehand, try to put a length that is greater 
+ than the maximum length. This length is used to reserve sufficient memory 
+ space for reading the information.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Record codes</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span style="font-weight: normal;">The list of record 
+ codes allows files with several record patterns to be processed.</span></p>
+<p class=TexteTableau>For example, for a file INVOICE containing different 
+ headers and invoices rows marked by a record code CODE_REC with the value 
+ 'HEAD' or 'LINE', you must create a datastore for each of these conceptual 
+ entities. Specify HEAD in the list of record codes for the column CODE_REC 
+ of the datastore INVOICE, and LINE in the corresponding column for the 
+ datastore INVOICE_LINE.</p>
+<p class=TexteTableau>You can specify several values separated by the character 
+ '&nbsp;;'.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Exclude the Record Codes</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>If this box is checked, the rows respecting the record 
+ codes will be excluded instead of being included when loading the file.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Logical format</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">The description of the data representation</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Length</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The logical length of the column, as it is functionally 
+ seen by the end user. For a number, this is the total number of digits 
+ (Precision). </p>
+<p class=TexteTableau><span style="font-weight: normal;">Specify this length 
+ even if the physical length is given.</span></td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Format</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The format used for dates. This format is a <a href="../../common/date_format.htm">Java 
+ date format</a> that matches your machine's local parameters. </td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Precision</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Total number of digits contained in the number.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Scale</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Number of digits contained in the decimal part.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Decimal separator</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The decimal separator (by default '.')</td></tr>
+</table>
+
+<h2>Description</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Property</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p>Default Value</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Value inserted in this column if no value is specified.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Read only</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Check this box if this column cannot be used in an 
+ INSERT or UPDATE command. This is the case, for example, for columns whose 
+ values are automatically set and cannot be modified, such as IDENTITY 
+ columns.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p>Slowly Changing Dimensions Behavior</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>This field defines the column behavior when loading 
+ a slowly changing dimension table for OLAP. The following behavior are 
+ supported:</p>
+<ul type="square" class="whs3">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Surrogate Key: 
+ The column is the unique (technical) identifier for a record version. 
+ This column is usually loaded by an auto-incremented value (sequence), 
+ and is references by the fact table.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Natural Key: 
+ The column is part of the key identifying one record regardless of the 
+ versions. This key usually corresponds to the primary key of the source 
+ table.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Overwrite on 
+ Change: If this column's value changes, the current record version is 
+ updated, and this column overwritten.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Add Row on Change: 
+ If this column's value changes, a new record version is created.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Current Record 
+ Flag: This column is the flag identifying the current record version. 
+ It is usually set to 1 for the current version and to 0 for older versions</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Starting Timestamp: 
+ record version validity starting date and time.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Ending Timestamp: 
+ record version validity ending date and time.</p></li>
+</ul>
+<p class=TexteTableau>These behavior is taken into account in some of the 
+ knowledge modules supporting slowly changing dimensions (SCD).</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Description</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Detailed description of the column.</td></tr>
+</table>
+
+<h2>Control</h2>
+
+<p>The quality control properties are taken into account during a <a href="../../concept/dataquality.htm#FlowQuality">flow 
+ control</a>, during a <a href="../../concept/dataquality.htm#StaticQuality">static 
+ control</a>, or while loading a file.</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Property</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Mandatory</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Shows if the column must be completed.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Control</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Shows the type of quality control for which 
+ the mandatory status will be checked.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Flow</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>During a flow control for data integrated to this 
+ datastore, the mandatory status of the column will be verified if this 
+ box is checked. This information is a default value that can be modified 
+ when the interface is designed. It is recommended that you activate this 
+ type of check to ensure data quality, even if the target technology also 
+ checks the information.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Static</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>During a static control, that is, when data already 
+ present in this datastore is checked, the mandatory status of this column 
+ will be verified if the box is checked.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">On Error</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Data in the file may be inconsistent with 
+ the datastore definition. When reading the file, if one value from the 
+ row is inconsistent with the column description, the <span style="font-weight: normal;">On 
+ Error</span> option defines the action Oracle Data Integrator will perform.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Reject Error</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The row containing the error is moved into a file 
+ with the &quot;BAD&quot; extension, and an explanation of the error is 
+ put in a file with the &quot;ERROR&quot; extension .</p>
+<p class=TexteTableau>The &quot;BAD&quot; and &quot;ERROR&quot; are located 
+ in the same directory as the file being read.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Null if error <span style="font-weight: normal;">(inactive 
+ trace)</span></td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The row is kept in the flow and the erroneous value 
+ is replaced by null.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Null if error (active trace)</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The row is kept in the flow, the erroneous value 
+ is replaced by null, and an explanation of the error is put in a file 
+ with the &quot;ERROR&quot; extension .</td></tr>
+</table>
+
+<h2>Services</h2>
+
+<p>This tab contains the configuration for generating and deploying data 
+ services for this column. See <a href="../../../usermanual/designer/model/data_services_use.htm">Setting 
+ Up Data Services</a> for more information.</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Property</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Allowed operations</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Check the box corresponding to the type of actions 
+ (INSERT/UPDATE/SELECT) you want to allow data services to perform on this 
+ column. One important use of this tab is to lock a column against being 
+ written to via Data Services.</td></tr>
+</table>
+
+</body>
+</html>

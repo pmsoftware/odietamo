@@ -1,0 +1,214 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Work repository connection details</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+img_whs3 { border:none; width:23px; height:23px; float:none; border-style:none; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nDesigner\nConnecting\nWork Repository Connection Details");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Work Repository Connection Details</h1>
+
+<p>With this window, a connection to a <span class=ElementGUI>work repository</span> 
+ can be defined or modified.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> Each work repository 
+ is attached to a master repository, therefore, information about the physical 
+ connection to a work repository is stored in the master repository it 
+ is attached to. <br>
+Defining a connection to a work repository consists of defining a connection 
+ to a master repository, then selecting one of the work repositories attached 
+ to this master repository.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> The definitions 
+ of the work repository connections are stored locally in the <span class=Code>/bin/snps_login_work.xml</span> 
+ file</p>
+
+<h2>General Properties</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Oracle Data Integrator Connection</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">With this information group, the properties 
+ displayed in the connection window can be defined.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Login name</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>This is the name presented in the list when a Data 
+ Integrator module is opened.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>User</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The default Oracle Data Integrator user for connecting to 
+ the work repository. If no default user has been specified, the user must 
+ enter it each time this connection is used.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Password</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Password corresponding to the Oracle Data Integrator user. 
+ If no default password has been specified, the user must enter it each 
+ time this connection is used.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Database Connection (Master Repository)</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">This information group shows the connection 
+ parameters for the relational database that hosts the master repository.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>User</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>User allowing you to connect to the schema of the 
+ database containing the master repository that the work repository is 
+ attached to.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Password</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The data server password for the database user.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Driver List</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Type of technology the master repository is based 
+ on.<br>
+You can obtain more information about the technology and the driver used 
+ by clicking on the button <img src="../../images/edit.gif" x-maintain-ratio="TRUE" width="23px" height="23px" border="0" class="img_whs3">. For more information, refer 
+ to <a href="login_detail_driver.htm">Driver details</a>.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Driver name</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name of the JDBC driver used for connecting to the 
+ data server of the master repository. When a technology is selected, Data 
+ Integrator displays the most frequently used driver for this technology. 
+ Nevertheless, a different one can be used. For this, this driver must 
+ be correctly installed. For more information, refer to <a href="../../setup/jdbc_setup.htm">Installing 
+ JDBC / JMS drivers</a> in the installation guide.<br>
+&nbsp;</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Url</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>URL for connecting to the data server of the master 
+ repository. You can select a URL model for the driver used by clicking 
+ on the button <img src="../../images/edit.gif" x-maintain-ratio="TRUE" width="23px" height="23px" border="0" class="img_whs3">. For more information, refer to <a href="login_detail_url.htm">URL 
+ Samples</a>.<br>
+For more information on drivers and URLs, 
+ refer to the section <a href="jdbcdriversample.htm">JDBC URL Sample</a>.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">Work Repository</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau
+	style="font-weight: bold;">This information group shows the work repository 
+ attached to the master repository to be used for the connection.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Repository Name</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name of the work repository.<br>
+If the master repository connection has been correctly specified, you can 
+ access the list for selecting of one of the work repositories attached 
+ to this master repository by using the button <img src="../../images/edit.gif" x-maintain-ratio="TRUE" width="23px" height="23px" border="0" class="img_whs3"></td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Default Connection</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>If this box is checked, when an Oracle Data Integrator graphic 
+ module is started, the current connection will be proposed by default.</td></tr>
+</table>
+
+</body>
+</html>

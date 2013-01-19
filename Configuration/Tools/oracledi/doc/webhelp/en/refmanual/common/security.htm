@@ -1,0 +1,216 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Introduction to Security Manager</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+img_whs2 { border:none; float:none; border-style:none; width:673px; height:521px; }
+-->
+</style><script type="text/javascript" language="JavaScript">
+<!--
+function ehlp_showtip(current,e,text)
+{
+  if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape'))
+  {
+    document.tooltip.document.write("<layer bgColor='yellow' style='border:1px solid black;font-size:12px;'>"+ text + "</layer>");
+    document.tooltip.document.close();
+    document.tooltip.left=e.pageX+5;
+    document.tooltip.top=e.pageY+5;
+    document.tooltip.visibility="show";
+  }
+}
+function ehlp_hidetip()
+{
+  document.tooltip.visibility="hidden";
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nSecurity Manager\nIntroduction to Security Manager");
+addTocInfo("Reference Manual\nSecurity Manager\nIntroduction to Security Manager");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<map name=MAP365114030>
+<area shape="rect" coords="3, 26, 669, 51" title="Menu" href="#menu" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'Menu');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">
+
+<area shape="rect" coords="4, 50, 668, 76" title="Toolbar" href="#toolbar" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'Toolbar');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">
+
+<area shape="rect" coords="4, 78, 191, 497" title="Tree views" href="#treeview" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'Tree views');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">
+
+<area shape="rect" coords="193, 77, 668, 497" title="Workbench" href="#workbench" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'Workbench');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">
+</map>
+
+<h1>Introduction to Security Manager</h1>
+
+<p>Using the <span style="font-weight: bold;"><B>Security Manager</B></span> module, 
+ you can manage <a href="../../usermanual/security/define_security.htm">security 
+ in Oracle Data Integrator</a>. The Security Manager module allows <span class=ElementGUI>users</span> 
+ and <span class=ElementGUI>profiles</span> to be created. It is used to 
+ assign user rights for <span class=ElementGUI>methods</span> (edit, delete, 
+ etc) on generic <span class=ElementGUI>objects</span> (data server, datatypes, 
+ etc), and to fine-tune these rights on the object <span class=ElementGUI>instances</span> 
+ (Server 1, Server 2, etc).</p>
+
+<p>The Security Manager module stores this information in a master repository. 
+ This information can be used by all the other modules.</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><a HREF="../../usermanual/security/define_security.htm">Define 
+ the Security Policy</a></p></li>
+</ul>
+
+<h2>Security Manager's Interface</h2>
+
+<p>The Security Manager GUI appears as follow:</p>
+
+<p><img src="../../images/security_window.gif" x-maintain-ratio="TRUE" alt="Oracle Data Integrator Security Manager" usemap="#MAP365114030" width="673px" height="521px" border="0" class="img_whs2"></p>
+
+<h3><a name=menu></a>The Menu</h3>
+
+<p>The <span class=ElementGUI>Menu</span> contains pull-down menus to access 
+ the following features:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Import/Export</p></li>
+	
+	<li class=kadov-p><p>Wizards</p></li>
+	
+	<li class=kadov-p><p>Display options</p></li>
+	
+	<li class=kadov-p><p>Open modules or tree views</p></li>
+	
+	<li class=kadov-p><p>Change the user's password and options</p></li>
+</ul>
+
+<h3><a name=toolbar></a>The Toolbar</h3>
+
+<p>The <span class=ElementGUI>Toolbar</span> lets you:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Open other modules</p></li>
+	
+	<li class=kadov-p><p>Refresh the Tree views</p></li>
+	
+	<li class=kadov-p><p>Open the on-online help</p></li>
+</ul>
+
+<h3><a name=treeview></a>The Tree Views</h3>
+
+<p>Security Manager objects available to the current user are organized 
+ into the following tree views: </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>The <span class=ElementGUI>objects</span>, describing 
+ each Oracle Data Integrator elements type (datastore, model,...),</p></li>
+	
+	<li class=kadov-p><p>The users <span class=ElementGUI>profiles</span> 
+ and their <span class=ElementGUI>authorizations</span>,</p></li>
+	
+	<li class=kadov-p><p>the <span class=ElementGUI>users</span> and their 
+ <span class=ElementGUI>authorizations</span>.</p></li>
+</ul>
+
+<p>Each tree view appears in a floatable frames that may be docked to the 
+ sides of the main window. These frames can be also be stacked up. When 
+ several frames are stacked up, tabs appear at the bottom of the frame 
+ window to access each frame of the stack.</p>
+
+<p>Tree view frames can be moved, docked and stacked by selecting and dragging 
+ the frame title or tab. To lock the position of views, select <span class=ElementGUI>Lock 
+ window layout</span> from the <span class=ElementGUI>Windows</span> menu.</p>
+
+<p>If a tree view frame does not appear in the main window or has been 
+ closed, it can be opened using the <span class=ElementGUI>Windows</span> 
+ &gt; <span class=ElementGUI>Show View</span> menu.</p>
+
+<p>It is possible in each tree view to perform the following operations:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Insert or import root objects to the tree view 
+ by clicking the appropriate button in the frame title</p></li>
+	
+	<li class=kadov-p><p>Expand and collapse nodes by clicking on them</p></li>
+	
+	<li class=kadov-p><p>Activate the methods associated to the objects 
+ (Edit, Delete, ...) through the popup menus</p></li>
+	
+	<li class=kadov-p><p>Edit objects by double-clicking on them, or by 
+ drag and dropping them on the <span class=ElementGUI>Workbench.</span></p></li>
+</ul>
+
+<h3><a name=workbench></a>The Workbench</h3>
+
+<p>The windows for object being edited or displayed appear in the <span 
+ class=ElementGUI>Workbench</span>.</p>
+
+<script type="text/javascript" language="JavaScript">
+<!--
+ if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape'))
+  document.write("<div id='tooltip' class='WebHelpPopupMenu'></div>");
+//-->
+</script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Other Administrative Tasks</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+ol.whs2 { list-style:decimal; }
+p.whs3 { margin-left:24px; }
+table.whs4 { margin-left:24px; }
+col.whs5 { width:135px; }
+col.whs6 { width:875px; }
+td.whs7 { width:135px; }
+td.whs8 { width:875px; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Installation Guide\nAdministering Oracle Data Quality Products\nOther Administrative Tasks");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Other Administrative Tasks</h1>
+
+<h2>Enable E-mail Notification</h2>
+
+<p>Oracle Data Quality for Data Integrator can notify Oracle Data Quality 
+ users via e-mail when the following events occur:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Business Rules fail</p></li>
+	
+	<li class=kadov-p><p>Business Rules succeed</p></li>
+	
+	<li class=kadov-p><p>Exported rows complete</p></li>
+	
+	<li class=kadov-p><p>Exported rows fail</p></li>
+	
+	<li class=kadov-p><p>Load job completes</p></li>
+	
+	<li class=kadov-p><p>Load job fails</p></li>
+</ul>
+
+<p>Using the Email Settings in the Metabase Manager, you can set up an 
+ authenticated SMTP server. An authenticated SMTP server requires a username 
+ and password to send mail or to change the port on which the SMTP server 
+ listens.</p>
+
+<p>After you have enabled e-mail notification, you can configure how the 
+ e-mails are constructed using the Oracle Data Quality User Interface.</p>
+
+<p class=HowTo>To enable e-mail notification with authentication</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Log on the <span class=ElementGUI>Metabase Manager</span>.</p></li>
+	
+	<li class=kadov-p><p>From the main menu, select <span class=ElementGUI>Tools 
+ &gt; Edit Email Settings....</span></p></li>
+	
+	<li class=kadov-p><p>Enter the following information:</p></li>
+</ol>
+
+<p class="whs3"><span class=ElementGUI>Email From: </span>Name 
+ to display as the sender of the e-mail. Depending on how your mail server 
+ is configured, you may be required to enter a qualified e-mail address.</p>
+
+<p class="whs3"><span class=ElementGUI>Email Server: </span>Host 
+ name of an SMTP server that will send the e-mail.</p>
+
+<p class="whs3"><span class=ElementGUI>Email Login: </span>Username 
+ required to log on to the server.</p>
+
+<p class="whs3"><span class=ElementGUI>Email Password: </span>Password 
+ required to log on to the server.</p>
+
+<p>4.Click <span class=ElementGUI>OK</span>.</p>
+
+<h2>Manage Password Security</h2>
+
+<p>You must be logged on as the Metabase Administrator (madmin) to perform 
+ these tasks.</p>
+
+<p class=HowTo>To edit password properties for all users</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Log on the Metabase Manager.</p></li>
+	
+	<li class=kadov-p><p>Expand<span class=ElementGUI> Control Admin</span>.</p></li>
+	
+	<li class=kadov-p><p>Right-click Users and select <span class=ElementGUI>Edit 
+ Password Properties....</span></p></li>
+</ol>
+
+<ol start="4" type="1" class="whs2">
+	
+	<li class=kadov-p><p>Refer to the information below to make changes 
+ and click <span class=ElementGUI>OK</span>.</p></li>
+</ol>
+
+<table x-use-null-cells class="whs4">
+<col class="whs5">
+<col class="whs6">
+
+<tr>
+<th class=whs1
+	style="width: 135px; x-cell-content-align: top;"
+	valign=top
+	width=135px>
+<p class=TitreTableau>Field</th>
+<th class=whs3
+	style="width: 875px; x-cell-content-align: top;"
+	valign=top
+	width=875px>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" width="135px" class="whs7">
+<p class=TexteTableau>Invalidate user password after</td>
+<td colspan="1" rowspan="1" width="875px" class="whs8">
+<p class=TexteTableau>Determines how long a new password is valid. At the 
+ end of this time period, the user interface prompts the user for a new 
+ password and the cycle begins again.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" width="135px" class="whs7">
+<p class=TexteTableau>Number of unrepeatable old passwords:</td>
+<td colspan="1" rowspan="1" width="875px" class="whs8">
+<p class=TexteTableau>Number of times an old password can be set.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" width="135px" class="whs7">
+<p>Valid Password regular expression:</td>
+<td colspan="1" rowspan="1" width="875px" class="whs8">
+<p class=TexteTableau
+	style="font-weight: bold;"><span style="font-weight: bold;"><B>Example 
+ 1</B></span></p>
+<p class=TexteTableau>Only allow passwords with a minimum of 6 characters.</p>
+<p class=TexteTableau>Type the regular expression: <span class=Code>.{6}</span></p>
+<p class=TexteTableau
+	style="font-weight: bold;">Example 2</p>
+<p class=TexteTableau>Only allow passwords that are:</p>
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>5 through 16 
+ characters long and</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>contain only 
+ alpha numerics (including underscore _ character).</p></li>
+</ul>
+<p class=TexteTableau>Type the regular expression:<span class=Code> {^\w{5,16}$}</span></p>
+<p class=TexteTableau
+	style="font-weight: bold;">Explanation:</p>
+<p class=TexteTableau>Match whole string using the <span class=Code>^</span> 
+ (start) and <span class=Code>$</span> (ending) meta-characters. Next we 
+ say we want to match alpha numerics<span class=Code> ([a-zA-Z0-9])</span> 
+ for which we use the<span class=Code> \w</span> meta-character. And we 
+ add the constraint of 5 characters minimum and 16 characters maximum <span 
+ class=Code>{5,16}</span></p>
+<p class=TexteTableau
+	style="font-weight: bold;">Example 3</p>
+<p class=TexteTableau>Only allow passwords that:</p>
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>&nbsp;are 
+ at least 10 characters long,</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>&nbsp;contain 
+ at least one lower case letter, one upper case letter, one digit, and 
+ one special character</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>&nbsp;allow 
+ the special characters (which are configurable): @#$%^&amp;+=</p></li>
+</ul>
+<p class=TexteTableau><span class=Code>{^.*(?=.{10,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&amp;+=]).*$}</span></td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" width="135px" class="whs7">
+<p>Invalid Password regular expression:</td>
+<td colspan="1" rowspan="1" width="875px" class="whs8">
+<p class=TexteTableau
+	style="font-weight: bold;">Example 1</p>
+<p class=TexteTableau>If you type the regular expression <span class=Code>.{9} 
+ </span>then only those passwords with a maximum length of 8 characters 
+ are valid.</p>
+<p class=TexteTableau
+	style="font-weight: bold;">Example 2</p>
+<p class=TexteTableau>If you type the regular expression <span class=Code>{^[a-zA-Z]*$}</span>then 
+ passwords that contain only alphabetic characters (of upper and lower 
+ case) are invalid. This effectively means that passwords are required 
+ to contain non-alphabetic characters.</td></tr>
+</table>
+
+</body>
+</html>

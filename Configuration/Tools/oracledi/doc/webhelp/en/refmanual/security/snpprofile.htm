@@ -1,0 +1,239 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Profile</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+ul.whs3 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nSecurity Manager\nProfiles\nProfile");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Profile</h1>
+
+<p>A profile represents a generic rights model for working with Oracle Data Integrator. 
+ One or more profiles can be assigned to a user.</p>
+
+<h2>Definition</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Property</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Name</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Label of the profile that appears in the graphical 
+ interface.</td></tr>
+</table>
+
+<h2>Predefined profile types</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p>Profile</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>CONNECT</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Minimum generic profile for connecting to Oracle Data Integrator. 
+ All users must have at least this profile.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>DESIGNER</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Generic profile for interface developers, or users 
+ working on the interfaces. This profile give access to any project and 
+ project sub components (folders, interfaces, knowledge modules, etc.) 
+ stored in the repository. It also authorize users to perform journalizing 
+ actions (start journal, create subscriber, etc.) or to run static controls 
+ over models and datastores.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>METADATA ADMIN</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Generic profile for users responsible for managing 
+ models and reverse-engineering. Users having this profile are allowed 
+ to browse any project in order to select a CKM, RKM or JKM and to attach 
+ it to a specific model.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>OPERATOR</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Generic profile for operators. It allows users to 
+ browse execution logs.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>REPOSITORY EXPLORER</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Generic profile for meta-data browsing through Metadata Navigator. It 
+ also allows scenario launching from Metadata Navigator.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>SECURITY ADMIN</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Generic profile for administrators of user accounts 
+ and profiles.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>TOPOLOGY ADMIN</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Generic profile for users responsible for managing 
+ the information system topology. Users granted with this profile are allowed 
+ to perform any action through the Topology Manager module.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>VERSION ADMIN</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Generic profile for managing component versions as well as solutions. 
+ This profile must be coupled with DESIGNER and METADATA ADMIN.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>NG DESIGNER</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Non-Generic profile for DESIGNER.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>NG METADATA ADMIN</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Non-Generic profile for METADATA ADMIN.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>NG REPOSITORY EXPLORER</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Non-generic profile for meta-data browsing through Metadata Navigator.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>NG VERSION ADMIN</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Non-generic profile for VERSION ADMIN. It is recommended that you use 
+ this profile with NG DESIGNER and NG METADATA ADMIN.</td></tr>
+</table>
+
+<h2>Generic vs Non-Generic profiles</h2>
+
+<p><span style="font-weight: bold;"><B>Generic</B></span> profiles have the <span 
+ class=ElementGUI>Generic privilege</span> option checked for all objects' 
+ methods. This implies that a user with such a profile is <span style="font-weight: bold;"><B>by 
+ default</B></span> entitled for all methods of all instances of an object 
+ to which his profile is entitled.</p>
+
+<p><span style="font-weight: bold;"><B>Non-Generic</B></span> profiles is <span 
+ style="font-weight: bold;"><B>not by default</B></span> entitled for all methods 
+ on the instances, as the <span class=ElementGUI>Generic privilege</span> 
+ option is unchecked for all objects' methods. The administrator must grant 
+ the user the rights for the methods for each instance.</p>
+
+<p>If an administrator wants a user to have the rights on no instance by 
+ default, but wishes to grant the rights by instance, he must grant the 
+ user with a non-generic profile.</p>
+
+<p>If an administrator wants a user to have the rights on all instances 
+ of an object type by default, he must grant the user with a generic profile.</p>
+
+<p>The following operations are possible on a profile:</p>
+
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p><p><a href="../../usermanual/security/secu_profile_new.htm">Creating 
+ a new profile</a></p></li>
+	
+	<li class=kadov-p><p><a href="../../usermanual/security/secu_user_setprofile.htm">Assigning 
+ a profile to a user</a></p></li>
+	
+	<li class=kadov-p><p><a href="../../usermanual/security/secu_setobjetright.htm">Assigning 
+ an authorization by profile</a></p></li>
+	
+	<li class=kadov-p><p><a href="../../usermanual/security/secu_removeobjectmethod.htm">Deleting 
+ an authorization by profile</a></p></li>
+	
+	<li class=kadov-p><p><a href="../../usermanual/security/secu_user_removeprofile.htm">Removing 
+ a profile from a user</a></p></li>
+	
+	<li class=kadov-p><p><a href="../../usermanual/security/secu_profil_delete.htm">Deleting 
+ a profile</a></p></li>
+</ul>
+
+</body>
+</html>

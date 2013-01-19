@@ -1,0 +1,208 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>OdiRefreshJournalCount</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+col.whs1 { width:273px; }
+col.whs2 { width:69px; }
+col.whs3 { width:717px; }
+th.whs4 { width:273px; x-cell-content-align:top; }
+th.whs5 { width:69px; x-cell-content-align:top; }
+th.whs6 { width:717px; x-cell-content-align:top; }
+td.whs7 { width:273px; x-cell-content-align:top; }
+td.whs8 { width:69px; x-cell-content-align:top; }
+td.whs9 { width:717px; x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nChanged Data Capture\nOdiRefreshJournalCount");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>OdiRefreshJournalCount</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>OdiRefreshJournalCount -LSCHEMA=&lt;LSchema&gt; -TABLE_NAME=&lt;tableName&gt; 
+ -SUBSCRIBER_NAME=&lt;subscriberName&gt; [-CONTEXT=&lt;context&gt;] [-MAX_JRN_DATE=&lt;maxJrnDate&gt;] 
+ -CDC_SET_NAME=&lt;cdc set name&gt;</span></p>
+
+<h2>Description</h2>
+
+<p>This command refreshes for a given journalizing subscriber the number 
+ of rows to consume for the given table list or CDC set. This refresh is 
+ performed on a logical schema and a given context, and may be limited.</p>
+
+<p class=Remarque><span class=AlertTitre>Warning</span>: This command is 
+ suitable for journalized tables in simple or consistent mode.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+<col class="whs1">
+<col class="whs2">
+<col class="whs3">
+
+<tr>
+<th valign="top" width="273px" class="whs4">
+<p class=TitreTableau>Parameters</th>
+<th valign="top" width="69px" class="whs5">
+<p class=TitreTableau>Mandatory</th>
+<th valign="top" width="717px" class="whs6">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" width="273px" class="whs7">
+<p class=TexteTableau><span class=Code>-LSCHEMA=&lt;LSchema&gt;</span></td>
+<td valign="top" width="69px" class="whs8">
+<p class=TexteTableau>Yes</td>
+<td valign="top" width="717px" class="whs9">
+<p class=TexteTableau>Logical schema containing the journalized tables.</td></tr>
+
+<tr>
+<td valign="top" width="273px" class="whs7">
+<p class=TexteTableau><span class=Code>-TABLE_NAME=&lt;tableName&gt;</span></td>
+<td valign="top" width="69px" class="whs8">
+<p class=TexteTableau>Yes for working with Simple CDC.</td>
+<td valign="top" width="717px" class="whs9">
+<p class=TexteTableau>Journalized table name, mask or list to check. This 
+ parameter accepts three formats :</p>
+<ul>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Table Name</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Table Name Mask: 
+ This mask selects the tables to poll. The mask is specified using the 
+ SQL LIKE syntax : the % symbol replaces an unspecified number of characters 
+ and the _ symbol acts as a wildcard.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Table Names List: 
+ List of table names separated by commas. Masks a defined above are <span 
+ style="font-weight: bold;"><B>not</B></span> allowed.</p></li>
+</ul>
+<p class=TexteTableau><span class=RemarqueTitre>Note</span>: This option 
+ works only for tables in a model journalized in <span style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>simple</U></span> 
+ mode.</p>
+<p class=TexteTableau><span class=AlertTitre>Warning</span>: This parameter 
+ cannot be used with <span class=Code>CDC_SET_NAME</span>. It is mandatory 
+ if <span class=Code>CDC_SET_NAME</span>. is not set.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" width="273px" class="whs7">
+<p class=TexteTableau><span class=Code>-CDC_SET_NAME=&lt;cdcSetName&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" width="69px" class="whs8">
+<p class=TexteTableau>Yes for working with Consistent Set CDC.</td>
+<td colspan="1" rowspan="1" valign="top" width="717px" class="whs9">
+<p class=TexteTableau>Name of the CDC Set to check. </p>
+<p class=TexteTableau><span class=RemarqueTitre>Note</span>: This option 
+ works only for tables in a model journalized in <span style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>consistent</U></span> 
+ mode.</p>
+<p class=TexteTableau><span class=AlertTitre>Warning</span>: This parameter 
+ cannot be used with <span class=Code>TABLE_NAME</span>. IT is mandatory 
+ if <span class=Code>TABLE_NAME</span> is not set.</td></tr>
+
+<tr>
+<td valign="top" width="273px" class="whs7">
+<p class=TexteTableau><span class=Code>-SUBSCRIBER_NAME=&lt;subscriberName&gt;</span></td>
+<td valign="top" width="69px" class="whs8">
+<p class=TexteTableau>Yes</td>
+<td valign="top" width="717px" class="whs9">
+<p class=TexteTableau>Name of the subscriber for which the count is refreshed.</td></tr>
+
+<tr>
+<td valign="top" width="273px" class="whs7">
+<p class=TexteTableau><span class=Code>-CONTEXT=&lt;context&gt;</span></td>
+<td valign="top" width="69px" class="whs8">
+<p class=TexteTableau>No</td>
+<td valign="top" width="717px" class="whs9">
+<p class=TexteTableau>Context in which the logical schema will be resolved. 
+ If no context is specified, the execution context is used.</td></tr>
+
+<tr>
+<td valign="top" width="273px" class="whs7">
+<p class=TexteTableau><span class=Code>-MAX_JRN_DATE=&lt;maxJrnDate&gt;</span></td>
+<td valign="top" width="69px" class="whs8">
+<p class=TexteTableau>No</td>
+<td valign="top" width="717px" class="whs9">
+<p class=TexteTableau>Date (and time) until which the journalizing events 
+ are taken into account.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>Refreshes for the <span class=Code>CUSTOMERS </span>table in the <span 
+ class=Code>SALES_APPLICATION</span> schema the count of modifications 
+ recorded for the <span class=Code>SALES_SYNC </span>subscriber. This datastore 
+ is journalized in simple mode.</p>
+
+<p><span class=Code>OdiRefreshJournalCount -LSCHEMA=SALES_APPLICATION 
+ -TABLE_NAME=CUSTOMERS -SUBSCRIBER_NAME=SALES_SYNC</span></p>
+
+<p>Refreshes for all tables from the <span class=Code>SALES</span> CDC 
+ Set in the <span class=Code>SALES_APPLICATION</span> schema the count 
+ of modifications recorded for the <span class=Code>SALES_SYNC </span>subscriber. 
+ These datastores are journalized with consistent set CDC.</p>
+
+<p><span class=Code>OdiRefreshJournalCount -LSCHEMA=SALES_APPLICATION 
+ -SUBSCRIBER_NAME=SALES_SYNC -CDC_SET_NAME=SALES</span></p>
+
+<p>&nbsp;</p>
+
+</body>
+</html>

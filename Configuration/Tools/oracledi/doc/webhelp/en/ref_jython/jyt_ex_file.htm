@@ -1,0 +1,191 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Read and Write to a File</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Jython Quick Reference\nExamples\nRead From and Write to a File");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Read From and Write to a File</h1>
+
+<p>The <span class=Code>SRC_AGE_GROUP.txt</span> file contains records 
+ where the columns are separated by <span class=Code>;</span>. The following 
+ example transforms the <span class=Code>SRC_AGE_GROUP.txt</span> file 
+ into a new file <span class=Code>SRC_AGE_GROUP_NEW.txt</span> using tabulations 
+ as separators.</p>
+
+<p>This example uses the <span class=Code>split()</span> string methods 
+ to determine the list of fields separated by <span class=Code>;</span> 
+ and <span class=Code>join() </span>to rebuild a new string separated by 
+ tabulations (<span class=Code>'\t'</span>).</p>
+
+<p>&nbsp;</p>
+
+<p><span class=Code>fsrc = </span><span class=Code
+										style="font-weight: bold; color: #800000;"><font color=maroon ><B>open</B></font></span><span 
+ class=Code>('c:/odi/demo/file/SRC_AGE_GROUP.txt', 'r')</span></p>
+
+<p><span class=Code>ftrg = </span><span class=Code
+										style="font-weight: bold; color: #800000;"><font color=maroon ><B>open</B></font></span><span 
+ class=Code>('c:/odi/demo/file/SRC_AGE_GROUP_NEW.txt', 'w')</span></p>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>try</B></span><span class=Code>:</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;</span><span 
+ class=Code
+	style="font-weight: bold;"><B>for</B></span><span 
+ class=Code> lsrc </span><span class=Code
+								style="font-weight: bold;"><B>in</B></span><span 
+ class=Code> fsrc.</span><span class=Code
+								style="color: #800000; font-weight: bold;"><font color=maroon ><B>readlines</B></font></span><span 
+ class=Code>():</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;</span><span 
+ class=Code
+	style="color: #008080;"><font color=teal ># get the list 
+ of values separated by ;</font></span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;valueList 
+ = lsrc.split(';')</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;</span><span 
+ class=Code
+	style="color: #008080;"><font color=teal ># transform this 
+ list of values to a string separated by a tab ('\t')</font></span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;ltrg 
+ = '\t'.join(valueList)</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;</span><span 
+ class=Code
+	style="color: #008080;"><font color=teal ># write the new 
+ string to the target file</font></span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;ftrg.</span><span 
+ class=Code
+	style="color: #800000; font-weight: bold;"><font color=maroon ><B>write</B></font></span><span class=Code>(ltrg)</span></p>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>finally</B></span><span class=Code>:</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;fsrc.</span><span 
+ class=Code
+	style="color: #800000; font-weight: bold;"><font color=maroon ><B>close</B></font></span><span class=Code>()</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;ftrg.</span><span 
+ class=Code
+	style="color: #800000; font-weight: bold;"><font color=maroon ><B>close</B></font></span><span class=Code>()</span></p>
+
+<p>&nbsp;</p>
+
+<p>The method <span class=Code>readlines()</span> in the above example 
+ loads the entire file into memory. It should only be used for small files. 
+ For larger files, use the <span class=Code>readline()</span> method as 
+ in the following example. <span class=Code>readline()</span> will read 
+ the lines one by one.:</p>
+
+<p><span class=Code>fsrc = </span><span class=Code
+										style="font-weight: bold; color: #800000;"><font color=maroon ><B>open</B></font></span><span 
+ class=Code>('c:/odi/demo/file/SRC_AGE_GROUP.txt', 'r')</span></p>
+
+<p><span class=Code>ftrg = </span><span class=Code
+										style="color: #800000; font-weight: bold;"><font color=maroon ><B>open</B></font></span><span 
+ class=Code>('c:/odi/demo/file/SRC_AGE_GROUP_NEW.txt', 'w')</span></p>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>try</B></span><span class=Code>:</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;lsrc=fsrc.</span><span 
+ class=Code
+	style="color: #800000; font-weight: bold;"><font color=maroon ><B>readline</B></font></span><span class=Code>()</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;</span><span 
+ class=Code
+	style="font-weight: bold;"><B>while</B></span><span 
+ class=Code> (lsrc):</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;valueList 
+ = lsrc.split(';')</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;ltrg 
+ = '\t'.join(valueList)</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;ftrg.</span><span 
+ class=Code
+	style="color: #800000; font-weight: bold;"><font color=maroon ><B>write</B></font></span><span class=Code>(ltrg)</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;lsrc=fsrc.</span><span 
+ class=Code
+	style="color: #800000; font-weight: bold;"><font color=maroon ><B>readline</B></font></span><span class=Code>()</span></p>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>finally</B></span><span class=Code>:</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;fsrc.</span><span 
+ class=Code
+	style="color: #800000; font-weight: bold;"><font color=maroon ><B>close</B></font></span><span class=Code>()</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;ftrg.</span><span 
+ class=Code
+	style="color: #800000; font-weight: bold;"><font color=maroon ><B>close</B></font></span><span class=Code>()</span></p>
+
+</body>
+</html>

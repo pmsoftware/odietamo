@@ -1,0 +1,425 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Using CDC on iSeries</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+ol.whs2 { list-style:decimal; }
+ol.whs3 { list-style:lower-alpha; }
+th.whs4 { x-cell-content-align:top; }
+td.whs5 { x-cell-content-align:top; }
+p.whs6 { margin-left:40px; }
+p.whs7 { margin-left:80px; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nUsing Oracle Data Integrator with ...\nDB2 for iSeries\nUsing CDC on iSeries");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Using CDC on iSeries</h1>
+
+<p>Oracle Data Integrator handles Changed Data Capture on iSeries with two methods:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Using Triggers</B></span> 
+ on the journalized tables. This method is set up with the <span style="font-style: italic;"><I>JKM 
+ DB2/400 Simple </I></span>or<span style="font-style: italic;"><I> JKM DB2/400 
+ Consistent. </I></span>This CDC is not different from the CDC on other systems. 
+ Refer to the <a href="../../designer/model/journalizing.htm">Change Data 
+ Capture</a> topic for more information.</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Reading Native 
+ iSeries Transaction Journals.</B></span> This method is set up with the <span 
+ style="font-style: italic;"><I>JKM DB2/400 Journal Simple </I></span>and used 
+ by the<span style="font-style: italic;"><I> LKM DB2/400 Journal to SQL.</I></span> 
+ Although it usually provided performances, this method does not support 
+ Consistent Set CDC, and requires a platform-specific configuration detailed 
+ below.</p></li>
+</ul>
+
+<h2>How does it work?</h2>
+
+<p>A iSeries transaction journal contains the entire history of the data 
+ changes for a given period. It is handled by the iSeries system for tables 
+ that are journaled. A journaled table is either a table from a collection, 
+ or a table for which a journal receiver and a journal have been created 
+ and journaling started.</p>
+
+<p>Reading the transaction journal is performed by the a journal retriever 
+ <span class=Code>CDCRTVJRN</span> RPG program provided with Oracle Data Integrator. 
+ This program loads on demand the tables of the Oracle Data Integrator CDC infrastructure 
+ (J$ tables) with the contents from the transaction journal. </p>
+
+<p>This program can be either scheduled on the iSeries system or called 
+ by the KMs through a stored procedure also called <span class=Code>CDCRTVJRN</span>. 
+ <br>
+This stored procedure is automatically created by the &nbsp;<span 
+ style="font-style: italic;"><I>JKM DB2/400 Journal 
+ Simple </I></span>and invoked by the <span style="font-style: italic;"><I>LKM 
+ DB2/400 Journal to SQL</I></span> when data extraction is needed.</p>
+
+<h3>CDCRTVJRN Program Details</h3>
+
+<p>This program connects to the native iSeries journal for a given table, 
+ and captures changed data information into the Oracle Data Integrator Journal 
+ (J$).</p>
+
+<p>The program works as follows:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Journalized table attributes retrieval: </p></li>
+	
+	<ol type="a" class="whs3">
+		
+		<li class=kadov-p><p>Table attributes retrieval: PK columns, J$ 
+ table name, last journal reading date.</p></li>
+		
+		<li class=kadov-p><p>Attributes enrichment (short names, record 
+ size, etc.) using the <span class=Code>QSYS.QADBXREF</span> system table.</p></li>
+		
+		<li class=kadov-p><p>Location of the iSeries journal using the 
+ <span class=Code>QADBRTVFD()</span> 
+ API.</p></li>
+	</ol>
+	
+	<li class=kadov-p><p>PK columns information retrieval:</p></li>
+	
+	<ol type="a" class="whs3">
+		
+		<li class=kadov-p><p>PK columns attributes (short name, data types 
+ etc.) using the <span class=Code>QSYS.QADBIFLD</span> 
+ system table.</p></li>
+		
+		<li class=kadov-p><p>Attributes enrichment (real physical length) 
+ using the <span class=Code>QUSLFLD()</span> 
+ API.</p></li>
+		
+		<li class=kadov-p><p>Data preprocessing (RPG to SQL datatype conversion) 
+ for the primary key columns.</p></li>
+	</ol>
+	
+	<li class=kadov-p><p>Extraction the native journal information into 
+ the J$ table :</p></li>
+	
+	<ol type="a" class="whs3">
+		
+		<li class=kadov-p><p>Native journal reading using the <span class=Code>QJoRetrieveJournalEntries()</span> 
+ API.</p></li>
+		
+		<li class=kadov-p><p>Conversion of the raw data to native SQL data 
+ and capture into the J$ table.</p></li>
+		
+		<li class=kadov-p><p>Update of the changes count.</p></li>
+	</ol>
+</ol>
+
+<p>This program accepts the following parameters:</p>
+
+<table x-use-null-cells>
+<col>
+<col>
+<col>
+<col>
+
+<tr>
+<th valign="top" class="whs4">
+<p class=TitreTableau>Parameter</th>
+<th colspan="1" rowspan="1" valign="top" class="whs4">
+<p class=TitreTableau>RPG Type</th>
+<th colspan="1" rowspan="1" valign="top" class="whs4">
+<p class=TitreTableau>SQL Type</th>
+<th valign="top" class="whs4">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs5">
+<p class=TexteTableau>SbsTName</td>
+<td colspan="1" rowspan="1" valign="top" class="whs5">
+<p class=TexteTableau>A138</td>
+<td colspan="1" rowspan="1" valign="top" class="whs5">
+<p class=TexteTableau>Char(138)</td>
+<td valign="top" class="whs5">
+<p class=TexteTableau>Full name of the subscribers table in the following 
+ format: <span class=Code>&lt;Lib&gt;.&lt;Table&gt;. </span></p>
+<p class=TexteTableau>Example: <span class=Code>ODILIB.SNP_SUBSCRIBERS</span></td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs5">
+<p class=TexteTableau>JrnTName</td>
+<td colspan="1" rowspan="1" valign="top" class="whs5">
+<p class=TexteTableau>A138</td>
+<td colspan="1" rowspan="1" valign="top" class="whs5">
+<p class=TexteTableau>Char(138)</td>
+<td colspan="1" rowspan="1" valign="top" class="whs5">
+<p class=TexteTableau>Full name of the table for which the extract is done 
+ from the journal.</p>
+<p class=TexteTableau>Example: <span class=Code>FINANCE.MY_COMPANY_ORDERS</span></td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs5">
+<p class=TexteTableau>JrnSubscriber</td>
+<td colspan="1" rowspan="1" valign="top" class="whs5">
+<p class=TexteTableau>A50</td>
+<td colspan="1" rowspan="1" valign="top" class="whs5">
+<p class=TexteTableau>Char(50)</td>
+<td colspan="1" rowspan="1" valign="top" class="whs5">
+<p class=TexteTableau>Name of the current subscriber. It must previously 
+ have been added to the list of subscribers.</td></tr>
+
+<tr>
+<td valign="top" class="whs5">
+<p class=TexteTableau>LogMessages</td>
+<td colspan="1" rowspan="1" valign="top" class="whs5">
+<p class=TexteTableau>A1</td>
+<td colspan="1" rowspan="1" valign="top" class="whs5">
+<p class=TexteTableau>Char(1)</td>
+<td valign="top" class="whs5">
+<p class=TexteTableau>Flag activating logging in a spool file. Possible 
+ values are: <span class=Code>Y</span> 
+ enable logging, and <span class=Code>N</span> 
+ to disable logging.</td></tr>
+</table>
+
+<h2>Installing the CDC Components on iSeries</h2>
+
+<p>There are two major components installed on the iSeries system to enable 
+ native journal reading:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>The <span class=ElementGUI>CDCRTVJRN Program.</span> 
+ This program is provided in an archive that should installed in the iSeries 
+ system. The installation process is described below.</p></li>
+	
+	<li class=kadov-p><p>The <span class=ElementGUI>CDC Infrastructure</span>. 
+ It includes the standard CDC objects (J$ tables, views, ...) and the <span 
+ class=ElementGUI>CDCRTVJRN Stored Procedure</span> created by the JKM 
+ and used by the LKM to read journals. This stored procedure executes the 
+ CDCRTVJRN program.</p></li>
+</ul>
+
+<p class=Remarque><span class=AlertTitre>Important</span>: The program 
+ must be set up in a library defined in the Topology as the <span style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>default 
+ work library</U></span> for this iSeries data server. In the examples below, 
+ this library is called <span class=Code
+								style="color: #0000ff;"><font color=blue >ODILIB.</font></span></p>
+
+<h3>Installing the CDCRTVJRN Program</h3>
+
+<p class=HowTo>To install the CDCRTVJRN program:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Copy the program save file from the <span class=Code>/tools/cdc_iseries/</span> 
+ directory to a temporary directory (<span class=Code>C:\temp</span>) on 
+ your system. In our examples, we name this copy <span class=Code
+														style="color: #008000;"><font color=green >SAVESNPCDC</font></span>.</p></li>
+	
+	<li class=kadov-p><p>Connect to the iSeries system with a terminal.</p></li>
+	
+	<li class=kadov-p><p>Create the default work library if it does not 
+ exist yet:<br>
+	Example: <span class=Code>CRTLIB LIB(ODILIB)</span></p></li>
+	
+	<li class=kadov-p><p>Create in this library an empty save file that 
+ has the same name as the save file (mandatory) <br>
+	Example: <span class=Code>CRTSAVF FILE(ODILIB/</span><span class=Code
+	style="color: #008000;"><font color=green >SAVESNPCDC</font></span><span class=Code>)</span></p></li>
+	
+	<li class=kadov-p><p>Upload the local save file on the iSeries system 
+ in the library and on top of the save file you have just created. Make 
+ sure that the upload is performed in binary mode. A FTP command sequence 
+ performing the upload is given below:</p></li>
+</ol>
+
+<p class="whs6"><span class=Code>FTP </span><span class=Code
+	style="color: #808080;"><font color=gray >192.168.0.13</font></span><span class=Code><br>
+LCD </span><span class=Code
+				style="color: #808080;"><font color=gray >C:\TEMP</font></span><span class=Code><br>
+BI<br>
+CD ODILIB<br>
+PUT </span><span class=Code
+				style="color: #008000;"><font color=green >SAVESNPCDC</font></span><span class=Code><br>
+BYE</span></p>
+
+<ol start="6" type="1" class="whs2">
+	
+	<li class=kadov-p><p>Restore the objects of the <span class=Code>CDCSNPRELE</span> 
+ library from the save file, using the <span class=Code>RSTOBJ</span> command, 
+ to your target library:<span class=Code><br>
+	RSTOBJ OBJ(*ALL) SAVLIB(CDCSNPRELE) DEV(*SAVF) OBJTYPE(*ALL) SAVF(ODILIB/</span><span 
+ class=Code
+	style="color: #008000;"><font color=green >SAVESNPCDC</font></span><span class=Code>) RSTLIB(ODILIB)</span></p></li>
+	
+	<li class=kadov-p><p>You can check that the objects are correctly restored. 
+ The target library should contain a program object called CDCRTVJRN. Use 
+ the command below to view it:<span class=Code><br>
+	WRKOBJ OBJ(ODILIB/CDCRTVJRN)</span></p></li>
+</ol>
+
+<h3>The CDCRTVJRN Stored Procedure</h3>
+
+<p>This procedure is used to call the CDCRTVJRN program. It is automatically 
+ created by the <span style="font-style: italic;"><I>JKM DB2/400 Journal Simple 
+ </I></span>KM when journalizing is started. Journalizing startup is described 
+ in the <a HREF="../../designer/model/journalizing.htm">Change Data Capture</a> 
+ topic.</p>
+
+<p>The syntax for the stored procedure is provided below for reference:</p>
+
+<p class="whs6"><span class=Code>create procedure ODILIB.CDCRTVJRN(</span></p>
+
+<p class="whs7"><span class=Code>SbsTName &nbsp;&nbsp;char(138), 
+ /* Qualified Subscriber Table Name */</span></p>
+
+<p class="whs7"><span class=Code>JrnTName &nbsp;&nbsp;char(138), 
+ /* Qualified Table Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></p>
+
+<p class="whs7"><span class=Code>Subscriber char(50) , /* 
+ Subscriber Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></p>
+
+<p class="whs7"><span class=Code>LogMsg &nbsp;&nbsp;&nbsp;&nbsp;char(1) 
+ &nbsp;&nbsp;&nbsp;/* 
+ Create a Log (Y - Yes, N - No) &nbsp;*/</span></p>
+
+<p class="whs6"><span class=Code>)</span></p>
+
+<p class="whs6"><span class=Code>language rpgle</span></p>
+
+<p class="whs6"><span class=Code>external name 'ODILIB/CDCRTVJRN'</span></p>
+
+<p class=Remarque><span class=AlertTitre>Important</span>: The stored procedure 
+ and the program are installed in a library defined in the Topology as 
+ the <span style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>default 
+ work library</U></span> for this iSeries data server.</p>
+
+<h2>Using the CDC with the Native Journals</h2>
+
+<p>Once the program is installed and the CDC is setup, using the native 
+ journals consists in using the <span style="font-style: italic;"><I>LKM DB2/400 
+ Journal to SQL</I></span> to extract journalized data from the iSeries system. 
+ The retrieval process is triggered if the <span class=Code>RETRIEVE_JOURNAL_ENTRIES</span> 
+ option is set to Y for the LKM.</p>
+
+<h2>Problems While Reading Journals</h2>
+
+<h3>CDCRTVJRN Program Limits</h3>
+
+<p>The following limits exist for the CDCRTVJRN program:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Support iSeries version: v5r2. Please contact 
+ the support for other versions.</p></li>
+	
+	<li class=kadov-p><p>The source table should be journaled and the iSeries 
+ journal should be readable by the user specified in the iSeries data server.</p></li>
+	
+	<li class=kadov-p><p>The source table should have one PK defined in 
+ Oracle Data Integrator.</p></li>
+	
+	<li class=kadov-p><p>The PK declared in Oracle Data Integrator should be in 
+ the 4096 first octets of the physical record of the data file.</p></li>
+	
+	<li class=kadov-p><p>The number of columns in the PK should not exceed 
+ 16.</p></li>
+	
+	<li class=kadov-p><p>The total number of characters of the PK column 
+ names added to the number of columns of the PK should not exceed 255.</p></li>
+	
+	<li class=kadov-p><p>Large object datatypes are not supported in the 
+ PK. Only the following SQL types are supported in the PK: SMALLINT, INTEGER, 
+ BIGINT, DECIMAL (Packed), NUMERIC (Zoned), FLOAT, REAL, DOUBLE, CHAR, 
+ VARCHAR, CHAR VARYING, DATE, TIME, TIMESTAMP and ROWID</p></li>
+	
+	<li class=kadov-p><p>Several instances of CDCRTVJRN should not be started 
+ simultaneously on the same system.</p></li>
+	
+	<li class=kadov-p><p>Reinitializing the sequence number in the iSeries 
+ journal may have a critical impact on the program (program hangs) if the 
+ journal entries consumption date (SNP_SUBSCRIBERS.JRN_CURFROMDATE) is 
+ before the sequence initialization date. To work around this problem, 
+ you should manually set a later date in SNP_SUBSCRIBERS.JRN_CURFROMDATE.</p></li>
+</ul>
+
+<h3>Troubleshooting the CDCRTVJRN Program</h3>
+
+<p>The journal reading process can be put in trace mode:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>either by calling from your query tool the CDCRTVJRN 
+ stored procedure with the <span class=Code>LogMsg</span> parameter set 
+ to Y, </p></li>
+	
+	<li class=kadov-p><p>or by forcing the <span class=Code>CREATE_SPOOL_FILE</span> 
+ LKM option to 1 then restarting the interface.</p></li>
+</ul>
+
+<p>The reading process logs are stored in a spool file which can be reviewed 
+ using the <span class=Code>WRKSPLF</span> command.</p>
+
+<p>You can also review the raw contents of the iSeries journal using the 
+ <span class=Code>DSPJRN</span> command.</p>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Using Cross-References</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+img_whs2 { border:none; width:16px; height:16px; float:none; border-style:none; }
+ol.whs3 { list-style:decimal; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nDesigner\nProjects\nUsing Cross-References");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Using Cross-References</h1>
+
+<p>Objects in Oracle Data Integrator (datastores, models, interfaces, etc) are 
+ interlinked by relationships varying from simple usage associations (an 
+ integration interface uses knowledge modules) to complex ones such as 
+ code-interpretation relationships (a variable is used in the mappings 
+ or filters of an interface). These relationships are implemented as cross-references. 
+ They are used to check/maintain consistency between related objects within 
+ a work repository. Cross-references, for example, prevent you from deleting 
+ an object if it is currently referenced elsewhere in the work repository.</p>
+
+<p>Not all relationships appear as cross-references:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Relationships with objects from the master repository 
+ (For example, a data model is related to a technology) are not implemented 
+ as cross-references, but as loose references based on object codes (context 
+ code, technology code, datatype code, etc). Modifications to these codes 
+ may cause inconsistency in the references.</p></li>
+	
+	<li class=kadov-p><p>Strong relationships in the work repository (a 
+ folder belongs to a project) are enforced in the graphical user interface 
+ and within the repository (in the host database as foreign keys). These 
+ relationships may not normally be broken.</p></li>
+</ul>
+
+<h2>Browsing Cross-References</h2>
+
+<p>When modifying an object, it is necessary to analyze the impact of these 
+ changes on other developments. For example, if the length of a column 
+ is altered, the integration interfaces using this column as a source or 
+ a target may require modification. Cross-references enable you to immediately 
+ identify the objects referenced or referencing a given object, and in 
+ this way provide effective impact analysis.</p>
+
+<p class=HowTo>To browse cross-references:</p>
+
+<p>Cross-references may be browsed from the Designer tree views:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>Projects</span> 
+ and <span class=ElementGUI>Others</span> tree views, the <img src="obj_use.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs2"><span class=ElementGUI>Used in</span> node appears under an 
+ object node with the list of objects from which the current object is 
+ referenced. In the case of a variable, for example, the packages containing 
+ steps referencing this variable and the interfaces using this variable 
+ in the mappings, filters, etc will be displayed.</p></li>
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>Models</span> tree 
+ view, the <img src="obj_use.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs2"><span class=ElementGUI>Used in </span>node appears 
+ under an object node and lists the objects referencing the current datastore, 
+ model or sub-model as a source or a target of an interface, or in package 
+ steps. The <img src="obj_table.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs2"> <span class=ElementGUI>Used to Populate</span> 
+ and <img src="obj_table.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs2"> <span class=ElementGUI>Populated By</span> nodes 
+ display the datastores used to populate, or populated by, the current 
+ datastore. </p></li>
+</ul>
+
+<p>These cross-referenced nodes may be expanded. The referencing or referenced 
+ objects may be displayed or edited from the cross-reference node.</p>
+
+<h2>Resolving Missing References</h2>
+
+<p>When performing version restoration operations, it may happen that an 
+ object in the work repository references nonexistent objects. A typical 
+ situation is when restoring an old version of a project without restoring 
+ all the associated models used in its integration interfaces. </p>
+
+<p>Such a situation causes <span class=ElementGUI>Missing References</span> 
+ errors messages in Oracle Data Integrator when opening the objects (for example, 
+ the interfaces) which reference nonexistent objects. An object with missing 
+ cross-references is marked in the tree view with the missing reference 
+ marker<img src="direct_missing_ref.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs2"> and its parent objects are flagged with a warning 
+ icon<img src="indirect_missing_ref.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs2">.</p>
+
+<p class=HowTo>To display the details of the missing references for an 
+ object:</p>
+
+<ol type="1" class="whs3">
+	
+	<li class=kadov-p><p>Edit the object with the missing reference marker. 
+ In the edition window, select the <span class=ElementGUI>Missing References</span> 
+ tab.</p></li>
+	
+	<li class=kadov-p><p>The list of referenced objects missing for the 
+ cross-references is displayed in this tab.</p></li>
+</ol>
+
+<p class=HowTo>To resolve missing references:</p>
+
+<p>Missing cross-reference may be resolved in two ways:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Importing/restoring the missing referenced object. 
+ See <a href="versionning.htm">Version Management</a> and Import/Export 
+ sections for more information.</p></li>
+	
+	<li class=kadov-p><p>By modifying the referencing object in order to 
+ remove the reference to the missing object (for example, remove the Refresh 
+ Variable step referencing the nonexistent variable from a package, and 
+ replace it with another variable).</p></li>
+</ul>
+
+<p class=Remarque><span class=AlertTitre>Important</span>: If a text (such 
+ as an interface mapping/join/filter, a procedure command, etc) contains 
+ a missing reference, the first change applied to this text is considered 
+ <span style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>without 
+ any further check</U></span> as fixing the missing cross-references on this 
+ text.</p>
+
+</body>
+</html>

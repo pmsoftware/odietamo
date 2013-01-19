@@ -1,0 +1,1105 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Driver Configuration</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+p.whs1 { font-weight:normal; }
+ul.whs2 { list-style:disc; }
+table.whs3 { x-cell-content-align:Center; }
+tr.whs4 { x-cell-content-align:center; }
+th.whs5 { text-align:left; width:25%; }
+th.whs6 { text-align:left; width:10%; }
+th.whs7 { width:55%; }
+td.whs8 { width:25%; x-cell-content-align:top; }
+td.whs9 { width:10%; x-cell-content-align:top; }
+td.whs10 { width:55%; x-cell-content-align:top; }
+p.whs11 { margin-left:40px; }
+ol.whs12 { list-style:decimal; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Driver for XML\nDriver Configuration");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Driver Configuration</h1>
+
+<h2>Drivers Parameters</h2>
+
+<h3>Driver Name</h3>
+
+<p>The driver name is:</p>
+
+<p class="whs1"><b style="font-weight: bold;"><span class=Code>com.sunopsis.jdbc.driver.xml.SnpsXmlDriver</span></b></p>
+
+<h3>URL Syntax</h3>
+
+<p>The URL Syntax is the following:</p>
+
+<ul type="disc" class="whs2">
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>XML</B></span>: <span 
+ class=Code><b>jdbc:snps:xml?</b></span><span class=Code
+												style="color: #808080;"><font color=gray >&lt;parameter=value&gt;[</font></span><span 
+ class=Code><b>&amp;</b></span><span class=Code
+									style="color: #808080;"><font color=gray >...]</font></span></p></li>
+</ul>
+
+<h3>URL Parameters</h3>
+
+<p>The valid parameters for the URL are detailed below:</p>
+
+<p>&nbsp;</p>
+
+<table x-use-null-cells class="whs3">
+<col>
+<col>
+<col>
+<col>
+<col>
+
+<tr valign="middle" class="whs4">
+<th align="left" width="25%" class="whs5">
+<p class=TitreTableau>Parameter</th>
+<th align="left" width="10%" class="whs6">
+<p class=TitreTableau>Mandatory</th>
+<th colspan="1" rowspan="1" align="left" width="10%" class="whs6">
+<p class=TitreTableau>Type</th>
+<th align="left" width="10%" class="whs6">
+<p class=TitreTableau>Default</th>
+<th width="55%" class="whs7">
+<p class=TitreTableau>Description</th></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>file</span> or <span class=Code>f</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>string (file location)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>-</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>XML file name. Use slash “/” in the path name instead 
+ of back slash “\”. It is possible to use an HTTP, FTP or File URL to locate 
+ the file. Files located by URL are read-only.</p>
+<p class=TexteTableau>For an XML file, if this parameter is missing, the 
+ driver will consider an xml file name similar to the description file 
+ (DTD or XSD) name with &quot;.xml&quot; extension.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>dtd</span> or <span class=Code>d</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>string (file location)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>-</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Description file: This file may be a DTD or XSD file. 
+ It is possible to use an HTTP, FTP or File URL to locate the file. Files 
+ located by URL are read-only.</p>
+<p class=TexteTableau>If a DTD or XSD file is specified within the XML 
+ file, it takes precedence over the DTD or XSD file in the URL. Note that 
+ such a reference should be made with an absolute path.</p>
+<p class=TexteTableau>For an XML file, if this parameter is missing, and 
+ no DTD or XSD is referenced in the XML file, the driver will automatically 
+ consider a DTD file name similar to the XML file name with &quot;.dtd&quot; 
+ extension. </p>
+<p class=TexteTableau>A DTD file may be created from the XML file structure 
+ depending on the <span class=Code>generate_dtd</span> URL parameter.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td colspan="1" rowspan="1" valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>root_elt</span> or <span class=Code>re</span></td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>String</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>-</td>
+<td colspan="1" rowspan="1" valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Name of the element to take as the root table of 
+ the schema. This value is case sensitive. This parameter can be used for 
+ reverse-engineering a specific message definition from a WSDL file, or 
+ when several possible root elements exist in a XSD file.</p>
+<p class=Remarque><span class=AlertTitre
+						style="background-color: Transparent;">Important</span><span 
+ style="background-color: Transparent;">: This parameter is used to designate 
+ ONLY the Element in the XSD / DTD file which will serve as the Root Element 
+ DEFINITION of any XML instance file Root Element.</span> </td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>root_table</span> or <span class=Code>rt 
+ </span>(deprecated)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>string</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>-</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Name of the root table of the schema, and by extension 
+ name of the root element of the XML file. </p>
+<p class=Remarque><span class=ElementGUI>Note</span>: This parameter is 
+ deprecated, and should not be used. The <span class=Code>root_elt</span> 
+ parameter should be used instead.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>root_key</span> or <span class=Code>rk</span> 
+ (deprecated)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>string</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>-</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Value of the key of the root table record that is 
+ used as the root element of the XML file. If no key is specified, all 
+ the records will be saved in the XML file.</p>
+<p class=Remarque><span class=ElementGUI>Note</span>: This parameter is 
+ deprecated, and should not be used.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>read_only</span> or <span class=Code>ro</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>boolean (true | false)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>false</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Open the XML file in read only mode.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>schema</span> or <span class=Code>s</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>string</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>-</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Name of the schema where the XML file will be loaded. 
+ If this parameter is missing, a schema name is automatically generated 
+ from the XML file name. </p>
+<p class=Remarque><span class=ElementGUI>Note</span>: It is not possible 
+ to make more than one connection to a schema. Subsequent connections fail 
+ if trying to connect to a schema already in use.</p>
+<p class=Remarque><span class=AlertTitre>Important</span>: The schema name 
+ should be specified in uppercase.</p>
+<p class=Remarque
+	style="background-color: Transparent;"><span class=AlertTitre>Important</span>: 
+ It is not possible to have a schema named like one of the generated tables. 
+ Please avoid naming the schema like one of the elements of the XML structure.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>standalone</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>boolean (true |&nbsp;false)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>false</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>If this option is set to true, the schema for this 
+ connection is completely isolated from all other schemas. With this option, 
+ you can specify the same schema name for several connections, each schema 
+ being kept separated. When using this option, tables in this schema cannot 
+ be accessed from other schemas, and this connection cannot access tables 
+ from other schemas.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td colspan="1" rowspan="1" valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>ns_prefix_generation</span> or <span 
+ class=Code>nspg</span></td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>auto | xml | xsd</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>auto</td>
+<td colspan="1" rowspan="1" valign="top" width="55%" class="whs10">
+<p class=TexteTableau>This option defines how namespace prefixes are generated 
+ and written in the XML file.</p>
+<ul type="disc" class="whs2">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>auto</span> 
+ (default): Prefixes are automatically generated from the namespace names 
+ themselves when possible or generated as ns1, ns2, etc.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>xml</span>: 
+ &nbsp;Namespace 
+ prefixes are taken from the source XML file, if any.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=Code>xsd</span>: 
+ &nbsp;Namespace 
+ prefixes are taken from the XSD file, if any.</p></li>
+</ul>
+<p class=Remarque>Note that the <span class=Code>xsd</span> option value 
+ assumes that a similar prefix is not used in several XSD files to reference 
+ a different namespace.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td colspan="1" rowspan="1" valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>no_default_ns</span> or <span class=Code>ndns</span></td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>boolean (true | false)</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>false</td>
+<td colspan="1" rowspan="1" valign="top" width="55%" class="whs10">
+<p class=TexteTableau>If this parameter is set to true, the driver generates 
+ the target file with no default namespace entry.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td colspan="1" rowspan="1" valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>no_closing_tags</span> or <span 
+ class=Code>nct</span></td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p>boolean (true | false)</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>false</td>
+<td colspan="1" rowspan="1" valign="top" width="55%" class="whs10">
+<p class=TexteTableau>If this parameter is set to true, the driver generates 
+ the empty tags without their closing tags (for example <span class=Code>&lt;element/&gt;</span>). 
+ If set to false the driver generates an empty element as <span class=Code>&lt;element&gt;&lt;/element&gt;</span>. 
+ This parameter is true by default if the <span class=Code>v1_compatibility 
+ </span>parameter is used.</td></tr>
+
+<tr valign="middle" class="whs4">
+	
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>db_props</span> or <span class=Code>dp</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>string</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>-</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>This parameter is used to use an external database 
+ instead of the memory engine to store the schema.</p>
+<p class=TexteTableau>The <span class=Code>db_props</span> parameter indicates 
+ that the schema must be loaded in a database schema whose connection information 
+ are stored in a <span style="font-weight: bold;"><B>external database property 
+ file</B></span> named like the <span class=Code>db_props</span> parameter 
+ with the extension &quot;.properties&quot;. This property file must be 
+ located in the application's classpath.</td></tr>
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>load_data_on_connect</span> or <span 
+ class=Code>ldoc</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>boolean (true | false)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>true</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Load automatically the data in the schema when performing 
+ the JDBC connection. If set to no, a SYNCHRONIZE statement is required 
+ after the connection to load the data.</p>
+<p class=TexteTableau>This option is useful to test the connection or browse 
+ metadata without loading all the data.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>drop_on_disc</span> or <span class=Code>dod</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>boolean (true | false)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>false</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Drop automatically the schema when closing the JDBC 
+ connection.</p>
+<p class=TexteTableau>This option removes the reference to the schema &nbsp;from 
+ the driver, and if the schema is store in memory, it also drops the schema. 
+ If the schema is stored in an external database (see <span class=Code>db_props</span>), 
+ the driver tries to drop the database schema, but might fail if the tables 
+ still exist. See also the &nbsp;<span class=Code>drop_tables_on_drop_schema 
+ </span>in the database properties file.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>ignore_unknown_elements</span> or 
+ <span class=Code>iue</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>boolean (true | false)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>false</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Ignore all elements in the XML file that do not exist 
+ in the description file.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>generate_dtd</span> or <span class=Code>gd</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>yes | no |&nbsp;auto</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>auto</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Defines if a DTD file must be created from the XML 
+ file structure:</p>
+<ul type="disc" class="whs2">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>auto: create 
+ the DTD file if the it does not exist. if the DTD exists, does nothing.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>yes: always create 
+ the DTD file. An existing DTD will be overwritten.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>no: never create 
+ the DTD file. The DTD file must exist.</p></li>
+</ul>
+<p class=Remarque><span class=AlertTitre>Warning</span>: DTD files created 
+ using this option contain only the definition of XML elements appearing 
+ in the XML file, and may not be complete.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>java_encoding</span> or <span class=Code>je</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>string (encoding code)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>UTF8</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Target file encoding (example: ISO8859_1) . You will 
+ find a list of supported encoding at the following URL: <a href="http://java.sun.com/j2se/1.3/docs/guide/intl/encoding.doc.html"
+															target=_blank>http://java.sun.com/j2se/1.3/docs/guide/intl/encoding.doc.html</a>. 
+ <br>
+Note that if the Java encoding is specified, the XML encoding should also 
+ be specified.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>xml_encoding</span> or <span class=Code>xe</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>string (encoding code)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>UTF8</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Encoding specified in the generated XML File, in 
+ the tag (example ISO-8859-1) &nbsp;<span class=Code>&lt;?xml 
+ version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;</span>. &nbsp;You 
+ will find a list of supported encoding at the following URL: <a href="http://java.sun.com/j2se/1.3/docs/guide/intl/encoding.doc.html"
+	target=_blank>http://java.sun.com/j2se/1.3/docs/guide/intl/encoding.doc.html</a>. 
+ <br>
+Note that if the XML encoding is specified, the Java encoding should also 
+ be specified.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td colspan="1" rowspan="1" valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>v1_compatibility</span> or <span 
+ class=Code>v1</span></td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>boolean (true | false)</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>false</td>
+<td colspan="1" rowspan="1" valign="top" width="55%" class="whs10">
+<p class=TexteTableau>With this parameter set to true, the driver performs 
+ the XML to SQL mapping as if in version 1.x. This parameter is provided 
+ for compatibility.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td colspan="1" rowspan="1" valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>numeric_id</span> or <span class=Code>ni</span></td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>boolean (true | false)</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>true</td>
+<td colspan="1" rowspan="1" valign="top" width="55%" class="whs10">
+<p class=TexteTableau>If set to true, all internal Primary and Foreign 
+ Keys are of NUMERIC type. Otherwise, they are of the VARCHAR type.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td colspan="1" rowspan="1" valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>id_length</span> or <span class=Code>il</span></td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p>integer</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>10 / 30</td>
+<td colspan="1" rowspan="1" valign="top" width="55%" class="whs10">
+<p class=TexteTableau>The length of the internal Primary and Foreign Key 
+ columns. The default is 10 for NUMERIC column types and 30 for VARCHAR 
+ column.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td colspan="1" rowspan="1" valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>numeric_scale</span> or <span class=Code>ns</span></td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p>integer</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p>empty</td>
+<td colspan="1" rowspan="1" valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Scale of the numeric columns generated during the 
+ XML to SQL mapping.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td colspan="1" rowspan="1" valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>no_batch_update</span> or <span 
+ class=Code>nobu</span></td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>boolean (true | false)</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>false</td>
+<td colspan="1" rowspan="1" valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Batch update is not used for this connection. The 
+ command to set the batch update is not sent. This prevents errors to occur 
+ for external databases that do not support this JDBC feature, or allows 
+ to debug errors related to batch update usage. </td></tr>
+
+<tr valign="middle" class="whs4">
+<td colspan="1" rowspan="1" valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>add_schema_bundle</span> or <span 
+ class=Code>asb</span></td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>string</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>-</td>
+<td colspan="1" rowspan="1" valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Additional schemas bundle file. This parameter indicates 
+ that additional schemas must be created at connection time. The description 
+ for these extra schemas are located in an <span style="font-weight: bold;"><B>additional 
+ schemas property file</B></span> named like the <span class=Code>add_schema_bundle</span> 
+ parameter with the extension &quot;.properties&quot;. The additional schemas 
+ property file contains a list of valid JDBC driver's URL. In this file, 
+ the property names are ignored. Only the list of values is taken into 
+ account.</p>
+<p class=TexteTableau>All these additional schemas are created with the 
+ <span class=Code>drop_on_disconnect</span> option set to true by default.</p>
+<p class=TexteTableau>Example of additional schemas property files contents:</p>
+<p class=TexteTableau><span class=Code
+							style="color: #808080;"><font color=gray >addschema_1=</font></span><span 
+ class=Code>jdbc:snps:xml?f=c:/myfile.xml&amp;ro=true&amp;s=myschema1</span><span 
+ class=Code
+	style="color: #808080;"><font color=gray ><br>
+addschema_2=</font></span><span class=Code>jdbc:snps:xml?file=c:/myfile2.xml&amp;s=myschema2</span><span 
+ class=Code
+	style="color: #808080;"><font color=gray ><br>
+addschema_3=</font></span><span class=Code>jdbc:snps:xml?d=c:/myfile3.dtd&amp;s=myschema3</span></td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>add_schema_path</span> or <span 
+ class=Code>asp</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>string (directory)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>-</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Directory containing a set of XSD files. For each 
+ XSD file, an additional schema is created in the built-in engine, using 
+ the file description. The URLs for creating each schema is :</p>
+<p class=TexteTableau><span class=Code>jdbc:snps:xml?d=c:/&lt;file&gt;.dtd</span></td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>log_file</span> or <span class=Code>lf</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan=1
+	rowspan=1
+	class=whs9
+	style="x-cell-content-align: top; width: 10%;"
+	valign=top
+	width=10%>
+<p class=TexteTableau>string (file location)</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>-</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Log file name. If the log file is empty, the trace 
+ is displayed in the standard output. </p>
+<p class=TexteTableau>The presence of this parameter triggers the trace 
+ for the schema. Each schema may have a different trace file.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>log_level</span> or <span class=Code>ll</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>Integer</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>-</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Log level. The log level is a mask of the following 
+ values:</p>
+<ul type="disc" class="whs2">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>1: Important 
+ internal events</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>2: Detailed &nbsp;internal 
+ events</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>4: Native SQL 
+ commands</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>8: XML-Relational 
+ mapping calculation</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>16: XML-Relational 
+ mapping validation (Table names changes,etc)</p></li>
+</ul>
+<p class=TexteTableau>Examples: </p>
+<ul type="disc" class="whs2">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Trace Important 
+ &amp; Detailed internal events: <span class=Code>log_level=3</span> (1+2)</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Trace Native 
+ SQL commands and Important internal events: <span class=Code>log_level=5</span> 
+ (1+4)</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Trace XML-Relational 
+ mapping calculation and validation: <span class=Code>log_level=24</span> 
+ (16+8)</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Trace all events: 
+ <span class=Code>log_level=31</span> (1+2+4+8+16)</p></li>
+</ul></td></tr>
+</table>
+
+<h3>URL Samples</h3>
+
+<p class="whs1"><span class=Code>jdbc:snps:xml</span></p>
+
+<p class="whs11">Connects to the default schema.</p>
+
+<p><span class=Code>jdbc:snps:xml?f=c:/myfile.xml&amp;ro=true</span></p>
+
+<p class="whs11">Open the <span class=code>c:/myfile.xml </span>file 
+ in read only mode</p>
+
+<p><span class=Code>jdbc:snps:xml?file=c:/myfile.xml</span></p>
+
+<p class="whs11">Open the <span class=code>c:/myfile.xml </span>file 
+ in read/write mode.</p>
+
+<p><span class=Code>jdbc:snps:xml?s=myschema</span></p>
+
+<p class="whs11">Connect directly to the schema <span class=Code>myschema</span></p>
+
+<h2>Automatically Create Multiple Schemas</h2>
+
+<p>It is possible to automatically create additional schemas with different 
+ XML structures when creating the connection with the driver. This is performed:</p>
+
+<ul type="disc" class="whs2">
+	
+	<li class=kadov-p><p>by declaring in the <span class=Code>add_schema_bundle</span> 
+ URL parameter a property file containing a list of JDBC driver's URL corresponding 
+ to the different additional schemas to create.</p></li>
+	
+	<li class=kadov-p><p>by declaring in the <span class=Code>add_schema_path</span> 
+ URL parameter a directory containing a set of XSD files. For each XSD 
+ file, an additional schema is created in the built-in engine, based on 
+ the XML schema description.</p></li>
+	
+	<li class=kadov-p><p>by specifying additional valid driver URLs as 
+ JDBC properties, named <span class=Code>addschema_X</span> (X is a number). 
+ An additional schema will be created for each URL found in a JDBC property 
+ called <span class=Code>addschema_X</span>.</p></li>
+</ul>
+
+<p class=Remarque><span class=ElementGUI>Note</span>: All these additional 
+ schemas are automatically dropped when their last connection is closed.</p>
+
+<p class=Remarque><span class=ElementGUI>Note</span>: These schemas are 
+ created in addition to the one that may be created with the parameters 
+ specified in the JDBC driver URL</p>
+
+<h2>Using an external database to store the data</h2>
+
+<p>OracleDI Driver for XML stores the relational schema mapping of the 
+ XML schema into an engine stored in memory. This architecture is suitable 
+ in most cases. It is also possible to make the driver store the relational 
+ schema in an external relational database. </p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: A number of technologies 
+ are supported for storage. These technologies include Oracle, Microsoft 
+ SQL Server, MySQL, Hypersonic SQL, etc. Please contact the technical support 
+ for an updated list of supported technologies.</p>
+
+<h3>Using an external database</h3>
+
+<p>To use an external database, you must have:</p>
+
+<ol type="1" class="whs12">
+	
+	<li class=kadov-p><p>a file with the <span class=Code>.properties</span> 
+ extension. This <span class=ElementGUI>External Database Properties File</span> 
+ contains the properties of a JDBC connection to the relational database 
+ schema.</p></li>
+	
+	<li class=kadov-p><p>this <span class=Code>.properties</span> file 
+ in the <span class=ElementGUI>classpath</span> of your Java application 
+ using the OracleDI Driver for XML</p></li>
+	
+	<li class=kadov-p><p>the <span class=Code>db_props</span> parameter 
+ in the JDBC <span class=ElementGUI>URL</span> set to the name of the properties 
+ file (without the extension .properties)</p></li>
+</ol>
+
+<p class=Remarque><span class=AlertTitre>Important note</span>: When connecting 
+ to the external database, the OracleDI Driver for XML uses JDBC connectivity. 
+ You must have the connectivity configured for the database connection, 
+ and you must also have the JDBC driver file - .jar and .zip - in the classpath 
+ of your Java application.</p>
+
+<p>It is possible to set or override the external database properties on 
+ the URL. These properties must be prefixed with the string <span class=Code>dp_</span>. 
+ </p>
+
+<p>Example: <span class=Code>jdbc:snps:xml?file=c:/myfile.xml&amp;</span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >dp_driver=</font></span><span class=Code>com.mydb.mydriver&amp;</span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >dp_url=</font></span><span class=Code>jdbc:myurl</span></p>
+
+<h3>External Database Properties File</h3>
+
+<p>The <span class=ElementGUI>External Database Properties File</span> 
+ is a text file containing a set of lines with on each line a <span class=Code>&lt;property&gt;=&lt;value&gt; 
+ </span>pair:</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: Sample properties 
+ files are provided in the <span class=Code>/demo/xml/properties</span> 
+ directory.</p>
+
+<p>The valid properties are described below:</p>
+
+<p>&nbsp;</p>
+
+<table x-use-null-cells class="whs3">
+<col>
+<col>
+<col>
+<col>
+<col>
+
+<tr valign="middle" class="whs4">
+<th align="left" width="25%" class="whs5">
+<p>Properties</th>
+<th align="left" width="10%" class="whs6">
+<p class=TitreTableau>Mandatory</th>
+<th colspan="1" rowspan="1" align="left" width="10%" class="whs6">
+<p class=TitreTableau>Type</th>
+<th align="left" width="10%" class="whs6">
+<p class=TitreTableau>Default</th>
+<th width="55%" class="whs7">
+<p class=TitreTableau>Description</th></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>driver</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>Yes</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>string</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>-</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>JDBC driver name.</p>
+<p class=Remarque><span class=AlertTitre>Important</span>: The driver class 
+ file must be in the classpath of the java application.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>url</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>Yes</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>string</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>-</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>JDBC URL</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>user</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>Yes</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>string</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>-</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Login used to connect the database</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>password</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>Yes</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>string</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>-</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Encrypted password of the user.</p>
+<p class=TexteTableau><span class=RemarqueTitre>Note</span>: To encrypt 
+ the password, use the command:<span class=Code><br>
+java -cp snpsxmlo.jar com.sunopsis.jdbc.driver.xml.SnpsXmlEncoder password</span></td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>schema</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>Yes</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>string</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>-</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Database schema storing the XML data &amp; information</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>catalog</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>Yes</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>string</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>-</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>For Microsoft SQL Server only. Database catalog storing 
+ the XML data &amp; information. This parameter should not be used along 
+ with the <span class=Code>schema</span> parameter.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>drop_on_connect</span> or <span 
+ class=Code>doc</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>boolean (Y | N)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>N</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Drop the tables from the database schema if they 
+ already exist. If set to N the existing tables are preserved.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>create_tables</span> or &nbsp;<span 
+ class=Code>ct</span> </td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>(Y | N | AUTO)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>AUTO</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Y: create systematically the tables in the schema.</p>
+<p class=TexteTableau>N: never create the tables in the schema</p>
+<p class=TexteTableau>AUTO: Create the tables if they do not exist.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>create_indexes</span> or <span class=Code>ci</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>boolean (Y | N)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>Y</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Y: create indexes on tables' PK and FK</p>
+<p class=TexteTableau>N: do not create the indexes. This value provides 
+ faster INSERT but dramatically slows SELECT in the data. It also saves 
+ storage space on your RDB.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>truncate_before_load</span> or <span 
+ class=Code>tbl</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>boolean (Y | N)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>Y</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Y: truncate all data when connecting</p>
+<p class=TexteTableau>N: preserve existing data</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>ids_in_db</span> or <span class=Code>iidb</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>boolean (Y | N)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>Y</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Y: preserve identifiers (counters) in the database 
+ for a future append connection</p>
+<p class=TexteTableau>N: do not preserve identifiers. Future append is 
+ not possible.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>drop_tables_on_drop_schema</span> 
+ or <span class=Code>dtods</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>boolean (Y | N)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>Y</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Y: a DROP SCHEMA does not only causes the reference 
+ to the database schema to be erased from the driver, but also causes all 
+ tables to be dropped.</p>
+<p class=TexteTableau>N: DROP SCHEMA erases the reference to the database 
+ schema from the driver, but the tables are kept in the database schema.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>use_prepared_statements</span> or 
+ <span class=Code>ups</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>boolean (Y | N)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>Y</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Y: use the prepared statements with the database 
+ connection to perform driver operation (load/unload files).</p>
+<p class=TexteTableau>N: do not use the prepare statement.</p>
+<p class=TexteTableau>Processing is usually faster with prepare statement. 
+ The database and driver must support prepared statements in order to use 
+ this option.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>use_batch_update</span> or <span 
+ class=Code>ubu</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>boolean (Y | N)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>Y</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Y: use batch update with the database connection.</p>
+<p class=TexteTableau>N: do not use batch update.</p>
+<p class=TexteTableau>Inserting data is usually faster with batch update. 
+ The database and driver must support batch update in order to use this 
+ option. </p>
+<p class=Remarque><span class=RemarqueTitre>Note</span>: The batch update 
+ options specified here are only used to load the data in the schema. To 
+ use batch update when manipulating data in the schema, you must specify 
+ batch update options in your Java application.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>batch_update_size</span> or <span 
+ class=Code>bus</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>integer</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>30</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Batch update size. Records will be written in the 
+ database schema by batches of this size, if the <span class=Code>use_batch_update</span> 
+ parameter is set to Y.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>commit_periodically</span> or <span 
+ class=Code>cp</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>boolean (Y | N)</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>Y</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>A COMMIT will be sent regularly when loading data 
+ from the XML file into the database schema. This regular COMMIT avoids 
+ overloading of the database log when loading large XML data files.</p>
+<p class=Remarque><span class=RemarqueTitre>Note</span>: The commit options 
+ specified here are only used to load the data in the schema. To commit 
+ when performing transactions in the schema, you must specify the commit 
+ in your Java application.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>num_inserts_before_commit</span> 
+ or <span class=Code>nibc</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>integer</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>1000</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Interval in records between each COMMIT, if the <span 
+ class=Code>commit_periodically</span> property is set to Y.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>reserve_chars_for_column</span> 
+ or <span class=Code>rcfc</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>integer</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>3</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Long XML names are truncated to fit the maximum allowed 
+ size on the RDBMS, according to the maximum allowed size for column names 
+ returned by the JDBC driver.</p>
+<p class=TexteTableau>However, there are some situations when you will 
+ want to reserve characters to make the driver-generated names shorter. 
+ The number of reserved character is defined in the <span class=Code>reserve_chars_for_column 
+ </span>value.</p>
+<p class=TexteTableau>For example, on a database with a maximum of 30 characters 
+ and with this parameter set to 3 (which is the default), all column names 
+ will not be larger than 27 characters. </td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>reserve_chars_for_table</span> or 
+ <span class=Code>rcft</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>integer</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>3</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>The same parameter than the previous one, but applies 
+ to table names.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>varchar_length</span> or <span class=Code>vl</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>integer</td>
+<td valign="top" width="10%" class="whs9">
+<p>255</td>
+<td valign="top" width="55%" class="whs10">
+<p>Size of all the columns of the relational structure that will be used 
+ to contain string data.</td></tr>
+
+<tr valign="middle" class="whs4">
+<td valign="top" width="25%" class="whs8">
+<p class=TexteTableau><span class=Code>numeric_length</span> or <span class=Code>nl</span></td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" width="10%" class="whs9">
+<p class=TexteTableau>integer</td>
+<td valign="top" width="10%" class="whs9">
+<p class=TexteTableau>30</td>
+<td valign="top" width="55%" class="whs10">
+<p class=TexteTableau>Size of all the columns of the relational structure 
+ that will be used to contain numeric data.</td></tr>
+</table>
+
+</body>
+</html>

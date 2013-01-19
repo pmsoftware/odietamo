@@ -1,0 +1,131 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Working with a Scenario from a Different Repository</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+ol.whs2 { list-style:decimal; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nDesigner\nExecution\nWorking with a Scenario from a Different Repository");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Working with a Scenario from a Different Repository</h1>
+
+<p>A scenario may have to be operated from a different work repository 
+ than the one where it was generated.</p>
+
+<h6>Examples</h6>
+
+<p>Here are two examples of organizations that give rise to this type of 
+ process:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>A company has a large number of agencies equipped 
+ with the same software applications. In its IT headquarters, it develops 
+ packages and scenarios to centralize data to a central data center. These 
+ scenarios are designed to be executed identically in each agency.</p></li>
+	
+	<li class=kadov-p><p>A company has three distinct IT environments for 
+ developing, qualifying and operating its software applications. The company's 
+ processes demand total separation of the environments, which cannot share 
+ the Repository.</p></li>
+</ul>
+
+<h6>Prerequisites</h6>
+
+<p>The prerequisite for this organization is to have a work repository 
+ installed on each environment (site, agency or environment). The topology 
+ of the master repository attached to this work repository must be compatible 
+ in terms of its logical architecture (the same logical schema names). 
+ The connection characteristics described in the physical architecture 
+ can differ. </p>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span><br>
+In cases where some procedures or interfaces explicitly specify a context 
+ code, the target topology must have the same context codes.<br>
+The topology, that is, the physical and logical architectures, can also 
+ be exported from a development master repository, then imported into the 
+ target repositories. Use the <a href="../../../../refmanual/common/topology.htm">Topology</a> 
+ module to carry out this operation. In this case, the physical topology 
+ (the servers' addresses) should be personalized before operating the scenarios. 
+ Note that a topology import simply references the new data servers without 
+ modifying those already present in the target repository.</p>
+
+<h6>To operate a scenario from a different work repository:</h6>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Export the scenario from its original repository 
+ (right-click, export)</p></li>
+	
+	<li class=kadov-p><p>Forward the scenario export file to the target 
+ environment</p></li>
+	
+	<li class=kadov-p><p>Open the Designer module in the target environment 
+ (connection to the target repository) </p></li>
+	
+	<li class=kadov-p><p>Import the scenario from the export file</p></li>
+</ol>
+
+</body>
+</html>

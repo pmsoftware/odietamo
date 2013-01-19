@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">
+
+	<!-- New field MAX_THREAD on SNP_AGENT -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+		ALTER TABLE SNP_AGENT ADD COLUMN MAX_THREAD <?=snpRef.getDataType("SRC_NUMERIC","10")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>	
+	]]></Field>		
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		UPDATE SNP_AGENT SET MAX_THREAD = 1000
+	]]></Field>
+
+	<!-- New field AGENT_NAME2 on SNP_AGENT -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		ALTER TABLE SNP_AGENT ADD COLUMN AGENT_NAME2 <?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+	]]></Field>
+
+	<!-- Load Balancing table SNP_LB_AGENT -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+                CREATE TABLE SNP_LB_AGENT 
+                        (
+                                I_MASTER <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+                                I_SLAVE <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL
+                        )
+        ]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[		
+		ALTER TABLE SNP_LB_AGENT ADD CONSTRAINT PK_LB_AGENT UNIQUE ( I_MASTER, I_SLAVE )
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		ALTER TABLE SNP_LB_AGENT ADD CONSTRAINT FK_LB_AGENT_MASTER FOREIGN KEY ( I_MASTER ) REFERENCES SNP_AGENT ( I_AGENT )
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		ALTER TABLE SNP_LB_AGENT ADD CONSTRAINT FK_LB_AGENT_SLAVE FOREIGN KEY ( I_SLAVE ) REFERENCES SNP_AGENT ( I_AGENT )	
+	]]></Field>
+     
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                IGNORE_ERROR:CREATE INDEX SNP_LB_AGT_FK1 ON SNP_LB_AGENT ( I_MASTER )
+        ]]></Field>			
+
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                IGNORE_ERROR:CREATE INDEX SNP_LB_AGT_FK2 ON SNP_LB_AGENT ( I_SLAVE )
+        ]]></Field>		
+
+	<!-- adding GET_DATE_REQUEST to SNP_TECHNO -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		ALTER TABLE SNP_TECHNO ADD COLUMN GET_DATE_REQUEST <?=snpRef.getDataType("SRC_VARCHAR","250")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+	]]></Field>
+
+	<!-- adding CHECKSUM to SNP_MODULE and SNP_HOST -->	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		ALTER TABLE SNP_MODULE ADD COLUMN CHECKSUM <?=snpRef.getDataType("SRC_VARCHAR","250")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		ALTER TABLE SNP_HOST ADD COLUMN CHECKSUM <?=snpRef.getDataType("SRC_VARCHAR","250")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+	]]></Field>
+
+	<!-- initializing checksums -->		
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		IGNORE_ERROR:INSERT INTO SNP_MODULE (I_MODULE, MODULE_NAME, CLASS_NAME,CHECKSUM) VALUES (6,'Trace','com.sunopsis.graphical.frame.module.SnpsTrace','549')		
+	]]></Field>
+
+
+	<!-- Adding methods & object for modules and hosts -->	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		IGNORE_ERROR:INSERT INTO SNP_MODULE (I_MODULE, MODULE_NAME, CLASS_NAME) VALUES (1,'Designer','com.sunopsis.graphical.frame.module.SnpsGui')
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		IGNORE_ERROR:INSERT INTO SNP_MODULE (I_MODULE, MODULE_NAME, CLASS_NAME) VALUES (2,'Topology','com.sunopsis.graphical.frame.module.SnpsTopology')
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		IGNORE_ERROR:INSERT INTO SNP_MODULE (I_MODULE, MODULE_NAME, CLASS_NAME) VALUES (3,'Agent','com.sunopsis.dwg.DwgJv')
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		IGNORE_ERROR:INSERT INTO SNP_MODULE (I_MODULE, MODULE_NAME, CLASS_NAME) VALUES (4,'Operator','com.sunopsis.graphical.frame.module.SnpsOperator')
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		IGNORE_ERROR:INSERT INTO SNP_MODULE (I_MODULE, MODULE_NAME, CLASS_NAME) VALUES (5,'Security','com.sunopsis.graphical.frame.module.SnpsSecurity')
+	]]></Field>	
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		IGNORE_ERROR:DELETE FROM SNP_HOST_MOD
+	]]></Field>		
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		IGNORE_ERROR:DELETE FROM SNP_HOST
+	]]></Field>			
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		UPDATE SNP_MODULE SET CHECKSUM = '866' where I_MODULE =1	
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        UPDATE SNP_MODULE SET CHECKSUM = '911' where I_MODULE =2	
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+                UPDATE SNP_MODULE SET CHECKSUM = '546' where I_MODULE =3	
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		UPDATE SNP_MODULE SET CHECKSUM = '896' where I_MODULE =4		
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		UPDATE SNP_MODULE SET CHECKSUM = '909' where I_MODULE =5				
+	]]></Field>
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		INSERT INTO SNP_OBJECT (I_OBJECTS, OBJ_NAME, INT_JAVA_NAME, LEVEL_SECU, FIRST_DATE, FIRST_USER, LAST_DATE, LAST_USER) VALUES (5600, 'Hosts', 'com.sunopsis.dwg.dbobj.SnpHost', null, null, null, null, null)
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (38000,5600, '1', '1', 'Insérer', 'insert', null, null, null, null, '1', 10)
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (38100,5600, '0', '1', 'Editer', 'edit', null, null, null, null, '1', 20)
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (38200,5600, '0', '1', 'Editer dans nouvelle fenêtre', 'editinnewframe', null, null, null, null, '1', 30)
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (38300,5600, '0', '1', 'Consulter', 'consult', null, null, null, null, '1', 40)
+	]]></Field>
+
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (38400,5600, '0', '1', 'Supprimer', 'delete', null, null, null, null, '1', 50)		
+	]]></Field>
+
+	<!-- Adding session variable object -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        INSERT INTO SNP_OBJECT (I_OBJECTS, OBJ_NAME, INT_JAVA_NAME, LEVEL_SECU, FIRST_DATE, FIRST_USER, LAST_DATE, LAST_USER) VALUES (5700, 'Variables de Session', 'com.sunopsis.dwg.dbobj.SnpVarSess', null, null, null, null, null)	
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (38500,5700, '0', '1', 'Editer', 'edit', null, null, null, null, '1', 10)	
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+                INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (38600,5700, '0', '1', 'Editer dans nouvelle fenêtre', 'editinewframe', null, null, null, null, '1', 20)		
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (38700,5700, '0', '1', 'Consulter', 'consult', null, null, null, null, '1', 20)			
+	]]></Field>
+	
+	
+	<!-- new method : refresh variable -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (38800,3500, '0', '1', 'Rafraichir', 'refresh', null, null, null, null, '1', 90)
+	]]></Field>
+	
+	<!-- new method : regenerate scenario -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (38900,4400, '0', '1', 'Regénerer', 'regenerate', null, null, null, null, '1', 90)	
+	]]></Field>
+	
+	<!-- Import a scenario from a label node -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        UPDATE SNP_METHOD SET IND_IMP = '1' WHERE I_METH = 32000	
+	]]></Field>
+		
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        UPDATE SNP_METHOD SET INT_JAVA_NAME='deleteh' WHERE I_METH = 38400
+	]]></Field>
+		
+	
+	<!-- Diagram object creation -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        INSERT INTO SNP_OBJECT (I_OBJECTS, OBJ_NAME, INT_JAVA_NAME, FIRST_DATE, FIRST_USER, LAST_DATE, LAST_USER) VALUES (5800, 'Diagramme', 'com.sunopsis.dwg.dbobj.SnpDiagram', null, null, null, null)		
+	]]></Field>
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[		
+	        INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (39000,5800, '1', '1', 'Insérer', 'insert', null, null, null, null, '1', 10)
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (39100,5800, '0', '1', 'Editer', 'edit', null, null, null, null, '1', 20)
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (39200,5800, '0', '1', 'Editer dans nouvelle fenêtre', 'editinnewframe', null, null, null, null, '1', 30)
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (39300,5800, '0', '1', 'Consulter', 'consult', null, null, null, null, '1', 40)
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (39400,5800, '0', '1', 'Supprimer', 'delete', null, null, null, null, '1', 50)			
+	]]></Field>
+	
+	<!-- Add import method on a Global Sequence -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (39700,3400, '0', '1', 'Importer Séquence', 'ImportFromXmlSequence', null, null, null, null, '1', 50) 
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        UPDATE SNP_METHOD SET IND_IMP = '1' WHERE I_METH = 39700
+	]]></Field>
+
+	<!-- Add import method on a Global User Function -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (39800,5500, '0', '1', 'Importer Fonction Utilisateur', 'ImportFromXmlUfunc', null, null, null, null, '1', 50) 
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        UPDATE SNP_METHOD SET IND_IMP = '1' WHERE I_METH = 39800
+	]]></Field>
+
+	<!-- Add method Import Variable menu on the variables node -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        UPDATE SNP_METHOD SET IND_IMP = '1' WHERE I_METH = 34300
+	]]></Field>
+
+	<!-- Add method Consult Data on a datastore and its columns -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (39500,2400, '0', '1', 'Consulter Données', 'consultData', null, null, null, null, '1', 50) 
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+	        INSERT INTO SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) VALUES (39600,2600, '0', '1', 'Consulter Données', 'consultData', null, null, null, null, '1', 50) 
+	]]></Field>
+        
+        <!-- Add the known get date requests -->
+
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                UPDATE SNP_TECHNO SET GET_DATE_REQUEST = 'SELECT DISTINCT(NOW()) FROM SYSTEM_CONNECTIONINFO' WHERE I_TECHNO = 23999 
+        ]]></Field>
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                UPDATE SNP_TECHNO SET GET_DATE_REQUEST = 'SELECT current timestamp FROM sysibm.sysdummy1' WHERE I_TECHNO = 3999 
+        ]]></Field>
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                UPDATE SNP_TECHNO SET GET_DATE_REQUEST = 'SELECT current timestamp FROM sysibm.sysdummy1' WHERE I_TECHNO = 4999 
+        ]]></Field>
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                UPDATE SNP_TECHNO SET GET_DATE_REQUEST = 'SELECT DISTINCT CURRENT TIMESTAMP FROM INFORMIX.SYSTABLES' WHERE I_TECHNO = 5999 
+        ]]></Field>
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                UPDATE SNP_TECHNO SET GET_DATE_REQUEST = 'SELECT NOW()' WHERE I_TECHNO = 7999 
+        ]]></Field>
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                UPDATE SNP_TECHNO SET GET_DATE_REQUEST = 'SELECT GETDATE()' WHERE I_TECHNO = 6999 
+        ]]></Field>
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                UPDATE SNP_TECHNO SET GET_DATE_REQUEST = 'SELECT NOW()' WHERE I_TECHNO = 17999 
+        ]]></Field>
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                UPDATE SNP_TECHNO SET GET_DATE_REQUEST = 'SELECT SYSDATE FROM DUAL' WHERE I_TECHNO = 1999 
+        ]]></Field>
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                UPDATE SNP_TECHNO SET GET_DATE_REQUEST = 'SELECT DISTINCT(NOW()) FROM SYSTEM_CONNECTIONINFO' WHERE I_TECHNO = 26999 
+        ]]></Field>
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                UPDATE SNP_TECHNO SET GET_DATE_REQUEST = 'SELECT GETDATE()' WHERE I_TECHNO = 9999 
+        ]]></Field>
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                UPDATE SNP_TECHNO SET GET_DATE_REQUEST = 'SELECT GETDATE()' WHERE I_TECHNO = 10999 
+        ]]></Field>
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                UPDATE SNP_TECHNO SET GET_DATE_REQUEST = 'SELECT GETDATE()' WHERE I_TECHNO = 11999 
+        ]]></Field>
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                UPDATE SNP_TECHNO SET GET_DATE_REQUEST = 'SELECT NOW()' WHERE I_TECHNO = 39999 
+        ]]></Field>
+
+	<!-- Update Repository Version-->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+		UPDATE SNP_LOC_REP SET REP_VERSION = '3.2.03.01'
+	]]></Field>		
+		
+</Object>
+</SunopsisRepository>
+					

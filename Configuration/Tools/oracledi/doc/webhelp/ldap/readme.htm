@@ -1,0 +1,192 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<!-- saved from url=(0026)http://www.macromedia.com/ -->
+<html>
+
+<head>
+<title>Readme</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="doc/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='doc/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+p.whs1 { font-weight:bold; }
+p.whs2 { margin-left:40px; }
+p.whs3 { margin-left:80px; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="whutils.js"></script>
+<script type="text/javascript" language="javascript" src="whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Introduction");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1><a name=TOP></a>Oracle Data Integrator Driver for LDAP</h1>
+
+<p><span class=ElementGUI>Oracle Data Integrator Driver for LDAP, Version 
+ 10.1.3</span></p>
+
+<p>November 2006</p>
+
+<h2>Contents</h2>
+
+<p class="whs1">This page:</p>
+
+<p class="whs2"><a href="#WHAT_IS">Product Description</a></p>
+
+<p class="whs2"><a href="#FEATURES">Features &amp; Benefits</a></p>
+
+<p class="whs1">Link to other pages:</p>
+
+<p class="whs2"><a href="doc/how_does_it_work.htm">How does 
+ it work?</a> (LDAP to SQL Mapping, Grouping Factor) </p>
+
+<p class="whs2"><a href="doc/installation.htm">Installation</a></p>
+
+<p class="whs2"><a href="doc/driver_configuration.htm">Driver 
+ Configuration</a></p>
+
+<p class="whs2"><a href="doc/sql_syntax.htm">SQL Syntax</a></p>
+
+<p class="whs2"><span style="font-weight: bold;"><B>Appendix:</B></span> 
+ </p>
+
+<p class="whs3"><a href="doc/faq.htm">Frequently Asked Questions</a></p>
+
+<p class="whs3"><a href="doc/ap_jdbcfeatures.htm">JDBC Implemented 
+ Features</a></p>
+
+<p class="whs3"><a HREF="doc/release_note.htm">Release Notes</a></p>
+
+<h2><a name=WHAT_IS></a>Product Description</h2>
+
+<p>Information describing the various users, applications, files, printers, 
+ and other resources accessible from a network is often collected into 
+ a special database called an LDAP directory. Accessing this information 
+ often requires specific coding which can be complex, expensive and time 
+ and consuming. In order to simplify information retrieval from this type 
+ of data source Oracle Data Integrator includes a driver based on the JDBC 
+ API.</p>
+
+<p>The <span style="font-weight: bold;"><B>Oracle Data Integrator Driver for 
+ LDAP</B></span> is the world's first type-4 (all Java) JDBC driver for LDAP 
+ directories. Unlike other middleware products which transfer data between 
+ an LDAP directory and other directory-enabled applications and databases, 
+ OracleDI Driver for LDAP treats the directory as a JDBC data source. This 
+ allows other JDBC applications to use LDAP directories as SQL-compliant 
+ data sources.<br>
+<br>
+With the Oracle Data Integrator Driver for LDAP you can query LDAP trees 
+ using standard SQL syntax and also be able to persist modifications to 
+ the resource classes and their attributes.</p>
+
+<p><a href="#TOP">Back to Top</a></p>
+
+<h2><a name=FEATURES></a>Features &amp; Benefits</h2>
+
+<p>LDAP is widely used as a common protocol for accessing directory service 
+ applications. With OracleDI Driver for LDAP your Java applications will 
+ be able to manipulate complex LDAP trees using standard ISO SQL syntax. 
+ You will be able to query your LDAP directories using ISO SQL commands 
+ and features (joins, select, update, insert, delete) and also be able 
+ to control the persistence of directory updates.</p>
+
+<p>OracleDI Driver for LDAP supports:</p>
+
+<ul>
+	
+	<li class=kadov-p
+		class=kadov-p>Manipulation of&nbsp; LDAP entries and their object 
+ classes and attributes</li>
+	
+	<li class=kadov-p
+		class=kadov-p>Standard SQL (Structured Query Language) Syntax</li>
+	
+	<li class=kadov-p
+		class=kadov-p>Correlated subqueries, inner and outer joins</li>
+	
+	<li class=kadov-p
+		class=kadov-p>ORDER BY and GROUP BY</li>
+	
+	<li class=kadov-p
+		class=kadov-p>COUNT, SUM, MIN, MAX, AVG and other functions</li>
+	
+	<li class=kadov-p
+		class=kadov-p>All Standard SQL functions</li>
+	
+	<li class=kadov-p
+		class=kadov-p>Referential Integrity (foreign keys)</li>
+	
+	<li class=kadov-p
+		class=kadov-p>Persisting modifications on data in directories</li>
+</ul>
+
+<p>With OracleDI Driver for LDAP you will be able to:</p>
+
+<ul>
+	
+	<li class=kadov-p
+		class=kadov-p>have easy and rapid access to your LDAP trees,</li>
+	
+	<li class=kadov-p
+		class=kadov-p>access your resource directories as if they are relational 
+ databases,</li>
+	
+	<li class=kadov-p
+		class=kadov-p>avoid unnecessary training for LDAP search and filter 
+ languages.</li>
+</ul>
+
+<p><a href="#TOP">Back to Top</a></p>
+
+</body>
+</html>

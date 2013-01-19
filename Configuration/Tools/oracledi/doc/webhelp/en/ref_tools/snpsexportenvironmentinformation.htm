@@ -1,0 +1,263 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>OdiExportEnvironmentInformation</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+p.whs1 { background-color:Transparent; }
+-->
+</style><script type="text/javascript" language="JavaScript">
+<!--
+if ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion) == 4))
+{
+  var strNSS = "<style type='text/css'>";
+  strNSS += "p.whs1 {background-color:white; }";
+  strNSS +="</style>";
+  document.write(strNSS);
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nOracle Data Integrator Objects\nOdiExportEnvironmentInformation");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>OdiExportEnvironmentInformation</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>OdiExportEnvironmentInformation -TODIR=&lt;toDir&gt; 
+ -FILE_NAME=&lt;FileName&gt;[-CHARSET=&lt;charset&gt;] [-SNP_INFO_REC_CODE=&lt;row_code&gt;] 
+ [-MASTER_REC_CODE=&lt;row_code&gt;] [-WORK_REC_CODE=&lt;row_code&gt;] 
+ [-AGENT_REC_CODE=&lt;row_code&gt;] [-TECHNO_REC_CODE=&lt;row_code&gt;] 
+ [-RECORD_SEPARATOR_HEXA=&lt;rec_sep&gt;] [-FIELD_SEPARATOR_HEXA=&lt;field_sep] 
+ [-TEXT_SEPARATOR=&lt;text_sep&gt;]</span></p>
+
+<h2>Description</h2>
+
+<p class="whs1">Exports the details of the technical 
+ environment into a comma separated (.csv) file into the directory of your 
+ choice. This information is useful for support purposes. </p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameters</th>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Mandatory</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs10>
+<p><span class=Code>-TODIR=&lt;toDir&gt;</span></td>
+<td class=whs11>
+<p>Yes</td>
+<td class=whs12>
+<p>Target directory for the export.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-FILE_NAME=&lt;FileName&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>Yes</td>
+<td colspan=1
+	rowspan=1>
+<p>Name of the CSV export file. Default is<span class=Code> </span><span 
+ class=Code>snps_tech_inf.csv</span>.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-CHARSET=&lt;charset&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>Character set of the export file. Parameter encoding in the XML file 
+ header.</p>
+<p><span class=Code>&lt;?</span><span class=Code
+										style="font-weight: bold;"><B>xml 
+ version=&quot;1.0&quot;</B></span><span class=Code> encoding=&quot;ISO-8859-1&quot;?&gt;</span></td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-SNP_INFO_REC_CODE=&lt;row_code&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>Code used to identify rows that describe the current version of Oracle 
+ Data Integrator and the current user. This code is used in the first field 
+ of the record. Default is <span class=Code>SUNOPSIS</span>.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-MASTER_REC_CODE=&lt;row_code&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>Code for rows containing information about the Master Repository. Default 
+ is <span class=Code>MASTER</span>.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-WORK_REC_CODE=&lt;row_code&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>Code for rows containing information about the Work Repository. Default 
+ is <span class=Code>WORK</span>.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-AGENT_REC_CODE=&lt;row_code&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>Code for rows containing information about the various agents that are 
+ running. Default is <span class=Code>AGENT</span>.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-TECHNO_REC_CODE=&lt;row_code&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>Code for rows containing information about the data servers, their versions, 
+ etc. Default is <span class=Code>TECHNO</span>.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-RECORD_SEPARATOR_HEXA=&lt;rec_sep&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>One or several characters in hexadecimal code separating lines (or records) 
+ in the file. Default is <span class=Code>O0D0A</span>.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-FIELD_SEPARATOR_HEXA=&lt;field_sep&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>One or several characters in hexadecimal code separating the fields 
+ in a record. Default is <span class=Code>2C</span>.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>-TEXT_SEPARATOR=&lt;text_sep&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p>No</td>
+<td colspan=1
+	rowspan=1>
+<p>Character in hexadecimal code delimiting a STRING field. Default is 
+ <span class=Code>22</span>.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>Export &nbsp;the 
+ details of the technical environment into the <span class=Code>/temp/snps_tech_inf.csv 
+ </span>export<span class=Code> </span>file.</p>
+
+<p><span class=Code>OdiExportEnvironmentInformation &quot;-TODIR=/temp/&quot; 
+ &quot;-FILE_NAME=snps_tech_inf.csv&quot; &quot;-CHARSET=ISO8859_1&quot; 
+ &quot;-SNP_INFO_REC_CODE=SUNOPSIS&quot; &quot;-MASTER_REC_CODE=MASTER&quot; 
+ &quot;-WORK_REC_CODE=WORK&quot; &quot;-AGENT_REC_CODE=AGENT&quot; &quot;-TECHNO_REC_CODE=TECHNO&quot; 
+ &quot;-RECORD_SEPARATOR_HEXA=0D0A&quot; &quot;-FIELD_SEPARATOR_HEXA=2C&quot; 
+ &quot;-TEXT_SEPARATOR_HEXA=22&quot;</span></p>
+
+</body>
+</html>

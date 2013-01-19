@@ -1,0 +1,102 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>getFilter()</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="StyleSheet" href="../include/common.css"><style>
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+p.WebHelpNavBar { text-align:right; }
+LI.kadov-p-CWebHelpNavBar { text-align:right; }
+-->
+</style><script language=javascript
+		title=WebHelpSplitCss><!--
+if (navigator.appName !="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='../../include/common.css'>");}
+//--></script>
+
+<script language=javascript
+		title=WebHelpInlineScript><!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+//--></script>
+
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nLoading Methods (LKM)\ngetFilter");
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nIntegration Methods (IKM)\ngetFilter");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>getFilter() Method</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>public java.lang.String <b>getFilter</b>()</span></p>
+
+<h2>Description</h2>
+
+<p>Returns the SQL filters sequence (on the source while loading, on the 
+ staging area while integrating).</p>
+
+<h2>Parameters</h2>
+
+<p>None</p>
+
+<h2>Examples</h2>
+
+<p><span class=Code>insert into &lt;%=odiRef.getTable(&quot;L&quot;, &quot;COLL_NAME&quot;, 
+ &quot;W&quot;)%&gt;<br>
+select &lt;%=odiRef.getColList(&quot;&quot;, &quot;[EXPRESSION]&quot;, 
+ &quot;, &quot;, &quot;&quot;, &quot;INS=1&quot;)%&gt;<br>
+from &lt;%=odiRef.getFrom()%&gt;<br>
+where (1=1)<br>
+&lt;%=odiRef.getJoin()%&gt;<b><br>
+&lt;%=odiRef.getFilter()%&gt;</b><br>
+&lt;%=odiRef.getGrpBy()%&gt;<br>
+&lt;%=odiRef.getHaving()%&gt;</span></p>
+
+</body>
+</html>

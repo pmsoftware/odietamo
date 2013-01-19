@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR: drop table SNP_PLAN_AGENT
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+create table SNP_PLAN_AGENT (
+   I_PLAN_AGENT       <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   SCEN_NAME          <?=snpRef.getDataType("SRC_VARCHAR","35")?> NOT NULL,
+   SCEN_VERSION       <?=snpRef.getDataType("SRC_VARCHAR","35")?> NOT NULL,
+   LAGENT_NAME        <?=snpRef.getDataType("SRC_VARCHAR","35")?> NOT NULL,
+   CONTEXT_CODE       <?=snpRef.getDataType("SRC_VARCHAR","35")?> NOT NULL,
+   STAT_PLAN          <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   S_YEAR             <?=snpRef.getDataType("SRC_VARCHAR","100")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   S_MONTH            <?=snpRef.getDataType("SRC_VARCHAR","100")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   S_DAY              <?=snpRef.getDataType("SRC_VARCHAR","100")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   S_MONTH_DAY        <?=snpRef.getDataType("SRC_VARCHAR","100")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   S_WEEK_DAY         <?=snpRef.getDataType("SRC_VARCHAR","100")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   S_HOUR             <?=snpRef.getDataType("SRC_VARCHAR","100")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   S_MINUTE           <?=snpRef.getDataType("SRC_VARCHAR","100")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   S_SECOND           <?=snpRef.getDataType("SRC_VARCHAR","100")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   R_TIME             <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   R_DUR_INTERVAL     <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   R_INTERVAL_UNIT    <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   R_DUR_CYCLE        <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   R_CYCLE_UNIT       <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   R_DEADLINE         <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   R_DEADLINE_UNIT    <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   R_TIME_ERROR       <?=snpRef.getDataType("SRC_NUMERIC","4")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   IND_RESIDENT       <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   LOG_LEVEL          <?=snpRef.getDataType("SRC_NUMERIC","4")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   S_BEGIN_DATE       <?=snpRef.getDataType("SRC_DATE")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   S_END_DATE         <?=snpRef.getDataType("SRC_DATE")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   S_TYPE             <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   constraint PK_PLAN_AGENT primary key (I_PLAN_AGENT),
+   constraint FK_PLAN_AGENT foreign key (SCEN_NAME, SCEN_VERSION)
+         references SNP_SCEN (SCEN_NAME, SCEN_VERSION)
+)
+]]></Field>
+
+
+
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_LOC_REPW set MIN_EXE_VERSION = '3.0.01.01']]></Field>
+
+</Object>
+</SunopsisRepository>
+

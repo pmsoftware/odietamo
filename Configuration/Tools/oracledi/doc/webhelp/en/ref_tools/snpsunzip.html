@@ -1,0 +1,150 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>OdiUnzip</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nFiles\nOdiUnzip");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<h1>OdiUnZip</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>OdiUnZip -FILE=&lt;file&gt; -TODIR=&lt;dest_dir&gt; 
+ [-OVERWRITE=&lt;yes|</span><span class=Code
+									style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>&gt;] [-ENCODING=&lt;file_name_encoding&gt;]</span></p>
+
+<h2>Description</h2>
+
+<p>Used to unzip an archive file to to a directory.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Parameters</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Mandatory</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p><span class=Code>-FILE=&lt;file&gt;</span></td>
+<td valign="top" class="whs2">
+<p>Yes</td>
+<td valign="top" class="whs2">
+<p>Full path to the ZIP file to unzip</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p><span class=Code>-TODIR=&lt;dest_file&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Yes</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Destination directory or folder</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p><span class=Code>-OVERWRITE=&lt;yes|</span><span class=Code
+													style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Indicates if the files that already exist in the target directory must 
+ be overwritten.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p><span class=Code>-ENCODING=&lt;file_name_encoding&gt;</span></td>
+<td valign="top" class="whs2">
+<p>No</td>
+<td valign="top" class="whs2">
+<p>Character encoding used for filenames inside the archive file. For a 
+ list of possible values see <a href="http://java.sun.com/products/jdk/1.2/docs/guide/internat/encoding.doc.html">http://java.sun.com/products/jdk/1.2/docs/guide/internat/encoding.doc.html</a>. 
+ Defaults to the platform's default character encoding.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>Unzip the file archive_001.zip from directory C:\archive\ into directory 
+ C:\TEMP:</p>
+
+<p><span class=Code>OdiUnZip &quot;-FILE=C:\archive\archive_001.zip&quot; 
+ -TODIR=C:\TEMP\</span></p>
+
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Launching a Scheduler Agent</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+ol.whs2 { list-style:decimal; }
+p.whs3 { font-style:normal; }
+th.whs4 { x-cell-content-align:top; }
+td.whs5 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nTopology Manager\nManaging Agents\nLaunching a Scheduler Agent ");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Launching a Scheduler Agent </h1>
+
+<p>The Agent is a Java TCP/IP service that can be used to execute scenarios 
+ via predefined <a href="../../refmanual/designer/project/folder/package/scenario/snpplanagent.htm">schedules</a> 
+ or on demand.</p>
+
+<p>This agent works as follows:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>When it starts, it connects to the work repository 
+ to get its scheduled executions (all the scenario schedules planned for 
+ it), then runs as listener on its port..</p></li>
+	
+	<li class=kadov-p><p>When an execution query arrives on this agent, 
+ it executes the tasks associated with the query. </p></li>
+	
+	<li class=kadov-p><p>When a scenario must be launched in accordance 
+ to the scheduled executions in memory, the agent executes it, then returns 
+ as listener on the port.</p></li>
+	
+	<li class=kadov-p><p>The agent's scheduled executions can be updated 
+ at any time by clicking on the <span class=ElementGUI>scheduling update</span> 
+ button in the <span class=ElementGUI>physical agent</span> window.</p></li>
+</ul>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> A scheduler agent 
+ has all the functionality of a listener agent.</p>
+
+<h6>To launch a scheduler agent:</h6>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Open a UNIX shell, Dos, QSH (for AS/400) session</p></li>
+	
+	<li class=kadov-p><p>Launch the appropriate command file (agentscheduler.bat 
+ on NT, agentscheduler.sh on Unix or AS/400-QSH), with any necessary parameters.</p></li>
+</ol>
+
+<p>The agent starts up and goes to retrieve its scheduled executions on 
+ the work repository.</p>
+
+<p class="whs3">Examples:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>On Windows: <span class=Code>agentscheduler &quot;-port=20300&quot; 
+ &quot;-v=5&quot;</span> </p></li>
+	
+	<li class=kadov-p><p>On UNIX: <span class=Code>agentscheduler -name=AGENTNT</span></p></li>
+</ul>
+
+<h2>Agent Parameters</h2>
+
+<p class=Remarque><span class=AlertTitre>Caution:</span> To launch a scheduler 
+ agent, the parameters for connecting to the work repository containing 
+ the scheduling must be specified. These parameters are generally given 
+ in the odiparams file. </p>
+
+<p>The table below lists the different parameters that allow the agent 
+ to be configured according to your needs.<span style="color: #ff0000;"> 
+ <font color=red ></font></span>The parameters are preceded by the &quot;-&quot; character and 
+ the possible values are preceded by the &quot;=&quot; character. You must 
+ take the string delimiting syntax specific to the operating system on 
+ which you enter the command into account.</p>
+
+<p>&nbsp;</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs4">
+<p class=TitreTableau>Parameters</th>
+<th valign="top" class="whs4">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td>
+<p class=TexteTableau><span class=Code>-port=&lt;port&gt;</span></td>
+<td>
+<p class=TexteTableau>Port on which the agent is listening. If this parameter 
+ is not specified, the agent runs as listener on the default port 20910.</td></tr>
+
+<tr>
+<td>
+<p class=TexteTableau><span class=Code>-help</span></td>
+<td>
+<p class=TexteTableau>Displays the options and parameters that can be used, 
+ without launching the agent.</td></tr>
+
+<tr>
+<td>
+<p class=TexteTableau><span class=Code>-name=&lt;agent name&gt;</span></td>
+<td>
+<p class=TexteTableau>This is the name of the physical agent used.</p>
+<p class=TexteTableau>Oracle Data Integrator needs this parameter to identify 
+ the agent that executes a session in the following cases: </p>
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>More than one 
+ agent is declared on the same machine (on different ports).</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Your machine's 
+ IP configuration is insufficient to allow Oracle Data Integrator to identify 
+ the agent. This problem occurs frequently on AS/400.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>The agent's IP 
+ address does not allow the agent to be identified (127.0.0.1 or &quot;loopback&quot;).</p></li>
+</ul></td></tr>
+
+<tr>
+<td>
+<p class=TexteTableau><span class=Code>-v=&lt;trace level&gt;</span></td>
+<td>
+<p class=TexteTableau>Allows the agent to generate traces (verbose mode). 
+ There are five trace levels:</p>
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Displays the 
+ start and end of each session.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Displays level 
+ 1, and the start and end of each step.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Displays level 
+ 2, and each task executed.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Displays the 
+ SQL queries executed.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Complete trace, 
+ generally reserved for support.</p></li>
+</ol>
+<p class=TexteTableau>As some of these traces can be voluminous, it is 
+ recommended that you redirect them to a text file using the following 
+ command:</p>
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>in Windows:<span 
+ class=Code> agent.bat &quot;-v=5&quot; &gt; trace.txt</span></p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>in UNIX: &nbsp;<span 
+ class=Code>agent.sh -v=5 &gt; trace.txt</span></p></li>
+</ul></td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs5">
+<p class=TexteTableau
+	style="font-weight: bold;">Work repository connection parameters</td>
+<td colspan="1" rowspan="1" valign="top" class="whs5">
+<p class=TexteTableau
+	style="font-weight: bold;">These parameters, which are used to specify 
+ the connection to the work repository, are specified in the odiparams 
+ file.</td></tr>
+
+<tr>
+<td valign="top" class="whs5">
+<p class=TexteTableau><span class=Code>-SECU_DRIVER=&lt;driver name&gt;</span></td>
+<td valign="top" class="whs5">
+<p class=TexteTableau>JDBC driver to access the master repository.</p>
+<p class=TexteTableau>For example: &nbsp;<span 
+ class=Code>oracle.jdbc.driver.OracleDriver</span></td></tr>
+
+<tr>
+<td valign="top" class="whs5">
+<p class=TexteTableau><span class=Code>-SECU_URL=&lt;url&gt;</span></p>
+<p class=TexteTableau>&nbsp;</td>
+<td valign="top" class="whs5">
+<p class=TexteTableau>JDBC URL to access for the master repository.</p>
+<p class=TexteTableau>For example: &nbsp;<span 
+ class=Code>jdbc:oracle:thin:@168.67.0.100:1522:ORCL</span></td></tr>
+
+<tr>
+<td valign="top" class="whs5">
+<p class=TexteTableau><span class=Code>-SECU_USER=&lt;user&gt;</span></td>
+<td valign="top" class="whs5">
+<p class=TexteTableau>User of the master repository connection (the database 
+ user).</td></tr>
+
+<tr>
+<td valign="top" class="whs5">
+<p class=TexteTableau><span class=Code>-SECU_PASS=&lt;password&gt;</span></td>
+<td valign="top" class="whs5">
+<p class=TexteTableau>Password of the user of the master repository connection. 
+ This password must be encrypted using the command <span class=Code>agent 
+ ENCODE &lt;password&gt;</span>.</td></tr>
+
+<tr>
+<td valign="top" class="whs5">
+<p class=TexteTableau><span class=Code>- WORK_REPOSITORY=&lt;work repository 
+ name&gt;</span></td>
+<td valign="top" class="whs5">
+<p class=TexteTableau>Name of the work repository containing the scenarios 
+ to be executed.</td></tr>
+</table>
+
+<h6>See also:</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><a href="topo_agent_startlistener.htm">Launching 
+ a listener agent</a></p></li>
+	
+	<li class=kadov-p><p><a HREF="topo_agent_startweb.htm">Launching a 
+ web agent</a></p></li>
+	
+	<li class=kadov-p><p><a href="../designer/general/execute_scenario_gui.htm">Executing 
+ a scenario from Designer</a></p></li>
+	
+	<li class=kadov-p><p><a href="scenario_os.htm">Executing a scenario 
+ from an OS command </a></p></li>
+	
+	<li class=kadov-p><p><a HREF="../topology/general/display_scheduling_info.htm">Displaying 
+ the Scheduling Information</a></p></li>
+	
+	<li class=kadov-p><p><a HREF="topo_agent_stop.htm">Stopping an agent</a></p></li>
+</ul>
+
+</body>
+</html>

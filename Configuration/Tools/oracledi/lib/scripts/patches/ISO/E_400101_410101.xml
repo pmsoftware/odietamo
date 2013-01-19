@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ALTER TABLE SNP_SCEN ADD I_POP <?=snpRef.getDataType("SRC_NUMERIC", "10")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ALTER TABLE SNP_SCEN ADD I_TRT <?=snpRef.getDataType("SRC_NUMERIC", "10")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ALTER TABLE SNP_SCEN ADD I_VAR <?=snpRef.getDataType("SRC_NUMERIC", "10")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SCEN_REPORT MODIFY ( SESS_DUR <?=snpRef.getDataType("SRC_NUMERIC", "10", "2")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SCEN_REPORT ALTER COLUMN SESS_DUR <?=snpRef.getDataType("SRC_NUMERIC", "10", "2")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SCEN_REPORT ALTER COLUMN SESS_DUR SET <?=snpRef.getDataType("SRC_NUMERIC", "10", "2")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SESSION MODIFY ( SESS_DUR <?=snpRef.getDataType("SRC_NUMERIC", "10", "2")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESSION ALTER COLUMN SESS_DUR <?=snpRef.getDataType("SRC_NUMERIC", "10", "2")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESSION ALTER COLUMN SESS_DUR SET <?=snpRef.getDataType("SRC_NUMERIC", "10", "2")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_STEP_LOG MODIFY ( STEP_DUR <?=snpRef.getDataType("SRC_NUMERIC", "10", "2")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_STEP_LOG ALTER COLUMN STEP_DUR <?=snpRef.getDataType("SRC_NUMERIC", "10", "2")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_STEP_LOG ALTER COLUMN STEP_DUR SET <?=snpRef.getDataType("SRC_NUMERIC", "10", "2")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_STEP_REPORT MODIFY ( STEP_DUR <?=snpRef.getDataType("SRC_NUMERIC", "10", "2")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_STEP_REPORT ALTER COLUMN STEP_DUR <?=snpRef.getDataType("SRC_NUMERIC", "10", "2")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_STEP_REPORT ALTER COLUMN STEP_DUR SET <?=snpRef.getDataType("SRC_NUMERIC", "10", "2")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+UPDATE SNP_LOC_REPW SET MIN_EXE_VERSION = '4.1.01.01'
+]]></Field>
+
+</Object>
+</SunopsisRepository>

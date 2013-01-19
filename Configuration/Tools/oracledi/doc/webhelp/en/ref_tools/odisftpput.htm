@@ -1,0 +1,305 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>OdiSftpPut</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nInternet\nOdiSftpPut");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<h1>OdiSftpPut</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>OdiSftpPut -HOST=&lt;ftp server host name&gt; -USER=&lt;ftp 
+ user&gt; -PASSWORD=&lt;ftp user password&gt; -LOCAL_DIR=&lt;local dir&gt; 
+ [-LOCAL_FILE=&lt;file name under the LOCAL_DIR&gt;] -REMOTE_DIR=&lt;remote 
+ dir on ftp host&gt; [-REMOTE_FILE=&lt;file name under the REMOTE_DIR&gt;] 
+ [-PASSIVE_MODE=&lt;yes | no&gt;][-TIMEOUT=&lt;time in seconds&gt;] [-IDENTITY_FILE=&lt;full 
+ path to the private key file of the user&gt;] [-KNOWNHOSTS_FILE=&lt;full 
+ path to known hosts file&gt;] [-STRICT_HOSTKEY_CHECKING=&lt;YES | NO&gt;] 
+ [-PROXY_HOST=&lt;proxy server host name&gt;] [-PROXY_PORT=&lt;proxy server 
+ port&gt;] &nbsp;[-PROXY_TYPE=&lt;HTTP 
+ | SOCKS5&gt;]</span></p>
+
+<h2>Description</h2>
+
+<p>Copies a local file to a remote SSH server machine which has the SFTP 
+ subsystem enabled.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Parameters</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Mandatory</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-HOST=&lt;host name of the SSH server&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Yes</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>The host name of the SSH server </td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-USER=&lt;host name of the SSH user&gt;</span></td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Yes</td>
+<td valign="top" class="whs2">
+<p>The user on the SSH server</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-PASSWORD=&lt;password of the Ftp 
+ user&gt;</span></td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Yes</td>
+<td valign="top" class="whs2">
+<p>The password of the SSH user or the passphrase of the password protected 
+ identity file. If the –IDENTITY_FILE argument is provided this value will 
+ be used as the passphrase for the password protected private key file. 
+ If the public key authentication fails then it falls back to the normal 
+ user password authentication.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-LOCAL_DIR=&lt;local dir path&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Yes</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>The directory path on the local machine</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-LOCAL_FILE=&lt;local file&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>The file name under the directory specified in the -LOCAL_DIR argument. 
+ If this argument is missing then all the files and directories under the 
+ -LOCAL_DIR will be copied recursively to the -REMOTE_DIR. &nbsp;Use 
+ * to specify the generic character.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-REMOTE_DIR=&lt;dir on remote SSH 
+ host&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Yes</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>The directory path on the remote SSH host </td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-REMOTE_FILE=&lt;file name under 
+ -REMOTE DIR&gt;</span></td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td valign="top" class="whs2">
+<p>The file name under the directory specified in the -REMOTE_DIR argument. 
+ If this argument is missing then file will be copied with the -LOCAL_FILE 
+ file name. If -LOCAL_FILE argument is also missing then the -LOCAL_DIR 
+ will be copied recursively to the -REMOTE_DIR</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-IDENTITY_FILE=&lt;full path to 
+ the private key file of the user&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>The private key file of the local user. If this argument is specified 
+ then public key authentication is done. The –PASSWORD argument is used 
+ as the password for the password protected private key file. If the authentication 
+ fails then it falls back to the normal user password authentication.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-KNOWNHOSTS_FILE=&lt;full path to 
+ the known hosts file on the local machine&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>The full path to the Known_Hosts file on the local machine. &nbsp;The 
+ Known_Hosts file contains the host keys of all the Remote machines that 
+ the user trusts. If this argument is missing then the &lt;user home dir&gt;/.ssh/Known_hosts 
+ file is used as the Known_Hosts file if it exists. </td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-STRICT_HOSTKEY_CHECKING=&lt;YES 
+ | NO&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>This argument can take YES | NO values. &nbsp;If 
+ YES value is passed then strict hostkey checking is done and the authentication 
+ fails if the remote SSH host key is not present in the Known Hosts file 
+ specified in the –KNOWNHOSTS_FILE parameter. The default value is YES.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-PROXY_HOST</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>The host name of the Proxy server to be used for connection.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-PROXY_PORT</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>The port number of the Proxy server.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-PROXY_TYPE</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>The type of the Proxy server to which you are connecting. It can only 
+ take HTTP | SOCKS5 values. </td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p><span class=Code>-TIMEOUT=&lt;timeout value&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>&nbsp;No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>The time in seconds after which the socket connection will timeout</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>To copy the local directory<span class=Code> C:\temp\test</span>_copy 
+ recursively to the remote directory<span class=Code> /test_copy555</span> 
+ on the FTP server machine.</p>
+
+<p><span class=Code>OdiSftpPut -HOST=disdev3 -USER=test_ftp -PASSWORD=&lt;password&gt; 
+ -LOCAL_DIR=C:\temp\test_copy -REMOTE_DIR=/test_copy555</span></p>
+
+<p>&nbsp;</p>
+
+<p>To copy all files matching the <span class=Code>Document*.txt</span> 
+ pattern under the local directory <span class=Code>C:\temp\</span> to 
+ the remote directory<span class=Code> /</span> on the FTP server machine.</p>
+
+<p><span class=Code>OdiSftpPut -HOST=disdev3 -USER=test_ftp -PASSWORD=&lt;password&gt; 
+ -LOCAL_DIR=C:\temp -LOCAL_FILE=Document*.txt -REMOTE_DIR=/</span></p>
+
+<p>&nbsp;</p>
+
+<p>To copy the <span class=Code>Document1.txt</span> file under the local 
+ directory <span class=Code>C:\temp\</span> to the remote directory <span 
+ class=Code>/</span> on the FTP server machine as a <span class=Code>Sample1.txt</span> 
+ file.</p>
+
+<p><span class=Code>OdiSftpPut -HOST=disdev3 -USER=test_ftp -PASSWORD=&lt;password&gt; 
+ -LOCAL_DIR=C:\temp -LOCAL_FILE=Document1.txt -REMOTE_DIR=/Sample1.txt</span></p>
+
+<p>&nbsp;</p>
+
+<p>To copy the <span class=Code>Document1.txt</span> file under the local 
+ directory<span class=Code> C:\temp\</span> to the remote directory<span 
+ class=Code> /</span> on the FTP server machine as a <span class=Code>Sample1.txt</span> 
+ file. It does public key authentication by providing the path to the Identity 
+ file and the path to the Known Hosts file.</p>
+
+<p><span class=Code>OdiSftpPut -HOST=disdev3 -USER=test_ftp -PASSWORD=&lt;password&gt; 
+ -LOCAL_DIR=C:\temp -LOCAL_FILE=Document1.txt -REMOTE_DIR=/Sample1.txt 
+ -IDENTITY_FILE=C:\Documents and Settings\username\.ssh\id_dsa -KNOWNHOSTS_FILE= 
+ C:\Documents and Settings\username\.ssh\Known_Hosts</span></p>
+
+<p>&nbsp;</p>
+
+<p>To copy the <span class=Code>Document1.txt</span> file under the local 
+ directory <span class=Code>C:\temp\</span> to the remote directory<span 
+ class=Code> /</span> on the FTP server machine as a <span class=Code>Sample1.txt</span> 
+ file. It does public key authentication by providing the path to the Identity 
+ file. &nbsp;It 
+ trusts all the hosts by passing <span class=Code>NO</span> value to the 
+ STRICT_HOSTKEY_CHECKING parameter. </p>
+
+<p><span class=Code>OdiSftpPut -HOST=disdev3 -USER=test_ftp -PASSWORD=&lt;password&gt; 
+ -LOCAL_DIR=C:\temp -LOCAL_FILE=Document1.txt -REMOTE_DIR=/Sample1.txt 
+ -IDENTITY_FILE=C:\Documents and Settings\username\.ssh\id_dsa &nbsp;-STRICT_HOSTKEY_CHECKING=NO</span></p>
+
+</body>
+</html>

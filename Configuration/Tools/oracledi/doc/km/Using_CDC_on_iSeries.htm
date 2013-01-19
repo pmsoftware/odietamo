@@ -1,0 +1,449 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<!--(==============================================================)-->
+<!--(Document created with RoboEditor. )============================-->
+<!--(==============================================================)-->
+
+<head>
+
+<title>Using CDC on iSeries</title>
+
+<!--(Meta)==========================================================-->
+
+<meta http-equiv=content-type content="text/html; charset=windows-1252">
+<meta name=topic-status content=Complete>
+<meta name=topic-check-list content="First Draft,Added To TOC,Finalized,Reviewed">
+<meta name=generator content="RoboHELP by eHelp Corporation - www.ehelp.com">
+<meta name=generator-major-version content=0.1>
+<meta name=generator-minor-version content=1>
+<meta name=filetype content=kadov>
+<meta name=filetype-version content=1>
+<meta name=page-count content=1>
+<meta name=layout-height content=3708>
+<meta name=layout-width content=425>
+<meta name=x-ignored-words content="journaled;journaling;CDCRTVJRN;RPG;J$;QSYS.QADBXREF;cdc_iseries;C;SAVPGM0106;CRTLIB;LIB(ODILIB;CRTSAVF;FILE(ODILIB;BI;ODILIB;CDCSNPRELE;RSTOBJ;OBJ(*ALL;SAVLIB(CDCSNPRELE;DEV(*SAVF;OBJTYPE(*ALL;SAVF(ODILIB;RSTLIB(ODILIB;WRKOBJ;OBJ(ODILIB;ODILIB.CDCRTVJRN(;SbsTName;JrnTName;LogMsg;Y;N;rpgle;RETRIEVE_JOURNAL_ENTRIES;SMALLINT;BIGINT;VARCHAR;ROWID;SNP_SUBSCRIBERS.JRN_CURFROMDATE;SNP_SUBSCRIBERS.JRN_CURFROMDATE.;CREATE_SPOOL_FILE;WRKSPLF;DSPJRN">
+
+
+<!--(Links)=========================================================-->
+
+<link rel=StyleSheet href="..\..\..\include\common.css">
+
+
+
+</head>
+
+<!--(Body)==========================================================-->
+
+
+<body>
+
+<h1>Using CDC on iSeries</h1>
+
+<p>Data Integrator handles Changed Data Capture on iSeries with two methods:</p>
+
+<ul style="list-style: disc;"
+	type=disc>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;">Using Triggers</span> 
+ on the journalized tables. This method is set up with the <span style="font-style: italic;">JKM 
+ DB2/400 Simple </span>or<span style="font-style: italic;"> JKM DB2/400 
+ Consistent. </span>This CDC is not different from the CDC on other systems. 
+ Refer to the Change Data Capture topic for more information.</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;">Reading Native 
+ iSeries Transaction Journals.</span> This method is set up with the <span 
+ style="font-style: italic;">JKM DB2/400 Journal Simple </span>and used 
+ by the<span style="font-style: italic;"> LKM DB2/400 Journal to SQL.</span> 
+ Although it usually provided performances, this method does not support 
+ Consistent Set CDC, and requires a platform-specific configuration detailed 
+ below.</p></li>
+</ul>
+
+<h2>How does it work?</h2>
+
+<p>A iSeries transaction journal contains the entire history of the data 
+ changes for a given period. It is handled by the iSeries system for tables 
+ that are journaled. A journaled table is either a table from a collection, 
+ or a table for which a journal receiver and a journal have been created 
+ and journaling started.</p>
+
+<p>Reading the transaction journal is performed by the a journal retriever 
+ <span class=Code>CDCRTVJRN</span> RPG program provided with Data Integrator. 
+ This program loads on demand the tables of the Data Integrator CDC infrastructure 
+ (J$ tables) with the contents from the transaction journal. </p>
+
+<p>This program can be either scheduled on the iSeries system or called 
+ by the KMs through a stored procedure also called <span class=Code>CDCRTVJRN</span>. 
+ <br>
+This stored procedure is automatically created by the <!--kadov_tag{{<spaces>}}-->&nbsp;<span 
+ style="font-style: italic;"><!--kadov_tag{{</spaces>}}-->JKM DB2/400 Journal 
+ Simple </span>and invoked by the <span style="font-style: italic;">LKM 
+ DB2/400 Journal to SQL</span> when data extraction is needed.</p>
+
+<h3>CDCRTVJRN Program Details</h3>
+
+<p>This program connects to the native iSeries journal for a given table, 
+ and captures changed data information into the Data Integrator Journal 
+ (J$).</p>
+
+<p>The program works as follows:</p>
+
+<ol style="list-style: decimal;"
+	type=1>
+	
+	<li class=kadov-p><p>Journalized table attributes retrieval: </p></li>
+	
+	<ol style="list-style: lower-alpha;"
+		type=a>
+		
+		<li class=kadov-p><p>Table attributes retrieval: PK columns, J$ 
+ table name, last journal reading date.</p></li>
+		
+		<li class=kadov-p><p>Attributes enrichment (short names, record 
+ size, etc.) using the <span class=Code>QSYS.QADBXREF</span> system table.</p></li>
+		
+		<li class=kadov-p><p>Location of the iSeries journal using the 
+ <span class=Code><!--kadov_tag{{<ignored>}}-->QADBRTVFD(<!--kadov_tag{{</ignored>}}-->)</span> 
+ API.</p></li>
+	</ol>
+	
+	<li class=kadov-p><p>PK columns information retrieval:</p></li>
+	
+	<ol style="list-style: lower-alpha;"
+		type=a>
+		
+		<li class=kadov-p><p>PK columns attributes (short name, data types 
+ etc.) using the <span class=Code><!--kadov_tag{{<ignored>}}-->QSYS.QADBIFLD<!--kadov_tag{{</ignored>}}--></span> 
+ system table.</p></li>
+		
+		<li class=kadov-p><p>Attributes enrichment (real physical length) 
+ using the <span class=Code><!--kadov_tag{{<ignored>}}-->QUSLFLD(<!--kadov_tag{{</ignored>}}-->)</span> 
+ API.</p></li>
+		
+		<li class=kadov-p><p>Data preprocessing (RPG to SQL datatype conversion) 
+ for the primary key columns.</p></li>
+	</ol>
+	
+	<li class=kadov-p><p>Extraction the native journal information into 
+ the J$ table :</p></li>
+	
+	<ol style="list-style: lower-alpha;"
+		type=a>
+		
+		<li class=kadov-p><p>Native journal reading using the <span class=Code><!--kadov_tag{{<ignored>}}-->QJoRetrieveJournalEntries(<!--kadov_tag{{</ignored>}}-->)</span> 
+ API.</p></li>
+		
+		<li class=kadov-p><p>Conversion of the raw data to native SQL data 
+ and capture into the J$ table.</p></li>
+		
+		<li class=kadov-p><p>Update of the changes count.</p></li>
+	</ol>
+</ol>
+
+<p>This program accepts the following parameters:</p>
+
+<!--(Table)=========================================================-->
+<table x-use-null-cells>
+<col>
+<col>
+<col>
+<col>
+
+<tr>
+<th style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter</th>
+<th colspan=1
+	rowspan=1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>RPG Type</th>
+<th colspan=1
+	rowspan=1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>SQL Type</th>
+<th style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau><!--kadov_tag{{<ignored>}}-->SbsTName<!--kadov_tag{{</ignored>}}--></td>
+<td colspan=1
+	rowspan=1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>A138</td>
+<td colspan=1
+	rowspan=1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>Char(138)</td>
+<td style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>Full name of the subscribers table in the following 
+ format: <span class=Code>&lt;Lib&gt;.&lt;Table&gt;. </span></p>
+<p class=TexteTableau>Example: <span class=Code><!--kadov_tag{{<ignored>}}-->ODILIB.SNP_SUBSCRIBERS<!--kadov_tag{{</ignored>}}--></span></td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau><!--kadov_tag{{<ignored>}}-->JrnTName<!--kadov_tag{{</ignored>}}--></td>
+<td colspan=1
+	rowspan=1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>A138</td>
+<td colspan=1
+	rowspan=1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>Char(138)</td>
+<td colspan=1
+	rowspan=1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>Full name of the table for which the extract is done 
+ from the journal.</p>
+<p class=TexteTableau>Example: <span class=Code><!--kadov_tag{{<ignored>}}-->FINANCE.MY_COMPANY_ORDERS<!--kadov_tag{{</ignored>}}--></span></td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau><!--kadov_tag{{<ignored>}}-->JrnSubscriber<!--kadov_tag{{</ignored>}}--></td>
+<td colspan=1
+	rowspan=1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>A50</td>
+<td colspan=1
+	rowspan=1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>Char(50)</td>
+<td colspan=1
+	rowspan=1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>Name of the current subscriber. It must previously 
+ have been added to the list of subscribers.</td></tr>
+
+<tr>
+<td style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau><!--kadov_tag{{<ignored>}}-->LogMessages<!--kadov_tag{{</ignored>}}--></td>
+<td colspan=1
+	rowspan=1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>A1</td>
+<td colspan=1
+	rowspan=1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>Char(1)</td>
+<td style="x-cell-content-align: top;"
+	valign=top>
+<p class=TexteTableau>Flag activating logging in a spool file. Possible 
+ values are: <span class=Code><!--kadov_tag{{<ignored>}}-->Y<!--kadov_tag{{</ignored>}}--></span> 
+ enable logging, and <span class=Code><!--kadov_tag{{<ignored>}}-->N<!--kadov_tag{{</ignored>}}--></span> 
+ to disable logging.</td></tr>
+</table>
+
+<h2>Installing the CDC Components on iSeries</h2>
+
+<p>There are two major components installed on the iSeries system to enable 
+ native journal reading:</p>
+
+<ul style="list-style: disc;"
+	type=disc>
+	
+	<li class=kadov-p><p>The <span class=ElementGUI>CDCRTVJRN Program.</span> 
+ This program is provided in an archive that should installed in the iSeries 
+ system. The installation process is described below.</p></li>
+	
+	<li class=kadov-p><p>The <span class=ElementGUI>CDC Infrastructure</span>. 
+ It includes the standard CDC objects (J$ tables, views, ...) and the <span 
+ class=ElementGUI>CDCRTVJRN Stored Procedure</span> created by the JKM 
+ and used by the LKM to read journals. This stored procedure executes the 
+ CDCRTVJRN program.</p></li>
+</ul>
+
+<p class=Remarque><span class=AlertTitre>Important</span>: The program 
+ must be set up in a library defined in the Topology as the <span style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ ">default 
+ work library</span> for this iSeries data server. In the examples below, 
+ this library is called <span class=Code
+								style="color: #0000ff;"><!--kadov_tag{{<ignored>}}-->ODILIB<!--kadov_tag{{</ignored>}}-->.</span></p>
+
+<h3>Installing the CDCRTVJRN Program</h3>
+
+<p class=HowTo>To install the CDCRTVJRN program:</p>
+
+<ol style="list-style: decimal;"
+	type=1>
+	
+	<li class=kadov-p><p>Copy the program save file from the <span class=Code>/tools/cdc_iseries/</span> 
+ directory to a temporary directory (<span class=Code>C:\temp</span>) on 
+ your system. In our examples, we name this copy <span class=Code
+														style="color: #008000;">SAVPGM0106</span>.</p></li>
+	
+	<li class=kadov-p><p>Connect to the iSeries system with a terminal.</p></li>
+	
+	<li class=kadov-p><p>Create the default work library if it does not 
+ exist yet:<br>
+	Example: <span class=Code>CRTLIB LIB(ODILIB)</span></p></li>
+	
+	<li class=kadov-p><p>Create in this library an empty save file that 
+ has the same name as the save file (mandatory) <br>
+	Example: <span class=Code>CRTSAVF FILE(ODILIB/</span><span class=Code
+	style="color: #008000;">SAVPGM0106</span><span class=Code>)</span></p></li>
+	
+	<li class=kadov-p><p>Upload the local save file on the iSeries system 
+ in the library and on top of the save file you have just created. Make 
+ sure that the upload is performed in binary mode. A FTP command sequence 
+ performing the upload is given below:</p></li>
+</ol>
+
+<p style="margin-left: 40px;"><span class=Code>FTP </span><span class=Code
+	style="color: #808080;">192.168.0.13</span><span class=Code><br>
+LCD </span><span class=Code
+				style="color: #808080;">C:\TEMP</span><span class=Code><br>
+BI<br>
+CD ODILIB<br>
+PUT </span><span class=Code
+				style="color: #008000;">SAVPGM0106</span><span class=Code><br>
+BYE</span></p>
+
+<ol start=6
+	style="list-style: decimal;"
+	type=1>
+	
+	<li class=kadov-p><p>Restore the objects of the <span class=Code>CDCSNPRELE</span> 
+ library from the save file, using the <span class=Code>RSTOBJ</span> command, 
+ to your target library:<span class=Code><br>
+	RSTOBJ OBJ(*ALL) SAVLIB(CDCSNPRELE) DEV(*SAVF) OBJTYPE(*ALL) SAVF(ODILIB/</span><span 
+ class=Code
+	style="color: #008000;">SAVPGM0106</span><span class=Code>) RSTLIB(ODILIB)</span></p></li>
+	
+	<li class=kadov-p><p>You can check that the objects are correctly restored. 
+ The target library should contain a program object called CDCRTVJRN. Use 
+ the command below to view it:<span class=Code><br>
+	WRKOBJ OBJ(ODILIB/CDCRTVJRN)</span></p></li>
+</ol>
+
+<h3>The CDCRTVJRN Stored Procedure</h3>
+
+<p>This procedure is used to call the CDCRTVJRN program. It is automatically 
+ created by the <span style="font-style: italic;">JKM DB2/400 Journal Simple 
+ </span>KM when journalizing is started. Journalizing startup is described 
+ in the <a HREF="../../designer/model/journalizing.htm">Change Data Capture</a> 
+ topic.</p>
+
+<p>The syntax for the stored procedure is provided below for reference:</p>
+
+<p style="margin-left: 40px;"><span class=Code>create procedure ODILIB.CDCRTVJRN(</span></p>
+
+<p style="margin-left: 80px;"><span class=Code>SbsTName <!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->char(138), 
+ /* Qualified Subscriber Table Name */</span></p>
+
+<p style="margin-left: 80px;"><span class=Code>JrnTName <!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->char(138), 
+ /* Qualified Table Name <!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->*/</span></p>
+
+<p style="margin-left: 80px;"><span class=Code>Subscriber char(50) , /* 
+ Subscriber Name <!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->*/</span></p>
+
+<p style="margin-left: 80px;"><span class=Code>LogMsg <!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->char(1) 
+ <!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->/* 
+ Create a Log (Y - Yes, N - No) <!--kadov_tag{{<spaces>}}-->&nbsp;<!--kadov_tag{{</spaces>}}-->*/</span></p>
+
+<p style="margin-left: 40px;"><span class=Code>)</span></p>
+
+<p style="margin-left: 40px;"><span class=Code>language rpgle</span></p>
+
+<p style="margin-left: 40px;"><span class=Code>external name 'ODILIB/CDCRTVJRN'</span></p>
+
+<p class=Remarque><span class=AlertTitre>Important</span>: The stored procedure 
+ and the program are installed in a library defined in the Topology as 
+ the <span style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ ">default 
+ work library</span> for this iSeries data server.</p>
+
+<h2>Using the CDC with the Native Journals</h2>
+
+<p>Once the program is installed and the CDC is setup, using the native 
+ journals consists in using the <span style="font-style: italic;">LKM DB2/400 
+ Journal to SQL</span> to extract journalized data from the iSeries system. 
+ The retrieval process is triggered if the <span class=Code>RETRIEVE_JOURNAL_ENTRIES</span> 
+ option is set to Y for the LKM.</p>
+
+<h2>Problems While Reading Journals</h2>
+
+<h3>CDCRTVJRN Program Limits</h3>
+
+<p>The following limits exist for the CDCRTVJRN program:</p>
+
+<ul style="list-style: disc;"
+	type=disc>
+	
+	<li class=kadov-p><p>Support iSeries version: v5r2. Please contact 
+ the support for other versions.</p></li>
+	
+	<li class=kadov-p><p>The source table should be journaled and the iSeries 
+ journal should be readable by the user specified in the iSeries data server.</p></li>
+	
+	<li class=kadov-p><p>The source table should have one PK defined in 
+ Data Integrator.</p></li>
+	
+	
+	<li class=kadov-p><p>The number of columns in the PK should not exceed 
+ 16.</p></li>
+	
+	<li class=kadov-p><p>The total number of characters of the PK column 
+ names added to the number of columns of the PK should not exceed 255.</p></li>
+	
+	<li class=kadov-p><p>Large object datatypes are not supported in the 
+ PK. Only the following SQL types are supported in the PK: SMALLINT, INTEGER, 
+ BIGINT, DECIMAL (Packed), NUMERIC (Zoned), FLOAT, REAL, DOUBLE, CHAR, 
+ VARCHAR, CHAR VARYING, DATE, TIME, TIMESTAMP and ROWID</p></li>
+	
+	<li class=kadov-p><p>Several instances of CDCRTVJRN should not be started 
+ simultaneously on the same system.</p></li>
+	
+	<li class=kadov-p><p>Reinitializing the sequence number in the iSeries 
+ journal may have a critical impact on the program (program hangs) if the 
+ journal entries consumption date (SNP_SUBSCRIBERS.JRN_CURFROMDATE) is 
+ before the sequence initialization date. To work around this problem, 
+ you should manually set a later date in SNP_SUBSCRIBERS.JRN_CURFROMDATE.</p></li>
+</ul>
+
+<h3>Troubleshooting the CDCRTVJRN Program</h3>
+
+<p>The journal reading process can be put in trace mode:</p>
+
+<ul style="list-style: disc;"
+	type=disc>
+	
+	<li class=kadov-p><p>either by calling from your query tool the CDCRTVJRN 
+ stored procedure with the <span class=Code>LogMsg</span> parameter set 
+ to Y, </p></li>
+	
+	<li class=kadov-p><p>or by forcing the <span class=Code>CREATE_SPOOL_FILE</span> 
+ LKM option to 1 then restarting the interface.</p></li>
+</ul>
+
+<p>The reading process logs are stored in a spool file which can be reviewed 
+ using the <span class=Code>WRKSPLF</span> command.</p>
+
+<p>You can also review the raw contents of the iSeries journal using the 
+ <span class=Code>DSPJRN</span> command.</p>
+
+</body>
+
+</html>

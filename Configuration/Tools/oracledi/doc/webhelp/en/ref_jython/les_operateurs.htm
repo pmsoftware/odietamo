@@ -1,0 +1,265 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Operators</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Jython Quick Reference\nThe Basics\nOperators");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Operators</h1>
+
+<p>Operators, by precedence order:</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p>Operator</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau
+	style="text-align: center;"
+	align=center>Description </th></tr>
+
+<tr>
+<td class=whs4>
+<p><span class=Code
+		style="font-weight: bold;"><B>lambda</B></span><span class=Code> args: 
+ expr</span></td>
+<td class=whs5>
+<p>Anonymous function constructor</td></tr>
+
+<tr>
+<td class=whs6>
+<p><span class=Code>x </span><span class=Code
+									style="font-weight: bold;"><B>or</B></span><span 
+ class=Code> y</span></td>
+<td class=whs7>
+<p>Logical OR</td></tr>
+
+<tr>
+<td class=whs8>
+<p><span class=Code>x </span><span class=Code
+									style="font-weight: bold;"><B>and</B></span><span 
+ class=Code> y </span></td>
+<td class=whs9>
+<p>Logical AND</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1
+	class=whs10>
+<p><span class=Code
+		style="font-weight: bold;"><B>not</B></span><span class=Code> x </span></td>
+<td colspan=1
+	rowspan=1
+	class=whs11>
+<p>Logical NOT</td></tr>
+
+<tr>
+<td class=whs12>
+<p><span class=Code>x</span><span class=Code
+									style="font-weight: bold;"><B>&lt;</B></span><span 
+ class=Code>y &nbsp;x</span><span 
+ class=Code
+	style="font-weight: bold;"><B>&lt;=</B></span><span class=Code>y &nbsp;x</span><span 
+ class=Code
+	style="font-weight: bold;"><B>&gt;</B></span><span class=Code>y &nbsp;x</span><span 
+ class=Code
+	style="font-weight: bold;"><B>&gt;=</B></span><span class=Code>y &nbsp;x</span><span 
+ class=Code
+	style="font-weight: bold;"><B>==</B></span><span class=Code>y x</span><span 
+ class=Code
+	style="font-weight: bold;"><B>!=</B></span><span class=Code>y &nbsp;x</span><span 
+ class=Code
+	style="font-weight: bold;"><B>&lt;&gt;</B></span><span class=Code>y </span></p>
+<p><span class=Code>x </span><span class=Code
+									style="font-weight: bold;"><B>is</B></span><span 
+ class=Code> y &nbsp;&nbsp;x 
+ </span><span class=Code
+				style="font-weight: bold;"><B>is not</B></span><span class=Code> 
+ y </span></p>
+<p><span class=Code>x </span><span class=Code
+									style="font-weight: bold;"><B>in</B></span><span 
+ class=Code> s &nbsp;&nbsp;x 
+ </span><span class=Code
+				style="font-weight: bold;"><B>not in</B></span><span class=Code> 
+ s </span></td>
+<td class=whs13>
+<p>Comparison operators (equal, not equal, is same object, belongs to a 
+ sequence...)</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>x</span><span class=Code
+									style="font-weight: bold;"><B>|</B></span><span 
+ class=Code>y </span></td>
+<td colspan=1
+	rowspan=1>
+<p>Bitwise OR</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>x</span><span class=Code
+									style="font-weight: bold;"><B>^</B></span><span 
+ class=Code>y </span></td>
+<td colspan=1
+	rowspan=1>
+<p>Exclusive OR</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>x</span><span class=Code
+									style="font-weight: bold;"><B>&amp;</B></span><span 
+ class=Code>y</span></td>
+<td colspan=1
+	rowspan=1>
+<p>Bitwise AND</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>x</span><span class=Code
+									style="font-weight: bold;"><B>&lt;&lt;</B></span><span 
+ class=Code>y &nbsp;&nbsp;x</span><span 
+ class=Code
+	style="font-weight: bold;"><B>&gt;&gt;</B></span><span class=Code>y </span></td>
+<td colspan=1
+	rowspan=1>
+<p>Left shift, right shift</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>x</span><span class=Code
+									style="font-weight: bold;"><B>+</B></span><span 
+ class=Code>y &nbsp;x</span><span 
+ class=Code
+	style="font-weight: bold;"><B>-</B></span><span class=Code>y </span></td>
+<td colspan=1
+	rowspan=1>
+<p>Addition/concatenation, subtraction</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>x</span><span class=Code
+									style="font-weight: bold;"><B>*</B></span><span 
+ class=Code>y &nbsp;x</span><span 
+ class=Code
+	style="font-weight: bold;"><B>/</B></span><span class=Code>y &nbsp;x</span><span 
+ class=Code
+	style="font-weight: bold;"><B>%</B></span><span class=Code>y </span></td>
+<td colspan=1
+	rowspan=1>
+<p>Multiplication/repeat, division, modulo</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>x</span><span class=Code
+									style="font-weight: bold;"><B>**</B></span><span 
+ class=Code>y</span></td>
+<td colspan=1
+	rowspan=1>
+<p>Power</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code
+		style="font-weight: bold;"><B>+</B></span><span class=Code>x, </span><span 
+ class=Code
+	style="font-weight: bold;"><B>-</B></span><span class=Code>x, </span><span 
+ class=Code
+	style="font-weight: bold;"><B>~</B></span><span class=Code>x </span></td>
+<td colspan=1
+	rowspan=1>
+<p>Identity, unary NOT, bitwise complement</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>s[i] &nbsp;s[i:j] 
+ &nbsp;s.attr 
+ f(...) </span></td>
+<td colspan=1
+	rowspan=1>
+<p>Index, range, attribute qualification, function call</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>(...) [...] {...} '...'</span></td>
+<td colspan=1
+	rowspan=1>
+<p>Tuple, list, dictionary, conversion to string</td></tr>
+</table>
+
+<p>&nbsp;</p>
+
+</body>
+</html>

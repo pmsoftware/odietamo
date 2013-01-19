@@ -1,0 +1,299 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Launching a Scenario from an OS Command</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+th.whs2 { x-cell-content-align:top; }
+td.whs3 { x-cell-content-align:top; }
+ul.whs4 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nDesigner\nExecution\nExecuting a Scenario from an OS Command ");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Executing a Scenario from an OS Command </h1>
+
+<p>You can launch a scenario from an operating system command.</p>
+
+<h6>To launch a scenario from an OS command:</h6>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Launch a <span class=ElementGUI>Shell</span> (Unix), 
+ a <span class=ElementGUI>Command Prompt</span> (Windows) or a <span class=ElementGUI>QSH</span> 
+ session (AS/400)</p></li>
+	
+	<li class=kadov-p><p>In this shell, launch the &quot;startscen.bat&quot; 
+ (on Windows) or startscen.sh (on Unix and AS/400) command. </p></li>
+</ol>
+
+<p>Syntax: <span class=Code>startscen &lt;Name&gt; &lt;Version&gt; &lt;Context 
+ code&gt; [&lt;Log_Level&gt;] [-SESSION_NAME=&lt;session name&gt;] [-KEYWORDS=&lt;keywords&gt;] 
+ [-NAME=&lt;agent_name&gt;] [-v=&lt;trace level&gt;] [&lt;variable&gt;=&lt;value&gt;]*</span></p>
+
+<p class=Remarque><span class=AlertTitre>Warning</span>: On Windows platforms, 
+ it is necessary to &quot;delimit&quot; the command arguments containing 
+ &quot;=&quot; signs or spaces, by using double quotes. The command call 
+ may differ from the Unix command call. For instance :<span class=Code><br>
+startscen.bat SCEN 001 GLOBAL &quot;-v=5&quot; &quot;PROJ1.STATE=MICHIGAN&quot; 
+ </span>(Windows)<span class=Code><br>
+./startscen.sh SCEN 001 GLOBAL -v=5 PROJ1.STATE=MICHIGAN</span> (Unix)</p>
+
+<p>The table below lists the different parameters, both mandatory and optional.<span 
+ style="color: #ff0000;"> <font color=red ></font></span>The parameters are preceded by the &quot;-&quot; 
+ character and the possible values are preceded by the &quot;=&quot; character. 
+ You must follow the character protection syntax specific to the operating 
+ system on which you enter the command.</p>
+
+<p>&nbsp;</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Parameters</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>&lt;Name&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Name of the scenario (mandatory).</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>&lt;Version&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Version of the scenario (mandatory). If the version 
+ specified is &nbsp;<span class=Code>-1</span>, 
+ the last version of the scenario is executed.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>&lt;Context&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Execution context of the scenario (mandatory).</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-v=&lt;trace level&gt;</span></p>
+<p class=TexteTableau>&nbsp;</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Allows a trace to be displayed (verbose mode). There 
+ are five trace levels:</p>
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Displays the 
+ start and end of each session</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Displays level 
+ 1 and the start and end of each step</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Displays level 
+ 2 and each task executed</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Displays the 
+ SQL queries executed, as well as level 4</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>A complete trace, 
+ often requested during a support call</p></li>
+</ol>
+<p class=TexteTableau>As some of these traces can be voluminous, it is 
+ recommended that you redirect them to a text file using the following 
+ command:</p>
+<ul type="disc" class="whs4">
+	
+	<li style="margin-left: -20px;"
+		class=kadov-p-CTexteTableau><p class=TexteTableau>in Windows:<span 
+ class=Code> &quot;-v=5&quot; &gt; trace.txt</span></p></li>
+	
+	<li style="margin-left: -20px;"
+		class=kadov-p-CTexteTableau><p class=TexteTableau>in Unix: &nbsp;<span 
+ class=Code>&nbsp;-v=5 &gt; trace.txt</span></p></li>
+</ul></td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>&lt;Log_Level&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Defines the logging level for this scenario's execution. 
+ All the tasks whose logging level is lower than or equal to this value 
+ will be saved in the log at the end of execution. In the event of the 
+ interface ending abnormally, all tasks, regardless of this value, will 
+ be saved.</p>
+<p class=TexteTableau>This parameter is in the format <span class=Code>LEVEL&lt;n&gt;</span> 
+ where <span class=Code>&lt;n&gt;</span> is the expected logging level, 
+ between 0 and 5. The default log level is 5.</p>
+<p class=TexteTableau>Example : <span class=Code>startscen.bat SCENAR 1 
+ GLOBAL LEVEL5</span></td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-SESSION_NAME=&lt;session_name&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Name of the session that will appear in the execution 
+ log.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-KEYWORDS=&lt;keywords&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>List of keywords attached to this session. These 
+ keywords make session identification easier. The list is a comma-separated 
+ list of keywords.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-NAME=&lt;agent_name&gt;</span></p>
+<p class=TexteTableau>&nbsp;</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Agent name that will appear in the execution log 
+ for this session.</p>
+<p class=Remarque><span class=AlertTitre>Caution:</span> This agent name 
+ does not correspond to a logical or physical agent in the topology. This 
+ parameter does not enable to run a session on a remote agent. The <a HREF="../../ref_tools/snpsstartscen.html">SnpsStartScen</a> 
+ API provides this feature.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>&lt;variable&gt;=&lt;value&gt;</span></p>
+<p class=TexteTableau>&nbsp;</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Allows one to assign a <span class=Code>&lt;value&gt;</span> 
+ to a <span class=Code>&lt;variable&gt;</span> for the execution of the 
+ scenario. <span class=Code>&lt;variable&gt;</span> is either a project 
+ or global variable. Project variables should be named <span class=Code>&lt;Project 
+ Code&gt;.&lt;Variable Name&gt;</span>. Global variables should be called 
+ <span class=Code>GLOBAL.&lt;variable Name&gt;</span>.</p>
+<p class=TexteTableau>This parameter can be repeated to assign several 
+ variables.</p>
+<p class=Remarque><span class=AlertTitre>Caution:</span> Do not use a hash 
+ sign '#' to prefix the variable name on the startscen command line.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">Work repository connection parameters</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau
+	style="font-weight: bold;">These parameters, which are used to specify 
+ the connection to the work repository, are specified in the file odiparams.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-SECU_DRIVER=&lt;driver name&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>JDBC driver to access the master repository.</p>
+<p class=TexteTableau>For example: &nbsp;<span 
+ class=Code>oracle.jdbc.driver.OracleDriver</span></td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-SECU_URL=&lt;url&gt;</span></p>
+<p class=TexteTableau>&nbsp;</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>JDBC URL to access for the master repository.</p>
+<p class=TexteTableau>For example: &nbsp;<span 
+ class=Code>jdbc:oracle:thin:@168.67.0.100:1522:ORCL</span></td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-SECU_USER=&lt;user&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>User for the master repository connection (the database 
+ user).</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-SECU_PASS=&lt;password&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Password for the master repository connection user. 
+ This password must be encrypted using the command <span class=Code>agent 
+ ENCODE &lt;password&gt;</span>.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-ODI_USER=&lt;user&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Oracle Data Integrator User whose rights will be used to 
+ execute the scenario. If this user has no rights on the context for instance, 
+ the execution will not work. Default value: SUPERVISOR</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>-ODI_PASS=&lt;password&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Password of the Oracle Data Integrator User. This password 
+ must be encrypted using the command <span class=Code>agent ENCODE &lt;password&gt;</span>.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau><span class=Code>- WORK_REPOSITORY=&lt;work repository 
+ name&gt;</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Name of the work repository containing the scenarios 
+ to be executed.</td></tr>
+</table>
+
+</body>
+</html>

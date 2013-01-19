@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">
+
+	<!-- Modify table structure -->		
+	
+	<!-- SNP_VAR_SCEN : Modify VAR_NAME -->
+	
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[		
+			IGNORE_ERROR:ALTER TABLE SNP_VAR_SCEN DROP CONSTRAINT PK_VAR_SCEN	
+		]]></Field>			
+	
+					
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+		IGNORE_ERROR:create table SNP_VAR_SCEN2 (
+   		SCEN_NO            <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   		VAR_NAME           <?=snpRef.getDataType("SRC_VARCHAR","71")?> NOT NULL,
+   		VAR_TXT            <?=snpRef.getDataType("SRC_VARCHAR","250")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   		IND_STORE          <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   		VAR_DATATYPE       <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   		DEF_N              <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   		DEF_V              <?=snpRef.getDataType("SRC_VARCHAR","250")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   		DEF_DATE           <?=snpRef.getDataType("SRC_DATE")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>
+		)
+		]]></Field>
+		
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[		
+		INSERT INTO SNP_VAR_SCEN2 (
+   			SCEN_NO,
+   			VAR_NAME,
+   			VAR_TXT,
+   			IND_STORE,
+   			VAR_DATATYPE,
+   			DEF_N,
+   			DEF_V,
+   			DEF_DATE)
+   			
+  		SELECT  					
+   			SCEN_NO,
+   			VAR_NAME,
+   			VAR_TXT,
+   			IND_STORE,
+   			VAR_DATATYPE,
+   			DEF_N,
+   			DEF_V,
+   			DEF_DATE  		
+   		FROM SNP_VAR_SCEN  		
+		]]></Field>		 
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[				
+			DROP TABLE SNP_VAR_SCEN
+		]]></Field> 
+		
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[				
+			sp_rename SNP_VAR_SCEN2, SNP_VAR_SCEN	
+		]]></Field> 			
+			
+		 		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			alter table SNP_VAR_SCEN add constraint PK_VAR_SCEN primary key (SCEN_NO, VAR_NAME)
+		]]></Field>		
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			IGNORE_ERROR:alter table SNP_VAR_SCEN add constraint FK_VAR_SCEN foreign key (SCEN_NO) references SNP_SCEN(SCEN_NO)   
+		]]></Field>		
+		
+							
+	<!-- SNP_SCEN_STEP : Modify VAR_NAME -->									
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			alter table SNP_SCEN_STEP DROP CONSTRAINT FK_SCEN_STEP
+		]]></Field>
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			alter table SNP_SCEN_TASK DROP CONSTRAINT FK_SCEN_TASK
+		]]></Field>	
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			alter table SNP_SCEN_STEP drop CONSTRAINT PK_SCEN_STEP
+		]]></Field>		
+	
+	
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			create table SNP_SCEN_STEP2 (
+   				SCEN_NO            <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+			   	NNO                <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+			   	STEP_NAME          <?=snpRef.getDataType("SRC_VARCHAR","35")?> NOT NULL,
+			   	STEP_TYPE          <?=snpRef.getDataType("SRC_VARCHAR","2")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+			   	CONTEXT_CODE       <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+			   	VAR_NAME           <?=snpRef.getDataType("SRC_VARCHAR","71")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+			   	VAR_INCR           <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+			   	VAR_OP             <?=snpRef.getDataType("SRC_VARCHAR","2")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+			   	VAR_VALUE          <?=snpRef.getDataType("SRC_VARCHAR","250")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+			   	OK_EXIT_CODE       <?=snpRef.getDataType("SRC_VARCHAR","35")?> NOT NULL,
+               	OK_EXIT            <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+				OK_NEXT_STEP       <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+				KO_RETRY           <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   				KO_RETRY_INTERV    <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   				KO_EXIT_CODE       <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   				KO_EXIT            <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   				KO_NEXT_STEP       <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   				MAX_ERR            <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   				MAX_ERR_PRCT       <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>
+			)
+		]]></Field>
+		
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[		
+		INSERT INTO SNP_SCEN_STEP2 (
+   				SCEN_NO,
+			   	NNO,
+			   	STEP_NAME,
+			   	STEP_TYPE,
+			   	CONTEXT_CODE,
+			   	VAR_NAME,
+			   	VAR_INCR,
+			   	VAR_OP,
+			   	VAR_VALUE,
+			   	OK_EXIT_CODE,
+               	OK_EXIT,
+				OK_NEXT_STEP,
+				KO_RETRY,
+   				KO_RETRY_INTERV,
+   				KO_EXIT_CODE,
+   				KO_EXIT,
+   				KO_NEXT_STEP,
+   				MAX_ERR,
+   				MAX_ERR_PRCT)
+   			
+  		SELECT  					
+   				SCEN_NO,
+			   	NNO,
+			   	STEP_NAME,
+			   	STEP_TYPE,
+			   	CONTEXT_CODE,
+			   	VAR_NAME,
+			   	VAR_INCR,
+			   	VAR_OP,
+			   	VAR_VALUE,
+			   	OK_EXIT_CODE,
+               	OK_EXIT,
+				OK_NEXT_STEP,
+				KO_RETRY,
+   				KO_RETRY_INTERV,
+   				KO_EXIT_CODE,
+   				KO_EXIT,
+   				KO_NEXT_STEP,
+   				MAX_ERR,
+   				MAX_ERR_PRCT
+   		FROM SNP_SCEN_STEP  		
+		]]></Field>		 		
+		
+		
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[				
+			DROP TABLE SNP_SCEN_STEP
+		]]></Field> 
+		
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[				
+			sp_rename SNP_SCEN_STEP2, SNP_SCEN_STEP	
+		]]></Field> 					
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			alter table SNP_SCEN_STEP
+   			add constraint PK_SCEN_STEP primary key (SCEN_NO, NNO)
+		]]></Field>
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			IGNORE_ERROR:create index SCEN_STEP_FK1
+			on SNP_SCEN_STEP (
+   			SCEN_NO ASC
+			)
+		]]></Field>
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			IGNORE_ERROR:alter table SNP_SCEN_STEP
+   			add constraint FK_SCEN_STEP foreign key (SCEN_NO)
+	      		references SNP_SCEN(SCEN_NO)   
+		]]></Field>
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			IGNORE_ERROR:alter table SNP_SCEN_TASK
+   			add constraint FK_SCEN_TASK foreign key (SCEN_NO, NNO)
+      			references SNP_SCEN_STEP(SCEN_NO, NNO)   
+		]]></Field>
+	
+	
+		
+	<!-- SNP_VAR_SESS : Modify VAR_NAME -->											
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+		IGNORE_ERROR:alter table SNP_VAR_SESS DROP CONSTRAINT PK_VAR_SESS
+	]]></Field>	
+	
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+		IGNORE_ERROR:alter table SNP_VAR_SESS drop constraint FK_VAR_SESS
+	]]></Field>		
+
+	
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[				
+			IGNORE_ERROR:DROP TABLE SNP_VAR_SESS2
+		]]></Field> 
+		
+		
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+		create table SNP_VAR_SESS2 (
+		SESS_NO            <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+		VAR_NAME           <?=snpRef.getDataType("SRC_VARCHAR","71")?> NOT NULL,
+		VAR_TXT            <?=snpRef.getDataType("SRC_VARCHAR","250")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+	    IND_STORE          <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+		VAR_DATATYPE       <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+		DEF_N              <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+		DEF_V              <?=snpRef.getDataType("SRC_VARCHAR","250")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+		DEF_DATE           <?=snpRef.getDataType("SRC_DATE")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>
+		)
+	]]></Field>
+	
+	
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[		
+		INSERT INTO SNP_VAR_SESS2 (
+   			SESS_NO,
+   			VAR_NAME,
+   			VAR_TXT,
+   			IND_STORE,
+   			VAR_DATATYPE,
+   			DEF_N,
+   			DEF_V,
+   			DEF_DATE)
+   			
+  		SELECT  					
+   			SESS_NO,
+   			VAR_NAME,
+   			VAR_TXT,
+   			IND_STORE,
+   			VAR_DATATYPE,
+   			DEF_N,
+   			DEF_V,
+   			DEF_DATE  		
+   		FROM SNP_VAR_SESS  		
+		]]></Field>		 	
+	
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[				
+			DROP TABLE SNP_VAR_SESS
+		]]></Field> 
+		
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[				
+			sp_rename SNP_VAR_SESS2, SNP_VAR_SESS
+		]]></Field> 						
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+	alter table SNP_VAR_SESS
+   	add constraint PK_VAR_SESS primary key (SESS_NO, VAR_NAME)
+	]]></Field>	
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+		IGNORE_ERROR:create index VAR_SESS_FK1
+		on SNP_VAR_SESS (
+   		SESS_NO ASC
+		)
+	]]></Field>		
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+	IGNORE_ERROR:alter table SNP_VAR_SESS
+   	add constraint FK_VAR_SESS foreign key (SESS_NO)
+      	references SNP_SESSION(SESS_NO)   
+	]]></Field>	
+	
+		
+
+	<!-- SNP_SESS_STEP : Modify VAR_NAME -->									
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+	IGNORE_ERROR:alter table SNP_SESS_STEP drop constraint FK_SESS_STEP
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+	IGNORE_ERROR:alter table SNP_SESS_TASK drop constraint FK_SESS_TASK
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_STEP_LOG drop constraint FK_STEP_LOG
+]]></Field>	
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_SESS_STEP drop constraint PK_SESS_STEP
+]]></Field>
+
+		
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:create table SNP_SESS_STEP2 (
+   SESS_NO            <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   NNO                <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   NB_RUN             <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   STEP_NAME          <?=snpRef.getDataType("SRC_VARCHAR","35")?> NOT NULL,
+   STEP_TYPE          <?=snpRef.getDataType("SRC_VARCHAR","2")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   CONTEXT_CODE       <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   VAR_NAME           <?=snpRef.getDataType("SRC_VARCHAR","71")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   VAR_INCR           <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   VAR_OP             <?=snpRef.getDataType("SRC_VARCHAR","2")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   VAR_VALUE          <?=snpRef.getDataType("SRC_VARCHAR","250")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   OK_EXIT_CODE       <?=snpRef.getDataType("SRC_VARCHAR","35")?> NOT NULL,
+   OK_EXIT            <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   OK_NEXT_STEP       <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   KO_RETRY           <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   KO_RETRY_INTERV    <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   KO_EXIT_CODE       <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   KO_EXIT            <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   KO_NEXT_STEP       <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   MAX_ERR            <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   MAX_ERR_PRCT       <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>
+)
+]]></Field>
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[		
+		INSERT INTO SNP_SESS_STEP2 (
+   				SESS_NO,
+			   	NNO,
+			   	NB_RUN,
+			   	STEP_NAME,
+			   	STEP_TYPE,
+			   	CONTEXT_CODE,
+			   	VAR_NAME,
+			   	VAR_INCR,
+			   	VAR_OP,
+			   	VAR_VALUE,
+			   	OK_EXIT_CODE,
+               	OK_EXIT,
+				OK_NEXT_STEP,
+				KO_RETRY,
+   				KO_RETRY_INTERV,
+   				KO_EXIT_CODE,
+   				KO_EXIT,
+   				KO_NEXT_STEP,
+   				MAX_ERR,
+   				MAX_ERR_PRCT)
+   			
+  		SELECT  					
+   				SESS_NO,
+			   	NNO,
+			   	NB_RUN,
+			   	STEP_NAME,
+			   	STEP_TYPE,
+			   	CONTEXT_CODE,
+			   	VAR_NAME,
+			   	VAR_INCR,
+			   	VAR_OP,
+			   	VAR_VALUE,
+			   	OK_EXIT_CODE,
+               	OK_EXIT,
+				OK_NEXT_STEP,
+				KO_RETRY,
+   				KO_RETRY_INTERV,
+   				KO_EXIT_CODE,
+   				KO_EXIT,
+   				KO_NEXT_STEP,
+   				MAX_ERR,
+   				MAX_ERR_PRCT
+   		FROM SNP_SESS_STEP
+		]]></Field>	
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[				
+			DROP TABLE SNP_SESS_STEP
+		]]></Field> 
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[				
+			sp_rename SNP_SESS_STEP2, SNP_SESS_STEP
+		]]></Field> 								
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+alter table SNP_SESS_STEP
+   add constraint PK_SESS_STEP primary key (SESS_NO, NNO)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:create index SESS_STEP_FK1
+on SNP_SESS_STEP (
+   SESS_NO ASC
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_SESS_STEP
+   add constraint FK_SESS_STEP foreign key (SESS_NO)
+      references SNP_SESSION(SESS_NO)   
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_SESS_TASK
+   add constraint FK_SESS_TASK foreign key (SESS_NO, NNO)
+      references SNP_SESS_STEP(SESS_NO, NNO)   
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_STEP_LOG
+   add constraint FK_STEP_LOG foreign key (SESS_NO, NNO)
+      references SNP_SESS_STEP(SESS_NO, NNO)   
+]]></Field>
+
+	
+	
+		
+		
+	<!-- SNP_SESS_TASK : Add Collecte and Default Techno -->										
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[													
+			ALTER TABLE SNP_SESS_TASK ADD DEF_TECH_INT_NAME <?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>	
+		]]></Field>					
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[													
+			ALTER TABLE SNP_SESS_TASK ADD COL_TECH_INT_NAME <?=snpRef.getDataType("SRC_VARCHAR","35")?>	<?=snpRef.getInfo("SRC_DDL_NULL")?>
+		]]></Field>							
+		
+		
+	<!-- SNP_FF_VALUEE -->					
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[		
+			create table SNP_FF_VALUEE
+			(
+				FF_CODE		<?=snpRef.getDataType("SRC_VARCHAR","35")?>	NOT NULL,
+				I_INSTANCE	<?=snpRef.getDataType("SRC_NUMERIC","10")?>	NOT NULL,
+				I_OBJECTS	<?=snpRef.getDataType("SRC_NUMERIC","10")?>	NOT NULL,
+				NUM_VALUE	<?=snpRef.getDataType("SRC_NUMERIC","10")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+				SHORT_TXT_VALUE	<?=snpRef.getDataType("SRC_VARCHAR","250")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+			)
+		]]></Field>			
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[							
+			ALTER TABLE SNP_FF_VALUEE ADD CONSTRAINT PK_SNP_FF_VALUEE PRIMARY KEY (FF_CODE, I_INSTANCE)
+		]]></Field>		
+		
+		
+	<!-- SNP_SCEN_TASK : Collect and default techno -->							
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[		
+			ALTER TABLE SNP_SCEN_TASK ADD DEF_TECH_INT_NAME <?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+		]]></Field>				
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+			ALTER TABLE SNP_SCEN_TASK ADD COL_TECH_INT_NAME <?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+		]]></Field>		
+		
+		
+	<!-- Add USER_NAME -->									
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[				
+			ALTER TABLE SNP_SESSION ADD USER_NAME <?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+		]]></Field>					
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[						
+			ALTER TABLE SNP_PLAN_AGENT ADD USER_NAME <?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+		]]></Field>																	
+		
+	<!-- Update Repository Version-->	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[update SNP_LOC_REPW set MIN_EXE_VERSION = '3.1.01.01']]>
+	</Field>		
+	
+</Object>
+</SunopsisRepository>
+

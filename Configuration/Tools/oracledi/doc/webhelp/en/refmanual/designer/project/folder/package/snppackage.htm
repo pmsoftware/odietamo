@@ -1,0 +1,137 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>What is a Package ?</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+ol.whs2 { list-style:decimal; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nDesigner\nProjects\nCreating Packages\nWhat is a Package?");
+addTocInfo("Reference Manual\nDesigner\nProjects\nPackages\nWhat is a Package?");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>What is a Package ?</h1>
+
+<p>The <span class=ElementGUI>package</span> is the biggest execution unit 
+ in Oracle Data Integrator. A package is made of a sequence of <span class=ElementGUI>steps</span> 
+ organized in an execution diagram.</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><a HREF="../../../../../usermanual/designer/project/package/create_package.htm">Create 
+ a Package</a>.</p></li>
+</ul>
+
+<h2>Steps</h2>
+
+<p>There are different type of steps. They can be grouped in families of 
+ steps:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=ElementGUI>Flow (Interface)</span>: 
+ Executes an interface.</p></li>
+</ul>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=ElementGUI>Procedure</span>: Executes 
+ a procedure.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Variable</span>: Declares, 
+ sets, refreshes or evaluates the value of a variable.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Oracle Data Integrator Tools</span>: 
+ These tools, available in the Toolbox, enable to access all Oracle Data Integrator 
+ API commands, or perform operating system calls. </p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Models, Sub-models</span> 
+ and <span class=ElementGUI>Datastores: </span>Performs journalizing, static 
+ control or reverse-engineering operations on these objects.</p></li>
+</ul>
+
+<p>For example, the &quot;Populate Sales Datamart&quot; Package could be 
+ made up of the following jobs:</p>
+
+<ol type="1" class="whs2">
+	
+	<ol type="1" class="whs2">
+		
+		<li class=kadov-p><p>Procedure &quot;System Backup&quot;</p></li>
+		
+		<li class=kadov-p><p>Interface &quot;Customer Group&quot;</p></li>
+		
+		<li class=kadov-p><p>Interface &quot;Customer&quot;</p></li>
+		
+		<li class=kadov-p><p>Interface &quot;Product&quot;</p></li>
+		
+		<li class=kadov-p><p>Refresh variable &quot;Last Invoice ID&quot; 
+ </p></li>
+		
+		<li class=kadov-p><p>Interface &quot;Invoice Header&quot;</p></li>
+		
+		<li class=kadov-p><p>Interface &quot;Invoice Lines&quot;</p></li>
+	</ol>
+</ol>
+
+</body>
+</html>

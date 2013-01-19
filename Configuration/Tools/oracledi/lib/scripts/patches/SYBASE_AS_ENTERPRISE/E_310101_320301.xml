@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">
+
+	<!-- SNP_SESSION : Add Session Keywords -->									
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+		ALTER TABLE SNP_SESSION ADD SESS_KEYWORDS <?=snpRef.getDataType("SRC_VARCHAR","250")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+	]]></Field>	
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+		ALTER TABLE SNP_SESSION ADD MASTER_AGENT_NAME <?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+	]]></Field>		
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+		ALTER TABLE SNP_SESSION ADD SYNCHRO <?=snpRef.getDataType("SRC_VARCHAR","1")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+	]]></Field>	
+		
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                ALTER TABLE SNP_SESSION ADD PARENT_SESS_NO <?=snpRef.getDataType("SRC_NUMERIC","10")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+        ]]></Field>    
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                ALTER TABLE SNP_SESSION ADD NB_CHILD_RUN <?=snpRef.getDataType("SRC_NUMERIC","10")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+        ]]></Field>    
+        
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                ALTER TABLE SNP_SESSION ADD NB_CHILD_OK <?=snpRef.getDataType("SRC_NUMERIC","10")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+        ]]></Field>     
+        
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                ALTER TABLE SNP_SESSION ADD NB_CHILD_KO <?=snpRef.getDataType("SRC_NUMERIC","10")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+        ]]></Field>     
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                ALTER TABLE SNP_SESSION ADD SCEN_NAME <?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+        ]]></Field> 
+        
+        <!-- SNP_SESSION_FOLDER : Session Folder  -->         
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                CREATE TABLE SNP_SESS_FOLDER 
+                        (
+                                I_SESS_FOLDER   <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+                                FOLDER_NAME     <?=snpRef.getDataType("SRC_VARCHAR","35")?> NOT NULL,
+                                KEYWORDS        <?=snpRef.getDataType("SRC_VARCHAR","250")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+                        )
+        ]]></Field> 
+        
+	<!-- SNP_VAR_PLAN_AGENT -->									
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                CREATE TABLE SNP_VAR_PLAN_AGENT 
+                        (
+                                I_PLAN_AGENT    <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+                                VAR_NAME        <?=snpRef.getDataType("SRC_VARCHAR","71")?> NOT NULL,
+                                VAR_DATA_TYPE   <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+                                VAR_VALUE       <?=snpRef.getDataType("SRC_VARCHAR","250")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+                        )
+	]]></Field>	
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+		ALTER TABLE SNP_VAR_PLAN_AGENT ADD CONSTRAINT PK_SNP_VAR_PLAN_AGENT PRIMARY KEY(I_PLAN_AGENT,  VAR_NAME)
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+		ALTER TABLE SNP_VAR_PLAN_AGENT ADD CONSTRAINT FK_SNP_PLAN_AGENT FOREIGN KEY (I_PLAN_AGENT) REFERENCES SNP_PLAN_AGENT (I_PLAN_AGENT)	
+	]]></Field>
+        
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                IGNORE_ERROR:CREATE INDEX SNP_VAR_PLAN_AGENT_FK1 ON SNP_VAR_PLAN_AGENT ( I_PLAN_AGENT )
+        ]]></Field>		
+	      
+        <!-- SNP_LOCK -->
+        <Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+		CREATE TABLE SNP_LOCK
+			(
+				LOCK_ID         <?=snpRef.getDataType("SRC_VARCHAR","35")?> NOT NULL,
+				LOCK_NAME       <?=snpRef.getDataType("SRC_VARCHAR","50")?> NOT NULL
+			)
+	]]></Field>			
+
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[		
+		ALTER TABLE SNP_LOCK ADD CONSTRAINT PK_SNP_LOCK PRIMARY KEY (LOCK_ID)
+	]]></Field>						
+			
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[	
+                INSERT INTO SNP_LOCK (LOCK_ID, LOCK_NAME) VALUES ('NB_SESSION' , 'Nombre de sessions')	
+	]]></Field>							
+        		
+	<!-- Update Repository Version -->	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+                UPDATE SNP_LOC_REPW SET MIN_EXE_VERSION = '3.2.03.01'
+        ]]></Field>		
+	
+</Object>
+</SunopsisRepository>

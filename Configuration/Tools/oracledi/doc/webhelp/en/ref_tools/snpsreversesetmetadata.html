@@ -1,0 +1,171 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>OdiReverseSetMetaData</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="StyleSheet" href="../include/common.css"><style>
+<!--
+th.whs1 { x-cell-content-align:top; }
+th.whs2 { x-cell-content-align:top; }
+th.whs3 { x-cell-content-align:top; }
+td.whs4 { x-cell-content-align:top; }
+td.whs5 { x-cell-content-align:top; }
+td.whs6 { x-cell-content-align:top; }
+-->
+</style><style>
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+p.WebHelpNavBar { text-align:right; }
+LI.kadov-p-CWebHelpNavBar { text-align:right; }
+-->
+</style><script language=javascript
+		title=WebHelpSplitCss><!--
+if (navigator.appName !="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='../../include/common.css'>");}
+//--></script>
+
+<script language=javascript
+		title=WebHelpInlineScript><!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+//--></script>
+
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nMetadata\nOdiReverseSetMetaData");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>OdiReverseSetMetaData</h1>
+
+<h2>Usage</h2>
+
+<p><b style="font-weight: bold;"><span class=Code>OdiReverseSetMetaData</b> 
+ -MODEL=&lt;model_id&gt;</span></p>
+
+<h2>Description</h2>
+
+<p>During a personalized reverse engineering, it is possible to load the 
+ temporary tables:</p>
+
+<ul>
+	
+	<li class=kadov-p
+		class=kadov-p>SNP_REV_TABLE: Table of the datastores</li>
+	
+	<li class=kadov-p
+		class=kadov-p>SNP_REV_COL: Table of the columns</li>
+	
+	<li class=kadov-p
+		class=kadov-p>SNP_REV_KEY: Table of the unique keys</li>
+	
+	<li class=kadov-p
+		class=kadov-p>SNP_REV_KEY_COL: Table of the keys columns&nbsp;</li>
+	
+	<li class=kadov-p
+		class=kadov-p>SNP_REV_JOIN: Table of the foreign keys</li>
+	
+	<li class=kadov-p
+		class=kadov-p>SNP_REV_JOIN_COL: Table of the foreign keys columns</li>
+	
+	<li class=kadov-p
+		class=kadov-p>SNP_REV_COND: Table of the conditions (check constraints)</li>
+</ul>
+
+<p>with meta-data through a specific processing, from a Knowledge Module 
+ or from Oracle Data Integrator interfaces. The processing can be summarized in 
+ three major steps:</p>
+
+<ul>
+	
+	<li class=kadov-p
+		class=kadov-p>Purge the temporary tables of the reverse engineering</li>
+	
+	<li class=kadov-p
+		class=kadov-p>Personalized processing to feed these reverse engineering 
+ tables from the meta-data</li>
+	
+	<li class=kadov-p
+		class=kadov-p>Execution of the integration of the meta-data in 
+ the Repository</li>
+</ul>
+
+<p>The command <b>OdiReverseSetMetaData</b> is used to integrate data 
+ from these temporary tables into the Repository for a given data model.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameters</th>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Mandatory</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau><span class=Code>-MODEL=&lt;model_id&gt;</span></td>
+<td class=whs5>
+<p class=TexteTableau>Yes</td>
+<td class=whs6>
+<p class=TexteTableau>Internal identifier of the model to be reversed.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p><b style="font-weight: bold;"><span class=Code>OdiReverseSetMetaData</b> 
+ -MODEL=123001</span></p>
+
+</body>
+</html>

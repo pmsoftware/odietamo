@@ -1,0 +1,949 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Release Notes</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Appendix\nRelease Notes");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Oracle Data Integrator Driver for XML Release Notes</h1>
+
+<h6>Changes in version 10.1.3.4</h6>
+
+<p>New Features</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Full support for Boolean types.&nbsp;Boolean values 
+ are mapped to a numeric column containing either 0 or 1. Entries in XML 
+ and XSD files may also be &quot;true&quot; or &quot;false&quot;. See <a 
+ href="xsd_support.htm">XML Schema Supported Features</a>.</p></li>
+	
+	<li class=kadov-p><p>Prefixes in the generated tables are now more 
+ consistent with namespaces.</p></li>
+	
+	<li class=kadov-p><p>Changing namespace prefix definitions within an 
+ XSD file is now supported.</p></li>
+	
+	<li class=kadov-p><p>Changing the target namespace in an XSD file is 
+ now supported.</p></li>
+</ul>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Elements can be defined using namespace prefixes 
+ to override de current target namespace.</p></li>
+	
+	<li class=kadov-p><p>Target file can be generated with no default namespace 
+ using the no_default_ns URL parameter or the NO_DEFAULT_NS option of the 
+ CREATE FILE command.</p></li>
+	
+	<li class=kadov-p><p>6353068: Smart namespace prefix generation using 
+ the ns_prefix_generation URL parameter.</p></li>
+</ul>
+
+<h6>Changes in version 10.1.3.0</h6>
+
+<p>New Features</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>129950: Improved support for XSD: Element groups 
+ are now supported. See <a href="xsd_support.htm">XML Schema Supported 
+ Features</a>.</p></li>
+</ul>
+
+<p>Problems Fixed</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p
+		class=kadov-p>Problem with attribute groups when defined in an 
+ included XSD file.</li>
+</ul>
+
+<h6>Changes in version 3.03</h6>
+
+<p>Problems Fixed</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>130456: The reverse of a Model based on XSD file 
+ does not work</p></li>
+	
+	<li class=kadov-p><p>Support for the &quot;targetNamespace&quot; attribute.</p></li>
+	
+	<li class=kadov-p><p>Improved Support for namespace prefixes.</p></li>
+	
+	<li class=kadov-p><p>131218: The root element URL parameter is re-activated 
+ in order to specify the root element of a DTD or XSD file. This parameter 
+ can be used for reverse-engineer a specific message definition from a 
+ WSDL file.</p></li>
+	
+	<li class=kadov-p><p>Elements containing empty PCDATA are allowed even 
+ if the element is marked as mandatory.</p></li>
+	
+	<li class=kadov-p><p>New parameter &quot;numeric_scale&quot; or &quot;ns&quot; 
+ to indicate in the URL the scale of the numeric columns generated during 
+ the XML to SQL mapping.</p></li>
+	
+	<li class=kadov-p><p>Long integer values now work correctly.</p></li>
+</ul>
+
+<h6>Changes in version 3.02</h6>
+
+<p>Problems Fixed</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p
+		class=kadov-p>123978: When performing a reverse-engineering, decimal 
+ columns precision is set to -1.</li>
+</ul>
+
+<h6>Changes in version 3.01</h6>
+
+<p>New Features</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Improved support for XSD: Namespace, import, include 
+ and more datatypes are supported. See <a HREF="xsd_support.htm">XML Schema 
+ Supported Features</a>.</p></li>
+	
+	<li class=kadov-p><p>128136: Nested Import DTD imports are now correctly 
+ taken into account.</p></li>
+</ul>
+
+<p>Problems Fixed</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p
+		class=kadov-p>128722: Cannot insert Data into ATTRIBUTES in the 
+ ROOT Element.</li>
+</ul>
+
+<h6>Changes in version 2.19</h6>
+
+<p>Problems Fixed</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Bug when inserting in a table values that include 
+ the table name</p></li>
+	
+	<li class=kadov-p><p>URL parameter log_file not documented</p></li>
+</ul>
+
+<h6>Changes in version 2.18</h6>
+
+<p>New Features</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>New &quot;variable_length&quot; and &quot;numeric_length&quot; 
+ external database properties to customize default size for the columns 
+ created.</p></li>
+	
+	<li class=kadov-p><p>External database properties can be overridden 
+ or set in the URL. They should be prefixed with &quot;dp_&quot;</p></li>
+</ul>
+
+<p>Problems Fixed</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>&quot;nobu&quot; parameter does not work as expected.</p></li>
+	
+	<li class=kadov-p><p>&quot;ClassCastException&quot; error appears when 
+ accessing a file using XSD type Integer.</p></li>
+	
+	<li class=kadov-p><p>128290: A 'java.sql.SQLException: ORDER BY item 
+ should be in the SELECT DISTINCT' error occurs when using the DISTINCT 
+ keyword in a SELECT statement.</p></li>
+	
+	<li class=kadov-p><p>Columns corresponding to optional PCDATA elements 
+ are reverse-engineered as NOT NULL from an XSD file.</p></li>
+	
+	<li class=kadov-p><p>Carriage return in attributes and PCDATA are now 
+ correctly written to the XML file.</p></li>
+</ul>
+
+<h6>Changes in version 2.17</h6>
+
+<p>New Features</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Support for XML Schema &quot;extension&quot; in 
+ Elements and Complex Types, to indicate the presence of PCDATA</p></li>
+	
+	<li class=kadov-p><p>Element specified in a Sequence with no MinOccurs 
+ and MaxOccurs parameters are mandatory and must once.</p></li>
+</ul>
+
+<h6>Changes in version 2.16</h6>
+
+<p>New Features</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Support for XML Schema &quot;attributegroup&quot;.</p></li>
+	
+	<li class=kadov-p><p>New URL parameter: standalone.</p></li>
+</ul>
+
+<p>Fixes</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Fixed: &quot;simpleType&quot; tags in attribute 
+ definition incorrectly ignored.</p></li>
+</ul>
+
+<h6>Changes in version 2.15</h6>
+
+<p>New Features</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Support for XML Schema (XSD).</p></li>
+	
+	<li class=kadov-p><p>New URL parameter: no_batch_update.</p></li>
+	
+	<li class=kadov-p><p>New syntax for file creation: CREATE EMPTY FILE.</p></li>
+	
+	<li class=kadov-p><p>Automatic multiple-schema creation at connection 
+ time. New parameters add_schema_bundle, add_schema_path, addschema*.</p></li>
+</ul>
+
+<p>Fixes</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>PCDATA elements with null content in the XML schema 
+ are now synchronized as empty strings in the XML file, instead of &quot;null&quot;.</p></li>
+</ul>
+
+<h6>Changes in version 2.12</h6>
+
+<p>New Features</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>120511: Attributes are automatically loaded with 
+ their default value if it is specified in the DTD.</p></li>
+</ul>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>120512: Attributes default values are returned 
+ in the JDBC Metadata.</p></li>
+</ul>
+
+<h6>Changes in version 2.11</h6>
+
+<p>New Features</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Support for the <span class=Code>xsi:nil=&quot;true&quot;</span> 
+ attribute in XML elements. Elements with this attribute are considered 
+ as containing no PCDATA. If such an element is read from an XML file with 
+ no other attribute, it is not generated when synchronizing the XML schema 
+ to file.</p></li>
+	
+	<li class=kadov-p><p>Support for the XML files containing only the 
+ root element.</p></li>
+	
+	<li class=kadov-p><p>Support for XML namespaces.</p></li>
+	
+	<li class=kadov-p><p>XSD validation support through the VALIDATE command 
+ or the ValidateXMLFile class.</p></li>
+	
+	<li class=kadov-p><p>Existing XSD information is now correctly read/reconstructed.</p></li>
+</ul>
+
+<p>Fixes</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>123305: DTD files generated by the driver have 
+ all elements marked as REQUIRED. This problem is now solved.</p></li>
+</ul>
+
+<h6>Changes in version 2.10</h6>
+
+<p>New Features</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>123546: Performance improvement when creating 
+ XML file with large data strings.</p></li>
+	
+	<li class=kadov-p><p>New keywords: &quot;uid&quot; and &quot;description&quot; 
+ (for Oracle).</p></li>
+	
+	<li class=kadov-p><p>New version of the built-in engine.</p></li>
+</ul>
+
+<p>Fixes</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Fixed a bug in the keyword retrieval for the external 
+ relational database storage. The list of keywords was incorrectly retrieved 
+ with some JDBC drivers.</p></li>
+</ul>
+
+<h6>Changes in version 2.9</h6>
+
+<p>New Features</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>120715: INSERT is now a reserved keyword.</p></li>
+	
+	<li class=kadov-p><p>120470: It is possible to have the license key 
+ in a separate jar file. This jar file must be in the application classpath. 
+ The XML license key file must be located at the root directory of the 
+ jar file.</p></li>
+</ul>
+
+<p>Fixes</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>120649: Fixed - DTD files are not correctly unlocked 
+ when closing the connection.</p></li>
+</ul>
+
+<h6>Changes in version 2.8</h6>
+
+<p>Fixes</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>120439: SYNCHRONIZE command, when used with a 
+ schema name, was executed as if using the SYNCHRONIZE ALL syntax. A new 
+ exception when the specified schema does not exist now appears: &quot;No 
+ existing schema with this name: &lt;schema_name&gt;. Please verify that 
+ it is the same schema name than the one you specified in your URL connection.&quot;</p></li>
+	
+	<li class=kadov-p><p>120334: It is now possible to insert the license 
+ file in the driver .jar file. It must be located at the root of the tree 
+ structure.</p></li>
+	
+	<li class=kadov-p><p>120213: &quot;Invalid argument in JDBC call&quot; 
+ appears in Data Integrator when scrolling down the data from an XML file 
+ with more than 25 rows.</p></li>
+	
+	<li class=kadov-p><p>120430: Error &quot;Wrong data type: type: VARCHAR 
+ (12) expected: INTEGER&quot; when running a CREATE FILE statement and 
+ using non-numeric IDs (numeric_id=false).</p></li>
+</ul>
+
+<h6>Changes in version 2.7</h6>
+
+<p>New Features</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>117180: Added numeric_ids and id_length to parameterize 
+ the ID generation</p></li>
+</ul>
+
+<p>Fixes</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>120126: Last column on a select statement was 
+ missing in the XMLPlus Sample</p></li>
+	
+	<li class=kadov-p><p>119861: Licensing control is now performed at 
+ connection time, and not when the driver is loaded. &quot;File Not found&quot; 
+ error now appears instead of &nbsp;&quot;No 
+ suitable driver&quot; when the license file is not present.</p></li>
+</ul>
+
+<h6>Changes in version 2.6</h6>
+
+<p>Fixes</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>119691: Unable to process XML files if default 
+ values contain quotes.</p></li>
+	
+	<li class=kadov-p><p>119684: Carriage returns in attribute values are 
+ not correctly generated when writing the XML file.</p></li>
+</ul>
+
+<h6>Changes in version 2.5</h6>
+
+<p>New Features</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>119327: Support for DTD with multiple root elements. 
+ New URL parameter root_elt to define the selected root element. The same 
+ parameter is added to the CREATE SCHEMA and LOAD TABLE syntax.</p></li>
+	
+	<li class=kadov-p><p>119333: Support for empty tags with both &quot;&lt;element&gt;&lt;/element&gt;&quot; 
+ and &quot;&lt;element/&gt;&quot; syntax. New URL parameter no_closing_tags 
+ to parameterize this behavior. This parameter also appears in the CREATE 
+ FILE and CREATE XML file syntax.</p></li>
+</ul>
+
+<p>Fixes</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Residual locks when an error occurs on the driver.</p></li>
+</ul>
+
+<h6>Changes in version 2.4</h6>
+
+<p>Known Issue</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>The driver displays 2.3 when requested for the 
+ driver or database version. The snpsxmlo.jar file date for version 2.4 
+ is April 07, 2004. For version 2.3, it is February 05, 2004</p></li>
+</ul>
+
+<p>New Features</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>URL parameter ignore_unknown_elements is now defaulted 
+ to &quot;false&quot; </p></li>
+	
+	<li class=kadov-p><p>New version of the built-in engine.</p></li>
+	
+	<li class=kadov-p><p>119159: Keyword &quot;to&quot; added to the reserved 
+ keywords list.</p></li>
+	
+	<li class=kadov-p><p>119149: New URL parameter &quot;v1_compatibility&quot; 
+ enabling to reproduce the behavior of the version 1.x of the driver. This 
+ parameter is defaulted to false.</p></li>
+</ul>
+
+<p>Fixes</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>119518: Problem of reverse-engineering for DTD 
+ containing repeated groups. This change may change the behavior of the 
+ reverse-engineering. Reverse in version 2.3 was incorrect.</p></li>
+	
+	<li class=kadov-p><p>117182: REPLACE function is now operational with 
+ new built-in engine.</p></li>
+</ul>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: This version has 
+ a different specification than version 1.x concerning column names. When 
+ in the XML to SQL mapping a column has the same name than the table containing 
+ it, it will be named COL_&lt;column_name&gt; (in v1, they were named &lt;column_name&gt;_DATA). 
+ Besides, object names that are in the reserved keyword list are followed 
+ by an underscore (In v1.x, they where prefixed by the underscore).</p>
+
+<h6>Changes in version 2.3</h6>
+
+<p>New Features</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>115773: New version of the built-in engine.</p></li>
+</ul>
+
+<p>Fixes</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>118328: XML and DTD Files in the driver URL can 
+ be specified with an HTTP, FTP or File URL.</p></li>
+	
+	<li class=kadov-p><p>118389: getTable(null,null...) does not return 
+ the appropriate values.</p></li>
+	
+	<li class=kadov-p><p>118328: Inaccurate data retrieved when reading 
+ elements that can contain PCDATA or other elements.</p></li>
+	
+	<li class=kadov-p><p>117082: Bugs concerning groups and elements combining 
+ attributes and PCDATA.</p></li>
+</ul>
+
+<h6>Changes in version 2.2</h6>
+
+<p>New Features &amp; Fixes</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>115763: It is now possible to create and drop 
+ Foreign Keys on the database storage using CREATE | DROP FOREIGNKEYS.</p></li>
+	
+	<li class=kadov-p><p>118006: Error when opening file that could be 
+ opened with version 1.x: org.xml.sax.SAXException: Attribute name of element 
+ Field doesn't exist in the DTD.</p></li>
+</ul>
+
+<h6>Changes in version 2.0</h6>
+
+<p>Known Issues</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>ORDER column in the root table has been removed</p></li>
+</ul>
+
+<p>New Features &amp; Fixes</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>115766: Unload optimization using prepared statement. 
+ use_prepared_statements Parameter in the properties file. </p></li>
+	
+	<li class=kadov-p><p>115765: Improved error management (File deletion 
+ after write error, cursor management after load/unload error, etc.</p></li>
+</ul>
+
+<h6>Changes in version 2.0</h6>
+
+<p>Known Issues</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>ORDER column in the root table has been removed</p></li>
+</ul>
+
+<p>New Features &amp; Fixes</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>115766: Unload optimization using prepared statement. 
+ use_prepared_statements Parameter in the properties file. </p></li>
+	
+	<li class=kadov-p><p>115765: Improved error management (File deletion 
+ after write error, cursor management after load/unload error, etc.</p></li>
+	
+	<li class=kadov-p><p>115767: DTD Default values are no longer written 
+ in the target XML file.</p></li>
+	
+	<li class=kadov-p><p>115176: Encoding management in the target XML 
+ file. New URL parameters &quot;java_encoding&quot; (or &quot;je&quot;) 
+ and &quot;xml_encoding&quot; (or &quot;xe&quot;) </p></li>
+	
+	<li class=kadov-p><p>Bug Fix: Table names are no longer limited to 
+ 35 characters.</p></li>
+	
+	<li class=kadov-p><p>115920: DTD generation from an XML file, depending 
+ on the DTD and the &quot;generate_dtd&quot; (or &quot;gd&quot;) URL Parameter.</p></li>
+</ul>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Added DB_PROPS parameter to LOAD FILE</p></li>
+	
+	<li class=kadov-p><p>Bug Fix: LOAD FILE statement ignores the ON SCHEMA 
+ clause and loads the file on the current schema</p></li>
+	
+	<li class=kadov-p><p>Bug Fix: FK, PK are now correctly prefixed by 
+ the schema name.</p></li>
+	
+	<li class=kadov-p><p>Bug Fix: When automatic table creation was used, 
+ errors on table creation were not returned. An additional control is also 
+ performed on tables and columns</p></li>
+	
+	<li class=kadov-p><p>Elements with a dot in their name are now allowed. 
+ The dot is removed from the table/column name created.</p></li>
+	
+	<li class=kadov-p><p>New CATALOG property must be used in a Microsoft 
+ SQL Server .properties file.</p></li>
+</ul>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Tracing: URL parameters log_file and log_level</p></li>
+</ul>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Bug Fix: DROP SCHEMA fails when one connection 
+ only is opened</p></li>
+	
+	<li class=kadov-p><p>Bug Fix: Calling DatabaseMetaData.getTables with 
+ null</p></li>
+	
+	<li class=kadov-p><p>Bug Fix when using encoding UTF8 (Encoding was 
+ ISO8859)</p></li>
+	
+	<li class=kadov-p><p>Table and column names are limited by the reserve_chars_for_table 
+ and reserve_chars_for_column in the External Database properties file.</p></li>
+	
+	<li class=kadov-p><p>New URL parameter ignore_unknown_elements to ignore 
+ XML elements not described in the DTD</p></li>
+	
+	<li class=kadov-p><p>SNPS_FILE_NAME, SNPS_FILE_PATH and SNPS_LOAD_DATE 
+ are added in the root</p></li>
+	
+	<li class=kadov-p><p>Default column size returned by the driver are 
+ now 10 for NUMERIC and 255 for VARCHAR</p></li>
+	
+	<li class=kadov-p><p>Added CREATE FOREIGNKEYS and DROP FOREIGNKEYS 
+ to dynamically create Foreign Keys on external RDBMS. After creating Foreign 
+ Keys, it is not possible to perform a LOAD FILE as table writing order 
+ is no longer correct.</p></li>
+</ul>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Support for Microsoft SQL Server Driver for SQL 
+ Server external DBMS. ;SelectMethod=cursor is required on the URL</p></li>
+</ul>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Bug Fix in reverse-engineering when schema names 
+ are similar ('B' and 'B1')</p></li>
+	
+	<li class=kadov-p><p>New Feature: Comments added on tables and columns 
+ to indicate their source XML element or attributes</p></li>
+	
+	<li class=kadov-p><p>New Feature: Default values declared in the DTD 
+ are now managed as column default values</p></li>
+	
+	<li class=kadov-p><p>Ability to use an external RDBMS to store the 
+ schema</p></li>
+</ul>
+
+<h6>Changes in version 1.121</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Bug Fix linked to the classes' obfuscation </p></li>
+</ul>
+
+<h6>Changes in version 1.120</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>READONLY option added to CREATE SCHEMA</p></li>
+	
+	<li class=kadov-p><p>Internal statements parser optimisation</p></li>
+	
+	<li class=kadov-p><p>PreparedStatement optimisation</p></li>
+	
+	<li class=kadov-p><p>FK and PK reverse-engineering is now possible</p></li>
+	
+	<li class=kadov-p><p>OutOfMemory exception improved management: XML 
+ file is unlocked, SQL Exception is returned and statement is stopped.</p></li>
+	
+	<li class=kadov-p><p>AUTO_UNLOCK option on LOAD_FILE</p></li>
+	
+	<li class=kadov-p><p>New command: UNLOCK FILE</p></li>
+</ul>
+
+<h6>Changes in version 1.119</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Added command TRUNCATE</p></li>
+	
+	<li class=kadov-p><p>Optimized LOAD FILE if the schema structure already 
+ exists</p></li>
+	
+	<li class=kadov-p><p>Bug Fix: Driver is not unlocking the file (for 
+ a CREATE SCHEMA FROM FILE, for instance)</p></li>
+</ul>
+
+<h6>Changes in version 1.118</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Test Procedure improvement</p></li>
+	
+	<li class=kadov-p><p>Bug fix: the file names may be similar to a column 
+ or table name</p></li>
+	
+	<li class=kadov-p><p>Improved URL parsing (Test for &quot;?&quot; presence)</p></li>
+</ul>
+
+<h6>Changes in version 1.117</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Root table is no longer mandatory to write XML 
+ files</p></li>
+</ul>
+
+<h6>Changes in version 1.116</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Reserved words are now stored in a properties 
+ file</p></li>
+	
+	<li class=kadov-p><p>Driver is now in a .jar format. Driver auto-test 
+ is launched by default.</p></li>
+</ul>
+
+<h6>Changes in version 1.115</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Bug correction in the .getInteger method of the 
+ Internal Resultset for OpenOffice</p></li>
+</ul>
+
+<h6>Changes in version 1.114</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Bug correction for DbVisualizer, linux et Jbuilder 
+ (invalid path in the URL returned by the class loader).</p></li>
+	
+	<li class=kadov-p><p>Since this version, case sensitivity is blocked.</p></li>
+</ul>
+
+<h6>Changes in version 1.112</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Bug solved when sending meta-data. It is now possible 
+ to have the detailed information on the connection.</p></li>
+	
+	<li class=kadov-p><p>Tables having a name which is a reserved word 
+ are prefixed with an underscore.</p></li>
+	
+	<li class=kadov-p><p>Bug in the internal resultset's getString is now 
+ solved.</p></li>
+	
+	<li class=kadov-p><p>Bug in the supported functions list. The Java 
+ functions corresponding to the driver's</p></li>
+	
+	<li class=kadov-p><p>functions are no longer visible.</p></li>
+</ul>
+
+<h6>Changes in version 1.111</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Bug in drop schema when there are several connections 
+ on the schema.</p></li>
+</ul>
+
+<h6>Changes in version 1.110</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Bug introduced in v 1.109 disabling functions 
+ is now solved.</p></li>
+</ul>
+
+<h6>Changes in version 1.109</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>When writing, the lines have an unlimited length. 
+ (No carriage are added any longer to limit the line length to 72 characters).&nbsp;</p></li>
+</ul>
+
+<h6>Changes in version 1.108</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>When saving columns' data to the XML file, strings 
+ of more than 72 characters are no longer truncated.&nbsp;</p></li>
+</ul>
+
+<h6>Changes in version 1.107</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>The XML-&gt;SQL Mapping does not generate columns 
+ with names similar to the table names (for tables which contain PCDATA 
+ only).</p></li>
+</ul>
+
+<h6>Changes in version 1.106</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Bug on the CREATE TABLE command without the root 
+ key has been fixed.</p></li>
+</ul>
+
+<h6>Changes in version 1.105</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>It is possible now to have the license key file 
+ on the same directory as the driver.</p></li>
+</ul>
+
+<h6>Changes in version 1.104</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>CREATE FILE can now be called without specifying 
+ the root table parameter.</p></li>
+</ul>
+
+<h6>Changes in version 1.103</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Connection without specifying a schema name is 
+ now allowed,</p></li>
+	
+	<li class=kadov-p><p>Bug on case sensitive columns has been fixed.</p></li>
+</ul>
+
+<h6>Changes in version 1.102</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Bug on SQL functions has been fixed.</p></li>
+</ul>
+
+<h6>Changes in version 1.101</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Opened Files are unlocked when the java client 
+ application closes,</p></li>
+	
+	<li class=kadov-p><p>File names can have names with spaces. File names 
+ should be enclosed with double quotes,</p></li>
+	
+	<li class=kadov-p><p>SQL code parser has been improved,</p></li>
+	
+	<li class=kadov-p><p>The command &quot;create schema&quot; was added,</p></li>
+	
+	<li class=kadov-p><p>Appending an XML file to existing data is now 
+ possible with the command &quot;load file&quot;,</p></li>
+	
+	<li class=kadov-p><p>The command &quot;synchronize schema&quot; syntax 
+ has been improved,</p></li>
+	
+	<li class=kadov-p><p>A new XML file can now be created from a schema,</p></li>
+	
+	<li class=kadov-p><p>Files are now locked when open in read/write mode,</p></li>
+	
+	<li class=kadov-p><p>The XML file is written if open in read/write 
+ mode when the connection is closed,</p></li>
+	
+	<li class=kadov-p><p>The command &quot;synchronize&quot; commit changes 
+ before synchronization.</p></li>
+</ul>
+
+<h6>Changes in version 1.1</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>A bug on the column name in case sensitive mode 
+ has been fixed</p></li>
+	
+	<li class=kadov-p><p>File names can have names with spaces. File names 
+ should be enclosed with double quotes,</p></li>
+	
+	<li class=kadov-p><p>SQL code parser has been improved,</p></li>
+	
+	<li class=kadov-p><p>The command &quot;create schema&quot; was added,</p></li>
+	
+	<li class=kadov-p><p>Appending an XML file to existing data is now 
+ possible with the command &quot;load file&quot;,</p></li>
+	
+	<li class=kadov-p><p>The command &quot;synchronize schema&quot; syntax 
+ has been improved,</p></li>
+	
+	<li class=kadov-p><p>A new XML file can now be created from a schema,</p></li>
+	
+	<li class=kadov-p><p>Files are now locked when open in read/write mode,</p></li>
+	
+	<li class=kadov-p><p>The XML file is written if open in read/write 
+ mode when the connection is closed,</p></li>
+	
+	<li class=kadov-p><p>The command &quot;synchronize&quot; commit changes 
+ before synchronization.</p></li>
+</ul>
+
+<h6>Changes in version 1.0</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Many connections on one schema,</p></li>
+	
+	<li class=kadov-p><p>Data changes are made persistent,</p></li>
+	
+	<li class=kadov-p><p>Schemas Management,</p></li>
+	
+	<li class=kadov-p><p>Schemas can be case sensitive/insensitive.</p></li>
+</ul>
+
+</body>
+</html>

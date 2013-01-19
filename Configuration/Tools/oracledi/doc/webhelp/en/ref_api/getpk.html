@@ -1,0 +1,160 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>getPK()</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nControl Methods (CKM)\ngetPK");
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nAction methods\ngetPK");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>getPK() Method</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>public java.lang.String <b>getPK</b>(java.lang.String&nbsp;pPropertyName)</span></p>
+
+<h2>Description</h2>
+
+<p>This method returns information relative to the primary key of a datastore 
+ during a check procedure.&nbsp;</p>
+
+<p>In an action, this method returns information related to the primary 
+ key currently handled by the DDL command.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter</th>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Type</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau>pPropertyName</td>
+<td class=whs5>
+<p class=TexteTableau>String</td>
+<td class=whs6>
+<p class=TexteTableau>String that contains the name of the requested property.</td></tr>
+</table>
+
+<p>The following table lists the different possible values for pPropertyName&nbsp;</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs7
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter value</th>
+<th class=whs8
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs9>
+<p class=TexteTableau>ID</td>
+<td class=whs10>
+<p class=TexteTableau>Internal number of the PK constraint.</td></tr>
+
+<tr>
+<td class=whs11>
+<p class=TexteTableau>KEY_NAME</td>
+<td class=whs12>
+<p class=TexteTableau>Name of the primary key</td></tr>
+
+<tr>
+<td class=whs13>
+<p class=TexteTableau>MESS</td>
+<td class=whs14>
+<p class=TexteTableau>Error message relative to the primary key constraint.</td></tr>
+
+<tr>
+<td class=whs13>
+<p class=TexteTableau>FULL_NAME</td>
+<td class=whs14>
+<p class=TexteTableau>Full name of the PK generated with the local object 
+ mask.</td></tr>
+
+<tr>
+<td class=whs13>
+<p class=TexteTableau>&lt;flexfield code&gt;</td>
+<td class=whs14>
+<p class=TexteTableau>Flexfield value for the primary key.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>The primary key of my table is called: <b><span class=Code>&lt;%=odiRef.getPK(&quot;KEY_NAME&quot;)%&gt;</span></b></p>
+
+</body>
+</html>

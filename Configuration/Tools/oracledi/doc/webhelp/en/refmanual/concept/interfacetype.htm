@@ -1,0 +1,150 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Interface Typology</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nConcepts\nInterface Typology");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Interface Typology</h1>
+
+<p>In terms of the frequency of execution, the type of flow handled and 
+ the launching mode, several types of interfaces exist. An interface can 
+ change its typology during its life cycle. Without an interface tool, 
+ such an action requires the complete rewrite of the interface. The terms 
+ described below are not exclusive, an interface can belong to several 
+ classifications simultaneously. </p>
+
+<h6>One Shot interfaces</h6>
+
+<p>One shot interfaces are executed once only. These interfaces are used 
+ for application migrations, just before putting into production. </p>
+
+<h6>Link interfaces </h6>
+
+<p>Link interfaces are used frequently, as they enable two IT applications 
+ to be linked constantly. </p>
+
+<h6>Asynchronous interfaces </h6>
+
+<p>These are link interfaces that work in tight flow. This type of interface 
+ handles all events in the source application almost instantaneously. This 
+ type of interface is based on MOM (Message Oriented Middleware) or requires 
+ a polling action on the source application. </p>
+
+<h6>Batch interfaces </h6>
+
+<p>Batch interfaces work in loose flow on a time-based frequency, usually 
+ daily. </p>
+
+<h6>Cancel and replace interfaces </h6>
+
+<p>This type of batch interface is the simplest to set up, it consists 
+ of deleting the target information in order to completely reload it on 
+ each execution. This is recommended for One Shot interfaces. For link 
+ interfaces, it has the following disadvantages: </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>The target database history must be the same as 
+ that of the source database, which is not often the case with Data Warehouses. 
+ </p></li>
+	
+	<li class=kadov-p><p>Deleting the data before reloading makes it impossible 
+ to declare any referential integrity (foreign key) constraints on the 
+ target. </p></li>
+	
+	<li class=kadov-p><p>Network traffic is considerable. </p></li>
+</ul>
+
+<h6>Interfaces by increments </h6>
+
+<p>These are asynchronous link interfaces that only process the information 
+ that has been changed in the source system. These interfaces work from 
+ an activity log, a last update date, or any information that isolates 
+ a batch that has been changed since the previous procedure. </p>
+
+<p>This type of asynchronous interface is to be preferred in order to minimize 
+ the volumes of information to process. It improves execution time on the 
+ servers and reduces network traffic. </p>
+
+<h6>Interfaces by difference</h6>
+
+<p>This type of interface is similar to interfaces by increments, it uses 
+ the differences between source data and target data to determine changes. 
+ This type of mechanism is useful for reducing the number of updates and/or 
+ to date the information on its entry into the Data Warehouse. </p>
+
+<h6>Others </h6>
+
+<p>As far as interfaces are concerned, there are many needs that are quite 
+ specific to an information system's standards. For example, some sites 
+ wish to handle logical deletions in target databases in order to retain 
+ the date that source information disappears, others wish to set up high 
+ level standards for time stamps and logs. It is therefore important to 
+ have an interface system capable of integrating specific replication mechanisms. 
+ </p>
+
+</body>
+</html>

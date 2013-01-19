@@ -1,0 +1,196 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Source datastores</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+th.whs2 { x-cell-content-align:top; }
+td.whs3 { x-cell-content-align:top; }
+p.whs4 { text-align:center; }
+img_whs5 { border:none; width:11px; height:11px; border-style:none; }
+p.whs6 { text-align:center; font-size:medium; }
+-->
+</style><script type="text/javascript" language="JavaScript">
+<!--
+if ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion) == 4))
+{
+  var strNSS = "<style type='text/css'>";
+  strNSS += "p.whs6 {font-size:large; }";
+  strNSS +="</style>";
+  document.write(strNSS);
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nDesigner\nProjects\nInterfaces\nDiagram Tab\nSource Datastores");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Source Datastores</h1>
+
+<p>An interface can use two types of datastore as source:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Permanent datastores, resulting from models.</p></li>
+	
+	<li class=kadov-p><p>Temporary datastores, created by another interface.</p></li>
+</ul>
+
+<p>The same datastore can be used several times as a source, provided it 
+ has a different alias.</p>
+
+<p>To edit the properties of a source datastore, simply click once only 
+ on the entity representing it within the diagram, and the properties will 
+ appear at the bottom of the composition panel.</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Journalized Data only</td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Indicates that only Journalized (modified) lines 
+ of data will be taken as sources for this interface.</p>
+<p class=TexteTableau>When this box is checked, a filter is automatically 
+ created on the source datastore in order to define the lines to take.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Alias</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>The alias allows a unique name to be given to the 
+ datastores participating in the interface. This name should be concise, 
+ as it is used before every column name in all expressions.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Order</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>This is the order in which the datastore will appear 
+ when procedures are generated in FROM clauses of SQL queries. This order 
+ is ignored in sequenced joins (ISO).</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Context</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Context in which the datastore must be systematically 
+ looked for.</p>
+<p class=TexteTableau>By default, Oracle Data Integrator will choose the optimization 
+ context (during design) and the execution context (during interface execution). 
+ A context needs to be selected only if the interface is Multi-context.</p>
+<p class=Remarque><span class=RemarqueTitre>For example:</span> To load 
+ the &quot;Test&quot; context tables from the &quot;Production&quot; context 
+ tables.</td></tr>
+</table>
+
+<h2>Visual indicators</h2>
+
+<p>Certain properties of source datastore columns are displayed with visual 
+ indicators.</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Indicator</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p align="center" class="whs4"><img src="../../../../../images/icon_constraint.gif" width="11px" height="11px" border="0" class="img_whs5"></td>
+<td colspan="1" rowspan="1" valign="top" class="whs3">
+<p class=TexteTableau>Column is part of this datastore's primary key.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau
+	style="color: #ff0000; text-align: center;"
+	align=center><span class=ElementGUI>n</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Column is used in a mapping, join or filter. The 
+ letter is generally the first letter of the column type. <span class=ElementGUI>n</span> 
+ is numeric, <span class=ElementGUI>s</span> is string and so forth.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau
+	style="color: #ffffff; text-align: center;"
+	align=center><span class=ElementGUI>n</span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Column not used in any mapping, join or filter.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p align="center" class="whs6"><span class=Code><font size=4 style="text-align: center; font-size: medium;">*</font></span></td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Mandatory column as defined on the model.</td></tr>
+</table>
+
+</body>
+</html>

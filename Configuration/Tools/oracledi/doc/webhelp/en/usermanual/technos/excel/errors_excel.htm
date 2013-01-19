@@ -1,0 +1,132 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Common Errors with Microsoft Excel</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nUsing Oracle Data Integrator with ...\nExcel\nCommon Errors with Microsoft Excel");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Common Errors with Microsoft Excel </h1>
+
+<h2>Decoding the error messages</h2>
+
+<p>Errors appear often in Oracle Data Integrator in the following way:</p>
+
+<p><span class=Code>java.sql.SQLException: </span><span class=Code
+														style="font-weight: bold;"><B>java.sql.SQLException: 
+ [Microsoft][ODBC Driver Manager] Data source name not found and no default 
+ driver specified RC=</B></span><span class=Code
+									style="font-weight: bold; color: #ff0000;"><font color=red ><B>0xb</B></font></span><span 
+ class=Code><br>
+at ...<br>
+...</span></p>
+
+<p>the <span class=Code>java.sql.SQLException</span> code simply indicates 
+ that a query was made through the JDBC-ODBC bridge, which has returned 
+ an error. This error is frequently a database or driver error, and must 
+ be interpreted in this direction.</p>
+
+<p>Only the part of text in bold must first be taken in account. It must 
+ be searched in the ODBC driver or Excel documentation. If its contains 
+ a specific error code, like here in red, the error can be immediately 
+ identified.</p>
+
+<p>If such an error is identified in the execution log, it is necessary 
+ to analyze the SQL code to find the source of the error. The code is displayed 
+ in the <span class=ElementGUI>description</span> tab of the <span class=ElementGUI>task</span> 
+ in error.</p>
+
+<p>The most common errors with Excel are detailed below, with their principal 
+ causes.</p>
+
+<h2>Common Errors</h2>
+
+<h3>Connection Errors</h3>
+
+<h6>UnknownDriverException</h6>
+
+<p>The JDBC driver is incorrect. Check the name of the driver.</p>
+
+<h6>[Microsoft][ODBC Driver Manager] Data source name not found and no 
+ default driver specified RC=0xb<br>
+Datasource not found or driver name not specified</h6>
+
+<p>The ODBC Datasource specified in the JDBC URL is incorrect.</p>
+
+<h3>Errors in the interfaces</h3>
+
+<h6>The Microsoft Jet Database engine could not find the object &lt;object 
+ name&gt;</h6>
+
+<p>The table you are trying to access does not exist or is not defined 
+ in the Excel spreadsheet.</p>
+
+<h6>Too few parameters. Expected 1.</h6>
+
+<p>You are trying to access an nonexisting column in the Excel spreadsheet.</p>
+
+<h6>Operation must use an updateable query.</h6>
+
+<p>This error is probably due to the fact that you have not unchecked the 
+ &quot;read only&quot; option when defined the Excel DSN. Uncheck this 
+ option and re-execute your interface.</p>
+
+</body>
+</html>

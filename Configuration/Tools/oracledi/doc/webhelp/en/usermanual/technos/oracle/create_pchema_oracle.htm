@@ -1,0 +1,147 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Creating an Oracle Physical Schema</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+ol.whs2 { list-style:decimal; }
+img_whs3 { border:none; width:16px; height:16px; float:none; border-style:none; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nUsing Oracle Data Integrator with ...\nOracle\nCreate an Oracle Physical Schema");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Creating an Oracle Physical Schema</h1>
+
+<p>A <span class=ElementGUI>Physical Schema</span> corresponds to a pair 
+ of Schemas in Oracle: </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>A (Data) <span class=ElementGUI>Schema</span>, 
+ in which Oracle Data Integrator will look for the source and target tables for 
+ the interfaces.</p></li>
+	
+	<li class=kadov-p><p>A <span class=ElementGUI>Work Schema </span>in 
+ which Oracle Data Integrator can create and manipulate temporary work tables 
+ associated to the sources and targets contained in the Data Schema.</p></li>
+</ul>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> The Oracle user 
+ specified in the data server to which the Physical Schema is attached 
+ must have appropriate privileges to perform such operations.</p>
+
+<h2>Creation of the Physical Schema</h2>
+
+<h6>To Create an Oracle Physical Schema:</h6>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> If you have just 
+ created a Data Server, then ignore step 1. The &nbsp;<span 
+ class=ElementGUI>Physical Schema</span> window 
+ should already be opened.</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Select the Oracle <span class=ElementGUI>Data 
+ Server,</span> right-click and select <span class=ElementGUI>Insert Physical 
+ Schema</span>. The<span class=ElementGUI> Physical Schema</span> window 
+ appears.</p></li>
+	
+	<li class=kadov-p><p>Select the Data Schema for this Oracle Data Integrator 
+ physical schema in <span class=ElementGUI>Schema (Schema)</span>. A list 
+ of the Oracle instance's schemas appears in this field.</p></li>
+	
+	<li class=kadov-p><p>Select the Work Schema for this Oracle Data Integrator 
+ physical schema in <span class=ElementGUI>Schema (Work Schema)</span>. 
+ A list of the Oracle instance's schemas appears in this field.</p></li>
+	
+	<li class=kadov-p><p>Check the <span class=ElementGUI>Default</span> 
+ box if you want this schema to be the default one for this data server 
+ (The first physical schema is always the default one). For more information, 
+ see <a HREF="../../../refmanual/topology/snppschema.htm">Physical Schema</a></p></li>
+	
+	<li class=kadov-p><p>Go to the <span class=ElementGUI>Context</span> 
+ tab.</p></li>
+	
+	<li class=kadov-p><p>Select a <span class=ElementGUI>Context</span> 
+ and an existing <span class=ElementGUI>Logical Schema</span> for this 
+ new <span class=ElementGUI>Physical Schema</span>, then go to step 9.<br>
+	If no Oracle Logical Schema exists yet, proceed to step 7.</p></li>
+	
+	<li class=kadov-p><p>Click the <img src="../../../images/add_row.gif" x-maintain-ratio="TRUE" 25&quot; width="16px" height="16px" border="0" class="img_whs3"> button.</p></li>
+	
+	<li class=kadov-p><p>Select an existing <span class=ElementGUI>Context</span> 
+ in the left column then type the name of a <span class=ElementGUI>Logical 
+ Schema</span> in the right column. This Oracle Logical Schema is automatically 
+ created and associated to this physical schema in this context.</p></li>
+</ol>
+
+<p class=Remarque><span class=AlertTitre>Warning !</span> A <span class=ElementGUI>Logical 
+ Schema</span> can be associated to only one <span class=ElementGUI>Physical 
+ Schema</span> in a given <span class=ElementGUI>Context</span>.</p>
+
+<ol start="9" type="1" class="whs2">
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span>.</p></li>
+</ol>
+
+</body>
+</html>

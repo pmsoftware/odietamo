@@ -1,0 +1,505 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>samples</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+ol.whs2 { list-style:decimal; }
+p.whs3 { margin-left:40px; color:#008080; }
+p.whs4 { margin-left:40px; }
+p.whs5 { margin-left:40px; color:#c0c0c0; }
+p.whs6 { margin-left:80px; }
+p.whs7 { margin-left:40px; color:#808080; }
+p.whs8 { color:#0000ff; }
+p.whs9 { color:#808080; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Driver for XML\nSamples");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1><a name=TOP></a>Samples</h1>
+
+<p>The following sample will help you getting started with the XML Driver.</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><a href="#SAMPLE1">Sample #1: Employee</a></p></li>
+	
+	<li class=kadov-p><p><a href="#SAMPLE2">Sample #2: XMLPlus</a></p></li>
+</ul>
+
+<h2><a name=SAMPLE1></a>Sample #1: Employee</h2>
+
+<p><span class=ElementGUI>Source Location</span>: <span class=Code>/demo/xml/samples/Employee.java</span></p>
+
+<p>This simple Java example will show you how to connect, read and update 
+ data to an XML file. It uses the file<span class=Code> /demo/xml/employee.xml</span> 
+ that is described by the <span class=Code>/demo/xml/employee.dtd</span> 
+ DTD file.</p>
+
+<p>The key steps to connect, read and write data in the XML file are detailed 
+ below.</p>
+
+<h3>Open the connection</h3>
+
+<p>To connect to an XML file through OracleDI Driver for XML, you need first 
+ to perform the following operations in your Java Program:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Load and register the classes that contain the 
+ driver.<br>
+	The driver class name is <b><span class=Code>com.sunopsis.jdbc.driver.xml.SnpsXmlDriver</span></b></p></li>
+	
+	<li class=kadov-p><p>Create a valid URL.<br>
+	The url format is: <b><span class=Code>jdbc:snps:xml?Parameters</span></b></p></li>
+</ol>
+
+<p class=Remarque><b><span style="font-weight: normal;">Note: </span></b>For 
+ more information about the driver parameters, see <a href="driver_configuration.htm">driver 
+ configuration</a>.</p>
+
+<ol start="3" type="1" class="whs2">
+	
+	<li class=kadov-p><p>Open the connection to the XML File.</p></li>
+</ol>
+
+<p>The following sample code demonstrates how to initiate a connection.</p>
+
+<p class="whs3"><span class=Code
+													style="color: #008080;"><font color=teal >// 
+ Loads and registers the driver class</font></span></p>
+
+<p class="whs4"><span class=Code>Class.forName(&quot;<b style="color: #0000ff; font-weight: normal;">com.sunopsis.jdbc.driver.xml.SnpsXmlDriver</b>&quot;);</span></p>
+
+<p class="whs3"><span class=Code
+													style="color: #008080;"><font color=teal >// 
+ Creates the URL to connect the employee.xml sample file.</font></span></p>
+
+<p class="whs5"><span class=Code><font color=silver >String url 
+ = &quot;</font></span><span class=Code
+						style="color: #0000ff;"><font color=blue >jdbc:snps:xml?f=../xml/employee.xml</font></span><span 
+ class=Code>&quot;;</span></p>
+
+<p class="whs3"><span class=Code
+													style="color: #008080;"><font color=teal >// 
+ Opens a JDBC connection to given URL</font></span></p>
+
+<p class="whs5"><span class=Code><font color=silver >Connection 
+ conn = DriverManager.getConnection(url);</font></span></p>
+
+<h3>Load the data into the schema</h3>
+
+<p>OracleDI Driver for XML allows you to manipulate XML data as a relational 
+ structure into a <span style="font-weight: bold;"><B>schema</B></span>. This 
+ schema may be either stored in memory or in a database schema. You need 
+ to load the XML data into this schema before manipulating it. You may 
+ use either a LOAD or a SYNCHRONIZE statement for this purpose.</p>
+
+<p class="whs3"><span class=Code
+													style="color: #008080;"><font color=teal >// 
+ Launches a SYNCHRONIZE operation to load the xml file in the default schema 
+ in memory.</font></span></p>
+
+<p class="whs5"><span class=Code
+													style="margin-left: 40px;">Statement 
+ s = conn.createStatement();</span></p>
+
+<p class="whs4"><span class=Code>s.execute(&quot;</span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >SYNCHRONIZE FROM FILE</font></span><span class=Code>&quot;);</span></p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: This statement 
+ is a XML Driver specific command, but is issued as a standard SQL statement 
+ over a JDBC connection. For more details about the specific commands supported 
+ by the driver, see <a href="driver_commands.htm">Driver Commands</a>.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: In this example, 
+ the SYNCHRONIZE operation is not strictly necessary. At connection time, 
+ the schema should be automatically loaded as it does not exist yet.</p>
+
+<h3>Manipulate the data in the schema</h3>
+
+<p>Once the data is loaded in the schema, it is possible to perform standard 
+ SQL Queries to select, edit or update data, such as:</p>
+
+<p class="whs3"><span class=Code
+													style="color: #008080;"><font color=teal >// 
+ Queries the schema for the data corresponding to the &lt;person id =&quot;xxx&quot; 
+ salary=&quot;yyy&quot;&gt; XML tag content.</font></span></p>
+
+<p class="whs4"><span class=Code>ResultSet EmployeeList = 
+ s.executeQuery(&quot;</span><span class=Code
+									style="color: #0000ff;"><font color=blue >SELECT id, 
+ salary FROM person</font></span><span class=Code>&quot;);</span></p>
+
+<p class="whs4"><span class=Code
+									style="color: #800000; font-weight: bold;"><font color=maroon ><B>while</B></font></span><span 
+ class=Code> (EmployeeList.next())</span></p>
+
+<p class="whs4"><span class=Code>{</span></p>
+
+<p class="whs6"><span class=Code>System.out.println(EmployeeList.getString(&quot;</span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >id</font></span><span class=Code>&quot;) + &quot; 
+ has a salary of $&quot; + EmployeeList.getString(&quot;</span><span class=Code
+	style="color: #0000ff;"><font color=blue >salary</font></span><span class=Code>&quot;));</span></p>
+
+<p class="whs4"><span class=Code>}</span></p>
+
+<p class="whs3"><span class=Code
+													style="color: #008080;"><font color=teal >// 
+ Performs two update operation on the schema</font></span></p>
+
+<p class="whs3"><span class=Code
+													style="color: #008080;"><font color=teal >// 
+ - If a salary is Null, we set it at the value '0'</font></span></p>
+
+<p class="whs3"><span class=Code
+													style="color: #008080;"><font color=teal >// 
+ - We increase the salary by 100</font></span></p>
+
+<p class="whs4"><span class=Code>s.execute(&quot;</span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >UPDATE person SET salary = '0' WHERE salary 
+ IS NULL</font></span><span class=Code>&quot;);</span></p>
+
+<p class="whs4"><span class=Code>s.execute(&quot;</span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >UPDATE person SET salary = CAST(salary AS NUMERIC) 
+ + 100</font></span><span class=Code>&quot;);</span></p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: These statements 
+ use the SQL capabilities of the driver's built-in engine. For more information 
+ about the driver SQL capabilities, see <a HREF="sql_syntax.htm">SQL Syntax</a>.</p>
+
+<h3>Synchronize the data back to the XML File</h3>
+
+<p>When you have finished working with the XML files you must close the 
+ XML connection. Before closing the connection, if you have modified the 
+ data in the schema, you must commit the changes to the file by using a 
+ SYNCHRONIZE command.</p>
+
+<p class="whs3"><span class=Code
+													style="color: #008080;"><font color=teal >// 
+ Synchronize Schema &amp; File Data</font></span></p>
+
+<p class="whs4"><span class=Code>s.execute(&quot;</span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >SYNCHRONIZE ALL</font></span><span class=Code>&quot;);</span></p>
+
+<h3>Close the connection</h3>
+
+<p>And finally, you must close the JDBC Connection to the XML driver.</p>
+
+<p class="whs3"><span class=Code
+													style="color: #008080;"><font color=teal >// 
+ Closing the Connection</font></span></p>
+
+<p class="whs4"><span class=Code>s.close();</span></p>
+
+<p class="whs4"><span class=Code>conn.close();</span></p>
+
+<h3>Running the example</h3>
+
+<h6>To run the example: </h6>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Open an OS Shell</p></li>
+	
+	<li class=kadov-p><p>Go to the OracleDI Driver for XML installation directory, 
+ then to the <span class=Code>/demo/xml </span>sub-directory</p></li>
+	
+	<li class=kadov-p><p>Run <span class=Code>java -classpath </span><span 
+ class=Code
+	style="font-weight: bold;"><B>./samples/;../../drivers/snpsxmlo.jar;../../drivers/crimson.jar 
+ Employee</B></span></p></li>
+</ol>
+
+<p>You should have the following result on the console:</p>
+
+<p>&nbsp;</p>
+
+<p class="whs7"><span class=Code
+													style="color: #808080;"><font color=gray >* 
+ Registering Driver version</font></span></p>
+
+<p class="whs7"><span class=Code
+													style="color: #808080;"><font color=gray >* 
+ Connecting to the employee.xml file</font></span></p>
+
+<p class="whs7"><span class=Code
+													style="color: #808080;"><font color=gray >* 
+ Driver Version is 2.0b5</font></span></p>
+
+<p class="whs7"><span class=Code
+													style="color: #808080;"><font color=gray >* 
+ Synchronizing the File with Schema</font></span></p>
+
+<p class="whs7"><span class=Code
+													style="color: #808080;"><font color=gray >* 
+ Executing Query</font></span></p>
+
+<p class="whs7">&nbsp;</p>
+
+<p class="whs7"><span class=Code
+													style="color: #808080;"><font color=gray >Employee 
+ List</font></span></p>
+
+<p class="whs7"><span class=Code
+													style="color: #808080;"><font color=gray >*************</font></span></p>
+
+<p class="whs7"><span class=Code
+													style="color: #808080;"><font color=gray >Big.Boss 
+ has a salary of $3200</font></span></p>
+
+<p class="whs7"><span class=Code
+													style="color: #808080;"><font color=gray >one.worker 
+ has a salary of $1000</font></span></p>
+
+<p class="whs7"><span class=Code
+													style="color: #808080;"><font color=gray >two.worker 
+ has a salary of $1000</font></span></p>
+
+<p class="whs7"><span class=Code
+													style="color: #808080;"><font color=gray >three.worker 
+ has a salary of $1000</font></span></p>
+
+<p class="whs7"><span class=Code
+													style="color: #808080;"><font color=gray >four.worker 
+ has a salary of $1000</font></span></p>
+
+<p class="whs7"><span class=Code
+													style="color: #808080;"><font color=gray >five.worker 
+ has a salary of $1350</font></span></p>
+
+<p class="whs7">&nbsp;</p>
+
+<p class="whs7"><span class=Code
+													style="color: #808080;"><font color=gray >* 
+ Increasing all wages by $100</font></span></p>
+
+<p class="whs7"><span class=Code
+													style="color: #808080;"><font color=gray >* 
+ Synchronizing data back to file</font></span></p>
+
+<p class="whs7"><span class=Code
+													style="color: #808080;"><font color=gray >* 
+ Closing Connection. You may now restart to see the changes.</font></span></p>
+
+<p>&nbsp;</p>
+
+<p>If you run the example several times, you should see the update being 
+ applied, and the salary being raised by $100 for each execution.</p>
+
+<p><a href="#TOP">Back to Top</a></p>
+
+<h2><a name=SAMPLE2></a>Sample #2: XML Plus</h2>
+
+<p><span class=ElementGUI>Source Location</span>: <span class=Code>/demo/xml/samples/XmlPlus.java</span></p>
+
+<p>This simple Java example is a very basic query tool for XML Files, with 
+ some built-in commands.</p>
+
+<h3>Running the example</h3>
+
+<h6>To run the example: </h6>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Open an OS Shell</p></li>
+	
+	<li class=kadov-p><p>Go to the OracleDI Driver for XML installation directory, 
+ then to the <span class=Code>/demo/xml</span> sub-directory</p></li>
+	
+	<li class=kadov-p><p>Run <span class=Code>java -classpath </span><span 
+ class=Code
+	style="font-weight: bold;"><B>./samples/;../../drivers/snpsxmlo.jar;../../drivers/crimson.jar 
+ XmlPlus </B></span><span class=Code>&lt;url&gt;</span></p></li>
+</ol>
+
+<p>Where <span class=Code>&lt;url&gt;</span> is a valid URL for the XML 
+ Driver. &nbsp;If 
+ no URL is specified, no connection will be performed. You will be able 
+ to connect using the built-in command CONNECT command.</p>
+
+<p>The Built-in commands are:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=Code>DESC</span>: returns the detailed 
+ description of all tables.</p></li>
+	
+	<li class=kadov-p><p><span class=Code>CONNECT &lt;url&gt;</span>: connects 
+ to the JDBC URL that is valid for the XML driver.</p></li>
+	
+	<li class=kadov-p><p><span class=Code>DISCONNECT</span>: disconnects 
+ the current connection.</p></li>
+	
+	<li class=kadov-p><p><span class=Code>EXIT</span>, <span class=Code>QUIT</span> 
+ or <span class=Code>BYE</span>: ends the session.</p></li>
+	
+	<li class=kadov-p><p>All standard SQL commands (SELECT, INSERT, ... 
+ )</p></li>
+</ul>
+
+<h6>Example of command sequence (User commands are in blue):</h6>
+
+<p class="whs8"><span class=Code
+								style="color: #0000ff;"><font color=blue >java -classpath 
+ ./samples/;../../drivers/snpsxmlo.jar;../../drivers/crimson.jar XmlPlus 
+ &quot;jdbc:snps:xml?f=employee.xml&quot;</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >Starting XML Plus</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >Connecting to URL: 
+ jdbc:snps:xml?f=employee.xml</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >Connected.</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >Type 'help' for 
+ the list of commands</font></span></p>
+
+<p><span class=Code
+		style="color: #808080;"><font color=gray >&gt;</font></span><span class=Code> </span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >SELECT * FROM person</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >ID;CONTR;SALARY;EMPLOYEEFK;PERSONPK;PERSONORDER</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >Big.Boss;null;3700;0;0;0</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >one.worker;null;1500;0;1;1</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >two.worker;null;1500;0;2;2</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >three.worker;null;1500;0;3;3</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >four.worker;null;1500;0;4;4</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >five.worker;null;1850;0;5;5</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >&gt; </font></span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >UPDATE person SET salary = CAST(salary AS NUMERIC) 
+ + 20</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >Done</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >&gt; </font></span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >SELECT * FROM PERSON</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >ID;CONTR;SALARY;EMPLOYEEFK;PERSONPK;PERSONORDER</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >Big.Boss;null;3720;0;0;0</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >one.worker;null;1520;0;1;1</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >two.worker;null;1520;0;2;2</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >three.worker;null;1520;0;3;3</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >four.worker;null;1520;0;4;4</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >five.worker;null;1870;0;5;5</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >&gt; </font></span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >SYNCHRONIZE</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >Done</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #808080;"><font color=gray >&gt; </font></span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >BYE</font></span></p>
+
+<p class="whs9"><span class=Code
+								style="color: #0000ff;"><font color=blue ><a href="#TOP">B</font></span>ack 
+ to Top</a></p>
+
+</body>
+</html>

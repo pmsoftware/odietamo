@@ -1,0 +1,134 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Reversing a Cobol Copybook</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nUsing Oracle Data Integrator with ...\nFile\nReverse-Engineering a COBOL Copybook");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Reverse-engineering a COBOL Copybook</h1>
+
+<p>COBOL Copybook reverse-engineering allows you to retrieve a legacy file 
+ structure from its description contained in a COBOL Copybook file in Data 
+ Integrator.</p>
+
+<p class=HowTo>To reverse-engineer a COBOL Copybook:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Create or open a file datastore that has a <span 
+ class=ElementGUI>fixed</span> format</p></li>
+	
+	<li class=kadov-p><p>Go to the <span class=ElementGUI>column</span> 
+ tab</p></li>
+	
+	<li class=kadov-p><p>Click the <span class=ElementGUI>Reverse COBOL 
+ Copybook</span> button</p></li>
+	
+	<li class=kadov-p><p>Fill in the following fields:</p></li>
+</ol>
+
+<ol>
+	
+	<ul>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>File</span>: Location 
+ of the Copybook file</p></li>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>Character set</span>: 
+ Copybook file charset</p></li>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>Description format 
+ (EBCDIC</span> |&nbsp;<span class=ElementGUI>ASCII)</span>: description 
+ (copybook) file format</p></li>
+		
+		<li style="list-style: disc;"
+			type=disc
+			class=kadov-p><p><span class=ElementGUI>Data format (EBCDIC</span> 
+ |&nbsp;<span class=ElementGUI>ASCII)</span>: data file format</p></li>
+	</ul>
+</ol>
+
+<ol start=5>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>Click <span class=ElementGUI>OK</span></p></li>
+</ol>
+
+<p>The columns described in the Copybook are reverse-engineered and appear 
+ in the column list.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: Columns for which 
+ data type is not declared in Oracle Data Integrator appear with no data 
+ type.</p>
+
+</body>
+</html>

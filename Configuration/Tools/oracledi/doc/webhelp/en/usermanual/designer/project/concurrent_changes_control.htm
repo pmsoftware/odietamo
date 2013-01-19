@@ -1,0 +1,167 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Handling Concurrent Changes</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nDesigner\nProjects\nHandling Concurrent Changes");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Handling Concurrent Changes</h1>
+
+<p>Several users can work simultaneously in the same Oracle Data Integrator 
+ project or model. As they may be all connected to the same repository, 
+ the changes they perform are considered as concurrent.</p>
+
+<p>Oracle Data Integrator provides two methods for handling these concurrent 
+ changes: Concurrent Editing Check and Object Locking. This two methods 
+ can be used simultaneously or separately.</p>
+
+<h2>Concurrent Editing Check</h2>
+
+<p>A user parameter, <span class=ElementGUI>Check for concurrent editing</span>, 
+ can be set to true to perform to prevent you from erasing the work performed 
+ by another user on the object you try to save. See <a HREF="../../../refmanual/common/userparameters.htm">User 
+ Parameters</a> for more information.</p>
+
+<p>If this parameter is set to true, when saving changes to any object, 
+ Oracle Data Integrator checks whether other changes have been made to 
+ the same object &nbsp;by 
+ another user since you opened it. If another user has made changes, the 
+ object cannot be saved, and you must cancel your changes.</p>
+
+<h2>Object Locking</h2>
+
+<h3>Automatic Object Locking</h3>
+
+<p>This mechanism is automatically activated. When an object is opened 
+ in a user interface, a popup window appears to ask if you want to lock 
+ the object. As long as an object is locked, only the user owning the lock 
+ can perform modifying the object, such as editing or deleting. Other operations, 
+ such as executing, can be performed by other users, but with a warning.</p>
+
+<p>An object locked by you appears with a yellow lock icon. An object locked 
+ by another object appears with a red lock icon.</p>
+
+<p>When the edition window is closed, a popup window appears to ask if 
+ you want to unlock the object.</p>
+
+<p>Note that these windows are configured by the <span class=ElementGUI>Lock 
+ object when opening</span> and <span class=ElementGUI>Unlock object when 
+ closing</span> user parameters. See <a href="../../../refmanual/common/userparameters.htm">User 
+ Parameters</a> for more information.</p>
+
+<h3>Releasing locks when closing the user interface</h3>
+
+<p>When closing Oracle Data Integrator, a window appears asking to unlock 
+ or save objects that you have locked or kept opened.</p>
+
+<p>You can keep objects locked even if you are not connected to Oracle 
+ Data Integrator. This allows you to prevent other users from editing them 
+ in the meanwhile.</p>
+
+<h3>Manually manage locks</h3>
+
+<p>You can also manually manage locks on objects.</p>
+
+<p class=HowTo>To manually lock an object:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Select the object in the tree view</p></li>
+	
+	<li class=kadov-p><p>Right-click, then select <span class=ElementGUI>Locks 
+ &gt; Lock</span>.</p></li>
+</ol>
+
+<p>A lock icon appears after the object in the tree view.</p>
+
+<p class=HowTo>To manually unlock an object:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Select the object in the tree view</p></li>
+	
+	<li class=kadov-p><p>Right-click, then select <span class=ElementGUI>Locks 
+ &gt; Unlock.</span></p></li>
+</ol>
+
+<p>A lock icon appears after the object in the tree view.</p>
+
+<p class=HowTo>To manage all locks:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Select <span class=ElementGUI>File &gt; Locked 
+ objects...</span></p></li>
+</ol>
+
+<p>All locked objects that you can unlock appear in a new window. You can 
+ unlock or lock objects from this list..</p>
+
+<p class=Remarque><span class=AlertTitre>Important</span>: A user with 
+ the <span class=ElementGUI>Supervisor</span> privilege can remove locks 
+ for all other users.</p>
+
+</body>
+</html>

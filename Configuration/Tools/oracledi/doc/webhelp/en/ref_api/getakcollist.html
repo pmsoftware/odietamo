@@ -1,0 +1,492 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>getAKColList()</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="fr">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="StyleSheet" href="../include/common.css"><style>
+<!--
+th.whs1 { x-cell-content-align:top; }
+th.whs2 { x-cell-content-align:top; }
+th.whs3 { x-cell-content-align:top; }
+td.whs4 { x-cell-content-align:top; }
+td.whs5 { x-cell-content-align:top; }
+td.whs6 { x-cell-content-align:top; }
+td.whs7 { x-cell-content-align:top; }
+td.whs8 { x-cell-content-align:top; }
+td.whs9 { x-cell-content-align:top; }
+td.whs10 { x-cell-content-align:top; }
+td.whs11 { x-cell-content-align:top; }
+td.whs12 { x-cell-content-align:top; }
+td.whs13 { x-cell-content-align:top; }
+td.whs14 { x-cell-content-align:top; }
+td.whs15 { x-cell-content-align:top; }
+th.whs16 { x-cell-content-align:top; }
+th.whs17 { x-cell-content-align:top; }
+td.whs18 { x-cell-content-align:top; }
+td.whs19 { x-cell-content-align:top; }
+td.whs20 { x-cell-content-align:top; }
+td.whs21 { x-cell-content-align:top; }
+td.whs22 { x-cell-content-align:top; }
+td.whs23 { x-cell-content-align:top; }
+td.whs24 { x-cell-content-align:top; }
+td.whs25 { x-cell-content-align:top; }
+td.whs26 { x-cell-content-align:top; }
+td.whs27 { x-cell-content-align:top; }
+td.whs28 { x-cell-content-align:top; }
+td.whs29 { x-cell-content-align:top; }
+td.whs30 { x-cell-content-align:top; }
+td.whs31 { x-cell-content-align:top; }
+td.whs32 { x-cell-content-align:top; }
+td.whs33 { x-cell-content-align:top; }
+td.whs34 { x-cell-content-align:top; }
+td.whs35 { x-cell-content-align:top; }
+td.whs36 { x-cell-content-align:top; }
+td.whs37 { x-cell-content-align:top; }
+td.whs38 { x-cell-content-align:top; }
+td.whs39 { x-cell-content-align:top; }
+td.whs40 { x-cell-content-align:top; }
+td.whs41 { x-cell-content-align:top; }
+td.whs42 { x-cell-content-align:top; }
+td.whs43 { x-cell-content-align:top; }
+td.whs44 { x-cell-content-align:top; }
+td.whs45 { x-cell-content-align:top; }
+td.whs46 { x-cell-content-align:top; }
+td.whs47 { x-cell-content-align:top; }
+td.whs48 { x-cell-content-align:top; }
+td.whs49 { x-cell-content-align:top; }
+td.whs50 { x-cell-content-align:top; }
+td.whs51 { x-cell-content-align:top; }
+td.whs52 { x-cell-content-align:top; }
+td.whs53 { x-cell-content-align:top; }
+td.whs54 { x-cell-content-align:top; }
+td.whs55 { x-cell-content-align:top; }
+td.whs56 { x-cell-content-align:top; }
+td.whs57 { x-cell-content-align:top; }
+td.whs58 { x-cell-content-align:top; }
+td.whs59 { x-cell-content-align:top; }
+td.whs60 { x-cell-content-align:top; }
+td.whs61 { x-cell-content-align:top; }
+td.whs62 { x-cell-content-align:top; }
+td.whs63 { x-cell-content-align:top; }
+td.whs64 { x-cell-content-align:top; }
+td.whs65 { x-cell-content-align:top; }
+td.whs66 { x-cell-content-align:top; }
+td.whs67 { x-cell-content-align:top; }
+td.whs68 { x-cell-content-align:top; }
+td.whs69 { x-cell-content-align:top; }
+-->
+</style><style>
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+p.WebHelpNavBar { text-align:right; }
+LI.kadov-p-CWebHelpNavBar { text-align:right; }
+-->
+</style><script language=javascript
+		title=WebHelpSplitCss><!--
+if (navigator.appName !="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='../../include/common.css'>");}
+//--></script>
+
+<script language=javascript
+		title=WebHelpInlineScript><!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+//--></script>
+
+<style type="text/css">
+<!--
+td.whs1 { x-cell-content-align:top; }
+-->
+</style><style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nControl Methods (CKM)\ngetAKColList");
+addTocInfo("Substitution Methods Reference\nSubstitution Methods Reference\nAction methods\ngetAKColList");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>getAKColList() Method</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>public java.lang.String <b>getAKColList</b>( java.lang.String&nbsp;pStart,&nbsp;<br>
+java.lang.String&nbsp;pPattern,&nbsp;<br>
+java.lang.String&nbsp;pSeparator,&nbsp;<br>
+java.lang.String&nbsp;pEnd)</span></p>
+
+<p>Alternative syntax:</p>
+
+<p><span class=Code>public java.lang.String <b>getAKColList</b>( <br>
+java.lang.String&nbsp;pPattern,&nbsp;<br>
+java.lang.String&nbsp;pSeparator)</span></p>
+
+<h2>Description</h2>
+
+<p>Offers a list of columns and expressions for the alternate key currently 
+ checked .</p>
+
+<p>The pPattern parameter is interpreted and then repeated for each element 
+ of the list. It is separated from its predecessor by the pSeparator parameter. 
+ The generated string starts with pStart and ends with pEnd.</p>
+
+<p>This list contains an element for each column of the current alternate 
+ key. It is accessible from a Check Knowledge Module if the current task 
+ is tagged as an &quot;alternate key&quot;.</p>
+
+<p>In an action, this method returns the list of the columns of the alternate 
+ key handled by the DDL command, ordered by their position in the key.</p>
+
+<p>In the alternative syntax, any parameters not set are set to an empty 
+ string.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameters</th>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Type</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau>pStart</td>
+<td class=whs5>
+<p class=TexteTableau>String</td>
+<td class=whs6>
+<p class=TexteTableau>This sequence marks the beginning of the string to 
+ generate.</td></tr>
+
+<tr>
+<td class=whs7>
+<p class=TexteTableau>pPattern</td>
+<td class=whs8>
+<p class=TexteTableau>String</td>
+<td class=whs9>
+<p class=TexteTableau>The pattern is repeated for each occurrence in the 
+ list.</p>
+<p class=TexteTableau>The list of attributes that can be used in a pattern 
+ is detailed in the table «&nbsp;<a href="#ATTR_MOTIF">Pattern Attributes 
+ List</a>&nbsp;»</p>
+<p class=TexteTableau>Each attribute occurrence in the pattern sequence 
+ is replaced with its value. The attributes must be between brackets. ([ 
+ and ])</p>
+<p class=TexteTableau>Example «&nbsp;My string [COL_NAME] is a column&nbsp;»</td></tr>
+
+<tr>
+<td class=whs10>
+<p class=TexteTableau>pSeparator</td>
+<td class=whs11>
+<p class=TexteTableau>String</td>
+<td class=whs12>
+<p class=TexteTableau>This parameter separates each pattern from its predecessor.</td></tr>
+
+<tr>
+<td class=whs13>
+<p class=TexteTableau>pEnd</td>
+<td class=whs14>
+<p class=TexteTableau>String</td>
+<td class=whs15>
+<p class=TexteTableau>This sequence marks the end of the string to generate.</td></tr>
+</table>
+
+<h3><a name=ATTR_MOTIF></a>Pattern Attributes List</h3>
+
+<p>The following table lists the different values of the parameters as 
+ well as their associated description. </p>
+
+<p>&nbsp; </p>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs16
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameter value</th>
+<th class=whs17
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs18>
+<p class=TexteTableau>I_COL</td>
+<td class=whs19>
+<p class=TexteTableau>Column internal identifier</td></tr>
+
+<tr>
+<td class=whs20>
+<p class=TexteTableau>COL_NAME</td>
+<td class=whs21>
+<p class=TexteTableau>Name of the key column</td></tr>
+
+<tr>
+<td class=whs22>
+<p class=TexteTableau>COL_HEADING</td>
+<td class=whs23>
+<p class=TexteTableau>Header of the key column</td></tr>
+
+<tr>
+<td class=whs24>
+<p class=TexteTableau>COL_DESC</td>
+<td class=whs25>
+<p class=TexteTableau>Column description</td></tr>
+
+<tr>
+<td class=whs26>
+<p class=TexteTableau>POS</td>
+<td class=whs27>
+<p class=TexteTableau>Position of the column</td></tr>
+
+<tr>
+<td class=whs28>
+<p class=TexteTableau>LONGC</td>
+<td class=whs29>
+<p class=TexteTableau>Length (Precision) of the column</td></tr>
+
+<tr>
+<td class=whs30>
+<p class=TexteTableau>SCALE</td>
+<td class=whs31>
+<p class=TexteTableau>Scale of the column</td></tr>
+
+<tr>
+<td class=whs32>
+<p class=TexteTableau>FILE_POS</td>
+<td class=whs33>
+<p class=TexteTableau>Beginning position of the column (fixed file)</td></tr>
+
+<tr>
+<td class=whs34>
+<p class=TexteTableau>BYTES</td>
+<td class=whs35>
+<p class=TexteTableau>Number of physical bytes of the column</td></tr>
+
+<tr>
+<td class=whs36>
+<p class=TexteTableau>FILE_END_POS</td>
+<td class=whs37>
+<p class=TexteTableau>End of the column (FILE_POS + BYTES)</td></tr>
+
+<tr>
+<td class=whs38>
+<p class=TexteTableau>IND_WRITE</td>
+<td class=whs39>
+<p class=TexteTableau>Write right flag of the column</td></tr>
+
+<tr>
+<td class=whs40>
+<p class=TexteTableau>COL_MANDATORY</td>
+<td class=whs41>
+<p class=TexteTableau>Mandatory character of the columnn (0: null authorized, 
+ 1: non null)</td></tr>
+
+<tr>
+<td class=whs42>
+<p class=TexteTableau>CHECK_FLOW</td>
+<td class=whs43>
+<p class=TexteTableau>Flow control flag for of the column (0: do not check, 
+ 1: check)</td></tr>
+
+<tr>
+<td class=whs44>
+<p class=TexteTableau>CHECK_STAT</td>
+<td class=whs45>
+<p class=TexteTableau>Static control flag of the column (0: do not check, 
+ 1: check)</td></tr>
+
+<tr>
+<td class=whs46>
+<p class=TexteTableau>COL_FORMAT</td>
+<td class=whs47>
+<p class=TexteTableau>Logical format of the column</td></tr>
+
+<tr>
+<td class=whs48>
+<p class=TexteTableau>COL_DEC_SEP</td>
+<td class=whs49>
+<p class=TexteTableau>Decimal symbol for the column</td></tr>
+
+<tr>
+<td class=whs50>
+<p class=TexteTableau>REC_CODE_LIST</td>
+<td class=whs51>
+<p class=TexteTableau>List of the record codes retained for the column</td></tr>
+
+<tr>
+<td class=whs52>
+<p class=TexteTableau>COL_NULL_IF_ERR</td>
+<td class=whs53>
+<p class=TexteTableau>Processing flag for the column (0 = Reject, 1 = Set 
+ active trace to null , 2= Set inactive trace to null)</td></tr>
+
+<tr>
+<td class=whs54>
+<p class=TexteTableau>DEF_VALUE</td>
+<td class=whs55>
+<p class=TexteTableau>Default value for the column</td></tr>
+
+<tr>
+<td class=whs56>
+<p class=TexteTableau>EXPRESSION</td>
+<td class=whs57>
+<p class=TexteTableau>Not used</td></tr>
+
+<tr>
+<td class=whs58>
+<p class=TexteTableau>CX_COL_NAME</td>
+<td class=whs59>
+<p class=TexteTableau>Not used</td></tr>
+
+<tr>
+<td class=whs60>
+<p class=TexteTableau>ALIAS_SEP</td>
+<td class=whs61>
+<p class=TexteTableau>Grouping symbol used for the alias (from the technology)</td></tr>
+
+<tr>
+<td class=whs68>
+<p class=TexteTableau>SOURCE_DT</td>
+<td class=whs69>
+<p class=TexteTableau>Code of the column's datatype.</td></tr>
+
+<tr>
+<td class=whs70>
+<p class=TexteTableau>SOURCE_CRE_DT</td>
+<td class=whs71>
+<p class=TexteTableau>Create table syntax for the column's datatype.</td></tr>
+
+<tr>
+<td class=whs70>
+<p class=TexteTableau>SOURCE_WRI_DT</td>
+<td class=whs71>
+<p class=TexteTableau>Create table syntax for the column's writable datatype.</td></tr>
+
+<tr>
+<td class=whs72>
+<p class=TexteTableau>DEST_DT</td>
+<td class=whs73>
+<p class=TexteTableau>Code of the column's datatype converted to a datatype 
+ on the target technology.</td></tr>
+
+<tr>
+<td class=whs74>
+<p class=TexteTableau>DEST_CRE_DT</td>
+<td class=whs75>
+<p class=TexteTableau>Create table syntax for the column's datatype converted 
+ to a datatype on the target technology.</td></tr>
+
+<tr>
+<td class=whs74>
+<p class=TexteTableau>DEST_WRI_DT</td>
+<td class=whs75>
+<p class=TexteTableau>Create table syntax for the column's writable datatype 
+ converted to a datatype on the target technology.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>SCD_COL_TYPE</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Behavior defined for the Slowly Changing Dimensions 
+ for this column in the data model.</td></tr>
+
+<tr>
+<td valign="top" class="whs1">
+<p class=TexteTableau>&lt;flexfield code&gt;</td>
+<td valign="top" class="whs1">
+<p class=TexteTableau>Flexfield value for the current column.</td></tr>
+</table>
+
+<p>&nbsp; </p>
+
+<h2>Examples</h2>
+
+<p>If the CUSTOMER table has an alternate key AK_CUSTOMER (CUST_ID, CUST_NAME) 
+ and you want to generate the following code:<span class=Code><br>
+create table T_AK_CUSTOMER (CUST_ID numeric(10) not null, CUST_NAME varchar(50) 
+ not null)</span></p>
+
+<p>you just have to write:<span class=Code><br>
+create table T_&lt;%=odiRef.getAK(&quot;KEY_NAME&quot;)%&gt; <b>&lt;%=odiRef.getAKColList(&quot;(&quot;, 
+ &quot;[COL_NAME] [DEST_CRE_DT] not null&quot;, &quot;, &quot;, &quot;)&quot;)%&gt;</b></span></p>
+
+<p>Explanation: the getAKColList function will be used to generate the 
+ part (CUST_ID numeric(10) not null, CUST_NAME varchar(50) not null),which 
+ starts and stops with a parenthesis and repeats the pattern (column,&nbsp;a 
+ data type, and not null) separated by commas for each column of the alternate 
+ key. Thus</p>
+
+<ul>
+	
+	<li class=kadov-p><p>the first parameter <b>&quot;(&quot;</b> of the 
+ function indicates that we want to start the string with the string <span 
+ class=Code>&quot;(&quot;</span></p></li>
+	
+	<li class=kadov-p><p>the second parameter <b>&quot;[COL_NAME] [DEST_CRE_DT] 
+ not null&quot; </b>indicates that we want to repeat this pattern for each 
+ column of the alternate key . The keywords [COL_NAME] and [DEST_CRE_DT] 
+ reference valid keywords of the <a href="#ATTR_MOTIF">Pattern Attributes 
+ List</a> table</p></li>
+	
+	<li class=kadov-p><p>the third parameter <b>&quot;, &quot;</b> indicates 
+ that we want to separate interpreted occurrences of the pattern with the 
+ string <span class=Code>&quot;, &quot;</span></p></li>
+	
+	<li class=kadov-p><p>the forth parameter <b>&quot;)&quot;</b> of the 
+ function indicates that we want to end the string with the string <span 
+ class=Code>&quot;)&quot;</span></p></li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Data Quality</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+p.whs2 { font-style:italic; }
+p.whs3 { font-style:normal; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nConcepts\nData Quality");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Data Quality</h1>
+
+<h2>Data Quality in Oracle Data Integrator</h2>
+
+<p>Checking transferred data has many advantages: </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Productivity gains when using the data. Obviously, 
+ data errors slow down not only the development of applications, but also 
+ their operation over long periods.</p></li>
+	
+	<li class=kadov-p><p>Validating the modeling. The errors detected do 
+ not always arise from insufficient source data quality, but can reveal 
+ an incompleteness of the model. Migrating data before rewriting an application 
+ makes it possible to validate a new data model and provides a test set 
+ close to reality. </p></li>
+	
+	<li class=kadov-p><p>Improved service quality for the end user.</p></li>
+</ul>
+
+<p>Ensuring data quality in terms of interface construction and operation 
+ is not simple. In fact, it calls for the management of the isolation and 
+ recycling of erroneous data, implying more complex programming, particularly 
+ when the target incorporates an activated mechanism for checking integrity 
+ constraints. During operation, a procedure for correcting erroneous data 
+ (on the source, the target, or on the recycled flows) should be implemented. 
+ </p>
+
+<h3><a name=FlowQuality></a>Checking data flows </h3>
+
+<p>Data flow control consists of checking the source data of an interface 
+ compared to the consistency level required on the target. Data is checked 
+ before the data is integrated in the target. Detection of an error can 
+ give rise to either non-integration of all the data (even correct), or 
+ integration of only the correct data. In any case, it is useful to isolate 
+ and/or recycle the erroneous data (after any necessary correction). The 
+ recycling and correction of isolated errors only makes sense for increment 
+ loadings, as, in this case, the data is not automatically returned on 
+ each interface execution. </p>
+
+<p>Simulating this type of procedure can be useful, as this remains the 
+ only means of checking a set of source data in comparison with the integrity 
+ rules declared on another data model. A simulation consists of launching 
+ an interface without updating the data in the target structure. </p>
+
+<h3>Static data control </h3>
+
+<p>The consistency of data in a model, irrespective of its use in an interface, 
+ can be checked to assess the time needed for correcting errors, and also 
+ to carry out a <span style="font-weight: bold;"><B>quality audit of an application</B></span>. 
+ </p>
+
+<p>Of course, data quality control can only apply to the rules not present 
+ in the storage technology containing the data. The rules not checked by 
+ this source technology should be declared in another metadata dictionary: 
+ semantic link, validity limits, validity domain, formats. </p>
+
+<h3><a name=StaticQuality></a>The quality of the target data </h3>
+
+<p>The quality of the target data can always be called into question, if 
+ the target technology does not check its data by an internal mechanism 
+ (triggers or declarative integrity). Data consistency will be validated 
+ by program or by SQL queries. To avoid these repetitive manual checks, 
+ it is important to be able to automate this type of check in the same 
+ way as for sources. </p>
+
+<h3>Processing erroneous data </h3>
+
+<p>Erroneous data can be corrected either on the source or on the target 
+ (if the errors have been integrated), or on the recycled flows. The use 
+ of a central tool for consulting and, if necessary, correcting the data 
+ wherever it is located in the information system, can be very useful in 
+ a multi-technology context. </p>
+
+<h3>The capacities of data quality control </h3>
+
+<p>Most quality control features integrated in <span style="font-weight: bold;"><B>Data 
+ Integrator </B></span>are only applicable on relational technologies.</p>
+
+<p>These functions are: </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Checking flows according to the target database 
+ rules,</p></li>
+	
+	<li class=kadov-p><p>Checking static data (on the source or on the 
+ target),</p></li>
+	
+	<li class=kadov-p><p>Recycling and/or isolation of errors,</p></li>
+	
+	<li class=kadov-p><p>Consulting and editing (for manual correction) 
+ non-integrated erroneous data (flow or cleanup),</p></li>
+	
+	<li class=kadov-p><p>Consulting and editing (for manual correction) 
+ erroneous data in the source and/or target tables,</p></li>
+	
+	<li class=kadov-p><p>Checking joins (referential integrity), validity 
+ limits, validity domains, primary and alternate keys and complex rules,</p></li>
+	
+	<li class=kadov-p><p>Recycling and isolation of errors,</p></li>
+	
+	<li class=kadov-p><p>Locating errors.</p></li>
+</ul>
+
+<h2><span class=topstoryhead>Oracle Data Profiling and Data Quality for 
+ Data Integrator</span></h2>
+
+<p><span class=bodycopy
+		style="font-weight: bold;"><B>Oracle Data Profiling</B></span><span class=bodycopy> 
+ and </span><span class=bodycopy
+					style="font-weight: bold;"><B>Oracle Data Quality for 
+ Data Integrator</B></span><span class=bodycopy> (also referred to as</span><span 
+ style="font-weight: bold;"><B> Oracle Data Quality Products) </B></span><span 
+ class=bodycopy>extend the inline Data Quality features of Oracle Data 
+ Integrator to provide more advanced data governance capabilities.</span> 
+ </p>
+
+<h3><span class=bodycopy>Oracle Data Profiling</span></h3>
+
+<p><span class=bodycopy
+		style="font-weight: bold;"><B>Oracle Data Profiling</B></span><span class=bodycopy> 
+ is a data investigation and quality monitoring tool. It allows business 
+ users to assess the quality of their data through metrics, to discover 
+ or deduce rules based on this data, and to monitor the evolution of data 
+ quality over time.</span></p>
+
+<h3><span class=bodycopy>Oracle Data Quality for Data Integrator </span></h3>
+
+<p><span class=bodycopy
+		style="font-weight: bold;"><B>Oracle Data Quality for Data Integrator</B></span><span 
+ class=bodycopy> is a comprehensive award-winning data quality platform 
+ that covers even the most complex data quality needs. Its powerful rule-based 
+ engine and its robust and scalable architecture places data quality and 
+ name and address cleansing at the heart of an enterprise data integration 
+ strategy.</span></p>
+
+<h3><span class=bodycopy>More Information</span></h3>
+
+<p><span class=bodycopy>For more information on Oracle Data Profiling and 
+ Oracle Data Quality for Data Integrator, please refer to the following 
+ documents available with Oracle Data Quality Products:</span></p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p class="whs2">Getting Started with 
+ Oracle Data Quality for Data Integrator Guide</p></li>
+	
+	<li class=kadov-p><p class="whs2">Oracle Data Quality 
+ Tutorial</p></li>
+	
+	<li class=kadov-p><p class="whs2">Oracle Data Quality 
+ Products User's Guide</p></li>
+	
+	<li class=kadov-p><p class="whs3">See also the <a HREF="../../usermanual/designer/project/work_with_odq.htm">Working 
+ with Oracle Data Quality</a> topic </p></li>
+</ul>
+
+</body>
+</html>

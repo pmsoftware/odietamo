@@ -1,0 +1,419 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Installing Lightweight Designer</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+ul.whs2 { list-style:disc; }
+p.whs3 { margin-left:40px; }
+p.whs4 { margin-left:40px; color:#c0c0c0; }
+p.whs5 { margin-left:80px; }
+p.whs6 { color:#c0c0c0; margin-left:80px; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Installation Guide\nInstallation Procedure\nInstalling Lightweight Designer");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Installing Lightweight Designer</h1>
+
+<p>Lightweight Designer is a web application to view and edit objects in 
+ the repository through a Web browser. This application uses JSF (Java 
+ Server Faces) and AJAX (Asynchronous JavaScript and XML) technologies. 
+ This application requires a Web server with a Servlet/JSP container such 
+ as Jakarta Tomcat or Oracle Container for Java OC4J.</p>
+
+
+<h2>Deploying Lightweight Designer</h2>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: To deploy Lightweight 
+ Designer, refer to the documentation of your application server to find 
+ the recommended method for deploying a web application from a web application 
+ resource (WAR) file or from a set of JSP pages.</p>
+
+<p class=HowTo>To install Lightweight Designer: </p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Insert the Oracle Data Integrator CD-ROM in your 
+ CD-ROM drive.</p></li>
+	
+	<li class=kadov-p><p>To install Lightweight Designer, you may either:</p></li>
+	
+	<ul type="disc" class="whs2">
+		
+		<li class=kadov-p><p>Use the web application deployment feature 
+ of the application server with the <span class=Code>oracledilwd.war</span> 
+ &nbsp;file located 
+ in the <span class=Code>/setup/manual/ </span>directory on the CD. This 
+ solution is recommended for OC4J (Use the <span class=ElementGUI>Deploy</span> 
+ button in the <span class=ElementGUI>Applications</span> tab).</p></li>
+		
+		<li class=kadov-p><p>if the application server allows it, copy 
+ the <span class=Code>/oracledilwd</span> directory from the CD to the 
+ application server's web applications directory (<span class=Code>Webapps</span> 
+ for Tomcat), perform the configuration detailed below, then restart the 
+ web server hosting the application.</p></li>
+	</ul>
+</ol>
+
+<h2>Configure the repository connections</h2>
+
+<h3>Configuring the Datasources</h3>
+
+<p>Lightweight Designer connects the repositories though JDBC datasource 
+ to configure on the application server.</p>
+
+<p class=HowTo>To configure the datasources for Tomcat:</p>
+
+<p>You should configure the login for each work repository, as described 
+ below:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Copy the JDBC driver (.jar) files required to 
+ connect the RDBMS hosting the master and work repositories to the appropriate 
+ directory in your application server. The directory is <span class=Code>/common/lib</span> 
+ for Tomcat.</p></li>
+	
+	<li class=kadov-p><p>Define the datasources and connection information 
+ to your master and work repositories in the <span class=Code>META-INF/context.xml</span> 
+ file. If you have installed Lightweight Designer using the deployment 
+ feature of Tomcat, you should configure the datasources in the <span class=Code>&lt;TOMCAT_HOME&gt;/conf/Catalina/localhost/oracledilwd.xml</span> 
+ file instead. Note the name of the resource (marked in <span style="color: #008000; font-weight: bold;"><font color=green ><B>green</B></font></span> 
+ below), as you will need it later. Connection information are marked in 
+ <span style="color: #0000ff; font-weight: bold;"><font color=blue ><B>blue</B></font></span>. <br>
+	An example of configuration for a master and a work repository on Oracle 
+ is given below.</p></li>
+</ol>
+
+<p class="whs3"><span class=Code>&lt;Context &gt; </span></p>
+
+<p class="whs3"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;Resource</span></p>
+
+<p class="whs3"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name=&quot;</span><span 
+ class=Code
+	style="color: #008000; font-weight: bold;"><font color=green ><B>jdbc/ORACLE_MASTER</B></font></span><span 
+ class=Code>&quot;</span></p>
+
+<p class="whs3"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type=&quot;javax.sql.DataSource&quot;</span></p>
+
+<p class="whs3"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auth=&quot;Container&quot;</span></p>
+
+<p class="whs3"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driverClassName=&quot;</span><span 
+ class=Code
+	style="color: #0000ff; font-weight: bold;"><font color=blue ><B>oracle.jdbc.OracleDriver</B></font></span><span 
+ class=Code>&quot;</span></p>
+
+<p class="whs3"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url=&quot;</span><span 
+ class=Code
+	style="color: #0000ff; font-weight: bold;"><font color=blue ><B>jdbc:oracle:thin:@SRV1:1521:ORA10</B></font></span><span 
+ class=Code>&quot;</span></p>
+
+<p class="whs3"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;username=&quot;</span><span 
+ class=Code
+	style="color: #0000ff; font-weight: bold;"><font color=blue ><B>ODIM</B></font></span><span class=Code>&quot;</span></p>
+
+<p class="whs3"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password=&quot;</span><span 
+ class=Code
+	style="color: #0000ff; font-weight: bold;"><font color=blue ><B>ODIM</B></font></span><span class=Code>&quot;</span></p>
+
+<p class="whs4"><span class=Code><font color=silver >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxActive=&quot;8&quot; 
+ </font></span></p>
+
+<p class="whs4"><span class=Code><font color=silver >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxIdle=&quot;2&quot;</font></span></p>
+
+<p class="whs4"><span class=Code><font color=silver >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxWait=&quot;15000&quot;</font></span></p>
+
+<p class="whs4"><span class=Code><font color=silver >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;poolPreparedStatements=&quot;true&quot;</font></span></p>
+
+<p class="whs4"><span class=Code><font color=silver >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;removeAbandoned=&quot;true&quot;</font></span></p>
+
+<p class="whs4"><span class=Code><font color=silver >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;initialSize=&quot;2&quot;</font></span></p>
+
+<p class="whs4"><span class=Code><font color=silver >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;removeAbandonedTimeout=&quot;1800&quot;</font></span></p>
+
+<p class="whs3"><span class=Code>/&gt;</span></p>
+
+<p class="whs3"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;Resource</span></p>
+
+<p class="whs3"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name=&quot;</span><span 
+ class=Code
+	style="color: #008000; font-weight: bold;"><font color=green ><B>jdbc/ORACLE_WORK</B></font></span><span 
+ class=Code>&quot;</span></p>
+
+<p class="whs3"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type=&quot;javax.sql.DataSource&quot;</span></p>
+
+<p class="whs3"><span class=Code><span class=Code>&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auth=&quot;Container&quot;</span></p>
+
+<p class="whs3"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driverClassName=&quot;</span><span 
+ class=Code
+	style="color: #0000ff; font-weight: bold;"><font color=blue ><B>oracle.jdbc.OracleDriver</B></font></span><span 
+ class=Code>&quot;</span></p>
+
+<p class="whs3"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url=&quot;</span><span 
+ class=Code
+	style="color: #0000ff; font-weight: bold;"><font color=blue ><B>jdbc:oracle:thin:@SRV1:1521:ORA10</B></font></span><span 
+ class=Code>&quot;</span></p>
+
+<p class="whs3"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;username=&quot;</span><span 
+ class=Code
+	style="color: #0000ff; font-weight: bold;"><font color=blue ><B>ODIW</B></font></span><span class=Code>&quot;</span></p>
+
+<p class="whs3"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password=&quot;</span><span 
+ class=Code
+	style="color: #0000ff; font-weight: bold;"><font color=blue ><B>ODIW</B></font></span><span class=Code>&quot;</span></p>
+
+<p class="whs4"><span class=Code><font color=silver >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxActive=&quot;8&quot; 
+ </font></span></p>
+
+<p class="whs4"><span class=Code><font color=silver >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxIdle=&quot;2&quot;</font></span></p>
+
+<p class="whs4"><span class=Code><font color=silver >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxWait=&quot;15000&quot;</font></span></p>
+
+<p class="whs4"><span class=Code><font color=silver >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;poolPreparedStatements=&quot;true&quot;</font></span></p>
+
+<p class="whs4"><span class=Code><font color=silver >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;removeAbandoned=&quot;true&quot;</font></span></p>
+
+<p class="whs4"><span class=Code><font color=silver >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;initialSize=&quot;2&quot;</font></span></p>
+
+<p class="whs4"><span class=Code><font color=silver >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;removeAbandonedTimeout=&quot;1800&quot;</font></span></p>
+
+<p class="whs3"><span class=Code>&lt;/Context&gt;</span></p>
+
+<p class="whs3">&nbsp;</p>
+
+<p class="whs3">Parameters Details:</p>
+
+<ul>
+	
+	<ul>
+		
+		<ul>
+			
+			<li class=kadov-p><p><span style="font-weight: bold;"><B>name</B></span> 
+ is the datasource name</p></li>
+			
+			<li class=kadov-p><p><span style="font-weight: bold;"><B>username</B></span> 
+ and <span style="font-weight: bold;"><B>password</B></span> in use in your database</p></li>
+			
+			<li class=kadov-p><p><span style="font-weight: bold;"><B>driverClassName</B></span> 
+ contains the JDBC class name in the driver</p></li>
+			
+			<li class=kadov-p><p><span style="font-weight: bold;"><B>url</B></span> 
+ contains the JDBC URL</p></li>
+			
+			<li class=kadov-p><p><span style="font-weight: bold;"><B>maxActive</B></span> 
+ contains the maximum number of simultaneous authorized connections</p></li>
+			
+			<li class=kadov-p><p><span style="font-weight: bold;"><B>maxIdle</B></span> 
+ contains the maximum number of simultaneous connections in idle state 
+ in the connection pool.</p></li>
+		</ul>
+	</ul>
+</ul>
+
+<p class="whs3">For more information, refer to the <a title="Apache Tomcat website"
+	href="http://tomcat.apache.org/"
+	target=_blank>Apache Tomcat</a> manual. These parameters should be 
+ adapted to the workload of your server.</p>
+
+<p class=HowTo>To configure the datasources for OC4J:</p>
+
+<p>With OC4J, you must define the datasource for each master or work repository 
+ used as follows:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Copy the JDBC driver (.jar) files required to 
+ connect the RDBMS hosting the master and work repositories to the appropriate 
+ directory in your application server. The directory is <span class=Code>ORACLE_HOME/j2ee/home/applib</span> 
+ for OC4J.</p></li>
+	
+	<li class=kadov-p><p>Connect to OC4J administration interface.</p></li>
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>Administration</span> 
+ tab, in <span class=ElementGUI>Services | JDBC Resources</span> click 
+ <span class=ElementGUI>Go to task</span><span style="font-weight: bold;"><B>.</B></span></p></li>
+	
+	<li class=kadov-p><p>Click the <span style="font-weight: bold;"><B>Create 
+ </B></span>button in the<span class=ElementGUI> Connection Pools</span> section<span 
+ style="font-weight: bold;"><B>.</B></span></p></li>
+	
+	<li class=kadov-p><p>Select the Lightweight Designer application, select 
+ <b>New Connection Pool</b> , then <b>Continue.</b></p></li>
+	
+	<li class=kadov-p><p>Fill in the fields for the JDBC connection then 
+ click <span class=ElementGUI>Finish</span>.</p></li>
+	
+	<li class=kadov-p><p>Click the <span style="font-weight: bold;"><B>Create 
+ </B></span>button in the<span class=ElementGUI> Data Sources</span> section<span 
+ style="font-weight: bold;"><B>.</B></span></p></li>
+	
+	<li class=kadov-p><p>Select the Lightweight application, select <span 
+ class=ElementGUI>Managed Datasource</span> , then <b>Continue.</b></p></li>
+	
+	<li class=kadov-p><p>Fill in the fields for the JDBC datasource then 
+ click <span class=ElementGUI>Finish</span>.</p></li>
+</ol>
+
+<p><b style="font-weight: normal;">For more information on configuring 
+ datasources for OC4J, refer to the application server <a title="Documentation OC4J"
+															href="http://www.oracle.com/technology/tech/java/oc4j/1013/how_to/index.html"
+															target=_blank>documentation</a>.</b></p>
+
+<h3>Configuring the Repository Connections</h3>
+
+<p>This configuration is common to all application servers.</p>
+
+<ol start="1" type="1" class="whs1">
+	
+	<li class=kadov-p><p>Edit the <span class=Code>WEB-INF/web.xml</span> 
+ file in the web application deployment directory and add the entries to 
+ link the datasource in the application context. An example is given below.<br>
+	To reference the datasources defined above :</p></li>
+</ol>
+
+<p class="whs3"><span class=Code>&lt;resource-ref&gt;</span></p>
+
+<p class="whs5"><span class=Code>&lt;description&gt;</span><span 
+ class=Code
+	style="font-weight: bold; color: #0000ff;"><font color=blue ><B>Oracle Datasource for the 
+ Master Repository</B></font></span><span class=Code>&lt;/description&gt;</span></p>
+
+<p class="whs5"><span class=Code>&lt;res-ref-name&gt;</span><span 
+ class=Code
+	style="color: #008000; font-weight: bold;"><font color=green ><B>jdbc/ORACLE_MASTER</B></font></span><span 
+ class=Code>&lt;/res-ref-name&gt;</span></p>
+
+<p class="whs6"><span class=Code><font color=silver >&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;</font></span></p>
+
+<p class="whs6"><span class=Code><font color=silver >&lt;res-auth&gt;Container&lt;/res-auth&gt;</font></span></p>
+
+<p class="whs6"><span class=Code><font color=silver >&lt;res-sharing-scope&gt;Unshareable&lt;/res-sharing-scope&gt;</font></span></p>
+
+<p class="whs3"><span class=Code>&lt;/resource-ref&gt;</span></p>
+
+<p class="whs3"><span class=Code>&lt;resource-ref&gt;</span></p>
+
+<p class="whs5"><span class=Code>&lt;description&gt;</span><span 
+ class=Code
+	style="font-weight: bold; color: #0000ff;"><font color=blue ><B>Oracle Datasource for the 
+ Work Repository</B></font></span><span class=Code>&lt;/description&gt;</span></p>
+
+<p class="whs5"><span class=Code>&lt;res-ref-name&gt;</span><span 
+ class=Code
+	style="color: #008000; font-weight: bold;"><font color=green ><B>jdbc/ORACLE_WORK</B></font></span><span 
+ class=Code>&lt;/res-ref-name&gt;</span></p>
+
+<p class="whs6"><span class=Code><font color=silver >&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;</font></span></p>
+
+<p class="whs6"><span class=Code><font color=silver >&lt;res-auth&gt;Container&lt;/res-auth&gt;</font></span></p>
+
+<p class="whs6"><span class=Code><font color=silver >&lt;res-sharing-scope&gt;Unshareable&lt;/res-sharing-scope&gt;</font></span></p>
+
+<p class="whs3"><span class=Code>&lt;/resource-ref&gt;</span></p>
+
+<p class="whs3">&nbsp;</p>
+
+<ol start="2" type="1" class="whs1">
+	
+	<li class=kadov-p><p>The datasources are configured. You should now 
+ define the Lightweight Designer login information to the work repositories. 
+ Edit the <span class=Code>repositories.xml</span> file and declare a login 
+ as below for each work repository you wish to connect:</p></li>
+</ol>
+
+<p class="whs3"><span class=Code>&lt;login name=&quot;</span><span 
+ class=Code
+	style="color: #0000ff; font-weight: bold;"><font color=blue ><B>My Work Repository</B></font></span><span 
+ class=Code>&quot;&gt;</span></p>
+
+<p class="whs5"><span class=Code>&lt;master name=&quot;</span><span 
+ class=Code
+	style="color: #008000; font-weight: bold;"><font color=green ><B>jdbc/ORACLE_MASTER</B></font></span><span 
+ class=Code>&quot; masterDriver=&quot;</span><span class=Code
+													style="color: #0000ff; font-weight: bold;"><font color=blue ><B>oracle.jdbc.OracleDriver</B></font></span><span 
+ class=Code>&quot;/&gt;</span></p>
+
+<p class="whs5"><span class=Code>&lt;work name=&quot;</span><span 
+ class=Code
+	style="color: #008000; font-weight: bold;"><font color=green ><B>jdbc/ORACLE_WORK</B></font></span><span 
+ class=Code>&quot; workName=&quot;</span><span class=Code
+												style="color: #0000ff; font-weight: bold;"><font color=blue ><B>WORKREP</B></font></span><span 
+ class=Code>&quot;/&gt;</span></p>
+
+<p class="whs3"><span class=Code>&lt;/login&gt;</span></p>
+
+<p class="whs3">&nbsp;</p>
+
+<p class="whs3">You need to provide in this configuration 
+ item the datasource names for the work repositories and its related master 
+ repository. You should also provide the work repository name, and the 
+ JDBC driver used to connect the master repository.</p>
+
+<ol start="3" type="1" class="whs1">
+	
+	<li class=kadov-p><p>Restart your application to take the configuration 
+ changes into account.</p></li>
+</ol>
+
+</body>
+</html>

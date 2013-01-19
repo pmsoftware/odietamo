@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">
+
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+update SNP_OBJECT set OBJ_NAME = 'Options' where I_OBJECTS = 3700
+]]></Field>
+
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_LANG_ELT
+   drop constraint FK_LANG_ELT 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_LANG_TECHNO
+   drop constraint FK_LANG_TECHNO1 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_LANG_TECHNO
+   drop constraint FK_LANG_TECHNO2 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_LE_TECHNO
+   drop constraint FK_LE_TECHNO2 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_LE_TECHNO
+   drop constraint FK_LE_TECHNO1 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_SUB_LANG
+   drop constraint FK_SUB_LANG 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:drop index SNP_LANG_ELT_FK1
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:drop index SNP_LANG_TECHNO_FK1
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:drop index SNP_LANG_TECHNO_FK2
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:drop index SNP_LE_TECHNO_FK1
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:drop index SNP_LE_TECHNO_FK2
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:drop index SNP_SUB_LANG_FK1
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:drop table SNP_LANG_ELT
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:drop table SNP_LANG_TECHNO
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:drop table SNP_LE_TECHNO
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:drop table SNP_SUB_LANG
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+create table SNP_LANG_ELT (
+   I_LANG_ELT         <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   I_LANG             <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   LE_NAME            <?=snpRef.getDataType("SRC_VARCHAR","100")?> NOT NULL,
+   I_SUB_LANG         <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   LE_STD             <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   LE_TXT             <?=snpRef.getDataType("SRC_VARCHAR","250")?> NOT NULL,
+   LE_HELP            <?=snpRef.getDataType("SRC_VARCHAR","250")?> NOT NULL,
+   LE_SQL_GRP         <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   LE_UNIVERSAL       <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   FIRST_DATE         <?=snpRef.getDataType("SRC_DATE")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   FIRST_USER         <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   LAST_DATE          <?=snpRef.getDataType("SRC_DATE")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   LAST_USER          <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+create table SNP_LANG_TECHNO (
+   I_TECHNO           <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   I_LANG             <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   FULL_COMP          <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   DEF_LANG           <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   OBJ_DEL            <?=snpRef.getDataType("SRC_VARCHAR","50")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   WORD_SEP           <?=snpRef.getDataType("SRC_VARCHAR","100")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   LIT_DEL            <?=snpRef.getDataType("SRC_VARCHAR","50")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   OBJ_CASE_SENS      <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   WORD_CASE_SENS     <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+create table SNP_LE_TECHNO (
+   I_TECHNO           <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   I_LANG_ELT         <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   LT_TXT             <?=snpRef.getDataType("SRC_VARCHAR","250")?> NOT NULL,
+   LT_NAME            <?=snpRef.getDataType("SRC_VARCHAR","100")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   LT_HELP            <?=snpRef.getDataType("SRC_VARCHAR","250")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   LT_EXCEPTION       <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+create table SNP_SUB_LANG (
+   I_SUB_LANG         <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   I_LANG             <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   SL_NAME            <?=snpRef.getDataType("SRC_VARCHAR","50")?> NOT NULL,
+   SL_TYPE            <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   US_MAPPING         <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   US_FILTER          <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   US_FROM            <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   US_TASK            <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   EDIT_COLOR         <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+alter table SNP_LANG_ELT
+   add constraint AK_LANG_ELT unique (LE_NAME, I_LANG)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+alter table SNP_LANG_ELT
+   add constraint PK_LANG_ELT primary key (I_LANG_ELT)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+alter table SNP_LANG_TECHNO
+   add constraint PK_LANG_TECHNO primary key (I_TECHNO, I_LANG)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+alter table SNP_LE_TECHNO
+   add constraint PK_LE_TECHNO primary key (I_LANG_ELT, I_TECHNO)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+alter table SNP_SUB_LANG
+   add constraint PK_SUB_LANG primary key (I_SUB_LANG)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:create index LANG_ELT_FK1
+on SNP_LANG_ELT (
+   I_SUB_LANG ASC
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:create index LANG_TECHNO_FK1
+on SNP_LANG_TECHNO (
+   I_LANG ASC
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:create index LANG_TECHNO_FK2
+on SNP_LANG_TECHNO (
+   I_TECHNO ASC
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:create index LE_TECHNO_FK1
+on SNP_LE_TECHNO (
+   I_LANG_ELT ASC
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:create index LE_TECHNO_FK2
+on SNP_LE_TECHNO (
+   I_TECHNO ASC
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:create index SUB_LANG_FK1
+on SNP_SUB_LANG (
+   I_LANG ASC
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_LANG_ELT
+   add constraint FK_LANG_ELT foreign key (I_SUB_LANG)
+      references SNP_SUB_LANG(I_SUB_LANG)   
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_LANG_TECHNO
+   add constraint FK_LANG_TECHNO1 foreign key (I_LANG)
+      references SNP_LANG(I_LANG)   
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_LANG_TECHNO
+   add constraint FK_LANG_TECHNO2 foreign key (I_TECHNO)
+      references SNP_TECHNO(I_TECHNO)   
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_LE_TECHNO
+   add constraint FK_LE_TECHNO2 foreign key (I_LANG_ELT)
+      references SNP_LANG_ELT(I_LANG_ELT)   
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_LE_TECHNO
+   add constraint FK_LE_TECHNO1 foreign key (I_TECHNO)
+      references SNP_TECHNO(I_TECHNO)   
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_SUB_LANG
+   add constraint FK_SUB_LANG foreign key (I_LANG)
+      references SNP_LANG(I_LANG)   
+]]></Field>
+
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_OBJECT values(5100, 'Sous-langage', 'com.sunopsis.dwg.dbobj.SnpSubLang', null, null, 'SUNOPSIS_INSTALL', null, 'SUNOPSIS_INSTALL')
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_OBJECT values(5200, 'Elément de langage', 'com.sunopsis.dwg.dbobj.SnpLangElt', null, null, 'SUNOPSIS_INSTALL', null, 'SUNOPSIS_INSTALL')
+]]></Field>
+
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (30200, 5100, 1, 1, 'Insérer', 'insert', null, null, null, null, 1, null)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (30300, 5100, 0, 1, 'Editer', 'edit', null, null, null, null, 1, null)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (30400, 5100, 0, 1, 'Supprimer', 'delete', null, null, null, null, 1, null)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (30500, 5100, 0, 1, 'Consulter', 'consult', null, null, null, null, 1, null)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (30600, 5100, 0, 1, 'Editer dans nouvelle fenêtre', 'editinnewframe', null, null, null, null, 1, null)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (31400, 5100, 0, 1, 'Dupliquer', 'duplicate', null, null, null, null, 1, null)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (30700, 5200, 0, 1, 'Editer', 'edit', null, null, null, null, 1, null)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (30800, 5200, 1, 1, 'Insérer', 'insert', null, null, null, null, 1, null)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (30900, 5200, 0, 1, 'Supprimer', 'delete', null, null, null, null, 1, null)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (31000, 5200, 0, 1, 'Consulter', 'consult', null, null, null, null, 1, null)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (31100, 5200, 0, 1, 'Editer dans nouvelle fenêtre', 'editinnewframe', null, null, null, null, 1, null)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (31500, 5200, 0, 1, 'Dupliquer', 'duplicate', null, null, null, null, 1, null)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (31300, 4800, 0, 1, 'Dupliquer', 'duplicate', null, null, null, null, 1, null)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (31200, 4800, 0, 1, 'Exporter', 'ExportToXml', null, null, null, null, 1, null)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (31600, 4800, 0, 1, 'Importer Langage', 'ImportFromXmlLanguage', null, null, null, null, 1, null)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (31700, 4300, 0, 1, 'Dupliquer', 'duplicate', null, null, null, null, 1, null)
+]]></Field>
+
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+update SNP_METHOD set SHORT_NAME = 'Exécuter' where I_METH=29300
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_METHOD set SHORT_NAME = 'Imprimer Dossier' where I_METH=24800
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_METHOD set SHORT_NAME = 'Imprimer Modèle' where I_METH=23400
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_METHOD set SHORT_NAME = 'Imprimer Sous-modèle' where I_METH=23300
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_METHOD set SHORT_NAME = 'Editer dans nouvelle fenêtre' where I_METH=6100
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 12 where SHORT_NAME = 'Editer dans nouvelle fenêtre'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 14 where SHORT_NAME = 'Consulter'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 16 where SHORT_NAME = 'Insérer'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 18 where SHORT_NAME = 'Dupliquer'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 20 where SHORT_NAME = 'Supprimer'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 22 where SHORT_NAME = 'Données'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 24 where SHORT_NAME = 'Erreurs'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 26 where SHORT_NAME = 'Masquer'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 28 where SHORT_NAME = 'Afficher'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 30 where SHORT_NAME = 'Exporter'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 32 where SHORT_NAME = 'Reverse types de données'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 34 where SHORT_NAME = 'Importer Projet'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 36 where SHORT_NAME = 'Importer Technologie'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 38 where SHORT_NAME = 'Importer Modèle'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 40 where SHORT_NAME = 'Importer Dossier'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 42 where SHORT_NAME = 'Importer Sous Modèles'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 44 where SHORT_NAME = 'Importer Séquence'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 46 where SHORT_NAME = 'Importer Variable'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 48 where SHORT_NAME = 'Importer Etat'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 50 where SHORT_NAME = 'Importer Package'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 52 where SHORT_NAME = 'Importer Modules de Connaissance'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 54 where SHORT_NAME = 'Importer Sous Dossier'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 56 where SHORT_NAME = 'Importer Traitement'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 58 where SHORT_NAME = 'Importer Interface'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 60 where SHORT_NAME = 'Exécuter'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 62 where SHORT_NAME = 'Imprimer Packages'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 64 where SHORT_NAME = 'Imprimer Interfaces'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 66 where SHORT_NAME = 'Imprimer Traitements'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 68 where SHORT_NAME = 'Imprimer Dossier'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 70 where SHORT_NAME = 'Imprimer Modules de Connaissance'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 72 where SHORT_NAME = 'Imprimer Modèle'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 74 where SHORT_NAME = 'Imprimer Sous-modèle'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[Update SNP_METHOD set POSITION = 76 where SHORT_NAME = 'Générer Scénario'
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_OBJECT set OBJ_NAME = 'Serveur de données' 	where I_OBJECTS = 1400
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_OBJECT set OBJ_NAME = 'Référence' 		where I_OBJECTS = 2900
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_OBJECT set OBJ_NAME = 'Référence / Colonne' 	where I_OBJECTS = 3000
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_OBJECT set OBJ_NAME = 'Ligne de traitement' 	where I_OBJECTS = 4100
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_OBJECT set OBJ_NAME = 'Objet' 		where I_OBJECTS = 100
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_OBJECT set OBJ_NAME = 'Planification' 	where I_OBJECTS = 4300
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_OBJECT set OBJ_NAME = 'Schéma / Contexte' 	where I_OBJECTS = 1800
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_OBJECT set OBJ_NAME = 'Séquence' 		where I_OBJECTS = 3400
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_OBJECT set OBJ_NAME = 'Datastore' 		where I_OBJECTS = 2400
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_OBJECT set OBJ_NAME = 'Etape' 		where I_OBJECTS = 3300
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_OBJECT set OBJ_NAME = 'Option'		where I_OBJECTS = 3700
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_OBJECT set OBJ_NAME = 'Référentiel Maître'	where I_OBJECTS = 4500
+]]></Field>
+
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_LOC_REP set REP_VERSION = '3.0.01.02']]></Field>
+
+</Object>
+</SunopsisRepository>

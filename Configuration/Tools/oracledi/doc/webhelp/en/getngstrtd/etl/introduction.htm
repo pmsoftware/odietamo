@@ -1,0 +1,240 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>The ETL Project</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+p.whs1 { font-weight:bold; }
+img_whs2 { border:none; float:none; border-style:none; width:466px; height:337px; }
+p.whs3 { font-weight:normal; }
+img_whs4 { border:none; width:550px; height:364px; float:none; border-style:none; }
+img_whs5 { border:none; width:556px; height:120px; float:none; border-style:none; }
+img_whs6 { border:none; width:664px; height:582px; float:none; border-style:none; }
+ul.whs7 { list-style:disc; }
+p.whs8 { x-condition:PRINT_EXCLUDE; }
+p.whs9 { text-align:right; x-condition:PRINT_EXCLUDE; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Getting Started with an ETL Project\nThe Project\nEnvironment");
+addTocInfo("Getting Started with an ETL Project\nThe Project\nData Models");
+addTocInfo("Getting Started with an ETL Project\nThe Project\nIssues");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1><a name=ENVIRONMENT></a>The ETL Project</h1>
+
+<p>This <span style="font-weight: bold;"><B>ETL </B></span>project is an example 
+ to help you understand how to transform and check the integrity of the 
+ data in your information systems. </p>
+
+<h2>Examples in this Document</h2>
+
+<h3>The Example Environment</h3>
+
+<p>Throughout this &quot;getting started&quot; guide, we will be looking 
+ at an organization that wishes to track sales from various heterogeneous 
+ data sources issued from the production systems. The following data sources 
+ will be used:</p>
+
+<p class="whs1">The Repository:<span style="font-weight: normal;"> 
+ The Repository contains all of the metadata required for the training 
+ examples. It is hosted, for these evaluation purposes, in a supplied database.</span></p>
+
+<p class="whs1">Orders Application:<span style="font-weight: normal;"> 
+ An application for tracking customer orders, hosted in a supplied database 
+ (the &quot;srcdemo&quot; sample database).</span></p>
+
+<p class="whs1">Parameters (File): <span style="font-weight: normal;">Flat 
+ files (ASCII) issued from the production system containing a list of sales 
+ representatives and the segmentation of ages into age ranges.</span></p>
+
+<p class="whs1">Sales Administration: <span style="font-weight: normal;">The 
+ administration or tracking of sales, hosted in another supplied database 
+ (the &quot;trgdemo&quot; sample database). We will populate this data 
+ warehouse with our transformations.</span></p>
+
+<p class="whs1">&nbsp;</p>
+
+<p>A graphical representation of the environment is given below:</p>
+
+<p><img src="../../images/overview.jpg" x-maintain-ratio="TRUE" width="466px" height="337px" border="0" class="img_whs2"></p>
+
+<h3><a name=DATAMODEL></a>The Data Models</h3>
+
+<p>The schema diagrams below define the supplied data models that we will 
+ be using throughout this guide:</p>
+
+<h4>Orders Application</h4>
+
+<p class="whs3"><img src="mpd_orders_appli.jpg" x-maintain-ratio="TRUE" width="550px" height="364px" border="0" class="img_whs4"></p>
+
+<h4>Parameters (File)</h4>
+
+<p class="whs3"><img src="mpd_parameters.jpg" x-maintain-ratio="TRUE" width="556px" height="120px" border="0" class="img_whs5"></p>
+
+<h4>Sales Administration</h4>
+
+<p class="whs3"><img src="mpd_sales_admin.jpg" x-maintain-ratio="TRUE" width="664px" height="582px" border="0" class="img_whs6"></p>
+
+<p class="whs3">&nbsp;</p>
+
+<h3><a name=THE_PB></a>Issues</h3>
+
+<p>The challenges common to all data integration and transformation projects 
+ are:</p>
+
+<ul type="disc" class="whs7">
+	
+	<li class=kadov-p><p>Checking and improving the quality of your application 
+ data</p></li>
+	
+	<li class=kadov-p><p>Accurately and easily exchanging data between 
+ your applications while respecting the business rules of your information 
+ system</p></li>
+</ul>
+
+<p>We will use examples to illustrate how to address these issues, over 
+ the following topics:</p>
+
+<ul type="disc" class="whs7">
+	
+	<li class=kadov-p><p>Checking data in a database</p></li>
+	
+	<li class=kadov-p><p>Creating and executing an ETL transformation</p></li>
+	
+	<li class=kadov-p><p>Cleansing the results of a transformation</p></li>
+	
+	<li class=kadov-p><p>Automating this process</p></li>
+</ul>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> In this guide, 
+ we will be looking at processes that focus on ETL. While it is beyond 
+ the scope of this document, creating a real-time EAI process can be carried 
+ out in the same fashion. For more information on this, please refer to 
+ the <a href="../../welcome.htm">Oracle Data Integrator documentation</a> 
+ after completing this guide.</p>
+
+<h4>Cleansing Data</h4>
+
+<p>By implementing two examples, you will learn how Oracle Data Integrator 
+ enables you to ensure the quality of the data in your applications while 
+ segregating invalid rows. The &quot;Orders Application&quot; tables contain 
+ a number of data inconsistencies that you will detect.</p>
+
+<ul type="disc" class="whs7">
+	
+	<li style="x-condition: PRINT_EXCLUDE;"
+		class=kadov-p><p><a href="ctr_src_customer.htm"
+							style="x-condition: PRINT_EXCLUDE;">&quot;SRC_CUSTOMER&quot; 
+ Control</a>: Checks that the customers' data complies with the constraints 
+ defined by the information system.</p></li>
+</ul>
+
+<h4>Loading &quot;Sales Administration&quot;</h4>
+
+<p>Two simple examples will show you how to improve productivity by loading 
+ the data from the &quot;Orders Application&quot; and &quot;Parameters 
+ (File)&quot; applications into the &quot;Sales Administration&quot; data 
+ warehouse.</p>
+
+<ul type="disc" class="whs7">
+	
+	<li style="x-condition: PRINT_EXCLUDE; /*begin!kadov{{*/ x-condition: PRINT_EXCLUDE; /*}}end!kadov*/ "
+		class=kadov-p><p class="whs8"><a href="poptrgcustomer.htm"
+	style="x-condition: PRINT_EXCLUDE;">&quot;Pop. TRG_CUSTOMER&quot; Interface</a>: 
+ Enhances the source customer data with information on age brackets and 
+ sales personnel. This is to then loaded into the &quot;Sales Administration&quot; 
+ application, while respecting the constraints defined in the information 
+ system.</p></li>
+	
+	<li style="x-condition: PRINT_EXCLUDE;"
+		class=kadov-p><p><a href="poptrgsales.htm"
+							style="x-condition: PRINT_EXCLUDE;">&quot;Pop. 
+ TRG_SALES&quot; Interface</a>: Summarises the sales issued by the orders 
+ management application and then loads them into the sales tracking application.</p></li>
+</ul>
+
+<h4>Automating the Processes Developed in Oracle Data Integrator</h4>
+
+<p>This part of the Getting Started guide will show you how to automate 
+ your Oracle Data Integrator processes. The aim of this exercise is to 
+ load the entire &quot;Sales Administration&quot; data warehouse with a 
+ single click.</p>
+
+<ul type="disc" class="whs7">
+	
+	<li style="x-condition: PRINT_EXCLUDE; /*begin!kadov{{*/ x-condition: PRINT_EXCLUDE; /*}}end!kadov*/ "
+		class=kadov-p><p class="whs8"><a href="pack_sales_admin.htm"
+	style="x-condition: PRINT_EXCLUDE;">&quot;Load Sales_Administration&quot; 
+ Package</a>: Sequencing your interfaces into a package.</p></li>
+	
+	<li style="x-condition: PRINT_EXCLUDE;"
+		class=kadov-p><p><a href="sales_admin_scen.htm"
+							style="x-condition: PRINT_EXCLUDE;">&quot;LOAD_SALES_ADMINISTRATION&quot; 
+ Scenario</a>: Generating the code to perform this package automatically.</p></li>
+</ul>
+
+<p align="right" class="whs9"><a href="../common/gs_setup.htm"
+					style="x-condition: PRINT_EXCLUDE;">&lt;&lt; Installing 
+ Oracle Data Integrator</a> | <a href="first_run.htm"
+								style="x-condition: PRINT_EXCLUDE;">Starting 
+ Oracle Data Integrator &gt;&gt;</a></p>
+
+</body>
+</html>

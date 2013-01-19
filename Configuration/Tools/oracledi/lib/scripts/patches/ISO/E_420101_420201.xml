@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">
+
+
+
+
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_EXP_TXT MODIFY ( I_TXT <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_EXP_TXT ALTER COLUMN I_TXT <?=snpRef.getDataType("SRC_NUMERIC", "19")?> NOT NULL 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_EXP_TXT ALTER COLUMN I_TXT SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+
+
+
+
+
+
+
+
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_ID MODIFY ( ID_NEXT <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_ID ALTER COLUMN ID_NEXT <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_ID ALTER COLUMN ID_NEXT SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_PLAN_AGENT MODIFY ( SCEN_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_PLAN_AGENT ALTER COLUMN SCEN_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_PLAN_AGENT ALTER COLUMN SCEN_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "400")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SCEN MODIFY ( SCEN_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SCEN ALTER COLUMN SCEN_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SCEN ALTER COLUMN SCEN_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "400")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SCEN_STEP MODIFY ( STEP_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SCEN_STEP ALTER COLUMN STEP_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SCEN_STEP ALTER COLUMN STEP_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "400")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SCEN_STEP MODIFY ( VAR_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SCEN_STEP ALTER COLUMN VAR_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SCEN_STEP ALTER COLUMN VAR_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "436")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SCEN_TASK MODIFY ( TASK_NAME2 <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SCEN_TASK ALTER COLUMN TASK_NAME2 <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SCEN_TASK ALTER COLUMN TASK_NAME2 SET <?=snpRef.getDataType("SRC_VARCHAR", "400")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SEQ_DATA MODIFY ( SEQ_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SEQ_DATA ALTER COLUMN SEQ_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SEQ_DATA ALTER COLUMN SEQ_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "436")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SEQ_SCEN MODIFY ( SEQ_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SEQ_SCEN ALTER COLUMN SEQ_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SEQ_SCEN ALTER COLUMN SEQ_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "436")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SEQ_SESS MODIFY ( SEQ_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SEQ_SESS ALTER COLUMN SEQ_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SEQ_SESS ALTER COLUMN SEQ_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "436")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SEQ_SESS MODIFY ( SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SEQ_SESS ALTER COLUMN SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SEQ_SESS ALTER COLUMN SESS_NO SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SESSION MODIFY ( SCEN_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESSION ALTER COLUMN SCEN_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESSION ALTER COLUMN SCEN_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "400")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SESSION MODIFY ( SESS_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESSION ALTER COLUMN SESS_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESSION ALTER COLUMN SESS_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "436")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SESSION MODIFY ( I_TXT_SESS_MESS <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESSION ALTER COLUMN I_TXT_SESS_MESS <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESSION ALTER COLUMN I_TXT_SESS_MESS SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SESSION MODIFY ( I_TXT_SESS_PARAMS <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESSION ALTER COLUMN I_TXT_SESS_PARAMS <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESSION ALTER COLUMN I_TXT_SESS_PARAMS SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SESSION MODIFY ( PARENT_SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESSION ALTER COLUMN PARENT_SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESSION ALTER COLUMN PARENT_SESS_NO SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SESSION MODIFY ( SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESSION ALTER COLUMN SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESSION ALTER COLUMN SESS_NO SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SESS_STEP MODIFY ( VAR_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESS_STEP ALTER COLUMN VAR_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESS_STEP ALTER COLUMN VAR_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "436")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SESS_STEP MODIFY ( STEP_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESS_STEP ALTER COLUMN STEP_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESS_STEP ALTER COLUMN STEP_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "400")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SESS_STEP MODIFY ( SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESS_STEP ALTER COLUMN SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESS_STEP ALTER COLUMN SESS_NO SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SESS_TASK MODIFY ( TASK_NAME2 <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESS_TASK ALTER COLUMN TASK_NAME2 <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESS_TASK ALTER COLUMN TASK_NAME2 SET <?=snpRef.getDataType("SRC_VARCHAR", "400")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SESS_TASK MODIFY ( SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESS_TASK ALTER COLUMN SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESS_TASK ALTER COLUMN SESS_NO SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SESS_TASK_LOG MODIFY ( I_TXT_TASK_MESS <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESS_TASK_LOG ALTER COLUMN I_TXT_TASK_MESS <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESS_TASK_LOG ALTER COLUMN I_TXT_TASK_MESS SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SESS_TASK_LOG MODIFY ( SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESS_TASK_LOG ALTER COLUMN SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESS_TASK_LOG ALTER COLUMN SESS_NO SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_SESS_TXT_LOG MODIFY ( SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESS_TXT_LOG ALTER COLUMN SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_SESS_TXT_LOG ALTER COLUMN SESS_NO SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_STEP_LOG MODIFY ( I_TXT_STEP_MESS <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_STEP_LOG ALTER COLUMN I_TXT_STEP_MESS <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_STEP_LOG ALTER COLUMN I_TXT_STEP_MESS SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_STEP_LOG MODIFY ( SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_STEP_LOG ALTER COLUMN SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_STEP_LOG ALTER COLUMN SESS_NO SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_STEP_REPORT MODIFY ( STEP_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_STEP_REPORT ALTER COLUMN STEP_NAME <?=snpRef.getDataType("SRC_VARCHAR", "400")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_STEP_REPORT ALTER COLUMN STEP_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "400")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_TASK_TXT MODIFY ( SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_TASK_TXT ALTER COLUMN SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_TASK_TXT ALTER COLUMN SESS_NO SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_VAR_DATA MODIFY ( VAR_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_VAR_DATA ALTER COLUMN VAR_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_VAR_DATA ALTER COLUMN VAR_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "436")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_VAR_DATA MODIFY ( I_TXT_VAR_T <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_VAR_DATA ALTER COLUMN I_TXT_VAR_T <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_VAR_DATA ALTER COLUMN I_TXT_VAR_T SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+
+
+
+
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_VAR_DATA MODIFY ( I_VAL <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_VAR_DATA ALTER COLUMN I_VAL <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  NOT NULL
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_VAR_DATA ALTER COLUMN I_VAL SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+
+
+
+
+
+
+
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_VAR_PLAN_AGENT MODIFY ( VAR_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_VAR_PLAN_AGENT ALTER COLUMN VAR_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_VAR_PLAN_AGENT ALTER COLUMN VAR_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "436")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_VAR_SCEN MODIFY ( VAR_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_VAR_SCEN ALTER COLUMN VAR_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_VAR_SCEN ALTER COLUMN VAR_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "436")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_VAR_SESS MODIFY ( VAR_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_VAR_SESS ALTER COLUMN VAR_NAME <?=snpRef.getDataType("SRC_VARCHAR", "436")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_VAR_SESS ALTER COLUMN VAR_NAME SET <?=snpRef.getDataType("SRC_VARCHAR", "436")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:ALTER TABLE SNP_VAR_SESS MODIFY ( SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  ) 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_VAR_SESS ALTER COLUMN SESS_NO <?=snpRef.getDataType("SRC_NUMERIC", "19")?>  
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+ IGNORE_ERROR:ALTER TABLE SNP_VAR_SESS ALTER COLUMN SESS_NO SET <?=snpRef.getDataType("SRC_NUMERIC", "19")?> 
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+UPDATE SNP_LOC_REPW SET MIN_EXE_VERSION = '4.2.02.01'
+]]></Field>
+
+</Object>
+</SunopsisRepository>

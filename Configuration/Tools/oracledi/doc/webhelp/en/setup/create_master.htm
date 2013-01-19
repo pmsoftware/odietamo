@@ -1,0 +1,128 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Creating the master repository</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Installation Guide\nCreating repositories\nCreating the Master Repository");
+addTocInfo("User's Guide\nTopology Manager\nManaging Repositories\nCreating the Master Repository");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Creating the Master Repository</h1>
+
+<p>Creating the master repository consists of creating the tables and the 
+ automatic importing of definitions for the different technologies.</p>
+
+<h6>To create the master repository:</h6>
+
+<ol>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>In the <span class=ElementGUI>Start Menu</span>, 
+ select <span class=ElementGUI>Programs</span> &gt; <span class=ElementGUI>Oracle 
+ Data Integrator </span>&gt; <span class=ElementGUI>Repository Management</span> 
+ &gt; <span class=ElementGUI>Master Repository Creation</span>, or Launch 
+ <span class=Code>bin/repcreate.bat</span> or <span class=Code>bin/repcreate.sh.</span></p></li>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p>
+	<p>Complete the fields: </p>
+	
+	<ul>
+		
+		<li class=kadov-p><p><span class=ElementGUI>Driver</span>: the 
+ driver used to access the technology which will host the repository. For 
+ more information, refer to the section <a href="../refmanual/connexion/jdbcdriversample.htm">JDBC 
+ URL Sample</a>.</p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>URL</span>: The complete 
+ path for the data server to host the repository. For more information, 
+ refer to the section <a href="../refmanual/connexion/jdbcdriversample.htm">JDBC 
+ URL Sample</a>.</p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>User</span>: The user 
+ id / login of the owner of the tables (previously created under the name 
+ <b>snpm</b>).</p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>Password</span>: This 
+ user's password.</p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>ID</span>: A specific 
+ ID for the new repository, rather than the default 0. This will affect 
+ imports and exports between repositories.</p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>Technologies</span>: 
+ From the list, select the technology your repository will be based on.</p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>Language:</span> Select 
+ the language of your master repository.</p></li>
+	</ul>
+	</li>
+	
+	<li class=kadov-p><p>Validate by <span class=ElementGUI>OK.</span></p></li>
+</ol>
+
+<p>Creating the dictionary begins. You can follow the procedure on your 
+ console. To test your master repository, refer to the section <a href="connect_master.htm">Connecting 
+ to the master repository</a>.</p>
+
+</body>
+</html>

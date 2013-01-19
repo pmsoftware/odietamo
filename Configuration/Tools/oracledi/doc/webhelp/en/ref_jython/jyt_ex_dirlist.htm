@@ -1,0 +1,132 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>List a Directory</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Jython Quick Reference\nExamples\nList the content of a directory");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>List the contents of a directory</h1>
+
+<p>The following example lists the contents of the directory <span class=Code>c:/odi</span> 
+ and writes this list into <span class=Code>c:/temp/listdir.txt</span>. 
+ For each element in the list, the method <span class=Code>os.path.isdir()</span> 
+ checks whether it is a file or a directory</p>
+
+<p>&nbsp;</p>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>import</B></span><span class=Code> </span><span 
+ class=Code
+	style="color: #800000; font-weight: bold;"><font color=maroon ><B>os</B></font></span></p>
+
+<p><span class=Code>ftrg = open('c:/temp/listdir.txt', 'w')</span></p>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>try</B></span><span class=Code>:</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;mydir 
+ = 'c:/odi'</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;</span><span 
+ class=Code
+	style="margin-left: 80px;">mylist = </span><span 
+ class=Code
+	style="margin-left: 80px;
+			color: #800000;
+			font-weight: bold;"><font color=maroon ><B>os.listdir</B></font></span><span class=Code
+														style="margin-left: 80px;">(mydir)</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;mylist.sort()</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;</span><span 
+ class=Code
+	style="font-weight: bold;"><B>for</B></span><span 
+ class=Code> dirOrFile </span><span class=Code
+									style="font-weight: bold;"><B>in</B></span><span 
+ class=Code> mylist:</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span 
+ class=Code
+	style="font-weight: bold;"><B>if</B></span><span 
+ class=Code> </span><span class=Code
+							style="color: #800000; font-weight: bold;"><font color=maroon ><B>os.path.isdir</B></font></span><span 
+ class=Code>(mydir + </span><span class=Code
+									style="color: #800000; font-weight: bold;"><font color=maroon ><B>os.sep</B></font></span><span 
+ class=Code> + dirOrFile):</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print 
+ &gt;&gt; ftrg, 'DIRECTORY: %s' % dirOrFile</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span 
+ class=Code
+	style="font-weight: bold;"><B>else</B></span><span 
+ class=Code>:</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print 
+ &gt;&gt; ftrg, 'FILE: %s' % dirOrFile</span></p>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>finally</B></span><span class=Code>:</span></p>
+
+<p><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;ftrg.close()</span></p>
+
+</body>
+</html>

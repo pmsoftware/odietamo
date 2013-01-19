@@ -1,0 +1,305 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>OdiSAPALEServer</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+td.whs1 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nSAP\nOdiSAPALEServer");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>OdiSAPALEServer</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>OdiSAPALEServer -USER=&lt;UserName&gt; -ENCODED_PASSWORD=&lt;password&gt; 
+ -GATEWAYHOST=&lt;gatewayhost&gt; -SYSTEMNR=&lt;SYSTEMNR&gt; -GATEWAYNAME=&lt;gatewayname&gt; 
+ -PROGRAMID=&lt;programid&gt; -DIR=&lt;DirName&gt; [-TIMEOUT=&lt;n&gt;] 
+ [-POOL_KEY=&lt;pool_key&gt;] [-LANGUAGE=&lt;Language&gt;] [-CLIENT=&lt;Client&gt;] 
+ [-MAX_CONNECTIONS=&lt;n&gt;] [-INTERREQUESTTIMEOUT=&lt;n&gt;] [-MAXREQUEST=&lt;n&gt;] 
+ [-TRACE=&lt;</span><span class=Code
+							style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>|yes&gt;]</span></p>
+
+<h2>Description</h2>
+
+<p>Launches a tRFC listener which is able to receive SAP IDoc files which 
+ have been transferred using ALE (Application Link Enabling), and transforms 
+ them into target XML files in a given directory.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: This API is part 
+ of the Open Connector for SAP R/3.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs1
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Parameters</th>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Mandatory</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td class=whs10>
+<p class=TexteTableau><span class=Code>-USER=&lt;UserName&gt;</span></td>
+<td class=whs11>
+<p class=TexteTableau>Yes</td>
+<td class=whs12>
+<p class=TexteTableau>SAP Logon. This user may be a system user.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>-PASSWORD=&lt;password&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Deprecated</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>SAP logon password. This command is deprecated. Use 
+ instead <span class=Code>ENCODED_PASSWORD.</span></td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>-ENCODED_PASSWORD=&lt;password&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Yes</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>SAP logon password, encrypted. The OS command <span 
+ class=Code>agent ENCODE &lt;password&gt;</span> enables string encryption.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>-GATEWAYHOST=&lt;gatewayhost&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Yes</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Gateway host.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>-SYSTEMNR=&lt;SYSTEMNR&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Yes</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>SAP system number.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>-GATEWAYNAME=&lt;gatewayname&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Yes</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Gateway Name</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>-PROGRAMID=&lt;programid&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Yes</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>The program ID. External Name used by the tRFC server.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>-DIR=&lt;DirName&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Yes</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Directory in which the target XML files are stored. 
+ These files are named <span class=Code>&lt;IDOC Number&gt;.xml</span>, 
+ and are located in sub-directories named after the IDoc type. Default 
+ is <span class=Code>./FromSAP</span>.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>-TIMEOUT=&lt;n&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>No</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Life span in milliseconds for server. At the end 
+ of &nbsp;this 
+ period the server stops automatically. If this timeout is set to zero, 
+ the server life span is infinite. Default is 0.</td></tr>
+
+<tr>
+<td class=whs4>
+<p class=TexteTableau><span class=Code>-POOL_KEY=&lt;pool_key&gt; </span></td>
+<td class=whs5>
+<p class=TexteTableau>No</td>
+<td class=whs6>
+<p class=TexteTableau>Name of the connection pool. Default is <span class=Code>ODI</span>.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>-LANGUAGE=&lt;Language&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>No</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Language code used for error messages. Default is 
+ <span class=Code>EN</span>.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau><span class=Code>-CLIENT=&lt;Client&gt;</span></td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>No</td>
+<td colspan="1" rowspan="1" valign="top" class="whs1">
+<p class=TexteTableau>SAP Client identifier. Default is 001.</td></tr>
+
+<tr>
+<td class=whs7>
+<p class=TexteTableau><span class=Code>-MAX_CONNECTIONS=&lt;n&gt;</span></td>
+<td class=whs8>
+<p class=TexteTableau>No</td>
+<td class=whs9>
+<p class=TexteTableau>Maximum number of connections allowed for the pool 
+ of connections. Default is 3.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>-INTERREQUESTTIMEOUT=&lt;n&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>No</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>If no IDOC is received during an interval of n milliseconds, 
+ the listener stops. If this timeout is set to zero, the timeout is infinite. 
+ Default is 0.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>-MAXREQUEST=&lt;n&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>No</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Maximum number of requests after which the listener 
+ stops. If this parameter is set to zero, the server expects an infinite 
+ number of requests. Default is 0.</p>
+<p class=TexteTableau><span class=RemarqueTitre>Note</span>: If <span class=Code>-TIMEOUT</span>, 
+ <span class=Code>-INTERREQUESTTIMEOUT</span> and <span class=Code>-MAXREQUEST</span> 
+ are set to zero or left empty, then <span class=Code>-MAXREQUEST</span> 
+ automatically takes the value 1.</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau><span class=Code>-TRACE=&lt;</span><span class=Code
+	style="x-text-underline: normal; /*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ "><U>no</U></span><span 
+ class=Code>|yes&gt;</span></td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>No</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>Activate the debug trace. Default is <span class=Code>no</span>.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>Wait for 2 IDoc files and generates the target XML files in the <span 
+ class=Code>/temp</span> directory.</p>
+
+<p><span class=Code>OdiSAPALEServer -POOL_KEY=ODI -MAX_CONNECTIONS=3 -CLIENT=001 
+ -USER=ODI -ENCODED_PASSWORD=xxx -LANGUAGE=EN -GATEWAYHOST=SAP001 -SYSTEMNR=002 
+ -GATEWAYNAME=GW001 -PROGRAMID=ODI01 -DIR=/tmp -MAXREQUEST=2</span></p>
+
+</body>
+</html>

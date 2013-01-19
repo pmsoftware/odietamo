@@ -1,0 +1,353 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Using Web Services</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+img_whs2 { border:none; width:706px; height:470px; float:none; border-style:none; }
+img_whs3 { border:none; width:16px; height:15px; float:none; border-style:none; }
+img_whs4 { border:none; width:14px; height:14px; float:none; border-style:none; }
+img_whs5 { border:none; width:15px; height:15px; float:none; border-style:none; }
+img_whs6 { border:none; width:16px; height:16px; float:none; border-style:none; }
+img_whs7 { border:none; width:144px; height:13px; float:none; border-style:none; }
+img_whs8 { border:none; width:100px; height:15px; float:none; border-style:none; }
+img_whs9 { border:none; width:152px; height:23px; float:none; border-style:none; }
+img_whs10 { border:none; width:501px; height:271px; float:none; border-style:none; }
+img_whs11 { border:none; width:656px; height:83px; float:none; border-style:none; }
+ol.whs12 { list-style:decimal; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nDesigner\nProjects\nUsing Web Services");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Using Web Services</h1>
+
+<p>Web Services can be invoked: &nbsp;</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>For testing Data Services: This method allows 
+ you to check that your data services are running correctly. See <a HREF="../../model/data_services_use.htm">Setting 
+ Up Data Services</a> for more information.</p></li>
+	
+	<li class=kadov-p><p>In packages using the <a href="../../../../ref_tools/snpsinvokewebservice.htm">SnpsInvokeWebService</a> 
+ tool: This tool allows you to invoke any third party web service, and 
+ save the response in a XML file that can be processed with Oracle Data 
+ Integrator.</p></li>
+</ul>
+
+<p>A specific graphical interface exists to help you create Web Service 
+ requests.</p>
+
+<h2>Graphical interface for Web Services</h2>
+
+<p>The graphical interface for Web Services appears as shown below:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>At the top, the basic properties: Step name, WSDL 
+ location and port. </p></li>
+	
+	<li class=kadov-p><p>At bottom left, the list of operations for the 
+ selected port. A second tab displays the HTTP request options.</p></li>
+	
+	<li class=kadov-p><p>At the bottom right, the SOAP editor displays 
+ the web service request and response. </p></li>
+</ul>
+
+<p><img src="../../../../images/data_services_2.jpg" x-maintain-ratio="TRUE" width="706px" height="470px" border="0" class="img_whs2"></p>
+
+<h3>Basic properties</h3>
+
+<p>The basic properties are:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=ElementGUI>Step Name</span>: The name 
+ of the package step.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Web Service Description 
+ File (WSDL) URL</span>: This file describes the Web Service and the format 
+ of the requests and responses.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Port</span>: If the WSDL 
+ defines several ports on which Web Services can be accessed, the list 
+ of ports appears here.</p></li>
+</ul>
+
+<p>In the <span class=ElementGUI>Options</span> tab, the HTTP requests 
+ options appear:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=ElementGUI>Timeout</span>: The web 
+ service request waits for a reply for this time before considering that 
+ the server will not provide a response and an error is produced.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>HTTP Authentication</span>: 
+ If you check this box, you should provide a user and password to authenticate 
+ on your HTTP server.</p></li>
+</ul>
+
+<h3>Toolbar</h3>
+
+<p>The toolbar provides the following features:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><img src="../../../../images/data_services_tool1.jpg" x-maintain-ratio="TRUE" width="16px" height="15px" border="0" class="img_whs3"> <span class=ElementGUI>Invoke 
+ Web Service: </span>Invokes immediately the current Web Service, displaying 
+ the response in the SOAP editor.</p></li>
+	
+	<li class=kadov-p><p><img src="../../../../images/data_services_tool2.jpg" x-maintain-ratio="TRUE" width="14px" height="14px" border="0" class="img_whs4"> <span class=ElementGUI>Switch 
+ Panel Position: </span>Tiles vertically or horizontally the SOAP editor.</p></li>
+	
+	<li class=kadov-p><p><img src="../../../../images/data_services_tool3.jpg" x-maintain-ratio="TRUE" width="15px" height="15px" border="0" class="img_whs5"> <span class=ElementGUI>Export 
+ Response XSD:</span> Saves the current response XML schema description 
+ to a file.</p></li>
+	
+	<li class=kadov-p><p><img src="../../../../images/data_services_tool4.jpg" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs6"> <span class=ElementGUI>Restore 
+ Default Request:</span> Discards the current request and reverts to a 
+ default, blank request structure.</p></li>
+	
+	<li class=kadov-p><p><img src="../../../../images/data_services_tool5.jpg" x-maintain-ratio="TRUE" width="15px" height="15px" border="0" class="img_whs5"> <span class=ElementGUI>Delete 
+ Empty Optional Components</span>: Removes all blank optional elements 
+ from the query. This may be necessary to construct a valid query.</p></li>
+	
+	<li class=kadov-p><p><img src="../../../../images/data_services_tool_7.jpg" x-maintain-ratio="TRUE" width="144px" height="13px" border="0" class="img_whs7">: Automatically delete empty optional 
+ elements in the SOAP request when the <img src="../../../../images/data_services_tool1.jpg" x-maintain-ratio="TRUE" width="16px" height="15px" border="0" class="img_whs3"> <span class=ElementGUI>Invoke 
+ Web Service</span> button is used. This checkbox has no effect on package 
+ steps at run-time.</p></li>
+	
+	<li class=kadov-p><p><img src="../../../../images/data_services_tool_8.jpg" x-maintain-ratio="TRUE" width="100px" height="15px" border="0" class="img_whs8">: Uses a SOAP request stored in 
+ a file instead of the contents of the SOAP editor.</p></li>
+	
+	<li class=kadov-p><p><img src="../../../../images/data_services_tool_9.jpg" x-maintain-ratio="TRUE" width="152px" height="23px" border="0" class="img_whs9">: Specifies a maximum period of 
+ time to wait for the request to complete.</p></li>
+</ul>
+
+<h3>SOAP Editor</h3>
+
+<p>The SOAP Editor allows you to graphically build the SOAP request for 
+ the Web Service and display the response. </p>
+
+<p>If creating a <a href="../../../../ref_tools/snpsinvokewebservice.htm">SnpsInvokeWebService</a> 
+ step, this SOAP request filled in the editor is saved with the step.</p>
+
+<p><img src="../../../../images/data_services_soap_editor.jpg" x-maintain-ratio="TRUE" width="501px" height="271px" border="0" class="img_whs10"></p>
+
+<p>The upper part of the editor shows the hierarchical structure of the 
+ query, the lower part shows the structure of the response. This arrangement 
+ can be changed using the <img src="../../../../images/data_services_tool2.jpg" x-maintain-ratio="TRUE" width="14px" height="14px" border="0" class="img_whs4"> <span class=ElementGUI>Switch 
+ Panel Position</span> button.<br>
+The raw XML source of the SOAP request and response are shown on the <span 
+ class=ElementGUI>Source</span> tab.</p>
+
+<p>In the editor, you can fill in the <span class=ElementGUI>Value</span> 
+ (and optionally the <span class=ElementGUI>Attributes</span>) for each 
+ element of your request. </p>
+
+<p class=Remarque><span class=AlertTitre>Warning</span>: An empty element 
+ is passed as is to the Web service. For strings, this corresponds to an 
+ empty string. For numbers or date types, this may cause an error to occur. 
+ If you want to send a null string, number or date, it is recommended to 
+ use the <span class=Code>nil=&quot;true&quot;</span> 
+ attribute.<br>
+To remove empty elements, use the <img src="../../../../images/data_services_tool5.jpg" x-maintain-ratio="TRUE" width="15px" height="15px" border="0" class="img_whs5"> <span class=ElementGUI>Delete 
+ Empty Optional Components</span> option.</p>
+
+<p>Optional elements are displayed in <span style="font-style: italic;"><I>italic</I></span>. 
+ Repeatable elements are labelled with <span class=ElementGUI>...(n*)</span> 
+ after the name. </p>
+
+<p>Right-click any element to perform one of the following operations, 
+ if possible:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=ElementGUI>Duplicate content</span> 
+ - copies the structure and content of the element.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Duplicate structure</span> 
+ - copies the structure but leaves all fields blank.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Delete</span> - deletes 
+ the element.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Export Request</span> - 
+ exports the entire soap request to an XML file.</p></li>
+</ul>
+
+<h3>Results</h3>
+
+<p>This part of the interface appears only when using a <a href="../../../../ref_tools/snpsinvokewebservice.htm">SnpsInvokeWebService</a> 
+ step in a package, to control how the response is written to a XML file.</p>
+
+<p><img src="../../../../images/data_services_file_properties.jpg" x-maintain-ratio="TRUE" width="656px" height="83px" border="0" class="img_whs11"></p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span class=ElementGUI>File Mode </span><span 
+ class=Code>(-RESPONSE_MODE)</span><span 
+ class=ElementGUI>:</span> One of NEW_FILE, 
+ FILE_APPEND, 
+ NO_FILE</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Result File &nbsp;(</span><span 
+ class=Code>-RESPONSE_FILE</span><span 
+ class=ElementGUI>):</span> &nbsp;The 
+ name of the result file to write.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>XML Charset (</span><span 
+ class=Code>-RESPONSE_XML_ENCODING</span><span 
+ class=ElementGUI>):</span> The name of the character encoding to write 
+ into the XML file.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Java Charset (</span><span 
+ class=Code>-RESPONSE_FILE_CHARSET</span><span 
+ class=ElementGUI>):</span> The name of the character encoding used when 
+ writing the file.</p></li>
+</ul>
+
+<p>See <a HREF="../../../../ref_tools/snpsinvokewebservice.htm">SnpsInvokeWebService</a> 
+ for more information on these parameters.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> The result file 
+ parameters are only taken into account at run-time. No result file is 
+ generated when using the <img src="../../../../images/data_services_tool1.jpg" x-maintain-ratio="TRUE" width="16px" height="15px" border="0" class="img_whs3"> <span class=ElementGUI>Invoke 
+ Web Service</span> button.</p>
+
+<h2>Invoking a Web Service</h2>
+
+<p class=HowTo>To create a Web Service request:</p>
+
+<ol type="1" class="whs12">
+	
+	<li class=kadov-p><p>Create a <a href="../../../../ref_tools/snpsinvokewebservice.htm">SnpsInvokeWebService</a> 
+ tool step in a package, or right-click a datastore and select <span class=ElementGUI>Test 
+ Web Service</span> in the popup menu.</p></li>
+	
+	<li class=kadov-p><p>Fill in the location of the WSDL. You can use 
+ either:</p></li>
+	
+	<ul type="disc" class="whs1">
+		
+		<li class=kadov-p><p>A URL for a WSDL that has been deployed to 
+ a server (e.g. <span class=Code>http://host:8080/axis2/services/WSCustomer?wsdl</span>)</p></li>
+		
+		<li class=kadov-p><p>A local file location (e.g. <span class=Code>file:///C:/DataServices/WSCustomer.wsdl</span> 
+ )</p></li>
+	</ul>
+	
+	<li class=kadov-p><p>Choose a <span class=ElementGUI>Port</span>, if 
+ more than one is available. If no ports are available, there is a problem 
+ with the WSDL.</p></li>
+	
+	<li class=kadov-p><p>Choose an <span class=ElementGUI>Operation</span> 
+ from the list on the left. </p></li>
+	
+	<li class=kadov-p><p>Fill in request in the <span class=ElementGUI>SOAP 
+ Editor</span>. You can also use an external request file instead.</p></li>
+	
+	<li class=kadov-p><p>(Optional) &nbsp;Click 
+ the <img src="../../../../images/data_services_tool5.jpg" x-maintain-ratio="TRUE" width="15px" height="15px" border="0" class="img_whs5"> <span class=ElementGUI>Delete empty optional elements</span> 
+ button to remove optional elements which have not been filled in. Some 
+ Web Services treat blank elements as invalid.</p></li>
+	
+	<li class=kadov-p><p>Click the <span class=ElementGUI><img src="../../../../images/data_services_tool1.jpg" x-maintain-ratio="TRUE" width="16px" height="15px" border="0" class="img_whs3"> Invoke Web Service</span> button to immediately invoke the 
+ Web Service.<br>
+	The response is shown in the SOAP Editor.</p></li>
+	
+	<li class=kadov-p><p>If you are creating a <a href="../../../../ref_tools/snpsinvokewebservice.htm">SnpsInvokeWebService</a> 
+ tool step, define the result file parameters then click <span class=ElementGUI>Apply</span> 
+ to save your step.</p></li>
+</ol>
+
+<h2>Processing a Web Service Response</h2>
+
+<p>When using <a href="../../../../ref_tools/snpsinvokewebservice.htm">SnpsInvokeWebService</a> 
+ to call a web service, the response is written to an XML file. </p>
+
+<p>Processing this file can be done with Oracle Data Integrator, using 
+ the following guidelines:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Invoke the web service once and use the <img src="../../../../images/data_services_tool3.jpg" x-maintain-ratio="TRUE" width="15px" height="15px" border="0" class="img_whs5"> <span class=ElementGUI>Export Response XSD</span> option 
+ to export the XML schema.</p></li>
+	
+	<li class=kadov-p><p>Create an XML model for the SOAP response, based 
+ on this XML schema file and reverse-engineer the XSD to have your model 
+ structure. See <a HREF="../../../technos/xml/create_reverse_model_xml.htm">Creating 
+ and Reverse-Engineering a Model for an XML file</a> for more information.</p></li>
+	
+	<li class=kadov-p><p>You can now on process the information from your 
+ responses using regular Oracle Data Integrator interfaces. See <a HREF="../../../technos/xml/km_xml.htm">Choosing 
+ the Right KMs for XML files</a> for more information.</p></li>
+</ul>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: Each XML file 
+ is defined as a model in Oracle Data Integrator. It is recommended to 
+ use model folders to arrange them. See <a HREF="../../model/model_folder_use.htm">Organizing 
+ Models into Model Folders</a> for more information.</p>
+
+</body>
+</html>

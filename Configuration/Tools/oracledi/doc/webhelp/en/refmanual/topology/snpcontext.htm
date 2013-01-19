@@ -1,0 +1,177 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Context</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+th.whs2 { x-cell-content-align:top; }
+td.whs3 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nTopology Manager\nContext");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Context</h1>
+
+<p>A context is a set of resources allowing the operation or simulation 
+ of one or more data processing applications. Contexts allow the same jobs 
+ (Reverse, Data Quality Control, Package, etc) to be executed on different 
+ databases and/or schemas.</p>
+
+<p>In Oracle Data Integrator, a context allows logical objects (<a href="snplagent.htm"><span 
+ class=ElementGUI>logical agents</span></a>, <a href="snplschema.htm"><span 
+ class=ElementGUI>logical schemas</span></a>) to be linked with physical 
+ objects (<a href="snpagent.htm"><span class=ElementGUI>physical agents</span></a>, 
+ <span class=ElementGUI><a href="snppschema.htm">physical schemas</a></span>).</p>
+
+<h6>Examples:</h6>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>The contexts &quot;New York&quot;, &quot;Boston&quot; 
+ and &quot;San Francisco&quot; represent three data processing sites operating 
+ the same software with similar data structures concerning sales and marketing 
+ management and logistics. New York also operates an accounting package 
+ and a Datawarehouse.</p></li>
+	
+	<li class=kadov-p><p>The &quot;Development&quot; and &quot;Test&quot; 
+ contexts allow procedures to be simulated, on replicated databases if 
+ necessary.</p></li>
+</ul>
+
+<p>In the <span class=ElementGUI>Designer</span><span style="font-weight: bold;"> 
+ <B></B></span>and <span class=ElementGUI>Operator</span> modules, the current 
+ context is shown in the toolbar of the main window, and can be changed 
+ from this toolbar. </p>
+
+<h2>Definition</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs2">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Name</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Name of the context, as it appears in the graphical 
+ interface.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Code</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Code of the context, allowing a context to be referenced 
+ and identified among the different repositories. </p>
+<p class=Remarque><span class=RemarqueTitre>Note</span>: This code must 
+ be unique and the most stable possible. Modifying this code may cause 
+ readjustment of the context references from the graphical interfaces of 
+ the graphical modules.</td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Password</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Password requested when the user requests to work 
+ on this context. This password allows you to restrict the access rights 
+ and avoid unwanted context changes.</p>
+<p class=Remarque><span class=RemarqueTitre>Note</span>: For &quot;sensitive&quot; 
+ contexts such as production, it is strongly recommended that you enter 
+ a password when creating the context.</p>
+<p class=Remarque><span class=AlertTitre>Caution:</span> If the password 
+ is not specified, no validation is requested for a change of context. 
+ </td></tr>
+
+<tr>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Default</td>
+<td valign="top" class="whs3">
+<p class=TexteTableau>Indicate that this context will be displayed by default 
+ in the different lists, and selected when opening <span class=ElementGUI>Designer</span> 
+ or <span class=ElementGUI>Operator</span>.</td></tr>
+</table>
+
+<h2>Agents</h2>
+
+<p>This tab allows all the <a href="snplagent.htm">logical agents</a> accessible 
+ in this context to be displayed and updated.</p>
+
+<p>The left column in the list contains all existing <a href="snplagent.htm">logical 
+ agents</a>. To be able to use a logical agent in the given context, you 
+ must choose in the right column the <a href="snpagent.htm">physical agent</a> 
+ corresponding to this logical agent in the context.</p>
+
+<h2>Schemas</h2>
+
+<p>This tab allows all the <a href="snplschema.htm">logical schemas</a> 
+ accessible in this context to be displayed and updated.</p>
+
+<p>The left column in the list contains all existing <a href="snplschema.htm">logical 
+ schemas</a>. To be able to use a logical schema a given context, you must 
+ choose in the right column the <a href="snppschema.htm">physical schema</a> 
+ corresponding to this logical schema in the context.</p>
+
+</body>
+</html>

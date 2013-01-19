@@ -1,0 +1,176 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>installation</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Driver for XML\nInstallation");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Installation</h1>
+
+<p class=Remarque><span class=AlertTitre>Note for Data Integrator Users</span> 
+ : If you are using <span style="font-weight: bold;"><B>Oracle Data Integrator 
+ Driver for XML</B></span> with <span style="font-weight: bold;"><B>Oracle Data 
+ Integrator</B></span>, it is already installed and configured by the Data 
+ Integrator Setup. The process below is provided for other application 
+ using this driver.</p>
+
+<h2>Prerequisites</h2>
+
+<p>To use OracleDI Driver for XML, you need a Java Virtual Machine 1.2.2 
+ or higher. To check your Java Machine version, type the <span class=Code>java 
+ -version</span> command in a command prompt.</p>
+
+<p>If needed, you can download the appropriate Java Machine at <a href="http://java.sun.com/j2se/1.3/"
+	target=_blank>Sun Microsystem's website.</a></p>
+
+<h2>Installing the Package</h2>
+
+<h3>Unbundling The Downloaded File</h3>
+
+<p>You can unbundle the downloaded file using a tool such as WinZip, Pkunzip 
+ or jar. For example:</p>
+
+<p><span class=Code>c:&gt; jar xvf OracleDIXml.zip</span></p>
+
+<p>or</p>
+
+<p><span class=Code>c:&gt; pkunzip -d OracleDIXml.zip</span></p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: If you are using 
+ a tool that does not preserve path names by default, be sure to specify 
+ the option that preserves path names. For example, specify -d for pkunzip</p>
+
+<p>The downloaded file contains the following files:</p>
+
+<table x-use-null-cells>
+<col>
+<col>
+
+<tr>
+<th>
+<p class=TitreTableau>File/Directory Name</th>
+<th>
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td>
+<p class=TexteTableau>/drivers/snpsxmlo.jar</td>
+<td>
+<p class=TexteTableau>Oracle Data Integrator Driver for XML</td></tr>
+
+<tr>
+<td>
+<p class=TexteTableau>/drivers/crimson.jar</td>
+<td>
+<p class=TexteTableau>Crimson XML Java Parser</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>/doc</td>
+<td colspan=1
+	rowspan=1>
+<p class=TexteTableau>OracleDI Driver for XML Documentation</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p>/demo</td>
+<td colspan=1
+	rowspan=1>
+<p>Contains the demo and sample files for OracleDI Driver for XML</td></tr>
+</table>
+
+<h3>Configuring the Classpath</h3>
+
+<p>Once you have the driver installed, you can use the driver simply by 
+ adding the jar and zip files into your Java <span style="font-weight: bold;"><B>classpath</B></span>. 
+ &nbsp;For example:</p>
+
+<p>Under Windows:</p>
+
+<p><span class=Code>set CLASSPATH=%CLASSPATH%;</span><span class=Code
+															style="font-weight: bold;"><B>c:\snpsxmlo.jar;c:\crimson.jar</B></span></p>
+
+<p>Under Unix:</p>
+
+<p><span class=Code>setenv CLASSPATH &quot;</span><span class=Code
+														style="font-weight: bold;"><B>/usr/local/snpsxmlo.jar:/usr/local/crimson.jar</B></span><span 
+ class=Code>:$CLASSPATH&quot;</span></p>
+
+<p>You can also specify the jar and zip files on the command line when 
+ running applications. For example:</p>
+
+<p><span class=Code>java -cp .;</span><span class=Code
+											style="font-weight: bold;"><B>c:\snpsxmlo.jar;c:\crimson.jar</B></span><span 
+ class=Code> myApplication</span></p>
+
+<p class=Remarque><span class=AlertTitre>Important Note</span>: If using 
+ an <span class=ElementGUI>External Database</span> engine, you must also 
+ make sure that the JDBC driver used to connect the external database, 
+ as well as the .properties file are in the classpath.</p>
+
+<p class=Remarque><span class=AlertTitre>Important Note</span>:If using 
+ XSD validation, you must replace the Crimson (crimson.jar) parser by the 
+ Xerces parser (xerces.jar) and modify the application classpath as a consequence.</p>
+
+</body>
+</html>

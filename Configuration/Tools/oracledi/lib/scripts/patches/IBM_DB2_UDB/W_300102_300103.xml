@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">
+
+	<!--  SNP TXT : Modify TXT_ORD Length and add ENC attribute -->		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_TXT MODIFY TXT_ORD <?=snpRef.getDataType("SRC_NUMERIC","10")?>]]>
+		</Field>		
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_TXT ALTER COLUMN TXT_ORD <?=snpRef.getDataType("SRC_NUMERIC","10")?>]]>
+		</Field>		
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_TXT ALTER COLUMN TXT_ORD SET DATATYPE <?=snpRef.getDataType("SRC_NUMERIC","10")?>]]>
+		</Field>		
+		
+			
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[ALTER TABLE SNP_TXT  ADD ENC <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>			
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[ALTER TABLE SNP_TXT  ADD ENC_KEY <?=snpRef.getDataType("SRC_VARCHAR","250")?>  <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>				
+	
+	
+	<!--  SNP TRT : Modify TRT_NAME Length -->		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_TRT MODIFY TRT_NAME <?=snpRef.getDataType("SRC_VARCHAR","50")?>]]>
+		</Field>				
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_TRT ALTER COLUMN TRT_NAME <?=snpRef.getDataType("SRC_VARCHAR","50")?>]]>
+		</Field>						
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_TRT ALTER COLUMN TRT_NAME SET DATATYPE <?=snpRef.getDataType("SRC_VARCHAR","50")?>]]>
+		</Field>								
+	
+	<!--   SNP_LINE_TRT : Add KJM Options -->
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[ALTER TABLE SNP_LINE_TRT ADD KJM_DROP <?=snpRef.getDataType("SRC_VARCHAR","1")?><?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>				
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[ALTER TABLE SNP_LINE_TRT ADD KJM_CREATE <?=snpRef.getDataType("SRC_VARCHAR","1")?><?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>				
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[ALTER TABLE SNP_LINE_TRT ADD KJM_SUBSCRIBE <?=snpRef.getDataType("SRC_VARCHAR","1")?><?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>				
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[ALTER TABLE SNP_LINE_TRT ADD KJM_UNSUBSCRIBE <?=snpRef.getDataType("SRC_VARCHAR","1")?><?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>				
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[ALTER TABLE SNP_LINE_TRT ADD KLM_JRN <?=snpRef.getDataType("SRC_VARCHAR","1")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>				
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[ALTER TABLE SNP_LINE_TRT ADD KIM_JRN <?=snpRef.getDataType("SRC_VARCHAR","1")?><?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>				
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[ALTER TABLE SNP_LINE_TRT ADD KIM_JRN_POP <?=snpRef.getDataType("SRC_VARCHAR","1")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>							
+	
+		
+	<!--   SNP_MODEL : Add KJM Options -->
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_MODEL ADD I_TRT_KJM <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>					
+	
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_MODEL ADD COD_MOD <?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>						
+	
+	<!--   SNP_MODEL : Code Initialization -->
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[IGNORE_ERROR:UPDATE SNP_MODEL SET COD_MOD = I_MOD]]>
+		</Field>														
+	
+		<!--   SNP_MODEL : Code Initialization (For Sybase & MSSQL)-->
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[IGNORE_ERROR:UPDATE SNP_MODEL SET COD_MOD = convert(varchar,I_MOD)]]>
+		</Field>
+
+		<!--   SNP_MODEL : Code Initialization (DB2400 & UDB)-->
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[IGNORE_ERROR:UPDATE SNP_MODEL SET COD_MOD = cast(I_MOD as varchar(35))]]>
+		</Field>
+		
+		<!--   SNP_MODEL : Add unique constraints -->		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_MODEL ADD CONSTRAINT AK_MODEL unique (COD_MOD)]]>
+		</Field>						
+	
+	
+	<!--   SNP_SUB_MODEL : Add Classifications Options -->
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">	
+			<![CDATA[ALTER TABLE SNP_SUB_MODEL ADD COD_SMOD <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>
+		
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">	
+			<![CDATA[ALTER TABLE SNP_SUB_MODEL ADD I_SMOD_PARENT <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>
+		
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">	
+			<![CDATA[ALTER TABLE SNP_SUB_MODEL ADD TABLE_NAME_PATTERN <?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>
+		
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">	
+			<![CDATA[ALTER TABLE SNP_SUB_MODEL ADD REV_APPLY_PATTERN <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>
+		
+
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">	
+			<![CDATA[ALTER TABLE SNP_SUB_MODEL ADD REV_PATTERN_ORDER <?=snpRef.getDataType("SRC_VARCHAR","10")?>  <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>
+	
+	<!--   SNP_SUB_MODEL : Add Classifications Options -->	
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">		
+			<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_SUB_MODEL MODIFY SMOD_NAME <?=snpRef.getDataType("SRC_VARCHAR","100")?>]]>
+		</Field>									
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">		
+			<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_SUB_MODEL ALTER COLUMN SMOD_NAME <?=snpRef.getDataType("SRC_VARCHAR","100")?>]]>
+		</Field>											
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">		
+			<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_SUB_MODEL ALTER COLUMN SMOD_NAME SET DATATYPE <?=snpRef.getDataType("SRC_VARCHAR","100")?>]]>
+		</Field>													
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">					
+			<![CDATA[IGNORE_ERROR:UPDATE SNP_SUB_MODEL SET COD_SMOD = I_SMOD]]>
+		</Field>														
+	
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">					
+			<![CDATA[IGNORE_ERROR:UPDATE SNP_SUB_MODEL SET COD_SMOD = convert(varchar,I_SMOD)]]>
+		</Field>															
+	
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">					
+			<![CDATA[IGNORE_ERROR:UPDATE SNP_SUB_MODEL SET COD_SMOD = cast(I_SMOD as varchar(35))]]>
+		</Field>															
+	
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">		
+			<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_SUB_MODEL ADD CONSTRAINT AK_SMOD unique (I_MOD,COD_SMOD)]]>
+		</Field>										
+
+	<!--   SNP_COL : Add In/Out Parameters -->
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">		
+			<![CDATA[ALTER TABLE SNP_COL ADD IND_IN <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>											
+	
+	<!--   SNP_COL : Add In/Out Parameters -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">		
+		<![CDATA[ALTER TABLE SNP_COL ADD IND_OUT <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+	</Field>												
+				
+	
+	<!--   SNP_STEP  : KJM Options and Position informations -->
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[ALTER TABLE SNP_STEP ADD MOD_COD <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>															
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[ALTER TABLE SNP_STEP ADD I_SMOD <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>															
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[ALTER TABLE SNP_STEP ADD SMOD_COD <?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>															
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[ALTER TABLE SNP_STEP ADD I_TABLE <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>																
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[ALTER TABLE SNP_STEP ADD TABLE_NAME <?=snpRef.getDataType("SRC_VARCHAR","100")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>															
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[ALTER TABLE SNP_STEP ADD CREATE_JOURNAL <?=snpRef.getDataType("SRC_VARCHAR","1")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>															
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[ALTER TABLE SNP_STEP ADD DROP_JOURNAL <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>															
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[ALTER TABLE SNP_STEP ADD CREATE_SUBCRIBER <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>															
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[ALTER TABLE SNP_STEP ADD DROP_SUBSCRIBER <?=snpRef.getDataType("SRC_VARCHAR","1")?>	<?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>															
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[ALTER TABLE SNP_STEP ADD CLEAN <?=snpRef.getDataType("SRC_VARCHAR","1")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>															
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[ALTER TABLE SNP_STEP ADD SUBSCRIBER_LST <?=snpRef.getDataType("SRC_VARCHAR","100")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>															
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[ALTER TABLE SNP_STEP ADD DELETE_ERRORS <?=snpRef.getDataType("SRC_VARCHAR","1")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>															
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[ALTER TABLE SNP_STEP ADD POS_X <?=snpRef.getDataType("SRC_NUMERIC","10")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>															
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[ALTER TABLE SNP_STEP ADD POS_Y <?=snpRef.getDataType("SRC_NUMERIC","10")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>															
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[ALTER TABLE SNP_STEP ADD WIDTH_VAL <?=snpRef.getDataType("SRC_NUMERIC","10")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>															
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[ALTER TABLE SNP_STEP ADD HEIGHT_VAL <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>																														
+				
+			
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_STEP ADD CONSTRAINT FK_STEP_SMOD FOREIGN KEY (I_MOD,SMOD_COD) REFERENCES SNP_SUB_MODEL(I_MOD,COD_SMOD)]]>
+		</Field>															
+				
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">			
+			<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_STEP ADD CONSTRAINT FK_STEP_TABLE FOREIGN KEY (I_MOD,TABLE_NAME) REFERENCES SNP_TABLE(I_MOD,TABLE_NAME)]]>
+		</Field>															
+		
+
+	<!--   SNP_POP  : Add Model Code -->
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">				
+			<![CDATA[ALTER TABLE SNP_POP ADD MOD_CODE <?=snpRef.getDataType("SRC_VARCHAR","35")?>]]>
+		</Field>					
+	
+	<!--   SNP_SOURCE_TAB  : Add Model Code -->
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">					
+			<![CDATA[ALTER TABLE SNP_SOURCE_TAB  ADD MOD_CODE <?=snpRef.getDataType("SRC_VARCHAR","35")?>   <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>
+		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">					
+			<![CDATA[ALTER TABLE SNP_SOURCE_TAB  ADD IND_JRN <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+		</Field>	
+	
+	
+	<!--   SNP_REV_SUB_MODEL  : Create SNP_REV_SUB_MODEL Table -->
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">						
+			<![CDATA[create table SNP_REV_SUB_MODEL 
+			(
+	   		I_MOD                <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+	   		SMOD_CODE            <?=snpRef.getDataType("SRC_VARCHAR","35")?> NOT NULL,
+	   		SMOD_NAME            <?=snpRef.getDataType("SRC_VARCHAR","100")?>,
+	   		SMOD_PARENT_CODE     <?=snpRef.getDataType("SRC_VARCHAR","35")?>,
+	   		IND_INTEGRATION      <?=snpRef.getDataType("SRC_VARCHAR","1")?>,
+	   		TABLE_NAME_PATTERN   <?=snpRef.getDataType("SRC_VARCHAR","35")?>,
+	   		REV_APPY_PATTERN     <?=snpRef.getDataType("SRC_VARCHAR","1")?>,
+	   		REV_PATTERN_ORDER    <?=snpRef.getDataType("SRC_VARCHAR","10")?>
+	   		)]]>
+		</Field>   	
+   
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">						
+			<![CDATA[ALTER TABLE SNP_REV_SUB_MODEL ADD CONSTRAINT PK_SNP_REV_S_MODEL primary key (I_MOD, SMOD_CODE)]]>
+		</Field>  
+	
+	<!--   SNP_REV_TABLE  : Add SubModel Code -->	
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">							
+			<![CDATA[ALTER TABLE SNP_REV_TABLE ADD SMOD_CODE <?=snpRef.getDataType("SRC_VARCHAR","35")?>]]>
+		</Field>  		
+		
+		
+	<!-- Update Repository Version-->		
+		<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_LOC_REPW set REP_VERSION = '3.0.01.03']]></Field>
+
+</Object>
+</SunopsisRepository>
+

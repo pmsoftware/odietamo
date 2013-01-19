@@ -1,0 +1,205 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<!-- saved from url=(0026)http://www.macromedia.com/ -->
+<html>
+
+<head>
+<title>Release Notes</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:square; }
+ul.whs2 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Appendix\nRelease Notes");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Oracle Data Integrator Driver for LDAP Release Notes</h1>
+
+<h6>Changes in version 10.1.3</h6>
+
+<p>Fixes</p>
+
+<ul type="square" class="whs1">
+	
+	<li class=kadov-p><p>Fixed bug with special characters such as &quot;/&quot; 
+ in the DN.</p></li>
+</ul>
+
+<h6>Changes in version 1.0l</h6>
+
+<p>New Features</p>
+
+<ul type="disc" class="whs2">
+	
+	<li class=kadov-p><p>New &quot;<span class=Code>jdbc:snps:ldap2</span>&quot; 
+ URL syntax for non-encrypted passwords.</p></li>
+</ul>
+
+<p>Fixes</p>
+
+<ul type="square" class="whs1">
+	
+	<li class=kadov-p><p>Special characters such as &quot;/&quot; are now 
+ supported in the DN.</p></li>
+	
+	<li class=kadov-p><p>123183: New reserved keyword: &quot;Unique&quot;.</p></li>
+	
+	<li class=kadov-p><p>123978: When performing a reverse-engineering, 
+ decimal columns precision is set to -1.</p></li>
+</ul>
+
+<h6>Changes in version 1.0k</h6>
+
+<p>Features</p>
+
+<ul type="square" class="whs1">
+	
+	<li class=kadov-p><p>Support for LDAPS (LDAP over SSL) protocol. The 
+ LDAPS URL must start with ldaps://. To connect a server using LDAPS, you 
+ must manually install the certificate in the java machine. See the <span 
+ style="font-style: italic;"><I>keytool</I></span> program provided with the JVM 
+ for more information.</p></li>
+</ul>
+
+<h6>Changes in version 1.0j</h6>
+
+<p>Features</p>
+
+<ul type="square" class="whs1">
+	
+	<li class=kadov-p><p>New reserved keywords: &quot;uid&quot;, &quot;description&quot;.</p></li>
+	
+	<li class=kadov-p><p>Tracing improvement..</p></li>
+</ul>
+
+<p>Fixes</p>
+
+<ul type="disc" class="whs2">
+	
+	<li class=kadov-p><p>Fixed: Errors such as &quot;bad column count&quot; 
+ or &quot;no such column&quot; could appear while inserting data into an 
+ LDAP tree.</p></li>
+	
+	<li class=kadov-p><p>Fixed: Insert and Update operation causing errors 
+ at LDAP-level are not correctly raised.</p></li>
+	
+	<li class=kadov-p><p>Fixed: During update operations, only one attribute 
+ is effectively updated.</p></li>
+	
+	<li class=kadov-p><p>Fixed: Reserved keywords for an external database 
+ are ignored.</p></li>
+	
+	<li class=kadov-p><p>&quot;Null Pointer Exception&quot; error no longer 
+ appears when updating an element with null values.</p></li>
+	
+	<li class=kadov-p><p>It is now mandatory to encrypt passwords into 
+ the External Database properties file.</p></li>
+	
+	<li class=kadov-p><p>Fixed: Unexpected behavior if using case-sensitivity.</p></li>
+</ul>
+
+<h6>Changes in version 1.0f</h6>
+
+<p>Features</p>
+
+<ul type="square" class="whs1">
+	
+	<li class=kadov-p><p>Advanced logging system. See <span class=Code>log_level</span> 
+ URL parameter description for more information.</p></li>
+</ul>
+
+<p>Fixes</p>
+
+<ul type="disc" class="whs2">
+	
+	<li class=kadov-p><p>122253: Password could be recognized non encrypted 
+ in the LDAP bundle file. This option is no longer possible.</p></li>
+</ul>
+
+<h6>Changes in version 1.0e</h6>
+
+<p>Features</p>
+
+<ul type="square" class="whs1">
+	
+	<li class=kadov-p><p>120468: In addition to the driver installation 
+ directory, the license file is also searched in the classpath.</p></li>
+	
+	<li class=kadov-p><p>120870: The license file can be inserted into 
+ a .jar file.</p></li>
+	
+	<li class=kadov-p><p>120871: New reserved word: INSERT.</p></li>
+	
+	<li class=kadov-p><p>122020: Non alphanumeric characters ([a-z], [A-Z], 
+ [0-9]) in LDAP classes and attributes names are now converted to underscore 
+ (&quot;_&quot;) &nbsp;in 
+ the LDAP to relational mapping. Exception: If non alphanumeric, the first 
+ character is converted to &quot;x&quot;.</p></li>
+</ul>
+
+<p>Fixes</p>
+
+<ul type="square" class="whs1">
+	
+	<li class=kadov-p><p>120111: Displaying LDAP data in Data Integrator 
+ only shows the 25 first lines of the datastore.</p></li>
+</ul>
+
+</body>
+</html>

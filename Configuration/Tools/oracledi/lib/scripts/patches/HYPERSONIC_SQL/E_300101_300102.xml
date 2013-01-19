@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_SESS_STEP modify  VAR_NAME  <?=snpRef.getDataType("SRC_VARCHAR","71")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:alter table SNP_SCEN_STEP modify  VAR_NAME  <?=snpRef.getDataType("SRC_VARCHAR","71")?> <?=snpRef.getInfo("SRC_DDL_NULL")?>
+]]></Field>
+
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_LOC_REPW set MIN_EXE_VERSION = '3.0.01.02']]></Field>
+
+</Object>
+</SunopsisRepository>
+

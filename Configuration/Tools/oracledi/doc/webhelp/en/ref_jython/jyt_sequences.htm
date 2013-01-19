@@ -1,0 +1,284 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Sequences</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Jython Quick Reference\nThe Basics\nData Types\nSequences");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Sequences</h1>
+
+<p>Sequences can be strings, lists, tuples or dictionaries.</p>
+
+<p>The most common operations are described below:</p>
+
+<h2>All sequences</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau
+	style="font-weight: bold;">Operation</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau
+	style="font-weight: bold;">Description </th></tr>
+
+<tr>
+<td class=whs4>
+<p><span class=Code>X in S, X not in S</span></td>
+<td class=whs5>
+<p class=TexteTableau>Belonging</td></tr>
+
+<tr>
+<td class=whs6>
+<p><span class=Code>for X in S:</span></td>
+<td class=whs7>
+<p>Iteration</td></tr>
+
+<tr>
+<td class=whs8>
+<p><span class=Code>S+S</span></td>
+<td class=whs9>
+<p>Concatenation</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1
+	class=whs10>
+<p><span class=Code>S*N, N*S</span></td>
+<td colspan=1
+	rowspan=1
+	class=whs11>
+<p>Repeating</td></tr>
+
+<tr>
+<td class=whs12>
+<p><span class=Code>S[i]</span></td>
+<td class=whs13>
+<p>Indexing</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>S[i:j]</span></td>
+<td colspan=1
+	rowspan=1>
+<p>Array indexing</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>len(S)</span></td>
+<td colspan=1
+	rowspan=1>
+<p>Length (Size)</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>iter(S)</span></td>
+<td colspan=1
+	rowspan=1>
+<p>Iterating object</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>min(S)</span></td>
+<td colspan=1
+	rowspan=1>
+<p>Smallest element</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1>
+<p><span class=Code>max(S)</span></td>
+<td colspan=1
+	rowspan=1>
+<p>Largest element</td></tr>
+</table>
+
+<h2>Modifiable lists</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau
+	style="font-weight: bold;">Operation</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau
+	style="font-weight: bold;">Description </th></tr>
+
+<tr>
+<td class=whs4>
+<p><span class=Code>S[i]=X</span></td>
+<td class=whs5>
+<p class=TexteTableau>Assignment/modification with index i</td></tr>
+
+<tr>
+<td class=whs6>
+<p><span class=Code>S[i:j]=S2</span></td>
+<td class=whs7>
+<p>Assign S2 to an array</td></tr>
+
+<tr>
+<td class=whs8>
+<p><span class=Code>del S[i]</span></td>
+<td class=whs9>
+<p>Delete the element i</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1
+	class=whs10>
+<p><span class=Code>del S[i:j]</span></td>
+<td colspan=1
+	rowspan=1
+	class=whs11>
+<p>Delete the array from i to j</td></tr>
+</table>
+
+<p>&nbsp;</p>
+
+<h2>dictionaries</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th class=whs2
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau
+	style="font-weight: bold;">Opération</th>
+<th class=whs3
+	style="x-cell-content-align: top;"
+	valign=top>
+<p class=TitreTableau
+	style="font-weight: bold;">Description </th></tr>
+
+<tr>
+<td class=whs4>
+<p><span class=Code>D[k]</span></td>
+<td class=whs5>
+<p class=TexteTableau>Key indexing</td></tr>
+
+<tr>
+<td class=whs6>
+<p><span class=Code>D[k] = X</span></td>
+<td class=whs7>
+<p>Assignment / modification with the key</td></tr>
+
+<tr>
+<td class=whs8>
+<p><span class=Code>del D[k]</span></td>
+<td class=whs9>
+<p>Delete the element at key k</td></tr>
+
+<tr>
+<td colspan=1
+	rowspan=1
+	class=whs10>
+<p><span class=Code>len(D)</span></td>
+<td colspan=1
+	rowspan=1
+	class=whs11>
+<p>Number of keys in D</td></tr>
+</table>
+
+<p>&nbsp;</p>
+
+<h2>Examples</h2>
+
+<p><span class=Code>&gt;&gt;&gt; s='ABCDEFGH'</span></p>
+
+<p><span class=Code>&gt;&gt;&gt;s[0]</span></p>
+
+<p><span class=Code>'A'</span></p>
+
+<p><span class=Code>&gt;&gt;&gt;s[0:2]</span></p>
+
+<p><span class=Code>'AB'</span></p>
+
+<p><span class=Code>&gt;&gt;&gt;s[:2]</span></p>
+
+<p><span class=Code>'AB'</span></p>
+
+<p><span class=Code>&gt;&gt;&gt;s[-3:-1]</span></p>
+
+<p><span class=Code>'FG'</span></p>
+
+<p><span class=Code>&gt;&gt;&gt;s[-1:]</span></p>
+
+<p><span class=Code>'H'</span></p>
+
+<p>&nbsp;</p>
+
+</body>
+</html>

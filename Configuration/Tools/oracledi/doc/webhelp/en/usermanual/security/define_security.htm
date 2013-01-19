@@ -1,0 +1,266 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Defining the Security Policy</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+ol.whs2 { list-style:decimal; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nSecurity Manager\nDefine the Security Policy");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Defining the Security Policy</h1>
+
+<h2>Security Concepts</h2>
+
+<h3>Objects, instances and methods</h3>
+
+<p>An <span class=ElementGUI>object</span> is a representation of an element 
+ that can be handled through Oracle Data Integrator (agents, models, datastores, 
+ etc). The objects are the visible part of Oracle Data Integrator object components 
+ (Java classes). It is necessary to bring together the notions of object 
+ and object instance (or instances), which in Oracle Data Integrator are similar 
+ to Object-Oriented programming notions. </p>
+
+<p>An <span class=ElementGUI>instance</span> (object instance) is attached 
+ to an object type (an object). For example, the project MY_PROJ_1 is an 
+ instance of the project object type. Similarly, another instance of a 
+ project-type object is YOUR_PROJ_2.</p>
+
+<p>A <span class=ElementGUI>method</span> is a type of action which can 
+ be performed on an <span class=ElementGUI>object</span>. Each object has 
+ a series of methods that are specific to it. The notion of method in Data 
+ Integrator is similar to the one in Object-Oriented programming.</p>
+
+<p class=Remarque><span class=AlertTitre>Warning!</span> Objects and methods 
+ are predefined in Oracle Data Integrator and should not be changed.</p>
+
+<p class=Remarque><span class=ElementGUI>Note</span>: Specific objects 
+ have a <span class=ElementGUI>double name</span> (Agent/Context, Profile/Method, 
+ etc.). These objects represent links between objects. These links are 
+ also objects. For instance, Agent/Context corresponds to a the physical/logical 
+ agent association made through the contexts. The privileges on this object 
+ enable to changes this association in the topology.</p>
+
+<h3>Profiles</h3>
+
+<p>A <span class=ElementGUI>profile</span> represents a generic rights 
+ model for working with Oracle Data Integrator. One or more profiles can be assigned 
+ to a user.</p>
+
+<p>An <span class=ElementGUI>authorization by profile</span> is placed 
+ on an <span class=ElementGUI>object</span>'s <span class=ElementGUI>method</span> 
+ for a given <span class=ElementGUI>profile</span>. It allows a user with 
+ this profile to be given - either optionally or automatically - the right 
+ to this object via the method. </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>The presence of an authorization by profile for 
+ a method, under an object in the tree of a profile, shows that a user 
+ with this profile is entitled (either optionally or automatically) to 
+ this object's instances via this method. </p></li>
+	
+	<li class=kadov-p><p>The absence of authorization by profile shows 
+ that a user with this profile cannot - in any circumstance - invoke the 
+ method on an instance of the object.</p></li>
+</ul>
+
+<h4>Generic vs Non-Generic profiles</h4>
+
+<p><span style="font-weight: bold;"><B>Generic</B></span> profiles have the <span 
+ class=ElementGUI>Generic privilege</span> option checked for all objects' 
+ methods. This implies that a user with such a profile is <span style="font-weight: bold;"><B>by 
+ default</B></span> authorized for all methods of all instances of an object 
+ to which the profile is authorized.</p>
+
+<p><span style="font-weight: bold;"><B>Non-Generic</B></span> profiles are <span 
+ style="font-weight: bold;"><B>not by default</B></span> authorized for all methods 
+ on the instances since the <span class=ElementGUI>Generic privilege</span> 
+ option is unchecked for all objects' methods. The administrator must grant 
+ the user the rights on the methods for each instance.</p>
+
+<p>If an administrator wants a user to have the rights on no instance by 
+ default, but wishes to grant the rights by instance, the user must be 
+ granted a non-generic profile.</p>
+
+<p>If an administrator wants a user to have the rights on all instances 
+ of an object type by default, the user must be granted a generic profile.</p>
+
+<h3>Users</h3>
+
+<p>A user in the <span class=ElementGUI>Security Manager</span> module 
+ represents an Oracle Data Integrator user, and corresponds to the login name used 
+ for connecting to a repository.</p>
+
+<p>A user inherits the following rights:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>The profile rights he/she already has</p></li>
+	
+	<li class=kadov-p><p>Rights on objects</p></li>
+	
+	<li class=kadov-p><p>Rights on instances</p></li>
+</ul>
+
+<p>An authorization by user is placed on a <span class=ElementGUI>method</span> 
+ of an <span class=ElementGUI>object</span> for a given <span class=ElementGUI>user</span>. 
+ It allows the user to be given, either optionally or automatically, the 
+ right to this object via the method. </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>The presence, under an object in a user's tree, 
+ of an authorization by user for a method shows that the user has the right 
+ (either optionally or automatically) to the instances of this object via 
+ this method. </p></li>
+	
+	<li class=kadov-p><p>The absence of authorization by user shows that 
+ the user cannot in any circumstances invoke the method on an instance 
+ of the object.</p></li>
+</ul>
+
+<p>An <span class=ElementGUI>authorization by object instance</span> is 
+ placed on an <span class=ElementGUI>object</span> instance for a given 
+ <span class=ElementGUI>user</span>. It allows the user to be given rights 
+ to certain methods on this object instance. </p>
+
+<p>The presence in a user's tree of an authorization by object instance 
+ for an instance shows that the user could have specific rights on the 
+ object's methods for the given instance (these rights are specified in 
+ the window). If an instance is not in the tree of the user's <span class=ElementGUI>instances</span>, 
+ then the authorizations by user or by profile on the object that has given 
+ the resulting instance apply.</p>
+
+<p>Authorizations by object instances may be defined by work repository. 
+ An object instance may be replicated between work repositories (using 
+ export/import in <span style="font-style: italic;"><I>Synonym </I></span>modes) 
+ or may be usable in different work repositories (such as context) . When 
+ such an instance is &quot;usable&quot; in several repositories, privileges 
+ may be granted/denied in all repositories, in no repository, or in selected 
+ repositories.</p>
+
+<p>For example, It is common to replicate projects from a <span style="font-style: italic;"><I>Development</I></span> 
+ repository to a <span style="font-style: italic;"><I>Test</I></span> repository. 
+ A developer may be granted <span style="font-style: italic;"><I>edit</I></span> 
+ privileges for his project in the <span style="font-style: italic;"><I>Development</I></span> 
+ repository, but not on the <span style="font-style: italic;"><I>Test</I></span> 
+ repository. On the Test repository, he will only be granted with <span 
+ style="font-style: italic;"><I>view </I></span>on the project.</p>
+
+<h2>Security Policies</h2>
+
+<p>There are two main approaches to security in Oracle Data Integrator:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>The strongly secured approach, where users have 
+ no rights on objects, using only non-generic profiles. The security administrator 
+ must give the users authorizations on instances (on a given interface, 
+ for instance). This policy is complex to setup.</p></li>
+	
+	<li class=kadov-p><p>The generic approach, where users inherit the 
+ rights of the profiles they have. This policy is suitable for most cases.</p></li>
+</ul>
+
+<p>It is possible to combine these two approaches.</p>
+
+<p class=HowTo>To define a strongly secured policy:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p><a HREF="secu_profile_new.htm">Create appropriate 
+ profiles</a> for your working methods, and <a HREF="secu_setobjetright.htm">give 
+ them the non-generic rights to objects</a>. You may use the non-generic 
+ profiles provided in Oracle Data Integrator.</p></li>
+	
+	<li class=kadov-p><p><a HREF="secu_new_user.htm">Create the users</a></p></li>
+	
+	<li class=kadov-p><p><a HREF="secu_user_setprofile.htm">Give the users 
+ the non-generic profiles</a>.</p></li>
+	
+	<li class=kadov-p><p><a HREF="secu_instancesetright.htm">Give the users 
+ rights on object instances</a>. This operation must be repeated for each 
+ new instance created.</p></li>
+</ol>
+
+<p class=HowTo>To define a generic policy:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p><a HREF="secu_profile_new.htm">Create appropriate 
+ profiles</a> for your working methods, and <a HREF="secu_removeobjectmethod.htm">give 
+ them generic rights</a> to objects. You may use the generic profiles provided 
+ in Oracle Data Integrator.</p></li>
+	
+	<li class=kadov-p><p><a HREF="secu_new_user.htm">Create the users</a></p></li>
+	
+	<li class=kadov-p><p><a HREF="secu_user_setprofile.htm">Give the users 
+ the generic profiles</a>.</p></li>
+</ol>
+
+<p>You can also define a <a HREF="password_policy.htm">password policy</a> 
+ to encourage users to use secured password.</p>
+
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>User parameters</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+col.whs1 { width:25.458%; }
+col.whs2 { width:16.615%; }
+col.whs3 { width:57.927%; }
+tr.whs4 { x-cell-content-align:top; height:23px; }
+th.whs5 { width:25.458%; x-cell-content-align:top; }
+th.whs6 { width:16.615%; x-cell-content-align:top; }
+th.whs7 { width:57.927%; x-cell-content-align:top; }
+tr.whs8 { x-cell-content-align:top; height:44px; }
+td.whs9 { width:25.458%; x-cell-content-align:top; }
+td.whs10 { width:16.615%; x-cell-content-align:top; }
+td.whs11 { width:57.927%; x-cell-content-align:top; }
+tr.whs12 { x-cell-content-align:top; height:41px; }
+tr.whs13 { x-cell-content-align:top; height:38px; }
+tr.whs14 { x-cell-content-align:top; height:92px; }
+ul.whs15 { list-style:disc; }
+tr.whs16 { x-cell-content-align:top; height:53px; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Installation Guide\nAppendices\nUser parameters");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>User parameters</h1>
+
+<p>The following user parameters configure the behavior of Oracle Data 
+ Integrator. They can be set through the <span class=ElementGUI>File</span> 
+ &gt; <span class=ElementGUI>User parameters...</span><span class=ElementGUI
+															style="font-weight: normal;">.</span></p>
+
+<p><span class=ElementGUI
+		style="font-weight: normal;">User parameters are saved in the</span> 
+ <span class=Code>userpref.xml</span> file in the <span class=Code>/bin</span> 
+ sub-directory in the Oracle Data Integrator installation directory.</p>
+
+<table x-use-null-cells>
+<col class="whs1">
+<col class="whs2">
+<col class="whs3">
+
+<tr valign="top" class="whs4">
+<th valign="top" width="25.458%" class="whs5">
+<p class=TitreTableau><span class=RemarqueTitre>Parameter</span></th>
+<th valign="top" width="16.615%" class="whs6">
+<p class=TitreTableau><span class=RemarqueTitre>Values</span></th>
+<th valign="top" width="57.927%" class="whs7">
+<p class=TitreTableau><span class=RemarqueTitre>Description</span></th></tr>
+
+<tr valign="top" class="whs8">
+<td colspan="1" rowspan="1" valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>Check for concurrent editing</p>
+<p class=textetableau>&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" width="16.615%" class="whs10">
+<p class=TexteTableau>0 | 1</p>
+<p class=textetableau>&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>When saving changes to any object, checks whether 
+ other changes have been made to the same object, by another user. If another 
+ user has made changes, the object cannot be saved.</td></tr>
+
+<tr valign="top" class="whs8">
+<td valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>Automatic Mapping</p>
+<p class=TexteTableau>&nbsp;</td>
+<td valign="top" width="16.615%" class="whs10">
+<p class=TexteTableau>Yes | No | Ask</td>
+<td valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau><a href="../../usermanual/designer/project/interface/create_interface.htm#Define the mapping">Automatically 
+ maps</a> source columns to target columns when new datastores are added 
+ to an interface by detecting column name matches.</td></tr>
+
+<tr valign="top" class="whs12">
+<td valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>Use New Load Balancing</p>
+<p class=textetableau>&nbsp;</td>
+<td valign="top" width="16.615%" class="whs10">
+<p class=TexteTableau>Yes | No</td>
+<td valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>When using <a href="../../usermanual/topology/topology/load_balancing.htm">load 
+ balancing</a>, agents that run out of sessions can be reallocated sessions 
+ from other agents that have not yet been started. Otherwise, sessions 
+ are only allocated once each.</td></tr>
+
+<tr valign="top" class="whs13">
+<td valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>Help for Interface Diagram</td>
+<td valign="top" width="16.615%" class="whs10">
+<p class=TexteTableau>0 | 1</td>
+<td valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>If 1, causes a help message to display whenever editing 
+ an interface diagram with no datastores attached.</td></tr>
+
+<tr valign="top" class="whs4">
+<td colspan="1" rowspan="1" valign="top" width="25.458%" class="whs9">
+<p>Warn before purging logs</td>
+<td colspan="1" rowspan="1" valign="top" width="16.615%" class="whs10">
+<p>Yes | No</td>
+<td colspan="1" rowspan="1" valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>Displays a warning when <span class=ElementGUI>User</span> 
+ or <span class=ElementGUI>Session name</span> filter are specified and 
+ you have selected to purge the scenario reports notifying that only scenario 
+ reports linked to sessions will be deleted and that orphaned scenario 
+ reports will not be deleted.</td></tr>
+
+<tr valign="top" class="whs14">
+<td colspan="1" rowspan="1" valign="top" width="25.458%" class="whs9">
+<p>Lock object when opening</p>
+<p>&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" width="16.615%" class="whs10">
+<p>0 | 1| Ask</td>
+<td colspan="1" rowspan="1" valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>When opening an object for edition:</p>
+<ul type="disc" class="whs15">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>1: It is automatically 
+ locked</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>0: It is not 
+ locked</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Ask: the user 
+ is prompted to lock the object.</p></li>
+</ul></td></tr>
+
+<tr valign="top" class="whs14">
+<td colspan="1" rowspan="1" valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>Unlock object when closing</p>
+<p class=textetableau>&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" width="16.615%" class="whs10">
+<p class=TexteTableau>0 | 1| Ask</p>
+<p class=textetableau>&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>When closing a modified object:</p>
+<ul type="disc" class="whs15">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>1: It is automatically 
+ unlocked</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>0: It is not 
+ unlocked</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Ask: the user 
+ is prompted to unlock the object.</p></li>
+</ul></td></tr>
+
+<tr valign="top" class="whs13">
+<td colspan="1" rowspan="1" valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>Delete linked sessions with scenarios</td>
+<td colspan="1" rowspan="1" valign="top" width="16.615%" class="whs10">
+<p class=TexteTableau
+	style="background-color: Transparent;">Yes | No | Ask</td>
+<td colspan="1" rowspan="1" valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>When deleting a scenario in the <span class=ElementGUI>Scenarios</span> 
+ view of Operator, linked sessions are automatically deleted if set to 
+ Yes. </td></tr>
+
+<tr valign="top" class="whs16">
+<td colspan="1" rowspan="1" valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>Default path for generation of Data Services</td>
+<td colspan="1" rowspan="1" valign="top" width="16.615%" class="whs10">
+<p class=TexteTableau>Directory</p>
+<p class=textetableau>&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau
+	style="background-color: Transparent;">This is the default path to 
+ store the generated Data Service in. Oracle Data Integrator places the 
+ generated source code and the compiled Web Service here. This directory 
+ is a temporary location that can be deleted after generation.</td></tr>
+
+<tr valign="top" class="whs13">
+<td valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>Process Model Datastores Only</td>
+<td valign="top" width="16.615%" class="whs10">
+<p class=TexteTableau>Yes | No | Ask</td>
+<td valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>Whether to generate DDL code for datastores which 
+ do not exist in this model. If &quot;Ask&quot;, displays a confirmation 
+ message.</td></tr>
+
+<tr valign="top" class="whs13">
+<td valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>Operator display limit (0=no limit)</td>
+<td valign="top" width="16.615%" class="whs10">
+<p class=TexteTableau>Numeric</td>
+<td valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>When there are more than this number of sessions 
+ to display in Operator, a confirmation message is displayed. Default: 
+ 100</td></tr>
+
+<tr valign="top" class="whs13">
+<td valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>Delay between two refresh (seconds)</td>
+<td valign="top" width="16.615%" class="whs10">
+<p class=TexteTableau>Numeric</td>
+<td valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>The number of seconds to wait between two refreshes 
+ in Operator. Only applies when auto-refresh mode is enabled.</td></tr>
+
+<tr valign="top" class="whs4">
+<td valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>Default PDF generation directory</td>
+<td valign="top" width="16.615%" class="whs10">
+<p class=TexteTableau>Directory</td>
+<td valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>When <a href="../../usermanual/designer/general/sunopsis_designer___generate_a_report.htm">generating 
+ a report</a>, the default directory to save the generated .pdf file to.</td></tr>
+
+<tr valign="top" class="whs13">
+<td colspan="1" rowspan="1" valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>Default Context for Designer</td>
+<td colspan="1" rowspan="1" valign="top" width="16.615%" class="whs10">
+<p>Context name</td>
+<td colspan="1" rowspan="1" valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau><span style="background-color: Transparent;">Default 
+ context used in Designer. This context will be displayed by default in 
+ the different lists, and selected when opening Designer.</span> </td></tr>
+
+<tr valign="top" class="whs8">
+<td colspan="1" rowspan="1" valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>Default Agent</p>
+<p class=textetableau>&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" width="16.615%" class="whs10">
+<p class=TexteTableau>Agent name</p>
+<p class=textetableau>&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>When executing any object, the agent selected by 
+ default in the <span class=ElementGUI>Execution</span> options window. 
+ If an invalid agent name is specified, the local agent is used.</td></tr>
+
+<tr valign="top" class="whs13">
+<td valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>PDF Viewer</td>
+<td valign="top" width="16.615%" class="whs10">
+<p class=TexteTableau>Path to file</td>
+<td valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>Complete path including filename of program to view 
+ generated .pdf files. Required to use the <span class=ElementGUI>Open 
+ file after generation</span> option.</td></tr>
+
+<tr valign="top" class="whs13">
+<td valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>Directory for Saving your Diagrams (PNG)</td>
+<td valign="top" width="16.615%" class="whs10">
+<p class=TexteTableau>Directory</td>
+<td valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>When printing a model diagram with <a href="../../usermanual/designer/model/common_format_designer.htm">Common 
+ Format Designer</a>, specifies the default directory to save the generated 
+ .png file to.</td></tr>
+
+<tr valign="top" class="whs13">
+	
+<td valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>Query buffer size</td>
+<td valign="top" width="16.615%" class="whs10">
+<p class=TexteTableau>Numeric</td>
+<td valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>The number of prepared SQL statements cached by Data 
+ Integrator for accessing the repository. In some cases this should be 
+ set to 1 to effectively disable query caching.</td></tr>
+<tr valign="top" class="whs13">
+<td valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>Default Context for Execution</td>
+<td valign="top" width="16.615%" class="whs10">
+<p class=TexteTableau>Context name</td>
+<td valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>When executing any object, the context selected by 
+ default in the <span class=ElementGUI>Execution</span> options window. 
+ If an invalid context name is specified, the default context in Designer 
+ is used.</td></tr>
+
+<tr valign="top" class="whs13">
+<td valign="top" width="25.458%" class="whs9">
+<p class=TexteTableau>Oracle Data Integrator Timeout</td>
+<td valign="top" width="16.615%" class="whs10">
+<p class=TexteTableau>Numeric</td>
+<td valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>Number of seconds to wait during database connections 
+ before giving up. Increase this value if you regularly encounter timeout 
+ problems. Default: 30.</td></tr>
+
+<tr valign="top" class="whs16">
+<td colspan="1" rowspan="1" valign="top" width="25.458%" class="whs9">
+<p>Display resource names in the tree view</td>
+<td colspan="1" rowspan="1" valign="top" width="16.615%" class="whs10">
+<p class=textetableau>Yes | No</td>
+<td colspan="1" rowspan="1" valign="top" width="57.927%" class="whs11">
+<p class=TexteTableau>Whether to display the resource name of a datastore 
+ in the <span class=ElementGUI>Models</span> view. This might be useful 
+ when the resource name used in Oracle Data Integrator differs from the 
+ resource name recognized by the data server which stores it.</td></tr>
+</table>
+
+</body>
+</html>

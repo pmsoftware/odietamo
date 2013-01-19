@@ -1,0 +1,227 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Creating a Data Server</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+ol.whs2 { list-style:decimal; }
+p.whs3 { margin-left:0px; }
+-->
+</style><script type="text/javascript" language="JavaScript">
+<!--
+if ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion) == 4))
+{
+  var strNSS = "<style type='text/css'>";
+  strNSS += "p.whs3 {margin-left:1pt; }";
+  strNSS +="</style>";
+  document.write(strNSS);
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nTopology Manager\nDefining the Topology\nCreating a Data Server");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Creating a Data Server</h1>
+
+<p>A <span class=ElementGUI>Data Server </span>corresponds to a Database 
+ or JMS server instance, a scripting engine ... connected with Oracle Data Integrator 
+ in order to issue commands. Under this data server, subdivisions called 
+ <span class=ElementGUI>Physical Schemas </span>are created.</p>
+
+<p class=Remarque><span class=AlertTitre>Important Note </span>: Frequently 
+ used technologies have their data server creation methods detailed in 
+ the section <a href="../../technos/how_to.htm">Use Oracle Data Integrator with 
+ ...</a>. Please refer to this section before proceeding.</p>
+
+<h2>Pre-requisites</h2>
+
+<p>Some technologies require the installation and the configuration of 
+ elements such as:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Installation of a JDBC Driver,</p></li>
+	
+	<li class=kadov-p><p>Installation of a Client Connector,</p></li>
+	
+	<li class=kadov-p><p>Datasource configuration,</p></li>
+	
+	<li class=kadov-p><p>...</p></li>
+</ul>
+
+<p>Refer to the documentation of the technology you are connecting to through 
+ the data server. The connection information may also change depending 
+ on the technology. Refer to the server documentation provided, and contact 
+ the server administrator to define the connection methods.</p>
+
+<h2>Creation of the Data Server</h2>
+
+<h6>To create a Data Server:</h6>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Connect to <span class=ElementGUI>Topology Manager</span></p></li>
+	
+	<li class=kadov-p><p>Select <span class=ElementGUI>Topology</span> 
+ &gt; <span class=ElementGUI>Physical Architecture </span>&gt; <span class=ElementGUI>Technologies 
+ </span>in the tree, then select the technology you want to attach your 
+ data server to.</p></li>
+	
+	<li class=kadov-p><p>Right click and select <span class=ElementGUI>Insert 
+ Data Server</span></p></li>
+	
+	<li class=kadov-p><p>Fill in the following fields in the <span class=ElementGUI>Definition</span> 
+ tab:</p></li>
+	
+	<ul type="disc" class="whs1">
+		
+		<li class=kadov-p><p class="whs3"><span class=ElementGUI>Name</span>: 
+ Name of the Data Server that will appear in Oracle Data Integrator.</p></li>
+		
+		<li class=kadov-p><p class="whs3"><span class=ElementGUI>... 
+ (data server)</span>: This is the physical name of the data server. Enter 
+ this name if your data servers can be inter-connected in a native way. 
+ This parameter is not mandatory for all technologies.</p></li>
+		
+		<li class=kadov-p><p class="whs3"><span class=ElementGUI>User/Password:</span> 
+ User name and password for connecting to the data server. This parameter 
+ is not mandatory for all technologies.</p></li>
+	</ul>
+	
+	<li class=kadov-p><p>Define the connection parameters for the data 
+ server,</p></li>
+	
+	<ul type="disc" class="whs1">
+		
+		<li class=kadov-p><p>If the data server supports <span class=ElementGUI>JNDI</span> 
+ access:</p></li>
+		
+		<ol type="1" class="whs2">
+			
+			<li class=kadov-p><p>Check the <span class=ElementGUI>JNDI 
+ Connection</span> box.</p></li>
+			
+			<li class=kadov-p><p>Go to the <span class=ElementGUI>JNDI</span> 
+ tab, and fill in the following fields:</p></li>
+			
+			<ul type="disc" class="whs1">
+				
+				<li class=kadov-p><p><span class=ElementGUI>JNDI authentication</span></p></li>
+				
+				<li class=kadov-p><p><span class=ElementGUI>JNDI User/Password</span>: 
+ User/password connecting to the JNDI directory</p></li>
+				
+				<li class=kadov-p><p><span class=ElementGUI>JNDI Protocol</span>: 
+ Protocol used for the connection.</p></li>
+				
+				<li class=kadov-p><p><span class=ElementGUI>JNDI Driver</span>: 
+ The driver allowing the JNDI connection.</p></li>
+				
+				<li class=kadov-p><p><span class=ElementGUI>JNDI URL</span>: 
+ The URL allowing the JNDI connection.</p></li>
+				
+				<li class=kadov-p><p><span class=ElementGUI>JNDI Resource</span>: 
+ The directory element containing the connection parameters. </p></li>
+			</ul>
+		</ol>
+		
+		<li class=kadov-p><p>If the data server supports <span class=ElementGUI>JDBC</span> 
+ access:</p></li>
+		
+		<ul type="disc" class="whs1">
+			
+			<li class=kadov-p><p>Un-check the <span class=ElementGUI>JNDI 
+ Connection</span> box.</p></li>
+			
+			<li class=kadov-p><p>Go to the <span class=ElementGUI>JDBC</span> 
+ tab, and fill in the following fields:</p></li>
+			
+			<ul type="disc" class="whs1">
+				
+				<li class=kadov-p><p class="whs3"><span class=ElementGUI>JDBC 
+ Driver</span>: Name of the JDBC driver used for connecting to the data 
+ server</p></li>
+				
+				<li class=kadov-p><p class="whs3"><span class=ElementGUI>JDBC</span> 
+ <span class=ElementGUI>URL</span>: URL allowing you to connect to the 
+ data server.</p></li>
+			</ul>
+		</ul>
+	</ul>
+	
+	<li class=kadov-p><p>Click<span class=ElementGUI> Test</span>.</p></li>
+	
+	<li class=kadov-p><p>Click<span class=ElementGUI> Test </span>in the 
+ <span class=ElementGUI>Test Connection</span> window.</p></li>
+	
+	<li class=kadov-p><p>A window indicating a <span class=ElementGUI>Successful 
+ Connection </span>appears. Click <span class=ElementGUI>OK</span>.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span> to validate 
+ the creation of the data server</p></li>
+</ol>
+
+<p>The creation window for the first <span class=ElementGUI>Physical Schema 
+ </span>for this data server appears.</p>
+
+</body>
+</html>

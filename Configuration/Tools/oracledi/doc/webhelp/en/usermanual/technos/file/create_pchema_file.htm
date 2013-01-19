@@ -1,0 +1,160 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Creating a Physical Schema for a File</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+ol.whs2 { list-style:decimal; }
+img_whs3 { border:none; width:16px; height:16px; float:none; border-style:none; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nUsing Oracle Data Integrator with ...\nFile\nCreate a Physical Schema for a File");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Creating a Physical Schema for a File</h1>
+
+<p>A <span class=ElementGUI>Physical Schema</span> corresponds to a pair 
+ of directories : </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>A (Data) <span class=ElementGUI>Schema</span>, 
+ in which Oracle Data Integrator will look for the source and target files for 
+ interfaces.</p></li>
+	
+	<li class=kadov-p><p>A <span class=ElementGUI>Work Schema </span>in 
+ which Oracle Data Integrator will eventually create in order to manipulate temporary 
+ files associated to the sources and targets contained in the Data Library.</p></li>
+</ul>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> Data and Work 
+ schemas each describe a directory. This directory must be accessible to 
+ the agent that will be used to run the transformations. The directory 
+ can be an absolute path (m:/public/data/files) 
+ or relative to the agent startup directory (../demo/files). It is strongly 
+ advised to use a UNC (independent from the execution location) for the 
+ path.<br>
+When running the transformations with &quot;no agent&quot;, the directory 
+ is relative to the directory where Oracle Data Integrator has been installed.</p>
+
+<p class=Remarque><span class=ElementGUI>Note</span>: In UNIX in particular, 
+ the agent must have read/write permission on these directories (even to 
+ access a read only file), as it will create error files for invalid file 
+ records.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> Keep in mind that 
+ file paths are different in Windows than they are in UNIX. Take the platform 
+ used by the agent into account when setting up this information. </p>
+
+<h2>Creation of the Physical Schema</h2>
+
+<h6>To Create a File Physical Schema:</h6>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> If you have just 
+ created a Data Server, then ignore step 1. The <span class=ElementGUI>Physical 
+ Schema</span> window should already be opened.</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>In <span class=ElementGUI>Topology</span>, select 
+ the File <span class=ElementGUI>Data Server</span> that you wish to create 
+ a physical schema for, right-click and select <span class=ElementGUI>Insert 
+ Physical Schema</span>. The<span class=ElementGUI> Physical Schema</span> 
+ window will appear</p></li>
+	
+	<li class=kadov-p><p>Type in the path to the directory that contains 
+ your source or target files in <span class=ElementGUI>Directory (Schema)</span></p></li>
+	
+	<li class=kadov-p><p>Type the Work directory for this physical schema 
+ into <span class=ElementGUI>Directory (Work Schema)</span></p></li>
+	
+	<li class=kadov-p><p>Check the <span class=ElementGUI>Default</span> 
+ box if you want this schema to be the default one for this data server 
+ (The first physical schema is always the default one). For more information, 
+ see <a href="../../../refmanual/topology/snppschema.htm">Physical Schema</a></p></li>
+	
+	<li class=kadov-p><p>Go to the <span class=ElementGUI>Context</span> 
+ tab.</p></li>
+	
+	<li class=kadov-p><p>Select a <span class=ElementGUI>Context</span> 
+ and an existing <span class=ElementGUI>Logical Schema</span> for this 
+ new <span class=ElementGUI>Physical Schema</span>, then go to step 8.<br>
+	If no File Logical Schema exists yet, proceed to step 7</p></li>
+	
+	<li class=kadov-p><p>Click the <img src="../../../images/add_row.gif" x-maintain-ratio="TRUE" 25&quot; width="16px" height="16px" border="0" class="img_whs3"> button</p></li>
+	
+	<li class=kadov-p><p>Select an existing <span class=ElementGUI>Context</span> 
+ from the left column, then type the name of a <span class=ElementGUI>Logical 
+ Schema</span> in the right column. This File Logical Schema is automatically 
+ created and associated to this physical schema in this context</p></li>
+</ol>
+
+<p class=Remarque><span class=AlertTitre>Warning !</span> A <span class=ElementGUI>Logical 
+ Schema</span> can be associated with only one <span class=ElementGUI>Physical 
+ Schema</span> in a given <span class=ElementGUI>Context</span></p>
+
+<ol start="9" type="1" class="whs2">
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span></p></li>
+</ol>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>raise</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Jython Quick Reference\nThe Basics\nSyntax\nInstructions\nraise");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>The raise Statement</h1>
+
+<p><span class=Code
+		style="font-weight: bold;"><B>raise</B></span><span class=Code> [exception 
+ [, value]]:</span></p>
+
+<p>&nbsp;</p>
+
+<p>Raises the <span class=Code>exception</span> exception with the optional 
+ <span class=Code>value</span> value.</p>
+
+<p>If the <span class=Code>exception</span> object is a class, it becomes 
+ the type of the exception. <span class=Code>Value</span> is used to determine 
+ the exception value: If it is an instance of the class, the instance becomes 
+ the exception value. If <span class=Code>value</span> is a tuple, it is 
+ used as the argument list for the class constructor; if it is None, an 
+ empty argument list is used, and any other object is treated as a single 
+ argument to the constructor. The instance so created by calling the constructor 
+ is used as the exception value.</p>
+
+<p>If no expressions are present, <span class=Code>raise</span> re-raises 
+ the last expression that was active in the current scope. If no exception 
+ has been active in the current scope, an exception is raised that indicates 
+ that this is the error. </p>
+
+</body>
+</html>

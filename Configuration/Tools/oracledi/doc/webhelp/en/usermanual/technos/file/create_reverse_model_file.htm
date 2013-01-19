@@ -1,0 +1,351 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Creating and Reverse-Engineering a File Model</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ol.whs1 { list-style:decimal; }
+ul.whs2 { list-style:disc; }
+p.whs3 { margin-left:40px; }
+img_whs4 { border:none; width:16px; height:16px; float:none; border-style:none; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nUsing Oracle Data Integrator with ...\nFile\nCreating and Reverse-Engineering a File Model");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Creating and Reverse-Engineering a File Model</h1>
+
+<h2>Create a File Model</h2>
+
+<p>An File <span class=ElementGUI>Model</span> is a set of <span class=ElementGUI>Datastores,</span> 
+ corresponding to files stored in a directory. A model is always based 
+ on a <span class=ElementGUI>Logical Schema</span>. In a given <span class=ElementGUI>Context</span>, 
+ the <span class=ElementGUI>Logical Schema</span> corresponds to one <span 
+ class=ElementGUI>Physical Schema</span>. The Data Schema of this Physical 
+ Schema is the directory containing all the Files (eventually in sub-directories) 
+ described in the model.</p>
+
+<h6>To create a File Model:</h6>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Connect to <span class=ElementGUI>Designer</span></p></li>
+	
+	<li class=kadov-p><p>Select <span class=ElementGUI>Models</span> in 
+ the tree</p></li>
+	
+	<li class=kadov-p><p>Right-click then select <span class=ElementGUI>Insert 
+ Model</span></p></li>
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>Definition</span> 
+ tab, fill in the <span class=ElementGUI>Name</span> field</p></li>
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>Technology </span>field, 
+ select <span class=ElementGUI>File</span></p></li>
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>Logical Schema </span>field, 
+ select the Logical Schema on which your model will be based</p></li>
+	
+	<li class=kadov-p><p>Go to the <span class=ElementGUI>Reverse </span>tab 
+ and select a <span class=ElementGUI>Context</span> which will be used 
+ for the model's reverse-engineering. Click <span class=ElementGUI>Apply</span></p></li>
+</ol>
+
+<p>The model is created, but contains no datastores yet.</p>
+
+<h2>Reverse-engineer a File model</h2>
+
+<p>A model is created with no datastore. The <span class=ElementGUI>Reverse-engineering</span> 
+ operation consists in gathering the structure of the files in the model 
+ to create the model's datastore definitions.</p>
+
+<p>There are three types of reverse-engineering:</p>
+
+<ul type="disc" class="whs2">
+	
+	<li class=kadov-p><p><span class=ElementGUI>Standard </span>reverse-engineering, 
+ which is only available for delimited files. It is performed per file.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Customized</span> reverse-engineering, 
+ which uses a RKM (Reverse Knowledge Module) to get the structure of all 
+ of the files of the model from a Microsoft Excel Spreadsheet.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>&nbsp;COBOL 
+ Copybook</span> reverse-engineering, which is available for fixed files, 
+ if a copybook describing the file is provided. See <a HREF="../../designer/model/reverse_cobol_copybook.htm">Reverse 
+ a COBOL Copybook</a> for more information.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Column Setup Wizard</span>, 
+ which is available for fixed files. See <a HREF="../../designer/model/reverse_fixed_file.htm">Reverse-engineering 
+ a Fixed File using the Wizard</a> for more information.</p></li>
+</ul>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> A specific RKM, 
+ the <span class=Code>RKM File from Excel</span>, is provided for File 
+ customized reverse engineering. This RKM must be imported into at least 
+ one project to be available here. </p>
+
+<h3>Standard Reverse-Engineering</h3>
+
+<h6>To perform a Standard Reverse-Engineering for a file (delimited files 
+ only):</h6>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Right click on your File <span class=ElementGUI>Model</span> 
+ and select <span class=ElementGUI>Insert Datastore</span></p></li>
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>Definition</span> 
+ Tab, fill in the following fields:</p></li>
+	
+	<ul type="disc" class="whs2">
+		
+		<li class=kadov-p><p><span class=ElementGUI>Name</span>: name of 
+ this datastore</p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>Resource Name</span>: 
+ sub-directory (if needed) and name of the file. You can retrieve the file 
+ name with the <span class=ElementGUI>(...)</span> button</p></li>
+	</ul>
+	
+	<li class=kadov-p><p>Go to the <span class=ElementGUI>Files </span>tab 
+ to describe the type of file</p></li>
+	
+	<ul type="disc" class="whs2">
+		
+		<li class=kadov-p><p>Format must be <span class=ElementGUI>Delimited</span></p></li>
+		
+		<li class=kadov-p><p>Specify the number of lines for the <span 
+ class=ElementGUI>Header</span>. (If there is a header, the first line 
+ of the header will be used by Oracle Data Integrator to name the columns in the 
+ file)</p></li>
+		
+		<li class=kadov-p><p>Select a <span class=ElementGUI>Record Separator</span> 
+ </p></li>
+		
+		<li class=kadov-p><p>Select or type the character used as a <span 
+ class=ElementGUI>Field Separator</span> </p></li>
+		
+		<li class=kadov-p><p>Enter a <span class=ElementGUI>Text delimiter</span> 
+ if your file uses one </p></li>
+		
+		<li class=kadov-p><p>Enter a <span class=ElementGUI>Decimal separator</span> 
+ if you file has decimals</p></li>
+	</ul>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>Apply </span>to save 
+ the definition of the file.</p></li>
+	
+	<li class=kadov-p><p>Go to the <span class=ElementGUI>Columns </span>tab 
+ to reverse engineer the file structure</p></li>
+	
+	<ul type="disc" class="whs2">
+		
+		<li class=kadov-p><p>Click on the <span class=ElementGUI>Reverse</span> 
+ button </p></li>
+		
+		<li class=kadov-p><p>Check the format and length for the reverse 
+ engineered columns. Oracle Data Integrator will try to guess the types and lengths, 
+ but might also use some default values (usually 50 for strings). </p></li>
+		
+		<li class=kadov-p><p>Click <span class=ElementGUI>Apply</span> 
+ or <span class=ElementGUI>OK</span> to save the column descriptions</p></li>
+	</ul>
+</ol>
+
+<h3>Customized Reverse-Engineering</h3>
+
+<p>For this reverse-engineering procedure, a Microsoft Excel Spreadsheet 
+ contains the description of the group of files. As an example, edit the 
+ <span class=Code>file_repository.xls</span> file found in the Oracle Data Integrator 
+ <span class=Code>/demo/excel</span> sub-directory. The following steps 
+ assume that you have modified this file with the description of the structure 
+ of your flat files.</p>
+
+<p>To perform a customized reverse-engineering, you will need to perform 
+ the following steps:</p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Add an ODBC Microsoft 
+ Excel Datasource</B></span> corresponding to the Excel Spreadsheet containing 
+ the files description.</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Define a Data 
+ Server, a Physical and a Logical Schema</B></span> to this spreadsheet</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Run the Customized 
+ Reverse-engineering</B></span> using the <span class=Code>RKM File from Excel</span> 
+ RKM.</p></li>
+</ol>
+
+<h6>To Add an ODBC Microsoft Excel datasource Driver (*.xls):</h6>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Launch the <span class=ElementGUI>Microsoft ODBC 
+ Administrator</span></p></li>
+	
+	<li class=kadov-p><p>Add a <span class=ElementGUI>System Datasource</span></p></li>
+	
+	<li class=kadov-p><p>Select the driver: <span class=Code>Microsoft 
+ Excel Driver (*.xls)</span> </p></li>
+	
+	<li class=kadov-p><p>Name the data source: <span class=Code
+													style="font-weight: bold;"><B>SUNOPSIS_XL_FILE_REPO</B></span> 
+ &nbsp;and select 
+ the file <span class=Code>/demo/excel/file_repository.xls</span> </p></li>
+</ol>
+
+<h6>To Define the Data Server, Physical and Logical Schema to the Microsoft 
+ Excel Spreadsheet:</h6>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Launch the <span class=ElementGUI>Topology Manager</span> 
+ module</p></li>
+	
+	<li class=kadov-p><p>Add a Microsoft Excel<span class=ElementGUI> Data 
+ Server</span> with the following parameters:</p></li>
+</ol>
+
+<p class="whs3"><span class=ElementGUI>Name</span>: <span 
+ class=Code>EXCEL_FILE_REPOSITORY</span></p>
+
+<p class="whs3"><span class=ElementGUI>JDBC Driver:</span> 
+ <span class=Code>sun.jdbc.odbc.JdbcOdbcDriver</span></p>
+
+<p class="whs3"><span class=ElementGUI>JDBC URL</span>: <span 
+ class=Code>jdbc:odbc:</span><span class=Code
+									style="font-weight: bold;"><B>SUNOPSIS_XL_FILE_REPO</B></span></p>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p
+		class=kadov-p>&nbsp;</li>
+</ol>
+
+<ol start="3" type="1" class="whs1">
+	
+	<li class=kadov-p><p><span class=ElementGUI>Apply</span><span style="margin-left: 40px;"> 
+ the modifications</span></p></li>
+	
+	<li class=kadov-p><p>Add a <span class=ElementGUI>Logical Schema</span> 
+ on the default physical schema</p></li>
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>Context</span> tab 
+ of the physical schema, click <img src="../../../images/add_row.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs4"></p></li>
+	
+	<li class=kadov-p><p>In the new line, select the context for the reverse 
+ engineering and type in the second column <span class=Code>EXCEL_FILE_REPOSITORY</span>. 
+ This name is mandatory.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Apply</span> the modifications</p></li>
+</ol>
+
+<h6>To run the customized reverse-engineering:</h6>
+
+<ol type="1" class="whs1">
+	
+	<li class=kadov-p><p>Open the <span class=ElementGUI>Designer</span> 
+ module</p></li>
+	
+	<li class=kadov-p><p>Import the <span class=Code>RKM File From Excel</span> 
+ Knowledge Module into at least one project</p></li>
+	
+	<li class=kadov-p><p>Click on the File <span class=ElementGUI>Model</span>, 
+ right click then select <span class=ElementGUI>Edit</span>.</p></li>
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>Reverse</span> Tab, 
+ set the following parameters:</p></li>
+	
+	<ul type="disc" class="whs2">
+		
+		<li class=kadov-p><p>Select <span class=ElementGUI>Customized</span></p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>Context: </span>Reverse 
+ Context</p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>KM</span> : <span class=Code>RKM 
+ File from Excel</span></p></li>
+	</ul>
+</ol>
+
+
+<ol start="5" type="1" class="whs1">
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>Reverse</span></p></li>
+	
+	<li class=kadov-p><p>You can follow the reverse-engineering process 
+ in the<span class=ElementGUI> Execution Log</span></p></li>
+</ol>
+
+<p class=Remarque><span class=AlertTitre>Important</span><span class=RemarqueTitre>:</span> 
+ A Microsoft Excel logical schema must be defined. It must be named<span 
+ class=Code> <b style="font-weight: normal;">EXCEL_FILE_REPOSITORY</b></span> 
+ and point to the file <span class=Code>file_repository.xls</span> or another 
+ file with a similar structure</p>
+
+<p class=Remarque><span class=AlertTitre>Important</span><span class=RemarqueTitre>:</span> 
+ The Microsoft Excel file <span class=Code>file_repository.xls</span> should 
+ be closed before running the reverse engineering.</p>
+
+</body>
+</html>

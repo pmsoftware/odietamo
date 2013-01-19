@@ -1,0 +1,1108 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Working with Oracle Data Quality</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+ol.whs2 { list-style:decimal; }
+table.whs3 { margin-left:24px; }
+col.whs4 { width:295px; }
+col.whs5 { width:716px; }
+tr.whs6 { height:23px; }
+td.whs7 { width:295px; }
+td.whs8 { width:716px; }
+tr.whs9 { height:0px; }
+tr.whs10 { height:23pxpx; }
+p.whs11 { background-color:Transparent; }
+ol.whs12 { list-style:disc; }
+p.whs13 { margin-left:40px; }
+h2.whs14 { background-color:Transparent; }
+p.whs15 { margin-left:0px; }
+p.whs16 { margin-left:120px; }
+p.whs17 { margin-left:24px; }
+col.whs18 { width:251px; }
+col.whs19 { width:564px; }
+tr.whs20 { x-cell-content-align:top; height:23px; }
+th.whs21 { width:22.579%; x-cell-content-align:top; }
+th.whs22 { width:251px; x-cell-content-align:top; }
+th.whs23 { width:564px; x-cell-content-align:top; }
+tr.whs24 { x-cell-content-align:top; height:53px; }
+td.whs25 { width:22.579%; x-cell-content-align:top; }
+td.whs26 { width:251px; x-cell-content-align:top; }
+td.whs27 { width:564px; x-cell-content-align:top; }
+tr.whs28 { x-cell-content-align:top; height:71px; }
+tr.whs29 { x-cell-content-align:top; height:86px; }
+tr.whs30 { x-cell-content-align:top; height:44px; }
+-->
+</style><script type="text/javascript" language="JavaScript">
+<!--
+if ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion) == 4))
+{
+  var strNSS = "<style type='text/css'>";
+  strNSS += "p.whs11 {background-color:white; }";
+  strNSS += "h2.whs14 {background-color:white; }";
+  strNSS += "p.whs15 {margin-left:1pt; }";
+  strNSS +="</style>";
+  document.write(strNSS);
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript">
+<!--
+function ehlp_showtip(current,e,text)
+{
+  if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape'))
+  {
+    document.tooltip.document.write("<layer bgColor='yellow' style='border:1px solid black;font-size:12px;'>"+ text + "</layer>");
+    document.tooltip.document.close();
+    document.tooltip.left=e.pageX+5;
+    document.tooltip.top=e.pageY+5;
+    document.tooltip.visibility="show";
+  }
+}
+function ehlp_hidetip()
+{
+  document.tooltip.visibility="hidden";
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("User's Guide\nDesigner\nProjects\nWorking with Oracle Data Quality");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Working with Oracle Data Quality</h1>
+
+<h2>Introduction Data Quality</h2>
+
+<p>A complete Data Quality system includes data profiling, integrity and 
+ quality.</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Profiling</B></span> 
+ makes possible data investigation and quality assessment. It allows business 
+ users to get a clear picture of their data quality challenges, to monitor 
+ and track the quality of their data over time. Profiling is handled by 
+ <span style="font-weight: bold;"><B>Oracle Data Profiling</B></span>. It allows 
+ business users to assess the quality of their data through metrics, to 
+ discover or infer rules based on this data, and finally to monitor over 
+ time the evolution of the data quality.</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Integrity</B></span> 
+ control is essential in ensuring the overall consistency of the data in 
+ your information system's applications. Application data is not always 
+ valid for the constraints and declarative rules imposed by the information 
+ system. You may, for instance, find orders with no customer, or order 
+ lines with no product, etc. <span style="font-weight: bold;"><B>Oracle Data 
+ Integrator</B></span> provides built-in working environment to detect these 
+ constraint violation and store them for recycling or reporting purposes. 
+ Static and Flow checks in Oracle Data Integrator are integrity checks.</p></li>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Quality</B></span> 
+ includes integrity and extends to more complex quality processing. &nbsp;A 
+ rule-based engine apply data quality standards as part of an integration 
+ process to cleanse, standardize, enrich, match and de-duplicate any type 
+ of data, including names and addresses. <span style="font-weight: bold;"><B>Oracle 
+ Data Quality for Data Integrator </B></span>places data quality and name &amp; 
+ address cleansing at the heart of the enterprise integration strategy.</p></li>
+</ul>
+
+<h2>Quality process Overview</h2>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p><a href="#Create_quality_input" title="Create Quality Input" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'Create Quality Input');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">Create a Quality 
+ input file from <span style="font-weight: bold;"><B>Oracle Data Integrator</B></span>, 
+ containing the data to cleanse.</a></p></li>
+	
+	<li class=kadov-p><p><a title="Create Entity" href="#Create_Entity" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'Create Entity');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">Create an Entity in <span 
+ style="font-weight: bold;"><B>Oracle Data Quality</B></span>, based on this file.</a></p></li>
+	
+	<li class=kadov-p><p><a title="Create Quality Project" href="#Create_Quality_Project" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'Create Quality Project');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">Create a <span 
+ style="font-weight: bold;"><B>Oracle Data Quality</B></span> project cleansing 
+ this Entity.</a></p></li>
+	
+	<li class=kadov-p><p><a title="Export DQ Project" href="#Export_DQ_Project" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'Export DQ Project');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">Export this project 
+ from <span style="font-weight: bold;"><B>Oracle Data Quality</B></span> for run-time.</a></p></li>
+	
+	<li class=kadov-p><p><a title="Reverse-engineer Entities" href="#Reverse_engineer_Entities" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'Reverse-engineer Entities');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">Reverse-engineer 
+ the entities using the<span style="font-weight: bold;"><B> RKM Oracle Data 
+ Quality</B></span>.</a></p></li>
+	
+	<li class=kadov-p><p><a title="Use ODQ files in interfaces" href="#Use_files_in_interfaces" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'Use ODQ files in interfaces');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">Use Oracle 
+ Data Quality Input and Output Files in Interfaces.</a></p></li>
+	
+	<li class=kadov-p><p><a title="Run Project" href="#Run_Project" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'Run Project');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">Run this project from Oracle 
+ Data Integrator using the <span style="font-weight: bold;"><B>OdiDataQuality 
+ tool</B></span>.</a></p></li>
+	
+	<li class=kadov-p><p><a title="Sequence the process in a package" href="#Package" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'Sequence the process in a package');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">Sequence the process in a package.</a></p></li>
+</ol>
+
+<h2><a name=Create_quality_input>Create a Quality Input File</a></h2>
+
+<p>Oracle Data Quality uses as a source for the Quality project a flat 
+ file which contains the data to cleanse. This Quality input file can be 
+ created from Data Integrator and loaded from any source datastore using 
+ interfaces. This file should be a FILE datastore with the following parameters 
+ defined on the <span class=ElementGUI>Files</span> tab:</p>
+
+<table x-use-null-cells class="whs3">
+<col class="whs4">
+<col class="whs5">
+
+<tr class="whs6">
+<th class=whs4
+	style="width: 295px; x-cell-content-align: top;"
+	valign=top
+	width=295px>
+<p class=TitreTableau>Parameter</th>
+<th class=whs5
+	style="width: 716px; x-cell-content-align: top;"
+	valign=top
+	width=716px>
+<p class=TitreTableau>Value</th></tr>
+
+<tr class="whs6">
+<td class=whs7
+	style="width: 295px;"
+	width=295px>
+<p class=TexteTableau><span style="background-color: Transparent;">File 
+ Format </span></td>
+<td class=whs8
+	style="width: 716px;"
+	width=716px>
+<p class=TexteTableau>Delimited </td></tr>
+
+<tr class="whs6">
+<td class=whs10
+	style="width: 295px;"
+	width=295px>
+<p class=TexteTableau>Heading (Number of Lines)</td>
+<td class=whs11
+	style="width: 716px;"
+	width=716px>
+<p class=TexteTableau><span class=Code>1</span></td></tr>
+
+<tr class="whs6">
+<td class=whs13
+	style="width: 295px;"
+	width=295px>
+<p class=TexteTableau>Record Separator</td>
+<td class=whs14
+	style="width: 716px;"
+	width=716px>
+<p class=TexteTableau>MS-DOS</td></tr>
+
+<tr class="whs6">
+<td colspan="1" rowspan="1" width="295px" class="whs7">
+<p class=TexteTableau>Field Separator</td>
+<td colspan="1" rowspan="1" width="716px" class="whs8">
+<p class=TexteTableau>Other </td></tr>
+
+<tr class="whs9">
+<td colspan="1" rowspan="1" width="295px" class="whs7">
+<p class=TexteTableau>[Field Separator] Other </td>
+<td colspan="1" rowspan="1" width="716px" class="whs8">
+<p class=TexteTableau>, &nbsp;&nbsp;(comma 
+ sign - Hexadecimal <span class=Code>2C</span>)</td></tr>
+
+<tr class="whs10">
+<td colspan="1" rowspan="1" width="295px" class="whs7">
+<p class=TexteTableau>Text Delimiter</td>
+<td colspan="1" rowspan="1" width="716px" class="whs8">
+<p class=TexteTableau><span class=Code>&quot; </span>(double quotation 
+ marks)</td></tr>
+
+<tr class="whs6">
+<td class=whs16
+	style="width: 295px;"
+	width=295px>
+<p class=TexteTableau>Decimal Separator</td>
+<td class=whs17
+	style="width: 716px;"
+	width=716px>
+<p class=TexteTableau>empty, not specified</td></tr>
+</table>
+
+<p>&nbsp;</p>
+
+<p class="whs11">For more information creating 
+ a FILE datastore, refer to the <a href="../../../refmanual/designer/model/snptable.htm" style="background-color: Transparent;">Datastores 
+ - File</a> topic. You will find more information on loading flat files 
+ in the <a HREF="../../technos/how_to.htm" style="background-color: Transparent;">Using Oracle Data Integrator 
+ with Files</a> topic.</p>
+
+<h2><a name=Create_Entity>Create an Entity</a></h2>
+
+<p>To import a data source into Oracle Data Quality for Data Integrator 
+ means to create an entity based on a delimited source file.</p>
+
+<h3>Step 1: Validate Loader Connections</h3>
+
+<p>Your administrator must set up at least one Loader Connection when he 
+ or she installs Oracle Data Quality for Data Integrator. This Loader Connection 
+ is used to access the Oracle Data Quality input file. As the input file 
+ is a delimited file, this Loader Connection should be a Delimited Loader 
+ Connection. Step 1 requires you validate this Delimited Loader Connection 
+ set up. Also verify that all the data and schema files you need are copied 
+ to the directory defined by the Loader Connection.</p>
+
+<p>If you do not have access to the Metabase Manager, ask your Metabase 
+ administrator to verify the Loader Connection for you.</p>
+
+<p>If you are a Metabase User and have access to the Metabase Manager, 
+ follow this procedure:</p>
+
+<p>&nbsp;</p>
+
+<p class=HowTo>To validate a Loader Connection</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Open the<span class=ElementGUI> Metabase Manager</span> 
+ (<span style="font-weight: bold;"><B>Start</B></span> &gt; <span style="font-weight: bold;"><B>All 
+ Programs</B></span> &gt; <span style="font-weight: bold;"><B>Oracle</B></span> &gt; 
+ <span style="font-weight: bold;"><B>Oracle Data Profiling and Quality</B></span> 
+ &gt; <span style="font-weight: bold;"><B>Metabase Manager</B></span>). </p></li>
+	
+	<li class=kadov-p><p>Verify you are in <span class=ElementGUI>Admin 
+ Mode</span>. </p></li>
+	
+	<li style="/*begin!kadov{{*/ font-weight: normal; /*}}end!kadov*/ "
+		class=kadov-p><p><span class=ElementGUI
+								style="font-weight: normal;">Expand the</span><span 
+ class=ElementGUI> Control Admin </span><span class=ElementGUI
+												style="font-weight: normal;">node.</span> 
+ </p></li>
+	
+	<li class=kadov-p><p>Double-click <span class=ElementGUI>Loader Connections</span>. 
+ </p></li>
+	
+	<li class=kadov-p><p class="whs11">On the 
+ right, the <span class=ElementGUI>Loader Connections list view</span> 
+ displays each Loader Connection, showing its name, type, data file, and 
+ parameters. Review the information to verify that the <span style="font-weight: bold;"><B>Loader 
+ Connection</B></span> created by your administrator is a<span style="font-weight: bold;"><B> 
+ Delimited Loader Connection </B></span>and that the data and schema directories 
+ are pointing to the correct location.</p></li>
+</ol>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> If you are a Metabase 
+ User with full Metabase privileges, you can create a new Loader Connection.</p>
+
+<h3>Step 2: Create Entity and Import Data</h3>
+
+<p>Use the <span class=ElementGUI>Create Entity wizard</span> to create 
+ an Entity. The Wizard takes you through each step, helps you to select 
+ data to load, and provides an interface for specifying connection and 
+ schema settings. It also gives you options for customizing how the data 
+ appears in an Entity.</p>
+
+<p>&nbsp;</p>
+
+<p class=HowTo>To import a delimited source file into Oracle Data Quality 
+ for Data Integrator:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Copy the flat file that you want to import into<span 
+ class=ElementGUI> Oracle Data Quality for Data Integrator</span> into 
+ the data directory that you specified when you defined the Loader Connection.</p></li>
+	
+	<li class=kadov-p><p>Click on the Windows Start Menu and selecting 
+ <span class=ElementGUI>Programs &gt; Oracle &gt; Oracle Data Profiling 
+ and Quality &gt; Oracle Data Profiling and Quality</span>.</p></li>
+	
+	<li class=kadov-p><p>Log in the user interface with your metabase user.<br>
+	The Oracle Data Profiling and Quality user interface opens</p></li>
+	
+	<li class=kadov-p><p>From the <span class=ElementGUI>Main Menu</span>, 
+ select <span class=ElementGUI>Analysis </span>&gt;<span class=ElementGUI> 
+ Create Entity…</span></p></li>
+</ol>
+
+<ol start=4>
+	
+	<li class=kadov-p><p>The <span class=ElementGUI>Create Entity wizard</span> 
+ opens in the upper right pane.</p></li>
+	
+	<li class=kadov-p><p>On the<span class=ElementGUI> Connection Page 
+ of the Create Entity wizard</span>, select the Loader Connection given 
+ to you by the administrator that you have checked in step 1.</p></li>
+</ol>
+
+<ol start=6>
+	
+	<li class=kadov-p><p>Leave the default settings for the filter and 
+ the connection and click <span class=ElementGUI>Next</span>.</p></li>
+</ol>
+
+<ol start=7>
+	
+	<li class=kadov-p><p><span style="font-weight: bold;"><B>Oracle Data Quality</B></span> 
+ connects to the data source using the Loader Connection you selected in 
+ Step 4. If the connection fails, contact your Metabase Administrator</p></li>
+	
+	<li class=kadov-p><p>In the <span class=ElementGUI>Entity Selection 
+ dialog</span>, select the data source file name you want to import in 
+ the list and click <span class=ElementGUI>Next</span>.</p></li>
+	
+	<li class=kadov-p><p>Select the schema settings for the selected data 
+ file corresponding to the parameters of the file described in the section 
+ <a title="Create Quality input file" href="#Create_quality_input" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'Create Quality input file');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">Create a Quality Input File</a>.</p></li>
+</ol>
+
+<ol type="disc" class="whs12">
+	
+	<ul type="disc" class="whs1">
+		
+		<li class=kadov-p><p><span class=ElementGUI>Delimiter &nbsp;:</span><span 
+ class=Code> ,</span> (comma)</p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>Quote :</span> <span 
+ class=Code>&quot;</span> (double quotation marks)</p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>Attribute information 
+ :</span> Names on first line</p></li>
+		
+		<li class=kadov-p><p>Select <span class=ElementGUI>Records are 
+ CR/LF terminated</span></p></li>
+		
+		<li class=kadov-p><p><span class=ElementGUI>Character encoding 
+ :</span> ascii</p></li>
+	</ul>
+</ol>
+
+<p>For more information on configuring Entities for delimited files, please 
+ refer to the <span style="font-style: italic;"><I>Oracle Data Quality for 
+ Data Integrator Help</I></span>.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note : </span>If the file is 
+ generated using Oracle Data Integrator These file format parameters should 
+ correspond to the file format specified in the Files tab of the datastore 
+ definition.</p>
+
+<ol start=10>
+	
+	<li class=kadov-p><p>After you select the schema settings, click <span 
+ class=ElementGUI>Preview</span>. The <span class=ElementGUI>Preview mode</span> 
+ shows how the data will appear in the Entity, based on your selected schema 
+ settings. The data displays below in a list view. Use the Preview mode 
+ to customize how the data will appear in the new Entity.</p></li>
+	
+	<li class=kadov-p><p>When you are ready to continue, click <span class=ElementGUI>Close</span>. 
+ &nbsp;</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>Next</span>. The 
+ <span class=ElementGUI>Load Parameters dialog</span> opens. <span style="margin-left: 40px;">Specify 
+ the parameters as follows:</span></p></li>
+</ol>
+
+<ul>
+	
+	<li style="list-style: disc;"
+		type=disc
+		class=kadov-p><p class="whs13">Select the <span class=ElementGUI>All 
+ Rows</span> option </p></li>
+	
+	<li style="list-style: disc;"
+		type=disc
+		class=kadov-p><p class="whs13">Leave the default <span 
+ class=ElementGUI>Job name</span></p></li>
+</ul>
+
+<ol start=13>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>Next</span> to continue.</p></li>
+	
+	<li class=kadov-p><p>In <span class=ElementGUI>Confirm Settings</span>, 
+ review the list of settings and click <span class=ElementGUI>Finish</span> 
+ to schedule the Entity creation job. The <span class=ElementGUI>Schedule 
+ Job window</span> opens.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>Run Now</span>.</p></li>
+</ol>
+
+<h3>Step 3: Verify Entity</h3>
+
+<p>During the data import process, <span class=ElementGUI>Oracle Data Quality 
+ for Data Integrator</span> translates your data files into three basic 
+ components (Metabase objects): <span class=ElementGUI>Entities</span>,<span 
+ class=ElementGUI> Attributes</span>, and<span class=ElementGUI> Rows</span>. 
+ </p>
+
+<p>Perform the following list of verification tasks to ensure that the 
+ data you expected has been successfully imported to a Metabase and are 
+ correctly represented in the Metabase Explorer. </p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Make sure that for every data file imported you 
+ have one corresponding Entity. </p></li>
+</ol>
+
+<ol start="2" type="1" class="whs2">
+	
+	<li class=kadov-p><p>Make sure that the column names do not contain 
+ any special characters with the exception of underscore (_) or minus sign 
+ (-) characters. Minus signs and underscores will be translated into spaces 
+ during the data load process. </p></li>
+	
+	<li class=kadov-p><p>Make sure that for every field imported you have 
+ one corresponding Attribute. </p></li>
+	
+	<li class=kadov-p><p>Make sure that you have one Entity Row for every 
+ data row imported.</p></li>
+</ol>
+
+<h2>Create a Profiling Project</h2>
+
+<p>You can now run a <span class=ElementGUI>Data Profiling Project</span> 
+ with <span style="font-weight: bold;"><B>Oracle Data Profiling</B></span> to 
+ find quality problems. Profiling discovers and analyzes the quality of 
+ your enterprise data. It analyzes data at the most detailed levels to 
+ identify data anomalies, broken filters and data rules, misaligned data 
+ relationships, and other concerns that allow data to undermine your business 
+ objectives.</p>
+
+<p>For more information on Data Profiling see the chapter <span style="font-style: italic;"><I>Working 
+ with Oracle Data Profiling</I></span> in the<span style="font-style: italic;"><I> 
+ Oracle Data Quality for Data Integrator Help</I></span>. </p>
+
+<h2><a name=Create_Quality_Project>Create a Quality Project</a></h2>
+
+<p>You can now create an <span class=ElementGUI>Oracle Data Quality Project</span> 
+ to validate and transform your data, and resolve data issues such as mismatching 
+ and redundancy.</p>
+
+<p><span class=ElementGUI>Oracle Data Quality for Data Integrator</span> 
+ is a powerful tool for repairing and correcting fields, values and records 
+ across multiple business contexts and applications, including data with 
+ country-specific origins. <span class=ElementGUI>Oracle Data Quality for 
+ Data Integrator</span> enables data processing for standardization, cleansing 
+ and enrichment, tuning capabilities for customization, and the ability 
+ to view your results in real-time.</p>
+
+<p>A Quality Project cleanses input files and loads cleansed data into 
+ output files. At the end of your Oracle Data Quality project this input 
+ file may be split into several output files, depending on the data Quality 
+ project.</p>
+
+<p class=Remarque><span class=AlertTitre>Important Note:</span> A Data 
+ Quality project contains many temporary entities, some of them not useful 
+ in the integration process. To limit the Entities reversed-engineered 
+ for usage by Oracle Integrator, a filter based on entities name can be 
+ used. To use this filter efficiently, it is recommended that <span style="background-color: Transparent;">you 
+ rename in your quality project the entities that you want to use in </span><span 
+ style="font-weight: bold; background-color: Transparent;"><B>Oracle Data 
+ Integrator</B></span><span style="background-color: Transparent;"> in a consistent 
+ way. For example rename the entities </span><span class=Code
+													style="background-color: Transparent;">ODI_IN_XXX 
+ </span><span style="background-color: Transparent;">and the output (and 
+ no-match) files </span><span class=Code
+								style="background-color: Transparent;">ODI_OUT_XXX</span><span 
+ style="background-color: Transparent;"> , where XXX is the name of the 
+ entity.</span></p>
+
+<p>For more information on Data Quality projects see the chapter <span 
+ style="font-style: italic;"><I>Working with Oracle Data Quality</I></span> in 
+ the<span style="font-style: italic;"><I> Oracle Data Quality for Data Integrator 
+ Help</I></span>. </p>
+
+<h2 class="whs14"><a name=Export_DQ_Project>Export 
+ a Data Quality Project</a></h2>
+
+<p class="whs11">Oracle Data Integrator is able 
+ to run projects exported from Oracle Data Quality. Once the Data Quality 
+ project is complete, you need to export it for Oracle Data Integrator. 
+ The exported project contains the data files, Data Dictionary Language 
+ (DDL) files, settings files, output and statistics files, user-defined 
+ tables and scripts for each process module you in the project. An exported 
+ project can be run on UNIX or Windows platforms without the user interface, 
+ and only requires the Oracle Data Quality Server. </p>
+
+<p class=HowTo>To create a batch script</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>From the <span class=ElementGUI>Explorer</span> 
+ or <span class=ElementGUI>Project Workflow</span>, right-click the <span 
+ class=ElementGUI>Oracle Data Quality project</span> and select <span class=ElementGUI>Export... 
+ </span>&gt;<span class=ElementGUI> ODQ Batch Project </span>&gt;<span 
+ class=ElementGUI> No data</span>. </p></li>
+	
+	<li class=kadov-p><p>In <span class=ElementGUI>Browse for Folder</span>, 
+ select or make a folder where you want the project to be exported. </p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>OK</span>. <br>
+	A message window appears indicating that the files are being copied. 
+ <br>
+	<br>
+	This export process creates a folder named after the metabase (<span 
+ class=Code>&lt;metabase_name&gt;</span>) at the location that you specified. 
+ This folder contains a <span class=Code>projectN</span> sub-folder (where 
+ N is the project identifier in Oracle Data Quality). This project folder 
+ contains the following folders among others:</p></li>
+</ol>
+
+<ol type="disc" class="whs12">
+	
+	<ul type="disc" class="whs1">
+		
+		<li class=kadov-p><p><span style="font-weight: bold;"><B>data</B></span>: 
+ This folder is used to contain input and output data as well as temporary 
+ data files. These files have a .DAT extension. As you specified No data 
+ for the export, this folder is empty.</p></li>
+		
+		<li class=kadov-p><p><span style="font-weight: bold;"><B>ddl</B></span>: 
+ This folder contains the entities metadata files (.DDX and .XML). These 
+ files describe the data files' fields. They are prefixed with <span class=Code>eNN_</span> 
+ , where NN is the Entity number. Each entity is described in two metadata 
+ files. <span class=Code>eNN_&lt;name of the entity&gt;</span><span class=Code
+	style="font-weight: bold;"><B>.ddx</B></span> is the description of the entity 
+ with possible duplicated columns (suitable for fixed files). <span class=Code>enNN_&lt;name 
+ of the entity</span><span class=Code
+							style="font-weight: bold;"><B>_csv.ddx</B></span> 
+ is the description of the entity with non-duplicated columns (suitable 
+ for fixed and delimited files). It recommended to use these files for 
+ the reverse-engineering process.</p></li>
+		
+		<li class=kadov-p><p><span style="font-weight: bold;"><B>scripts</B></span>: 
+ This folder contains the configuration file <span class=Code>config.txt</span>, 
+ and the batch script <span class=Code>runprojectN</span>. This script 
+ runs the quality process and is the one that will be triggered by Oracle 
+ Data Integrator.</p></li>
+		
+		<li class=kadov-p><p class="whs11"><span 
+ style="font-weight: bold;"><B>settings:</B></span> This folder contains settings 
+ files (.ddt, .sto, .stt, .stx) .</p></li>
+	</ul>
+</ol>
+
+<ol start="4" type="disc" class="whs12">
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p class="whs15">After the message window 
+ has disappeared, examine the folder you have specified and check that 
+ all folders and files are correctly created.</p></li>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p class="whs15">Move the exported project 
+ to a folder on the run-time machine. This machine must have the Oracle 
+ Data Quality Server installed at it will run the quality project.</p></li>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p class="whs15">Open with a text editor 
+ the batch script (<span class=Code>runprojectN</span>) and the configuration 
+ file (<span class=Code>config.txt</span>) in the <span class=Code>/scripts</span> 
+ sub-folder of your <span class=Code>projectN</span> folder.</p></li>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p class="whs15">Perform the following 
+ changes to configure the run-time directory in the project.</p></li>
+</ol>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p class="whs13">In <span class=Code>config.txt</span>, 
+ specify the location (absolute path) of the directory containing the <span 
+ class=Code>projectN</span> folder for the <span class=Code>DATABASE</span> 
+ parameter.</p></li>
+	
+	<li class=kadov-p><p class="whs13">In <span class=Code>runprojectN</span>, 
+ specify the location (absolute path) of the <span class=Code>ProjectN</span> 
+ directory for the <span class=Code>TS_PROJECT</span> parameter.</p></li>
+</ul>
+
+<p class="whs13">For example, if you have the <span class=Code>config.txt</span> 
+ and <span class=Code>r</span><span class=Code>unproject2.* </span>files 
+ located in <span class=Code>C:/oracle/oracledq/metabase_data/metabase/oracledq/project2/scripts/</span>, 
+ you should specify </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p class="whs13">in <span class=Code>config.txt:<br>
+	DATABASE &nbsp;= 
+ &quot;C:/oracle/oracledq/metabase_data/metabase/oracledq&quot;</span></p></li>
+	
+	<li class=kadov-p><p class="whs13">In <span class=Code>runprojectN.*:<br>
+	set TS_PROJECT=C:\oracle\oracledq\metabase_data\metabase\oracledq\project2 
+ </span></p></li>
+</ul>
+
+<ol start="8" type="1" class="whs2">
+	
+	<li class=kadov-p><p class="whs15">Save and close the <span 
+ class=Code>config.txt</span> file. </p></li>
+	
+	<li class=kadov-p><p class="whs15">In <span class=Code>runprojectN 
+ </span>uncomment the very last line of the file (remove the <span class=Code>::</span> 
+ character at the beginning of the last line).</p></li>
+	
+	<li class=kadov-p><p class="whs15">Save and close the <span 
+ class=Code>runprojectN </span>file.</p></li>
+	
+	<li class=kadov-p><p class="whs15">Oracle Data Integrator 
+ uses CSV formatted files (typically, comma-delimited with one header line) 
+ to provide the data quality project with input data, and expects output 
+ data to be in the same format.<br>
+	In the <span class=Code>/settings</span> directory, open with an editor 
+ the settings file corresponding to the first process of your project. 
+ This file is typically named<span class=Code> eN_transfmr_p1.stx</span> 
+ &nbsp;(where 
+ N is the internal ID of the entity corresponding to the quality input 
+ file) if the first process is a transformer.</p></li>
+	
+	<li class=kadov-p><p class="whs15">Change the following 
+ input parameters in the settings file:</p></li>
+</ol>
+
+<ol type="disc" class="whs12">
+	
+	<ul type="disc" class="whs1">
+		
+		<li class=kadov-p><p>In <span class=Code
+										style="margin-left: 0px;">DATA_FILE_NAME</span>, 
+ specify the name and location (absolute path) of your quality input file 
+ in run-time.</p></li>
+		
+		<li class=kadov-p><p>In <span class=Code>FILE_DELIMITER</span>, 
+ specify the delimiter used in the quality input file.</p></li>
+		
+		<li class=kadov-p><p>In <span class=Code>START_RECORD</span>, specify 
+ the line number where data starts. For example, if there is a 1 line header, 
+ the value should be 2.</p></li>
+	</ul>
+</ol>
+
+<p class="whs13">For example, if you have the <span class=Code>customer_master.csv 
+ </span>quality input file (comma-separated with one header line) located 
+ in <span class=Code>C:/oracle/oracledq/metabase_data/metabase/oracledq/Data/</span>, 
+ you should edit the following section</p>
+
+<p class="whs13"><span class=Code>&lt;CATEGORY&gt;&lt;INPUT&gt;&lt;PARAMETER&gt;&lt;INPUT_SETTINGS&gt;</span></p>
+
+<p class="whs13"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ARGUMENTS&gt; 
+ &nbsp;&nbsp;</span></p>
+
+<p class="whs16"><span class=Code>&lt;ENTRY&gt;</span></p>
+
+<p class="whs13"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ENTRY_ID&gt;1&lt;/ENTRY_ID&gt;</span></p>
+
+<p class="whs13"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FILE_QUALIFIER&gt;Customer_Master(1)&lt;/FILE_QUALIFIER&gt;</span></p>
+
+<p class="whs13"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;DATA_FILE_NAME&gt;$(INPUT)/e1_customer_master.dat&lt;/DATA_FILE_NAME&gt;</span></p>
+
+<p class="whs13"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;DDL_FILE_NAME&gt;$(DDL)/e1_customer_master.ddx&lt;/DDL_FILE_NAME&gt;</span></p>
+
+<p class="whs13"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FILE_DELIMITER/&gt;</span></p>
+
+<p class="whs13"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;USE_QUOTES_AS_QUALIFIER/&gt;</span></p>
+
+<p class="whs13"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;START_RECORD/&gt;</span></p>
+
+<p class="whs13">as shows below</p>
+
+<p class="whs13"><span class=Code><span class=Code>&lt;</span>CATEGORY&gt;&lt;INPUT&gt;&lt;PARAMETER&gt;&lt;INPUT_SETTINGS&gt;</span></p>
+
+<p class="whs13"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ENTRY&gt;</span></p>
+
+<p class="whs13"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ENTRY_ID&gt;1&lt;/ENTRY_ID&gt;</span></p>
+
+<p class="whs13"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FILE_QUALIFIER&gt;Customer_Master(1)&lt;/FILE_QUALIFIER&gt;</span></p>
+
+<p class="whs13"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >&lt;DATA_FILE_NAME&gt;</font></span><span 
+ class=Code
+	style="color: #0000ff; font-weight: bold;"><font color=blue ><B>C:\oracle\oracledq\metabase_data\metabase\oracledq\Data\customer_master.csv</B></font></span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >&lt;/DATA_FILE_NAME&gt;</font></span></p>
+
+<p class="whs13"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;DDL_FILE_NAME&gt;$(DDL)/e1_customer_master.ddx&lt;/DDL_FILE_NAME&gt;</span></p>
+
+<p class="whs13"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >&lt;FILE_DELIMITER&gt;</font></span><span 
+ class=Code
+	style="color: #0000ff; font-weight: bold;"><font color=blue ><B>,</B></font></span><span class=Code
+															style="color: #0000ff;"><font color=blue >&lt;/FILE_DELIMITER&gt;</font></span></p>
+
+<p class="whs13"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;USE_QUOTES_AS_QUALIFIER/&gt;</span></p>
+
+<p class="whs13"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >&lt;START_RECORD&gt;</font></span><span 
+ class=Code
+	style="color: #0000ff; font-weight: bold;"><font color=blue ><B>2</B></font></span><span class=Code
+															style="color: #0000ff;"><font color=blue >&lt;/START_RECORD&gt;</font></span></p>
+
+<ol start="12" type="1" class="whs2">
+	
+	<li class=kadov-p><p>Save and close the settings file. </p></li>
+	
+	<li class=kadov-p><p>Also in the <span class=Code>/settings</span> 
+ directory, open the file that corresponds to the settings of the process 
+ generating the output (cleansed) data. Typically, for a cleansing project 
+ which finishes with a Data Reconstructor process, it is named with <span 
+ class=Code>eNN_datarec_pXX.stx.</span> Change the following value in the 
+ settings file to give the full path of the generated output file.</p></li>
+</ol>
+
+<p class="whs15"><span class=Code>&lt;CATEGORY&gt;&lt;OUTPUT&gt;&lt;PARAMETER&gt;</span></p>
+
+<p class="whs15"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;OUTPUT_SETTINGS&gt;</span></p>
+
+<p class="whs15"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ARGUMENTS&gt;</span></p>
+
+<p class="whs15"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FILE_QUALIFIER&gt;OUTPUT&lt;/FILE_QUALIFIER&gt;</span></p>
+
+<p class="whs15"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >&lt;DATA_FILE_NAME&gt;</font></span><span 
+ class=Code
+	style="color: #0000ff; font-weight: bold;"><font color=blue ><B>C:\oracle\oracledq\metabase_data\metabase\oracledq\Data\customer_master_cleansed.csv</B></font></span><span 
+ class=Code
+	style="color: #0000ff;"><font color=blue >&lt;/DATA_FILE_NAME&gt;</font></span></p>
+
+<p class="whs15"><span class=Code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;DDL_FILE_NAME&gt;$(DDL)/e36_us_datarec_p11.ddx&lt;/DDL_FILE_NAME&gt;</span></p>
+
+<ol start="14" type="1" class="whs2">
+	
+	<li class=kadov-p><p class="whs15">Save and close the settings 
+ file.</p></li>
+	
+	<li class=kadov-p><p class="whs15">If you have several 
+ data quality processes that generate useful output files (for example, 
+ one data reconstructor per country). Repeat the two previous steps for 
+ each of these processes.</p></li>
+</ol>
+
+<h2><a name=Reverse_engineer_Entities>Reverse-engineer Entities</a></h2>
+
+<p>In order to provide the Quality process with input data and use its 
+ output data in data integrator's integration processes, it is necessary 
+ to reverse-engineer these Entities. This operation is performed using 
+ a customized reverse-engineering method based on the Oracle Data Quality 
+ RKM. The RKM reads metadata from the .ddx files located in the<span class=Code> 
+ /ddl</span> folder of your data quality project.</p>
+
+<p class=HowTo>To reverse-engineer the Entities of a data Quality project:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>Import the<span class=ElementGUI> RKM Oracle Data 
+ Quality </span>into your Oracle Data Integrator project. </p></li>
+</ol>
+
+<ol start=2>
+	
+	<li class=kadov-p><p>Insert a physical schema for the File technology 
+ in Topology Manager. Specifying for both, the Directory (<span class=ElementGUI>Schema</span>) 
+ and the Directory (<span class=ElementGUI>Work Schema</span>), the absolute 
+ path of your data folder. For example <span class=Code>C:\oracle\oracledq\metabase_data\metabase\oracledq\projectN\data</span></p></li>
+</ol>
+
+<p class="whs17">This directory must be accessible to the 
+ agent that will be used to run the transformations. <span style="font-weight: bold;"><B>Oracle 
+ Data Integrator</B></span> will look in the schema for the source and target 
+ data structures for the interfaces. The RKM will access the output data 
+ files and reverse-engineer them.</p>
+
+<ol start=3>
+	
+	<li class=kadov-p><p>Create a File model and reverse the <span class=Code>/ddl</span> 
+ folder. </p></li>
+</ol>
+
+<ol type="disc" class="whs12">
+	
+	<ol type="1" class="whs2">
+		
+		<li style="list-style: decimal;"
+			type=1
+			class=kadov-p><p>Connect to <span class=ElementGUI>Designer</span>.</p></li>
+		
+		<li style="list-style: decimal;"
+			type=1
+			class=kadov-p><p>Select <span class=ElementGUI>Models</span> 
+ in the tree.</p></li>
+		
+		<li style="list-style: decimal;"
+			type=1
+			class=kadov-p><p>Right-click then select <span class=ElementGUI>Insert 
+ Model</span>.</p></li>
+		
+		<li style="list-style: decimal;"
+			type=1
+			class=kadov-p><p>In the <span class=ElementGUI>Definition tab</span>, 
+ fill in the <span class=ElementGUI>Name field</span>.</p></li>
+		
+		<li style="list-style: decimal;"
+			type=1
+			class=kadov-p><p>In the <span class=ElementGUI>Technology field</span>, 
+ select <span class=ElementGUI>File</span>.</p></li>
+		
+		<li style="list-style: decimal;"
+			type=1
+			class=kadov-p><p>In the<span class=ElementGUI> Logical Schema 
+ field</span>, select the<span class=ElementGUI> Logical Schema</span> 
+ on which your model will be based.</p></li>
+		
+		<li style="list-style: decimal;"
+			type=1
+			class=kadov-p><p>Go to the <span class=ElementGUI>Reverse tab</span> 
+ and select:</p></li>
+		
+		<ol type="1" class="whs2">
+			
+			<li class=kadov-p><p><span class=ElementGUI>Customized </span>Reverse</p></li>
+			
+			<li class=kadov-p><p>Reverse-engineering Context</p></li>
+			
+			<li class=kadov-p><p><span class=ElementGUI>Type of objects 
+ to reverse-engineer</span>: Table </p></li>
+			
+			<li class=kadov-p><p><span style="font-weight: bold;"><B>KM</B></span> 
+ : Select the RKM Oracle Data Quality</p></li>
+		</ol>
+		
+		<li style="list-style: decimal;"
+			type=1
+			class=kadov-p><p>Set the RKM options:</p></li>
+	</ol>
+</ol>
+
+<p>&nbsp;</p>
+
+<table x-use-null-cells class="whs3">
+<col class="whs4">
+<col class="whs18">
+<col class="whs19">
+
+<tr valign="top" class="whs20">
+<th valign="top" width="22.579%" class="whs21">
+<p class=TitreTableau><span class=RemarqueTitre>Parameter</span></th>
+<th valign="top" width="251px" class="whs22">
+<p class=TitreTableau>Default Value</th>
+<th valign="top" width="564px" class="whs23">
+<p class=TitreTableau><span class=RemarqueTitre>Description</span></th></tr>
+
+<tr valign="top" class="whs24">
+<td colspan="1" rowspan="1" valign="top" width="22.579%" class="whs25">
+<p class=textetableau>DDX_FILE_NAME</td>
+<td colspan="1" rowspan="1" valign="top" width="251px" class="whs26">
+<p class=TexteTableau><span class=Code>*.ddx</span></p>
+<p class=textetableau>&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" width="564px" class="whs27">
+<p class=TexteTableau>Mask for DDX Files to process. If you have used a 
+ naming convention in the Quality project for the Entities that you want 
+ to use, enter a mask that will return only these Entities. For example, 
+ specify the <span class=Code>ODI*_csv.ddx</span> mask if you have used 
+ the <span class=Code>ODI_IN_XX</span> and <span class=Code>ODI_OUT_XX</span> 
+ naming convention for your input and output entities.</td></tr>
+
+<tr valign="top" class="whs28">
+<td valign="top" width="22.579%" class="whs25">
+<p class=TexteTableau>FILE_FORMAT </p>
+<p class=textetableau>&nbsp;</td>
+<td valign="top" width="251px" class="whs26">
+<p class=TexteTableau><span class=Code>D</span></p>
+<p class=textetableau>&nbsp;</td>
+<td valign="top" width="564px" class="whs27">
+<p class=TexteTableau>Format used for the generated file datastore:</p>
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span style="font-weight: bold;"><B>D 
+ (Delimited)</B></span>: The fields of a line are separated by a record separator.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span style="font-weight: bold;"><B>F 
+ (Fixed)</B></span>: The fields of a line are not separated, but their length 
+ is fixed.</p></li>
+</ul></td></tr>
+
+<tr valign="top" class="whs29">
+<td valign="top" width="22.579%" class="whs25">
+<p class=TexteTableau>RECORD_SEPARATOR </p>
+<p class=textetableau>&nbsp;</td>
+<td valign="top" width="251px" class="whs26">
+<p class=TexteTableau><span class=Code>MS-DOS</span> </p>
+<p class=textetableau>&nbsp;</td>
+<td valign="top" width="564px" class="whs27">
+<p class=TexteTableau>One or several characters separating lines (or records) 
+ in the file:</p>
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span style="font-weight: bold;"><B>MS-DOS</B></span>: 
+ DOS carriage return.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span style="font-weight: bold;"><B>UNIX</B></span>: 
+ UNIX carriage return.</p></li>
+</ul>
+<p class=TexteTableau>Any other value corresponds to an empty record separator.</td></tr>
+
+<tr valign="top" class="whs20">
+<td valign="top" width="22.579%" class="whs25">
+<p class=TexteTableau>FIELD_SEPARATOR</td>
+<td valign="top" width="251px" class="whs26">
+<p class=TexteTableau><span class=Code>,</span> (comma)</td>
+<td valign="top" width="564px" class="whs27">
+<p class=TexteTableau>Character(s) used to separate the fields in a record.</td></tr>
+
+<tr valign="top" class="whs30">
+<td colspan="1" rowspan="1" valign="top" width="22.579%" class="whs25">
+<p class=TexteTableau>USE_FRIENDLY_NAMES</td>
+<td colspan="1" rowspan="1" valign="top" width="251px" class="whs26">
+<p class=TexteTableau>No</p>
+<p class=TexteTableau>&nbsp;</td>
+<td colspan="1" rowspan="1" valign="top" width="564px" class="whs27">
+<p class=TexteTableau>Set this option to Yes if you want the Reverse-Engineering 
+ process to generate user-friendly names for datastore columns based on 
+ the field name specified in the DDX file.</td></tr>
+
+<tr valign="top" class="whs20">
+<td colspan="1" rowspan="1" valign="top" width="22.579%" class="whs25">
+<p class=TexteTableau>USE_LOG</td>
+<td colspan="1" rowspan="1" valign="top" width="251px" class="whs26">
+<p class=TexteTableau>Yes</td>
+<td colspan="1" rowspan="1" valign="top" width="564px" class="whs27">
+<p class=TexteTableau>Set to Yes if you want the reverse-engineering process 
+ activity be logged in a log file.</td></tr>
+
+<tr valign="top" class="whs20">
+<td colspan="1" rowspan="1" valign="top" width="22.579%" class="whs25">
+<p class=TexteTableau>LOG_FILE_NAME </td>
+<td colspan="1" rowspan="1" valign="top" width="251px" class="whs26">
+<p class=TexteTableau><span class=Code>/temp/reverse.log</span></td>
+<td colspan="1" rowspan="1" valign="top" width="564px" class="whs27">
+<p class=TexteTableau>Name of the log file.</td></tr>
+</table>
+
+&nbsp;<br>
+
+<ol start="4" type="1" class="whs2">
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>Apply</span>. The 
+ model is created, but contains no datastores yet.</p></li>
+	
+	<li class=kadov-p><p>Click <span class=ElementGUI>Reverse</span>. Now, 
+ the model contains datastores that you can see in the Models view.</p></li>
+</ol>
+
+<h2><a name=Use_files_in_interfaces>Use Oracle Data Quality Input and Output 
+ Files in Interfaces</a></h2>
+
+<p>You can now create in Oracle Data Integrator interfaces sourcing or 
+ targeting the data Quality input and output files.</p>
+
+<p>For example, you can:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Create interfaces to load the input file using 
+ datastores from various sources.</p></li>
+	
+	<li class=kadov-p><p>Create interfaces to re-integrate the output data 
+ back into the sources after cleansing.</p></li>
+</ul>
+
+<h2><a name=Run_Project>Run a Quality Project from Data Integrator</a></h2>
+
+<p>The <a title="OdiDataQuality" href="../../../ref_tools/odidataquality.htm" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'OdiDataQuality');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">OdiDataQuality</a> 
+ tool executes the batch file to run the Oracle Data Quality project. This 
+ tool takes as a parameter the path to the <span class=Code>runprojectN 
+ </span>script file. It can run either in synchronous (the tool waits for 
+ the quality process to complete) or asynchronous mode.</p>
+
+<p>For more information on the <span class=ElementGUI>OdiDataQuality</span> 
+ tool and its parameters, refer to the <a title="OdiDataQuality" href="../../../ref_tools/odidataquality.htm" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'OdiDataQuality');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">OdiDataQuality</a> 
+ topic.</p>
+
+<h2><a name=Package>Sequence the process in a package</a></h2>
+
+<p>Create a package in Oracle Data Integrator sequencing the following 
+ process:</p>
+
+<ol type="1" class="whs2">
+	
+	<li class=kadov-p><p>One or more Interfaces creating the Quality input 
+ file, containing the data to cleanse.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>OdiDataQuality</span> tool 
+ step launching the Oracle Data Quality process.</p></li>
+	
+	<li class=kadov-p><p>One or more Interfaces loading the data from the 
+ Oracle Data Quality output files into the target datastores.</p></li>
+</ol>
+
+<script type="text/javascript" language="JavaScript">
+<!--
+ if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape'))
+  document.write("<div id='tooltip' class='WebHelpPopupMenu'></div>");
+//-->
+</script>
+</body>
+</html>

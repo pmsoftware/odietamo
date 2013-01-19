@@ -1,0 +1,737 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>Oracle Data Integrator Release Notes</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com"><style>
+<!--
+BODY { background-color:#ffffff; font-size:small; font-family:Arial, sans-serif; color:#000000; }
+H1 { font-weight:bold; color:#e07f0c; font-size:large; font-family:Arial, sans-serif; }
+LI.kadov-H1 { font-weight:bold; color:#e07f0c; font-size:large; font-family:Arial, sans-serif; font-weight:bold; color:#e07f0c; font-size:large; }
+H2 { font-size:large; margin-top:23pt; margin-bottom:9.5pt; color:#006598; font-weight:bold; font-family:Arial, sans-serif; }
+LI.kadov-H2 { font-size:large; color:#006598; font-weight:bold; font-family:Arial, sans-serif; font-size:large; color:#006598; font-weight:normal; }
+H3 { font-weight:bold; color:#e07f0c; font-size:medium; margin-bottom:9.5pt; font-family:Arial, sans-serif; }
+LI.kadov-H3 { font-weight:bold; color:#e07f0c; font-size:medium; font-family:Arial, sans-serif; font-weight:bold; color:#e07f0c; font-size:medium; }
+H4 { font-weight:bold; font-size:medium; color:#006598; font-family:Arial, sans-serif; }
+LI.kadov-H4 { font-weight:bold; font-size:medium; color:#006598; font-family:Arial, sans-serif; font-weight:bold; font-size:medium; color:#006598; }
+H5 { font-weight:bold; color:#e07f0c; font-size:small; font-family:Arial, sans-serif; }
+LI.kadov-H5 { font-weight:bold; color:#e07f0c; font-size:small; font-family:Arial, sans-serif; font-weight:bold; color:#e07f0c; font-size:small; }
+H6 { font-weight:bold; font-size:small; color:#006598; font-family:Arial, sans-serif; }
+LI.kadov-H6 { font-weight:bold; font-size:small; color:#006598; font-family:Arial, sans-serif; font-weight:bold; font-size:small; color:#006598; }
+P { font-size:small; margin-top:4.5pt; margin-bottom:4.5pt; font-family:Arial, sans-serif; font-weight:normal; color:#000000; }
+LI.kadov-P { font-size:small; font-family:Arial, sans-serif; font-weight:normal; color:#000000; font-size:small; font-family:Arial, sans-serif; font-weight:normal; }
+td { border-left-style:none; border-right-style:none; border-top-style:none; border-bottom-style:none; background-color:#e2e2e2; }
+th { border-left-style:none; border-top-style:none; border-right-style:none; border-bottom-style:none; valign:top; background-color:#c0c0c0; }
+table { border-left-style:none; border-top-style:none; border-right-style:none; border-bottom-style:none; width:100%; valign:top; }
+A.expandspot { cursor:hand; font-style:italic; x-text-underline:off; x-text-overline:off; x-text-line-through:off; color:#e07f0c; text-decoration:none none none none none none none none none none none none; }
+SPAN.expandtext { font-weight:bold; font-style:normal; x-text-underline:normal; color:#e07f0c; text-decoration:underline underline; }
+A.dropspot { cursor:hand; font-style:italic; x-text-underline:off; x-text-overline:off; x-text-line-through:off; color:#e07f0c; text-decoration:none none none none none none none none none none none none; }
+A.glossterm { cursor:hand; x-text-underline:off; x-text-overline:off; x-text-line-through:off; font-weight:bold; font-style:italic; color:#e07f0c; text-decoration:none none none none none none none none none none none none; }
+SPAN.glosstext { font-style:italic; font-weight:normal; color:#e07f0c; }
+OL { margin-top:0px; margin-bottom:0px; margin-left:0.25in; font-size:small; font-family:Arial, sans-serif; color:#000000; }
+UL { margin-top:0px; margin-bottom:0px; margin-left:0.25in; font-size:small; font-family:Arial, sans-serif; color:#000000; }
+A:link { font-weight:bold; font-style:normal; color:#e07f0c; x-text-underline:normal; text-decoration:underline underline; }
+A:hover { font-weight:bold; font-style:normal; x-text-underline:normal; color:#f8c07c; text-decoration:underline underline; }
+A:active { font-weight:bold; font-style:normal; color:#e07f0c; }
+A:visited { font-weight:bold; font-style:normal; color:#983200; }
+A.popupspot { font-weight:bold; font-style:normal; color:#e07f0c; x-text-underline:normal; text-decoration:underline underline; }
+p.TitreTableau { font-weight:bold; font-style:normal; margin-left:2pt; margin-right:2pt; text-align:Left; color:#006598; background-color:#c0c0c0; font-size:small; }
+LI.kadov-p-CTitreTableau { font-weight:bold; font-style:normal; text-align:Left; color:#006598; font-size:small; font-weight:bold; font-style:normal; text-align:Left; color:#006598; font-size:small; }
+p.TexteTableau { background-color:#e2e2e2; margin-left:2pt; margin-right:2pt; font-size:small; }
+LI.kadov-p-CTexteTableau { font-size:small; font-size:small; }
+SPAN.Code { font-family:courier, monospace; color:#000000; font-size:small; }
+SPAN.ElementGUI { font-weight:bold; font-style:normal; }
+P.Remarque { x-next-type:P; background-color:#e2e2e2; margin-left:10pt; margin-right:5pt; margin-top:10pt; margin-bottom:10pt; }
+LI.kadov-P-CRemarque {  }
+SPAN.AlertTitre { font-weight:bold; font-style:normal; color:#e07f0c; }
+SPAN.RemarqueTitre { font-weight:bold; font-style:normal; }
+P.HowTo { x-next-type:P; font-weight:bold; font-style:normal; }
+LI.kadov-P-CHowTo { font-weight:bold; font-style:normal; font-weight:bold; font-style:normal; }
+ol ol { margin-top:4px; }
+ol ul { margin-top:4px; }
+ul ul { margin-top:4px; }
+ul ol { margin-top:4px; }
+-->
+</style><style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+p.whs2 { x-condition:RN_POST_RELEASE; }
+p.whs3 { background-color:Transparent; }
+h2.whs4 { x-condition:RN_POST_RELEASE; }
+ul.whs5 { list-style:square; }
+h3.whs6 { background-color:Transparent; }
+ol.whs7 { list-style:decimal; }
+hr.whs8 { float:alignleft; }
+-->
+</style><script type="text/javascript" language="JavaScript">
+<!--
+if ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion) == 4))
+{
+  var strNSS = "<style type='text/css'>";
+  strNSS += "p.whs3 {background-color:white; }";
+  strNSS += "h3.whs6 {background-color:white; }";
+  strNSS +="</style>";
+  document.write(strNSS);
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript">
+<!--
+function ehlp_showtip(current,e,text)
+{
+  if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape'))
+  {
+    document.tooltip.document.write("<layer bgColor='yellow' style='border:1px solid black;font-size:12px;'>"+ text + "</layer>");
+    document.tooltip.document.close();
+    document.tooltip.left=e.pageX+5;
+    document.tooltip.top=e.pageY+5;
+    document.tooltip.visibility="show";
+  }
+}
+function ehlp_hidetip()
+{
+  document.tooltip.visibility="hidden";
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="whutils.js"></script>
+<script type="text/javascript" language="javascript" src="whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Oracle Data Integrator Release Notes</h1>
+
+<p><span style="font-weight: bold;"><B>Version</B></span>: 10.1.3.5 | <span style="font-weight: bold;"><B>Date</B></span>: 
+ October 2008</p>
+
+<h2>Contents</h2>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><a href="#What_is_ODI_" title="What is ODI?" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'What is ODI?');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">What is Oracle Data Integrator?</a></p></li>
+	
+	<li class=kadov-p><p><a title="What is New in ODI?" href="#What_is_New_in_ODI_" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'What is New in ODI?');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">What is New in 
+ Oracle Data Integrator?</a></p></li>
+	
+	<li class=kadov-p><p><a title="Installation and Upgrade" href="#Installation___Upgrade" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'Installation and Upgrade');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">Installation 
+ and Upgrade </a></p></li>
+	
+	<li style="x-condition: RN_POST_RELEASE; /*begin!kadov{{*/ x-condition: RN_POST_RELEASE; /*}}end!kadov*/ "
+		class=kadov-p><p class="whs2"><a title="Issues and Workarounds" href="#Issues_and_Workarounds" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'Issues and Workarounds');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">Issues and Workarounds</a></p></li>
+	
+	<li class=kadov-p><p><a title="More information" href="#More_information" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'More information');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">More information</a></p></li>
+	
+	<li class=kadov-p><p><a title="Technical Support" href="#Technical_Support" onmouseover="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_showtip(this,event,'Technical Support');" onmouseout="if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape')) ehlp_hidetip();">Technical Support</a></p></li>
+</ul>
+
+<h2><a name=What_is_ODI_>What is Oracle Data Integrator?</a></h2>
+
+<p><span style="font-weight: bold;"><B>Oracle Data Integrator</B></span> is a 
+ unified, <b>comprehensive product line</b>, that enables enterprises to 
+ optimize the development and execution of all integration processes through 
+ a consistent approach, independently of latency and persistence requirements.</p>
+
+<p>&nbsp;The Data 
+ Integrator package also includes the <span style="font-weight: bold;"><B>Oracle 
+ Data Profiling</B></span> and <span style="font-weight: bold;"><B>Oracle Data 
+ Quality for Data Integrator</B></span> optional components:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><b style="font-weight: bold;">Oracle Data Profiling</b> 
+ is a data investigation and quality monitoring tool. It allows business 
+ users to assess the quality of their data through metrics, to discover 
+ or infer rules based on this data, and to monitor the evolution of data 
+ quality over time. </p></li>
+	
+	<li class=kadov-p><p><b style="font-weight: bold;">Oracle Data Quality 
+ for Data Integrator </b>is a comprehensive award-winning data quality 
+ platform that covers even the most complex data quality needs. Its powerful 
+ rule-based engine and its robust and scalable architecture places data 
+ quality and name &amp; address cleansing at the heart of an enterprise 
+ data integration strategy.</p></li>
+</ul>
+
+<h2><a name=What_is_New_in_ODI_>What is New in Oracle Data Integrator?</a></h2>
+
+<p>Oracle Data Integrator 10.1.3.5 introduces many improvements and new 
+ features.</p>
+
+<h3>Oracle Data Profiling and Oracle Data Quality for Data Integrator</h3>
+
+<p><span style="font-weight: bold;"><B>Oracle Data Profiling</B></span> and <span 
+ style="font-weight: bold;"><B>Oracle Data Quality for Data Integrator</B></span> 
+ have been first included in Oracle Data Integrator 10.1.3.4.0 release, 
+ and provide the following additional features in the 10.1.3.5.0 release: 
+ Support for EBCDIC Code Pages, additional country support (Russia, Norway, 
+ Greece, Poland, Czech Republic, Finland, Luxembourg, etc), Enhanced Schema 
+ Editor, New Expression builder operators (String Joining, Contains, etc.).</p>
+
+<h3>Features for Service Oriented Architecture </h3>
+
+<p>Oracle Data Integrator 10.1.3 provides three major features for easing 
+ integration in a Service-Oriented Architecture (SOA). With these features, 
+ Oracle Data Integrator is capable of invoking external web services for 
+ data integration as well as deploying data and transformation services.</p>
+
+<h4>Data Services</h4>
+
+<p>Data Services are specialized Web Services that provide access to application 
+ data, and to changes captured for these data using the CDC feature. These 
+ Web Services are automatically generated by Oracle Data Integrator and 
+ deployed to a Web Services container - typically a Java application server. 
+ Data Services generation can be customized using Service Knowledge Modules 
+ (SKM).</p>
+
+<h4>Public Web Service</h4>
+
+<p>This feature allows applications to trigger transformation developed 
+ with Oracle Data Integrator through a secured web service. This web service 
+ can be deployed in any Web Services container. This web service allows 
+ for starting scenarios, restarting sessions, listing contexts and scenarios.</p>
+
+<h4>Web Services Invocation</h4>
+
+<p>This version also introduces a new tool for calling third-party web 
+ services so that these calls can be used as part of a work flow.</p>
+
+<h3>Open Tools</h3>
+
+<p>Oracle Data Integrator Open Tools is an extensible platform for developing 
+ custom third-party tools that you can use in packages and procedures. 
+ Just like the standard tools that are provided with Oracle Data Integrator, 
+ Open Tools can interact with the operating system or manipulate data.</p>
+
+<h3>Concurrent Changes Control</h3>
+
+<p>Several users can work simultaneously on the same Oracle Data Integrator 
+ project or model. As they may be all connected to the same repository, 
+ the changes they perform can concur. To prevent discrepancies, Oracle 
+ Data Integrator provides an object locking feature that handles concurrent 
+ changes.</p>
+
+<h3>Fixed file format reverse engineering wizard</h3>
+
+<p>Oracle Data Integrator provides a wizard to graphically define the columns 
+ of a fixed file.</p>
+
+<h3>Exporting Multiple Objects</h3>
+
+<p>You can export one or more objects at once, using the <span class=ElementGUI>Export 
+ Multiple Objects</span> menu item. This lets you export them to a zip 
+ file or a directory, and lets you re-use an existing list of objects to 
+ export.</p>
+
+<h3>Lightweight Designer</h3>
+
+<p>This new module allows business users to modify, through a web browser, 
+ the mappings of an existing interface and to regenerate the corresponding 
+ scenarios.</p>
+
+<h3>Scheduler Enhancement</h3>
+
+<p>Scheduling management is considerably enhanced: the recovery after the 
+ agent restarts as well as the dynamic schedule update are improved. A 
+ new agent schedule window is implemented and scenarios can now be triggered 
+ at agent startup.</p>
+
+<h3>Security Enhancement</h3>
+
+<p>The <span class=ElementGUI>Security Cleanup Tool</span> &nbsp;wizard 
+ allows deleting the instance privileges defined on objects that no longer 
+ exist in the work repositories. This feature will help Administrators 
+ in their daily work as they had to track until now the deletions on each 
+ work repository. It is also possible to set advanced security policies 
+ for account or password expiration, and rules for password quality.</p>
+
+<h3>Version Comparison Tool</h3>
+
+<p>Oracle Data Integrator provides developers with a comprehensive <span 
+ style="font-weight: bold;"><B>Version Comparison Tool</B></span>. This graphical 
+ tool is to view and compare two different versions of an object. When 
+ managing an integration project, this comparison tool can be used to locate 
+ the differences between two versions of an object, track all working implementations 
+ and the project progress, as well as rollback the changes from the current 
+ version of the object to a previous version.</p>
+
+<h3>File Transfer Tools</h3>
+
+<p>Oracle Data Integrator 10.1.3.5 introduces six new tools for securely 
+ transferring files using FTP, SFTP and SCP protocols.</p>
+
+<h3>New KMs and KM Updates</h3>
+
+<p>Oracle Data Integrator 10.1.3.5 introduces KMs for extracting and integrating 
+ data from Oracle OLAP, Oracle Siebel CRM, Oracle E-Business Suite, Oracle 
+ PeopleSoft, JD Edwards EnterpriseOne, and Oracle AS Legacy Adapters/Attunity 
+ Stream. KMs performing row by row processing are available for debugging 
+ purposes. Teradata KMs include new optimizations and improved support 
+ for Teradata Utilities. </p>
+
+<p>The Hyperion KMs (Hyperion Essbase, Hyperion Financial Management, and 
+ Hyperion Planning) are certified for Hyperion 11.1.1.</p>
+
+
+<h2><a name=Installation___Upgrade>Installation and Upgrade </a></h2>
+
+<p class="whs3">Please refer to the Oracle Data 
+ Integrator Installation Guide for more information on installing and upgrading 
+ Oracle Data Integrator.</p>
+
+<h2 class="whs4"><a name=Issues_and_Workarounds>Issues 
+ and Workarounds</a></h2>
+
+<h3>Installation</h3>
+
+<p class=HowTo>Installing Oracle Data Integrator on Platforms other than 
+ Windows and Linux</p>
+
+<p>The Oracle Data Integrator CD and setup program (including Oracle Data 
+ Profiling and Oracle Data Quality for Data Integrator) are available for 
+ Windows, Linux, Solaris, AIX and HP-UX platforms. Only when installing 
+ Oracle Data Integrator on other platforms, use the manual installation 
+ process:</p>
+
+<ol>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>Install a Java environment.<span style="x-condition: PRINT_EXCLUDE;"> 
+ For more information see the </span><span style="font-style: italic;"><I>Java 
+ Configuration</I></span> topic in the Installation Guide.</p></li>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>Download the Oracle Data Integrator windows CD 
+ from the OTN site at http://www.oracle.com/technology/index.html, decompress 
+ it and copy the contents of the <span class=Code>/oracledi</span> directory 
+ of the CD into the installation directory. If you transfer the files with 
+ FTP, use the BINARY transfer mode.</p></li>
+	
+	<li style="list-style: decimal;"
+		type=1
+		class=kadov-p><p>Set the following environment variable:</p></li>
+</ol>
+
+<ul type="square" class="whs5">
+	
+	<li class=kadov-p><p><span class=Code>ODI_JAVA_HOME</span>: This represents 
+ the installation directory of the Java Machine in use with Oracle Data 
+ Integrator. This directory should contain the<span class=Code> /bin </span>sub-directory. 
+ If this variable is not set, Oracle Data Integrator will use the default 
+ Java Machine.</p></li>
+</ul>
+
+<p class=Remarque><span class=RemarqueTitre>Note:</span> If you use Microsoft 
+ Windows 95 or 98, then you must perform the operations described in the 
+ <span style="font-style: italic;"><I>Run Oracle Data Integrator with Windows 
+ 95/98</I></span> topic in the Installation Guide. To install Oracle Data Integrator 
+ on iSeries, refer to the <span style="font-style: italic;"><I>Installing 
+ the Java Agent on iSeries and AS/400</I></span> topic.</p>
+
+<p class=HowTo>Upgrading <span style="x-condition: L10N_EXCLUDE;">Oracle 
+ Data Quality products</span></p>
+
+<p>To upgrade Oracle Data Quality products, please refer to the upgrade 
+ instructions on OTN or contact Oracle support.</p>
+
+<p class=HowTo>Master repository creation wizard fails on SUSE Linux</p>
+
+<p>When running the master repository creation wizard in a SUSE Linux system, 
+ the following error can appear in the console and the repository creation 
+ fails:</p>
+
+<p><span class=Code>sun.io.MalformedInputException<br>
+at sun.io.ByteToCharUTF8.convert(ByteToCharUTF8.java(Compiled Code))<br>
+...</span></p>
+
+<p>This error is related to the character encoding settings.</p>
+
+<p>There are two possible workarounds for this error:</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Run the master repository creation wizard from 
+ another platform.</p></li>
+	
+	<li class=kadov-p><p>Edit the <span class=Code>repcreate.sh</span> 
+ file and add the following line:<span class=Code
+										style="margin-left: 40px;"><br>
+	<br>
+	export LANG=en_US</span><br>
+	<br>
+	before the line:<span class=Code
+							style="margin-left: 40px;"><br>
+	<br>
+	$ODI_JAVA_START oracle.odi.RepCreate</span></p></li>
+</ul>
+
+<p class=HowTo>Lightweight Designer cannot connect the demonstration repository 
+ </p>
+
+<p>When trying to connect the demonstration repository using Lightweight 
+ Designer, the following error occurs:</p>
+
+<p><span class=Code>Cannot load JDBC driver class 'org.hsqldb.jdbcDriver'</span></p>
+
+<p>This error is caused by the absence of the appropriate JDBC driver for 
+ the demonstration repository database in Lightweight Designer.</p>
+
+<p>The driver can found in the hsqldb archive. Download the archive at 
+ the following location: <a href="http://sourceforge.net/project/downloading.php?group_id=23316&amp;use_mirror=mesh&amp;filename=hsqldb_1_8_0_7.zip&amp;38009171"
+							target=_blank>http://sourceforge.net/project/downloading.php?group_id=23316&amp;use_mirror=mesh&amp;filename=hsqldb_1_8_0_7.zip&amp;38009171</a><br>
+Retrieve the <span class=Code>hsqldb.jar</span> file located in the hsqldb/lib 
+ directory, and install it with other JDBC drivers in the application server.</p>
+
+<p class=HowTo>Lightweight Designer installation on Tomcat fails to connect 
+ the repository</p>
+
+<p>When trying to connect a repository using Lightweight Designer on a 
+ Tomcat Server, one of the following error occurs:</p>
+
+<p><span class=Code>org.apache.tomcat.dbcp.dbcp.SQLNestedException: Cannot 
+ create PoolableConnectionFactory<br>
+org.apache.tomcat.dbcp.dbcp.SQLNestedException: Cannot create JDBC driver 
+ of class</span></p>
+
+<p>This error appears when Lightweight Designer is installed on Tomcat 
+ by deploying the WAR file.</p>
+
+<p>As a workaround, you should configure your JDBC datasources in the <span 
+ class=Code>&lt;TOMCAT_HOME&gt;/conf/Catalina/localhost/oracledilwd.xml</span> 
+ file instead of the <span class=Code>WEB-INF/context.xml</span> file when 
+ Lightweight Designer was installed using the War file.</p>
+
+<h3 class="whs6">Upgrade</h3>
+
+<p class=HowTo>Upgrading a Sybase repository from 10.1.3.4 to 10.1.3.5.0 
+ fails </p>
+
+<p class="whs3">When upgrading a repository from 
+ 10.1.3.4 to 10.1.3.5.0 on Sybase 12.5, the process is interrupted due 
+ to an internal Sybase warning on the row size limit because the 10.1.3.5.0 
+ version includes size extensions for the columns in the repository. As 
+ a workaround, increase the page size for Sybase at DB design to 4K. For 
+ details on increasing the page size, please refer to <a title="Sybase® Adaptive Server® Enterprise 12.5 - White Paper"
+														href="http://www.sybase.com/content/1021203/sybmigrate_wp.pdf">http://www.sybase.com/content/1021203/sybmigrate_wp.pdf.</a> 
+ </p>
+
+<h3>Startup Scripts</h3>
+
+<p class=HowTo>Agent scheduler fails to start - &quot;<span class=Code>syntax 
+ error near unexpected token `('</span>&quot;</p>
+
+<p>The agent scheduler (agentscheduler.sh) fails to start with the following 
+ error in the command line:</p>
+
+<p><span class=Code>syntax error near unexpected token `('</span></p>
+
+<p>This problem appears for example when an Oracle URL containing full 
+ TNS alias descriptions - such as RAC URLs - is specified in the <span 
+ class=Code>ODI_SECU_URL</span> parameter of the <span class=Code>odiparams.sh</span> 
+ file. Such an URL contains parenthesis, considered as special characters 
+ by UNIX shells. This problem was reported on SUSE Linux.</p>
+
+<p>As a workaround, delimit the URL with quotes, as shown below:</p>
+
+<p><span class=Code>export ODI_SECU_URL=</span><span class=Code
+													style="font-weight: bold;"><B>&quot;</B></span><span 
+ class=Code>jdbc:oracle:thin:@</span><span class=Code
+											style="font-style: italic;"><I>&lt;</I></span><span 
+ class=Code
+	style="font-style: italic; color: #808080;"><font color=gray ><I>full TNS alias description&gt;</I></font></span><span 
+ class=Code
+	style="font-weight: bold;"><B>&quot;</B></span></p>
+
+<p class=HowTo>Oracle Data Integrator starts in English in a Spanish environment</p>
+
+<p>Oracle Data Integrator user interfaces started in a Spanish environment 
+ do not start in Spanish, but in English. This problem is caused by an 
+ incorrect localization code.</p>
+
+<p>As a workaround, set the <span class=Code>user.language</span> java 
+ option to the value <span class=Code>sp</span> in the <span class=Code>odiparams.sh</span> 
+ or <span class=Code>odiparams.bat</span> file, as shown below:</p>
+
+<p><span class=Code>set ODI_ADDITIONAL_JAVA_OPTIONS=&quot;</span><span 
+ class=Code
+	style="font-weight: bold;"><B>-Duser.language=sp</B></span><span class=Code>&quot; 
+ </span></p>
+
+<h3>Demo Environment</h3>
+
+<p class=HowTo>The Demo Agent raises an error on startup </p>
+
+<p>When starting the agent provided in the demonstration environment using 
+ the <span class=ElementGUI>Examples &gt; Demo Agent</span> shortcut, &nbsp;the 
+ agent fails to start with the following message:</p>
+
+<p><span class=Code>SnpAgent does not exist</span></p>
+
+<p>This error appears because this agent tries to start in scheduler mode, 
+ and is not defined in the demonstration repository.</p>
+
+<p>As a workaround, you should define a logical and a physical agent corresponding 
+ to the agent you are trying to start - using Topology Manager - with the 
+ following parameters:</p>
+
+<p>Physical Agent</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Agent Name: <span class=Code>AGT_LOCALHOST_S</span></p></li>
+	
+	<li class=kadov-p><p>Host: <span class=Code>localhost</span></p></li>
+	
+	<li class=kadov-p><p>Port: <span class=Code>20910</span></p></li>
+</ul>
+
+<p>Logical Agent</p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>Name: <span class=Code>AGT_LOCALHOST_S</span></p></li>
+	
+	<li class=kadov-p><p>Mapped in all context on the physical agent <span 
+ class=Code>AGT_LOCALHOST_S</span></p></li>
+</ul>
+
+<h3>Drivers</h3>
+
+<p class=HowTo>Unable to insert data in Oracle Internet Directory using 
+ the LDAP Driver</p>
+
+<p>When performing an INSERT operation in Oracle Internet Directory using 
+ Oracle Data Integrator Driver for LDAP, the following error appears: </p>
+
+<p><span class=Code>S1000 General error java.lang.ClassCastException</span></p>
+
+<p>There is no workaround for this issue.</p>
+
+<h3>Designer</h3>
+
+<p class=HowTo>Unable to use more than 250 characters for text parameter 
+ in a schedule</p>
+
+<p>When a variable of type Text is used in a scenario, it is not possible 
+ to schedule an execution of this scenario with a value for this variable 
+ longer than 250 character. The following error appears when saving the 
+ schedule:</p>
+
+<p><span class=Code>java.sql.SQLException: ORA-01401: inserted value too 
+ large for column</span></p>
+
+<p>As a workaround, </p>
+
+<ol type="1" class="whs7">
+	
+	<li class=kadov-p><p>Create a package using the OdiStartScen tool to 
+ start the scenario you want to run. This call should include the parameter 
+ value. The values can be longer that 250 characters. This scenario does 
+ not need to have any variable defined.</p></li>
+	
+	<li class=kadov-p><p>Create a scenario schedule for this new package.</p></li>
+	
+	<li class=kadov-p><p>Apply the scheduling to this scenario.</p></li>
+</ol>
+
+<p class=HowTo>Trying to run or generate code for a locked object gives 
+ a warning even for the lock owner</p>
+
+<p>A warning message appears for all users when trying to execute or generate 
+ scenario for a locked object. This warning should not appear for the user 
+ owning the lock.</p>
+
+<p>There is no workaround for this issue. Lock owners should ignore this 
+ warning.</p>
+
+<p class=HowTo>Editing data is not possible on Microsoft SQL Server</p>
+
+<p>When editing data through the <span class=ElementGUI>data</span> popup 
+ menu, the following error appears:</p>
+
+<p><span class=Code>com.microsoft.sqlserver.jdbc.SQLServerException: Invalid 
+ object name</span></p>
+
+<p>There is no workaround for this issue.</p>
+
+<p class=HowTo>A text variable is not resolved when running a session</p>
+
+<p>If a variable with type Text is used, for example in a procedure, and 
+ this procedure is executed, the variable value resolved at run-time, and 
+ the variable is replaced with an empty text.</p>
+
+<p>This problem no longer appears with scenarios. As a workaround, generate 
+ scenarios for components using Text variables and run these scenarios 
+ instead.</p>
+
+<p class=HowTo>Jython error when journalizing an Oracle datastore</p>
+
+<p>When journalizing an Oracle model/datastore with the <span style="font-weight: bold;"><B>JKM 
+ Oracle Simple</B></span> or <span style="font-weight: bold;"><B>JKM Oracle Consistent</B></span> 
+ , the following error occurs.</p>
+
+<p><span class=Code>org.apache.bsf.BSFException: exception from Jython: 
+ Traceback (innermost last): </span></p>
+
+<p><span class=Code>&nbsp;&nbsp;File 
+ &quot;&lt;string&gt;&quot;, line 36, in ? </span></p>
+
+<p><span class=Code>java.lang.IllegalAccessException: Class org.python.core.PyReflectedFunction 
+ </span></p>
+
+<p><span class=Code>can not access a member of class </span></p>
+
+<p><span class=Code>@ oracle.jdbc.driver.OraclePreparedStatementWrapper 
+ with modifiers &quot;public&quot;</span></p>
+
+<p>As a workaround:</p>
+
+<ol type="1" class="whs7">
+	
+	<li class=kadov-p><p>Create a file named <span class=Code>registry</span> 
+ in the <span class=Code>/lib/scripting </span>directory.</p></li>
+	
+	<li class=kadov-p><p>In this file insert the following line: <span 
+ class=Code>python.security.respectJavaAccessibility = false</span></p></li>
+</ol>
+
+<p class=HowTo>The tree view in Designer takes a very long time to display</p>
+
+<p>The tree view in Designer takes a very long time to display when complex 
+ privileges are defined for the current user. The more complex these privileges 
+ are, the slower the load and refresh time for the tree view in Designer.</p>
+
+<h3>Operator</h3>
+
+<p class=HowTo>Cannot stop a session running in an scheduler agent.</p>
+
+<p>If you stop a session from operator, and this session runs on a scheduler 
+ agent, the session appears as stopped in the Operator log. Nevertheless, 
+ the scheduler goes on running the session.</p>
+
+<p>As a workaround, you should consider stopping the agent process to end 
+ critical sessions.</p>
+
+<p class=HowTo>Zoom in/out in the agent schedule information window do 
+ not work as expected</p>
+
+<p>Zooming in and out in the Gantt diagram in the agent schedule information 
+ window do not work expected. Zoom buttons do not work.</p>
+
+<p>As a workaround, use the time range to (<span style="font-style: italic;"><I>From</I></span> 
+ and <span style="font-style: italic;"><I>To</I></span> dates) to have an adequate 
+ display.</p>
+
+<h3>Web Services</h3>
+
+<p class=HowTo>OdiInvokeWebService tool is not working properly when using 
+ Designer with Java 1.6</p>
+
+<p>It is not possible to invoke a Web Service with the <span style="font-weight: bold;"><B>OdiInvokeWebService</B></span> 
+ tool when using Designer with Java 1.6. </p>
+
+<p>Invoking an operation throws the following exception : &nbsp;&nbsp;</p>
+
+<p>j<span class=Code>ava.lang.AbstractMethodError: </span></p>
+
+<p><span class=Code>org.apache.crimson.tree.XmlDocument.getXmlStandalone()Z 
+ </span></p>
+
+<p><span class=Code>at com.sun.org.apache.xalan.internal.xsltc.trax.DOM2TO.setDocumentInfo(DOM2TO.jav 
+ a:373) </span></p>
+
+<p><span class=Code>at com.sun.org.apache.xalan.internal.xsltc.trax.DOM2TO.parse(DOM2TO.java:127) 
+ </span></p>
+
+<p><span class=Code>at com.sun.org.apache.xalan.internal.xsltc.trax.DOM2TO.parse(DOM2TO.java:94) 
+ </span></p>
+
+<p><span class=Code>at com.sun.org.apache.xalan.internal.xsltc.trax.TransformerImpl.transformIdentity 
+ (TransformerImpl.java:663) </span></p>
+
+<p><span class=Code>at com.sun.org.apache.xalan.internal.xsltc.trax.TransformerImpl.transform(TransformerImpl.java:709) 
+ </span></p>
+
+<p><span class=Code>...</span></p>
+
+<h3>Oracle Data Profiling and Oracle Data Quality for Data Integrator</h3>
+
+<p class=HowTo>Purchasing country-specific directories</p>
+
+<p>Optional country-specific directories, used for Name and Address cleansing 
+ projects with Oracle Data Quality can be purchased separately from Trillium 
+ Software. To purchase these directories, please contact <a href="http://www.trilliumsoftware.com/"
+															target=_blank>Trillium 
+ Software</a>. You will be asked to provide the following OEM key: &quot;<span 
+ style="font-style: italic;"><I>ODQ020207</I></span>&quot;.</p>
+
+<h2><a name=More_information>More information</a></h2>
+
+<p>Please refer to the documentation installed with the product.</p>
+
+
+<hr align="left" class="whs8">
+
+
+<h2><a name=Technical_Support>Technical Support</a></h2>
+
+<p><a title="Oracle Technical Support"
+		href="http://www.oracle.com"
+		target=_blank>http://www.oracle.com</a></p>
+
+<script type="text/javascript" language="JavaScript">
+<!--
+ if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == 'Netscape'))
+  document.write("<div id='tooltip' class='WebHelpPopupMenu'></div>");
+//-->
+</script>
+</body>
+</html>

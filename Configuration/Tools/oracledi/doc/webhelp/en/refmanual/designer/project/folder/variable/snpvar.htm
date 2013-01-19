@@ -1,0 +1,237 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Variables</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+ul.whs3 { list-style:disc; }
+img_whs4 { border:none; width:16px; height:16px; float:none; border-style:none; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nDesigner\nProjects\nVariables");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Variables</h1>
+
+<p>Variables can be used in any expression (SQL or others), as well as 
+ within the metadata of the repository. A variable is resolved when the 
+ command containing it is executed by the agent or the graphical interface.</p>
+
+<p>The properties of the variable are displayed on the <a href="#definition"><span 
+ class=ElementGUI>Definition</span></a> and <a href="#refresh"><span class=ElementGUI>Refresh</span></a> 
+ tabs in the <span class=ElementGUI>Variable</span> window of the <span 
+ class=ElementGUI>Designer</span> module. The global variables are located 
+ in the tree on the same level as the projects, while the project variables 
+ are located within their project.</p>
+
+<h2><a name=definition></a>Definition</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name of the variable, in the form it will be used. 
+ This name should not contain characters that could be interpreted as word 
+ separators (blanks, etc) by the technologies the variable will be used 
+ on. Variable names are case-sensitive. That is, &quot;YEAR&quot; and &quot;year&quot; 
+ are considered to be two different variables.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Variable scope</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The validity range of the variable, either &quot;Global&quot; 
+ or &quot;Project&quot;. A variable can be valid for all projects (a global 
+ variable), or for the current project only. Oracle Data Integrator examines 
+ &quot;Project&quot;-level variables first before evaluating &quot;Global&quot;-level 
+ variables. Thus, if a variable YEAR exists at both project level and global 
+ level, only the project-level value can be evaluated. </td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Description</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Detailed description of the variable</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Datatype</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Type of variable: Alphanumeric (255 characters), 
+ Date, Numeric (Maximum 10 digits) or Text (unlimited length).</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Action</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>This parameter shows the length of time the value 
+ of a variable is kept for:</p>
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span style="font-weight: bold;"><B>Non-persistent</B></span>: 
+ The value of the variable is kept in memory for a whole session.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span style="font-weight: bold;"><B>Last 
+ value</B></span>: Oracle Data Integrator stores in its repository the latest 
+ value held by the variable.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span style="font-weight: bold;"><B>Historize</B></span>: 
+ Oracle Data Integrator keeps and history of all the values held by this 
+ variable.</p></li>
+</ul></td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Default Value</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>The value assigned to the variable by default.</td></tr>
+</table>
+
+<h2><a name=refresh></a>Refresh</h2>
+
+<p>Refresh a variable allows a new value based on the result of an SQL-type 
+ query to be assigned to it. All expressions using this variable will subsequently 
+ be executed with the new value until a new refresh is done.</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Properties</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Schema</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Logical schema, for identifying the connection on 
+ which the SQL query will be executed. </td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Select query</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Select-type SQL query or any command (execution of 
+ a stored procedure) allowing a result array (Resultset) to be returned 
+ for a row and a column.</p>
+<p class=TexteTableau>For example: <span class=Code>Select max(order_no) 
+ from crm.order</span></p>
+<p class=Remarque><span class=AlertTitre>Caution:</span> Table names should 
+ be specified in full (catalog, schema, etc), as connection parameters 
+ do not allow positioning on the right physical schema.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Refresh</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Click on the refresh button to calculate the last 
+ value of the variable while executing the query entered above. A window 
+ is displayed for entering the context and the execution agent. You check 
+ the execution in the log.</p>
+<p class=Remarque><span class=RemarqueTitre>Note:</span> If this variable 
+ is not persistent, you will not be able to display the value calculated.</td></tr>
+</table>
+
+<h2>History</h2>
+
+<p>This window displays the history of the values of the variable with 
+ the context for variables with the &quot;log&quot; action, or the last 
+ value for a variable with the &quot;last value&quot; action.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: Each value is 
+ attached to the context in which the session was executed.</p>
+
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p><p>The <span class=ElementGUI><img src="../../../../../images/delete16.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs4"> </span>button 
+ allows to delete a line of the history.</p></li>
+	
+	<li class=kadov-p><p>The <span class=ElementGUI>Context Filter</span> 
+ field lets you filter the entries for a given context.</p></li>
+</ul>
+
+<h2>Scenarios</h2>
+
+<p>This tab displays in a table view the scenarios generated for this component, 
+ as well as their schedules. You may double-click a scenario or a schedule 
+ to display its properties.</p>
+
+<p>It is possible to create and delete scenarios by clicking the &nbsp;<img src="../../../../../images/add_row.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs4"> <span class=ElementGUI>Generate</span> and <img src="../../../../../images/delete16.gif" x-maintain-ratio="TRUE" width="16px" height="16px" border="0" class="img_whs4"> <span class=ElementGUI>Delete</span> buttons.</p>
+
+<p>The popup menus for scenarios and schedules are also available from 
+ this tab.</p>
+
+<p class=Remarque><span class=RemarqueTitre>Note</span>: Scenarios generated 
+ for variables contain a single step performing a refresh operation for 
+ the variable.</p>
+
+</body>
+</html>

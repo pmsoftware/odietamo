@@ -1,0 +1,327 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html DIR=LTR>
+
+<head>
+<title>Datastore</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../../../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+ul.whs3 { list-style:square; }
+ul.whs4 { list-style:disc; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../../../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../../../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Reference Manual\nDesigner\nModels\nDatastore\nDatastores");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../../../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>Datastores</h1>
+
+<p>A datastore is a structure that allows data to be stored. It can be 
+ a table, a file, a message queue or any other data structure accessible 
+ by middleware used by Oracle Data Integrator (JDBC/ODBC, JMS or JNDI).</p>
+
+<h2>Definition</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Property</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Definition</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name of the Datastore. This is the name that appears 
+ in the trees and that is used to reference the datastore from a project 
+ (interface, etc). This name should be different from the resource name, 
+ if the latter is unknown or not very clear.</p>
+<p class=TexteTableau>For example, if the model contains tables named C3556F 
+ or C5677D, you can give them more explicit names, such as CUSTOMER or 
+ ORDER, leaving C3556F and C5677D as resource names. </td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Datastore Type</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>The type of object the datastore represents.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>OLAP Type</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Table type in a multidimensional model for Online 
+ Analytic Processing (OLAP): </p>
+<ul type="square" class="whs3">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Fact table</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Dimension</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau>Slowly Changing 
+ Dimension</p></li>
+</ul></td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Resource Name</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name of the object in the form recognized by the 
+ data server which stores it. This may be a table name or a file name.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Alias</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>This is a short name used in check and filter expressions. 
+ This name must be used systematically before each column name to allow 
+ cross-references to be compiled.</p>
+<p class=TexteTableau>For example, for the table CUSTOMER, the alias CUS 
+ can be given. In this case, the expression of the condition CLIENT_TYPE 
+ could be CUS.TYPE in ('A', 'S', 'D').</p>
+<p class=TexteTableau>The alias name is not necessarily unique for all 
+ tables in a certain model, its only purpose is to make writing expressions 
+ easier and to make managing cross-references possible.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Description</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Detailed description of the datastore.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Number of rows</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Number of datastore rows obtained by clicking on 
+ <span class=ElementGUI>refresh</span>.</td></tr>
+</table>
+
+<h2>Files</h2>
+
+<p>This tab appears only for datastores attached to a file technology.</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Property</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Definition</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>File Format</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Format of the file datastore:</p>
+<ul type="disc" class="whs4">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=ElementGUI>Delimited</span> 
+ : The fields of a line are separated by a record separator.</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=ElementGUI>Fixed</span> 
+ : The fields of a line are not separated, but their length is fixed.</p></li>
+</ul></td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p>Header (number of lines)</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Number of lines at the beginning of the file that 
+ are not data. This lines are ignored.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Record separator</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>One or several characters separating lines (or records) 
+ in the file:</p>
+<ul type="disc" class="whs4">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=ElementGUI>MS-DOS</span> 
+ : DOS carriage return</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=ElementGUI>Unix</span> 
+ : UNIX carriage return</p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=ElementGUI>Other</span> 
+ : Free text you can input as characters or hexadecimal codes.</p></li>
+</ul></td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p>Field Separator</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>One ore several characters separating the fields 
+ in a record.</p>
+<ul type="disc" class="whs4">
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=ElementGUI>Tabulation</span></p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=ElementGUI>S</span><span 
+ class=ElementGUI>pace</span></p></li>
+	
+	<li class=kadov-p-CTexteTableau><p class=TexteTableau><span class=ElementGUI>Other</span> 
+ : Free text you can input as characters or hexadecimal codes.</p></li>
+</ul></td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p>Text delimiter</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Pair of characters delimiting a STRING field.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p>Decimal separator</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Character separating the integer and decimal part 
+ of a NUMERIC.</td></tr>
+</table>
+
+<h2>Column</h2>
+
+<p>This tab enables an overall view of the datastore columns to be displayed, 
+ and to be added and deleted. The buttons <span class=ElementGUI>Reverse</span> 
+ and <span class=ElementGUI>Reverse COBOL Copybook</span> allow you to 
+ reverse-engineer the columns of a file in the following conditions:</p>
+
+<ul type="disc" class="whs4">
+	
+	<li class=kadov-p><p><span class=ElementGUI>Reverse</span>: This reverse-engineering 
+ launches a <span class=ElementGUI>standard</span> reverse for the current 
+ datastore.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Reverse</span>: This reverse-engineering 
+ is also possible for a <span class=ElementGUI>delimited</span> file. The 
+ column names are retrieved on the header line of the file, or are automatically 
+ generated. The length of the columns are set with default values, and 
+ must be redefined manually. If the file is a fixed file, this button opens 
+ a <a HREF="../../../usermanual/designer/model/reverse_fixed_file.htm">Wizard</a> 
+ for defining the columns.</p></li>
+	
+	<li class=kadov-p><p><span class=ElementGUI>Reverse COBOL Copybook</span>: 
+ This reverse-engineering is possible for a <span class=ElementGUI>Fixed</span> 
+ file when you have its description file as a COBOL Copybook format. For 
+ more information, see <a HREF="../../../usermanual/designer/model/reverse_cobol_copybook.htm">Reverse 
+ a COBOL Copybook</a>.</p></li>
+</ul>
+
+<p><span class=ElementGUI>Automatic adjustment</span>: With this option 
+ selected for a fixed file only, starting positions are automatically adjusted 
+ as a function of column widths, to avoid gaps and overlaps. For example, 
+ if you increase the width of the first column from 5 to 16, then the starting 
+ position of every other column will be increased by 11 characters. It 
+ is not possible to manually specify the starting position of a column 
+ when Automatic adjustment is enabled.</p>
+
+<h2>Control</h2>
+
+<p>This procedure allows you to execute a static control of the data stored 
+ in the Datastore. This procedure is executed on a context specified when 
+ the control is launched. This check uses the knowledge module shown on 
+ the model level.</p>
+
+<h2>Journalizing</h2>
+
+<p>This tab displays the status of journalizing for the datastore and list 
+ of subscribers tracking changes on this datastore, with their subscription 
+ creation date.</p>
+
+<h2>Services</h2>
+
+<p>This tab contains the configuration for generating and deploying data 
+ services for this datastore. See <a href="../../../usermanual/designer/model/data_services_use.htm">Setting 
+ Up Data Services</a> for more information.</p>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Property</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Deploy as a Data Service</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Check this box if you want this datastore to be deployed 
+ as a data service.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Data Service Name</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Name of the web service generated for this datastore.</td></tr>
+
+<tr>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Published entity</td>
+<td colspan="1" rowspan="1" valign="top" class="whs2">
+<p class=TexteTableau>Name that is used to generate all operations names 
+ for the Data Service. For example, if you specify <span class=Code>customer</span> 
+ as the published entity, the generated operations will be named <span 
+ class=Code>addcustomer</span>, <span class=Code>getcustomer</span>, etc.</td></tr>
+</table>
+
+</body>
+</html>

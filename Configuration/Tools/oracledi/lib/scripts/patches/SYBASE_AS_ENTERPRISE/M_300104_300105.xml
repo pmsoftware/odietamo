@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">
+
+	<!-- Modification des structures de données -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_TECHNO ADD IND_LOGICAL  <?=snpRef.getDataType("SRC_VARCHAR","1")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+	</Field>		
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">	
+		<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_TECHNO ADD IND_PHYSICAL <?=snpRef.getDataType("SRC_VARCHAR","1")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+	</Field>		
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_PSCHEMA ADD JRN_PRF_TAB <?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+	</Field>
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_PSCHEMA ADD JRN_PRF_VIE <?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+	</Field>
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[IGNORE_ERROR:ALTER TABLE SNP_PSCHEMA ADD JRN_PRF_TRG <?=snpRef.getDataType("SRC_VARCHAR","35")?> <?=snpRef.getInfo("DEST_DDL_NULL")?>]]>
+	</Field>	
+	
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+	IGNORE_ERROR:alter table SNP_PROF_METH drop constraint FK_PROF_METH2
+	]]></Field>
+
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+	IGNORE_ERROR:alter table SNP_USER_METH drop constraint FK_USER_METH1
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+	IGNORE_ERROR:alter table SNP_USER_OBJ_METH drop constraint FK_USER_OBJ_METH2
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+	create table SNP_METHOD_NEW2 (
+	   I_METH             <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+	   I_OBJECTS          <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+	   IND_NEW            <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+	   GRANT_CREATOR      <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+	   SHORT_NAME         <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+	   INT_JAVA_NAME      <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+	   DISP_POP_UP        <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+	   USE_CONTEXT        <?=snpRef.getDataType("SRC_VARCHAR","1")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+	   FIRST_DATE         <?=snpRef.getDataType("SRC_DATE")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+	   FIRST_USER         <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+	   LAST_DATE          <?=snpRef.getDataType("SRC_DATE")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+	   LAST_USER          <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+	   POSITION           <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+	)
+	]]></Field>
+
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+	insert into
+	SNP_METHOD_NEW2 
+	(
+	   I_METH,
+	   I_OBJECTS,
+	   IND_NEW,
+	   GRANT_CREATOR,
+	   SHORT_NAME,
+	   INT_JAVA_NAME,
+	   DISP_POP_UP,
+	   USE_CONTEXT,
+	   FIRST_DATE,
+	   FIRST_USER,
+	   LAST_DATE,
+	   LAST_USER,
+	   POSITION
+	)
+	select 
+	   I_METH,
+	   I_OBJECTS,
+	   IND_NEW,
+	   GRANT_CREATOR,
+	   SHORT_NAME,
+	   INT_JAVA_NAME,
+	   DISP_POP_UP,
+	   USE_CONTEXT,
+	   FIRST_DATE,
+	   FIRST_USER,
+	   LAST_DATE,
+	   LAST_USER,
+	   POSITION
+	from SNP_METHOD
+	]]></Field> 
+
+
+			<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[				
+				DROP TABLE SNP_METHOD
+			]]></Field> 
+			
+			
+			<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[				
+				sp_rename SNP_METHOD_NEW2, SNP_METHOD	
+			]]></Field> 			   
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+	alter table SNP_METHOD
+	   add constraint PK_METHOD primary key (I_METH)
+	]]></Field>
+
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+	IGNORE_ERROR:alter table SNP_PROF_METH
+	   add constraint FK_PROF_METH2 foreign key (I_METH)
+	      references SNP_METHOD(I_METH)   
+	]]></Field>
+
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+	IGNORE_ERROR:alter table SNP_USER_METH
+	   add constraint FK_USER_METH1 foreign key (I_METH)
+	      references SNP_METHOD(I_METH)   
+	]]></Field>
+
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+	IGNORE_ERROR:alter table SNP_USER_OBJ_METH
+	   add constraint FK_USER_OBJ_METH2 foreign key (I_METH)
+	      references SNP_METHOD(I_METH)   
+	]]></Field>		
+
+
+	
+		
+	<!-- Import de Variables Globales -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[insert into SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (34300, 3500, '0', '1', 'Importer', 'ImportFromXmlVariable', null, null, null, null, '1', 60)]]>
+	</Field>		
+	
+	<!-- Démarrer Journalisation -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (34400, 2200, '0', '1', 'Démarrer Journal', 'jrnStart', null, null, null, null, '1', 100)]]>
+	</Field>		
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (34600, 2300, '0', '1', 'Démarrer Journal', 'jrnStart', null, null, null, null, '1', 100)]]>
+	</Field>				
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (34800, 2400, '0', '1', 'Démarrer Journal', 'jrnStart', null, null, null, null, '1', 100)]]>
+	</Field>				
+
+	<!-- Stopper Journalisation -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (34500, 2200, '0', '1', 'Arrêter Journal', 'jrnStop', null, null, null, null, '1', 110)]]>
+	</Field>				
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (34700, 2300, '0', '1', 'Arrêter Journal', 'jrnStop', null, null, null, null, '1', 110)]]>
+	</Field>				
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (34900, 2400, '0', '1', 'Arrêter Journal', 'jrnStop', null, null, null, null, '1', 110)]]>
+	</Field>				
+
+	<!-- Données (Journalisation) -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (35000, 2400, '0', '1', 'Données Journal', 'jrnData', null, null, null, null, '1', 200)]]>		
+	</Field>						
+
+	<!-- Créer Abonnés (Journalisation) -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (35100, 2200, '0', '1', 'Créer Abonnés', 'jrnSubscribe', null, null, null, null, '1', 120)]]>
+	</Field>
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (35200, 2300, '0', '1', 'Créer Abonnés', 'jrnSubscribe', null, null, null, null, '1', 120)]]>
+	</Field>		
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (35300, 2400, '0', '1', 'Créer Abonnés', 'jrnSubscribe', null, null, null, null, '1', 120)]]>
+	</Field>		
+
+	<!-- Supprimer Abonnés (Journalisation) -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (35400, 2200, '0', '1', 'Supprimer Abonnés', 'jrnUnsubscribe', null, null, null, null, '1', 130)]]>
+	</Field>		
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (35500, 2300, '0', '1', 'Supprimer Abonnés', 'jrnUnsubscribe', null, null, null, null, '1', 130)]]>
+	</Field>		
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (35600, 2400, '0', '1', 'Supprimer Abonnés', 'jrnUnsubscribe', null, null, null, null, '1', 130)]]>
+	</Field>		
+
+	<!-- Contrôles -->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (35700, 2200, '0', '1', 'Contrôler', 'control', null, null, null, null, '1', null)]]>
+	</Field>		
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (35800, 2300, '0', '1', 'Contrôler', 'control', null, null, null, null, '1', null)]]>
+	</Field>		
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (35900, 2400, '0', '1', 'Contrôler', 'control', null, null, null, null, '1', null)]]>
+	</Field>	
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (29700,4600, '0', '1', 'Détacher', 'delete', null, null, null, null, '1', null)]]>
+	</Field>	
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (36000,3600, '0', '1', 'Encrypter', 'encrypt', null, null, null, null, '1', 500)]]>
+	</Field>			
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (36100,3600, '0', '1', 'Décrypter', 'decrypt', null, null, null, null, '1', 510)]]>
+	</Field>				
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (36200,1000, '0', '1', 'Générer tous les scénarios', 'generateAll', null, null, null, null, '1', 512)]]>
+	</Field>					
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+			<![CDATA[insert into SNP_METHOD  (I_METH,I_OBJECTS,IND_NEW,GRANT_CREATOR,SHORT_NAME,INT_JAVA_NAME,FIRST_DATE,FIRST_USER,LAST_USER,LAST_DATE,DISP_POP_UP,POSITION) values (36300,1100, '0', '1', 'Générer tous les scénarios', 'generateAll', null, null, null, null, '1', 512)]]>
+	</Field>						
+	
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">	
+			<![CDATA[update SNP_PSCHEMA set JRN_PRF_TAB = 'J$', JRN_PRF_VIE = 'JV$', JRN_PRF_TRG = 'JT$']]>
+	</Field>							
+	
+
+	<!-- Update Repository Version-->
+	<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask">
+		<![CDATA[update SNP_LOC_REP set REP_VERSION = '3.0.01.05']]>
+	</Field>
+
+</Object>
+</SunopsisRepository>

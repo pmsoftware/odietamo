@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SunopsisRepository>
+<Object class="com.sunopsis.dwg.xml.DwgXmlSession">
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR: drop table SNP_LE_TECHNO
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR: drop table SNP_LANG_ELT
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR: drop table SNP_SUB_LANG
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR: drop table SNP_LANG_TECHNO
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR: drop table SNP_LANG
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+create table SNP_LANG (
+   I_LANG             <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   LANG_NAME          <?=snpRef.getDataType("SRC_VARCHAR","35")?> NOT NULL,
+   OBJ_CASE_SENS      <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   OBJ_DEL            <?=snpRef.getDataType("SRC_VARCHAR","50")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   WORD_SEP           <?=snpRef.getDataType("SRC_VARCHAR","100")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   LIT_DEL            <?=snpRef.getDataType("SRC_VARCHAR","50")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   WORD_CASE_SENS     <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   FIRST_DATE         <?=snpRef.getDataType("SRC_DATE")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   FIRST_USER         <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   LAST_DATE          <?=snpRef.getDataType("SRC_DATE")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   LAST_USER          <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   constraint PK_LANG primary key (I_LANG)
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+create table SNP_LANG_TECHNO (
+   I_TECHNO           <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   I_LANG             <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   FULL_COMP          <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   DEF_LANG           <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   OBJ_DEL            <?=snpRef.getDataType("SRC_VARCHAR","50")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   WORD_SEP           <?=snpRef.getDataType("SRC_VARCHAR","100")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   LIT_DEL            <?=snpRef.getDataType("SRC_VARCHAR","50")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   constraint PK_LANG_TECHNO primary key (I_TECHNO, I_LANG),
+   constraint FK_LANG_TECHNO1 foreign key (I_LANG)
+         references SNP_LANG (I_LANG),
+   constraint FK_LANG_TECHNO2 foreign key (I_TECHNO)
+         references SNP_TECHNO (I_TECHNO)
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+create table SNP_SUB_LANG (
+   I_SUB_LANG         <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   I_LANG             <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   SL_NAME            <?=snpRef.getDataType("SRC_VARCHAR","50")?> NOT NULL,
+   SL_TYPE            <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   US_MAPPING         <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   US_FILTER          <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   US_FROM            <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   US_TASK            <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   EDIT_COLOR         <?=snpRef.getDataType("SRC_NUMERIC","10")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   constraint PK_SUB_LANG primary key (I_SUB_LANG),
+   constraint FK_SUB_LANG foreign key (I_LANG)
+         references SNP_LANG (I_LANG)
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+create table SNP_LANG_ELT (
+   I_LANG_ELT         <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   I_LANG             <?=snpRef.getDataType("SRC_VARCHAR","35")?> NOT NULL,
+   LE_TAG_CR          <?=snpRef.getDataType("SRC_VARCHAR","100")?> NOT NULL,
+   I_SUB_LANG         <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   LE_NAME            <?=snpRef.getDataType("SRC_VARCHAR","35")?> NOT NULL,
+   LE_STD             <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   LE_TXT             <?=snpRef.getDataType("SRC_VARCHAR","250")?> NOT NULL,
+   LE_HELP            <?=snpRef.getDataType("SRC_VARCHAR","250")?> NOT NULL,
+   LE_SQL_GRP         <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   IND_UNIVERSAL      <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   FIRST_DATE         <?=snpRef.getDataType("SRC_DATE")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   FIRST_USER         <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   LAST_DATE          <?=snpRef.getDataType("SRC_DATE")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   LAST_USER          <?=snpRef.getDataType("SRC_VARCHAR","35")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   constraint PK_LANG_ELT primary key (I_LANG_ELT),
+   constraint FK_LANG_ELT foreign key (I_SUB_LANG)
+         references SNP_SUB_LANG (I_SUB_LANG)
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+create table SNP_LE_TECHNO (
+   I_TECHNO           <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   I_LANG_ELT         <?=snpRef.getDataType("SRC_NUMERIC","10")?> NOT NULL,
+   LT_TXT             <?=snpRef.getDataType("SRC_VARCHAR","250")?> NOT NULL,
+   LT_TAG_CR          <?=snpRef.getDataType("SRC_VARCHAR","50")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   LT_HELP            <?=snpRef.getDataType("SRC_VARCHAR","250")?>  <?=snpRef.getInfo("SRC_DDL_NULL")?>,
+   IND_EXCEPTION      <?=snpRef.getDataType("SRC_VARCHAR","1")?> NOT NULL,
+   constraint PK_LE_TECHNO primary key (I_LANG_ELT, I_TECHNO),
+   constraint FK_LE_TECHNO2 foreign key (I_LANG_ELT)
+         references SNP_LANG_ELT (I_LANG_ELT),
+   constraint FK_LE_TECHNO1 foreign key (I_TECHNO)
+         references SNP_TECHNO (I_TECHNO)
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:create index LANG_ELT_FK1
+on SNP_LANG_ELT (
+   I_SUB_LANG ASC
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:create index LANG_TECHNO_FK1
+on SNP_LANG_TECHNO (
+   I_LANG ASC
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:create index LANG_TECHNO_FK2
+on SNP_LANG_TECHNO (
+   I_TECHNO ASC
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:create index LE_TECHNO_FK1
+on SNP_LE_TECHNO (
+   I_LANG_ELT ASC
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:create index LE_TECHNO_FK2
+on SNP_LE_TECHNO (
+   I_TECHNO ASC
+)
+]]></Field>
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[
+IGNORE_ERROR:create index SUB_LANG_FK1
+on SNP_SUB_LANG (
+   I_LANG ASC
+)
+]]></Field>
+
+
+<Field name="XmlTask" type="com.sunopsis.dwg.xml.DwgXmlTask"><![CDATA[update SNP_LOC_REP set REP_VERSION = '3.0.01.01']]></Field>
+
+</Object>
+</SunopsisRepository>
+

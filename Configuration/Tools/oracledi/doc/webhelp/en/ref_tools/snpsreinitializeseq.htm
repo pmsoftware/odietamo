@@ -1,0 +1,129 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<head>
+<title>OdiReinitializeSeq</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="generator" content="RoboHelp by eHelp Corporation www.ehelp.com">
+<link rel="stylesheet" href="../include/common_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../include/common.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+th.whs1 { x-cell-content-align:top; }
+td.whs2 { x-cell-content-align:top; }
+-->
+</style><script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../whtopic.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../whutils.js"></script>
+<script type="text/javascript" language="javascript" src="../whver.js"></script>
+<script  type="text/javascript" language="javascript1.2">
+    <!--
+    var linkedScrollbarStyle = "<link rel='stylesheet' href='../wf_topics.css'>";
+    if( (!isTopicOnly()) &&(parent.gbFHPureHtml == null) )
+    {
+        document.write(linkedScrollbarStyle);
+    }
+    //-->
+</script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.addTocInfo)
+{
+addTocInfo("Oracle Data Integrator Tools Reference\nOracle Data Integrator Tools Reference\nUtilities\nOdiReinitializeSeq");
+
+  addShowButton();
+}
+if (window.setRelStartPage)
+{
+setRelStartPage("../index.htm");
+
+	sendTopicLoaded();
+	autoSync(1);
+	sendSyncInfo();
+	sendAveInfo();
+	sendBgColorInfo();
+}
+//-->
+</script>
+<h1>OdiReinitializeSeq</h1>
+
+<h2>Usage</h2>
+
+<p><span class=Code>OdiReinitializeSeq -SEQ_NAME=&lt;seq_name&gt; -CONTEXT=&lt;context&gt; 
+ -STD_POS=&lt;std_pos&gt;</span></p>
+
+<h2>Description</h2>
+
+<p>This command is used to reinitialize an Oracle Data Integrator Sequence.</p>
+
+<h2>Parameters</h2>
+
+<table x-use-null-cells>
+
+<tr>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Parameters</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Mandatory</th>
+<th valign="top" class="whs1">
+<p class=TitreTableau>Description</th></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-SEQ_NAME=&lt;seq_name&gt;</span></td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Yes</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Name of the sequence to reinitialize. It must be 
+ prefixed with &quot;GLOBAL.&quot; for a global sequence, or by &lt;project 
+ code&gt;. for a project sequence.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-CONTEXT=&lt;context&gt;</span></td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Yes</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Context in which the sequence must be reinitialized.</td></tr>
+
+<tr>
+<td valign="top" class="whs2">
+<p class=TexteTableau><span class=Code>-STD_POS=&lt;std_pos&gt;</span></td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Yes</td>
+<td valign="top" class="whs2">
+<p class=TexteTableau>Position to which the sequence must be reinitialized.</td></tr>
+</table>
+
+<h2>Examples</h2>
+
+<p>Resets the global sequence SEQ_I to zero for the GLOBAL context:</p>
+
+<p><span class=Code>OdiReinitializeSeq -SEQ_NAME=GLOBAL.SEQ_I -CONTEXT=GLOBAL 
+ -STD_POS=0</span></p>
+
+</body>
+</html>
