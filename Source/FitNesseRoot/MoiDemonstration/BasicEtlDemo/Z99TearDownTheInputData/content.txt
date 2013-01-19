@@ -1,0 +1,32 @@
+!path lib/*.jar
+
+|Import fixture|
+|dbfit.fixture|
+
+Connect to the MDM server and create some test data (in our test table TEST_DBFIT).
+
+!|DatabaseEnvironment|SqlServer|
+|ConnectUsingFile|DATASERVER_DEMO_SQLSERVER_JDBC.properties|
+
+Clear out specific rows:
+
+|Clean|
+|table|columnName|keys|DeleteRowsForKeys?|
+|${DBFIT_DEMO_SQLSERVER}.DBFIT_DEMO_SOURCE|USERID|100|true|
+|${DBFIT_DEMO_SQLSERVER}.DBFIT_DEMO_SOURCE|USERID|200|true|
+|${DBFIT_DEMO_SQLSERVER}.DBFIT_DEMO_SOURCE|USERID|300|true|
+
+Show that our test input rows have been cleared up:
+
+|Query|select count(*) as cnt from ${DBFIT_DEMO_SQLSERVER}.DBFIT_DEMO_SOURCE where userid in (100,200,300)|
+|cnt|
+|0|
+
+After all that we'll drop the table anyway (as this is a demo table!):
+
+|Execute|Drop Table ${DBFIT_DEMO_SQLSERVER}.DBFIT_DEMO_SOURCE|
+
+Make the changes to the table data permanent:
+
+!|DatabaseEnvironment|
+|commit|

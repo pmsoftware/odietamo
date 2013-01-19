@@ -1,0 +1,31 @@
+|Import fixture|
+|dbfit.fixture|
+
+!|DatabaseEnvironment|Teradata|
+|ConnectUsingFile|DATASERVER_DEMO_TERADATA_JDBC.properties|
+
+Clear down the test output data:
+
+|Clean|
+|table|columnName|keys|DeleteRowsForKeys?|
+|${DBFIT_DEMO_TERADATA}.DBFIT_DEMO_TARGET|USERID|100|true|
+|${DBFIT_DEMO_TERADATA}.DBFIT_DEMO_TARGET|USERID|200|true|
+|${DBFIT_DEMO_TERADATA}.DBFIT_DEMO_TARGET|USERID|300|true|
+
+|Query|select count(*) as cnt from ${DBFIT_DEMO_TERADATA}.dbfit_demo_target where userid in (100,200,300)|
+|cnt|
+|0|
+
+Make the tear-down of the test output data permanent:
+
+!|DatabaseEnvironment|
+|Commit|
+
+Actually, we drop our target table too as this is a demo:
+
+|Execute|Drop Table ${DBFIT_DEMO_TERADATA}.DBFIT_DEMO_TARGET;et|
+
+Close the database connection:
+
+!|DatabaseEnvironment|
+|Close|

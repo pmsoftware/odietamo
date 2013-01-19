@@ -1,0 +1,50 @@
+|Import fixture|
+|dbfit.fixture|
+
+NB - we are now connecting to Teradata - not SQL server as in the first page.
+
+!|DatabaseEnvironment|Teradata|
+|ConnectUsingFile|DATASERVER_DEMO_TERADATA_JDBC.properties|
+
+Here we create our test target table (for the purpose of the demo):
+
+|Execute|Create Table ${DBFIT_DEMO_TERADATA}.DBFIT_DEMO_TARGET (name varchar(100), username varchar(30), userid integer, modified_date date);et|
+
+In Teradata, after we execute some DDL, we must end the current transaction before we can execute any more SQL insert/update/delete/select statements.
+
+|DatabaseEnvironment|
+|Commit|
+
+!|Query|select count(*) as cnt from ${DBFIT_DEMO_TERADATA}.dbfit_demo_target|
+|cnt|
+|0|
+
+Above the table has no rows.
+
+!|DatabaseEnvironment|
+|Commit|
+
+Here we run a command on the local machine shell (local to FitNesse server)
+We shall have one FItnesse server per MOI environment
+
+!|com.objectmentor.fixtures.CommandLine|
+|command|MoiExecOdiScen.bat ODDBFIT_DEMO_ETL|CaptureTheCommandOutput|
+
+This ODI object is very simple - copies data from SQL server to a terdata table.
+
+This then tests it - hey look - rows!
+
+!|Query|select count(*) as cnt from ${DBFIT_DEMO_TERADATA}.dbfit_demo_target|
+|cnt|
+|3|
+
+!|Query|select name, username, userid from ${DBFIT_DEMO_TERADATA}.dbfit_demo_target|
+|name|username|userid|
+|Tom|user1|100|
+|Dick|user2|200|
+|Harry|user3|300|
+
+We now need to close the connection to the Teradata server as the server doesn't seem to terminate sessions automatically (unlike the other database types).
+
+!|DatabaseEnvironment|
+|Close|

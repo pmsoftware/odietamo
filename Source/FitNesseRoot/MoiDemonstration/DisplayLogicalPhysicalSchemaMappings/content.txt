@@ -1,0 +1,71 @@
+!1 These are the Logical/Physical Schema Mappings for this FITNESSE environment
+
+This page is not set up as a test. It shows you how the LOGICAL/PHYSICAL SCHEMA mappings are defined for this FITNESSE environment.
+These are the same LOGICAL SCHEMA names that we use in ODI.
+
+Tests should be written using the LOGICAL SCHEMA names. In this way all our tests remain independent of physical databases environments.
+
+These mappings are set up in a file called "LOGICAL_PHYSICAL_SCHEMA_MAPPINGS.properties" which is placed into the installation directory of the FITNESSE instance.
+
+!2 Schema mappings for MOI
+
+|Logical Schema Name|Physical Mapping|
+|MOI_B_UKM_DATA|${MOI_B_UKM_DATA}|
+|MOI_B_UKM_WORK|${MOI_B_UKM_WORK}|
+|MOI_A_UKM_MDM_DATA|${MOI_A_UKM_MDM_DATA}|
+|MOI_A_UKM_MDM_WORK|${MOI_A_UKM_MDM_WORK}|
+|MOI_A_UKM_SWFT_DATA|${MOI_A_UKM_SWFT_DATA}|
+|MOI_A_UKM_SWFT_WORK|${MOI_A_UKM_SWFT_WORK}|
+|MOI_A_UKM_IBS_DATA|${MOI_A_UKM_IBS_DATA}|
+|MOI_A_UKM_IBS_WORK|${MOI_A_UKM_IBS_WORK}|
+|MOI_A_UKM_PNT_DATA|${MOI_A_UKM_PNT_DATA}|
+|MOI_A_UKM_PNT_WORK|${MOI_A_UKM_PNT_WORK}|
+|MOI_A_UKM_MGNT_DATA|${MOI_A_UKM_MGNT_DATA}|
+|MOI_A_UKM_MGNT_WORK|${MOI_A_UKM_MGNT_WORK}|
+|MOI_A_UKM_RMX_DATA|${MOI_A_UKM_RMX_DATA}|
+|MOI_A_UKM_RMX_WORK|${MOI_A_UKM_RMX_WORK}|
+|MOI_B_UKM_USER_VIEWS|${MOI_B_UKM_USER_VIEWS}|
+|MOI_A_UKM_MDM_USER_VIEWS|${MOI_A_UKM_MDM_USER_VIEWS}|
+|MOI_A_UKM_SWFT_USER_VIEWS|${MOI_A_UKM_SWFT_USER_VIEWS}|
+|MOI_A_UKM_IBS_USER_VIEWS|${MOI_A_UKM_IBS_USER_VIEWS}|
+|MOI_A_UKM_PNT_USER_VIEWS|${MOI_A_UKM_PNT_USER_VIEWS}|
+|MOI_A_UKM_MGNT_USER_VIEWS|${MOI_A_UKM_MGNT_USER_VIEWS}|
+|MOI_A_UKM_RMX_USER_VIEWS|${MOI_A_UKM_RMX_USER_VIEWS}|
+
+!2 Schema mappings for MDM (Clear Core)
+
+|Logical Schema Name|Physical Mapping|
+|MDM_DATA|${MDM_DATA}|
+|MDM_WORK|${MDM_WORK}|
+
+!2 Schema mappings for Magenta
+
+|Logical Schema Name|Physical Mapping|
+|MAGENTA_DATA|${MAGENTA_DATA}|
+|MDM_WORK|${MDM_WORK}|
+
+!2 Schema mappings for Remix - Progress does not use databases or schemas/owners.
+
+!2 Schema mappings for Point
+
+|Logical Schema Name|Physical Mapping|
+|POINT_DATA|${POINT_DATA}|
+|POINT_WORK|${POINT_WORK}|
+
+!2 Schema mappings for IBS
+
+|Logical Schema Name|Physical Mapping|
+|IBS_DATA|${IBS_DATA}|
+|IBS_WORK|${IBS_WORK}|
+
+!2 Schema mappings for ERP
+
+|Logical Schema Name|Physical Mapping|
+|ERP_DATA|${ERP_DATA}|
+|ERP_WORK|${ERP_WORK}|
+
+!2 Schema mappings for CSS
+
+|Logical Schema Name|Physical Mapping|
+|CSS_DATA|${CSS_DATA}|
+|CSS_WORK|${CSS_WORK}|

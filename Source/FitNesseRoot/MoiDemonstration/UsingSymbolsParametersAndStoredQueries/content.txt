@@ -1,0 +1,54 @@
+|Import fixture|
+|dbfit.fixture|
+
+!|DatabaseEnvironment|Teradata|
+|ConnectUsingFile|DATASERVER_DEMO_TERADATA_JDBC.properties|
+
+Store the results of a query:
+
+|Store Query|SELECT calendar_date, calendar_date+1 as cd2 FROM sys_calendar.calendar WHERE calendar_date <= '1900-01-05' UNION SELECT CAST('1700-01-01' AS DATE) AS calendar_date, CAST('1700-01-02' AS DATE) AS cd2 FROM sys_calendar.calendar WHERE calendar_date = '1900-01-05'|firstquery|
+
+Compare the query results against some expected results:
+
+|Query|<<firstquery|
+|calendar_date|cd2?|
+|1900-01-01|1900-01-02|
+|1900-01-02|1900-01-03|
+|1900-01-03|1900-01-04|
+|1900-01-04|1900-01-05|
+|1900-01-05|1900-01-06|
+
+Store the results of another query:
+
+|Store Query|select calendar_date, calendar_date+100 as cd2 from sys_calendar.calendar where calendar_date <= '1900-01-05'|secondquery|
+
+Compare the query results against some expected results:
+
+|Query|<<secondquery|
+|calendar_date|cd2?|
+|1900-01-01|1900-01-02|
+|1900-01-02|1900-01-03|
+|1900-01-03|1900-01-04|
+|1900-01-04|1900-01-05|
+|1900-01-05|1900-01-06|
+
+Compare the results of two queries:
+
+|Compare Stored Queries|firstquery|secondquery|
+|calendar_date|cd2?|
+
+Get a value from a query into a fixture symbol (MMPARM):
+
+!|Query|select current_date as currd|
+|currd?|
+|>>MMPARM|
+
+Set a parameter (filterid) using the fixture symbol:
+
+|Set Parameter|filterid|<<MMPARM|
+
+Use the parameter in queries:
+
+|Query|select calendar_date as c1 from sys_calendar.calendar where calendar_date = @filterid|
+|c1|
+|<<filterid|

@@ -1,0 +1,54 @@
+!contents -R2 -g -p -f -h
+
+!path C:/MOI/Configuration/Tools/FitNesse/dbfit-complete-20080822_DEV1/lib/fitlibrary.jar
+!path C:/MOI/Configuration/Tools/FitNesse/dbfit-complete-20080822_DEV1/lib/objectmentor.jar
+
+|Import|
+|fitlibrary|
+
+The first file (C:/temp/threeLines.txt) contains: -
+
+{{{This is the first line.
+And, this is the second line.
+And, finally, this is the last, aka 3rd, line.}}}
+
+The second file (C:/temp/differingThreeLines.txt) contains: -
+
+{{{This is the first line.
+And, this is not the second line as found in the baseline file.
+And, finally, this is the last, aka 3rd, line.}}}
+
+|CompareFiles|
+|check|file|C:/temp/threeLines.txt|same as|C:/temp/differingThreeLines.txt|OK|
+
+This info was taken from http://butunclebob.com/FitNesse.UserGuide.FitLibraryUserGuide.FileCompareFixture
+
+Take a look. We can also use it to compare directories too.
+
+This only tells us if the file is different and we'd probably want to ignore any differences in the order of lines too.
+
+Now, if we could just have a fixture that writes the expected output to a file first from a fixture we'd have something usable (apart from line order differences)..
+
+We can use the CommandLine again. It has a CreateFile method!
+
+|Import|
+|com.objectmentor.fixtures|
+
+|CommandLine|
+|createFile|C:/temp/myfile.txt|!-This is the first line.
+And, this is the second line.
+And, finally, this is the last, aka 3rd, line.-!|
+
+|CompareFiles|
+|check|file|C:/temp/threeLines.txt|same as|C:/temp/myfile.txt|OK|
+
+What if we put the lines in a different order?
+
+|CommandLine|
+|createFile|C:/temp/myOtherFile.txt|!-This is the first line.
+And, finally, this is the last, aka 3rd, line.
+And, this is the second line.
+-!|
+
+|CompareFiles|
+|check|file|C:/temp/threeLines.txt|same as|C:/temp/myOtherFile.txt|OK|

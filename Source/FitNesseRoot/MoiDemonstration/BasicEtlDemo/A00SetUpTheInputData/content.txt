@@ -1,0 +1,47 @@
+Remember, we've already set up the Java-based test runner in the parent page.
+
+Import the DbFit package: -
+
+|Import fixture|
+|dbfit.fixture|
+
+Connect to the MDM server and create some test data (in our test table DBFIT_TEST_SOURCE). The connection details are kept in a properties file to make the test pages environment neutral.
+
+!|DatabaseEnvironment|SqlServer|
+|ConnectUsingFile|DATASERVER_DEMO_SQLSERVER_JDBC.properties|
+
+We'll create the table for the purpose of this demo, only:
+
+|Execute|Create Table ${DBFIT_DEMO_SQLSERVER}.DBFIT_DEMO_SOURCE (name varchar(100), username varchar(30), userid integer, modified_datetime datetime)|
+
+Create our test inputs (Note this is not SQL, but uses an easy to read table format). YOu can use the word NULL to inject nulls into the database.
+
+|Insert|${DBFIT_DEMO_SQLSERVER}.DBFIT_DEMO_SOURCE|
+|name|username|userid|
+|Tom |user1|100|
+|Dick|user2|200|
+|Harry|user3|300|
+
+We check that our test input data has been created:
+
+|Query|select count(*) as CNT from ${DBFIT_DEMO_SQLSERVER}.DBFIT_DEMO_SOURCE|
+|CNT|
+|3|
+
+Here we use a LOGICAL SCHEMA NAME to run our queries. LOGICAL SHCHEMA names also allow our tests to be independant of context/environment!
+The query below is actually written as
+
+	{{{select count(*) as CNT from ${DBFIT_DEMO_SQLSERVER}.DBFIT_DEMO_SOURCE}}}
+
+Note that I've had to use square brackets to show the use of a FITNESSE variable. They're actually coded using { and }.
+
+When we write real tests we should use the LOGICAL SCHEMA names.
+
+|Query|select count(*) as CNT from ${DBFIT_DEMO_SQLSERVER}.DBFIT_DEMO_SOURCE|
+|CNT|
+|3|
+
+Commit the changes (or the data won't be available to subsequent pages or processes, such as ETL - unless we commit in the page):
+
+!|DatabaseEnvironment|
+|Commit|

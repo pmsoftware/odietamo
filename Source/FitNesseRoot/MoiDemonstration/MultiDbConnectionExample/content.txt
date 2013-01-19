@@ -1,0 +1,49 @@
+This page demonstrates that we can connect to multiple different databases in the same page and set up or destroy test data or in fact run tests!
+
+As usual, set up the Java CLASSPATH...
+!path lib/*.jar
+
+!-...and import the DbFit fixture package.-!
+|Import fixture|
+|dbfit.fixture|
+
+Connect to a SQL Server database:
+!|DatabaseEnvironment|SqlServer|
+|ConnectUsingFile|DATASERVER_MDM_JDBC.properties|
+
+Run a query:
+|Query|select count(*) as CNT from ${MDM_DATA}.CC_XREF|
+|CNT|
+|3|
+
+Disconnect from the SQL Server database:
+!|DatabaseEnvironment|
+|Close|
+
+Connect to a Teradata database:
+!|DatabaseEnvironment|Teradata|
+|ConnectUsingFile|DATASERVER_MOI_JDBC.properties|
+
+Are we still connected to SQL Server too!? Let's run a query to find out:
+|Query|select count(*) as CNT from ${MDM_DATA}.TEST_DBFIT|
+|CNT|
+|3|
+
+Are we connected to Teradata!? We should be.  Let's run a query to find out:
+|Query|select count(*) as CNT from ${MOI_A_UKM_MDM_DATA}.cc_xref|
+|CNT|
+|3|
+
+Disconnect from the Teradata database:
+!|DatabaseEnvironment|
+|Close|
+
+Are we still connected to SQL Server!? Let's run a query to find out:
+|Query|select count(*) as CNT from ${MDM_DATA}.TEST_DBFIT|
+|CNT|
+|3|
+
+Are we still connected to Teradata!? Let's run a query to find out:
+|Query|select count(*) as CNT from ${MOI_A_UKM_MDM_DATA}.TEST_DBFIT|
+|CNT|
+|3|

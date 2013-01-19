@@ -1,0 +1,19 @@
+!1 Welcome to FITNESSE and DBFit for the MOI team!
+
+With FITNESSE you can build tests and test suites. A test is a single Wiki page that describes the tests to be run. A test suite is a set of Wiki pages, each describing tests, that can be run together.
+
+This is a demo of a very basic automated ETL test. The ETL process reads data from a simple SQL Server database table and writes (update-else-insert) the data to a Teradata database table with the same structure.
+
+In this example we don't use the FITNESSE Set-Up and Tear-Down pages (these special pages run before and after every test - see the FITNESSE reference for details. They'll surely come in handy) in this demo. We create our own set-up and tear-down pages. Note that pages within the suite are executed in name (alphanumeric) order so we prefix the set-up and tear-down pages so that they get executed in the correct sequence. I.e. set-up pages before the ETL is invoked and tear-down pages after the ETL has run and been tested.
+
+In order for the tests to be repeatable (and this is CRITICAL!!) we create specific test data and detroy both the input and output data and the end of the testing.
+
+Tests are specified and controlled using 'fixtures'. Fixtures are created using tables on the page and tables are created using pipe (|) characters. For more information see the DBFit reference documentation (http://<this-machine-name-or-IP-address>:<the-port-number-FitNesse-is-running-on>/DbFitReference) or here (http://www.fitnesse.info/dbfit).
+
+Feel free to dig inside the test pages and review the 'fixtures' and then run the test suite by clicking on the 'Suite' button to your left. You can also run specific tests by viewing the Wiki page and clicking the 'Test' button (but note that not all tests will always pass when doing this because for MOI purposes we often want to design our tests as 'suites' and separate test execution pages from data set-up and tear-down so that we can reuse pages). This will become clear after you've experimented a little!
+
+Generally we're going to use the Java-based test runner (there are also test runners available for .Net, Python, and other languages) for all of the tests in this suite so I'll set the library path up on this parent page.
+
+!path lib/*.jar
+
+!contents -R2 -g -p -f -h
