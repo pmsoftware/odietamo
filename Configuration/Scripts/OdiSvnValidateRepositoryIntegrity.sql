@@ -10,9 +10,10 @@
 --
 -- Master Repository tables.
 --
-SELECT TO_DATE('99991231','YYYYMMDD') + 1
-           AS cause_an_error
-  FROM (
+------------------------------This script is now report only - don't cause an error.
+------------------------------SELECT TO_DATE('99991231','YYYYMMDD') + 1
+------------------------------           AS cause_an_error
+------------------------------  FROM (
        SELECT objs.table_name
             , NVL(snid.id_next,0)
             , objs.max_obj_seq
@@ -92,15 +93,16 @@ SELECT TO_DATE('99991231','YYYYMMDD') + 1
          JOIN snp_ent_id snid
            ON objs.table_name = snid.id_tbl
         WHERE objs.max_obj_seq > NVL(snid.id_next,0)
-       ) errs
+------------------------------       ) errs
 /
 
 --
 -- Work Repository tables.
 --
-SELECT TO_DATE('99991231','YYYYMMDD') + 1
-           AS cause_an_error
-  FROM (
+------------------------------This script is now report only - don't cause an error.
+------------------------------SELECT TO_DATE('99991231','YYYYMMDD') + 1
+------------------------------           AS cause_an_error
+------------------------------  FROM (
        SELECT objs.table_name
             , NVL(snid.id_next,0)
             , objs.max_obj_seq
@@ -257,5 +259,5 @@ SELECT TO_DATE('99991231','YYYYMMDD') + 1
          JOIN snp_id snid
            ON objs.table_name = snid.id_tbl
         WHERE objs.max_obj_seq > NVL(snid.id_next,0)
-       )
+------------------------------       )
 /

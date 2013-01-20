@@ -49,6 +49,39 @@ type %STDERRFILE%
 goto MainExitFail
 
 :MainOdiSvnValidateRepoOk
+echo %IM% Displaying output of repository validation check report script
+echo %IM% StdOut content:
+type %STDOUTFILE%
+
+set MSG=executing OdiSvn ODI repository integrity restoration script "<OdiSvnRestoreRepositoryIntegritySql>"
+echo %IM% %MSG%
+call :SetDateTimeStrings
+set STDOUTFILE=<GenScriptRootDir>\OdiSvnRestoreRepositoryIntegrity_StdOut_%YYYYMMDD%_%HHMM%.log
+set STDERRFILE=<GenScriptRootDir>\OdiSvnRestoreRepositoryIntegrity_StdErr_%YYYYMMDD%_%HHMM%.log
+call C:\MOI\Configuration\Scripts\MoiJisqlRepo.bat <OdiSvnRestoreRepositoryIntegritySql> %STDOUTFILE% %STDERRFILE%
+if ERRORLEVEL 1 goto MainOdiSvnRestoreRepoIntegFail
+goto MainOdiSvnRestoreRepoIntegChkStdErr
+
+:MainOdiSvnRestoreRepoIntegFail
+echo %EM% Batch file MoiJisqlRepo.bat returned non-zero ERRORLEVEL
+echo %IM% StdErr content:
+type %STDERRFILE%
+goto MainExitFail
+
+:MainOdiSvnRestoreRepoIntegChkStdErr
+rem
+rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.
+rem 
+echo %IM% Batch file MoiJisqlRepo.bat returned zero ERRORLEVEL
+fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
+if not ERRORLEVEL 1 goto MainOdiSvnRestoreRepoIntegOk
+
+echo %IM% StdErr content:
+type %STDERRFILE%
+
+goto MainExitFail
+
+:MainOdiSvnRestoreRepoIntegOk
 set MSG=executing OdiSvn ODI scenario generation script "<OdiSvnGenScenPostImportBat>"
 echo %IM% %MSG%
 call <OdiSvnGenScenPostImportBat>
