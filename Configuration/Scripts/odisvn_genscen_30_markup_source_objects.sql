@@ -636,16 +636,15 @@ BEGIN
     ;
     
     --
-    -- We add 9000000 to the last used (note last used, not next value as the column name suggests) ID
-    -- as we cannot safely update SNP_ID because an ODI process can be locking the tables.
+    -- Get the last used (note last used, not next value as the column name suggests) State2 and ObjState IDs.
     --
-    SELECT COALESCE(MAX(id_next),0) + 9000000
-      INTO iState
+    SELECT COALESCE(MAX(id_next),0) 
+	  INTO iState
       FROM snp_id
      WHERE id_tbl = 'SNP_STATE2'
     ;
 
-    SELECT COALESCE(MAX(id_next),0) + 9000000
+    SELECT COALESCE(MAX(id_next),0) 
       INTO iObjState
       FROM snp_id
      WHERE id_tbl = 'SNP_OBJ_STATE'
