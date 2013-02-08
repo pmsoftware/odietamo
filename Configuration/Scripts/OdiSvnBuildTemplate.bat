@@ -25,7 +25,7 @@ echo %IM% %MSG%
 call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiSvnValidateRepositoryIntegrity_StdOut_%YYYYMMDD%_%HHMM%.log
 set STDERRFILE=<GenScriptRootDir>\OdiSvnValidateRepositoryIntegrity_StdErr_%YYYYMMDD%_%HHMM%.log
-call C:\MOI\Configuration\Scripts\MoiJisqlRepo.bat <OdiSvnValidateRepositoryIntegritySql> %STDOUTFILE% %STDERRFILE%
+call <GenScriptRootDir>\OdiScmJisqlRepo.bat <OdiSvnValidateRepositoryIntegritySql> %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto MainOdiSvnValidateRepoFail
 goto MainOdiSvnValidateRepoChkStdErr
 
@@ -87,14 +87,12 @@ echo %IM% %MSG%
 call <OdiSvnGenScenPostImportBat>
 if ERRORLEVEL 1 goto MainExitFail
 
-set MSG=updating OdiSvn local workspace metadata ChangeSets file "<OdiSvnChangeSetsFile>"
+set MSG=updating OdiSvn local workspace metadata
 echo %IM% %MSG%
-echo.>> <OdiSvnChangeSetsFile>
-rem Echo with no text to ensure that we write the new ChangeSet numbers to a new line.
 rem We use tee -a, from UnixUtils, so that we can write to a file without using CMD.EXE
 rem stdout redirection because if an error occurs using this mechanism it cannot be detected
 rem by checking ERRORLEVEL.
-echo <OdiSvnLatestChangeSet>~|tee -a <OdiSvnChangeSetsFile> >NUL 2>&1
+cat <SCMConfigurationFile> | awk <OdiScmUpdateIniAwk> ImportControls OracleDIImportedRevision <OdiSvnLatestChangeSet> | tee -a <SCMConfigurationFile> >NUL 2>&1
 if ERRORLEVEL 1 goto MainExitFail
 
 set MSG=updating OdiSvn repository ChangeSet metadata

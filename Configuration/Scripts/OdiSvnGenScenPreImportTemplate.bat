@@ -9,12 +9,12 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\odisvn_genscen_10_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\odisvn_genscen_10_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call C:\MOI\Configuration\Scripts\MoiJisqlRepo.bat C:\MOI\Configuration\Scripts\odisvn_genscen_10_initialise.sql %STDOUTFILE% %STDERRFILE%
+call <GenScriptRootDir>\OdiScmJisqlRepo.bat C:\MOI\Configuration\Scripts\odisvn_genscen_10_initialise.sql %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto BatchFileNotOk10
 goto BatchFileOk10
 
 :BatchFileNotOk10
-echo OdiSvn_GenScen_PreImport: ERROR: Batch file MoiJisqlRepo.bat returned non-zero ERRORLEVEL
+echo OdiSvn_GenScen_PreImport: ERROR: Batch file OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL
 echo OdiSvn_GenScen_PreImport: INFO: StdErr content:
 type %STDERRFILE%
 
@@ -26,7 +26,7 @@ goto ExitFail
 rem
 rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.
 rem 
-echo OdiSvn_GenScen_PreImport: INFO: Batch file MoiJisqlRepo.bat returned zero ERRORLEVEL
+echo OdiSvn_GenScen_PreImport: INFO: Batch file OdiScmJisqlRepo.bat returned zero ERRORLEVEL
 fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
 
 if ERRORLEVEL 1 goto StdErrNotEmpty10

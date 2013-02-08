@@ -16,7 +16,7 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\odisvn_genscen_20_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\odisvn_genscen_20_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call C:\MOI\Configuration\Scripts\MoiJisqlRepo.bat C:/MOI/Configuration/Scripts/odisvn_genscen_20_delete_old_scen_script.sql %STDOUTFILE% %STDERRFILE%
+call <GenScriptRootDir>\OdiScmJisqlRepo.bat C:/MOI/Configuration/Scripts/odisvn_genscen_20_delete_old_scen_script.sql %STDOUTFILE% %STDERRFILE%
 if not ERRORLEVEL 1 goto BatchFileOk20
 
 echo %EM% Batch file MoiJisqlRepo.bat returned non-zero ERRORLEVEL
