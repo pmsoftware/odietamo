@@ -1,30 +1,34 @@
-# Clear the flag
 BEGIN {
-    FoundSection = 0;
+	ProcessingSection = 0;
+	###print "Using KeyValue: " KeyValue
 }
 
-# Entering the section, set the flag.
-/^\[ARGV[1]/ {
-    FoundSection = 1;
+#^[ImportControls]$ 
+#{
+	###print "Found section using expression"
+#}
+
+/^\[ImportControls\]$/ {
+	###print "Found section using regular expression"
+	ProcessingSection = 1;
+	WrittenKey = 1
 }
 
-# Modify the line if we're in the section.
-/^ARGV[2]=/ {
-    if (FoundSection) {
-        print ARGV[2]=ARGV[3];
-        skip = 1;
-    }
+/^OracleDIImportedRevision=/ {
+	if (ProcessingSection) {
+		###print "Found key"
+		print "OracleDIImported=" KeyValue;
+	}
 }
 
-# Clear the section flag (as we're in a new section)
 /^\[$/ {
-    FoundSection = 0;
+	# Start of a section clear the flag (actions above already processed).
+	ProcessingSection = 0;
 }
 
-# Output a line (that we didn't output above)
 /.*/ {
-    if (skip)
-        skip = 0;
-    else
-        print $0;
+	if (WrittenKey)
+		WrittenKey = 0;
+	else
+		print $0;
 }

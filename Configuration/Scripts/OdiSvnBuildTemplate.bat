@@ -92,7 +92,7 @@ echo %IM% %MSG%
 rem We use tee -a, from UnixUtils, so that we can write to a file without using CMD.EXE
 rem stdout redirection because if an error occurs using this mechanism it cannot be detected
 rem by checking ERRORLEVEL.
-cat <SCMConfigurationFile> | awk <OdiScmUpdateIniAwk> ImportControls OracleDIImportedRevision <OdiSvnLatestChangeSet> | tee -a <SCMConfigurationFile> >NUL 2>&1
+cat <SCMConfigurationFile> | awk <OdiScmUpdateIniAwk> -v KeyValue <OdiSvnLatestChangeSet> | tee <SCMConfigurationFile> >NUL 2>&1
 if ERRORLEVEL 1 goto MainExitFail
 
 set MSG=updating OdiSvn repository ChangeSet metadata
