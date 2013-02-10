@@ -1,6 +1,9 @@
+@echo off
 set FN=OdiScmImportOracleDIDemo
-set IM=%FN%: ERROR:
+set IM=%FN%: INFO:
 set EM=%FN%: ERROR:
+
+echo %IM% starting import of demo objects
 
 if "%ODI_HOME%" == "" goto NoOdiHomeError
 goto OdiHomeOk
@@ -10,6 +13,8 @@ echo %EM% environment variable ODI_HOME is not set.
 exit /b 1
 
 :OdiHomeOk
+echo %IM% using ODI_HOME directory ^<%ODI_HOME%^>
+
 set THISDIR=%CD%
 cd /d %ODI_HOME%\bin
 
@@ -41,5 +46,7 @@ call startcmd.bat OdiImportObject -FILE_NAME=%THISDIR%\MOD_Sales_Administration_
 
 REM Projects.
 call startcmd.bat OdiImportObject -FILE_NAME=%THISDIR%\PROJ_Demo.xml -IMPORT_MODE=SYNONYM_INSERT_UPDATE
+
+echo %IM% import of demo object completed successfully
 
 cd /d %THISDIR%
