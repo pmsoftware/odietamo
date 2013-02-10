@@ -6,19 +6,19 @@ SetDateTimeStrings () {
 	#
 	# Define unique file name suffixes.
 	#
-        typeset FN="SetDateTimeStrings"
-        typeset IM="$FN: INFO:"
-        typeset EM="$FN: ERROR:"
-        YYYYMMDD=$(date +%Y%m%d)
-        HHMMSS=$(date +%H%M%S)
+	typeset FN="SetDateTimeStrings"
+	typeset IM="$FN: INFO:"
+	typeset EM="$FN: ERROR:"
+	YYYYMMDD=$(date +%Y%m%d)
+	HHMMSS=$(date +%H%M%S)
 	return 0
 }
 # *************************************************************
 ImportObject () {
 # *************************************************************
-        typeset FN="ImportObject"
-        typeset IM="$FN: INFO:"
-        typeset EM="$FN: ERROR:"
+	typeset FN="ImportObject"
+	typeset IM="$FN: INFO:"
+	typeset EM="$FN: ERROR:"
 
 	echo "$IM starts"
 	echo "$IM importing non-container type object from file <$1>"
@@ -38,9 +38,9 @@ ImportObject () {
 # *************************************************************
 ImportContainerObject () {
 # *************************************************************
-        typeset FN="ImportContainerObject"
-        typeset IM="$FN: INFO:"
-        typeset EM="$FN: ERROR:"
+	typeset FN="ImportContainerObject"
+	typeset IM="$FN: INFO:"
+	typeset EM="$FN: ERROR:"
 
 	echo "$IM starts"
 	echo "$IM importing container type object from file <$1>"
@@ -208,38 +208,76 @@ cat $OBJLISTFILE | while read LINE
 do
 	IMPORTFILENOPATH=$(basename $LINE)
 	IMPORTFILEPATH=$(dirname $LINE)
-	IMPORTFILENAME=$(echo $IMPORTFILENOPATH | cut -f 2 -d.)
-	IMPORTFILEEXT=$(echo $IMPORTFILENOPATH | cut -f 1 -d.)
+	IMPORTFILENAME=$(echo $IMPORTFILENOPATH | cut -f 1 -d.)
+	IMPORTFILEEXT=$(echo $IMPORTFILENOPATH | cut -f 2 -d.)
+	IMPORTFILENAME2=$(echo $IMPORTFILENOPATH | cut -f 3 -d.)
+	IMPORTFILEEXT2=$(echo $IMPORTFILENOPATH | cut -f 4 -d.)
+	
+	if [ "$IMPORTFILEEXT2" = "" ]
+	then
+		echo "$IM importing file <$IMPORTFILENAME.$IMPORTFILEEXT> from path <$IMPORTFILEPATH>"
+	else
+		echo "$IM importing file <$IMPORTFILENAME.$IMPORTFILEEXT.$IMPORTFILENAME2.$IMPORTFILEEXT2> from path <$IMPORTFILEPATH>"
+	fi
 
-	echo "$IM importing file <$IMPORTFILENAME.$IMPORTFILEEXT> from path <$IMPORTFILEPATH>"
-
-	case $IMPORTFILEEXT in
-		SnpConnect|SnpModFolder|SnpModel|SnpSubModel|SnpProject|SnpFolder)
-			CONTAINEROBJTYPE=TRUE
-			;;
-		*)
-			CONTAINEROBJTYPE=FALSE
-			;;
-	esac
+	if [ "$IMPORTFILEEXT2" = "" ]
+	then
+		case $IMPORTFILEEXT in
+			SnpConnect|SnpModFolder|SnpModel|SnpSubModel|SnpProject|SnpFolder)
+				CONTAINEROBJTYPE=TRUE
+				;;
+			*)
+				CONTAINEROBJTYPE=FALSE
+				;;
+		esac
+	else
+		case $IMPORTFILEEXT2 in
+			SnpConnect|SnpModFolder|SnpModel|SnpSubModel|SnpProject|SnpFolder)
+				CONTAINEROBJTYPE=TRUE
+				;;
+			*)
+				CONTAINEROBJTYPE=FALSE
+				;;
+		esac
+	fi
 
 	ERROROCCURED=FALSE
 
 	if [ $CONTAINEROBJTYPE = TRUE ]
 	then
 		echo "$IM object type is a container"
-		ImportContainerObject $IMPORTFILEPATH/$IMPORTFILENAME.$IMPORTFILEEXT
-		if [ $? -ne 0 ]
+		if [ "$IMPORTFILEEXT2" = "" ]
 		then
-			ERROROCCURED=TRUE
+			ImportContainerObject $IMPORTFILEPATH/$IMPORTFILENAME.$IMPORTFILEEXT
+			if [ $? -ne 0 ]
+			then
+				ERROROCCURED=TRUE
+			fi
+		else
+			ImportContainerObject $IMPORTFILEPATH/$IMPORTFILENAME.$IMPORTFILEEXT.$IMPORTFILENAME2.$IMPORTFILEEXT2
+			if [ $? -ne 0 ]
+			then
+				ERROROCCURED=TRUE
+			fi
 		fi
 	else
 		echo "$IM object type is not a container"
-		ImportObject $IMPORTFILEPATH/$IMPORTFILENAME.$IMPORTFILEEXT
-		if [ $? -ne 0 ]
+		if [ "$IMPORTFILEEXT2" = "" ]
 		then
-			ERROROCCURED=TRUE
+			ImportObject $IMPORTFILEPATH/$IMPORTFILENAME.$IMPORTFILEEXT
+			if [ $? -ne 0 ]
+			then
+				ERROROCCURED=TRUE
+			fi
+		else
+			ImportObject $IMPORTFILEPATH/$IMPORTFILENAME.$IMPORTFILEEXT.$IMPORTFILENAME.$IMPORTFILEEXT
+			if [ $? -ne 0 ]
+			then
+				ERROROCCURED=TRUE
+			fi
 		fi
 	fi
+	
 	if [ $ERROROCCURED = TRUE ]
 	then
 		#

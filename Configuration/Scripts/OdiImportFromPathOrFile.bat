@@ -111,26 +111,66 @@ dir /s /b /o:n %IMPORT_DIR%\*.SnpObjState >>%OBJLISTFILE% 2>NUL
 :StartImport
 set ERROROCCURED=N
 
+echo gonna process the files
+
 for /f %%A in (%OBJLISTFILE%) do (
+	
 	for %%B in (%%A) do (
 		set IMPORTFILENOPATH=%%~nxB
 		set IMPORTFILEPATH=%%~dpB
 	)
-	for /f "tokens=1,2 delims=." %%C in ('echo !IMPORTFILENOPATH!') do (
+	
+	set IMPORTFILENAME=
+	set IMPORTFILEEXT=
+	set IMPORTFILENAME2=
+	set IMPORTFILEEXT2=
+	
+	for /f "tokens=1,2,3,4 delims=." %%C in ('echo !IMPORTFILENOPATH!') do (
 		set IMPORTFILENAME=%%C
 		set IMPORTFILEEXT=%%D
+		set IMPORTFILENAME2=%%E
+		set IMPORTFILEEXT2=%%F
 	)
-	echo INFO: importing file "!IMPORTFILENAME!.!IMPORTFILEEXT!" from path "!IMPORTFILEPATH!"
+	REM echo IMPORTFILENAME=!IMPORTFILENAME!
+	REM echo IMPORTFILEEXT=!IMPORTFILEEXT!
+	REM echo IMPORTFILENAME2=!IMPORTFILENAME2!
+	REM echo IMPORTFILEEXT2=!IMPORTFILEEXT2!
+	
+	REM if "!IMPORTFILEEXT2!"=="" (
+	REM		echo IMPORTFILEEXT2 is empty string
+	REM ) else (
+	REM		echo IMPORTFILEEXT2 is NOT empty string
+	REM )
+	
+	if "!IMPORTFILEEXT2!"=="" (
+		echo INFO: importing file "!IMPORTFILENAME!.!IMPORTFILEEXT!" from path "!IMPORTFILEPATH!"
+	) else (
+		echo INFO: importing file "!IMPORTFILENAME!.!IMPORTFILEEXT!.!IMPORTFILENAME2!.!IMPORTFILEEXT2!" from path "!IMPORTFILEPATH!"
+	)
+	
 	set CONTAINEROBJTYPE=FALSE
-	for %%E in (SnpConnect SnpModFolder SnpModel SnpSubModel SnpProject SnpFolder) do (
-		if !IMPORTFILEEXT!==%%E set CONTAINEROBJTYPE=TRUE
+	for %%G in (SnpConnect SnpModFolder SnpModel SnpSubModel SnpProject SnpFolder) do (
+		if "!IMPORTFILEEXT2!"=="" (
+			if !IMPORTFILEEXT!==%%G set CONTAINEROBJTYPE=TRUE
+		) else (
+			if !IMPORTFILEEXT2!==%%G set CONTAINEROBJTYPE=TRUE
+		)
 	)
+	
 	if !CONTAINEROBJTYPE!==TRUE (
 		echo INFO: object type is a container
-		call :ImportContainerObject !IMPORTFILEPATH!!IMPORTFILENAME!.!IMPORTFILEEXT!
+		if "!IMPORTFILEEXT2!"=="" (
+			call :ImportContainerObject !IMPORTFILEPATH!!IMPORTFILENAME!.!IMPORTFILEEXT!
+		) else (
+			call :ImportContainerObject !IMPORTFILEPATH!!IMPORTFILENAME!.!IMPORTFILEEXT!.!IMPORTFILENAME2!.!IMPORTFILEEXT2!
+		)
 	) else (
 		echo INFO: object type is not a container
-		call :ImportObject !IMPORTFILEPATH!!IMPORTFILENAME!.!IMPORTFILEEXT!
+		if "!IMPORTFILEEXT2!"=="" (
+			call :ImportObject !IMPORTFILEPATH!!IMPORTFILENAME!.!IMPORTFILEEXT!
+		) else (
+			call :ImportObject !IMPORTFILEPATH!!IMPORTFILENAME!.!IMPORTFILEEXT!.!IMPORTFILENAME2!.!IMPORTFILEEXT2!
+		)
 	)
 	if !ERROROCCURED!==Y (
 		rem
