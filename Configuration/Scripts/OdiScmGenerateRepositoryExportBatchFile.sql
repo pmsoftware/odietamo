@@ -22,12 +22,12 @@ SELECT 'call startcmd.bat OdiExportObject -I_OBJECT=' || i_object || ' "-FILE_NA
          FROM snp_context
         UNION
        SELECT i_lschema
-            , 'LS_' || lschema_name || '.xml'
+            , 'LS_' || REPLACE(REPLACE(REPLACE(lschema_name, '/', '_'), '.', '_'), ' ', '_') || '.xml'
             , 'SnpLschema'
          FROM snp_lschema
         UNION
        SELECT i_techno
-            , 'TECH_' || tech_int_name || '.xml'
+            , 'TECH_' || REPLACE(REPLACE(REPLACE(tech_int_name, '/', '_'), '.', '_'), ' ', '_') || '.xml'
             , 'SnpTechno'
          FROM snp_techno
        )
