@@ -67,11 +67,10 @@ call startcmd.bat OdiImportObject "-FILE_NAME=%THISDIR%\PROJ_Demo.xml" -IMPORT_M
 if ERRORLEVEL 1 goto ExitFail
 
 echo %IM% import of demo objects completed successfully
-
 cd /d %THISDIR%
-
 exit /b 0
 
 :ExitFail
 echo %IM% import of demo objects failed
+cd /d %THISDIR%
 exit /b 1
