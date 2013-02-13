@@ -151,7 +151,7 @@ goto ExitFail
 rem
 rem Prime the export control metadata.
 rem
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %ODI_SCM_HOME%\Configuration\Demo\OdiScmPrimeExport.sql
+call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql
 if ERRORLEVEL 1 goto PrimeExportControlFail
 goto PrimeExportControlOk
 

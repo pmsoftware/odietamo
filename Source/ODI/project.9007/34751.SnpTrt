@@ -81,9 +81,9 @@
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[import os
 
-root = r'<%=snpRef.getSchemaName("ODISVNWC_DATA","D")%>'
+root = r'<%=snpRef.getSchemaName("ODISCMWC_DATA","D")%>'
 
-flog = open('<%=snpRef.getSchemaName("ODISVNWC_DATA","W")%>/OSUTL_FLUSH_WORK_REPOSITORY_DELETIONS_<%=snpRef.getSession("SESS_NO")%>.log','w')
+flog = open('<%=snpRef.getSchemaName("ODISCMWC_DATA","W")%>/OSUTL_FLUSH_WORK_REPOSITORY_DELETIONS_<%=snpRef.getSession("SESS_NO")%>.log','w')
 
 def chkdir(arg, dirname, names):
 	''' this is a docstring'''
@@ -1598,7 +1598,7 @@ flog.close()]]></Field>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[762751]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[flog = open('<%=snpRef.getSchemaName("ODISVNWC_DATA","W")%>/OSUTL_FLUSH_WORK_REPOSITORY_DELETIONS_<%=snpRef.getSession("SESS_NO")%>.log','a')
+	<Field name="Txt" type="java.lang.String"><![CDATA[flog = open('<%=snpRef.getSchemaName("ODISCMWC_DATA","W")%>/OSUTL_FLUSH_WORK_REPOSITORY_DELETIONS_<%=snpRef.getSession("SESS_NO")%>.log','a')
 
 all_ids_in_wc_SnpProject.sort()
 all_ids_in_repo_SnpProject.sort()

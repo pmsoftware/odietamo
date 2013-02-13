@@ -363,8 +363,8 @@ raise(a)]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[1453120]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[f = open('<?=snpRef.getSchemaName("ODISVNWC_DATA", "D") ?>/model.#o2id/#OS.DataStoreInternalID.SnpTable','r')
-g = open('<?=snpRef.getSchemaName("ODISVNWC_DATA", "W") ?>/#OS.DataStoreInternalID.SnpTable.noSnpJoins.<?=snpRef.getSession("SESS_NO") ?>',']]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[f = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/model.#o2id/#OS.DataStoreInternalID.SnpTable','r')
+g = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.DataStoreInternalID.SnpTable.noSnpJoins.<?=snpRef.getSession("SESS_NO") ?>',']]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -478,7 +478,7 @@ while (lsrc):
 g.close()
 f.close()
 
-g = open('<?=snpRef.getSchemaName("ODISVNWC_DATA", "W") ?>/#OS.DataStoreInternalID.SnpTable.noSnpJoins.<?=snpRef.getSession("SESS_NO") ?>',]]></Field>
+g = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.DataStoreInternalID.SnpTable.noSnpJoins.<?=snpRef.getSession("SESS_NO") ?>',]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -489,7 +489,7 @@ g = open('<?=snpRef.getSchemaName("ODISVNWC_DATA", "W") ?>/#OS.DataStoreInternal
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[1453120]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA['r')
-f = open('<?=snpRef.getSchemaName("ODISVNWC_DATA", "D") ?>/model.#o2id/#OS.DataStoreInternalID.SnpTable','w')
+f = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/model.#o2id/#OS.DataStoreInternalID.SnpTable','w')
 
 lsrc = g.readline()
 
@@ -1009,8 +1009,8 @@ raise(a)]]></Field>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[815751]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[f = open('<%=snpRef.getSchemaName("ODISVNWC_DATA","D")%>/model.#o2id/#DataStoreInternalID.SnpTable','r')
-g = open('<%=snpRef.getSchemaName("ODISVNWC_DATA","W")%>/#DataStoreInternalID.SnpTable.noSnpJoins.<%=snpRef.getSession("SESS_NO")%>','w')
+	<Field name="Txt" type="java.lang.String"><![CDATA[f = open('<%=snpRef.getSchemaName("ODISCMWC_DATA","D")%>/model.#o2id/#DataStoreInternalID.SnpTable','r')
+g = open('<%=snpRef.getSchemaName("ODISCMWC_DATA","W")%>/#DataStoreInternalID.SnpTable.noSnpJoins.<%=snpRef.getSession("SESS_NO")%>','w')
 
 inIgnoredObject = 'F'
 
@@ -1064,8 +1064,8 @@ while (lsrc):
 g.close()
 f.close()
 
-g = open('<%=snpRef.getSchemaName("ODISVNWC_DATA","W")%>/#DataStoreInternalID.SnpTable.noSnpJoins.<%=snpRef.getSession("SESS_NO")%>','r')
-f = open('<%=snpRef.getSchemaName("ODISVNWC_DATA","D")%>/model.#o2id/#DataStoreInternalID.SnpTable','w')
+g = open('<%=snpRef.getSchemaName("ODISCMWC_DATA","W")%>/#DataStoreInternalID.SnpTable.noSnpJoins.<%=snpRef.getSession("SESS_NO")%>','r')
+f = open('<%=snpRef.getSchemaName("ODISCMWC_DATA","D")%>/model.#o2id/#DataStoreInternalID.SnpTable','w')
 
 lsrc = g.readline()
 

@@ -503,7 +503,7 @@ output_filename = '#O]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[22676111]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[S.SubModelInternalID.SnpSubModel'
-output_filepath = os.path.join('<?=snpRef.getSchemaName("ODISVNWC_DATA", "D") ?>',
+output_filepath = os.path.join('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>',
                                                os.path.join('model.#i_mod', output_filename)
                                         ]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[16]]></Field>
@@ -1119,7 +1119,7 @@ output_filename = '#O]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[6225120]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[S.SubModelInternalID.SnpSubModel'
-output_filepath = os.path.join('<?=snpRef.getSchemaName("ODISVNWC_DATA", "D") ?>',
+output_filepath = os.path.join('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>',
                                                os.path.join('model.#i_mod', output_filename)
                                         ]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[16]]></Field>
@@ -1578,7 +1578,7 @@ output_dict = {
 output_string = fake_submodel_xml % output_dict
 
 output_filename = '#SubModelInternalID.SnpSubModel'
-output_filepath = os.path.join('<%=snpRef.getSchemaName("ODISVNWC_DATA", "D")%>',
+output_filepath = os.path.join('<%=snpRef.getSchemaName("ODISCMWC_DATA", "D")%>',
                                                os.path.join('model.#i_mod', output_filename)
                                               )
 fo = open(output_filepath, 'w')

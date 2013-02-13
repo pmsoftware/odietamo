@@ -196,7 +196,7 @@ raise(a)]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[124751]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[f = open('<?=snpRef.getSchemaName("ODISVNWC_DATA", "W") ?>/SnpScenList<?=snpRef.getSession("SESS_NO") ?>','w')
+	<Field name="Txt" type="java.lang.String"><![CDATA[f = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/SnpScenList<?=snpRef.getSession("SESS_NO") ?>','w')
 f.write("ObjectInternalID,ScenarioNo,ScenarioName,ScenarioVersion" + "\n")
 f.close()]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
@@ -237,7 +237,7 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[124751]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[f = open('<?=snpRef.getSchemaName("ODISVNWC_DATA", "W") ?>/SnpScenList<?=snpRef.getSession("SESS_NO") ?>','a')
+	<Field name="Txt" type="java.lang.String"><![CDATA[f = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/SnpScenList<?=snpRef.getSession("SESS_NO") ?>','a')
 f.write("#OS.InterfaceInternalID" + "," + "#scen_no" + "," + "#scen_name" + "," + "#scen_version" + "\n")
 f.close()]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
@@ -312,7 +312,7 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[124751]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiExportObject -CLASS_NAME=SnpScen -I_OBJECT=#scen_no "-FILE_NAME=<?=snpRef.getSchemaName("ODISVNWC_DATA", "W") ?>/#scen_no.SnpScen" -FORCE_OVERWRITE=yes -RECURSIVE_EXPORT=yes]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiExportObject -CLASS_NAME=SnpScen -I_OBJECT=#scen_no "-FILE_NAME=<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#scen_no.SnpScen" -FORCE_OVERWRITE=yes -RECURSIVE_EXPORT=yes]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -602,7 +602,7 @@ f.close()]]></Field>
 	<Field name="ColContextCode" type="java.lang.String">null</Field>
 	<Field name="ColIndCommit" type="java.lang.String">null</Field>
 	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
-	<Field name="ColLschemaName" type="java.lang.String"><![CDATA[ODISVNWC_DATA]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String"><![CDATA[ODISCMWC_DATA]]></Field>
 	<Field name="ColPlanComp" type="java.lang.String">null</Field>
 	<Field name="ColTechIntName" type="java.lang.String"><![CDATA[FILE]]></Field>
 	<Field name="DefConnectId" type="java.lang.String">null</Field>
@@ -633,7 +633,7 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[124751]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiImportScen -FILE_NAME=<?=snpRef.getSchemaName("ODISVNWC_DATA", "W") ?>/#scen_no.SnpScen -IMPORT_MODE=SYNONYN_INSERT_UPDATE]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiImportScen -FILE_NAME=<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#scen_no.SnpScen -IMPORT_MODE=SYNONYN_INSERT_UPDATE]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -649,7 +649,7 @@ from 	TABLE
 /*$$SNPS_START_KEY
 SNP$CRDWG_TABLE
 SNP$CRTABLE_NAME=SnpScenList<?=snpRef.getSession("SESS_NO") ?>
-SNP$CRLOAD_FILE=<?=snpRef.getSchemaName("ODISVNWC_DATA", "W") ?>/SnpScenList<?=snpRef]]></Field>
+SNP$CRLOAD_FILE=<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/SnpScenList<?=snpRef]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -724,7 +724,7 @@ $$SNPS_END_KEY*/
 	<Field name="ColContextCode" type="java.lang.String">null</Field>
 	<Field name="ColIndCommit" type="java.lang.String">null</Field>
 	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
-	<Field name="ColLschemaName" type="java.lang.String"><![CDATA[ODISVNWC_DATA]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String"><![CDATA[ODISCMWC_DATA]]></Field>
 	<Field name="ColPlanComp" type="java.lang.String">null</Field>
 	<Field name="ColTechIntName" type="java.lang.String"><![CDATA[FILE]]></Field>
 	<Field name="DefConnectId" type="java.lang.String">null</Field>
@@ -756,7 +756,7 @@ $$SNPS_END_KEY*/
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[124751]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[!!! DISABLED BY CAUSING AN ERROR! !!!
-f = open('<?=snpRef.getSchemaName("ODISVNWC_DATA", "W") ?>/SnpScenList<?=snpRef.getSession("SESS_NO") ?>.log','a')
+f = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/SnpScenList<?=snpRef.getSession("SESS_NO") ?>.log','a')
 f.write("#ObjectInternalID" + "," + "#scen_no" + "," + "#scen_name" + "," + "#scen_version" + "\n]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
@@ -962,7 +962,7 @@ NOTE: scenarios are not deleted for interfaces of the ODI-SVN project.]]></Field
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[17183007]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[f = open('<%=odiRef.getSchemaName("ODISVNWC_DATA","W")%>/SnpScenList<%=odiRef.getSession("SESS_NO")%>','w')
+	<Field name="Txt" type="java.lang.String"><![CDATA[f = open('<%=odiRef.getSchemaName("ODISCMWC_DATA","W")%>/SnpScenList<%=odiRef.getSession("SESS_NO")%>','w')
 f.write("ObjectInternalID,ScenarioNo,ScenarioName,ScenarioVersion" + "\n")
 f.close()]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
@@ -1038,7 +1038,7 @@ f.close()]]></Field>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[17184007]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[f = open('<%=odiRef.getSchemaName("ODISVNWC_DATA","W")%>/SnpScenList<%=odiRef.getSession("SESS_NO")%>','a')
+	<Field name="Txt" type="java.lang.String"><![CDATA[f = open('<%=odiRef.getSchemaName("ODISCMWC_DATA","W")%>/SnpScenList<%=odiRef.getSession("SESS_NO")%>','a')
 f.write("#InterfaceInternalID" + "," + "#scen_no" + "," + "#scen_name" + "," + "#scen_version" + "\n")
 f.close()]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
@@ -1144,7 +1144,7 @@ f.close()]]></Field>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[16506007]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiExportObject -CLASS_NAME=SnpScen -I_OBJECT=#scen_no "-FILE_NAME=<%=odiRef.getSchemaName("ODISVNWC_DATA","W")%>/#scen_no.SnpScen" -FORCE_OVERWRITE=yes -RECURSIVE_EXPORT=yes]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiExportObject -CLASS_NAME=SnpScen -I_OBJECT=#scen_no "-FILE_NAME=<%=odiRef.getSchemaName("ODISCMWC_DATA","W")%>/#scen_no.SnpScen" -FORCE_OVERWRITE=yes -RECURSIVE_EXPORT=yes]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[9120]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
@@ -1471,7 +1471,7 @@ f.close()]]></Field>
 	<Field name="ColIndCommit" type="java.lang.String">null</Field>
 	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
 	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[17186007]]></Field>
-	<Field name="ColLschemaName" type="java.lang.String"><![CDATA[ODISVNWC_DATA]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String"><![CDATA[ODISCMWC_DATA]]></Field>
 	<Field name="ColPlanComp" type="java.lang.String">null</Field>
 	<Field name="ColTechno" type="java.lang.String"><![CDATA[FILE]]></Field>
 	<Field name="DefConnectId" type="java.lang.String">null</Field>
@@ -1519,7 +1519,7 @@ f.close()]]></Field>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[17182007]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiImportScen -FILE_NAME=<%=odiRef.getSchemaName("ODISVNWC_DATA","W")%>/#scen_no.SnpScen -IMPORT_MODE=SYNONYN_INSERT_UPDATE]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiImportScen -FILE_NAME=<%=odiRef.getSchemaName("ODISCMWC_DATA","W")%>/#scen_no.SnpScen -IMPORT_MODE=SYNONYN_INSERT_UPDATE]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[9120]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
@@ -1541,7 +1541,7 @@ from 	TABLE
 /*$$SNPS_START_KEY
 SNP$CRDWG_TABLE
 SNP$CRTABLE_NAME=SnpScenList<%=odiRef.getSession("SESS_NO")%>
-SNP$CRLOAD_FILE=<%=odiRef.getSchemaName("ODISVNWC_DATA","W")%>/SnpScenList<%=odiRef.getSession("SESS_NO")%>
+SNP$CRLOAD_FILE=<%=odiRef.getSchemaName("ODISCMWC_DATA","W")%>/SnpScenList<%=odiRef.getSession("SESS_NO")%>
 SNP$CRFILE_FORMAT=D
 SNP$CRFILE_SEP_FIELD=2C
 SNP$CRFILE_SEP_LINE=0D0A
@@ -1597,7 +1597,7 @@ $$SNPS_END_KEY*/]]></Field>
 	<Field name="ColIndCommit" type="java.lang.String">null</Field>
 	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
 	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[17188007]]></Field>
-	<Field name="ColLschemaName" type="java.lang.String"><![CDATA[ODISVNWC_DATA]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String"><![CDATA[ODISCMWC_DATA]]></Field>
 	<Field name="ColPlanComp" type="java.lang.String">null</Field>
 	<Field name="ColTechno" type="java.lang.String"><![CDATA[FILE]]></Field>
 	<Field name="DefConnectId" type="java.lang.String">null</Field>
@@ -1646,7 +1646,7 @@ $$SNPS_END_KEY*/]]></Field>
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[17187007]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[!!! DISABLED BY CAUSING AN ERROR! !!!
-f = open('<%=odiRef.getSchemaName("ODISVNWC_DATA","W")%>/SnpScenList<%=odiRef.getSession("SESS_NO")%>.log','a')
+f = open('<%=odiRef.getSchemaName("ODISCMWC_DATA","W")%>/SnpScenList<%=odiRef.getSession("SESS_NO")%>.log','a')
 f.write("#ObjectInternalID" + "," + "#scen_no" + "," + "#scen_name" + "," + "#scen_version" + "\n")
 f.close()]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
@@ -1671,7 +1671,7 @@ from 	TABLE
 /*$$SNPS_START_KEY
 SNP$CRDWG_TABLE
 SNP$CRTABLE_NAME=SnpScenList<%=odiRef.getSession("SESS_NO")%>
-SNP$CRLOAD_FILE=<%=odiRef.getSchemaName("ODISVNWC_DATA","W")%>/SnpScenList<%=odiRef.getSession("SESS_NO")%>
+SNP$CRLOAD_FILE=<%=odiRef.getSchemaName("ODISCMWC_DATA","W")%>/SnpScenList<%=odiRef.getSession("SESS_NO")%>
 SNP$CRFILE_FORMAT=D
 SNP$CRFILE_SEP_FIELD=2C
 SNP$CRFILE_SEP_LINE=0D0A

@@ -363,8 +363,8 @@ raise(a)]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[114751]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[fsrc = open('<?=snpRef.getSchemaName("ODISVNWC_DATA", "D") ?>/#OS.WCConfigMasterSubDir/#OS.DataServerInternalID.SnpConnect','r')
-ftrg = open('<?=snpRef.getSchemaName("ODISVNWC_DATA", "W") ?>/#OS.DataServerInternalID.SnpConnect.<?=snpRef.getSession("S]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[fsrc = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/#OS.WCConfigMasterSubDir/#OS.DataServerInternalID.SnpConnect','r')
+ftrg = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.DataServerInternalID.SnpConnect.<?=snpRef.getSession("S]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -598,8 +598,8 @@ f]]></Field>
 	fsrc.close()
 	ftrg.close()
 
-fsrc = open('<?=snpRef.getSchemaName("ODISVNWC_DATA", "W") ?>/#OS.DataServerInternalID.SnpConnect.<?=snpRef.getSession("SESS_NO") ?>.cleaned', 'r')
-ftrg = open('<?=snpRef.getSchemaName("ODISVNWC_DATA", "D") ?>/#OS]]></Field>
+fsrc = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.DataServerInternalID.SnpConnect.<?=snpRef.getSession("SESS_NO") ?>.cleaned', 'r')
+ftrg = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/#OS]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[13]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -982,8 +982,8 @@ raise(a)]]></Field>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[1426120]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[fsrc = open('<%=odiRef.getSchemaName("ODISVNWC_DATA","D")%>/#WCConfigMasterSubDir/#DataServerInternalID.SnpConnect','r')
-ftrg = open('<%=odiRef.getSchemaName("ODISVNWC_DATA","W")%>/#DataServerInternalID.SnpConnect.<%=odiRef.getSession("SESS_NO")%>.cleaned', 'w')
+	<Field name="Txt" type="java.lang.String"><![CDATA[fsrc = open('<%=odiRef.getSchemaName("ODISCMWC_DATA","D")%>/#WCConfigMasterSubDir/#DataServerInternalID.SnpConnect','r')
+ftrg = open('<%=odiRef.getSchemaName("ODISCMWC_DATA","W")%>/#DataServerInternalID.SnpConnect.<%=odiRef.getSession("SESS_NO")%>.cleaned', 'w')
 
 try:
 	foundConnectStart = 'false'
@@ -1087,8 +1087,8 @@ finally:
 	fsrc.close()
 	ftrg.close()
 
-fsrc = open('<%=odiRef.getSchemaName("ODISVNWC_DATA","W")%>/#DataServerInternalID.SnpConnect.<%=odiRef.getSession("SESS_NO")%>.cleaned', 'r')
-ftrg = open('<%=odiRef.getSchemaName("ODISVNWC_DATA","D")%>/#WCConfigMasterSubDir/#DataServerInternalID.SnpConnect', 'w')
+fsrc = open('<%=odiRef.getSchemaName("ODISCMWC_DATA","W")%>/#DataServerInternalID.SnpConnect.<%=odiRef.getSession("SESS_NO")%>.cleaned', 'r')
+ftrg = open('<%=odiRef.getSchemaName("ODISCMWC_DATA","D")%>/#WCConfigMasterSubDir/#DataServerInternalID.SnpConnect', 'w')
 
 try:
 	lsrc = fsrc.readline()

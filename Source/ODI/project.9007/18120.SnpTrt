@@ -223,8 +223,8 @@ raise(a)]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[import os
 
-checkOutFile = """<?=snpRef.getSchemaName("ODISVNWC_DATA", "D") ?>/#OS.ExportFilePathName/#OS.ExportFileName"""
-checkOutStdFile = """<?=snpRef.getSchemaName("ODISVNWC_DATA", "W") ?>/#OS.ExportFileName"""
+checkOutFile = """<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/#OS.ExportFilePathName/#OS.ExportFileName"""
+checkOutStdFile = """<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.ExportFileName"""
 checkOutStdOutFile = checkOutStdFil]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
@@ -425,8 +425,8 @@ raise(a)]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[import os
 
-checkOutFile = """<%=odiRef.getSchemaName("ODISVNWC_DATA","D")%>/#ExportFilePathName/#ExportFileName"""
-checkOutStdFile = """<%=odiRef.getSchemaName("ODISVNWC_DATA","W")%>/#ExportFileName"""
+checkOutFile = """<%=odiRef.getSchemaName("ODISCMWC_DATA","D")%>/#ExportFilePathName/#ExportFileName"""
+checkOutStdFile = """<%=odiRef.getSchemaName("ODISCMWC_DATA","W")%>/#ExportFileName"""
 checkOutStdOutFile = checkOutStdFile + ".<%=odiRef.getSession("SESS_NO")%>.stdout"
 checkOutStdErrFile = checkOutStdFile + ".<%=odiRef.getSession("SESS_NO")%>.stderr"
 

@@ -153,7 +153,7 @@ raise(a)]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[120751]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiMkDir -DIR=<?=snpRef.getSchemaName("ODISVNWC_DATA", "D") ?>/project.#OS.ProjectInternalID]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiMkDir -DIR=<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/project.#OS.ProjectInternalID]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
@@ -286,7 +286,7 @@ raise(a)]]></Field>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[16164007]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiMkDir -DIR=<%=odiRef.getSchemaName("ODISVNWC_DATA","D")%>/project.#ProjectInternalID]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiMkDir -DIR=<%=odiRef.getSchemaName("ODISCMWC_DATA","D")%>/project.#ProjectInternalID]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[9120]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>

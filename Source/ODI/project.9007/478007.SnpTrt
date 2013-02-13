@@ -438,8 +438,8 @@ i_pschema = '#o3id']]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[115751]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[fsrc = open('<?=snpRef.getSchemaName("ODISVNWC_DATA", "D") ?>/#OS.WCConfigMasterSubDir/#OS.LogicalSchemaInternalID.SnpLschema','r')
-ftrg = open('<?=snpRef.getSchemaName("ODISVNWC_DATA", "W") ?>/#OS.LogicalSchemaInternalID.SnpLschema.<?=snpRef.getSess]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[fsrc = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/#OS.WCConfigMasterSubDir/#OS.LogicalSchemaInternalID.SnpLschema','r')
+ftrg = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.LogicalSchemaInternalID.SnpLschema.<?=snpRef.getSess]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -703,7 +703,7 @@ finally:
 	fsrc.close()
 	ftrg.close()
 
-fsrc = open('<?=snpRef.getSchemaName("ODISVNWC_DATA", "W") ?>/#OS.LogicalSchemaInternalID.SnpLschema.]]></Field>
+fsrc = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.LogicalSchemaInternalID.SnpLschema.]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[14]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -714,7 +714,7 @@ fsrc = open('<?=snpRef.getSchemaName("ODISVNWC_DATA", "W") ?>/#OS.LogicalSchemaI
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[115751]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[<?=snpRef.getSession("SESS_NO") ?>.cleaned', 'r')
-ftrg = open('<?=snpRef.getSchemaName("ODISVNWC_DATA", "D") ?>/#OS.WCConfigMasterSubDir/#OS.LogicalSchemaInternalID.SnpLschema', 'w')
+ftrg = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/#OS.WCConfigMasterSubDir/#OS.LogicalSchemaInternalID.SnpLschema', 'w')
 
 try:
 	lsrc = fsrc.readline()
@@ -957,8 +957,8 @@ finally:
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[16984007]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[fsrc = open('<%=odiRef.getSchemaName("ODISVNWC_DATA","D")%>/#WCConfigMasterSubDir/#LogicalSchemaInternalID.SnpLschema','r')
-ftrg = open('<%=odiRef.getSchemaName("ODISVNWC_DATA","W")%>/#LogicalSchemaInternalID.SnpLschema.<%=odiRef.getSession("SESS_NO")%>.cleaned', 'w')
+	<Field name="Txt" type="java.lang.String"><![CDATA[fsrc = open('<%=odiRef.getSchemaName("ODISCMWC_DATA","D")%>/#WCConfigMasterSubDir/#LogicalSchemaInternalID.SnpLschema','r')
+ftrg = open('<%=odiRef.getSchemaName("ODISCMWC_DATA","W")%>/#LogicalSchemaInternalID.SnpLschema.<%=odiRef.getSession("SESS_NO")%>.cleaned', 'w')
 
 try:
 	foundLschemaStart = 'false'
@@ -1082,8 +1082,8 @@ finally:
 	fsrc.close()
 	ftrg.close()
 
-fsrc = open('<%=odiRef.getSchemaName("ODISVNWC_DATA","W")%>/#LogicalSchemaInternalID.SnpLschema.<%=odiRef.getSession("SESS_NO")%>.cleaned', 'r')
-ftrg = open('<%=odiRef.getSchemaName("ODISVNWC_DATA","D")%>/#WCConfigMasterSubDir/#LogicalSchemaInternalID.SnpLschema', 'w')
+fsrc = open('<%=odiRef.getSchemaName("ODISCMWC_DATA","W")%>/#LogicalSchemaInternalID.SnpLschema.<%=odiRef.getSession("SESS_NO")%>.cleaned', 'r')
+ftrg = open('<%=odiRef.getSchemaName("ODISCMWC_DATA","D")%>/#WCConfigMasterSubDir/#LogicalSchemaInternalID.SnpLschema', 'w')
 
 try:
 	lsrc = fsrc.readline()
