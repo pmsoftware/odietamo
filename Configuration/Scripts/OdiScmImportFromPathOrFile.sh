@@ -89,10 +89,9 @@ then
 	exit 1
 fi
 
-if [ "$2" = "" ]
+if [ "$ODI_HOME" = "" ]
 then
-	echo "$EM no argument for ODI bin directory parameter supplied"
-	echo "$IM usage: $PROG <ODI source code root directory> <ODI bin directory> [ODI source code object list file]"
+	echo "$EM environment variable ODI_HOME is not set"
 	exit 2
 fi
 
@@ -104,7 +103,7 @@ then
 	exit 3
 fi
 
-ODI_BIN_DIR=$2
+ODI_BIN_DIR=$ODI_HOME/bin
 
 if [ ! -d "$ODI_BIN_DIR" ]
 then
@@ -119,7 +118,7 @@ then
 	exit 3
 fi
 
-if [ "$3" = "" ]
+if [ "$2" = "" ]
 then
 	#
 	# Generate the list of files to import.
@@ -193,10 +192,10 @@ else
 	# We've been passed a file of objects to import.
 	# This can be used to manually restart the import operation.
 	#
-	echo "$IM object override list file passed. Using file <$3>"
-	if [ ! -r "$3" ]
+	echo "$IM object override list file passed. Using file <$2>"
+	if [ ! -r "$2" ]
 	then
-		echo "$EM object list file <$3> does not exist"
+		echo "$EM object list file <$2> does not exist"
 		exit 3
 	fi
 	OBJLISTFILE="$3"

@@ -5,38 +5,38 @@ rem
 setlocal enabledelayedexpansion
 
 if "%1" == "" goto ParamCodeMissing
-if "%2" == "" goto ParamOdiBinMissing
+if "%ODI_HOME%" == "" goto OdiHomeMissing
 goto ParamOk
 
 :ParamCodeMissing
 echo ERROR: no argument for code directory root parameter supplied
 goto ShowUsage
 
-:ParamOdiBinMissing
-echo ERROR: no argument for ODI bin directory parameter supplied
+:OdiHomeMissing
+echo ERROR: environment variable ODI_HOME is not set
 goto ShowUsage
 
 :ShowUsage
-echo ERROR: usage: OdiImportFromPathOrFile.bat ^<ODI source code root directory^> ^<ODI bin directory^> [ODI source code object list file]
+echo ERROR: usage: OdiScmImportFromPathOrFile.bat ^<ODI source code root directory^> [ODI source code object list file]
 goto ExitFail
 
 :ParamOk
 set IMPORT_DIR=%1
-set ODI_BIN_DIR=%2
+set ODI_BIN_DIR=%ODI_HOME%\bin
 
-if "%3" == "" goto NoObjFilePassed
+if "%2" == "" goto NoObjFilePassed
 
 rem
 rem We've been passed a file of objects to import.
 rem This can be used to manually restart the import operation.
 rem
 echo INFO: object override list file passed. Using file "%3"
-if EXIST "%3" goto PassedObjFileExists
+if EXIST "%2" goto PassedObjFileExists
 
-echo ERROR: object list file "%3" does not exist
+echo ERROR: object list file "%2" does not exist
 goto ExitFail
 
-set OBJLISTFILE=%3%
+set OBJLISTFILE=%2%
 goto StartImport
 
 :NoObjFilePassed
