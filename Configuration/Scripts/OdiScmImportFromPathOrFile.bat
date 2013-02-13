@@ -1,4 +1,8 @@
 @echo off
+set FN=OdiScmImportFromPathOrFile
+set IM=%FN%: INFO:
+set EM=%FN%: ERROR:
+
 rem
 rem Enable variables to be expanded as, not before, commands are executed.
 rem
@@ -9,15 +13,15 @@ if "%ODI_HOME%" == "" goto OdiHomeMissing
 goto ParamOk
 
 :ParamCodeMissing
-echo ERROR: no argument for code directory root parameter supplied
+echo %EM% no argument for code directory root parameter supplied
 goto ShowUsage
 
 :OdiHomeMissing
-echo ERROR: environment variable ODI_HOME is not set
+echo %EM% environment variable ODI_HOME is not set
 goto ShowUsage
 
 :ShowUsage
-echo ERROR: usage: OdiScmImportFromPathOrFile.bat ^<ODI source code root directory^> [ODI source code object list file]
+echo %EM% usage: OdiScmImportFromPathOrFile.bat ^<ODI source code root directory^> [ODI source code object list file]
 goto ExitFail
 
 :ParamOk
@@ -30,10 +34,10 @@ rem
 rem We've been passed a file of objects to import.
 rem This can be used to manually restart the import operation.
 rem
-echo INFO: object override list file passed. Using file "%3"
+echo %IM% object override list file passed. Using file "%3"
 if EXIST "%2" goto PassedObjFileExists
 
-echo ERROR: object list file "%2" does not exist
+echo %EM% object list file "%2" does not exist
 goto ExitFail
 
 set OBJLISTFILE=%2%
@@ -43,7 +47,7 @@ goto StartImport
 rem
 rem Generate the list of files to import.
 rem
-echo INFO: no object override list file passed. Looking for files at "%1"
+echo %IM% no object override list file passed. Looking for files at "%1"
 set OBJLISTDIR=C:\MOI\Logs
 mkdir %OBJLISTDIR% >NUL 2>&1
 call :SetDateTimeStrings
@@ -143,9 +147,9 @@ for /f %%A in (%OBJLISTFILE%) do (
 	REM )
 	
 	if "!IMPORTFILEEXT2!"=="" (
-		echo INFO: importing file "!IMPORTFILENAME!.!IMPORTFILEEXT!" from path "!IMPORTFILEPATH!"
+		echo %IM% importing file ^<!IMPORTFILENAME!.!IMPORTFILEEXT!^> from path ^<!IMPORTFILEPATH!^>
 	) else (
-		echo INFO: importing file "!IMPORTFILENAME!.!IMPORTFILEEXT!.!IMPORTFILENAME2!.!IMPORTFILEEXT2!" from path "!IMPORTFILEPATH!"
+		echo %IM% importing file ^<!IMPORTFILENAME!.!IMPORTFILEEXT!.!IMPORTFILENAME2!.!IMPORTFILEEXT2!^> from path ^<!IMPORTFILEPATH!^>
 	)
 	
 	set CONTAINEROBJTYPE=FALSE
@@ -158,14 +162,14 @@ for /f %%A in (%OBJLISTFILE%) do (
 	)
 	
 	if !CONTAINEROBJTYPE!==TRUE (
-		echo INFO: object type is a container
+		echo %IM% object type is a container
 		if "!IMPORTFILEEXT2!"=="" (
 			call :ImportContainerObject !IMPORTFILEPATH!!IMPORTFILENAME!.!IMPORTFILEEXT!
 		) else (
 			call :ImportContainerObject !IMPORTFILEPATH!!IMPORTFILENAME!.!IMPORTFILEEXT!.!IMPORTFILENAME2!.!IMPORTFILEEXT2!
 		)
 	) else (
-		echo INFO: object type is not a container
+		echo %IM% object type is not a container
 		if "!IMPORTFILEEXT2!"=="" (
 			call :ImportObject !IMPORTFILEPATH!!IMPORTFILENAME!.!IMPORTFILEEXT!
 		) else (
@@ -180,12 +184,12 @@ for /f %%A in (%OBJLISTFILE%) do (
 	)
 )
 
-echo INFO: successfully completed import of Work Repository objects
-echo INFO: successfully completed import process
+echo %IM% successfully completed import of Work Repository objects
+echo %IM% successfully completed import process
 exit /b 0
 
 :ExitFail
-echo ERROR: import process failed
+echo %EM% import process failed
 exit /b 1
 
 rem *************************************************************
@@ -221,36 +225,36 @@ exit /b 0
 rem *************************************************************
 :ImportObject
 rem *************************************************************
-echo INFO: importing non-container type object from file "%1"
-echo INFO: datetime is %DATE% %TIME%
+echo %IM% importing non-container type object from file ^<%1^>
+echo %IM% datetime is %DATE% %TIME%
 cd /d %ODI_BIN_DIR%
 call startcmd.bat OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_INSERT_UPDATE -WORK_REP_NAME=WORKREP
 if ERRORLEVEL 1 goto IOFail
 goto :eof
 :IOFail
-echo ImportObject: ERROR: cannot import file "%1"
+echo ImportObject: %EM% cannot import file ^<%1^>
 set ERROROCCURED=Y
 exit /b 1
 rem *************************************************************
 :ImportContainerObject
 rem *************************************************************
-echo INFO: importing container type object from file "%1"
-echo INFO: datetime is %DATE% %TIME%
+echo %IM% importing container type object from file ^<%1^>
+echo %IM% datetime is %DATE% %TIME%
 cd /d %ODI_BIN_DIR%
 rem
 rem We try update first so that if there's nothing to update the operation is fairly quick.
 rem
-echo INFO: trying SYNONYNM_UPDATE import mode
+echo %IM% trying SYNONYNM_UPDATE import mode
 call startcmd.bat OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_UPDATE
 if ERRORLEVEL 1 goto ICOFail
 rem
 rem The insert should do nothing and return exit status of 0 if the object already exists.
 rem
-echo INFO: trying SYNONYM_INSERT import mode
+echo %IM% trying SYNONYM_INSERT import mode
 call startcmd.bat OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_INSERT
 if ERRORLEVEL 1 goto ICOFail
 goto :eof
 :ICOFail
-echo ImportContainerObject: ERROR: cannot import file "%1"
+echo ImportContainerObject: %EM% cannot import file ^<%1^>
 set ERROROCCURED=Y
 exit /b 1

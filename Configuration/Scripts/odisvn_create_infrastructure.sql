@@ -113,16 +113,16 @@ BEGIN
 	 WHERE db_link = 'ODIWORKREP_DATA'
 	;
 
-	--IF l_count = 0
-	--THEN
-	--	BEGIN
-	--		EXECUTE IMMEDIATE l_crt_work_link_ddl;
-	--	EXCEPTION
-	--		WHEN OTHERS
-	--		THEN
-	--			raise_application_error(-20000, 'Cannot create database link ODIWORKREP_DATA');
-	--	END;
-	--END IF;
+	IF l_count = 0
+	THEN
+		BEGIN
+			EXECUTE IMMEDIATE l_crt_work_link_ddl;
+		EXCEPTION
+			WHEN OTHERS
+			THEN
+				raise_application_error(-20000, 'Cannot create database link ODIWORKREP_DATA');
+		END;
+	END IF;
 
 END;
 /
