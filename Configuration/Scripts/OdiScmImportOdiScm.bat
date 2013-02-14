@@ -3,6 +3,20 @@ set FN=OdiScmImportOdiScm
 set IM=%FN%: INFO:
 set EM=%FN%: ERROR:
 
+set PRIMEMETADATA=TRUE
+
+if "%1" == "" goto ArgsOk
+
+if "%1" == "NoExportPrime" (
+	set PRIMEMETADATA=FALSE
+	goto ArgsOk
+)
+
+echo %EM% invalid argument ^<%1%^>
+echo %IM% usage OdiScmImportOdiScm [NoExportPrime]
+goto ExitFail
+
+:ArgsOk
 if "%ODI_HOME%" == "" goto NoOdiHomeError
 goto OdiHomeOk
 
@@ -37,7 +51,7 @@ set TEMPDIR=%TMP%
 goto StartImport
 
 :NoTmpDir
-set TEMPDIR=%CD%w
+set TEMPDIR=%CD%
 
 :StartImport
 echo %IM% using temporary directory ^<%TEMPDIR%^>
@@ -46,6 +60,7 @@ echo %IM% starting import of ODI-SCM repository objects
 call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat %ODI_SCM_HOME%\Source\ODI
 if ERRORLEVEL 1 goto ImportFail
 
+echo %IM% completed import of ODI-SCM repository objects
 goto CreateOdiScmInfrastructure
 
 :ImportFail
@@ -56,69 +71,9 @@ goto ExitFail
 set TEMPSTR=%RANDOM%
 
 rem
-rem Extract the repository connection details from odiparams.bat.
-rem
-set TEMPFILE=%TEMPDIR%\%TEMPSTR%_OdiScmImportOdiScm.txt
-
-set MSG=extracting ODI_SECU_DRIVER
-cat %ODI_HOME%\bin\odiparams.bat | gawk "/^set ODI_SECU_DRIVER/ { print $0 }" | tail -1 | cut -f2 -d= > %TEMPFILE%
-if ERRORLEVEL 1 goto GetOdiParamsParseFail
-set /p ODI_SECU_DRIVER=<%TEMPFILE%
-
-set MSG=extracting ODI_SECU_URL
-cat %ODI_HOME%\bin\odiparams.bat | gawk "/^set ODI_SECU_URL/ { print $0 }" | tail -1 | cut -f2 -d= > %TEMPFILE%
-if ERRORLEVEL 1 goto GetOdiParamsParseFail
-set /p ODI_SECU_URL=<%TEMPFILE%
-
-set MSG=extracting ODI_SECU_USER
-cat %ODI_HOME%\bin\odiparams.bat | gawk "/^set ODI_SECU_USER/ { print $0 }" | tail -1 | cut -f2 -d= > %TEMPFILE%
-if ERRORLEVEL 1 goto GetOdiParamsParseFail
-set /p ODI_SECU_USER=<%TEMPFILE%
-
-set MSG=extracting ODI_SECU_PASS
-cat %ODI_HOME%\bin\odiparams.bat | gawk "/^set ODI_SECU_PASS/ { print $0 }" | tail -1 | cut -f2 -d= > %TEMPFILE%
-if ERRORLEVEL 1 goto GetOdiParamsParseFail
-set /p ODI_SECU_PASS=<%TEMPFILE%
-
-echo %IM% completed parsing of odiparams.bat
-echo %IM% extracted ODI_SECU_DRIVER ^<%ODI_SECU_DRIVER%^>
-echo %IM% extracted ODI_SECU_URL ^<%ODI_SECU_URL%^>
-echo %IM% extracted ODI_SECU_USER ^<%ODI_SECU_USER%^>
-echo %IM% extracted ODI_SECU_PASS ^<%ODI_SECU_PASS%^>
-
-goto OdiParamsParsedOk
-
-:GetOdiParamsParseFail
-echo %EM% %MSG%
-goto ExitFail
-
-:OdiParamsParsedOk
-echo %ODI_SECU_URL%|cut -f4 -d:|sed s/@// > %TEMPFILE%
-if ERRORLEVEL 1 goto ConnStringGenFail
-set /p ODI_SECU_URL_HOST=<%TEMPFILE%
-
-echo %ODI_SECU_URL%|cut -f5 -d: > %TEMPFILE%
-if ERRORLEVEL 1 goto ConnStringGenFail
-set /p ODI_SECU_URL_PORT=<%TEMPFILE%
-
-echo %ODI_SECU_URL%|cut -f6 -d: > %TEMPFILE%
-if ERRORLEVEL 1 goto ConnStringGenFail
-set /p ODI_SECU_URL_SID=<%TEMPFILE%
-
-echo %IM% extracted ODI_SECU_URL_HOST ^<%ODI_SECU_URL_HOST%^>
-echo %IM% extracted ODI_SECU_URL_PORT ^<%ODI_SECU_URL_PORT%^>
-echo %IM% extracted ODI_SECU_URL_SID ^<%ODI_SECU_URL_SID%^>
-
-goto ConnStringGenOk
-
-:ConnStringGenFail
-echo %EM% extracting host/port/SID from connection URL
-goto ExitFail
-
-:ConnStringGenOk
-rem
 rem Create a version of the ODI-SCM infrastructure setup script for this repository.
 rem
+set TEMPFILE=%TEMPDIR%\%TEMPSTR%_OdiScmImportOdiScm.txt
 cat %ODI_SCM_HOME%\Configuration\Scripts\odisvn_create_infrastructure.sql | sed s/"<OdiWorkRepoUserName>"/%ODI_SECU_USER%/ > %TEMPFILE%
 if ERRORLEVEL 1 goto ScriptGenFail
 
@@ -139,8 +94,11 @@ goto ExitFail
 rem
 rem Run the generated ODI-SCM repository infrastructure set up script.
 rem
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %TEMPFILE%3
+echo %IM% creating ODI-SCM repository objects
+call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat %TEMPFILE%
 if ERRORLEVEL 1 goto CreateInfrastructureFail
+
+echo %IM% completed creation of ODI-SCM repository objects
 goto CreateInfrastructureOk
 
 :CreateInfrastructureFail
@@ -148,11 +106,16 @@ echo %EM% creating ODI-SCM infrastructure
 goto ExitFail
 
 :CreateInfrastructureOk
+if %PRIMEMETADATA% == FALSE goto ExitOk
+
 rem
 rem Prime the export control metadata.
 rem
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql
+echo %IM% priming ODI-SCM export control metadata
+call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat %ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql
 if ERRORLEVEL 1 goto PrimeExportControlFail
+
+echo %IM% completed priming of ODI-SCM export control metadata
 goto PrimeExportControlOk
 
 :PrimeExportControlFail
@@ -161,6 +124,7 @@ goto ExitFail
 
 :PrimeExportControlOk
 echo %IM% import of ODI-SCM ODI components completed successfully
+
 goto ExitOk
 
 :ExitFail

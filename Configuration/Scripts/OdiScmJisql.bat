@@ -1,11 +1,14 @@
 @echo off
 setlocal
-
-set IM=MoiJisql: INFO:
-set EM=MoiJisql: ERROR:
+REM
+REM Execute a SQL script against the passed data server.
+REM
+set FN=OdiScmJisql
+set IM=%FN%: INFO:
+set EM=%FN%: ERROR:
 
 echo %IM% UserName is ^<%1^>
-echo %IM% PassWord is ^<%2
+echo %IM% PassWord is ^<%2^>
 echo %IM% Driver is ^<%3^>
 echo %IM% Url is ^<%4^>
 echo %IM% Script is ^<%5^>

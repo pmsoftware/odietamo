@@ -34,7 +34,7 @@ rem
 rem We've been passed a file of objects to import.
 rem This can be used to manually restart the import operation.
 rem
-echo %IM% object override list file passed. Using file "%3"
+echo %IM% object override list file passed. Using file ^<%3^>
 if EXIST "%2" goto PassedObjFileExists
 
 echo %EM% object list file "%2" does not exist
@@ -47,7 +47,7 @@ goto StartImport
 rem
 rem Generate the list of files to import.
 rem
-echo %IM% no object override list file passed. Looking for files at "%1"
+echo %IM% no object override list file passed. Looking for files at ^<%1^>
 set OBJLISTDIR=C:\MOI\Logs
 mkdir %OBJLISTDIR% >NUL 2>&1
 call :SetDateTimeStrings
