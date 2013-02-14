@@ -3,7 +3,7 @@ set FN=OdiScmImportOdiScm
 set IM=%FN%: INFO:
 set EM=%FN%: ERROR:
 
-set PRIMEMETADATA=TRUE
+set PRIMEMETADATA=FALSE
 
 if "%1" == "" goto ArgsOk
 
@@ -12,8 +12,18 @@ if "%1" == "NoExportPrime" (
 	goto ArgsOk
 )
 
+if "%1" == "ExportPrimeFirst" (
+	set PRIMEMETADATA=FIRST
+	goto ArgsOk
+)
+
+if "%1" == "ExportPrimeLast" (
+	set PRIMEMETADATA=LAST
+	goto ArgsOk
+)
+
 echo %EM% invalid argument ^<%1%^>
-echo %IM% usage OdiScmImportOdiScm [NoExportPrime]
+echo %IM% usage OdiScmImportOdiScm ^[NoExportPrime ^| ExportPrimeFirst ^| ExportPrimeLast^]
 goto ExitFail
 
 :ArgsOk
@@ -43,36 +53,24 @@ goto ExitFail
 :OdiScmJisqlHomeOk
 if "%TEMP%" == "" goto NoTempDir
 set TEMPDIR=%TEMP%
-goto StartImport
+goto GotTempDir
 
 :NoTempDir
 if "%TMP%" == "" goto NoTmpDir
 set TEMPDIR=%TMP%
-goto StartImport
+goto GotTempDir
 
 :NoTmpDir
 set TEMPDIR=%CD%
 
-:StartImport
+:GotTempDir
 echo %IM% using temporary directory ^<%TEMPDIR%^>
-
-echo %IM% starting import of ODI-SCM repository objects
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat %ODI_SCM_HOME%\Source\ODI
-if ERRORLEVEL 1 goto ImportFail
-
-echo %IM% completed import of ODI-SCM repository objects
-goto CreateOdiScmInfrastructure
-
-:ImportFail
-echo %EM% importing ODI-SCM repository objects
-goto ExitFail
-
-:CreateOdiScmInfrastructure
-set TEMPSTR=%RANDOM%
 
 rem
 rem Create a version of the ODI-SCM infrastructure setup script for this repository.
 rem
+set TEMPSTR=%RANDOM%
+
 set TEMPFILE=%TEMPDIR%\%TEMPSTR%_OdiScmImportOdiScm.txt
 cat %ODI_SCM_HOME%\Configuration\Scripts\odisvn_create_infrastructure.sql | sed s/"<OdiWorkRepoUserName>"/%ODI_SECU_USER%/ > %TEMPFILE%
 if ERRORLEVEL 1 goto ScriptGenFail
@@ -95,7 +93,7 @@ rem
 rem Run the generated ODI-SCM repository infrastructure set up script.
 rem
 echo %IM% creating ODI-SCM repository objects
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat %TEMPFILE%
+call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat %TEMPFILE%3
 if ERRORLEVEL 1 goto CreateInfrastructureFail
 
 echo %IM% completed creation of ODI-SCM repository objects
@@ -106,23 +104,46 @@ echo %EM% creating ODI-SCM infrastructure
 goto ExitFail
 
 :CreateInfrastructureOk
-if %PRIMEMETADATA% == FALSE goto ExitOk
 
-rem
-rem Prime the export control metadata.
-rem
-echo %IM% priming ODI-SCM export control metadata
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat %ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql
-if ERRORLEVEL 1 goto PrimeExportControlFail
+if %PRIMEMETADATA% == FALSE goto StartImport
 
-echo %IM% completed priming of ODI-SCM export control metadata
-goto PrimeExportControlOk
+if %PRIMEMETADATA% == LAST goto StartImport
 
-:PrimeExportControlFail
-echo %EM% priming ODI-SCM export metadata
+call :PrimeExport
+if ERRORLEVEL 1 goto PrimeExportFirstFail
+goto StartImport
+
+:PrimeExportFirstFail
+echo %EM% priming ODI-SCM export metadata before ODI-SCM import
 goto ExitFail
 
-:PrimeExportControlOk
+:StartImport
+echo %IM% starting import of ODI-SCM repository objects
+call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat %ODI_SCM_HOME%\Source\ODI
+if ERRORLEVEL 1 goto ImportFail
+
+echo %IM% completed import of ODI-SCM repository objects
+goto ImportOk
+
+:ImportFail
+echo %EM% importing ODI-SCM repository objects
+goto ExitFail
+
+:ImportOk
+
+if %PRIMEMETADATA% == FALSE goto PrimeExportLastOk
+
+if %PRIMEMETADATA% == FIRST goto PrimeExportLastOk
+
+call :PrimeExport
+if ERRORLEVEL 1 goto PrimeExportLastFail
+goto PrimeExportLastOk
+
+:PrimeExportLastFail
+echo %EM% priming ODI-SCM export metadata after ODI-SCM import
+goto ExitFail
+
+:PrimeExportLastOk
 echo %IM% import of ODI-SCM ODI components completed successfully
 
 goto ExitOk
@@ -132,3 +153,24 @@ exit /b 1
 
 :ExitOk
 exit /b 0
+
+rem *************************************************************
+rem **                    S U B R O U T I N E S                **
+rem *************************************************************
+
+rem *************************************************************
+:PrimeExport
+rem *************************************************************
+rem
+rem Prime the export control metadata.
+rem
+echo %IM% priming ODI-SCM export control metadata
+call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat %ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql
+if ERRORLEVEL 1 goto PrimeExportControlFail
+
+echo %IM% completed priming of ODI-SCM export control metadata
+goto :eof
+
+:PrimeExportControlFail
+echo %EM% priming ODI-SCM export metadata
+exit /b 1

@@ -1723,7 +1723,8 @@ MATCHED
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT i_mod
            AS oid
-     , mod_name
+     , REPLACE(mod_name, ' ', '_')
+           AS mod_name
   FROM snp_model
  WHERE last_date >= 
        (

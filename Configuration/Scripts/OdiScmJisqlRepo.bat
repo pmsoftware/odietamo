@@ -8,6 +8,7 @@ set IM=%FN%: INFO:
 set EM=%FN%: ERROR:
 
 if "%ODI_HOME%" == "" goto NoOdiHomeError
+echo %IM% using ODI_HOME directory ^<%ODI_HOME%^>
 goto OdiHomeOk
 
 :NoOdiHomeError
@@ -16,6 +17,7 @@ goto ExitFail
 
 :OdiHomeOk
 if "%ODI_SCM_HOME%" == "" goto NoOdiScmHomeError
+echo %IM% using ODI_SCM_HOME directory ^<%ODI_SCM_HOME%^>
 goto OdiScmHomeOk
 
 :NoOdiScmHomeError
@@ -24,6 +26,7 @@ goto ExitFail
 
 :OdiScmHomeOk
 if "%ODI_SCM_JISQL_HOME%" == "" goto NoOdiScmJisqlScmHomeError
+echo %IM% using ODI_SCM_JISQL_HOME directory ^<%ODI_SCM_JISQL_HOME%^>
 goto OdiScmJisqlHomeOk
 
 :NoOdiScmJisqlScmHomeError

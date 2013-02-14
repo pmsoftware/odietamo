@@ -7,6 +7,8 @@ set FN=OdiScmJisql
 set IM=%FN%: INFO:
 set EM=%FN%: ERROR:
 
+echo %IM% starts
+
 echo %IM% UserName is ^<%1^>
 echo %IM% PassWord is ^<%2^>
 echo %IM% Driver is ^<%3^>
@@ -38,6 +40,7 @@ set STDERRFILE=%7
 
 :RunIt
 if "%JAVA_HOME%" == "" goto NoJavaHomeError
+echo %IM% using JAVA_HOME ^<%JAVA_HOME%^>
 goto JavaHomeOk
 
 :NoJavaHomeError
@@ -53,7 +56,7 @@ echo %EM% environment variable ODI_HOME is not set
 exit /b 1
 
 :OdiHomeOk
-set PATH=%JAVA_HOME%\bin;%PATH%
+set PATH="%JAVA_HOME%\bin";%PATH%
 set JISQL_LIB=%ODI_SCM_JISQL_HOME%/lib
 
 echo %IM% executing command ^<java -classpath %JISQL_LIB%/jisql.jar;%JISQL_LIB%/jopt-simple-3.2.jar;%JISQL_LIB%/javacsv.jar;%ODI_HOME%/drivers/ojdbc5.zip;%ODI_HOME%/drivers/classes12.zip com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5^>
