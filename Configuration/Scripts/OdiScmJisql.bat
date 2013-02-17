@@ -67,9 +67,24 @@ set JISQL_CLASS_PATH=
 setlocal enabledelayedexpansion
 for /f %%f in ('dir /b %JISQL_LIB%') do (
 	echo %IM% adding file ^<%%f^>
-	set JISQL_CLASS_PATH=%JISQL_LIB%\%%f;!JISQL_CLASS_PATH!
+	if "!JISQL_CLASS_PATH!" == "" (
+		set JISQL_CLASS_PATH=%JISQL_LIB%\%%f
+	) else (
+		set JISQL_CLASS_PATH=%JISQL_LIB%\%%f;!JISQL_CLASS_PATH!
+	)
+)
+
+echo %IM% adding files from OracleDI drivers directory ^<%ODI_HOME%	^> to class path
+
+for /f %%f in ('dir /b %ODI_HOME%\drivers') do (
+	echo %IM% adding file ^<%%f^>
+	if "!JISQL_CLASS_PATH!" == "" (
+		set JISQL_CLASS_PATH=%ODI_HOME%\drivers\%%f
+	) else (
+		set JISQL_CLASS_PATH=%ODI_HOME%\drivers\%%f;!JISQL_CLASS_PATH!
+	)
 )
 echo %IM% Jisql class path ^<%JISQL_CLASS_PATH%^>
 
-echo %IM% executing command ^<java -classpath %JISQL_CLASS_PATH%;%ODI_HOME%\drivers\ojdbc5.zip;%ODI_HOME%\drivers\classes12.zip com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5^>
-java -classpath %JISQL_CLASS_PATH%;%ODI_HOME%\drivers\ojdbc5.zip;%ODI_HOME%\drivers\classes12.zip com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 >%STDOUTFILE% 2>%STDERRFILE%
+echo %IM% executing command ^<java -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5^>
+java -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 >%STDOUTFILE% 2>%STDERRFILE%
