@@ -57,7 +57,19 @@ exit /b 1
 
 :OdiHomeOk
 set PATH="%JAVA_HOME%\bin";%PATH%
-set JISQL_LIB=%ODI_SCM_JISQL_HOME%/lib
+set JISQL_LIB=%ODI_SCM_JISQL_HOME%\lib
 
-echo %IM% executing command ^<java -classpath %JISQL_LIB%/jisql.jar;%JISQL_LIB%/jopt-simple-3.2.jar;%JISQL_LIB%/javacsv.jar;%ODI_HOME%/drivers/ojdbc5.zip;%ODI_HOME%/drivers/classes12.zip com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5^>
-java -classpath %JISQL_LIB%/jisql.jar;%JISQL_LIB%/jopt-simple-3.2.jar;%JISQL_LIB%/javacsv.jar;%ODI_HOME%/drivers/ojdbc5.zip;%ODI_HOME%/drivers/classes12.zip com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 >%STDOUTFILE% 2>%STDERRFILE%
+REM
+REM Build the class path.
+REM
+echo %IM% adding files from Jisql lib directory ^<%JISQL_LIB%^> to class path
+set JISQL_CLASS_PATH=
+setlocal enabledelayedexpansion
+for /f %%f in ('dir /b %JISQL_LIB%') do (
+	echo %IM% adding file ^<%%f^>
+	set JISQL_CLASS_PATH=%JISQL_LIB%\%%f;!JISQL_CLASS_PATH!
+)
+echo %IM% Jisql class path ^<%JISQL_CLASS_PATH%^>
+
+echo %IM% executing command ^<java -classpath %JISQL_CLASS_PATH%;%ODI_HOME%\drivers\ojdbc5.zip;%ODI_HOME%\drivers\classes12.zip com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5^>
+java -classpath %JISQL_CLASS_PATH%;%ODI_HOME%\drivers\ojdbc5.zip;%ODI_HOME%\drivers\classes12.zip com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 >%STDOUTFILE% 2>%STDERRFILE%
