@@ -112,7 +112,7 @@ BEGIN
 	  FROM user_db_links
 	 WHERE db_link = 'ODIWORKREP_DATA'
 	;
-
+	
 	IF l_count = 0
 	THEN
 		BEGIN

@@ -66,6 +66,16 @@ set TEMPDIR=%CD%
 :GotTempDir
 echo %IM% using temporary directory ^<%TEMPDIR%^>
 
+set EMPTYFILE=%TEMPDIR%\%RANDOM%_OdiScm_Empty.txt
+type nul > %EMPTYFILE%
+if ERRORLEVEL 1 goto CreateEmptyFileFail
+echo %IM% created empty file ^<%EMPTYFILE%^>
+goto CreateEmptyFileOk
+
+:CreateEmptyFileFail
+echo %EM% cannot create empty file ^<%EMPTYFILE%^>
+
+:CreateEmptyFileOk
 rem
 rem Create a version of the ODI-SCM infrastructure setup script for this repository.
 rem
@@ -90,20 +100,42 @@ goto ExitFail
 
 :ScriptGenOk
 rem
+rem Define files used to capture standard output and standard error channels.
+rem
+set TEMPFILESTR=%RANDOM%
+set STDOUTFILE=%TEMPDIR%\%TEMPFILESTR%_OdiScmImportOdiScm_StdOut.log
+set STDERRFILE=%TEMPDIR%\%TEMPFILESTR%_OdiScmImportOdiScm_StdErr.log
+
+rem
 rem Run the generated ODI-SCM repository infrastructure set up script.
 rem
 echo %IM% creating ODI-SCM repository objects
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat %TEMPFILE%3
+call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat %TEMPFILE%3 %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto CreateInfrastructureFail
 
-echo %IM% completed creation of ODI-SCM repository objects
-goto CreateInfrastructureOk
+goto CreateInfrastructureChkStdErr
 
 :CreateInfrastructureFail
-echo %EM% creating ODI-SCM infrastructure
+echo %EM% Batch file MoiJisqlRepo.bat returned non-zero ERRORLEVEL
+echo %IM% StdErr content:
+type %STDERRFILE%
+goto ExitFail
+
+:CreateInfrastructureChkStdErr
+rem
+rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.
+rem 
+echo %IM% Batch file MoiJisqlRepo.bat returned zero ERRORLEVEL
+fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
+if not ERRORLEVEL 1 goto CreateInfrastructureOk
+
+echo %IM% Batch file MoiJisqlRepo.bat returned StdErr content:
+type %STDERRFILE%
+
 goto ExitFail
 
 :CreateInfrastructureOk
+echo %IM% completed creation of ODI-SCM repository objects
 
 if %PRIMEMETADATA% == FALSE goto StartImport
 

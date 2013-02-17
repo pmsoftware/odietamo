@@ -62,11 +62,11 @@ set JISQL_LIB=%ODI_SCM_JISQL_HOME%\lib
 REM
 REM Build the class path.
 REM
-echo %IM% adding files from Jisql lib directory ^<%JISQL_LIB%^> to class path
+REM echo %IM% adding files from Jisql lib directory ^<%JISQL_LIB%^> to class path
 set JISQL_CLASS_PATH=
 setlocal enabledelayedexpansion
 for /f %%f in ('dir /b %JISQL_LIB%') do (
-	echo %IM% adding file ^<%%f^>
+	REM echo %IM% adding file ^<%%f^>
 	if "!JISQL_CLASS_PATH!" == "" (
 		set JISQL_CLASS_PATH=%JISQL_LIB%\%%f
 	) else (
@@ -74,10 +74,10 @@ for /f %%f in ('dir /b %JISQL_LIB%') do (
 	)
 )
 
-echo %IM% adding files from OracleDI drivers directory ^<%ODI_HOME%	^> to class path
+REM echo %IM% adding files from OracleDI drivers directory ^<%ODI_HOME%	^> to class path
 
 for /f %%f in ('dir /b %ODI_HOME%\drivers') do (
-	echo %IM% adding file ^<%%f^>
+	REM echo %IM% adding file ^<%%f^>
 	if "!JISQL_CLASS_PATH!" == "" (
 		set JISQL_CLASS_PATH=%ODI_HOME%\drivers\%%f
 	) else (

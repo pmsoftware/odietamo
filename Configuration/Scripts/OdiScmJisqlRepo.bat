@@ -117,9 +117,9 @@ goto ExitFail
 
 :ConnStringGenOk
 rem
-rem Run the script file.
+rem Run the script file. Pass through any StdOut and StdErr capture file paths/names.
 rem
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %SCRIPTFILE%
+call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %SCRIPTFILE% %2 %3
 if ERRORLEVEL 1 goto RunScriptFail
 goto RunScriptOk
 
