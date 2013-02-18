@@ -9,6 +9,18 @@ set EM=%FN%: ERROR:
 
 echo %IM% starts
 
+set ISBATCHEXIT=
+
+if "%1" == "/b" goto IsBatchExit
+if "%1" == "/B" goto IsBatchExit
+
+goto IsNotBatchExit
+
+:IsBatchExit
+set ISBATCHEXIT=/b
+shift
+
+:IsNotBatchExit
 echo %IM% UserName is ^<%1^>
 echo %IM% PassWord is ^<%2^>
 echo %IM% Driver is ^<%3^>
@@ -45,7 +57,7 @@ goto JavaHomeOk
 
 :NoJavaHomeError
 echo %EM% environment variable JAVA_HOME is not set
-exit /b 1
+exit %ISBATCHEXIT% 1
 
 :JavaHomeOk
 if "%ODI_HOME%" == "" goto NoOdiHomeError
@@ -53,7 +65,7 @@ goto OdiHomeOk
 
 :NoOdiHomeError
 echo %EM% environment variable ODI_HOME is not set
-exit /b 1
+exit %ISBATCHEXIT% 1
 
 :OdiHomeOk
 set PATH="%JAVA_HOME%\bin";%PATH%
@@ -88,3 +100,9 @@ echo %IM% Jisql class path ^<%JISQL_CLASS_PATH%^>
 
 echo %IM% executing command ^<java -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5^>
 java -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 >%STDOUTFILE% 2>%STDERRFILE%
+
+if ERRORLEVEL 1 goto ExitFail
+exit %ISBATCHEXIT% 0
+
+ExitFail
+exit %ISBATCHEXIT% 1

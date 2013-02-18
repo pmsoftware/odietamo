@@ -3,6 +3,19 @@
 set IM=OdiScmJisqlRepo: INFO:
 set EM=OdiScmJisqlRepo: ERROR:
 
+set ISBATCHEXIT=
+
+if "%1" == "/b" goto IsBatchExit
+if "%1" == "/B" goto IsBatchExit
+
+goto IsNotBatchExit
+
+:IsBatchExit
+set ISBATCHEXIT=/b
+shift
+
+:IsNotBatchExit
+
 echo %IM% Script=%1
 echo %IM% StdOutFile=%2
 echo %IM% StdErrFile=%3
@@ -15,7 +28,7 @@ call <ScriptsRootDir>\OdiScmJisql.bat <SECURITY_USER> <SECURITY_UNENC_PWD> <SECU
 if ERRORLEVEL 1 goto ExitFail
 
 :ExitOk
-exit /b 0
+exit %ISBATCHEXIT% 0
 
 :ExitFail
-exit /b 1
+exit %ISBATCHEXIT% 1

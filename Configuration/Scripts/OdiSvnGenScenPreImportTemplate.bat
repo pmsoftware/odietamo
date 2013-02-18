@@ -2,14 +2,37 @@
 
 set EXITSTATUS=0
 set FILENO=%RANDOM%
-set EMPTYFILE=C:\MOI\Configuration\EmptyFileDoNotDelete.txt
 
+if "%TEMP%" == "" goto NoTempDir
+set TEMPDIR=%TEMP%
+goto GotTempDir
+
+:NoTempDir
+if "%TMP%" == "" goto NoTmpDir
+set TEMPDIR=%TMP%
+goto GotTempDir
+
+:NoTmpDir
+set TEMPDIR=%CD%
+
+:GotTempDir
+set EMPTYFILE=%TEMPDIR%\%RANDOM%_OdiScm_PreImport_EmptyFile.txt
+
+type NUL > %EMPTYFILE%
+if ERRORLEVEL 1 goto CreateEmptyFileFail
+goto CreateEmptyFileOk
+
+:CreateEmptyFileFail
+echo %EM creating empty file ^<%EMPTYFILE^>
+goto ExitFail
+
+:CreateEmptyFileOk
 call :SetDateTimeStrings
 
 set STDOUTFILE=<GenScriptRootDir>\odisvn_genscen_10_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\odisvn_genscen_10_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call <GenScriptRootDir>\OdiScmJisqlRepo.bat C:\MOI\Configuration\Scripts\odisvn_genscen_10_initialise.sql %STDOUTFILE% %STDERRFILE%
+call <GenScriptRootDir>\OdiScmJisqlRepo.bat <OdiScmHome>\Configuration\Scripts\odisvn_genscen_10_initialise.sql %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto BatchFileNotOk10
 goto BatchFileOk10
 

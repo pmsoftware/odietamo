@@ -48,10 +48,22 @@ rem
 rem Generate the list of files to import.
 rem
 echo %IM% no object override list file passed. Looking for files at ^<%1^>
-set OBJLISTDIR=C:\MOI\Logs
-mkdir %OBJLISTDIR% >NUL 2>&1
+
+if "%TEMP%" == "" goto NoTempDir
+set TEMPDIR=%TEMP%
+goto GotTempDir
+
+:NoTempDir
+if "%TMP%" == "" goto NoTmpDir
+set TEMPDIR=%TMP%
+goto GotTempDir
+
+:NoTmpDir
+set TEMPDIR=%CD%
+
+:GotTempDir
 call :SetDateTimeStrings
-set OBJLISTFILE=%OBJLISTDIR%\OdiImportFromPathOrFile_FilesToImport_%YYYYMMDD%_%HHMMSS%.txt
+set OBJLISTFILE=%TEMPDIR%\OdiImportFromPathOrFile_FilesToImport_%YYYYMMDD%_%HHMMSS%.txt
 
 rem
 rem Master Repository objects first.

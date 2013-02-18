@@ -110,7 +110,7 @@ BEGIN
 	SELECT COUNT(*)
 	  INTO l_count
 	  FROM user_db_links
-	 WHERE db_link = 'ODIWORKREP_DATA'
+	 WHERE db_link LIKE 'ODIWORKREP_DATA%'		-- Allow for DB links created with domain suffixes.
 	;
 	
 	IF l_count = 0

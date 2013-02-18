@@ -25,7 +25,7 @@ echo %IM% %MSG%
 call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiSvnValidateRepositoryIntegrity_StdOut_%YYYYMMDD%_%HHMM%.log
 set STDERRFILE=<GenScriptRootDir>\OdiSvnValidateRepositoryIntegrity_StdErr_%YYYYMMDD%_%HHMM%.log
-call <GenScriptRootDir>\OdiScmJisqlRepo.bat <OdiSvnValidateRepositoryIntegritySql> %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> /b <OdiSvnValidateRepositoryIntegritySql> %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto MainOdiSvnValidateRepoFail
 goto MainOdiSvnValidateRepoChkStdErr
 
@@ -58,7 +58,7 @@ echo %IM% %MSG%
 call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiSvnRestoreRepositoryIntegrity_StdOut_%YYYYMMDD%_%HHMM%.log
 set STDERRFILE=<GenScriptRootDir>\OdiSvnRestoreRepositoryIntegrity_StdErr_%YYYYMMDD%_%HHMM%.log
-call C:\MOI\Configuration\Scripts\MoiJisqlRepo.bat <OdiSvnRestoreRepositoryIntegritySql> %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> <OdiSvnRestoreRepositoryIntegritySql> %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto MainOdiSvnRestoreRepoIntegFail
 goto MainOdiSvnRestoreRepoIntegChkStdErr
 
@@ -100,7 +100,7 @@ echo %IM% %MSG%
 call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\odisvn_set_next_import_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\odisvn_set_next_import_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
-call C:\MOI\Configuration\Scripts\MoiJisqlRepo.bat <OdiSvnSetNextImportSql> %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> /b <OdiSvnSetNextImportSql> %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto MainOdiSvnSetNextImportFail
 goto MainOdiSvnSetNextImportChkStdErr
 

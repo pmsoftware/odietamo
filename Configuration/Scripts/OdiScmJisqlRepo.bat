@@ -7,6 +7,18 @@ set FN=OdiScmJisqlRepo
 set IM=%FN%: INFO:
 set EM=%FN%: ERROR:
 
+set ISBATCHEXIT=
+
+if "%1" == "/b" goto IsBatchExit
+if "%1" == "/B" goto IsBatchExit
+
+goto IsNotBatchExit
+
+:IsBatchExit
+set ISBATCHEXIT=/b
+shift
+
+:IsNotBatchExit
 if "%ODI_HOME%" == "" goto NoOdiHomeError
 echo %IM% using ODI_HOME directory ^<%ODI_HOME%^>
 goto OdiHomeOk
@@ -119,7 +131,7 @@ goto ExitFail
 rem
 rem Run the script file. Pass through any StdOut and StdErr capture file paths/names.
 rem
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %SCRIPTFILE% %2 %3
+call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat /b %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %SCRIPTFILE% %2 %3
 if ERRORLEVEL 1 goto RunScriptFail
 goto RunScriptOk
 
@@ -130,7 +142,7 @@ goto ExitFail
 :RunScriptOk
 
 :ExitOk
-exit /b 0
+exit %ISBATCHEXIT% 0
 
 :ExitFail
-exit /b 1
+exit %ISBATCHEXIT% 1

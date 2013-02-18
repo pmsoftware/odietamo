@@ -124,8 +124,7 @@ then
 	# Generate the list of files to import.
 	#
 	echo "$IM no object override list file passed. Looking for files at <$1>"
-	OBJLISTDIR=/tmp/MOI/Logs
-	mkdir $OBJLISTDIR >/dev/null 2>&1
+	OBJLISTDIR=/tmp
 	SetDateTimeStrings
 	OBJLISTFILE=$OBJLISTDIR/OdiImportFromPathOrFile_FilesToImport_${YYYYMMDD}_${HHMMSS}.txt
 
