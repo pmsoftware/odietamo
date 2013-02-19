@@ -74,6 +74,7 @@ goto CreateEmptyFileOk
 
 :CreateEmptyFileFail
 echo %EM% cannot create empty file ^<%EMPTYFILE%^>
+goto ExitFail
 
 :CreateEmptyFileOk
 rem

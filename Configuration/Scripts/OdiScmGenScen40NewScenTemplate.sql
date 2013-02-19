@@ -1,5 +1,5 @@
 SELECT DISTINCT
-       'call startcmd.bat OdiGenerateAllScen -PROJECT='
+       'call <OdiScmStartCmdBat> OdiGenerateAllScen -PROJECT='
     || project_id
     || ' -FOLDER='
     || folder_id
@@ -10,7 +10,7 @@ SELECT DISTINCT
    AND marker_group_code = 'ODISVN_AUTOMATION'
  UNION
 SELECT DISTINCT
-       'call startcmd.bat OdiGenerateAllScen -PROJECT='
+       'call <OdiScmStartCmdBat> OdiGenerateAllScen -PROJECT='
     || project_id
     || ' -FOLDER='
     || folder_id
@@ -21,7 +21,7 @@ SELECT DISTINCT
    AND marker_group_code = 'ODISVN_AUTOMATION'
  UNION
 SELECT DISTINCT
-       'call startcmd.bat OdiGenerateAllScen -PROJECT='
+       'call <OdiScmStartCmdBat> OdiGenerateAllScen -PROJECT='
     || project_id
     || ' -FOLDER='
     || folder_id
@@ -32,7 +32,7 @@ SELECT DISTINCT
    AND marker_group_code = 'ODISVN_AUTOMATION'  
  UNION
 SELECT DISTINCT
-       'call startcmd.bat OdiGenerateAllScen -PROJECT='
+       'call <OdiScmStartCmdBat> OdiGenerateAllScen -PROJECT='
     || project_id
     || ' -FOLDER='
     || folder_id
@@ -46,7 +46,7 @@ SELECT DISTINCT
        -- Repeat for the deprecated marker groups.
        --
 SELECT DISTINCT
-       'call startcmd.bat OdiGenerateAllScen -PROJECT='
+       'call <OdiScmStartCmdBat> OdiGenerateAllScen -PROJECT='
     || project_id
     || ' -FOLDER='
     || folder_id
@@ -57,7 +57,7 @@ SELECT DISTINCT
    AND marker_group_code = 'MOI_CODE_RECONCILLIATION'
  UNION
 SELECT DISTINCT
-       'call startcmd.bat OdiGenerateAllScen -PROJECT='
+       'call <OdiScmStartCmdBat> OdiGenerateAllScen -PROJECT='
     || project_id
     || ' -FOLDER='
     || folder_id
@@ -68,7 +68,7 @@ SELECT DISTINCT
    AND marker_group_code = 'MOI_CODE_RECONCILLIATION'
  UNION
 SELECT DISTINCT
-       'call startcmd.bat OdiGenerateAllScen -PROJECT='
+       'call <OdiScmStartCmdBat> OdiGenerateAllScen -PROJECT='
     || project_id
     || ' -FOLDER='
     || folder_id
@@ -79,7 +79,7 @@ SELECT DISTINCT
    AND marker_group_code = 'MOI_CODE_RECONCILLIATION'
  UNION
 SELECT DISTINCT
-       'call startcmd.bat OdiGenerateAllScen -PROJECT='
+       'call <OdiScmStartCmdBat> OdiGenerateAllScen -PROJECT='
     || project_id
     || ' -FOLDER='
     || folder_id

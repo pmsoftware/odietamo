@@ -1,4 +1,10 @@
 @echo off
+setlocal
+set FN=OdiScmGenScenPreImport
+set IM=%FN%: INFO:
+set EM=%FN%: ERROR:
+
+echo %IM% starts
 
 set EXITSTATUS=0
 set FILENO=%RANDOM%
@@ -18,12 +24,12 @@ set TEMPDIR=%CD%
 :GotTempDir
 set EMPTYFILE=%TEMPDIR%\%RANDOM%_OdiScm_PreImport_EmptyFile.txt
 
-type NUL > %EMPTYFILE%
+type NUL > %EMPTYFILE% 2>&1
 if ERRORLEVEL 1 goto CreateEmptyFileFail
 goto CreateEmptyFileOk
 
 :CreateEmptyFileFail
-echo %EM creating empty file ^<%EMPTYFILE^>
+echo %EM% creating empty file ^<%EMPTYFILE%^>
 goto ExitFail
 
 :CreateEmptyFileOk
@@ -32,7 +38,7 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\odisvn_genscen_10_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\odisvn_genscen_10_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call <GenScriptRootDir>\OdiScmJisqlRepo.bat <OdiScmHome>\Configuration\Scripts\odisvn_genscen_10_initialise.sql %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> <OdiScmHomeDir>\Configuration\Scripts\odisvn_genscen_10_initialise.sql %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto BatchFileNotOk10
 goto BatchFileOk10
 

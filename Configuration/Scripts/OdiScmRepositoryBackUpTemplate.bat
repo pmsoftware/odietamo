@@ -1,7 +1,8 @@
 @echo off
-
-set IM=OdiSvnRepositoryBackUp: INFO:
-set EM=OdiSvnRepositoryBackUp: ERROR:
+setlocal
+set FN=OdiScmRepositoryBackUp
+set IM=%FN%: INFO:
+set EM=%FN%: ERROR:
 
 set BU_ORACLE_HOME=%ORACLE_HOME%
 set BU_PATH=%PATH%

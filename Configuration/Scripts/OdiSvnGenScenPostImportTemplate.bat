@@ -1,9 +1,8 @@
 @echo off
-
-set IM=OdiSvnGenScenPostImport: INFO:
-set EM=OdiSvnGenScenPostImport: ERROR:
-
-set ODI_HOME=<OdiHomeDir>
+setlocal
+set FN=OdiScmGenScenPostImport
+set IM=%FN%: INFO:
+set EM=%FN%: ERROR:
 
 set EXITSTATUS=0
 set FILENO=%RANDOM%
@@ -28,7 +27,7 @@ if ERRORLEVEL 1 goto CreateEmptyFileFail
 goto CreateEmptyFileOk
 
 :CreateEmptyFileFail
-echo %EM creating empty file ^<%EMPTYFILE^>
+echo %EM creating empty file ^<%EMPTYFILE%^>
 goto ExitFail
 
 :CreateEmptyFileOk
@@ -40,7 +39,7 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\odisvn_genscen_20_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\odisvn_genscen_20_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call <GenScriptRootDir>\OdiScmJisqlRepo.bat <OdiScmHome>/Configuration/Scripts/odisvn_genscen_20_delete_old_scen_script.sql %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> <OdiScmHomeDir>\Configuration\Scripts\odisvn_genscen_20_delete_old_scen_script.sql %STDOUTFILE% %STDERRFILE%
 if not ERRORLEVEL 1 goto BatchFileOk20
 
 echo %EM% Batch file MoiJisqlRepo.bat returned non-zero ERRORLEVEL
@@ -96,7 +95,7 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\odisvn_genscen_30_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\odisvn_genscen_30_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call C:\MOI\Configuration\Scripts\MoiJisqlRepo.bat <OdiScmHome>\Configuration\Scripts\odisvn_genscen_30_markup_source_objects.sql %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> <OdiScmHomeDir>\Configuration\Scripts\odisvn_genscen_30_markup_source_objects.sql %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto BatchFileNotOk30
 goto BatchFileOk30
 
@@ -134,7 +133,7 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\odisvn_genscen_40_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\odisvn_genscen_40_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call C:\MOI\Configuration\Scripts\MoiJisqlRepo.bat <OdiScmHome>\Configuration\Scripts\odisvn_genscen_40_new_scen_script.sql %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> <OdiScmGenScenNewSql> %STDOUTFILE% %STDERRFILE%
 if  ERRORLEVEL 1 goto BatchFileNotOk40
 goto BatchFileOk40
 
@@ -192,7 +191,7 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\odisvn_genscen_50_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\odisvn_genscen_50_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call C:\MOI\Configuration\Scripts\MoiJisqlRepo.bat <OdiScmHome>\Configuration\Scripts\odisvn_genscen_50_terminate.sql %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> <OdiScmHomeDir>\Configuration\Scripts\odisvn_genscen_50_terminate.sql %STDOUTFILE% %STDERRFILE%
 if  ERRORLEVEL 1 goto BatchFileNotOk50
 goto BatchFileOk50
 
@@ -295,7 +294,6 @@ rem
 rem Execute a batch command read from a generated batch file.
 rem 
 echo %IM% ExecBatchCommand: Received command: %*
-pushd %ODI_HOME%\bin
 %*
 if  ERRORLEVEL 1 goto ExecBatchCommandNotSuccess
 goto ExecBatchCommandSuccess
@@ -309,7 +307,6 @@ goto ExecBatchCommandExit
 echo %IM% ExecBatchCommand: Command returned zero ERRORLEVEL
 
 :ExecBatchCommandExit
-popd
 rem
 rem Exit the subroutine.
 rem
