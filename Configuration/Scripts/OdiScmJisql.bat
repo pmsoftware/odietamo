@@ -57,7 +57,7 @@ goto JavaHomeOk
 
 :NoJavaHomeError
 echo %EM% environment variable JAVA_HOME is not set
-exit %ISBATCHEXIT% 1
+goto ExitFail
 
 :JavaHomeOk
 if "%ODI_HOME%" == "" goto NoOdiHomeError
@@ -65,9 +65,17 @@ goto OdiHomeOk
 
 :NoOdiHomeError
 echo %EM% environment variable ODI_HOME is not set
-exit %ISBATCHEXIT% 1
+goto ExitFail
 
 :OdiHomeOk
+if "%ODI_SCM_JISQL_HOME%" == "" goto NoJisqlHomeError
+goto JisqlHomeOk
+
+:NoJisqlHomeError
+echo %EM% environment variable ODI_SCM_JISQL_HOME is not set
+goto ExitFail
+
+:JisqlHomeOk
 set PATH="%JAVA_HOME%\bin";%PATH%
 set JISQL_LIB=%ODI_SCM_JISQL_HOME%\lib
 
@@ -104,5 +112,5 @@ java -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -
 if ERRORLEVEL 1 goto ExitFail
 exit %ISBATCHEXIT% 0
 
-ExitFail
+:ExitFail
 exit %ISBATCHEXIT% 1

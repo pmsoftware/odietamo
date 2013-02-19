@@ -39,7 +39,7 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\odisvn_genscen_20_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\odisvn_genscen_20_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call <OdiScmJisqlRepoBat> <OdiScmHomeDir>\Configuration\Scripts\odisvn_genscen_20_delete_old_scen_script.sql %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> /b <OdiScmHomeDir>\Configuration\Scripts\odisvn_genscen_20_delete_old_scen_script.sql %STDOUTFILE% %STDERRFILE%
 if not ERRORLEVEL 1 goto BatchFileOk20
 
 echo %EM% Batch file MoiJisqlRepo.bat returned non-zero ERRORLEVEL
@@ -95,7 +95,7 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\odisvn_genscen_30_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\odisvn_genscen_30_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call <OdiScmJisqlRepoBat> <OdiScmHomeDir>\Configuration\Scripts\odisvn_genscen_30_markup_source_objects.sql %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> /b <OdiScmHomeDir>\Configuration\Scripts\odisvn_genscen_30_markup_source_objects.sql %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto BatchFileNotOk30
 goto BatchFileOk30
 
@@ -133,7 +133,7 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\odisvn_genscen_40_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\odisvn_genscen_40_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call <OdiScmJisqlRepoBat> <OdiScmGenScenNewSql> %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> /b <OdiScmGenScenNewSql> %STDOUTFILE% %STDERRFILE%
 if  ERRORLEVEL 1 goto BatchFileNotOk40
 goto BatchFileOk40
 
@@ -191,7 +191,7 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\odisvn_genscen_50_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\odisvn_genscen_50_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call <OdiScmJisqlRepoBat> <OdiScmHomeDir>\Configuration\Scripts\odisvn_genscen_50_terminate.sql %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> /b <OdiScmHomeDir>\Configuration\Scripts\odisvn_genscen_50_terminate.sql %STDOUTFILE% %STDERRFILE%
 if  ERRORLEVEL 1 goto BatchFileNotOk50
 goto BatchFileOk50
 

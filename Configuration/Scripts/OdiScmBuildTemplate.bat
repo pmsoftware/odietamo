@@ -55,7 +55,7 @@ echo %IM% %MSG%
 call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScmValidateRepositoryIntegrity_StdOut_%YYYYMMDD%_%HHMM%.log
 set STDERRFILE=<GenScriptRootDir>\OdiScmValidateRepositoryIntegrity_StdErr_%YYYYMMDD%_%HHMM%.log
-call <OdiScmJisqlRepoBat> /b <OdiScmValidateRepositoryIntegritySql> %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> <OdiScmValidateRepositoryIntegritySql> %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto MainOdiScmValidateRepoFail
 goto MainOdiScmValidateRepoChkStdErr
 
@@ -130,7 +130,7 @@ echo %IM% %MSG%
 call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScm_set_next_import_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\OdiScm_set_next_import_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
-call <OdiScmJisqlRepoBat> /b <OdiScmSetNextImportSql> %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> <OdiScmSetNextImportSql> %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto MainOdiScmSetNextImportFail
 goto MainOdiScmSetNextImportChkStdErr
 

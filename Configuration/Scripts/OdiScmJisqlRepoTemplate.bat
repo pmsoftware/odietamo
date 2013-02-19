@@ -24,7 +24,7 @@ rem
 rem Edit the details of your ODI repository here.
 rem Arguments are RepoDbUser RepoDbPassWord RepoJdbcDriver RepoJdbcUrl
 rem
-call <ScriptsRootDir>\OdiScmJisql.bat <SECURITY_USER> <SECURITY_UNENC_PWD> <SECURITY_DRIVER> <SECURITY_URL> %1 %2 %3
+call <ScriptsRootDir>\OdiScmJisql.bat /b <SECURITY_USER> <SECURITY_UNENC_PWD> <SECURITY_DRIVER> <SECURITY_URL> %1 %2 %3
 if ERRORLEVEL 1 goto ExitFail
 
 :ExitOk
