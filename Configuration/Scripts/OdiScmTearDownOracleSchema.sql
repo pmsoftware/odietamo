@@ -14,17 +14,18 @@ BEGIN
             THEN raise_application_error(-20000, 'Cannot drop table ' || c_repo_tab.table_name);
         END;
     END LOOP;
-    FOR c_repo_dbl IN (
-                      SELECT db_link
-                        FROM user_db_links
-                      )
-    LOOP
-        BEGIN
-            EXECUTE IMMEDIATE('DROP DATABASE LINK ' || c_repo_dbl.db_link);
-        EXCEPTION
-            WHEN OTHERS
-            THEN raise_application_error(-20000, 'Cannot drop database link ' || c_repo_dbl.db_link);
-        END;
+    
+	FOR c_repo_dbl IN (
+	                  SELECT db_link
+	                    FROM user_db_links
+	                  )
+	LOOP
+		BEGIN
+			EXECUTE IMMEDIATE('DROP DATABASE LINK ' || c_repo_dbl.db_link);
+		EXCEPTION
+			WHEN OTHERS
+				THEN raise_application_error(-20000, 'Cannot drop database link ' || c_repo_dbl.db_link);
+		END;
     END LOOP;
 END;
 /

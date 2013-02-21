@@ -238,7 +238,7 @@ rem *************************************************************
 :ImportObject
 rem *************************************************************
 echo %IM% importing non-container type object from file ^<%1^>
-echo %IM% datetime is %DATE% %TIME%
+echo %IM% date ^<%DATE%^> time ^<%TIME%^>
 cd /d %ODI_BIN_DIR%
 call startcmd.bat OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_INSERT_UPDATE -WORK_REP_NAME=WORKREP
 if ERRORLEVEL 1 goto IOFail
@@ -251,7 +251,7 @@ rem *************************************************************
 :ImportContainerObject
 rem *************************************************************
 echo %IM% importing container type object from file ^<%1^>
-echo %IM% datetime is %DATE% %TIME%
+echo %IM% date ^<%DATE%^> time ^<%TIME%^>
 cd /d %ODI_BIN_DIR%
 rem
 rem We try update first so that if there's nothing to update the operation is fairly quick.
