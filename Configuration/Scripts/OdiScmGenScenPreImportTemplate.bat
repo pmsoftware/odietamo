@@ -38,7 +38,7 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen10_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen10_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call <OdiScmJisqlRepoBat> /b <OdiScmHomeDir>\Configuration\Scripts\OdiSvnGenScen10Initialise.sql %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> /b <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen10Initialise.sql %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto BatchFileNotOk10
 goto BatchFileOk10
 
