@@ -36,10 +36,10 @@ set TSOutput=
 
 call :SetDateTimeStrings
 
-set STDOUTFILE=<GenScriptRootDir>\odisvn_genscen_20_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
-set STDERRFILE=<GenScriptRootDir>\odisvn_genscen_20_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
+set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen20_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
+set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen20_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call <OdiScmJisqlRepoBat> /b <OdiScmHomeDir>\Configuration\Scripts\odisvn_genscen_20_delete_old_scen_script.sql %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> /b <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen20DeleteOldScenScript.sql %STDOUTFILE% %STDERRFILE%
 if not ERRORLEVEL 1 goto BatchFileOk20
 
 echo %EM% Batch file MoiJisqlRepo.bat returned non-zero ERRORLEVEL
@@ -92,10 +92,10 @@ goto ExitFail
 
 call :SetDateTimeStrings
 
-set STDOUTFILE=<GenScriptRootDir>\odisvn_genscen_30_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
-set STDERRFILE=<GenScriptRootDir>\odisvn_genscen_30_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
+set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen30_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
+set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen30_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call <OdiScmJisqlRepoBat> /b <OdiScmHomeDir>\Configuration\Scripts\odisvn_genscen_30_markup_source_objects.sql %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> /b <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen30MarkUpSourceObjects.sql %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto BatchFileNotOk30
 goto BatchFileOk30
 
@@ -130,8 +130,8 @@ goto ExitFail
 
 call :SetDateTimeStrings
 
-set STDOUTFILE=<GenScriptRootDir>\odisvn_genscen_40_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
-set STDERRFILE=<GenScriptRootDir>\odisvn_genscen_40_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
+set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen40_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
+set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen40_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
 call <OdiScmJisqlRepoBat> /b <OdiScmGenScenNewSql> %STDOUTFILE% %STDERRFILE%
 if  ERRORLEVEL 1 goto BatchFileNotOk40
@@ -188,10 +188,10 @@ goto ExitFail
 
 call :SetDateTimeStrings
 
-set STDOUTFILE=<GenScriptRootDir>\odisvn_genscen_50_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
-set STDERRFILE=<GenScriptRootDir>\odisvn_genscen_50_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
+set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen50_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
+set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen50_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call <OdiScmJisqlRepoBat> /b <OdiScmHomeDir>\Configuration\Scripts\odisvn_genscen_50_terminate.sql %STDOUTFILE% %STDERRFILE%
+call <OdiScmJisqlRepoBat> /b <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen50Terminate.sql %STDOUTFILE% %STDERRFILE%
 if  ERRORLEVEL 1 goto BatchFileNotOk50
 goto BatchFileOk50
 
@@ -226,8 +226,8 @@ echo %IM% Scenario Generation completed successfully
 goto Exit
 
 :ExitFail
-echo OdiSvnGenScenPostImport: Scenario build process has failed.
-echo OdiSvnGenScenPostImport: Check contents of the StdOut and StdErr files
+echo %EM% Scenario build process has failed.
+echo %EM% Check contents of the StdOut and StdErr files
 
 :Exit
 exit /b %EXITSTATUS%
