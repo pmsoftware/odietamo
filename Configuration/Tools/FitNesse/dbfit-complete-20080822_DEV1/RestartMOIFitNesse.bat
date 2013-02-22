@@ -1,2 +1,0 @@
-call MoiStopFitnesse.bat
-call MoiStartFitNesseReal.bat
