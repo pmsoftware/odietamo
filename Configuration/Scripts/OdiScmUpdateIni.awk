@@ -11,14 +11,14 @@ BEGIN {
 /^\[ImportControls\]$/ {
 	###print "Found section using regular expression"
 	ProcessingSection = 1;
-	WrittenKey = 1
 }
 
 /^OracleDIImportedRevision=/ {
 	if (ProcessingSection) {
 		###print "Found key"
-		print "OracleDIImported=" KeyValue;
+		print "OracleDIImportedRevision=" KeyValue;
 	}
+	WrittenKey = 1
 }
 
 /^\[$/ {
