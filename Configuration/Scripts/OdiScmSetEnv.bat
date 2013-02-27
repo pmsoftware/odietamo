@@ -202,6 +202,7 @@ REM
 echo %IM% processing configuration section ^<Tools^>
 echo JAVA_HOME>%TEMPFILE2%
 echo ODI_SCM_JISQL_HOME>>%TEMPFILE2%
+echo UNXUTILS_HOME>>%TEMPFILE2%
 
 for /f %%g in (%TEMPFILE2%) do (
 	call :SetConfig Tools %%g

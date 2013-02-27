@@ -8,6 +8,7 @@ set ODI_JAVA_HOME=<OdiJavaHomeDir>
 set JAVA_HOME=<JavaHomeDir>
 set ODI_SCM_HOME=<OdiScmHomeDir>
 set ODI_SCM_JISQL_HOME=<OdiScmJisqlHomeDir>
+set ORACLE_HOME=<OracleHomeDir>
 
 if "%TEMP%" == "" goto NoTempDir
 set TEMPDIR=%TEMP%
@@ -119,10 +120,7 @@ if ERRORLEVEL 1 goto MainExitFail
 
 set MSG=updating OdiScm local workspace metadata
 echo %IM% %MSG%
-rem We use tee -a, from UnixUtils, so that we can write to a file without using CMD.EXE
-rem stdout redirection because if an error occurs using this mechanism it cannot be detected
-rem by checking ERRORLEVEL.
-cat <SCMConfigurationFile> | gawk <OdiScmUpdateIniAwk> -v KeyValue=<OdiScmLatestChangeSet> | tee <SCMConfigurationFile> >NUL 2>&1
+call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetIni.bat /b ImportControls OracleDIImportedRevision <OdiScmLatestChangeSet>
 if ERRORLEVEL 1 goto MainExitFail
 
 set MSG=updating OdiScm repository ChangeSet metadata

@@ -10,7 +10,7 @@ set EM=%FN%: ERROR:
 
 if /i "%1" == "/b" (
 	set IsBatchExit=/b
-	shirt
+	shift
 ) else (
 	set IsBatchExit=
 )
@@ -172,6 +172,33 @@ if "%ODI_SCM_JISQL_HOME%" == "" (
 		)
 	) else (
 		echo %EM% Jisql home directory ^<%ODI_SCM_JISQL_HOME%^> does not exist
+		set /a ISSUES=!ISSUES!+1
+	)
+)
+echo %IM%
+
+if "%ORACLE_HOME%" == "" (
+	echo %EM% Oracle home directory environment variable ORACLE_HOME is not set
+	set /a ISSUES=!ISSUES!+1
+) else (
+	echo %IM% Oracle home directory environment variable ORACLE_HOME is set
+	echo %IM% environment variable ORACLE_HOME is set to ^<%ORACLE_HOME%^>
+	if exist "%ORACLE_HOME%" (
+		echo %IM% Oracle home directory ^<%ORACLE_HOME%^> exists
+		if exist "%ORACLE_HOME%\bin" (
+			echo %IM% Oracle bin directory ^<%ORACLE_HOME%\bin^> exists
+			if exist "%ORACLE_HOME%\bin\exp.exe" (
+				echo %IM% Oracle binaries detected in directory ^<%ORACLE_HOME%\bin^>
+			) else (
+				echo %IM% Oracle binaries not detected in directory ^<%ORACLE_HOME%\bin^>
+				set /a ISSUES=!ISSUES!+1
+			)
+		) else (
+			echo %IM% Oracle bin directory ^<%ORACLE_HOME%\bin^ does not exist
+			set /a ISSUES=!ISSUES!+1
+		)
+	) else (
+		echo %EM% Oracle home directory ^<%ODI_SCM_JISQL_HOME%^> does not exist
 		set /a ISSUES=!ISSUES!+1
 	)
 )
