@@ -27,7 +27,7 @@ SELECT 'call startcmd.bat OdiDeleteScen "-SCEN_NAME='
                  AND i.last_date >
                      (
                      SELECT import_start_datetime
-                       FROM odisvn_controls
+                       FROM odiscm_controls
                      )
               )
         UNION
@@ -46,7 +46,7 @@ SELECT 'call startcmd.bat OdiDeleteScen "-SCEN_NAME='
                  AND t.last_date >
                      (
                      SELECT import_start_datetime
-                       FROM odisvn_controls
+                       FROM odiscm_controls
                      )
               )
         UNION
@@ -68,7 +68,7 @@ SELECT 'call startcmd.bat OdiDeleteScen "-SCEN_NAME='
                  AND a.last_date >
                      (
                      SELECT import_start_datetime
-                       FROM odisvn_controls
+                       FROM odiscm_controls
                      )
               )
        )

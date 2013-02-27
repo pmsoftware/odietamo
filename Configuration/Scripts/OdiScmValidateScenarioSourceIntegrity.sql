@@ -31,7 +31,7 @@ SELECT 1 / 0
                               FROM snp_grp_state
                              WHERE grp_state_code
                                 IN (
-                                   'ODISVN_AUTOMATION'
+                                   'ODISCM_AUTOMATION'
                                  , 'MOI_CODE_RECONCILLIATION'
                                    )
                             )
@@ -71,7 +71,7 @@ SELECT 1 / 0
                               FROM snp_grp_state
                              WHERE grp_state_code
                                 IN (
-                                   'ODISVN_AUTOMATION'
+                                   'ODISCM_AUTOMATION'
                                  , 'MOI_CODE_RECONCILLIATION'
                                    )
                             )
@@ -111,7 +111,7 @@ SELECT 1 / 0
                               FROM snp_grp_state
                              WHERE grp_state_code
                                 IN (
-                                   'ODISVN_AUTOMATION'
+                                   'ODISCM_AUTOMATION'
                                  , 'MOI_CODE_RECONCILLIATION'
                                    )
                             )
@@ -151,7 +151,7 @@ SELECT 1 / 0
                               FROM snp_grp_state
                              WHERE grp_state_code
                                 IN (
-                                   'ODISVN_AUTOMATION'
+                                   'ODISCM_AUTOMATION'
                                  , 'MOI_CODE_RECONCILLIATION'
                                    )
                             )
@@ -180,7 +180,7 @@ SELECT 1 / 0
                               FROM snp_grp_state
                              WHERE grp_state_code
                                 IN (
-                                   'ODISVN_AUTOMATION'
+                                   'ODISCM_AUTOMATION'
                                  , 'MOI_CODE_RECONCILLIATION'
                                    )
                             )
@@ -217,7 +217,7 @@ SELECT 1 / 0
                               FROM snp_grp_state
                              WHERE grp_state_code
                                 IN (
-                                   'ODISVN_AUTOMATION'
+                                   'ODISCM_AUTOMATION'
                                  , 'MOI_CODE_RECONCILLIATION'
                                    )
                             )
@@ -246,7 +246,7 @@ SELECT 1 / 0
                               FROM snp_grp_state
                              WHERE grp_state_code
                                 IN (
-                                   'ODISVN_AUTOMATION'
+                                   'ODISCM_AUTOMATION'
                                  , 'MOI_CODE_RECONCILLIATION'
                                    )
                             )
@@ -283,7 +283,7 @@ SELECT 1 / 0
                               FROM snp_grp_state
                              WHERE grp_state_code
                                 IN (
-                                   'ODISVN_AUTOMATION'
+                                   'ODISCM_AUTOMATION'
                                  , 'MOI_CODE_RECONCILLIATION'
                                    )
                             )
@@ -312,7 +312,7 @@ SELECT 1 / 0
                               FROM snp_grp_state
                              WHERE grp_state_code
                                 IN (
-                                   'ODISVN_AUTOMATION'
+                                   'ODISCM_AUTOMATION'
                                  , 'MOI_CODE_RECONCILLIATION'
                                    )
                             )

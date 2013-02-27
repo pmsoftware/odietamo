@@ -15,8 +15,8 @@ DELETE
                 FROM snp_grp_state
                WHERE (
                      (
-                     grp_state_code  = 'ODISVN_AUTOMATION'
-                 AND grp_state_name  = 'ODISVN_AUTOMATION'
+                     grp_state_code  = 'ODISCM_AUTOMATION'
+                 AND grp_state_name  = 'ODISCM_AUTOMATION'
                      )
                   OR (
                      --
@@ -43,8 +43,8 @@ DELETE
          FROM snp_grp_state
         WHERE (
               (
-              grp_state_code  = 'ODISVN_AUTOMATION'
-          AND grp_state_name  = 'ODISVN_AUTOMATION'
+              grp_state_code  = 'ODISCM_AUTOMATION'
+          AND grp_state_name  = 'ODISCM_AUTOMATION'
               )
            OR (
               --

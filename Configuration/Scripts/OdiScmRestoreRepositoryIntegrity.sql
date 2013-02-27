@@ -10,7 +10,7 @@
 --
 -- First identify the actual last used IDs present in the repository.
 --
-CREATE TABLE odisvn_last_actual_ids
+CREATE TABLE odiscm_last_actual_ids
 AS
 SELECT objs.repo_type_ind
      , objs.table_name
@@ -240,7 +240,7 @@ SELECT objs.repo_type_ind
     ON objs.source_repo_id = LPAD(slrw.rep_short_id,3,'0')
 /
 
-ANALYZE TABLE odisvn_last_actual_ids ESTIMATE STATISTICS
+ANALYZE TABLE odiscm_last_actual_ids ESTIMATE STATISTICS
 /
 
 --------------------------------------------------------------------------------
@@ -254,14 +254,14 @@ UPDATE snp_ent_id seid
    SET id_next =
        (
        SELECT olai.max_obj_seq
-         FROM odisvn_last_actual_ids olai
+         FROM odiscm_last_actual_ids olai
         WHERE olai.table_name = seid.id_tbl
           AND olai.repo_type_ind = 'M'
        )
  WHERE id_next <
        (
        SELECT max_obj_seq
-         FROM odisvn_last_actual_ids olai
+         FROM odiscm_last_actual_ids olai
         WHERE olai.table_name = seid.id_tbl
           AND olai.repo_type_ind = 'M'        
        )
@@ -280,7 +280,7 @@ INSERT
 SELECT 1
      , table_name
      , max_obj_seq              -- Although the column is called 'next' it appears to be used for 'last'.
-  FROM odisvn_last_actual_ids
+  FROM odiscm_last_actual_ids
  WHERE repo_type_ind = 'M'
    AND table_name
    NOT
@@ -301,14 +301,14 @@ UPDATE snp_id snid
    SET id_next =
        (
        SELECT olai.max_obj_seq
-         FROM odisvn_last_actual_ids olai
+         FROM odiscm_last_actual_ids olai
         WHERE olai.table_name = snid.id_tbl
           AND olai.repo_type_ind = 'W'
        )
  WHERE id_next <
        (
        SELECT max_obj_seq
-         FROM odisvn_last_actual_ids olai
+         FROM odiscm_last_actual_ids olai
         WHERE olai.table_name = snid.id_tbl
           AND olai.repo_type_ind = 'W'        
        )
@@ -327,7 +327,7 @@ INSERT
 SELECT 1
      , table_name
      , max_obj_seq              -- Although the column is called 'next' it appears to be used for 'last'.
-  FROM odisvn_last_actual_ids
+  FROM odiscm_last_actual_ids
  WHERE repo_type_ind = 'W'
    AND table_name
    NOT
@@ -340,5 +340,5 @@ SELECT 1
 COMMIT
 /
 
-DROP TABLE odisvn_last_actual_ids
+DROP TABLE odiscm_last_actual_ids
 /

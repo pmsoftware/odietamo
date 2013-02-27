@@ -1,7 +1,7 @@
 -- For SQL*Plus / TOAD usage only: SET SERVEROUTPUT ON SIZE 1000000;
 
 TRUNCATE
-   TABLE odisvn_genscen_sources
+   TABLE odiscm_genscen_sources
 /
 
 --
@@ -10,7 +10,7 @@ TRUNCATE
 -- First, directly.
 --
 INSERT
-  INTO odisvn_genscen_sources
+  INTO odiscm_genscen_sources
        (
        source_object_id
      , source_type_id
@@ -54,8 +54,8 @@ SELECT p.i_pop
        --
        -- This is the new marker group going forward.
        --
-       gs.grp_state_code = 'ODISVN_AUTOMATION'
-   AND gs.grp_state_name = 'ODISVN_AUTOMATION'
+       gs.grp_state_code = 'ODISCM_AUTOMATION'
+   AND gs.grp_state_name = 'ODISCM_AUTOMATION'
    AND s2.state_code = 'HAS_SCENARIO'
    AND s2.state_name = 'HAS_SCENARIO'
        )
@@ -63,7 +63,7 @@ SELECT p.i_pop
    AND p.last_date >
        (
        SELECT import_start_datetime
-         FROM odisvn_controls
+         FROM odiscm_controls
        )
  UNION
 --
@@ -102,8 +102,8 @@ SELECT t.i_trt
        --
        -- This is the new marker group going forward.
        --
-       gs.grp_state_code = 'ODISVN_AUTOMATION'
-   AND gs.grp_state_name = 'ODISVN_AUTOMATION'
+       gs.grp_state_code = 'ODISCM_AUTOMATION'
+   AND gs.grp_state_name = 'ODISCM_AUTOMATION'
    AND s2.state_code = 'HAS_SCENARIO'
    AND s2.state_name = 'HAS_SCENARIO'
        )
@@ -111,7 +111,7 @@ SELECT t.i_trt
    AND t.last_date >
        (
        SELECT import_start_datetime
-         FROM odisvn_controls
+         FROM odiscm_controls
        )
  UNION
 --
@@ -150,8 +150,8 @@ SELECT p.i_package
        --
        -- This is the new marker group going forward.
        --
-       gs.grp_state_code = 'ODISVN_AUTOMATION'
-   AND gs.grp_state_name = 'ODISVN_AUTOMATION'
+       gs.grp_state_code = 'ODISCM_AUTOMATION'
+   AND gs.grp_state_name = 'ODISCM_AUTOMATION'
    AND s2.state_code = 'HAS_SCENARIO'
    AND s2.state_name = 'HAS_SCENARIO'
        )
@@ -159,7 +159,7 @@ SELECT p.i_package
    AND p.last_date >
        (
        SELECT import_start_datetime
-         FROM odisvn_controls
+         FROM odiscm_controls
        )
 /
 
@@ -172,7 +172,7 @@ COMMIT
 -- Packages, with a Scenario, referencing a modified Interface.
 --
 INSERT
-  INTO odisvn_genscen_sources
+  INTO odiscm_genscen_sources
        (
        source_object_id
      , source_type_id
@@ -217,8 +217,8 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
        --
        -- This is the new marker group going forward.
        --
-       gs.grp_state_code = 'ODISVN_AUTOMATION'
-   AND gs.grp_state_name = 'ODISVN_AUTOMATION'
+       gs.grp_state_code = 'ODISCM_AUTOMATION'
+   AND gs.grp_state_name = 'ODISCM_AUTOMATION'
    AND s2.state_code = 'HAS_SCENARIO'
    AND s2.state_name = 'HAS_SCENARIO'
        )
@@ -226,7 +226,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
    AND s.i_pop
     IN (
        SELECT source_object_id
-         FROM odisvn_genscen_sources
+         FROM odiscm_genscen_sources
         WHERE source_type_id = 3100
        )
    AND (
@@ -235,7 +235,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
        ) NOT IN (
                 SELECT source_object_id
                      , source_type_id
-                  FROM odisvn_genscen_sources
+                  FROM odiscm_genscen_sources
                 )
 /
 
@@ -243,7 +243,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
 -- Packages, with a Scenario, referencing a modified Procedure.
 --
 INSERT
-  INTO odisvn_genscen_sources
+  INTO odiscm_genscen_sources
        (
        source_object_id
      , source_type_id
@@ -288,8 +288,8 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
        --
        -- This is the new marker group going forward.
        --
-       gs.grp_state_code = 'ODISVN_AUTOMATION'
-   AND gs.grp_state_name = 'ODISVN_AUTOMATION'
+       gs.grp_state_code = 'ODISCM_AUTOMATION'
+   AND gs.grp_state_name = 'ODISCM_AUTOMATION'
    AND s2.state_code = 'HAS_SCENARIO'
    AND s2.state_name = 'HAS_SCENARIO'
        )
@@ -297,7 +297,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
    AND s.i_trt
     IN (
        SELECT source_object_id
-         FROM odisvn_genscen_sources
+         FROM odiscm_genscen_sources
         WHERE source_type_id = 3600 -- For Procedures.
        )
    AND (
@@ -306,7 +306,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
        ) NOT IN (
                 SELECT source_object_id
                      , source_type_id
-                  FROM odisvn_genscen_sources
+                  FROM odiscm_genscen_sources
                 )
 /
 
@@ -319,7 +319,7 @@ COMMIT
 -- Packages, with a Scenario, referencing a modified Variable.
 --
 INSERT
-  INTO odisvn_genscen_sources
+  INTO odiscm_genscen_sources
        (
        source_object_id
      , source_type_id
@@ -364,8 +364,8 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
        --
        -- This is the new marker group going forward.
        --
-       gs.grp_state_code = 'ODISVN_AUTOMATION'
-   AND gs.grp_state_name = 'ODISVN_AUTOMATION'
+       gs.grp_state_code = 'ODISCM_AUTOMATION'
+   AND gs.grp_state_name = 'ODISCM_AUTOMATION'
    AND s2.state_code = 'HAS_SCENARIO'
    AND s2.state_name = 'HAS_SCENARIO'
        )
@@ -376,7 +376,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
          FROM snp_var
         WHERE last_date >= (
                            SELECT import_start_datetime
-                             FROM odisvn_controls
+                             FROM odiscm_controls
                            )
        )
    AND (
@@ -385,7 +385,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
        ) NOT IN (
                 SELECT source_object_id
                      , source_type_id
-                  FROM odisvn_genscen_sources
+                  FROM odiscm_genscen_sources
                 )
 /
 
@@ -394,7 +394,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
 -- a Knowledge Module used by the Model).
 --
 INSERT
-  INTO odisvn_genscen_sources
+  INTO odiscm_genscen_sources
        (
        source_object_id
      , source_type_id
@@ -439,8 +439,8 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
        --
        -- This is the new marker group going forward.
        --
-       gs.grp_state_code = 'ODISVN_AUTOMATION'
-   AND gs.grp_state_name = 'ODISVN_AUTOMATION'
+       gs.grp_state_code = 'ODISCM_AUTOMATION'
+   AND gs.grp_state_name = 'ODISCM_AUTOMATION'
    AND s2.state_code = 'HAS_SCENARIO'
    AND s2.state_name = 'HAS_SCENARIO'
        )
@@ -451,21 +451,21 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
                     FROM snp_model
                    WHERE last_date >= (
                                       SELECT import_start_datetime
-                                        FROM odisvn_controls
+                                        FROM odiscm_controls
                                       )
                    UNION
                   SELECT i_mod
                     FROM snp_sub_model
                    WHERE last_date >= (
                                       SELECT import_start_datetime
-                                        FROM odisvn_controls
+                                        FROM odiscm_controls
                                       )
                    UNION
                   SELECT i_mod
                     FROM snp_table
                    WHERE last_date >= (
                                       SELECT import_start_datetime
-                                        FROM odisvn_controls
+                                        FROM odiscm_controls
                                       )
                   )
     OR s.i_mod IN (
@@ -476,7 +476,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
                                         FROM snp_trt
                                        WHERE last_date >= (
                                                           SELECT import_start_datetime
-                                                            FROM odisvn_controls
+                                                            FROM odiscm_controls
                                                           )
                                       )
                       OR i_trt_kdm IN (
@@ -484,7 +484,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
                                         FROM snp_trt
                                        WHERE last_date >= (
                                                           SELECT import_start_datetime
-                                                            FROM odisvn_controls
+                                                            FROM odiscm_controls
                                                           )
                                       )
                       OR i_trt_kjm IN (
@@ -492,7 +492,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
                                         FROM snp_trt
                                        WHERE last_date >= (
                                                           SELECT import_start_datetime
-                                                            FROM odisvn_controls
+                                                            FROM odiscm_controls
                                                           )
                                       )
                       OR i_trt_skm IN (
@@ -500,7 +500,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
                                         FROM snp_trt
                                        WHERE last_date >= (
                                                           SELECT import_start_datetime
-                                                            FROM odisvn_controls
+                                                            FROM odiscm_controls
                                                           )
                                       )
                   )
@@ -511,7 +511,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
        ) NOT IN (
                 SELECT source_object_id
                      , source_type_id
-                  FROM odisvn_genscen_sources
+                  FROM odiscm_genscen_sources
                 )
 /
 
@@ -519,7 +519,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
 -- Packages, with a Scenario, referencing a modified Data Store.
 --
 INSERT
-  INTO odisvn_genscen_sources
+  INTO odiscm_genscen_sources
        (
        source_object_id
      , source_type_id
@@ -564,8 +564,8 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
        --
        -- This is the new marker group going forward.
        --
-       gs.grp_state_code = 'ODISVN_AUTOMATION'
-   AND gs.grp_state_name = 'ODISVN_AUTOMATION'
+       gs.grp_state_code = 'ODISCM_AUTOMATION'
+   AND gs.grp_state_name = 'ODISCM_AUTOMATION'
    AND s2.state_code = 'HAS_SCENARIO'
    AND s2.state_name = 'HAS_SCENARIO'
        )
@@ -576,7 +576,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
                       FROM snp_table
                      WHERE last_date >= (
                                         SELECT import_start_datetime
-                                          FROM odisvn_controls
+                                          FROM odiscm_controls
                                         )
                     )
        )
@@ -586,7 +586,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
        ) NOT IN (
                 SELECT source_object_id
                      , source_type_id
-                  FROM odisvn_genscen_sources
+                  FROM odiscm_genscen_sources
                 )
 /
 
@@ -595,7 +595,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
 -- marker groups then delete one of the entries.
 --
 DELETE
-  FROM odisvn_genscen_sources
+  FROM odiscm_genscen_sources
  WHERE (
        source_object_id
      , source_type_id
@@ -605,7 +605,7 @@ DELETE
        SELECT source_object_id
             , source_type_id
             , MIN(marker_group_code) -- Prefer the current marker group to the deprecated one.
-         FROM odisvn_genscen_sources
+         FROM odiscm_genscen_sources
         GROUP
            BY source_object_id
             , source_type_id
@@ -616,7 +616,7 @@ DELETE
 COMMIT
 /
 
-ANALYZE TABLE odisvn_genscen_sources ESTIMATE STATISTICS
+ANALYZE TABLE odiscm_genscen_sources ESTIMATE STATISTICS
 /
 
 --SET SERVER OUTPUT ON SIZE 10000000;
@@ -656,12 +656,12 @@ BEGIN
     FOR c_project IN (
                      SELECT DISTINCT
                             project_id
-                       FROM odisvn_genscen_sources
+                       FROM odiscm_genscen_sources
                       ORDER
                          BY project_id
                      )
     LOOP
-        dbms_output.put_line('ODISVN: Creating temporary GENERATE_SCENARIO marker for project ' ||  c_project.project_id);
+        dbms_output.put_line('ODISCM: Creating temporary GENERATE_SCENARIO marker for project ' ||  c_project.project_id);
 
         iState := iState + 1;
         INSERT
@@ -696,10 +696,10 @@ BEGIN
              , NULL                         -- Internal version
              , 'I'                          -- Ind Change
              , SYSDATE                      -- First Date
-             , 'ODISVN'                     -- First User
-             , 'ODISVN'                     -- Last User 
+             , 'ODISCM'                     -- First User
+             , 'ODISCM'                     -- Last User 
           FROM snp_grp_state sngs
-         WHERE sngs.grp_state_code = 'ODISVN_AUTOMATION'
+         WHERE sngs.grp_state_code = 'ODISCM_AUTOMATION'
            AND sngs.i_project = c_project.project_id
         ;
         iState := iState + 1;
@@ -735,8 +735,8 @@ BEGIN
              , NULL                         -- Internal version
              , 'I'                          -- Ind Change
              , SYSDATE                      -- First Date
-             , 'ODISVN'                     -- First User
-             , 'ODISVN'                     -- Last User 
+             , 'ODISCM'                     -- First User
+             , 'ODISCM'                     -- Last User 
           FROM snp_grp_state sngs
          WHERE sngs.grp_state_code = 'MOI_CODE_RECONCILLIATION'
            AND sngs.i_project = c_project.project_id
@@ -750,7 +750,7 @@ BEGIN
                     SELECT ogss.source_object_id
                          , ogss.source_type_id
                          , sns2.i_state
-                      FROM odisvn_genscen_sources ogss
+                      FROM odiscm_genscen_sources ogss
                      INNER
                       JOIN snp_grp_state sngs
                         ON ogss.project_id = sngs.i_project
@@ -765,15 +765,15 @@ BEGIN
                        AND sns2.state_name = 'GENERATE_SCENARIO'
                            )
                         OR (
-                           sngs.grp_state_code = 'ODISVN_AUTOMATION'
-                       AND sngs.grp_state_name = 'ODISVN_AUTOMATION'
+                           sngs.grp_state_code = 'ODISCM_AUTOMATION'
+                       AND sngs.grp_state_name = 'ODISCM_AUTOMATION'
                        AND sns2.state_code = 'GENERATE_SCENARIO'
                        AND sns2.state_name = 'GENERATE_SCENARIO'
                            )
                            )
                     )
     LOOP
-        dbms_output.put_line('ODISVN: Creating temporary object-to-marker relationship for state <' || c_object.i_state
+        dbms_output.put_line('ODISCM: Creating temporary object-to-marker relationship for state <' || c_object.i_state
                           || '> source object <' ||  c_object.source_object_id || '> object type <' || c_object.source_type_id || '>');
         iObjState := iObjState + 1;
 

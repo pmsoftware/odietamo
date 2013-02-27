@@ -1,7 +1,9 @@
 @echo off
 setlocal
 REM
-REM Execute a SQL script against the ODI repository using repository connection details extracted from odiparams.bat.
+REM Execute a SQL script against the ODI repository.
+REM TODO: change from using repository connection details extracted from the odiparams script
+REM       to those from configuration INI file specified in the environment variable ODI_SCM_INI.
 REM
 set FN=OdiScmJisqlRepo
 set IM=%FN%: INFO:

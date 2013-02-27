@@ -11,7 +11,7 @@ echo ERROR: no output file stub specified
 goto ShowUsage
 
 :ShowUsage
-echo ERROR: usage: OdiSvnRedirCmd.bat {command} {file-name-stub-to-redirect-stdout-and-stderr} {command-arguments}
+echo ERROR: usage: OdiScmRedirCmd.bat {command} {file-name-stub-to-redirect-stdout-and-stderr} {command-arguments}
 goto ExitFail
 
 :ParamOk

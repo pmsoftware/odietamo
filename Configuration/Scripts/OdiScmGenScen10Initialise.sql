@@ -1,5 +1,5 @@
 INSERT
-  INTO odisvn_controls
+  INTO odiscm_controls
        (
        odi_user_name
      , import_start_datetime
@@ -11,11 +11,11 @@ SELECT 'SUPERVISOR'
    NOT
 EXISTS (
        SELECT 1
-         FROM odisvn_controls
+         FROM odiscm_controls
        )
 /
 
-UPDATE odisvn_controls
+UPDATE odiscm_controls
   SET import_start_datetime = SYSDATE
 /
 

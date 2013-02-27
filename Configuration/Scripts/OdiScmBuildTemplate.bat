@@ -6,6 +6,7 @@ set EM=%PROG%: ERROR:
 set ODI_HOME=<OdiHomeDir>
 set ODI_JAVA_HOME=<OdiJavaHomeDir>
 set JAVA_HOME=<JavaHomeDir>
+set ODI_SCM_INI=<OdiScmIniFile>
 set ODI_SCM_HOME=<OdiScmHomeDir>
 set ODI_SCM_JISQL_HOME=<OdiScmJisqlHomeDir>
 set ORACLE_HOME=<OracleHomeDir>

@@ -1,6 +1,6 @@
-UPDATE odisvn_controls
-   SET code_branch_name = '<OdiSvnBranchUrl>'
-     , code_branch_last_import_rev = '<OdiSvnNextImportRevison>'
+UPDATE odiscm_controls
+   SET code_branch_name = '<OdiScmBranchUrl>'
+     , code_branch_last_import_rev = '<OdiScmNextImportRevison>'
 /
 
 COMMIT

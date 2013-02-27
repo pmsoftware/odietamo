@@ -43,8 +43,8 @@ if ERRORLEVEL 1 goto BatchFileNotOk10
 goto BatchFileOk10
 
 :BatchFileNotOk10
-echo OdiSvn_GenScen_PreImport: ERROR: Batch file OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL
-echo OdiSvn_GenScen_PreImport: INFO: StdErr content:
+echo OdiScm_GenScen_PreImport: ERROR: Batch file OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL
+echo OdiScm_GenScen_PreImport: INFO: StdErr content:
 type %STDERRFILE%
 
 set EXITSTATUS=1
@@ -55,24 +55,24 @@ goto ExitFail
 rem
 rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.
 rem 
-echo OdiSvn_GenScen_PreImport: INFO: Batch file OdiScmJisqlRepo.bat returned zero ERRORLEVEL
+echo OdiScm_GenScen_PreImport: INFO: Batch file OdiScmJisqlRepo.bat returned zero ERRORLEVEL
 fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
 
 if ERRORLEVEL 1 goto StdErrNotEmpty10
 goto StdErrEmpty10
 
 :StdErrNotEmpty10
-echo OdiSvn_GenScen_PreImport: INFO: StdErr content:
+echo OdiScm_GenScen_PreImport: INFO: StdErr content:
 type %STDERRFILE%
 set EXITSTATUS=1
 goto ExitFail
 
 :StdErrEmpty10
 
-echo OdiSvn_GenScen_PreImport: INFO: StdOut content:
+echo OdiScm_GenScen_PreImport: INFO: StdOut content:
 type %STDOUTFILE%
 
-echo OdiSvn_GenScen_PreImport: Scenario generation initialisation completed successfully.
+echo OdiScm_GenScen_PreImport: Scenario generation initialisation completed successfully.
 goto Exit
 
 :ExitFail

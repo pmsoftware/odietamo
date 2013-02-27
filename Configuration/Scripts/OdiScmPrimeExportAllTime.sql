@@ -1,5 +1,5 @@
 INSERT
-  INTO odisvn_master_flush_controls
+  INTO odiscm_master_flush_controls
        (
        odi_user_name
      , flush_from_datetime
@@ -15,7 +15,7 @@ VALUES (
 /
 
 INSERT
-  INTO odisvn_work_flush_controls
+  INTO odiscm_work_flush_controls
        (
        odi_user_name
      , flush_from_datetime

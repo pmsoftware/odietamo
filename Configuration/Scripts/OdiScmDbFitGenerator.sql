@@ -10,14 +10,14 @@
 --      No line terminator.
 -- 
 -- SELECT part_text
---   FROM odisvn_dbfit_generator_outputs
+--   FROM odiscm_dbfit_generator_outputs
 --  WHERE session_id = 0
 --  ORDER
 --     BY part_number
 -- ;
 --
 CREATE
- TABLE odisvn_dbfit_generator_outputs
+ TABLE odiscm_dbfit_generator_outputs
 (
   session_id        INTEGER
 , part_number       INTEGER
@@ -545,7 +545,7 @@ IS
         dbms_output.put_line(lc_im || 'Writing session <' || l_session_id || '> part number <' || l_part_number || '>');
         
         INSERT
-          INTO odisvn_dbfit_generator_outputs
+          INTO odiscm_dbfit_generator_outputs
                (
                session_id
              , part_number
@@ -634,7 +634,7 @@ BEGIN
     ----------------------------------------------------------------------------
     SELECT COUNT(*)
       INTO l_count
-      FROM odisvn_dbfit_generator_outputs
+      FROM odiscm_dbfit_generator_outputs
     ;
     
     IF l_count = 0
@@ -643,7 +643,7 @@ BEGIN
     ELSE
         SELECT MAX(session_id) + 1
           INTO l_session_id
-          FROM odisvn_dbfit_generator_outputs
+          FROM odiscm_dbfit_generator_outputs
          ;
     END IF;
     
@@ -758,7 +758,7 @@ BEGIN
     output_part_line('!1 Change History');
     output_part_line('!|Comment|');
     output_part_line('|Date|Name|Version|Change Ref No|Change Description|');
-    output_part_line('|' || TO_CHAR(SYSDATE,'YYYY-MM-DD') || '|OdiSvn DbFit Generator|0.1|No PBI|Retro Generated|');
+    output_part_line('|' || TO_CHAR(SYSDATE,'YYYY-MM-DD') || '|OdiScm DbFit Generator|0.1|No PBI|Retro Generated|');
     output_part_line('--------');
     
     -- Set up the Java libraries.

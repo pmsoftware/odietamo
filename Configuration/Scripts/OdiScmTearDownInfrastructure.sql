@@ -4,68 +4,68 @@ BEGIN
 	SELECT COUNT(*)
 	  INTO l_count
 	  FROM user_tables
-	 WHERE table_name = 'ODISVN_CONTROLS'
+	 WHERE table_name = 'ODISCM_CONTROLS'
 	;
 	
 	IF l_count = 0
 	THEN
 		BEGIN
-			EXECUTE IMMEDIATE 'DROP TABLE odisvn_controls CASCADE CONSTRAINTS';
+			EXECUTE IMMEDIATE 'DROP TABLE odiscm_controls CASCADE CONSTRAINTS';
 		EXCEPTION
 			WHEN OTHERS
 			THEN
-				raise_application_error(-20000, 'Cannot drop table ODISVN_CONTROLS');
+				raise_application_error(-20000, 'Cannot drop table ODISCM_CONTROLS');
 		END;
 	END IF;
 	
 	SELECT COUNT(*)
 	  INTO l_count
 	  FROM user_tables
-	 WHERE table_name = 'ODISVN_GENSCEN_SOURCES'
+	 WHERE table_name = 'ODISCM_GENSCEN_SOURCES'
 	;
 
 	IF l_count = 0
 	THEN
 		BEGIN
-			EXECUTE IMMEDIATE 'DROP TABLE odisvn_genscen_sources CASCADE CONSTRAINTS';
+			EXECUTE IMMEDIATE 'DROP TABLE odiscm_genscen_sources CASCADE CONSTRAINTS';
 		EXCEPTION
 			WHEN OTHERS
 			THEN
-				raise_application_error(-20000, 'Cannot drop table ODISVN_GENSCEN_SOURCES');
+				raise_application_error(-20000, 'Cannot drop table ODISCM_GENSCEN_SOURCES');
 		END;
 	END IF;
 
 	SELECT COUNT(*)
 	  INTO l_count
 	  FROM user_tables
-	 WHERE table_name = 'ODISVN_MASTER_FLUSH_CONTROLS'
+	 WHERE table_name = 'ODISCM_MASTER_FLUSH_CONTROLS'
 	;
 
 	IF l_count = 0
 	THEN
 		BEGIN
-			EXECUTE IMMEDIATE 'DROP TABLE odisvn_master_flush_controls CASCADE CONSTRAINTS';
+			EXECUTE IMMEDIATE 'DROP TABLE odiscm_master_flush_controls CASCADE CONSTRAINTS';
 		EXCEPTION
 			WHEN OTHERS
 			THEN
-				raise_application_error(-20000, 'Cannot drop table ODISVN_MASTER_FLUSH_CONTROLS');
+				raise_application_error(-20000, 'Cannot drop table ODISCM_MASTER_FLUSH_CONTROLS');
 		END;
 	END IF;
 	
 	SELECT COUNT(*)
 	  INTO l_count
 	  FROM user_tables
-	 WHERE table_name = 'ODISVN_WORK_FLUSH_CONTROLS'
+	 WHERE table_name = 'ODISCM_WORK_FLUSH_CONTROLS'
 	;
 	
 	IF l_count = 0
 	THEN
 		BEGIN
-			EXECUTE IMMEDIATE 'DROP TABLE odisvn_work_flush_controls CASCADE CONSTRAINTS';
+			EXECUTE IMMEDIATE 'DROP TABLE odiscm_work_flush_controls CASCADE CONSTRAINTS';
 		EXCEPTION
 			WHEN OTHERS
 			THEN
-				raise_application_error(-20000, 'Cannot drop table ODISVN_WORK_FLUSH_CONTROLS');
+				raise_application_error(-20000, 'Cannot drop table ODISCM_WORK_FLUSH_CONTROLS');
 		END;
 	END IF;
 	
