@@ -32,7 +32,8 @@ REM Check presence of dependencies.
 REM
 sed --help >NUL 2>&1
 if ERRORLEVEL 1 (
-	echo %EM% command ^<sed^> not available. Check system PATH
+	echo %EM% command ^<sed^> not available
+	echo %EM% check UNXUTILS are installed and are included in the system command PATH
 	goto ExitFail
 )
 
