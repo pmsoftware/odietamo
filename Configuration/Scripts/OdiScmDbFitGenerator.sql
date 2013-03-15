@@ -67,12 +67,13 @@ IS
     lc_str_col_val          CONSTANT VARCHAR2(3) := 'A';                    -- constant for non key char columns.
     lc_datetime_col_val     CONSTANT VARCHAR(19) := '2012-01-01 00:00:00';  -- constant for non key date/time columns.
     
-    lc_datetime_min_col_val CONSTANT VARCHAR(19) := '0001-01-01 00:00:00';  -- constant minimum for non key date/time columns.
-    lc_datetime_max_col_val CONSTANT VARCHAR(19) := '9999-12-31 23:59:59';  -- constant maximum for non key date/time columns.
+----lc_datetime_min_col_val CONSTANT VARCHAR(19) := '0001-01-01 00:00:00';  -- constant minimum for non key date/time columns.
+----lc_datetime_max_col_val CONSTANT VARCHAR(19) := '9999-12-31 23:59:59';  -- constant maximum for non key date/time columns.
     
     l_key_count             PLS_INTEGER := 0;
     lc_max_num_str          CONSTANT VARCHAR2(50) := '99999999999999999999999999999999999999999999999999';
 ----lc_min_num_str          CONSTANT VARCHAR2(50) := '-9999999999999999999999999999999999999999999999999';
+    lc_max_str              VARCHAR2(4000) := '';
     
     TYPE col_rec_type IS RECORD
     (
@@ -199,6 +200,7 @@ IS
                        THEN l_min_value := '0001-01-01';
                        
                        WHEN UPPER(ip_data_type_name) = 'TIMESTAMP'
+                         OR UPPER(ip_data_type_name) = 'TIMESTAMP0'
                          OR UPPER(ip_data_type_name) = 'TIMESTAMP WITH TIME ZONE'
                        THEN l_min_value := '0001-01-01 00:00:00';
                        
@@ -218,7 +220,7 @@ IS
                        WHEN UPPER(ip_data_type_name) = 'BYTE'
                          OR UPPER(ip_data_type_name) = 'VARBYTE'
                          OR UPPER(ip_data_type_name) = 'BLOB'
-                       THEN l_min_value := lc_em || ' cannot support data type BYTE';
+                       THEN l_min_value := lc_em || ' cannot support binary data type <' || ip_data_type_name || '>';
                        
                        WHEN UPPER(ip_data_type_name) = 'INTERVAL YEAR'
                          OR UPPER(ip_data_type_name) = 'INTERVAL MONTH'
@@ -295,7 +297,7 @@ IS
                        WHEN UPPER(ip_data_type_name) = 'RAW'
                          OR UPPER(ip_data_type_name) = 'LONG RAW'
                          OR UPPER(ip_data_type_name) = 'BLOB'
-                       THEN l_min_value := lc_em || ' cannot support data type BYTE';
+                       THEN l_min_value := lc_em || ' cannot support binary data type <' || ip_data_type_name || '>';
                        
                        ELSE l_min_value := ' unknown data type <' || ip_data_type_name || '>';
                    END CASE;
@@ -304,6 +306,171 @@ IS
          
          dbms_output.put_line(lc_im || ' writing mininum value of <' || l_min_value || '> for techno <' || ip_techno_name || '> for data type <' || ip_data_type_name || '> with length of <' || ip_data_type_length || '> and precision <' || ip_data_type_precision || '>');
          RETURN l_min_value;
+         
+    EXCEPTION
+        WHEN OTHERS
+        THEN
+            dbms_output.put_line(lc_em || 'Caught exception in function minimum_value with technology name <' || ip_techno_name
+                              || '> and data type <' || ip_data_type_name || '>' || ' with code <' || SQLCODE || '> and message <' || SQLERRM || '>');        
+    END;
+    
+    FUNCTION maximum_value
+        (
+          ip_techno_name            IN      snp_model.tech_int_name%TYPE
+        , ip_data_type_name         IN      VARCHAR2
+        , ip_data_type_length       IN      PLS_INTEGER        
+        , ip_data_type_precision    IN      PLS_INTEGER        
+        )
+    RETURN VARCHAR2
+    IS
+        l_max_value                 VARCHAR2(4000);
+    BEGIN
+        CASE UPPER(ip_techno_name)
+             WHEN 'TERADATA'
+             THEN CASE WHEN UPPER(ip_data_type_name) = 'BYTEINT'
+                       THEN l_max_value := '127';
+                       
+                       WHEN UPPER(ip_data_type_name) = 'SMALLINT'
+                       THEN l_max_value := '32767';
+                       
+                       WHEN UPPER(ip_data_type_name) = 'INTEGER'
+                       THEN l_max_value := '2147483647';
+                       
+                       WHEN UPPER(ip_data_type_name) = 'BIGINT'
+                       THEN l_max_value := '9223372036854775807';
+                       
+                       WHEN UPPER(ip_data_type_name) = 'FLOAT'              -- Teradata.
+                         OR UPPER(ip_data_type_name) = 'REAL'               -- ANSI.
+                         OR UPPER(ip_data_type_name) = 'DOUBLE PRECISION'   -- ANSI.
+                       THEN l_max_value := '1.797e308';
+                       
+                       WHEN UPPER(ip_data_type_name) = 'DECIMAL'
+                         OR UPPER(ip_data_type_name) = 'DEC'
+                         OR UPPER(ip_data_type_name) = 'NUMERIC'
+                         OR UPPER(ip_data_type_name) = 'NUMBER'
+                       THEN IF ip_data_type_precision = 0
+                            THEN
+                                -- TODO: replace with call to string_of_length.
+                                l_max_value := SUBSTR(lc_max_num_str, 1, ip_data_type_length);
+                            ELSE
+                                -- TODO: replace with call to string_of_length.
+                                l_max_value := SUBSTR(lc_max_num_str, 1, ip_data_type_length - ip_data_type_precision)
+                                            || '.'
+                                            || SUBSTR(lc_max_num_str, 1, ip_data_type_precision);
+                            END IF;
+
+                       WHEN UPPER(ip_data_type_name) = 'DATE'
+                       THEN l_max_value := '9999-12-31';
+                       
+                       WHEN UPPER(ip_data_type_name) = 'TIMESTAMP'
+                         OR UPPER(ip_data_type_name) = 'TIMESTAMP0'
+                         OR UPPER(ip_data_type_name) = 'TIMESTAMP WITH TIME ZONE'
+                       THEN l_max_value := '9999-12-31 23:59:59';
+                       
+                       WHEN UPPER(ip_data_type_name) = 'TIME'
+                         OR UPPER(ip_data_type_name) = 'TIME WITH TIME ZONE'
+                       THEN l_max_value := '23:59:59';
+                       
+                       WHEN UPPER(ip_data_type_name) = 'VARCHAR'
+                         OR UPPER(ip_data_type_name) = 'LONG VARCHAR'
+                         OR UPPER(ip_data_type_name) = 'CHAR'
+                         OR UPPER(ip_data_type_name) = 'CHARACTER'
+                         OR UPPER(ip_data_type_name) = 'CLOB'
+                         OR UPPER(ip_data_type_name) = 'VARGRAPHIC'
+                         OR UPPER(ip_data_type_name) = 'LONG VARGRAPHIC'
+                            -- TODO: replace use of lc_max_str with string_of_length function when this code has become a package.
+                       THEN l_max_value := SUBSTR(lc_max_str, ip_data_type_length);
+                                              
+                       WHEN UPPER(ip_data_type_name) = 'BYTE'
+                         OR UPPER(ip_data_type_name) = 'VARBYTE'
+                         OR UPPER(ip_data_type_name) = 'BLOB'
+                       THEN l_max_value := lc_em || ' cannot support binary data type <' || ip_data_type_name || '>';
+                       
+                       WHEN UPPER(ip_data_type_name) = 'INTERVAL YEAR'
+                         OR UPPER(ip_data_type_name) = 'INTERVAL MONTH'
+                         OR UPPER(ip_data_type_name) = 'INTERVAL DAY'
+                         OR UPPER(ip_data_type_name) = 'INTERVAL HOUR'
+                         OR UPPER(ip_data_type_name) = 'INTERVAL MINUTE'
+                         OR UPPER(ip_data_type_name) = 'INTERVAL SECOND'
+                         -- TODO: replace with call to string_of_length (after turning this proc into a package).
+                       THEN l_max_value := '-' || SUBSTR(lc_max_num_str, 1, ip_data_type_length);
+                       
+                       WHEN UPPER(ip_data_type_name) = 'PERIOD(DATE)'
+                       THEN l_max_value := '9999-12-31,9999-12-31';
+                       
+                       WHEN UPPER(ip_data_type_name) = 'PERIOD(TIME)'
+                       THEN l_max_value := '23:59:59,23:59:59';
+                       
+                       WHEN UPPER(ip_data_type_name) = 'PERIOD(TIMESTAMP)'
+                       THEN l_max_value := '9999-12-31 23:59:59,9999-12-31 23:59:59';
+                       
+                       WHEN UPPER(ip_data_type_name) = 'PERIOD(TIME WITH TIME ZONE)'
+                       THEN l_max_value := '23:59:59,23:59:59';
+                       
+                       WHEN UPPER(ip_data_type_name) = 'PERIOD(TIMESTAMP WITH TIME ZONE)'
+                       THEN l_max_value := '9999-12-31 23:59:59,9999-12-31 23:59:59';
+                       
+                       ELSE l_max_value := lc_em || ' unknown data type <' || ip_data_type_name || '>';
+                   END CASE;
+             WHEN 'ORACLE'
+             THEN CASE WHEN UPPER(ip_data_type_name) = 'INTEGER'
+                         OR UPPER(ip_data_type_name) = 'SMALLINT'
+                         -- TODO: replace with a call to string_of_length.
+                       THEN l_max_value := SUBSTR(lc_max_num_str, 1, 38);
+                       
+                       WHEN UPPER(ip_data_type_name) = 'FLOAT'
+                         OR UPPER(ip_data_type_name) = 'REAL'
+                         OR UPPER(ip_data_type_name) = 'DOUBLE PRECISION'
+                       THEN l_max_value := '1.797e308';
+                       
+                       WHEN UPPER(ip_data_type_name) = 'NUMBER'
+                         OR UPPER(ip_data_type_name) = 'DECIMAL'
+                         OR UPPER(ip_data_type_name) = 'NUMERIC'
+                       THEN IF ip_data_type_precision = 0 
+                            THEN
+                                -- TODO: replace with call to string_of_length.
+                                l_max_value := SUBSTR(lc_max_num_str, 1, ip_data_type_length);
+                            ELSE
+                                -- TODO: replace with call to string_of_length.
+                                l_max_value := SUBSTR(lc_max_num_str, 1, ip_data_type_length - ip_data_type_precision)
+                                            || '.'
+                                            || SUBSTR(lc_max_num_str, 1, ip_data_type_precision);
+                            END IF;
+
+                       WHEN UPPER(ip_data_type_name) = 'BINARY_FLOAT'
+                         OR UPPER(ip_data_type_name) = 'BINARY_DOUBLE'
+                       THEN l_max_value := '1.797e308';
+                       
+                       WHEN UPPER(ip_data_type_name) = 'DATE'
+                       THEN l_max_value := '9999-12-31 23:59:59';
+                       
+                       WHEN UPPER(ip_data_type_name) = 'TIMESTAMP'
+                         OR UPPER(ip_data_type_name) = 'TIMESTAMP WITH TIME ZONE'
+                       THEN l_max_value := '9999-12-31 23:59:59';
+                       
+                       WHEN UPPER(ip_data_type_name) = 'VARCHAR'
+                         OR UPPER(ip_data_type_name) = 'VARCHAR2'
+                         OR UPPER(ip_data_type_name) = 'NVARCHAR2'
+                         OR UPPER(ip_data_type_name) = 'CHAR'
+                         OR UPPER(ip_data_type_name) = 'NCHAR'
+                         OR UPPER(ip_data_type_name) = 'CLOB'
+                         OR UPPER(ip_data_type_name) = 'NCLOB'
+                         OR UPPER(ip_data_type_name) = 'LONG'                    
+                            -- TODO: replace use of lc_max_str with string_of_length function when this code has become a package.
+                       THEN l_max_value := SUBSTR(lc_max_str, ip_data_type_length);
+                       
+                       WHEN UPPER(ip_data_type_name) = 'RAW'
+                         OR UPPER(ip_data_type_name) = 'LONG RAW'
+                         OR UPPER(ip_data_type_name) = 'BLOB'
+                       THEN l_max_value := lc_em || ' cannot support binary data type <' || ip_data_type_name || '>';
+                       
+                       ELSE l_max_value := lc_em || ' unknown data type <' || ip_data_type_name || '>';
+                   END CASE;
+             ELSE l_max_value := lc_em || ' unknown technology <' || ip_techno_name || '>';
+         END CASE;
+         
+         dbms_output.put_line(lc_im || ' writing maxinum value of <' || l_max_value || '> for techno <' || ip_techno_name || '> for data type <' || ip_data_type_name || '> with length of <' || ip_data_type_length || '> and precision <' || ip_data_type_precision || '>');
+         RETURN l_max_value;
          
     EXCEPTION
         WHEN OTHERS
@@ -630,6 +797,16 @@ BEGIN
     END IF;
     
     ----------------------------------------------------------------------------
+    -- Populate a long string constant to use for character column maximum
+    -- values until we turn this code into a package so that 'string_of_length'
+    -- can be called from any procedure.
+    ----------------------------------------------------------------------------
+    FOR l_count IN 1..4000
+    LOOP
+        lc_max_str := lc_max_str || 'A';
+    END LOOP;
+    
+    ----------------------------------------------------------------------------
     -- Get the next output session number.
     ----------------------------------------------------------------------------
     SELECT COUNT(*)
@@ -850,7 +1027,7 @@ BEGIN
             output_part_line('|');
             
             -- Output one row per nullable column.
-            L_COUNT:=l_src_set(l_src_set_idx).tabs(l_tab_idx).cols.LAST;
+            L_COUNT:=l_src_set(l_src_set_idx).tabs(l_tab_idx).cols.LAST; -------------!!!!!!!!!!!!!!????????????????
             FOR l_col_idx2 IN 1..l_src_set(l_src_set_idx).tabs(l_tab_idx).cols.LAST
             LOOP
                 dbms_output.put_line(lc_im || 'doing column number <' || l_col_idx2 || '> with not_null_ind of <'
@@ -937,6 +1114,7 @@ BEGIN
                                     output_part('|' || l_chr_key_val);
                                 ELSIF l_src_set(l_src_set_idx).tabs(l_tab_idx).cols(l_col_idx).type_name IN ('DATE'
                                                                                                            , 'TIMESTAMP'
+                                                                                                           , 'TIMESTAMP0'
                                                                                                             )
                                 THEN
                                     -- Increment the next value.
@@ -976,6 +1154,7 @@ BEGIN
                                     output_part('|' || lc_num_col_val);
                                 ELSIF l_src_set(l_src_set_idx).tabs(l_tab_idx).cols(l_col_idx).type_name IN ('DATE'
                                                                                                            , 'TIMESTAMP'
+                                                                                                           , 'TIMESTAMP0'
                                                                                                             )
                                 THEN
                                     -- Output the standard date/time value.
@@ -1099,6 +1278,7 @@ BEGIN
                             output_part('|' || string_of_length(l_src_set(l_src_set_idx).tabs(l_tab_idx).cols(l_col_idx).length, lc_str_col_val));
                         ELSIF l_src_set(l_src_set_idx).tabs(l_tab_idx).cols(l_col_idx).type_name IN ('DATE'
                                                                                                    , 'TIMESTAMP'
+                                                                                                   , 'TIMESTAMP0'
                                                                                                     )
                         THEN
                             output_part('|' || lc_datetime_max_col_val);
@@ -1163,6 +1343,7 @@ BEGIN
                                 output_part('|' || l_chr_key_val);
                             ELSIF l_src_set(l_src_set_idx).tabs(l_tab_idx).cols(l_col_idx).type_name IN ('DATE'
                                                                                                        , 'TIMESTAMP'
+                                                                                                       , 'TIMESTAMP0'
                                                                                                         )
                             THEN
                                 -- Increment the next value.
@@ -1202,6 +1383,7 @@ BEGIN
                                 output_part('|' || lc_num_col_val);
                             ELSIF l_src_set(l_src_set_idx).tabs(l_tab_idx).cols(l_col_idx).type_name IN ('DATE'
                                                                                                        , 'TIMESTAMP'
+                                                                                                       , 'TIMESTAMP0'
                                                                                                         )
                             THEN
                                 -- Output the standard date/time value.
@@ -1343,6 +1525,7 @@ BEGIN
                                 output_part('|' || l_chr_key_val);
                             ELSIF l_src_set(l_src_set_idx).tabs(l_tab_idx).cols(l_col_idx).type_name IN ('DATE'
                                                                                                        , 'TIMESTAMP'
+                                                                                                       , 'TIMESTAMP0'
                                                                                                         )
                             THEN
                                 -- Increment the next value.
@@ -1382,6 +1565,7 @@ BEGIN
                                 output_part('|' || lc_num_col_val);
                             ELSIF l_src_set(l_src_set_idx).tabs(l_tab_idx).cols(l_col_idx).type_name IN ('DATE'
                                                                                                        , 'TIMESTAMP'
+                                                                                                       , 'TIMESTAMP0'
                                                                                                         )
                             THEN
                                 -- Output the standard date/time value.
