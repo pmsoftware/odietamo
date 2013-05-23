@@ -105,32 +105,6 @@ echo %IM% setting ODI_SCM_INI to ^<%ODI_SCM_INI%^>
 :OdiScmIniSet
 
 REM ===============================================
-REM Set the command path if not already set.
-REM ===============================================
-REM Escape back slash characters for use with sed.
-for /f "tokens=*" %%g in ('echo %ODI_SCM_HOME%\Configuration\Scripts ^| sed "s/\\/\\\\/g" ^| sed "s/ //g"') do (
-	set OdiScmHomeEscaped=%%g
-)
-REM Remove spaces in PATH and look for Scripts directory in the path string.
-set OdiScmInPath=
-for /f "tokens=* eol=# delims=;" %%g in ('echo %PATH% ^| sed "s/ //g" ^| grep -i %OdiScmHomeEscaped%') do (
-	set OdiScmInPath=%%g
-)
-rem echo OdiScmInPath=%OdiScmInPath%
-
-if "%OdiScmInPath%" == "" goto SetOdiScmPath
-
-echo %IM% OdiScm scripts directory ^<%ODI_SCM_HOME%\Configuration\Scripts^> is in the command PATH
-goto OdiScmPathSet
-
-:SetOdiScmPath
-echo %IM% OdiScm scripts directory is not in the command PATH environment variable
-echo %IM% adding directory ^<%ODI_SCM_HOME%\Configuration\Scripts^> to command PATH environment variable
-set PATH=%PATH%;%ODI_SCM_HOME%\Configuration\Scripts
-
-:OdiScmPathSet
-
-REM ===============================================
 REM Show the configuration from the INI file.
 REM ===============================================
 
@@ -213,20 +187,43 @@ for /f %%g in (%TEMPFILE2%) do (
 	)
 )
 
-:ExitFail
-REM if exist "%TEMPFILE%" del /f %TEMPFILE%
-REM if exist "%TEMPFILE2%" del /f %TEMPFILE2%
-exit %IsBatchExit% 1
+REM Set the command path if not already set.
+call :SetPath %ODI_SCM_HOME%\Configuration\Scripts
+if ERRORLEVEL 1 (
+	echo %EM% setting PATH environment variable for OdiScm scripts directory ^<%ODI_SCM_HOME%\Configuration\Scripts^>
+	goto ExitFail
+)
+
+call :SetPath %JAVA_HOME%\bin
+if ERRORLEVEL 1 (
+	echo %EM% setting PATH environment variable for Java bin directory ^<%JAVA_HOME%\bin^>
+	goto ExitFail
+)
+
+call :SetPath %ORACLE_HOME%\bin
+if ERRORLEVEL 1 (
+	echo %EM% setting PATH environment variable for Oracle client bin directory ^<%ORACLE_HOME%\bin^>
+	goto ExitFail
+)
 
 :ExitOk
 REM if exist "%TEMPFILE%" del /f %TEMPFILE%
 REM if exist "%TEMPFILE2%" del /f %TEMPFILE2%
 exit %IsBatchExit% 0
 
+:ExitFail
+REM if exist "%TEMPFILE%" del /f %TEMPFILE%
+REM if exist "%TEMPFILE2%" del /f %TEMPFILE2%
+exit %IsBatchExit% 1
+
 REM ===============================================
 REM S U B R O U T I N E S
 REM ===============================================
+
 :SetConfig
+REM ===============================================
+REM Set an environment variable from a configuration file key.
+REM ===============================================
 echo %IM% processing configuration section ^<%1^> key ^<%2^>
 
 set ENVVARVAL=
@@ -254,3 +251,31 @@ if ERRORLEVEL 1 (
 exit /b 0
 :SetConfigExitFail
 exit /b 1
+
+:SetPath
+REM ===============================================
+REM Set the command path if it doesn't already contain the specfied directory.
+REM ===============================================
+REM Escape back slash characters for use with sed.
+for /f "tokens=*" %%g in ('echo %1 ^| sed "s/\\/\\\\/g" ^| sed "s/ //g"') do (
+	set DirNameEscaped=%%g
+)
+REM Remove spaces in PATH and look for the specified directory in the path string.
+set DirNameInPath=
+for /f "tokens=* eol=# delims=;" %%g in ('echo %PATH% ^| sed "s/ //g" ^| grep -i %DirNameEscaped%') do (
+	set DirNameInPath=%%g
+)
+rem echo DirNameInPath=%DirNameInPath%
+
+if "%DirNameInPath%" == "" goto SetDirNamePath
+
+echo %IM% Directory ^<%1^> is in the command PATH
+goto DirNamePathSet
+
+:SetDirNamePath
+echo %IM% Directory ^<%1^> is not in the command PATH environment variable
+echo %IM% adding directory ^<%1^> to command PATH environment variable
+set PATH=%1;%PATH%
+
+:DirNamePathSet
+exit /b 0
