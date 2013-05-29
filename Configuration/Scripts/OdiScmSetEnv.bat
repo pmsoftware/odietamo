@@ -58,49 +58,54 @@ REM Define a temporary work file.
 REM
 set TEMPFILE=%TEMPDIR%\%RANDOM%_OdiScmSetEnv.txt
 
-REM
-REM Verify else set ODI_SCM_HOME.
-REM
+REM ===============================================
+REM Verify minimum requirements - ODI_SCM_HOME must be defined.
+REM ===============================================
 if not "%ODI_SCM_HOME%" == "" goto OdiScmHomeSet
 
-echo %WM% OdiScm home directory environment variable ODI_SCM_HOME is not set
-echo %WM% setting from this script's command path
+REM echo %WM% OdiScm home directory environment variable ODI_SCM_HOME is not set
+REM echo %WM% setting from this script's command path
+
+echo %EM% OdiScm home directory environment variable ODI_SCM_HOME is not set
+goto ExitFail
 
 REM
 REM Derive the directory from the path to this script.
 REM NOTE: the configuration INI file is not used to specify a value for ODI_SCM_HOME.
 REM
 rem echo setting it to %CmdDrivePath%
-set OdiScmHome=
+rem set OdiScmHome=
 rem echo set OdiScmHome=%CmdDrivePath%
 rem echo OdiScmHome is %OdiScmHome%
-set OdiScmHome=%CmdDrivePath%
+rem set OdiScmHome=%CmdDrivePath%
 rem echo set it to %OdiScmHome%
 REM Remove the trailing back slash character.
-set OdiScmHome=%OdiScmHome:~0,-1%
+rem set OdiScmHome=%OdiScmHome:~0,-1%
 rem echo OdiScmHome is then %OdiScmHome%
-set ODI_SCM_HOME=%OdiScmHome:\Configuration\Scripts=%
-echo %IM% setting ODI_SCM_HOME to ^<%ODI_SCM_HOME%^>
+rem set ODI_SCM_HOME=%OdiScmHome:\Configuration\Scripts=%
+rem echo %IM% setting ODI_SCM_HOME to ^<%ODI_SCM_HOME%^>
 
 :OdiScmHomeSet
 
 REM ===============================================
-REM Verify minimum requirements - ODI_SCM_INI must be defined or there must be
-REM a configuration file in the CWD (Current Working Directory).
+REM Verify minimum requirements - ODI_SCM_INI must be defined.
 REM ===============================================
 if not "%ODI_SCM_INI%" == "" goto OdiScmIniSet
-
-echo %WM% OdiScm configuration INI file environment variable ODI_SCM_INI is not set
-echo %WM% it is highly recommended to set this variable to explicitly set the configuration
-if exist ".\OdiScm.ini" goto DeriveOdiScmIni
 
 echo %EM% no configuration INI file ^<OdiScm.ini^> found in current working directory
 goto ExitFail
 
-:DeriveOdiScmIni
-set ODI_SCM_INI=%CD%\OdiScm.ini
-echo %IM% found configuration INI file ^<OdiScm.ini^> in current working directory
-echo %IM% setting ODI_SCM_INI to ^<%ODI_SCM_INI%^>
+rem echo %WM% OdiScm configuration INI file environment variable ODI_SCM_INI is not set
+rem echo %WM% it is highly recommended to set this variable to explicitly set the configuration
+rem if exist ".\OdiScm.ini" goto DeriveOdiScmIni
+
+rem echo %EM% no configuration INI file ^<OdiScm.ini^> found in current working directory
+rem goto ExitFail
+
+rem :DeriveOdiScmIni
+rem set ODI_SCM_INI=%CD%\OdiScm.ini
+rem echo %IM% found configuration INI file ^<OdiScm.ini^> in current working directory
+rem echo %IM% setting ODI_SCM_INI to ^<%ODI_SCM_INI%^>
 
 :OdiScmIniSet
 
