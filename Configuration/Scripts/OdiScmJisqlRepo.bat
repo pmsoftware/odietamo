@@ -74,6 +74,18 @@ rem Extract the repository connection details from odiparams.bat.
 rem
 set TEMPFILE=%TEMPDIR%\%TEMPSTR%_OdiScmImportOdiScm.txt
 
+rem
+rem Ensure the working file can be written to.
+rem
+if not EXIST %TEMPFILE% goto TempFileAbsent
+
+del /f /q %TEMPFILE% >NUL 2>NUL
+if ERRORLEVEL 1 (
+	echo %EM% deleting working file ^<%TEMPFILE%^>
+	goto ExitFail
+)
+
+:TempFileAbsent
 set MSG=extracting ODI_SECU_DRIVER
 cat %ODI_HOME%\bin\odiparams.bat | gawk "/^set ODI_SECU_DRIVER/ { print $0 }" | tail -1 | cut -f2 -d= > %TEMPFILE%
 if ERRORLEVEL 1 goto GetOdiParamsParseFail

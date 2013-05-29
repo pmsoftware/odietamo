@@ -111,7 +111,7 @@ rem
 rem Run the generated ODI-SCM repository infrastructure set up script.
 rem
 echo %IM% creating ODI-SCM repository objects
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat %TEMPFILE%3 %STDOUTFILE% %STDERRFILE%
+call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat /b %TEMPFILE%3 %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto CreateInfrastructureFail
 
 goto CreateInfrastructureChkStdErr
