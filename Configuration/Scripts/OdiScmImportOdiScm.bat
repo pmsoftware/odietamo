@@ -83,7 +83,7 @@ rem
 set TEMPSTR=%RANDOM%
 
 set TEMPFILE=%TEMPDIR%\%TEMPSTR%_OdiScmImportOdiScm.txt
-cat %ODI_SCM_HOME%\Configuration\Scripts\odiscm_create_infrastructure.sql | sed s/"<OdiWorkRepoUserName>"/%ODI_SECU_USER%/ > %TEMPFILE%
+cat %ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateInfrastructureTemplate.sql | sed s/"<OdiWorkRepoUserName>"/%ODI_SECU_USER%/ > %TEMPFILE%
 if ERRORLEVEL 1 goto ScriptGenFail
 
 cat %TEMPFILE% | sed s/"<OdiWorkRepoPassWord>"/%ODI_SECU_PASS%/ > %TEMPFILE%2
@@ -198,7 +198,7 @@ rem
 rem Prime the export control metadata.
 rem
 echo %IM% priming ODI-SCM export control metadata
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat %ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql
+call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat /b %ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql
 if ERRORLEVEL 1 goto PrimeExportControlFail
 
 echo %IM% completed priming of ODI-SCM export control metadata
