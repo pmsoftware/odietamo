@@ -106,9 +106,9 @@ for /f %%f in ('dir /b %ODI_HOME%\drivers') do (
 )
 
 echo %IM% Jisql class path ^<%JISQL_CLASS_PATH%^>
-echo %IM% executing command ^<%JAVA_HOME%\bin\java -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 ^>%STDOUTFILE% 2^>%STDERRFILE%^>
+echo %IM% executing command ^<"%JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 ^>%STDOUTFILE% 2^>%STDERRFILE%^>
 
-%JAVA_HOME%\bin\java -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 >%STDOUTFILE% 2>%STDERRFILE%
+"%JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 >%STDOUTFILE% 2>%STDERRFILE%
 if ERRORLEVEL 1 goto ExitFail
 exit %ISBATCHEXIT% 0
 
