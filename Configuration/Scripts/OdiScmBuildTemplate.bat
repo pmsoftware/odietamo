@@ -9,6 +9,7 @@ set JAVA_HOME=<JavaHomeDir>
 set ODI_SCM_INI=<OdiScmIniFile>
 set ODI_SCM_HOME=<OdiScmHomeDir>
 set ODI_SCM_JISQL_HOME=<OdiScmJisqlHomeDir>
+set ODI_SCM_JISQL_JAVA_HOME=<OdiScmJisqlHomeDir>
 set ORACLE_HOME=<OracleHomeDir>
 
 if "%TEMP%" == "" goto NoTempDir
@@ -39,17 +40,17 @@ goto MainExitFail
 :CreateEmptyFileOk
 set MSG=executing OdiScm pre ODI object import repository back-up script "<OdiScmRepositoryBackUpBat>"
 echo %IM% %MSG%
-call <OdiScmRepositoryBackUpBat>
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmRepositoryBackUpBat>"
 if ERRORLEVEL 1 goto MainExitFail
 
 set MSG=executing OdiScm pre ODI object import script "<OdiScmGenScenPreImportBat>"
 echo %IM% %MSG%
-call <OdiScmGenScenPreImportBat>
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" <OdiScmGenScenPreImportBat>
 if ERRORLEVEL 1 goto MainExitFail
 
 set MSG=executing OdiScm ODI import script "<OdiImportScriptFile>"
 echo %IM% %MSG%
-call <OdiImportScriptFile>
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "<OdiImportScriptFile>"
 if ERRORLEVEL 1 goto MainExitFail
 
 set MSG=executing OdiScm ODI repository integrity validation script "<OdiScmValidateRepositoryIntegritySql>"
@@ -57,7 +58,7 @@ echo %IM% %MSG%
 call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScmValidateRepositoryIntegrity_StdOut_%YYYYMMDD%_%HHMM%.log
 set STDERRFILE=<GenScriptRootDir>\OdiScmValidateRepositoryIntegrity_StdErr_%YYYYMMDD%_%HHMM%.log
-call <OdiScmJisqlRepoBat> /b <OdiScmValidateRepositoryIntegritySql> %STDOUTFILE% %STDERRFILE%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmJisqlRepoBat>" /b <OdiScmValidateRepositoryIntegritySql> %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto MainOdiScmValidateRepoFail
 goto MainOdiScmValidateRepoChkStdErr
 
@@ -90,7 +91,7 @@ echo %IM% %MSG%
 call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScmRestoreRepositoryIntegrity_StdOut_%YYYYMMDD%_%HHMM%.log
 set STDERRFILE=<GenScriptRootDir>\OdiScmRestoreRepositoryIntegrity_StdErr_%YYYYMMDD%_%HHMM%.log
-call <OdiScmJisqlRepoBat> /b <OdiScmRestoreRepositoryIntegritySql> %STDOUTFILE% %STDERRFILE%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmJisqlRepoBat>" /b <OdiScmRestoreRepositoryIntegritySql> %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto MainOdiScmRestoreRepoIntegFail
 goto MainOdiScmRestoreRepoIntegChkStdErr
 
@@ -116,12 +117,12 @@ goto MainExitFail
 :MainOdiScmRestoreRepoIntegOk
 set MSG=executing OdiScm ODI scenario generation script "<OdiScmGenScenPostImportBat>"
 echo %IM% %MSG%
-call <OdiScmGenScenPostImportBat>
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmGenScenPostImportBat>"
 if ERRORLEVEL 1 goto MainExitFail
 
 set MSG=updating OdiScm local workspace metadata
 echo %IM% %MSG%
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetIni.bat /b ImportControls OracleDIImportedRevision <OdiScmLatestChangeSet>
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetIni.bat" /b ImportControls OracleDIImportedRevision <OdiScmLatestChangeSet>
 if ERRORLEVEL 1 goto MainExitFail
 
 set MSG=updating OdiScm repository ChangeSet metadata
@@ -129,7 +130,7 @@ echo %IM% %MSG%
 call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScm_set_next_import_jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\OdiScm_set_next_import_jisql_stderr_%YYYYMMDD%_%HHMM%.txt
-call <OdiScmJisqlRepoBat> /b <OdiScmSetNextImportSql> %STDOUTFILE% %STDERRFILE%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmJisqlRepoBat>" /b <OdiScmSetNextImportSql> %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto MainOdiScmSetNextImportFail
 goto MainOdiScmSetNextImportChkStdErr
 

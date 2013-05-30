@@ -4,7 +4,7 @@ set FN=OdiScmRepositoryBackUp
 set IM=%FN%: INFO:
 set EM=%FN%: ERROR:
 
-set BU_ORACLE_HOME=%ORACLE_HOME%
+REM set BU_ORACLE_HOME=%ORACLE_HOME%
 set BU_PATH=%PATH%
 
 REM set ORACLE_HOME=C:\MOI\Configuration\Tools\Oracle10gClient
@@ -12,7 +12,7 @@ REM set PATH=C:\MOI\Configuration\Tools\Oracle10gClient\BIN
 set PATH=%ORACLE_HOME%\bin
 
 echo %IM% backing up user ^<<OdiWorkRepoUserName>^> in database ^<<OdiWorkRepoServer>:<OdiWorkRepoPort>/<OdiWorkRepoSID>^>
-exp <OdiWorkRepoUserName>/<OdiWorkRepoPassWord>@<OdiWorkRepoServer>:<OdiWorkRepoPort>/<OdiWorkRepoSID> owner=<OdiWorkRepoUserName> file=<ExportBackUpFile> statistics=none
+"%ORACLE_HOME%\bin\exp.exe" <OdiWorkRepoUserName>/<OdiWorkRepoPassWord>@<OdiWorkRepoServer>:<OdiWorkRepoPort>/<OdiWorkRepoSID> owner=<OdiWorkRepoUserName> file=<ExportBackUpFile> statistics=none
 if ERRORLEVEL 1 goto ExportFail
 goto ExportOk
 

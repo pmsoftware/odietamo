@@ -39,7 +39,7 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen20_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen20_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call <OdiScmJisqlRepoBat> /b <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen20DeleteOldScenScript.sql %STDOUTFILE% %STDERRFILE%
+call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmJisqlRepoBat>" /b <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen20DeleteOldScenScript.sql %STDOUTFILE% %STDERRFILE%
 if not ERRORLEVEL 1 goto BatchFileOk20
 
 echo %EM% Batch file MoiJisqlRepo.bat returned non-zero ERRORLEVEL
@@ -95,7 +95,7 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen30_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen30_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call <OdiScmJisqlRepoBat> /b <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen30MarkUpSourceObjects.sql %STDOUTFILE% %STDERRFILE%
+call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmJisqlRepoBat>" /b <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen30MarkUpSourceObjects.sql %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto BatchFileNotOk30
 goto BatchFileOk30
 
@@ -133,8 +133,8 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen40_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen40_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call <OdiScmJisqlRepoBat> /b <OdiScmGenScenNewSql> %STDOUTFILE% %STDERRFILE%
-if  ERRORLEVEL 1 goto BatchFileNotOk40
+call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmJisqlRepoBat>" /b <OdiScmGenScenNewSql> %STDOUTFILE% %STDERRFILE%
+if ERRORLEVEL 1 goto BatchFileNotOk40
 goto BatchFileOk40
 
 :BatchFileNotOk40
@@ -154,7 +154,7 @@ rem The called batch file has returned a 0 errorlevel but check for anything in 
 rem 
 echo %IM% Batch file MoiJisqlRepo.bat returned zero ERRORLEVEL
 fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
-if  ERRORLEVEL 1 goto StdErrNotEmpty40
+if ERRORLEVEL 1 goto StdErrNotEmpty40
 goto StdErrEmpty40
 
 :StdErrNotEmpty40
@@ -191,8 +191,8 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen50_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen50_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call <OdiScmJisqlRepoBat> /b <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen50Terminate.sql %STDOUTFILE% %STDERRFILE%
-if  ERRORLEVEL 1 goto BatchFileNotOk50
+call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmJisqlRepoBat>" /b <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen50Terminate.sql %STDOUTFILE% %STDERRFILE%
+if ERRORLEVEL 1 goto BatchFileNotOk50
 goto BatchFileOk50
 
 :BatchFileNotOk50

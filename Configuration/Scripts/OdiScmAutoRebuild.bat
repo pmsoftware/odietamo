@@ -20,6 +20,9 @@ if %ODI_SCM_INI% == "" (
 	goto ExitFail
 )
 
+rem
+rem Set the environment from the configuration INI file.
+rem
 call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat /b
 if ERRORLEVEL 1 (
 	echo %EM% setting environment variables from configuration INI file ^<%ODI_SCM_INI%^>
@@ -47,78 +50,78 @@ REM
 REM Define a temporary work file.
 REM
 set TEMPFILE=%TEMPDIR%\%RANDOM%_OdiScmSetEnv.txt
-del /f %TEMPFILE% >NUL 2>NUL
+del /f "%TEMPFILE%" >NUL 2>NUL
 
 REM
 REM Extract the ODI repository server/port/SID from the URL.
 REM
-echo %ODI_SECU_URL% | cut -f4 -d: | sed s/@// >%TEMPFILE% 2>&1
+echo %ODI_SECU_URL% | cut -f4 -d: | sed s/@// >"%TEMPFILE%" 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% cannot extract server name from ODI repository URL ^<%ODI_SECU_URL%^>
 	goto ExitFail
 )
 
-set /p ODI_REPO_SERVER=<%TEMPFILE%
+set /p ODI_REPO_SERVER=<"%TEMPFILE%"
 
-echo %ODI_SECU_URL% | cut -f5 -d: >%TEMPFILE% 2>&1
+echo %ODI_SECU_URL% | cut -f5 -d: >"%TEMPFILE%" 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% cannot extract listener port from ODI repository URL ^<%ODI_SECU_URL%^>
 	goto ExitFail
 )
 
-set /p ODI_REPO_PORT=<%TEMPFILE%
+set /p ODI_REPO_PORT=<"%TEMPFILE%"
 
-echo %ODI_SECU_URL% | cut -f6 -d: >%TEMPFILE% 2>&1
+echo %ODI_SECU_URL% | cut -f6 -d: >"%TEMPFILE%" 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% cannot extract SID from ODI repository URL ^<%ODI_SECU_URL%^>
 	goto ExitFail
 )
 
-set /p ODI_REPO_SID=<%TEMPFILE%
+set /p ODI_REPO_SID=<"%TEMPFILE%"
 
 REM
 REM Get the OdiScm fixed output tag.
 REM
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat /b Generate OutputTag >%TEMPFILE% 2>&1
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b Generate OutputTag >"%TEMPFILE%" 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% cannot get value for section ^<Generate^> key ^<OutputTag^>
 	goto ExitFail
 )
 
-set /p OUTPUT_TAG=<%TEMPFILE%
+set /p OUTPUT_TAG=<"%TEMPFILE%"
 
 REM
 REM Get the SCM system type.
 REM
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat /b SCMSystem SCMSystemTypeName >%TEMPFILE% 2>&1
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b SCMSystem SCMSystemTypeName >"%TEMPFILE%" 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMSystemTypeName^>
 	goto ExitFail
 )
 
-set /p SCM_SYSTEM_NAME=<%TEMPFILE%
+set /p SCM_SYSTEM_NAME=<"%TEMPFILE%"
 
 REM
 REM Get the SCM system URL.
 REM
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat /b SCMSystem SCMSystemUrl >%TEMPFILE% 2>&1
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b SCMSystem SCMSystemUrl >"%TEMPFILE%" 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMSystemUrl^>
 	goto ExitFail
 )
 
-set /p SCM_SYSTEM_URL=<%TEMPFILE%
+set /p SCM_SYSTEM_URL=<"%TEMPFILE%"
 
 REM
 REM Get the SCM system branch URL.
 REM
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat /b SCMSystem SCMBranchUrl >%TEMPFILE% 2>&1
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b SCMSystem SCMBranchUrl >"%TEMPFILE%" 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMBranchUrl^>
 	goto ExitFail
 )
 
-set /p SCM_BRANCH_URL=<%TEMPFILE%
+set /p SCM_BRANCH_URL=<"%TEMPFILE%"
 
 REM
 REM Get the local working copy path.
@@ -181,7 +184,7 @@ if "%ODI_SCM_INI%" == "%WC_ROOT%\OdiScm.ini" (
 	goto ExitFail
 )
 
-copy "%ODI_SCM_INI%" "%WC_ROOT%\OdiScm.ini"
+copy "%ODI_SCM_INI%" "%WC_ROOT%\OdiScm.ini" >NUL
 if ERRORLEVEL 1 (
 	echo %EM% copying source configuration INI file ^<%ODI_SCM_INI%^> to disposable target
 	echo %EM% configuration INI file ^<%%WC_ROOT%\OdiScm.ini%^>
@@ -225,7 +228,7 @@ if ERRORLEVEL 1 (
 goto DoneWc
 
 :DoWcSVN
-svn checkout %SCM_SYSTEM_URL%\%SCM_BRANCH_URL%
+svn checkout %SCM_SYSTEM_URL%/%SCM_BRANCH_URL%
 if ERRORLEVEL 1 (
 	echo %EM% creating working copy for branch URL ^<%SCM_BRANCH_URL%^>
 	echo %EM% in working copy root directory ^<%WC_ROOT%^>
@@ -237,7 +240,7 @@ if ERRORLEVEL 1 (
 REM
 REM Drop contents of existing repository schema.
 REM
-call OdiScmJisql.bat /b %ODI_SECU_USER% %ODI_SECU_PASS% oracle.jdbc.driver.OracleDriver %ODI_SECU_URL% %ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownOracleSchema.sql
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat" /b %ODI_SECU_USER% %ODI_SECU_PASS% oracle.jdbc.driver.OracleDriver %ODI_SECU_URL% %ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownOracleSchema.sql
 if ERRORLEVEL 1 (
 	echo %EM% dropping ODI repository objects
 	goto ExitFail
@@ -256,12 +259,12 @@ REM
 REM Archive the previous OdiScm output directory and recreate it.
 REM
 call :SetDateTimeStrings
-move %ODI_SCM_HOME%\Logs\%OUTPUT_TAG% %ODI_SCM_HOME%\Logs\%OUTPUT_TAG%_%YYYYMMDD%_%HHMM% >NUL 2>NUL
+move "%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%" "%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%_%YYYYMMDD%_%HHMM%" >NUL 2>NUL
 
 REM
 REM Execute the main OdiScmGet process.
 REM
-call OdiScmGet.bat
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGet.bat"
 if ERRORLEVEL 1 (
 	echo %EM% executing main OdiScmGet process
 	goto ExitFail
@@ -270,21 +273,21 @@ if ERRORLEVEL 1 (
 REM
 REM Execute the OdiScmGet process output script.
 REM
-call %ODI_SCM_HOME%\Logs\%OUTPUT_TAG%\OdiScmBuild_%OUTPUT_TAG%.bat
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%\OdiScmBuild_%OUTPUT_TAG%.bat"
 if ERRORLEVEL 1 (
 	echo %EM% executing main OdiScm output build script
 	goto ExitFail
 )
 
-echo send-mailmessage -from "MOIConfig <mattenm@bupa.com>" -to "MOIConfig <mattenm@bupa.com>" -subject "MOI Auto Build For Branch <NP_Stable> has succeeded" -smtp gbstaex02 -body "MOI Auto Build For Branch <NP_Stable> has succeeded" >%TEMPFILE%
-powershell -file %TEMPFILE%
+echo send-mailmessage -from "MOIConfig <mattenm@bupa.com>" -to "MOIConfig <mattenm@bupa.com>" -subject "MOI Auto Build For Branch <NP_Stable> has succeeded" -smtp gbstaex02 -body "MOI Auto Build For Branch <NP_Stable> has succeeded" >"%TEMPFILE%"
+powershell -file "%TEMPFILE%"
 
 goto ExitOk
 
 :ExitFail
-echo send-mailmessage -from "MOIConfig <mattenm@bupa.com>" -to "MOIConfig <mattenm@bupa.com>" -subject "MOI Auto Build For Branch <NP_Stable> has failed" -smtp gbstaex02 -body "MOI Auto Build For Branch <NP_Stable> has failed" >%TEMPFILE%
-powershell -file %TEMPFILE%
-exit -b 1
+echo send-mailmessage -from "MOIConfig <mattenm@bupa.com>" -to "MOIConfig <mattenm@bupa.com>" -subject "MOI Auto Build For Branch <NP_Stable> has failed" -smtp gbstaex02 -body "MOI Auto Build For Branch <NP_Stable> has failed" >"%TEMPFILE%"
+powershell -file "%TEMPFILE%"
+exit /b 1
 
 :ExitOk
 exit /b 0

@@ -2,6 +2,9 @@
 REM ===============================================
 REM Set environment variables for the OdiScm configuration
 REM that will be used by the system.
+REM
+REM Note that for this script to have any useful effect it must be
+REM executed with CALL and passed the /B switch.
 REM ===============================================
 set FN=OdiScmSetEnv
 set IM=%FN%: INFO:
@@ -9,7 +12,8 @@ set EM=%FN%: ERROR:
 set WM=%FN%: WARNING:
 
 REM
-REM BEWARE of SETLOCAL. We need to ensure that variable value assignments survive the exit from this script.
+REM BEWARE of SETLOCAL. We need to ensure that variable value assignments survive the exit from this script
+REM for them to be useful.
 REM
 
 set CmdDrivePathFile=%0
@@ -92,7 +96,7 @@ REM Verify minimum requirements - ODI_SCM_INI must be defined.
 REM ===============================================
 if not "%ODI_SCM_INI%" == "" goto OdiScmIniSet
 
-echo %EM% no configuration INI file ^<OdiScm.ini^> found in current working directory
+echo %EM% OdiScm configuration INI file environment variable ODI_SCM_INI is not set
 goto ExitFail
 
 rem echo %WM% OdiScm configuration INI file environment variable ODI_SCM_INI is not set
@@ -118,42 +122,42 @@ set TEMPFILE2=%TEMPDIR%\%RANDOM%_OdiScmSetEnv.txt
 REM
 REM OdiScm configuration.
 REM
-echo %IM% looking for section ^<OdiScm^> key ^<ODI_SCM_HOME^> in configuration INI file
+rem echo %IM% looking for section ^<OdiScm^> key ^<ODI_SCM_HOME^> in configuration INI file
 
-echo.>%TEMPFILE% 
-if ERRORLEVEL 1 (
-	echo %EM% initialising temporary working file ^<%TEMPFILE%^>
-	goto ExitFail
-)
-set ENVVARVAL=
+rem echo.>%TEMPFILE% 
+rem if ERRORLEVEL 1 (
+rem 	echo %EM% initialising temporary working file ^<%TEMPFILE%^>
+rem 	goto ExitFail
+rem )
+rem set ENVVARVAL=
 rem echo getting ini to file %TEMPFILE%
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat /b OdiScmx ODI_SCM_HOME >%TEMPFILE% 2>&1
-if ERRORLEVEL 1 (
-	echo %EM% cannot get value for section ^<OdiScm^> key ^<ODI_SCM_HOME^>
-	goto ExitFail
-)
+rem call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat /b OdiScm ODI_SCM_HOME >%TEMPFILE% 2>&1
+rem if ERRORLEVEL 1 (
+rem 	echo %EM% cannot get value for section ^<OdiScm^> key ^<ODI_SCM_HOME^>
+rem 	goto ExitFail
+rem )
 rem echo on
 rem echo getting val from file %TEMPFILE%
 rem echo "file contains >>>"
 rem type %TEMPFILE%
 rem echo "<<<"
-set /p ENVVARVAL=<%TEMPFILE%
+rem set /p ENVVARVAL=<%TEMPFILE%
 rem echo got "%ENVVARVAL%"
-if "%ENVVARVAL%" == "" (
-	echo %IM% configuration INI file does not contain entry for section ^<OdiScm^> key ^<ODI_SCM_HOME^>
-	goto NoOdiScmHomeInIni
-)
+rem if "%ENVVARVAL%" == "" (
+rem 	echo %IM% configuration INI file does not contain entry for section ^<OdiScm^> key ^<ODI_SCM_HOME^>
+rem 	goto NoOdiScmHomeInIni
+rem )
 
-echo %IM% found section ^<OdiScm^> key ^<ODI_SCM_HOME^> in configuration INI file
-echo %IM% setting environment variable ^<ODI_SCM_HOME^> to value 
-echo val is "%ENVVARVAL%"
-set SetEnvVarCmd=set ODI_SCM_HOME=%ENVVARVAL%
-%SetEnvVarCmd%
-if ERRORLEVEL 1 (
-	echo %EM% cannot set value for environment variable ^<%1^>
-	got SetConfigExitFail
-)
-:NoOdiScmHomeInIni
+rem echo %IM% found section ^<OdiScm^> key ^<ODI_SCM_HOME^> in configuration INI file
+rem echo %IM% setting environment variable ^<ODI_SCM_HOME^> to value 
+rem echo val is "%ENVVARVAL%"
+rem set SetEnvVarCmd=set ODI_SCM_HOME=%ENVVARVAL%
+rem %SetEnvVarCmd%
+rem if ERRORLEVEL 1 (
+rem 	echo %EM% cannot set value for environment variable ^<%1^>
+rem 	got SetConfigExitFail
+rem )
+rem :NoOdiScmHomeInIni
 
 REM
 REM OracleDI configuration.
@@ -175,6 +179,77 @@ for /f %%g in (%TEMPFILE2%) do (
 		goto ExitFail
 	)
 )
+
+REM
+REM Extract the ODI repository server/port/SID from the URL.
+REM
+echo %ODI_SECU_URL% | cut -f4 -d: | sed s/@// >"%TEMPFILE2%" 2>&1
+if ERRORLEVEL 1 (
+	echo %EM% cannot extract server name from ODI repository URL ^<%ODI_SECU_URL%^>
+	goto ExitFail
+)
+
+set /p ODI_SECU_URL_HOST=<"%TEMPFILE2%"
+
+echo %ODI_SECU_URL% | cut -f5 -d: >"%TEMPFILE2%" 2>&1
+if ERRORLEVEL 1 (
+	echo %EM% cannot extract listener port from ODI repository URL ^<%ODI_SECU_URL%^>
+	goto ExitFail
+)
+
+set /p ODI_SECU_URL_PORT=<"%TEMPFILE2%"
+
+echo %ODI_SECU_URL% | cut -f6 -d: >"%TEMPFILE2%" 2>&1
+if ERRORLEVEL 1 (
+	echo %EM% cannot extract SID from ODI repository URL ^<%ODI_SECU_URL%^>
+	goto ExitFail
+)
+
+set /p ODI_SECU_URL_SID=<"%TEMPFILE2%"
+
+REM
+REM Get the OdiScm fixed output tag.
+REM
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b Generate OutputTag >"%TEMPFILE2%" 2>&1
+if ERRORLEVEL 1 (
+	echo %EM% cannot get value for section ^<Generate^> key ^<OutputTag^>
+	goto ExitFail
+)
+
+set /p OUTPUT_TAG=<"%TEMPFILE2%"
+
+REM
+REM Get the SCM system type.
+REM
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b SCMSystem SCMSystemTypeName >"%TEMPFILE%" 2>&1
+if ERRORLEVEL 1 (
+	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMSystemTypeName^>
+	goto ExitFail
+)
+
+set /p ODI_SCM_SYSTEM_NAME=<"%TEMPFILE2%"
+
+REM
+REM Get the SCM system URL.
+REM
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b SCMSystem SCMSystemUrl >"%TEMPFILE%" 2>&1
+if ERRORLEVEL 1 (
+	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMSystemUrl^>
+	goto ExitFail
+)
+
+set /p ODI_SCM_SYSTEM_URL=<"%TEMPFILE2%"
+
+REM
+REM Get the SCM system branch URL.
+REM
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b SCMSystem SCMBranchUrl >"%TEMPFILE%" 2>&1
+if ERRORLEVEL 1 (
+	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMBranchUrl^>
+	goto ExitFail
+)
+
+set /p ODI_SCM_BRANCH_URL=<"%TEMPFILE2%"
 
 REM
 REM Tools configuration.
@@ -200,17 +275,17 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-call :SetPath %JAVA_HOME%\bin
-if ERRORLEVEL 1 (
-	echo %EM% setting PATH environment variable for Java bin directory ^<%JAVA_HOME%\bin^>
-	goto ExitFail
-)
+REM call :SetPath %JAVA_HOME%\bin
+REM if ERRORLEVEL 1 (
+	REM echo %EM% setting PATH environment variable for Java bin directory ^<%JAVA_HOME%\bin^>
+	REM goto ExitFail
+REM )
 
-call :SetPath %ORACLE_HOME%\bin
-if ERRORLEVEL 1 (
-	echo %EM% setting PATH environment variable for Oracle client bin directory ^<%ORACLE_HOME%\bin^>
-	goto ExitFail
-)
+REM call :SetPath %ORACLE_HOME%\bin
+REM if ERRORLEVEL 1 (
+	REM echo %EM% setting PATH environment variable for Oracle client bin directory ^<%ORACLE_HOME%\bin^>
+	REM goto ExitFail
+REM )
 
 :ExitOk
 REM if exist "%TEMPFILE%" del /f %TEMPFILE%
@@ -239,7 +314,7 @@ if ERRORLEVEL 1 (
 	goto SetConfigExitFail
 )
 
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat /b %1 %2 >%TEMPFILE% 2>&1
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b %1 %2 >%TEMPFILE% 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% cannot get value for section ^<%1^> key ^<%2^>
 	goto SetConfigExitFail

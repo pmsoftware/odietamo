@@ -22,7 +22,7 @@ echo INFO: file to redirect standard error to: "%~2.stderr"
 echo INFO: command arguments: "%~3"
 echo INFO: full command line to be executed: %1 %~3 ^> "%~2.stdout" 2^>"%~2.stderr" >c:\temp\debutredir.log
 echo INFO: full command line to be executed: %1 %~3 ^> "%~2.stdout" 2^>"%~2.stderr"
-%1 %~3 >"%~2.stdout" 2>"%~2.stderr"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%1" %~3 >"%~2.stdout" 2>"%~2.stderr"
 if ERRORLEVEL 1 goto ExitFail
 
 :ExitOk
