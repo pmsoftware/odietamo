@@ -182,6 +182,7 @@ REM
 echo %IM% processing configuration section ^<Tools^>
 echo JAVA_HOME>%TEMPFILE2%
 echo ODI_SCM_JISQL_HOME>>%TEMPFILE2%
+echo ODI_SCM_JISQL_JAVA_HOME>>%TEMPFILE2%
 echo ORACLE_HOME>>%TEMPFILE2%
 
 for /f %%g in (%TEMPFILE2%) do (

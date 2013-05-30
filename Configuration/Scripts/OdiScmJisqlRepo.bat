@@ -21,15 +21,6 @@ set ISBATCHEXIT=/b
 shift
 
 :IsNotBatchExit
-if "%ODI_HOME%" == "" goto NoOdiHomeError
-echo %IM% using ODI_HOME directory ^<%ODI_HOME%^>
-goto OdiHomeOk
-
-:NoOdiHomeError
-echo %EM% environment variable ODI_HOME is not set
-goto ExitFail
-
-:OdiHomeOk
 if "%ODI_SCM_HOME%" == "" goto NoOdiScmHomeError
 echo %IM% using ODI_SCM_HOME directory ^<%ODI_SCM_HOME%^>
 goto OdiScmHomeOk
@@ -39,15 +30,15 @@ echo %EM% environment variable ODI_SCM_HOME is not set
 goto ExitFail
 
 :OdiScmHomeOk
-if "%ODI_SCM_JISQL_HOME%" == "" goto NoOdiScmJisqlScmHomeError
-echo %IM% using ODI_SCM_JISQL_HOME directory ^<%ODI_SCM_JISQL_HOME%^>
-goto OdiScmJisqlHomeOk
+REM if "%ODI_SCM_JISQL_HOME%" == "" goto NoOdiScmJisqlScmHomeError
+REM echo %IM% using ODI_SCM_JISQL_HOME directory ^<%ODI_SCM_JISQL_HOME%^>
+REM goto OdiScmJisqlHomeOk
 
-:NoOdiScmJisqlScmHomeError
-echo %EM% environment variable ODI_SCM_JISQL_HOME is not set
-goto ExitFail
+REM :NoOdiScmJisqlScmHomeError
+REM echo %EM% environment variable ODI_SCM_JISQL_HOME is not set
+REM goto ExitFail
 
-:OdiScmJisqlHomeOk
+REM :OdiScmJisqlHomeOk
 if EXIST "%1" goto ScriptExists
 echo %EM% cannot access script file ^<%1^>
 goto ExitFail
@@ -55,18 +46,19 @@ goto ExitFail
 :ScriptExists
 set SCRIPTFILE=%1
 
-REM if "%TEMP%" == "" goto NoTempDir
-REM set TEMPDIR=%TEMP%
-REM goto StartImport
+if "%TEMP%" == "" goto NoTempDir
+set TEMPDIR=%TEMP%
+goto TempDirDone
 
-REM :NoTempDir
-REM if "%TMP%" == "" goto NoTmpDir
-REM set TEMPDIR=%TMP%
-REM goto StartImport
+:NoTempDir
+if "%TMP%" == "" goto NoTmpDir
+set TEMPDIR=%TMP%
+goto TempDirDone
 
-REM :NoTmpDir
-REM set TEMPDIR=%CD%
+:NoTmpDir
+set TEMPDIR=%CD%
 
+:TempDirDone
 set TEMPSTR=%RANDOM%
 
 rem
@@ -77,75 +69,87 @@ set TEMPFILE=%TEMPDIR%\%TEMPSTR%_OdiScmImportOdiScm.txt
 rem
 rem Ensure the working file can be written to.
 rem
-if not EXIST %TEMPFILE% goto TempFileAbsent
+if not EXIST "%TEMPFILE%" goto TempFileAbsent
 
-del /f /q %TEMPFILE% >NUL 2>NUL
+del /f /q "%TEMPFILE%" >NUL 2>NUL
 if ERRORLEVEL 1 (
 	echo %EM% deleting working file ^<%TEMPFILE%^>
 	goto ExitFail
 )
 
 :TempFileAbsent
-set MSG=extracting ODI_SECU_DRIVER
-cat %ODI_HOME%\bin\odiparams.bat | gawk "/^set ODI_SECU_DRIVER/ { print $0 }" | tail -1 | cut -f2 -d= > %TEMPFILE%
-if ERRORLEVEL 1 goto GetOdiParamsParseFail
-set /p ODI_SECU_DRIVER=<%TEMPFILE%
+rem
+rem Extract the repository connection details into the environment (i.e. variables).
+rem Note that we don't execute this via OdiScmExecBat.bat as we want the current environment
+rem to be set. Using OdiScmExecBat.bat would cause the forked child environment to be set and
+rem this would be lost when the child process terminated.
+rem
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetRepoEnvFromOdiParams.bat"
+if ERRORLEVEL 1 (
+	echo %EM% setting repository connection environment variables
+	goto ExitFail
+)
 
-set MSG=extracting ODI_SECU_URL
-cat %ODI_HOME%\bin\odiparams.bat | gawk "/^set ODI_SECU_URL/ { print $0 }" | tail -1 | cut -f2 -d= > %TEMPFILE%
-if ERRORLEVEL 1 goto GetOdiParamsParseFail
-set /p ODI_SECU_URL=<%TEMPFILE%
+REM set MSG=extracting ODI_SECU_DRIVER
+REM cat %ODI_HOME%\bin\odiparams.bat | gawk "/^set ODI_SECU_DRIVER/ { print $0 }" | tail -1 | cut -f2 -d= > %TEMPFILE%
+REM if ERRORLEVEL 1 goto GetOdiParamsParseFail
+REM set /p ODI_SECU_DRIVER=<%TEMPFILE%
 
-set MSG=extracting ODI_SECU_USER
-cat %ODI_HOME%\bin\odiparams.bat | gawk "/^set ODI_SECU_USER/ { print $0 }" | tail -1 | cut -f2 -d= > %TEMPFILE%
-if ERRORLEVEL 1 goto GetOdiParamsParseFail
-set /p ODI_SECU_USER=<%TEMPFILE%
+REM set MSG=extracting ODI_SECU_URL
+REM cat %ODI_HOME%\bin\odiparams.bat | gawk "/^set ODI_SECU_URL/ { print $0 }" | tail -1 | cut -f2 -d= > %TEMPFILE%
+REM if ERRORLEVEL 1 goto GetOdiParamsParseFail
+REM set /p ODI_SECU_URL=<%TEMPFILE%
 
-set MSG=extracting ODI_SECU_PASS
-cat %ODI_HOME%\bin\odiparams.bat | gawk "/^set ODI_SECU_PASS/ { print $0 }" | tail -1 | cut -f2 -d= > %TEMPFILE%
-if ERRORLEVEL 1 goto GetOdiParamsParseFail
-set /p ODI_SECU_PASS=<%TEMPFILE%
+REM set MSG=extracting ODI_SECU_USER
+REM cat %ODI_HOME%\bin\odiparams.bat | gawk "/^set ODI_SECU_USER/ { print $0 }" | tail -1 | cut -f2 -d= > %TEMPFILE%
+REM if ERRORLEVEL 1 goto GetOdiParamsParseFail
+REM set /p ODI_SECU_USER=<%TEMPFILE%
 
-echo %IM% completed parsing of odiparams.bat
-echo %IM% extracted ODI_SECU_DRIVER ^<%ODI_SECU_DRIVER%^>
-echo %IM% extracted ODI_SECU_URL ^<%ODI_SECU_URL%^>
-echo %IM% extracted ODI_SECU_USER ^<%ODI_SECU_USER%^>
-echo %IM% extracted ODI_SECU_PASS ^<%ODI_SECU_PASS%^>
+REM set MSG=extracting ODI_SECU_PASS
+REM cat %ODI_HOME%\bin\odiparams.bat | gawk "/^set ODI_SECU_PASS/ { print $0 }" | tail -1 | cut -f2 -d= > %TEMPFILE%
+REM if ERRORLEVEL 1 goto GetOdiParamsParseFail
+REM set /p ODI_SECU_PASS=<%TEMPFILE%
 
-goto OdiParamsParsedOk
+REM echo %IM% completed parsing of odiparams.bat
+REM echo %IM% extracted ODI_SECU_DRIVER ^<%ODI_SECU_DRIVER%^>
+REM echo %IM% extracted ODI_SECU_URL ^<%ODI_SECU_URL%^>
+REM echo %IM% extracted ODI_SECU_USER ^<%ODI_SECU_USER%^>
+REM echo %IM% extracted ODI_SECU_PASS ^<%ODI_SECU_PASS%^>
 
-:GetOdiParamsParseFail
-echo %EM% %MSG%
-goto ExitFail
+REM goto OdiParamsParsedOk
 
-:OdiParamsParsedOk
-echo %ODI_SECU_URL%|cut -f4 -d:|sed s/@// > %TEMPFILE%
-if ERRORLEVEL 1 goto ConnStringGenFail
-set /p ODI_SECU_URL_HOST=<%TEMPFILE%
+REM :GetOdiParamsParseFail
+REM echo %EM% %MSG%
+REM goto ExitFail
 
-echo %ODI_SECU_URL%|cut -f5 -d: > %TEMPFILE%
-if ERRORLEVEL 1 goto ConnStringGenFail
-set /p ODI_SECU_URL_PORT=<%TEMPFILE%
+REM :OdiParamsParsedOk
+REM echo %ODI_SECU_URL%|cut -f4 -d:|sed s/@// > %TEMPFILE%
+REM if ERRORLEVEL 1 goto ConnStringGenFail
+REM set /p ODI_SECU_URL_HOST=<%TEMPFILE%
 
-echo %ODI_SECU_URL%|cut -f6 -d: > %TEMPFILE%
-if ERRORLEVEL 1 goto ConnStringGenFail
-set /p ODI_SECU_URL_SID=<%TEMPFILE%
+REM echo %ODI_SECU_URL%|cut -f5 -d: > %TEMPFILE%
+REM if ERRORLEVEL 1 goto ConnStringGenFail
+REM set /p ODI_SECU_URL_PORT=<%TEMPFILE%
 
-echo %IM% extracted ODI_SECU_URL_HOST ^<%ODI_SECU_URL_HOST%^>
-echo %IM% extracted ODI_SECU_URL_PORT ^<%ODI_SECU_URL_PORT%^>
-echo %IM% extracted ODI_SECU_URL_SID ^<%ODI_SECU_URL_SID%^>
+REM echo %ODI_SECU_URL%|cut -f6 -d: > %TEMPFILE%
+REM if ERRORLEVEL 1 goto ConnStringGenFail
+REM set /p ODI_SECU_URL_SID=<%TEMPFILE%
 
-goto ConnStringGenOk
+REM echo %IM% extracted ODI_SECU_URL_HOST ^<%ODI_SECU_URL_HOST%^>
+REM echo %IM% extracted ODI_SECU_URL_PORT ^<%ODI_SECU_URL_PORT%^>
+REM echo %IM% extracted ODI_SECU_URL_SID ^<%ODI_SECU_URL_SID%^>
 
-:ConnStringGenFail
-echo %EM% extracting host/port/SID from connection URL
-goto ExitFail
+REM goto ConnStringGenOk
 
-:ConnStringGenOk
+REM :ConnStringGenFail
+REM echo %EM% extracting host/port/SID from connection URL
+REM goto ExitFail
+
+REM :ConnStringGenOk
 rem
 rem Run the script file. Pass through any StdOut and StdErr capture file paths/names.
 rem
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat /b %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %SCRIPTFILE% %2 %3
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat" /b %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %SCRIPTFILE% %2 %3
 if ERRORLEVEL 1 goto RunScriptFail
 goto RunScriptOk
 

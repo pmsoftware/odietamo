@@ -51,15 +51,15 @@ echo %IM% StdErr file specified is ^<%7^>
 set STDERRFILE=%7
 
 :RunIt
-if "%JAVA_HOME%" == "" goto NoJavaHomeError
-echo %IM% using JAVA_HOME ^<%JAVA_HOME%^>
-goto JavaHomeOk
+if "%ODI_SCM_JISQL_JAVA_HOME%" == "" goto NoOdiScmJisqlJavaHomeError
+echo %IM% using ODI_SCM_JISQL_JAVA_HOME ^<%ODI_SCM_JISQL_JAVA_HOME%^>
+goto OdiScmJisqlJavaHomeOk
 
-:NoJavaHomeError
-echo %EM% environment variable JAVA_HOME is not set
+:NoOdiScmJisqlJavaHomeError
+echo %EM% environment variable ODI_SCM_JISQL_JAVA_HOME is not set
 goto ExitFail
 
-:JavaHomeOk
+:OdiScmJisqlJavaHomeOk
 if "%ODI_HOME%" == "" goto NoOdiHomeError
 goto OdiHomeOk
 
@@ -76,7 +76,7 @@ echo %EM% environment variable ODI_SCM_JISQL_HOME is not set
 goto ExitFail
 
 :JisqlHomeOk
-set PATH="%JAVA_HOME%\bin";%PATH%
+rem set PATH="%JAVA_HOME%\bin";%PATH%
 set JISQL_LIB=%ODI_SCM_JISQL_HOME%\lib
 
 REM
@@ -106,9 +106,9 @@ for /f %%f in ('dir /b %ODI_HOME%\drivers') do (
 )
 
 echo %IM% Jisql class path ^<%JISQL_CLASS_PATH%^>
-echo %IM% executing command ^<"%JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 ^>%STDOUTFILE% 2^>%STDERRFILE%^>
+echo %IM% executing command ^<"%ODI_SCM_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 ^>%STDOUTFILE% 2^>%STDERRFILE%^>
 
-"%JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 >%STDOUTFILE% 2>%STDERRFILE%
+"%ODI_SCM_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 >%STDOUTFILE% 2>%STDERRFILE%
 if ERRORLEVEL 1 goto ExitFail
 exit %ISBATCHEXIT% 0
 
