@@ -124,14 +124,14 @@ REM OdiScm configuration.
 REM
 rem echo %IM% looking for section ^<OdiScm^> key ^<ODI_SCM_HOME^> in configuration INI file
 
-rem echo.>%TEMPFILE% 
+rem echo.>"%TEMPFILE%" 
 rem if ERRORLEVEL 1 (
 rem 	echo %EM% initialising temporary working file ^<%TEMPFILE%^>
 rem 	goto ExitFail
 rem )
 rem set ENVVARVAL=
 rem echo getting ini to file %TEMPFILE%
-rem call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat /b OdiScm ODI_SCM_HOME >%TEMPFILE% 2>&1
+rem call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat /b OdiScm ODI_SCM_HOME >"%TEMPFILE%" 2>&1
 rem if ERRORLEVEL 1 (
 rem 	echo %EM% cannot get value for section ^<OdiScm^> key ^<ODI_SCM_HOME^>
 rem 	goto ExitFail
@@ -141,7 +141,7 @@ rem echo getting val from file %TEMPFILE%
 rem echo "file contains >>>"
 rem type %TEMPFILE%
 rem echo "<<<"
-rem set /p ENVVARVAL=<%TEMPFILE%
+rem set /p ENVVARVAL=<"%TEMPFILE%"
 rem echo got "%ENVVARVAL%"
 rem if "%ENVVARVAL%" == "" (
 rem 	echo %IM% configuration INI file does not contain entry for section ^<OdiScm^> key ^<ODI_SCM_HOME^>
@@ -167,6 +167,7 @@ echo ODI_HOME>%TEMPFILE2%
 echo ODI_JAVA_HOME>>%TEMPFILE2%
 echo ODI_SECU_DRIVER>>%TEMPFILE2%
 echo ODI_SECU_URL>>%TEMPFILE2%
+echo ODI_SECU_USER>>%TEMPFILE2%
 echo ODI_SECU_ENCODED_PASS>>%TEMPFILE2%
 echo ODI_SECU_PASS>>%TEMPFILE2%
 echo ODI_USER>>%TEMPFILE2%
@@ -190,6 +191,10 @@ if ERRORLEVEL 1 (
 )
 
 set /p ODI_SECU_URL_HOST=<"%TEMPFILE2%"
+echo %IM% setting environment variable ^<ODI_SECU_URL_HOST^> to value ^<%ODI_SECU_URL_HOST%%^>
+REM Include quotes around the entire VAR=VAL string to deal with brackets in variable values.
+REM E.g. C:\Program Files (x86)\...
+set "ODI_SECU_URL_HOST=%ODI_SECU_URL_HOST%"
 
 echo %ODI_SECU_URL% | cut -f5 -d: >"%TEMPFILE2%" 2>&1
 if ERRORLEVEL 1 (
@@ -198,14 +203,22 @@ if ERRORLEVEL 1 (
 )
 
 set /p ODI_SECU_URL_PORT=<"%TEMPFILE2%"
+echo %IM% setting environment variable ^<ODI_SECU_URL_PORT^> to value ^<%ODI_SECU_URL_PORT%%^>
+REM Include quotes around the entire VAR=VAL string to deal with brackets in variable values.
+REM E.g. C:\Program Files (x86)\...
+set "ODI_SECU_URL_PORT=%ODI_SECU_URL_PORT%"
 
-echo %ODI_SECU_URL% | cut -f6 -d: >"%TEMPFILE2%" 2>&1
+echo %ODI_SECU_URL%: | cut -f6 -d: >"%TEMPFILE2%" 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% cannot extract SID from ODI repository URL ^<%ODI_SECU_URL%^>
 	goto ExitFail
 )
 
 set /p ODI_SECU_URL_SID=<"%TEMPFILE2%"
+echo %IM% setting environment variable ^<ODI_SECU_URL_SID^> to value ^<%ODI_SECU_URL_SID%%^>
+REM Include quotes around the entire VAR=VAL string to deal with brackets in variable values.
+REM E.g. C:\Program Files (x86)\...
+set ODI_SECU_URL_SID=%ODI_SECU_URL_SID%
 
 REM
 REM Get the OdiScm fixed output tag.
@@ -217,6 +230,9 @@ if ERRORLEVEL 1 (
 )
 
 set /p OUTPUT_TAG=<"%TEMPFILE2%"
+REM Include quotes around the entire VAR=VAL string to deal with brackets in variable values.
+REM E.g. C:\Program Files (x86)\...
+set "OUTPUT_TAG=%OUTPUT_TAG%"
 
 REM
 REM Get the SCM system type.
@@ -232,7 +248,7 @@ set /p ODI_SCM_SYSTEM_NAME=<"%TEMPFILE2%"
 REM
 REM Get the SCM system URL.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b SCMSystem SCMSystemUrl >"%TEMPFILE%" 2>&1
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b SCMSystem SCMSystemURL >"%TEMPFILE%" 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMSystemUrl^>
 	goto ExitFail
@@ -243,7 +259,7 @@ set /p ODI_SCM_SYSTEM_URL=<"%TEMPFILE2%"
 REM
 REM Get the SCM system branch URL.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b SCMSystem SCMBranchUrl >"%TEMPFILE%" 2>&1
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b SCMSystem SCMBranchURL >"%TEMPFILE%" 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMBranchUrl^>
 	goto ExitFail
@@ -255,8 +271,8 @@ REM
 REM Tools configuration.
 REM
 echo %IM% processing configuration section ^<Tools^>
-echo JAVA_HOME>%TEMPFILE2%
-echo ODI_SCM_JISQL_HOME>>%TEMPFILE2%
+REM echo JAVA_HOME>%TEMPFILE2%
+echo ODI_SCM_JISQL_HOME>%TEMPFILE2%
 echo ODI_SCM_JISQL_JAVA_HOME>>%TEMPFILE2%
 echo ORACLE_HOME>>%TEMPFILE2%
 
@@ -269,11 +285,11 @@ for /f %%g in (%TEMPFILE2%) do (
 )
 
 REM Set the command path if not already set.
-call :SetPath %ODI_SCM_HOME%\Configuration\Scripts
-if ERRORLEVEL 1 (
-	echo %EM% setting PATH environment variable for OdiScm scripts directory ^<%ODI_SCM_HOME%\Configuration\Scripts^>
-	goto ExitFail
-)
+REM call :SetPath %ODI_SCM_HOME%\Configuration\Scripts
+REM if ERRORLEVEL 1 (
+REM 	echo %EM% setting PATH environment variable for OdiScm scripts directory ^<%ODI_SCM_HOME%\Configuration\Scripts^>
+REM 	goto ExitFail
+REM )
 
 REM call :SetPath %JAVA_HOME%\bin
 REM if ERRORLEVEL 1 (
@@ -288,12 +304,12 @@ REM if ERRORLEVEL 1 (
 REM )
 
 :ExitOk
-REM if exist "%TEMPFILE%" del /f %TEMPFILE%
+REM if exist "%TEMPFILE%" del /f "%TEMPFILE%"
 REM if exist "%TEMPFILE2%" del /f %TEMPFILE2%
 exit %IsBatchExit% 0
 
 :ExitFail
-REM if exist "%TEMPFILE%" del /f %TEMPFILE%
+REM if exist "%TEMPFILE%" del /f "%TEMPFILE%"
 REM if exist "%TEMPFILE2%" del /f %TEMPFILE2%
 exit %IsBatchExit% 1
 
@@ -308,20 +324,22 @@ REM ===============================================
 echo %IM% processing configuration section ^<%1^> key ^<%2^>
 
 set ENVVARVAL=
-type NUL >%TEMPFILE% 2>&1
+type NUL >"%TEMPFILE%" 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% initialising temporary working file ^<%TEMPFILE%^>
 	goto SetConfigExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b %1 %2 >%TEMPFILE% 2>&1
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b %1 %2 >"%TEMPFILE%" 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% cannot get value for section ^<%1^> key ^<%2^>
 	goto SetConfigExitFail
 )
-set /p ENVVARVAL=<%TEMPFILE%
+set /p ENVVARVAL=<"%TEMPFILE%"
 echo %IM% setting environment variable ^<%2^> to value ^<%ENVVARVAL%^>
-set SetEnvVarCmd=set %2=%ENVVARVAL%
+REM Include quotes around the entire VAR=VAL string to deal with brackets in variable values.
+REM E.g. C:\Program Files (x86)\...
+set SetEnvVarCmd=set "%2=%ENVVARVAL%"
 
 %SetEnvVarCmd%
 if ERRORLEVEL 1 (
@@ -356,7 +374,9 @@ goto DirNamePathSet
 :SetDirNamePath
 echo %IM% Directory ^<%1^> is not in the command PATH environment variable
 echo %IM% adding directory ^<%1^> to command PATH environment variable
-set PATH=%1;%PATH%
+REM Include quotes around the entire VAR=VAL string to deal with brackets in variable values.
+REM E.g. C:\Program Files (x86)\...
+set "PATH=%1;%PATH%"
 
 :DirNamePathSet
 exit /b 0
