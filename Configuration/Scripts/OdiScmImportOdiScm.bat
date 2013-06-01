@@ -117,7 +117,7 @@ if ERRORLEVEL 1 goto CreateInfrastructureFail
 goto CreateInfrastructureChkStdErr
 
 :CreateInfrastructureFail
-echo %EM% Batch file MoiJisqlRepo.bat returned non-zero ERRORLEVEL
+echo %EM% Batch file OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL
 echo %IM% StdErr content:
 type %STDERRFILE%
 goto ExitFail
@@ -126,11 +126,11 @@ goto ExitFail
 rem
 rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.
 rem 
-echo %IM% Batch file MoiJisqlRepo.bat returned zero ERRORLEVEL
+echo %IM% Batch file OdiScmJisqlRepo.bat returned zero ERRORLEVEL
 fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
 if not ERRORLEVEL 1 goto CreateInfrastructureOk
 
-echo %IM% Batch file MoiJisqlRepo.bat returned StdErr content:
+echo %IM% Batch file OdiScmJisqlRepo.bat returned StdErr content:
 type %STDERRFILE%
 
 goto ExitFail

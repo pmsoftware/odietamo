@@ -275,6 +275,15 @@ if "!ODI_SECU_USER!" == "" (
 )
 echo !IM! environment issues found so far ^<!ISSUES!^>
 
+if "!ODI_SECU_WORK_REP!" == "" (
+	echo !EM! ODI master repository user name environment variable ODI_SECU_WORK_REP is not set
+	set /a ISSUES=!ISSUES!+1
+) else (
+	echo !IM! ODI work repository name environment variable ODI_SECU_WORK_REP is set
+	echo !IM! environment variable ODI_SECU_WORK_REP is set to ^<!ODI_SECU_WORK_REP!^>
+)
+echo !IM! environment issues found so far ^<!ISSUES!^>
+
 if "!ODI_USER!" == "" (
 	echo !EM! ODI user name environment variable ODI_USER is not set
 	set /a ISSUES=!ISSUES!+1

@@ -84,11 +84,11 @@ rem Note that we don't execute this via OdiScmExecBat.bat as we want the current
 rem to be set. Using OdiScmExecBat.bat would cause the forked child environment to be set and
 rem this would be lost when the child process terminated.
 rem
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetRepoEnvFromOdiParams.bat"
-if ERRORLEVEL 1 (
-	echo %EM% setting repository connection environment variables
-	goto ExitFail
-)
+rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetRepoEnvFromOdiParams.bat"
+rem if ERRORLEVEL 1 (
+rem 	echo %EM% setting repository connection environment variables
+rem 	goto ExitFail
+rem )
 
 REM set MSG=extracting ODI_SECU_DRIVER
 REM cat %ODI_HOME%\bin\odiparams.bat | gawk "/^set ODI_SECU_DRIVER/ { print $0 }" | tail -1 | cut -f2 -d= > %TEMPFILE%

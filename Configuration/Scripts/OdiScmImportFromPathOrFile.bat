@@ -26,7 +26,7 @@ goto ExitFail
 
 :ParamOk
 set IMPORT_DIR=%1
-set ODI_BIN_DIR=%ODI_HOME%\bin
+rem set ODI_BIN_DIR=%ODI_HOME%\bin
 
 if "%2" == "" goto NoObjFilePassed
 
@@ -44,11 +44,10 @@ set OBJLISTFILE=%2%
 goto StartImport
 
 :NoObjFilePassed
-rem
-rem Generate the list of files to import.
-rem
-echo %IM% no object override list file passed. Looking for files at ^<%1^>
 
+rem
+rem Define a temporary working directory.
+rem
 if "%TEMP%" == "" goto NoTempDir
 set TEMPDIR=%TEMP%
 goto GotTempDir
@@ -63,6 +62,24 @@ set TEMPDIR=%CD%
 
 :GotTempDir
 call :SetDateTimeStrings
+
+rem
+rem Generate a startcmd.bat script file using the current environment settings.
+rem
+set STARTCMDFILE=%TEMPDIR%\OdiImportFromPathOrFile_StartCmd_%YYYYMMDD%_%HHMMSS%.bat
+echo %IM% generating startcmd.bat file ^<%STARTCMDFILE%^>
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat" %TEMPDIR%\OdiImportFromPathOrFile_StartCmd_%YYYYMMDD%_%HHMMSS%.bat
+if ERRORLEVEL 1 (
+	echo %EM% generating StartCmd batch script file ^<%STARTCMDFILE%^>
+	goto ExitFail
+)
+
+dir %STARTCMDFILE%
+
+rem
+rem Generate the list of files to import.
+rem
+echo %IM% no object override list file passed. Looking for files at ^<%1^>
 set OBJLISTFILE=%TEMPDIR%\OdiImportFromPathOrFile_FilesToImport_%YYYYMMDD%_%HHMMSS%.txt
 
 rem
@@ -126,8 +143,6 @@ dir /s /b /o:n %IMPORT_DIR%\*.SnpObjState >>%OBJLISTFILE% 2>NUL
 
 :StartImport
 set ERROROCCURED=N
-
-echo gonna process the files
 
 for /f %%A in (%OBJLISTFILE%) do (
 	
@@ -239,8 +254,8 @@ rem *************************************************************
 rem *************************************************************
 echo %IM% importing non-container type object from file ^<%1^>
 echo %IM% date ^<%DATE%^> time ^<%TIME%^>
-cd /d %ODI_BIN_DIR%
-call startcmd.bat OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_INSERT_UPDATE -WORK_REP_NAME=WORKREP
+rem cd /d %ODI_BIN_DIR%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%STARTCMDFILE%" OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_INSERT_UPDATE -WORK_REP_NAME=WORKREP
 if ERRORLEVEL 1 goto IOFail
 goto :eof
 :IOFail
@@ -252,18 +267,18 @@ rem *************************************************************
 rem *************************************************************
 echo %IM% importing container type object from file ^<%1^>
 echo %IM% date ^<%DATE%^> time ^<%TIME%^>
-cd /d %ODI_BIN_DIR%
+rem cd /d %ODI_BIN_DIR%
 rem
 rem We try update first so that if there's nothing to update the operation is fairly quick.
 rem
 echo %IM% trying SYNONYNM_UPDATE import mode
-call startcmd.bat OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_UPDATE
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%STARTCMDFILE%" OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_UPDATE
 if ERRORLEVEL 1 goto ICOFail
 rem
 rem The insert should do nothing and return exit status of 0 if the object already exists.
 rem
 echo %IM% trying SYNONYM_INSERT import mode
-call startcmd.bat OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_INSERT
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%STARTCMDFILE%" OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_INSERT
 if ERRORLEVEL 1 goto ICOFail
 goto :eof
 :ICOFail
