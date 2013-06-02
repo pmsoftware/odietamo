@@ -74,8 +74,6 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-dir %STARTCMDFILE%
-
 rem
 rem Generate the list of files to import.
 rem
