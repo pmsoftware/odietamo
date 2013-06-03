@@ -1,28 +1,45 @@
+@echo off
+set PROC=OdiScmRedirCmd
+set IM=%PROC%: INFO:
+set EM=%PROC%: ERROR:
+set WM=%PROC%: WARNING:
+
+rem
+rem Validate parameter arguments.
+rem
 if "%~1" == "" goto ErrParamNoCmd
 if "%~2" == "" goto ErrParamNoOutFile
 goto ParamOk
 
 :ErrParamNoCmd
-echo ERROR: no command specified
+echo %EM% no command specified
 goto ShowUsage
 
 :ErrParamNoOutFile
-echo ERROR: no output file stub specified
+echo %EM% no output file stub specified
 goto ShowUsage
 
 :ShowUsage
-echo ERROR: usage: OdiScmRedirCmd.bat {command} {file-name-stub-to-redirect-stdout-and-stderr} {command-arguments}
+echo %EM% usage: %PROC% ^<command^> ^<file-name-stub-to-redirect-stdout-and-stderr^> ^<command-arguments^>
 goto ExitFail
 
 :ParamOk
-if "%~3" == "" echo INFO: no command parameters supplied
-echo INFO: command to execute: "%~1"
-echo INFO: file to redirect standard output to: "%~2.stdout"
-echo INFO: file to redirect standard error to: "%~2.stderr"
-echo INFO: command arguments: "%~3"
-echo INFO: full command line to be executed: %1 %~3 ^> "%~2.stdout" 2^>"%~2.stderr" >c:\temp\debutredir.log
-echo INFO: full command line to be executed: %1 %~3 ^> "%~2.stdout" 2^>"%~2.stderr"
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%1" %~3 >"%~2.stdout" 2>"%~2.stderr"
+set ARGCOMMAND=%~1
+shift
+set ARGREDIRFILESTUB=%~1
+shift
+set ARGCOMMANDARGS=%1 %2 %3 %4 %5 %6 %7 %8 %9
+if "%ARGCOMMANDARGS%" == "" echo %IM% no command parameter arguments supplied
+
+echo %IM% command to execute: ^<%ARGCOMMAND%^>
+echo %IM% file to redirect standard output to ^<%ARGREDIRFILESTUB%.stdout^>
+echo %IM% file to redirect standard error to: ^<%ARGREDIRFILESTUB%.stderr^>
+echo %IM% command arguments ^<%ARGCOMMANDARGS%^>
+echo %IM% full command line to be executed: "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" %ARGCOMMAND% %ARGCOMMANDARGS% ^>"%ARGREDIRFILESTUB%.stdout" 2^>"%ARGREDIRFILESTUB%.stderr"
+
+rem "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" %ARGCOMMAND% %ARGCOMMANDARGS% >"%ARGREDIRFILESTUB%.stdout" 2>"%ARGREDIRFILESTUB%.stderr"
+"%ARGCOMMAND%" %ARGCOMMANDARGS% >"%ARGREDIRFILESTUB%.stdout" 2>"%ARGREDIRFILESTUB%.stderr"
+rem "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ARGCOMMAND%" %ARGCOMMANDARGS% >"%ARGREDIRFILESTUB%.stdout" 2>"%ARGREDIRFILESTUB%.stderr"
 if ERRORLEVEL 1 goto ExitFail
 
 :ExitOk

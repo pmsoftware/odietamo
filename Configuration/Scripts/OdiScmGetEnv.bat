@@ -180,7 +180,7 @@ if "!ODI_SCM_JISQL_JAVA_HOME!" == "" (
 	echo !EM! Jisql JVM home directory environment variable ODI_SCM_JISQL_JAVA_HOME is not set
 	set /a ISSUES=!ISSUES!+1
 ) else (
-	echo !IM! Jisql JVM home directory environment variable JAVA_HOME is set
+	echo !IM! Jisql JVM home directory environment variable ODI_SCM_JISQL_JAVA_HOME is set
 	echo !IM! environment variable ODI_SCM_JISQL_JAVA_HOME is set to ^<!ODI_SCM_JISQL_JAVA_HOME!^>
 	if exist "!ODI_SCM_JISQL_JAVA_HOME!" (
 		echo !IM! Jisql JVM home directory ^<!ODI_SCM_JISQL_JAVA_HOME!^> exists

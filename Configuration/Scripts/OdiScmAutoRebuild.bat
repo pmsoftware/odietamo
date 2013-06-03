@@ -1,127 +1,24 @@
-set PROC=OdiScmAutoRebuild
-set IM=%PROC%: INFO:
-set EM=%PROC%: ERROR:
-set WM=%PROC%: WARNING:
+@echo off
+REM ==========================================================================
+REM Drop and rebuild and ODI respository from an empty repository Oracle export back-up file
+REM and a source code repository.
+REM
+REM Usage: OdiScmAutoRebuild <working copy path> <empty master/work repo backup file> [<TFS workspace name>]
+REM
+REM ==========================================================================
+call :SetMsgPrefixes
 
 REM TODO: put paths to these tools into the OdiScm.ini file.
 set PATH=C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE;%PATH%
 set PATH=C:\MOI\Configuration\Tools\Sysinternals;%PATH%
+REM TODO: put notification user name and email addresses into the OdiScm.ini file.
+set ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS=mattenm@bupa.com
+set ODI_SCM_NOTIFY_USER_NAME=Mark Matten
+set ODI_SCM_NOTIFY_SMTP_SERVER=gbstaex04
 
-REM
-REM Check basic environment requirements.
-REM
-if %ODI_SCM_HOME% == "" (
-	echo %EM% no OdiScm home directory specified in environment variable ODI_SCM_HOME
-	goto ExitFail
-)
-
-if %ODI_SCM_INI% == "" (
-	echo %EM% no configuration INI file specified in environment variable ODI_SCM_INI
-	goto ExitFail
-)
-
-rem
-rem Set the environment from the configuration INI file.
-rem
-call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat /b
-if ERRORLEVEL 1 (
-	echo %EM% setting environment variables from configuration INI file ^<%ODI_SCM_INI%^>
-	goto ExitFail
-) 
-
-REM
-REM Define a temporary work directory.
-REM
-if "%TEMP%" == "" goto NoTempDir
-set TEMPDIR=%TEMP%
-goto GotTempDir
-
-:NoTempDir
-if "%TMP%" == "" goto NoTmpDir
-set TEMPDIR=%TMP%
-goto GotTempDir
-
-:NoTmpDir
-set TEMPDIR=%CD%
-
-:GotTempDir
-
-REM
-REM Define a temporary work file.
-REM
-set TEMPFILE=%TEMPDIR%\%RANDOM%_OdiScmSetEnv.txt
-del /f "%TEMPFILE%" >NUL 2>NUL
-
-REM
-REM Extract the ODI repository server/port/SID from the URL.
-REM
-echo %ODI_SECU_URL% | cut -f4 -d: | sed s/@// >"%TEMPFILE%" 2>&1
-if ERRORLEVEL 1 (
-	echo %EM% cannot extract server name from ODI repository URL ^<%ODI_SECU_URL%^>
-	goto ExitFail
-)
-
-set /p ODI_REPO_SERVER=<"%TEMPFILE%"
-
-echo %ODI_SECU_URL% | cut -f5 -d: >"%TEMPFILE%" 2>&1
-if ERRORLEVEL 1 (
-	echo %EM% cannot extract listener port from ODI repository URL ^<%ODI_SECU_URL%^>
-	goto ExitFail
-)
-
-set /p ODI_REPO_PORT=<"%TEMPFILE%"
-
-echo %ODI_SECU_URL% | cut -f6 -d: >"%TEMPFILE%" 2>&1
-if ERRORLEVEL 1 (
-	echo %EM% cannot extract SID from ODI repository URL ^<%ODI_SECU_URL%^>
-	goto ExitFail
-)
-
-set /p ODI_REPO_SID=<"%TEMPFILE%"
-
-REM
-REM Get the OdiScm fixed output tag.
-REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b Generate OutputTag >"%TEMPFILE%" 2>&1
-if ERRORLEVEL 1 (
-	echo %EM% cannot get value for section ^<Generate^> key ^<OutputTag^>
-	goto ExitFail
-)
-
-set /p OUTPUT_TAG=<"%TEMPFILE%"
-
-REM
-REM Get the SCM system type.
-REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b SCMSystem SCMSystemTypeName >"%TEMPFILE%" 2>&1
-if ERRORLEVEL 1 (
-	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMSystemTypeName^>
-	goto ExitFail
-)
-
-set /p SCM_SYSTEM_NAME=<"%TEMPFILE%"
-
-REM
-REM Get the SCM system URL.
-REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b SCMSystem SCMSystemUrl >"%TEMPFILE%" 2>&1
-if ERRORLEVEL 1 (
-	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMSystemUrl^>
-	goto ExitFail
-)
-
-set /p SCM_SYSTEM_URL=<"%TEMPFILE%"
-
-REM
-REM Get the SCM system branch URL.
-REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b SCMSystem SCMBranchUrl >"%TEMPFILE%" 2>&1
-if ERRORLEVEL 1 (
-	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMBranchUrl^>
-	goto ExitFail
-)
-
-set /p SCM_BRANCH_URL=<"%TEMPFILE%"
+REM --------------------------------------------------------------------------
+REM Get parameter arguments.
+REM --------------------------------------------------------------------------
 
 REM
 REM Get the local working copy path.
@@ -148,20 +45,37 @@ if "%2" == "" (
 REM
 REM Get the TFS workspace name.
 REM
-if "%SCM_SYSTEM_NAME%" == "TFS" (
-	if "%3" == "" (
-		echo %EM% no TFS workspace name specified
-		call :ShowUsage
-		goto ExitFail
-	) else (
-		set WS_NAME=%3
-	) 
+if not "%3" == "" (
+	set WS_NAME=%3
+) 
+
+REM
+REM Check basic environment requirements.
+REM
+if "%ODI_SCM_HOME%" == "" (
+	echo %EM% no OdiScm home directory specified in environment variable ODI_SCM_HOME
+	goto ExitFail
+)
+
+if "%ODI_SCM_INI%" == "" (
+	echo %EM% no configuration INI file specified in environment variable ODI_SCM_INI
+	goto ExitFail
+) else (
+	echo %IM% using source configuration INI file ^<%ODI_SCM_INI%^> 
 )
 
 REM
 REM Destroy and recreate the working copy root directory.
 REM
-rd /s /q %WC_ROOT% >NUL 2>NUL
+if EXIST "%WC_ROOT%" (
+	echo %IM% deleting existing working copy directory tree ^<%WC_ROOT%^>
+	rd /s /q %WC_ROOT% >NUL 2>NUL
+	if ERRORLEVEL 1 (
+		echo %EM% deleting existing working copy directory tree ^<%WC_ROOT%^>
+		goto ExitFail
+	)
+)
+
 md %WC_ROOT%
 if ERRORLEVEL 1 (
 	echo %EM% creating working copy root directory ^<%WC_ROOT%^>
@@ -192,6 +106,106 @@ if ERRORLEVEL 1 (
 )
 
 set ODI_SCM_INI=%WC_ROOT%\OdiScm.ini
+
+REM
+REM Define a temporary work directory.
+REM
+if "%TEMP%" == "" goto NoTempDir
+set TEMPDIR=%TEMP%
+goto GotTempDir
+
+:NoTempDir
+if "%TMP%" == "" goto NoTmpDir
+set TEMPDIR=%TMP%
+goto GotTempDir
+
+:NoTmpDir
+set TEMPDIR=%CD%
+
+:GotTempDir
+
+REM
+REM Define a temporary work file.
+REM
+set TEMPFILE=%TEMPDIR%\%RANDOM%_OdiScmAutoRebuild.txt
+if EXIST "%TEMPFILE%" (
+	del /f "%TEMPFILE%" >NUL 2>NUL
+	if ERRORLEVEL 1 (
+		echo %EM% deleting existing working file ^<%TEMPFILE%^>
+		goto ExitFail
+	)
+)
+
+REM
+REM Set the environment from the configuration INI file.
+REM
+echo %IM% setting environment variables from configuration INI file ^<%ODI_SCM_INI%^> 
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat" /b
+set EXITSTATUS=%ERRORLEVEL%
+call :SetMsgPrefixes
+if %EXITSTATUS% geq 1 (
+	echo %EM% setting environment variables from configuration INI file ^<%ODI_SCM_INI%^>
+	goto ExitFail
+)
+
+REM
+REM Get the OdiScm fixed output tag.
+REM
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" Generate OutputTag >"%TEMPFILE%" 2>&1
+if ERRORLEVEL 1 (
+	echo %EM% cannot get value for section ^<Generate^> key ^<OutputTag^>
+	goto ExitFail
+)
+
+set /p OUTPUT_TAG=<"%TEMPFILE%"
+echo %IM% setting environment variable ^<OUTPUT_TAG^> to ^<%OUTPUT_TAG%^>
+
+REM
+REM Get the SCM system type.
+REM
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" SCMSystem SCMSystemTypeName >"%TEMPFILE%" 2>&1
+if ERRORLEVEL 1 (
+	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMSystemTypeName^>
+	goto ExitFail
+)
+
+set /p SCM_SYSTEM_NAME=<"%TEMPFILE%"
+echo %IM% setting environment variable ^<SCM_SYSTEM_NAME^> to ^<%SCM_SYSTEM_NAME%^>
+
+if "%SCM_SYSTEM_NAME%" == "TFS" (
+	if "%WS_NAME%" == "" (
+		echo %EM% no TFS workspace name specified
+		call :ShowUsage
+		goto ExitFail
+	)
+) else (
+	echo %IM% SCM system in configuration INI file is not TFS
+	echo %IM% ignoring specified TFS workspace name
+)
+
+REM
+REM Get the SCM system URL.
+REM
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" SCMSystem SCMSystemUrl >"%TEMPFILE%" 2>&1
+if ERRORLEVEL 1 (
+	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMSystemUrl^>
+	goto ExitFail
+)
+rem pause
+set /p SCM_SYSTEM_URL=<"%TEMPFILE%"
+echo %IM% setting environment variable ^<SCM_SYSTEM_URL^> to ^<%SCM_SYSTEM_URL%^>
+
+REM
+REM Get the SCM system branch URL.
+REM
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" SCMSystem SCMBranchUrl >"%TEMPFILE%" 2>&1
+if ERRORLEVEL 1 (
+	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMBranchUrl^>
+	goto ExitFail
+)
+
+set /p SCM_BRANCH_URL=<"%TEMPFILE%"
+echo %IM% setting environment variable ^<SCM_BRANCH_URL^> to ^<%SCM_BRANCH_URL%^>
 
 REM
 REM Destroy and recreate TFS workspaces.
@@ -240,7 +254,7 @@ if ERRORLEVEL 1 (
 REM
 REM Drop contents of existing repository schema.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat" /b %ODI_SECU_USER% %ODI_SECU_PASS% oracle.jdbc.driver.OracleDriver %ODI_SECU_URL% %ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownOracleSchema.sql
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat" /b %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownOracleSchema.sql
 if ERRORLEVEL 1 (
 	echo %EM% dropping ODI repository objects
 	goto ExitFail
@@ -249,7 +263,7 @@ if ERRORLEVEL 1 (
 REM
 REM Import empty master/work repository from export backup.
 REM
-imp %ODI_SECU_USER%/%ODI_SECU_PASS%@%ODI_REPO_SERVER%:%ODI_REPO_PORT%/%ODI_REPO_SID% FILE=%ODI_REPO_BACKUP% FULL=Y
+imp %ODI_SECU_USER%/%ODI_SECU_PASS%@%ODI_SECU_URL_HOST%:%ODI_SECU_URL_PORT%/%ODI_SECU_URL_SID% FILE=%ODI_REPO_BACKUP% FULL=Y
 if ERRORLEVEL 1 (
 	echo %EM% importing ODI empty master/work repository from backup file ^<%ODI_REPO_BACKUP%^>
 	goto ExitFail
@@ -259,15 +273,34 @@ REM
 REM Archive the previous OdiScm output directory and recreate it.
 REM
 call :SetDateTimeStrings
-move "%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%" "%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%_%YYYYMMDD%_%HHMM%" >NUL 2>NUL
+if EXIST "%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%" (
+	echo %IM% renaming previous OdiScm output directory "%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%"
+	move "%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%" "%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%_%YYYYMMDD%_%HHMM%" >NUL 2>NUL
+	if ERRORLEVEL 1 (
+		echo echo %EM% renaming previous OdiScm output directory "%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%"
+		goto ExitFail
+	)
+)
+
+REM
+REM Define a temporary Powershell script file.
+REM
+set TEMPPSSCRIPTFILE=%TEMPDIR%\%RANDOM%_OdiScmAutoRebuild.ps1
+if EXIST "%TEMPPSSCRIPTFILE%" (
+	del /f "%TEMPPSSCRIPTFILE%" >NUL 2>NUL
+	if ERRORLEVEL 1 (
+		echo %EM% deleting existing working Powershell script file ^<%TEMPPSSCRIPTFILE%^>
+		goto ExitFail
+	)
+)
 
 REM
 REM Execute the main OdiScmGet process.
 REM
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGet.bat"
 if ERRORLEVEL 1 (
-	echo %EM% executing main OdiScmGet process
-	goto ExitFail
+	echo %EM% executing OdiScmGet process
+	goto ExitNotifyFail
 )
 
 REM
@@ -276,21 +309,23 @@ REM
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%\OdiScmBuild_%OUTPUT_TAG%.bat"
 if ERRORLEVEL 1 (
 	echo %EM% executing main OdiScm output build script
-	goto ExitFail
+	goto ExitNotifyFail
 )
 
-echo send-mailmessage -from "MOIConfig <mattenm@bupa.com>" -to "MOIConfig <mattenm@bupa.com>" -subject "MOI Auto Build For Branch <NP_Stable> has succeeded" -smtp gbstaex02 -body "MOI Auto Build For Branch <NP_Stable> has succeeded" >"%TEMPFILE%"
-powershell -file "%TEMPFILE%"
+echo send-mailmessage -from "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_EMAIL_ADDRESS%>" -to "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_EMAIL_ADDRESS%>" -subject "Auto Build For Source URL <%SCM_SYSTEM_URL%/%SCM_BRANCH_URL%> has succeeded" -smtp %ODI_SCM_NOTIFY_SMTP_SERVER% -body "Auto Build For Branch <NP_Stable> has succeeded" >"%TEMPPSSCRIPTFILE%"
+powershell -file "%TEMPPSSCRIPTFILE%"
 
 goto ExitOk
 
-:ExitFail
-echo send-mailmessage -from "MOIConfig <mattenm@bupa.com>" -to "MOIConfig <mattenm@bupa.com>" -subject "MOI Auto Build For Branch <NP_Stable> has failed" -smtp gbstaex02 -body "MOI Auto Build For Branch <NP_Stable> has failed" >"%TEMPFILE%"
-powershell -file "%TEMPFILE%"
-exit /b 1
+:ExitNotifyFail
+echo send-mailmessage -from "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_EMAIL_ADDRESS%>" -to "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_EMAIL_ADDRESS%>" -subject "Auto Build For Source URL <%SCM_SYSTEM_URL%/%SCM_BRANCH_URL%> has failed" -smtp %ODI_SCM_NOTIFY_SMTP_SERVER% -body "Auto Build For Branch <NP_Stable> has failed" >"%TEMPPSSCRIPTFILE%"
+powershell -file "%TEMPPSSCRIPTFILE%"
 
 :ExitOk
 exit /b 0
+
+:ExitFail
+exit /b 1
 
 REM *************************************************************
 REM **                    S U B R O U T I N E S                **
@@ -311,7 +346,7 @@ for /f "tokens=1,2 delims=: " %%A in ('time /t') do (
 	set Minute=%%B
 	set HHMM=%%B%%A
 )
-echo Done setting date and time strings
+
 goto :eof
 
 :ShowUsage
@@ -319,4 +354,11 @@ REM
 REM Display command usage.
 REM
 echo %IM% usage: %PROC% ^<local working copy directory^> ^<repository export backup file^> [TFS workspace name]
+goto :eof
+
+:SetMsgPrefixes
+set PROC=OdiScmAutoRebuild
+set IM=%PROC%: INFO:
+set EM=%PROC%: ERROR:
+set WM=%PROC%: WARNING:
 goto :eof

@@ -64,8 +64,8 @@ if ERRORLEVEL 1 (
 	echo %EM% creating AWK script
 	goto ExitFail
 )
-
-REM echo %IM% using generated script file ^<%TEMPSCRIPT%^>
+rem echo on
+rem echo %IM% using generated script file ^<%TEMPSCRIPT%^>
 cat %ODI_SCM_INI% | gawk -f "%TEMPSCRIPT%"
 if ERRORLEVEL 1 (
 	echo %EM% executing AWK script
@@ -76,4 +76,5 @@ if ERRORLEVEL 1 (
 exit %IsBatchExit% 0
 
 :ExitFail
+rem echo %EM% exiting with status 1
 exit %IsBatchExit% 1

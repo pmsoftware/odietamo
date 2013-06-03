@@ -20,7 +20,7 @@ rem Run the passed command in a new cmd.exe.
 rem
 cmd.exe /c %*
 set EXITSTATUS=%ERRORLEVEL%
-:::echo got back EL of %errorlevel%
+rem echo got back EL of %errorlevel%
 ::echo back from child
 ::tasklist | grep cmd.exe
 rem

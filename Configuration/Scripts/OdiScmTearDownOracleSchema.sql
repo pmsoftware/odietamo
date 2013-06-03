@@ -31,7 +31,7 @@ BEGIN
     FOR c_repo_prc IN (
                       SELECT object_name
                            , object_type
-                        FROM user_procedures
+                        FROM user_objects
                       )
     LOOP
         BEGIN
