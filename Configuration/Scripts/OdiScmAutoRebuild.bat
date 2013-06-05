@@ -1,4 +1,4 @@
-@echo off
+echo off
 REM ==========================================================================
 REM Drop and rebuild and ODI respository from an empty repository Oracle export back-up file
 REM and a source code repository.
@@ -11,10 +11,6 @@ call :SetMsgPrefixes
 REM TODO: put paths to these tools into the OdiScm.ini file.
 set PATH=C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE;%PATH%
 set PATH=C:\MOI\Configuration\Tools\Sysinternals;%PATH%
-REM TODO: put notification user name and email addresses into the OdiScm.ini file.
-set ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS=mattenm@bupa.com
-set ODI_SCM_NOTIFY_USER_NAME=Mark Matten
-set ODI_SCM_NOTIFY_SMTP_SERVER=gbstaex04
 
 REM --------------------------------------------------------------------------
 REM Get parameter arguments.
@@ -65,11 +61,32 @@ if "%ODI_SCM_INI%" == "" (
 )
 
 REM
+REM Get additional configuration INI file settings for build notification.
+REM
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b Build UserEmailAddress ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS
+if ERRORLEVEL 1 (
+	echo %EM% getting build notification user email address from configuration INI file
+	goto ExitFail
+)
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b Build UserName ODI_SCM_NOTIFY_USER_NAME
+if ERRORLEVEL 1 (
+	echo %EM% getting build notification user name from configuration INI file
+	goto ExitFail
+)
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b Build EmailSMTPServer ODI_SCM_NOTIFY_SMTP_SERVER
+if ERRORLEVEL 1 (
+	echo %EM% getting build notification email SMTP server from configuration INI file
+	goto ExitFail
+)
+
+REM
 REM Destroy and recreate the working copy root directory.
 REM
 if EXIST "%WC_ROOT%" (
 	echo %IM% deleting existing working copy directory tree ^<%WC_ROOT%^>
-	rd /s /q %WC_ROOT% >NUL 2>NUL
+	rd /s /q "%WC_ROOT%" >NUL 2>NUL
 	if ERRORLEVEL 1 (
 		echo %EM% deleting existing working copy directory tree ^<%WC_ROOT%^>
 		goto ExitFail
@@ -151,26 +168,26 @@ if %EXITSTATUS% geq 1 (
 REM
 REM Get the OdiScm fixed output tag.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" Generate OutputTag >"%TEMPFILE%" 2>&1
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b Generate OutputTag OUTPUT_TAG
 if ERRORLEVEL 1 (
-	echo %EM% cannot get value for section ^<Generate^> key ^<OutputTag^>
+	echo %EM% cannot set environment variable OUTPUT_TAG from configuration INI file
 	goto ExitFail
 )
-
-set /p OUTPUT_TAG=<"%TEMPFILE%"
-echo %IM% setting environment variable ^<OUTPUT_TAG^> to ^<%OUTPUT_TAG%^>
 
 REM
 REM Get the SCM system type.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" SCMSystem SCMSystemTypeName >"%TEMPFILE%" 2>&1
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b SCMSystem SCMSystemTypeName SCM_SYSTEM_NAME
 if ERRORLEVEL 1 (
-	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMSystemTypeName^>
+	echo %EM% cannot set environment variable SCM_SYSTEM_NAME from configuration INI file
 	goto ExitFail
 )
 
-set /p SCM_SYSTEM_NAME=<"%TEMPFILE%"
-echo %IM% setting environment variable ^<SCM_SYSTEM_NAME^> to ^<%SCM_SYSTEM_NAME%^>
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b SCMSystem SCMSystemTypeName SCM_SYSTEM_NAME
+if ERRORLEVEL 1 (
+	echo %EM% cannot set environment variable SCM_SYSTEM_NAME from configuration INI file
+	goto ExitFail
+)
 
 if "%SCM_SYSTEM_NAME%" == "TFS" (
 	if "%WS_NAME%" == "" (
@@ -186,26 +203,20 @@ if "%SCM_SYSTEM_NAME%" == "TFS" (
 REM
 REM Get the SCM system URL.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" SCMSystem SCMSystemUrl >"%TEMPFILE%" 2>&1
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b SCMSystem SCMSystemUrl SCM_SYSTEM_URL
 if ERRORLEVEL 1 (
-	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMSystemUrl^>
+	echo %EM% cannot set environment variable SCM_SYSTEM_URL from configuration INI file
 	goto ExitFail
 )
-rem pause
-set /p SCM_SYSTEM_URL=<"%TEMPFILE%"
-echo %IM% setting environment variable ^<SCM_SYSTEM_URL^> to ^<%SCM_SYSTEM_URL%^>
 
 REM
 REM Get the SCM system branch URL.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" SCMSystem SCMBranchUrl >"%TEMPFILE%" 2>&1
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b SCMSystem SCMBranchUrl SCM_BRANCH_URL
 if ERRORLEVEL 1 (
-	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMBranchUrl^>
+	echo %EM% cannot set environment variable SCM_BRANCH_URL from configuration INI file
 	goto ExitFail
 )
-
-set /p SCM_BRANCH_URL=<"%TEMPFILE%"
-echo %IM% setting environment variable ^<SCM_BRANCH_URL^> to ^<%SCM_BRANCH_URL%^>
 
 REM
 REM Destroy and recreate TFS workspaces.
@@ -214,30 +225,42 @@ if "%SCM_SYSTEM_NAME%" == "SVN" (
 	goto DoWcSVN
 )
 
-tf workspace /collection:%SCM_SYSTEM_URL% /delete %WS_NAME% /noprompt
-if ERRORLEVEL 1 (
-	echo %EM% deleting existing workspace ^<%WS_NAME%^>
-	goto ExitFail
+echo %IM% checking for an existing workspace ^<%WS_NAME%^>
+tf workspaces "%WS_NAME%" >NUL 2>NUL
+if not ERRORLEVEL 1 (
+	echo %IM% found existing TFS workspace ^<%WS_NAME%^>. Deleting...
+	tf workspace /collection:%SCM_SYSTEM_URL% /delete %WS_NAME% /noprompt
+	if ERRORLEVEL 1 (
+		echo %EM% deleting existing workspace ^<%WS_NAME%^>
+		goto ExitFail
+	)
+	echo %IM% ...done
 )
 
+echo %IM% creating new workspace ^<%WS_NAME%^>
 tf workspace /new /noprompt %WS_NAME% /collection:%SCM_SYSTEM_URL% /permission:Private
 if ERRORLEVEL 1 (
 	echo %EM% creating workspace ^<%WS_NAME%^>
 	goto ExitFail
 )
 
+echo %IM% deleting default workspace mappings for workspace ^<%WS_NAME%^>
 tf workfold /unmap /collection:%SCM_SYSTEM_URL% /workspace:%WS_NAME% $/
 if ERRORLEVEL 1 (
 	echo %EM% removing default workspace mapping for workspace ^<%WS_NAME%^>
 	goto ExitFail
 )
 
-tf workfold /map %SCM_BRANCH_URL% %WC_ROOT% /collection:%SCM_SYSTEM_URL% /workspace:%WS_NAME%
-if ERRORLEVEL 1 (
-	echo %EM% creating workspace mapping for branch URL ^<%SCM_BRANCH_URL%^>
-	echo %EM% for workspace ^<%WS_NAME%^> to working copy root directory ^<%WC_ROOT%^>
-	goto ExitFail
-)
+REM
+REM Don't create a workspace / folder as "workspace /new" creates one for the current workiing directory.
+REM
+REM echo %IM% creating workspace mappings for workspace ^<%WS_NAME%^>
+REM tf workfold /map %SCM_BRANCH_URL% %WC_ROOT% /collection:%SCM_SYSTEM_URL% /workspace:%WS_NAME%
+REM if ERRORLEVEL 1 (
+REM 	echo %EM% creating workspace mapping for branch URL ^<%SCM_BRANCH_URL%^>
+REM 	echo %EM% for workspace ^<%WS_NAME%^> to working copy root directory ^<%WC_ROOT%^>
+REM 	goto ExitFail
+REM )
 
 goto DoneWc
 

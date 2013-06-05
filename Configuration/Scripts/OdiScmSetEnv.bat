@@ -298,11 +298,11 @@ REM if ERRORLEVEL 1 (
 	REM goto ExitFail
 REM )
 
-REM call :SetPath %ORACLE_HOME%\bin
-REM if ERRORLEVEL 1 (
-	REM echo %EM% setting PATH environment variable for Oracle client bin directory ^<%ORACLE_HOME%\bin^>
-	REM goto ExitFail
-REM )
+call :SetPath %ORACLE_HOME%\bin
+if ERRORLEVEL 1 (
+	echo %EM% setting PATH environment variable for Oracle client bin directory ^<%ORACLE_HOME%\bin^>
+	goto ExitFail
+)
 
 :ExitOk
 REM if exist "%TEMPFILE%" del /f "%TEMPFILE%"
