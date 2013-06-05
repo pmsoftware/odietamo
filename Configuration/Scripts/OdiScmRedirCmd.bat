@@ -35,7 +35,8 @@ echo %IM% command to execute: ^<%ARGCOMMAND%^>
 echo %IM% file to redirect standard output to ^<%ARGREDIRFILESTUB%.stdout^>
 echo %IM% file to redirect standard error to: ^<%ARGREDIRFILESTUB%.stderr^>
 echo %IM% command arguments ^<%ARGCOMMANDARGS%^>
-echo %IM% full command line to be executed: "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" %ARGCOMMAND% %ARGCOMMANDARGS% ^>"%ARGREDIRFILESTUB%.stdout" 2^>"%ARGREDIRFILESTUB%.stderr"
+rem echo %IM% full command line to be executed: "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" %ARGCOMMAND% %ARGCOMMANDARGS% ^>"%ARGREDIRFILESTUB%.stdout" 2^>"%ARGREDIRFILESTUB%.stderr"
+echo %IM% full command line to be executed: %ARGCOMMAND% %ARGCOMMANDARGS% ^>"%ARGREDIRFILESTUB%.stdout" 2^>"%ARGREDIRFILESTUB%.stderr"
 
 rem "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" %ARGCOMMAND% %ARGCOMMANDARGS% >"%ARGREDIRFILESTUB%.stdout" 2>"%ARGREDIRFILESTUB%.stderr"
 "%ARGCOMMAND%" %ARGCOMMANDARGS% >"%ARGREDIRFILESTUB%.stdout" 2>"%ARGREDIRFILESTUB%.stderr"
