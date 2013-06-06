@@ -3,6 +3,13 @@ set PROG=OdiScmBuild.bat
 set IM=%PROG%: INFO:
 set EM=%PROG%: ERROR:
 
+if /i "%1" == "/b" (
+	set IsBatchExit=/b
+	shift
+) else (
+	set IsBatchExit=
+)
+
 set ODI_HOME=<OdiHomeDir>
 set ODI_JAVA_HOME=<OdiJavaHomeDir>
 set JAVA_HOME=<JavaHomeDir>
@@ -156,12 +163,12 @@ goto MainExitFail
 :MainOdiScmSetNextImportOk
 :MainExitOk
 echo %IM% OdiScm build process completed successfully
-exit /b 0
+exit %IsBatchExit% 0
 
 :MainExitFail
 echo %EM% failure executing OdiScm build process
 echo %EM% %MSG%
-exit /b 1
+exit %IsBatchExit% 1
 
 rem *************************************************************
 rem **                    S U B R O U T I N E S                **

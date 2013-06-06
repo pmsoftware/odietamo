@@ -1,4 +1,4 @@
-echo off
+@echo off
 REM ==========================================================================
 REM Drop and rebuild and ODI respository from an empty repository Oracle export back-up file
 REM and a source code repository.
@@ -60,26 +60,31 @@ if "%ODI_SCM_INI%" == "" (
 	echo %IM% using source configuration INI file ^<%ODI_SCM_INI%^> 
 )
 
-REM
-REM Get additional configuration INI file settings for build notification.
-REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b Build UserEmailAddress ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS
-if ERRORLEVEL 1 (
-	echo %EM% getting build notification user email address from configuration INI file
-	goto ExitFail
-)
+REM REM
+REM REM THESE VARIABLES ARE NOW SET BY THE CALL TO OdiScmSetEnv.bat.
+REM REM
+REM REM Get additional configuration INI file settings for build notification.
+REM REM
+REM call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b Build UserEmailAddress ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS
+REM if ERRORLEVEL 1 (
+	REM echo %EM% getting build notification user email address from configuration INI file
+	REM echo %EM% section ^<Build^> key ^<UserEmailAddress^>
+	REM goto ExitFail
+REM )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b Build UserName ODI_SCM_NOTIFY_USER_NAME
-if ERRORLEVEL 1 (
-	echo %EM% getting build notification user name from configuration INI file
-	goto ExitFail
-)
+REM call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b Build UserName ODI_SCM_NOTIFY_USER_NAME
+REM if ERRORLEVEL 1 (
+	REM echo %EM% getting build notification user name from configuration INI file
+		REM echo %EM% section ^<Build^> key ^<UserName^>
+	REM goto ExitFail
+REM )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b Build EmailSMTPServer ODI_SCM_NOTIFY_SMTP_SERVER
-if ERRORLEVEL 1 (
-	echo %EM% getting build notification email SMTP server from configuration INI file
-	goto ExitFail
-)
+REM call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b Build EmailSMTPServer ODI_SCM_NOTIFY_SMTP_SERVER
+REM if ERRORLEVEL 1 (
+	REM echo %EM% getting build notification email SMTP server from configuration INI file
+	REM echo %EM% section ^<Build^> key ^<EmailSMTPServer^>
+	REM goto ExitFail
+REM )
 
 REM
 REM Destroy and recreate the working copy root directory.
@@ -225,17 +230,20 @@ if "%SCM_SYSTEM_NAME%" == "SVN" (
 	goto DoWcSVN
 )
 
-echo %IM% checking for an existing workspace ^<%WS_NAME%^>
-tf workspaces "%WS_NAME%" >NUL 2>NUL
-if not ERRORLEVEL 1 (
-	echo %IM% found existing TFS workspace ^<%WS_NAME%^>. Deleting...
-	tf workspace /collection:%SCM_SYSTEM_URL% /delete %WS_NAME% /noprompt
-	if ERRORLEVEL 1 (
-		echo %EM% deleting existing workspace ^<%WS_NAME%^>
-		goto ExitFail
-	)
-	echo %IM% ...done
-)
+rem echo %IM% checking for an existing workspace ^<%WS_NAME%^>
+rem tf workspaces "%WS_NAME%" >NUL 2>NUL
+rem if not ERRORLEVEL 1 (
+rem 	echo %IM% no existing TFS workspace ^<%WS_NAME%^>
+rem ) else (
+rem 	echo %IM% found existing TFS workspace ^<%WS_NAME%^>. Deleting...
+echo %IM% deleting any existing TFS workspace ^<%WS_NAME%^>
+tf workspace /collection:%SCM_SYSTEM_URL% /delete %WS_NAME% /noprompt >NUL 2>NUL
+rem 	if ERRORLEVEL 1 (
+rem 		echo %EM% deleting existing workspace ^<%WS_NAME%^>
+rem 		goto ExitFail
+rem 	)
+rem 	echo %IM% ...done
+rem )
 
 echo %IM% creating new workspace ^<%WS_NAME%^>
 tf workspace /new /noprompt %WS_NAME% /collection:%SCM_SYSTEM_URL% /permission:Private
@@ -254,13 +262,13 @@ if ERRORLEVEL 1 (
 REM
 REM Don't create a workspace / folder as "workspace /new" creates one for the current workiing directory.
 REM
-REM echo %IM% creating workspace mappings for workspace ^<%WS_NAME%^>
-REM tf workfold /map %SCM_BRANCH_URL% %WC_ROOT% /collection:%SCM_SYSTEM_URL% /workspace:%WS_NAME%
-REM if ERRORLEVEL 1 (
-REM 	echo %EM% creating workspace mapping for branch URL ^<%SCM_BRANCH_URL%^>
-REM 	echo %EM% for workspace ^<%WS_NAME%^> to working copy root directory ^<%WC_ROOT%^>
-REM 	goto ExitFail
-REM )
+echo %IM% creating workspace mapping for workspace ^<%WS_NAME%^>
+tf workfold /map %SCM_BRANCH_URL% %WC_ROOT% /collection:%SCM_SYSTEM_URL% /workspace:%WS_NAME%
+if ERRORLEVEL 1 (
+	echo %EM% creating workspace mapping for branch URL ^<%SCM_BRANCH_URL%^>
+	echo %EM% for workspace ^<%WS_NAME%^> to working copy root directory ^<%WC_ROOT%^>
+	goto ExitFail
+)
 
 goto DoneWc
 
@@ -335,13 +343,13 @@ if ERRORLEVEL 1 (
 	goto ExitNotifyFail
 )
 
-echo send-mailmessage -from "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_EMAIL_ADDRESS%>" -to "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_EMAIL_ADDRESS%>" -subject "Auto Build For Source URL <%SCM_SYSTEM_URL%/%SCM_BRANCH_URL%> has succeeded" -smtp %ODI_SCM_NOTIFY_SMTP_SERVER% -body "Auto Build For Branch <NP_Stable> has succeeded" >"%TEMPPSSCRIPTFILE%"
+echo send-mailmessage -from "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -to "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -subject "Auto Build For Source URL <%SCM_SYSTEM_URL%/%SCM_BRANCH_URL%> has succeeded" -smtp %ODI_SCM_NOTIFY_SMTP_SERVER% -body "Auto Build For Branch <NP_Stable> has succeeded" >"%TEMPPSSCRIPTFILE%"
 powershell -file "%TEMPPSSCRIPTFILE%"
 
 goto ExitOk
 
 :ExitNotifyFail
-echo send-mailmessage -from "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_EMAIL_ADDRESS%>" -to "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_EMAIL_ADDRESS%>" -subject "Auto Build For Source URL <%SCM_SYSTEM_URL%/%SCM_BRANCH_URL%> has failed" -smtp %ODI_SCM_NOTIFY_SMTP_SERVER% -body "Auto Build For Branch <NP_Stable> has failed" >"%TEMPPSSCRIPTFILE%"
+echo send-mailmessage -from "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -to "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -subject "Auto Build For Source URL <%SCM_SYSTEM_URL%/%SCM_BRANCH_URL%> has failed" -smtp %ODI_SCM_NOTIFY_SMTP_SERVER% -body "Auto Build For Branch <NP_Stable> has failed" >"%TEMPPSSCRIPTFILE%"
 powershell -file "%TEMPPSSCRIPTFILE%"
 
 :ExitOk
