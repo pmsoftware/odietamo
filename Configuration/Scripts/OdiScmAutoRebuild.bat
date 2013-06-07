@@ -171,29 +171,8 @@ if %EXITSTATUS% geq 1 (
 )
 
 REM
-REM Get the OdiScm fixed output tag.
+REM If using TFS as the SCM system then check for a passed workspace name.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b Generate OutputTag OUTPUT_TAG
-if ERRORLEVEL 1 (
-	echo %EM% cannot set environment variable OUTPUT_TAG from configuration INI file
-	goto ExitFail
-)
-
-REM
-REM Get the SCM system type.
-REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b SCMSystem SCMSystemTypeName SCM_SYSTEM_NAME
-if ERRORLEVEL 1 (
-	echo %EM% cannot set environment variable SCM_SYSTEM_NAME from configuration INI file
-	goto ExitFail
-)
-
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b SCMSystem SCMSystemTypeName SCM_SYSTEM_NAME
-if ERRORLEVEL 1 (
-	echo %EM% cannot set environment variable SCM_SYSTEM_NAME from configuration INI file
-	goto ExitFail
-)
-
 if "%SCM_SYSTEM_NAME%" == "TFS" (
 	if "%WS_NAME%" == "" (
 		echo %EM% no TFS workspace name specified
@@ -203,24 +182,6 @@ if "%SCM_SYSTEM_NAME%" == "TFS" (
 ) else (
 	echo %IM% SCM system in configuration INI file is not TFS
 	echo %IM% ignoring specified TFS workspace name
-)
-
-REM
-REM Get the SCM system URL.
-REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b SCMSystem SCMSystemUrl SCM_SYSTEM_URL
-if ERRORLEVEL 1 (
-	echo %EM% cannot set environment variable SCM_SYSTEM_URL from configuration INI file
-	goto ExitFail
-)
-
-REM
-REM Get the SCM system branch URL.
-REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b SCMSystem SCMBranchUrl SCM_BRANCH_URL
-if ERRORLEVEL 1 (
-	echo %EM% cannot set environment variable SCM_BRANCH_URL from configuration INI file
-	goto ExitFail
 )
 
 REM
@@ -237,7 +198,7 @@ rem 	echo %IM% no existing TFS workspace ^<%WS_NAME%^>
 rem ) else (
 rem 	echo %IM% found existing TFS workspace ^<%WS_NAME%^>. Deleting...
 echo %IM% deleting any existing TFS workspace ^<%WS_NAME%^>
-tf workspace /collection:%SCM_SYSTEM_URL% /delete %WS_NAME% /noprompt >NUL 2>NUL
+tf workspace /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL% /delete %WS_NAME% /noprompt >NUL 2>NUL
 rem 	if ERRORLEVEL 1 (
 rem 		echo %EM% deleting existing workspace ^<%WS_NAME%^>
 rem 		goto ExitFail
@@ -246,14 +207,14 @@ rem 	echo %IM% ...done
 rem )
 
 echo %IM% creating new workspace ^<%WS_NAME%^>
-tf workspace /new /noprompt %WS_NAME% /collection:%SCM_SYSTEM_URL% /permission:Private
+tf workspace /new /noprompt %WS_NAME% /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL% /permission:Private
 if ERRORLEVEL 1 (
 	echo %EM% creating workspace ^<%WS_NAME%^>
 	goto ExitFail
 )
 
 echo %IM% deleting default workspace mappings for workspace ^<%WS_NAME%^>
-tf workfold /unmap /collection:%SCM_SYSTEM_URL% /workspace:%WS_NAME% $/
+tf workfold /unmap /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL% /workspace:%WS_NAME% $/
 if ERRORLEVEL 1 (
 	echo %EM% removing default workspace mapping for workspace ^<%WS_NAME%^>
 	goto ExitFail
@@ -263,9 +224,9 @@ REM
 REM Don't create a workspace / folder as "workspace /new" creates one for the current workiing directory.
 REM
 echo %IM% creating workspace mapping for workspace ^<%WS_NAME%^>
-tf workfold /map %SCM_BRANCH_URL% %WC_ROOT% /collection:%SCM_SYSTEM_URL% /workspace:%WS_NAME%
+tf workfold /map %ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL% %WC_ROOT% /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL% /workspace:%WS_NAME%
 if ERRORLEVEL 1 (
-	echo %EM% creating workspace mapping for branch URL ^<%SCM_BRANCH_URL%^>
+	echo %EM% creating workspace mapping for branch URL ^<%ODI_SCM_SYSTEM_SCM_BRANCH_URL%^>
 	echo %EM% for workspace ^<%WS_NAME%^> to working copy root directory ^<%WC_ROOT%^>
 	goto ExitFail
 )
@@ -273,9 +234,9 @@ if ERRORLEVEL 1 (
 goto DoneWc
 
 :DoWcSVN
-svn checkout %SCM_SYSTEM_URL%/%SCM_BRANCH_URL%
+svn checkout %ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%
 if ERRORLEVEL 1 (
-	echo %EM% creating working copy for branch URL ^<%SCM_BRANCH_URL%^>
+	echo %EM% creating working copy for branch URL ^<%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%^>
 	echo %EM% in working copy root directory ^<%WC_ROOT%^>
 	goto ExitFail
 )

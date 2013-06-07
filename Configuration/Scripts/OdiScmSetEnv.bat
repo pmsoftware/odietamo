@@ -6,10 +6,7 @@ REM
 REM Note that for this script to have any useful effect it must be
 REM executed with CALL and passed the /B switch.
 REM ===============================================
-set FN=OdiScmSetEnv
-set IM=%FN%: INFO:
-set EM=%FN%: ERROR:
-set WM=%FN%: WARNING:
+call :SetMsgPrefixes
 
 REM
 REM BEWARE of SETLOCAL. We need to ensure that variable value assignments survive the exit from this script
@@ -174,8 +171,8 @@ echo ODI_USER>>%TEMPFILE2%
 echo ODI_ENCODED_PASS>>%TEMPFILE2%
 echo ODI_SECU_WORK_REP>>%TEMPFILE2%
 
-for /f %%g in (%TEMPFILE2%) do (
-	call :SetConfig OracleDI %%g
+for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
+	call :SetConfig OracleDI %%g %%g
 	if ERRORLEVEL 1 (
 		echo %EM% getting configuration INI value for section ^<OracleDI^> key ^<%%g^>
 		goto ExitFail
@@ -222,65 +219,63 @@ REM E.g. C:\Program Files (x86)\...
 set ODI_SECU_URL_SID=%ODI_SECU_URL_SID%
 
 REM
-REM Get the OdiScm fixed output tag.
+REM Generation options.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b Generate OutputTag >"%TEMPFILE2%" 2>&1
-if ERRORLEVEL 1 (
-	echo %EM% cannot get value for section ^<Generate^> key ^<OutputTag^>
-	goto ExitFail
+echo %IM% processing configuration section ^<Generate^>
+echo OutputTag ODI_SCM_GENERATE_OUTPUT_TAG>%TEMPFILE2%
+
+for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
+	call :SetConfig Generate %%g %%h
+	if ERRORLEVEL 1 (
+		echo %EM% getting configuration INI value for section ^<Generate^> key ^<%%g^>
+		goto ExitFail
+	)
 )
 
-set /p OUTPUT_TAG=<"%TEMPFILE2%"
-REM Include quotes around the entire VAR=VAL string to deal with brackets in variable values.
-REM E.g. C:\Program Files (x86)\...
-set "OUTPUT_TAG=%OUTPUT_TAG%"
+REM
+REM SCM system configuration.
+REM
+echo %IM% processing configuration section ^<SCMSystem^>
+echo SCMSystemTypeName ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME>%TEMPFILE2%
+echo SCMSystemURL ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL>>%TEMPFILE2%
+echo SCMBranchURL ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL>>%TEMPFILE2%
 
-REM
-REM Get the SCM system type.
-REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b SCMSystem SCMSystemTypeName >"%TEMPFILE%" 2>&1
-if ERRORLEVEL 1 (
-	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMSystemTypeName^>
-	goto ExitFail
+for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
+	call :SetConfig SCMSystem %%g %%h
+	if ERRORLEVEL 1 (
+		echo %EM% getting configuration INI value for section ^<SCMSystem^> key ^<%%g^>
+		goto ExitFail
+	)
 )
-
-set /p ODI_SCM_SYSTEM_NAME=<"%TEMPFILE2%"
-
-REM
-REM Get the SCM system URL.
-REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b SCMSystem SCMSystemURL >"%TEMPFILE%" 2>&1
-if ERRORLEVEL 1 (
-	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMSystemUrl^>
-	goto ExitFail
-)
-
-set /p ODI_SCM_SYSTEM_URL=<"%TEMPFILE2%"
-
-REM
-REM Get the SCM system branch URL.
-REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /b SCMSystem SCMBranchURL >"%TEMPFILE%" 2>&1
-if ERRORLEVEL 1 (
-	echo %EM% cannot get value for section ^<SCMSystem^> key ^<SCMBranchUrl^>
-	goto ExitFail
-)
-
-set /p ODI_SCM_BRANCH_URL=<"%TEMPFILE2%"
 
 REM
 REM Tools configuration.
 REM
 echo %IM% processing configuration section ^<Tools^>
-REM echo JAVA_HOME>%TEMPFILE2%
 echo ODI_SCM_JISQL_HOME>%TEMPFILE2%
 echo ODI_SCM_JISQL_JAVA_HOME>>%TEMPFILE2%
 echo ORACLE_HOME>>%TEMPFILE2%
 
-for /f %%g in (%TEMPFILE2%) do (
-	call :SetConfig Tools %%g
+for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
+	call :SetConfig Tools %%g %%g
 	if ERRORLEVEL 1 (
 		echo %EM% getting configuration INI value for section ^<Tools^> key ^<%%g^>
+		goto ExitFail
+	)
+)
+
+REM
+REM Notification configuration.
+REM
+echo %IM% processing configuration section ^<Notify^>
+echo UserName ODI_SCM_NOTIFY_USER_NAME>%TEMPFILE2%
+echo UserEmailAddress ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS>>%TEMPFILE2%
+echo EmailSMTPServer ODI_SCM_NOTIFY_SMTP_SERVER>>%TEMPFILE2%
+
+for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
+	call :SetConfig Notify %%g %%h
+	if ERRORLEVEL 1 (
+		echo %EM% getting configuration INI value for section ^<Notify^> key ^<%%g^>
 		goto ExitFail
 	)
 )
@@ -290,12 +285,6 @@ REM call :SetPath %ODI_SCM_HOME%\Configuration\Scripts
 REM if ERRORLEVEL 1 (
 REM 	echo %EM% setting PATH environment variable for OdiScm scripts directory ^<%ODI_SCM_HOME%\Configuration\Scripts^>
 REM 	goto ExitFail
-REM )
-
-REM call :SetPath %JAVA_HOME%\bin
-REM if ERRORLEVEL 1 (
-	REM echo %EM% setting PATH environment variable for Java bin directory ^<%JAVA_HOME%\bin^>
-	REM goto ExitFail
 REM )
 
 call :SetPath %ORACLE_HOME%\bin
@@ -323,6 +312,10 @@ REM ===============================================
 REM Set an environment variable from a configuration file key.
 REM ===============================================
 echo %IM% processing configuration section ^<%1^> key ^<%2^>
+if "%3" == "" (
+	echo %EM% no target environment variable name passed to SetConfig
+	goto SetConfigExitFail
+)
 
 set ENVVARVAL=
 type NUL >"%TEMPFILE%" 2>&1
@@ -337,10 +330,10 @@ if ERRORLEVEL 1 (
 	goto SetConfigExitFail
 )
 set /p ENVVARVAL=<"%TEMPFILE%"
-echo %IM% setting environment variable ^<%2^> to value ^<%ENVVARVAL%^>
+echo %IM% setting environment variable ^<%3^> to value ^<%ENVVARVAL%^>
 REM Include quotes around the entire VAR=VAL string to deal with brackets in variable values.
 REM E.g. C:\Program Files (x86)\...
-set SetEnvVarCmd=set "%2=%ENVVARVAL%"
+set SetEnvVarCmd=set "%3=%ENVVARVAL%"
 
 %SetEnvVarCmd%
 if ERRORLEVEL 1 (
@@ -381,3 +374,10 @@ set "PATH=%1;%PATH%"
 
 :DirNamePathSet
 exit /b 0
+
+:SetMsgPrefixes
+set FN=OdiScmSetEnv
+set IM=%FN%: INFO:
+set EM=%FN%: ERROR:
+set WM=%FN%: WARNING:
+goto :eof

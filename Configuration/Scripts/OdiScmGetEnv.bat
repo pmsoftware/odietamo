@@ -329,32 +329,41 @@ if "!ODI_SECU_URL_SID!" == "" (
 )
 echo !IM! environment issues found so far ^<!ISSUES!^>
 
-rem setlocal enabledelayedexpansion
-REM for /f "tokens=*" !!g in ('echo !ODI_SCM_HOME!\Configuration\Scripts ^| sed "s/\\/\\\\/g" ^| sed "s/ //g"') do (
-REM 	set OdiScmHomeEscaped=!!g
-REM )
-REM echo OdiScmHomeEscaped is !OdiScmHomeEscaped!
+if "!ODI_SCM_GENERATE_OUTPUT_TAG!" == "" (
+	echo !EM! build output tab environment variable ODI_SCM_GENERATE_OUTPUT_TAG is not set
+	set /a ISSUES=!ISSUES!+1
+) else (
+	echo !IM! build notification user environment variable ODI_SCM_GENERATE_OUTPUT_TAG is set
+	echo !IM! environment variable ODI_SCM_GENERATE_OUTPUT_TAG is set to ^<!ODI_SCM_GENERATE_OUTPUT_TAG!^>
+)
+echo !IM! environment issues found so far ^<!ISSUES!^>
 
-REM set OdiScmInPath=
-REM for /f "tokens=* eol=# delims=;" !!g in ('echo !PATH! ^| sed "s/ //g" ^| grep -i !OdiScmHomeEscaped!') do (
-REM 	set OdiScmInPath=!!g
-REM )
+if "!ODI_SCM_NOTIFY_USER_NAME!" == "" (
+	echo !EM! build notification user environment variable ODI_SCM_NOTIFY_USER_NAME is not set
+	set /a ISSUES=!ISSUES!+1
+) else (
+	echo !IM! build notification user environment variable ODI_SCM_NOTIFY_USER_NAME is set
+	echo !IM! environment variable ODI_SCM_NOTIFY_USER_NAME is set to ^<!ODI_SCM_NOTIFY_USER_NAME!^>
+)
+echo !IM! environment issues found so far ^<!ISSUES!^>
 
-REM set OdiScmInPath=
-REM for /f "tokens=* eol=# delims=!" !!g in ('echo "!PATH!" ^| sed "s/ //g" ^| sed "s/;/\r\n/g"') do (
-	REM echo doing line !!g
-	REM for /f "tokens=* eol=# delims=!" !!h in ('echo !!g ^| grep !OdiScmHomeEscaped!') do (
-		REM echo inner doing !!h
-		REM set OdiScmInCurrPathDir=!!h
-	REM )
-REM )
+if "!ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS!" == "" (
+	echo !EM! build notification email address environment variable ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS is not set
+	set /a ISSUES=!ISSUES!+1
+) else (
+	echo !IM! build notification email address environment variable ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS is set
+	echo !IM! environment variable ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS is set to ^<!ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS!^>
+)
+echo !IM! environment issues found so far ^<!ISSUES!^>
 
-REM if "!OdiScmInPath!" == "" (
-REM	echo !EM! OdiScm scripts directory is not in the command PATH environment variable
-REM	set /a ISSUES=!ISSUES!+1
-REM ) else (
-REM	echo !IM! OdiScm scripts directory is in the command PATH environment variable
-REM )
+if "!ODI_SCM_NOTIFY_SMTP_SERVER!" == "" (
+	echo !EM! build notification SMTP server environment variable ODI_SCM_NOTIFY_SMTP_SERVER is not set
+	set /a ISSUES=!ISSUES!+1
+) else (
+	echo !IM! build notification SMTP server environment variable ODI_SCM_NOTIFY_SMTP_SERVER is set
+	echo !IM! environment variable ODI_SCM_NOTIFY_SMTP_SERVER is set to ^<!ODI_SCM_NOTIFY_SMTP_SERVER!^>
+)
+echo !IM! environment issues found so far ^<!ISSUES!^>
 
 echo !IM!
 echo !IM! total number of environment issues found is ^<!ISSUES!^>
