@@ -280,6 +280,20 @@ for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
 	)
 )
 
+REM
+REM Testing configuration.
+REM
+echo %IM% processing configuration section ^<Test^>
+echo ODIStandardsScript ODI_SCM_TEST_ODI_STANDARDS_SCRIPT>%TEMPFILE2%
+
+for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
+	call :SetConfig Test %%g %%h
+	if ERRORLEVEL 1 (
+		echo %EM% getting configuration INI value for section ^<Test^> key ^<%%g^>
+		goto ExitFail
+	)
+)
+
 REM Set the command path if not already set.
 REM call :SetPath %ODI_SCM_HOME%\Configuration\Scripts
 REM if ERRORLEVEL 1 (

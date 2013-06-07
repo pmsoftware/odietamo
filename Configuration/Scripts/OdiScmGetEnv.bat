@@ -365,6 +365,15 @@ if "!ODI_SCM_NOTIFY_SMTP_SERVER!" == "" (
 )
 echo !IM! environment issues found so far ^<!ISSUES!^>
 
+if "!ODI_SCM_TEST_ODI_STANDARDS_SCRIPT!" == "" (
+	echo !EM! user defined ODI standards check/report script file environment variable ODI_SCM_TEST_ODI_STANDARDS_SCRIPT is not set
+	set /a ISSUES=!ISSUES!+1
+) else (
+	echo !IM! user defined ODI standards check/report script file environment variable ODI_SCM_TEST_ODI_STANDARDS_SCRIPT is set
+	echo !IM! environment variable ODI_SCM_TEST_ODI_STANDARDS_SCRIPT is set to ^<!ODI_SCM_TEST_ODI_STANDARDS_SCRIPT!^>
+)
+echo !IM! environment issues found so far ^<!ISSUES!^>
+
 echo !IM!
 echo !IM! total number of environment issues found is ^<!ISSUES!^>
 

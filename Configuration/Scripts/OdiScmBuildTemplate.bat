@@ -52,7 +52,7 @@ if ERRORLEVEL 1 goto MainExitFail
 
 set MSG=executing OdiScm pre ODI object import script "<OdiScmGenScenPreImportBat>"
 echo %IM% %MSG%
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" <OdiScmGenScenPreImportBat>
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmGenScenPreImportBat>"
 if ERRORLEVEL 1 goto MainExitFail
 
 set MSG=executing OdiScm ODI import script "<OdiImportScriptFile>"
@@ -114,13 +114,48 @@ rem The called batch file has returned a 0 errorlevel but check for anything in 
 rem 
 echo %IM% Batch file ^<<OdiScmJisqlRepoBat>^> returned zero ERRORLEVEL
 fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
-if not ERRORLEVEL 1 goto MainOdiScmRestoreRepoIntegOk
+if not ERRORLEVEL 1 goto MainOdiScmOdiStandardsCheck
 
 echo %IM% StdErr content:
 type %STDERRFILE%
 
 goto MainExitFail
 
+:MainOdiScmOdiStandardsCheck
+rem
+rem Execute any user specified ODI standards check/report script.
+rem Note that the user might build the script to intentionally cause the build to fail.
+rem
+if not "<OdiStandardsCheckScript>" == "None"
+	set MSG=executing user defined ODI standards check/report script "<OdiStandardsCheckScript>"
+	echo %IM% %MSG%
+	rem
+	call :SetDateTimeStrings
+	set STDOUTFILE=<GenScriptRootDir>\OdiScmValidateRepositoryIntegrity_StdOut_%YYYYMMDD%_%HHMM%.log
+	set STDERRFILE=<GenScriptRootDir>\OdiScmValidateRepositoryIntegrity_StdErr_%YYYYMMDD%_%HHMM%.log
+	rem
+	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmJisqlRepoBat>" /b <OdiScmValidateRepositoryIntegritySql> %STDOUTFILE% %STDERRFILE%
+	if ERRORLEVEL 1 (
+		echo %EM% Batch file ^<<OdiScmJisqlRepoBat>^> returned non-zero ERRORLEVEL
+		echo %IM% StdErr content:
+		type %STDERRFILE%
+		goto MainExitFail
+	)
+	rem
+	rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.
+	rem 
+	echo %IM% Batch file ^<<OdiScmJisqlRepoBat>^> returned zero ERRORLEVEL
+	fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
+	if ERRORLEVEL 1 (
+		echo %IM% StdErr content:
+		type %STDERRFILE%
+		goto MainExitFail
+	)
+)
+
+rem
+rem Execute the post import Scenario generation script.
+rem
 :MainOdiScmRestoreRepoIntegOk
 set MSG=executing OdiScm ODI scenario generation script "<OdiScmGenScenPostImportBat>"
 echo %IM% %MSG%

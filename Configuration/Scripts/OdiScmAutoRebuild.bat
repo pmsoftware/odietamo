@@ -173,11 +173,13 @@ if %EXITSTATUS% geq 1 (
 REM
 REM If using TFS as the SCM system then check for a passed workspace name.
 REM
-if "%SCM_SYSTEM_NAME%" == "TFS" (
+if "%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%" == "TFS" (
 	if "%WS_NAME%" == "" (
 		echo %EM% no TFS workspace name specified
 		call :ShowUsage
 		goto ExitFail
+	) else (
+		echo %IM% using passed TFS workspace name ^<%WC_NAME%^>
 	)
 ) else (
 	echo %IM% SCM system in configuration INI file is not TFS
@@ -187,7 +189,7 @@ if "%SCM_SYSTEM_NAME%" == "TFS" (
 REM
 REM Destroy and recreate TFS workspaces.
 REM
-if "%SCM_SYSTEM_NAME%" == "SVN" (
+if "%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
 	goto DoWcSVN
 )
 
@@ -265,11 +267,11 @@ REM
 REM Archive the previous OdiScm output directory and recreate it.
 REM
 call :SetDateTimeStrings
-if EXIST "%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%" (
-	echo %IM% renaming previous OdiScm output directory "%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%"
-	move "%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%" "%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%_%YYYYMMDD%_%HHMM%" >NUL 2>NUL
+if EXIST "%ODI_SCM_HOME%\Logs\%ODI_SCM_GENERATE_OUTPUT_TAG%" (
+	echo %IM% renaming previous OdiScm output directory ^<%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%^>
+	move "%ODI_SCM_HOME%\Logs\%ODI_SCM_GENERATE_OUTPUT_TAG%" "%ODI_SCM_HOME%\Logs\%ODI_SCM_GENERATE_OUTPUT_TAG%_%YYYYMMDD%_%HHMM%" >NUL 2>NUL
 	if ERRORLEVEL 1 (
-		echo echo %EM% renaming previous OdiScm output directory "%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%"
+		echo echo %EM% renaming previous OdiScm output directory ^<%ODI_SCM_HOME%\Logs\%ODI_SCM_GENERATE_OUTPUT_TAG%^>
 		goto ExitFail
 	)
 )
@@ -298,19 +300,20 @@ if ERRORLEVEL 1 (
 REM
 REM Execute the OdiScmGet process output script.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%\OdiScmBuild_%OUTPUT_TAG%.bat"
+echo on
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Logs\%ODI_SCM_GENERATE_OUTPUT_TAG%\OdiScmBuild_%ODI_SCM_GENERATE_OUTPUT_TAG%.bat"
 if ERRORLEVEL 1 (
 	echo %EM% executing main OdiScm output build script
 	goto ExitNotifyFail
 )
 
-echo send-mailmessage -from "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -to "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -subject "Auto Build For Source URL <%SCM_SYSTEM_URL%/%SCM_BRANCH_URL%> has succeeded" -smtp %ODI_SCM_NOTIFY_SMTP_SERVER% -body "Auto Build For Branch <NP_Stable> has succeeded" >"%TEMPPSSCRIPTFILE%"
+echo send-mailmessage -from "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -to "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -subject "Auto Build For Source URL <%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%> has succeeded" -smtpserver %ODI_SCM_NOTIFY_SMTP_SERVER% -body "Auto Build For Source URL <%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%> has succeeded" >"%TEMPPSSCRIPTFILE%"
 powershell -file "%TEMPPSSCRIPTFILE%"
 
 goto ExitOk
 
 :ExitNotifyFail
-echo send-mailmessage -from "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -to "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -subject "Auto Build For Source URL <%SCM_SYSTEM_URL%/%SCM_BRANCH_URL%> has failed" -smtp %ODI_SCM_NOTIFY_SMTP_SERVER% -body "Auto Build For Branch <NP_Stable> has failed" >"%TEMPPSSCRIPTFILE%"
+echo send-mailmessage -from "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -to "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -subject "Auto Build For Source URL <%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%> has failed" -smtpserver %ODI_SCM_NOTIFY_SMTP_SERVER% -body "Auto Build For Source URL <%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%>" >"%TEMPPSSCRIPTFILE%"
 powershell -file "%TEMPPSSCRIPTFILE%"
 
 :ExitOk
