@@ -1,7 +1,9 @@
 @echo off
-set PROG=OdiScmBuild.bat
-set IM=%PROG%: INFO:
-set EM=%PROG%: ERROR:
+set FN=OdiScmBuild
+set IM=%FN%: INFO:
+set EM=%FN%: ERROR:
+
+echo %IM% starts
 
 if /i "%1" == "/b" (
 	set IsBatchExit=/b
@@ -12,11 +14,10 @@ if /i "%1" == "/b" (
 
 set ODI_HOME=<OdiHomeDir>
 set ODI_JAVA_HOME=<OdiJavaHomeDir>
-set JAVA_HOME=<JavaHomeDir>
 set ODI_SCM_INI=<OdiScmIniFile>
 set ODI_SCM_HOME=<OdiScmHomeDir>
 set ODI_SCM_JISQL_HOME=<OdiScmJisqlHomeDir>
-set ODI_SCM_JISQL_JAVA_HOME=<OdiScmJisqlHomeDir>
+set ODI_SCM_JISQL_JAVA_HOME=<OdiScmJisqlJavaHomeDir>
 set ORACLE_HOME=<OracleHomeDir>
 
 if "%TEMP%" == "" goto NoTempDir
@@ -198,11 +199,13 @@ goto MainExitFail
 :MainOdiScmSetNextImportOk
 :MainExitOk
 echo %IM% OdiScm build process completed successfully
+echo %IM% ends
 exit %IsBatchExit% 0
 
 :MainExitFail
 echo %EM% failure executing OdiScm build process
 echo %EM% %MSG%
+echo %IM% ends
 exit %IsBatchExit% 1
 
 rem *************************************************************
