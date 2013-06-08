@@ -6,6 +6,13 @@ set EM=%FN%: ERROR:
 
 echo %IM% starts
 
+if /i "%1" == "/b" (
+	set IsBatchExit=/b
+	shift
+) else (
+	set IsBatchExit=
+)
+
 set EXITSTATUS=0
 set FILENO=%RANDOM%
 
@@ -38,13 +45,17 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen10_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen10_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
+rem echo %IM% executing command: call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmJisqlRepoBat>" <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen10Initialise.sql %STDOUTFILE% %STDERRFILE%
 call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmJisqlRepoBat>" <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen10Initialise.sql %STDOUTFILE% %STDERRFILE%
-if ERRORLEVEL 1 goto BatchFileNotOk10
+set EXITSTATUS=%ERRORLEVEL%
+echo %IM% command exited with status ^<%EXITSTATUS%^>
+if not "%EXITSTATUS%" == "0" goto BatchFileNotOk10
+rem if ERRORLEVEL 1 goto BatchFileNotOk10
 goto BatchFileOk10
 
 :BatchFileNotOk10
-echo OdiScm_GenScen_PreImport: ERROR: Batch file OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL
-echo OdiScm_GenScen_PreImport: INFO: StdErr content:
+echo %EM% OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL
+echo %IM% StdErr content:
 type %STDERRFILE%
 
 set EXITSTATUS=1
@@ -55,30 +66,30 @@ goto ExitFail
 rem
 rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.
 rem 
-echo OdiScm_GenScen_PreImport: INFO: Batch file OdiScmJisqlRepo.bat returned zero ERRORLEVEL
+echo %IM% batch file OdiScmJisqlRepo.bat returned zero ERRORLEVEL
 fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
 
 if ERRORLEVEL 1 goto StdErrNotEmpty10
 goto StdErrEmpty10
 
 :StdErrNotEmpty10
-echo OdiScm_GenScen_PreImport: INFO: StdErr content:
+echo %IM% stdErr content:
 type %STDERRFILE%
 set EXITSTATUS=1
 goto ExitFail
 
 :StdErrEmpty10
 
-echo OdiScm_GenScen_PreImport: INFO: StdOut content:
+echo %IM% stdOut content:
 type %STDOUTFILE%
 
-echo OdiScm_GenScen_PreImport: Scenario generation initialisation completed successfully.
+echo %IM% scenario generation initialisation completed successfully.
 goto Exit
 
 :ExitFail
 
 :Exit
-exit /b %EXITSTATUS%
+exit %IsBatchExit% %EXITSTATUS%
 
 rem *************************************************************
 rem **                    S U B R O U T I N E S                **

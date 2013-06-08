@@ -8,6 +8,15 @@ REM
 REM ==========================================================================
 call :SetMsgPrefixes
 
+echo %IM% starts
+
+if /i "%1" == "/b" (
+	set IsBatchExit=/b
+	shift
+) else (
+	set IsBatchExit=
+)
+
 REM TODO: put paths to these tools into the OdiScm.ini file.
 set PATH=C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE;%PATH%
 set PATH=C:\MOI\Configuration\Tools\Sysinternals;%PATH%
@@ -179,7 +188,7 @@ if "%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%" == "TFS" (
 		call :ShowUsage
 		goto ExitFail
 	) else (
-		echo %IM% using passed TFS workspace name ^<%WC_NAME%^>
+		echo %IM% using passed TFS workspace name ^<%WS_NAME%^>
 	)
 ) else (
 	echo %IM% SCM system in configuration INI file is not TFS
@@ -268,7 +277,7 @@ REM Archive the previous OdiScm output directory and recreate it.
 REM
 call :SetDateTimeStrings
 if EXIST "%ODI_SCM_HOME%\Logs\%ODI_SCM_GENERATE_OUTPUT_TAG%" (
-	echo %IM% renaming previous OdiScm output directory ^<%ODI_SCM_HOME%\Logs\%OUTPUT_TAG%^>
+	echo %IM% renaming previous OdiScm output directory ^<%ODI_SCM_HOME%\Logs\%ODI_SCM_GENERATE_OUTPUT_TAG%^>
 	move "%ODI_SCM_HOME%\Logs\%ODI_SCM_GENERATE_OUTPUT_TAG%" "%ODI_SCM_HOME%\Logs\%ODI_SCM_GENERATE_OUTPUT_TAG%_%YYYYMMDD%_%HHMM%" >NUL 2>NUL
 	if ERRORLEVEL 1 (
 		echo echo %EM% renaming previous OdiScm output directory ^<%ODI_SCM_HOME%\Logs\%ODI_SCM_GENERATE_OUTPUT_TAG%^>
@@ -303,7 +312,7 @@ REM
 echo on
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Logs\%ODI_SCM_GENERATE_OUTPUT_TAG%\OdiScmBuild_%ODI_SCM_GENERATE_OUTPUT_TAG%.bat"
 if ERRORLEVEL 1 (
-	echo %EM% executing main OdiScm output build script
+	echo %EM% executing generated OdiScm build script
 	goto ExitNotifyFail
 )
 
@@ -313,14 +322,14 @@ powershell -file "%TEMPPSSCRIPTFILE%"
 goto ExitOk
 
 :ExitNotifyFail
-echo send-mailmessage -from "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -to "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -subject "Auto Build For Source URL <%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%> has failed" -smtpserver %ODI_SCM_NOTIFY_SMTP_SERVER% -body "Auto Build For Source URL <%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%>" >"%TEMPPSSCRIPTFILE%"
+echo send-mailmessage -from "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -to "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -subject "Auto Build For Source URL <%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%> has failed" -smtpserver %ODI_SCM_NOTIFY_SMTP_SERVER% -body "Auto Build For Source URL <%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%> has failed" >"%TEMPPSSCRIPTFILE%"
 powershell -file "%TEMPPSSCRIPTFILE%"
 
 :ExitOk
-exit /b 0
+exit %IsBatchExit% 0
 
 :ExitFail
-exit /b 1
+exit %IsBatchExit% 1
 
 REM *************************************************************
 REM **                    S U B R O U T I N E S                **

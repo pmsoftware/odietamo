@@ -1,44 +1,50 @@
 --SET SERVER OUTPUT ON SIZE 10000000;
 
 DECLARE
-BEGIN
-    FOR c_repo_tab IN (
-                      SELECT table_name
-                        FROM user_tables
-                      )
-    LOOP
-        BEGIN
-            EXECUTE IMMEDIATE('DROP TABLE ' || c_repo_tab.table_name || ' CASCADE CONSTRAINTS');
-        EXCEPTION
-            WHEN OTHERS
-            THEN raise_application_error(-20000, 'Cannot drop table ' || c_repo_tab.table_name);
-        END;
-    END LOOP;
-    
-    FOR c_repo_dbl IN (
-                      SELECT db_link
-                        FROM user_db_links
-                      )
-    LOOP
-        BEGIN
-            EXECUTE IMMEDIATE('DROP DATABASE LINK ' || c_repo_dbl.db_link);
-        EXCEPTION
-            WHEN OTHERS
-                THEN raise_application_error(-20000, 'Cannot drop database link ' || c_repo_dbl.db_link);
-        END;
-    END LOOP;
-    
-    FOR c_repo_prc IN (
+BEGIN   
+    FOR c_repo_obj IN (
                       SELECT object_name
+                           , subobject_name
                            , object_type
+                           , CASE WHEN object_type = 'TABLE'
+                                  THEN ' CASCADE CONSTRAINTS'
+                                  ELSE ''
+                              END
+                                 AS command_tail
                         FROM user_objects
+                       WHERE object_type <> 'LOB'
+                       ORDER
+                          BY CASE WHEN object_type = 'VIEW'
+                                  THEN 1
+                                  WHEN object_type = 'PROCEDURE'	-- Stand alone procedures.
+                                   AND subobject_name IS NULL
+                                  THEN 2
+                                  WHEN object_type = 'FUNCTION'		-- Stand alone functions.
+                                   AND subobject_name IS NULL
+                                  THEN 3
+                                  WHEN object_type = 'PROCEDURE'	-- Package procedures.
+                                   AND subobject_name IS NOT NULL
+                                  THEN 4
+                                  WHEN object_type = 'FUNCTION'		-- Package functions.
+                                   AND subobject_name IS NOT NULL
+                                  THEN 5
+                                  WHEN object_type = 'TABLE'
+                                  THEN 6
+                                  WHEN object_type = 'PACKAGE'
+                                  THEN 7
+                                  WHEN object_type = 'PACKAGE BODY'
+                                  THEN 8
+                                  WHEN object_type = 'DATABASE LINK'
+                                  THEN 7
+                                  ELSE 999
+                              END
                       )
     LOOP
         BEGIN
-            EXECUTE IMMEDIATE('DROP ' || c_repo_prc.object_type || ' ' || c_repo_prc.object_name);
+            EXECUTE IMMEDIATE('DROP ' || c_repo_obj.object_type || ' ' || c_repo_obj.object_name || c_repo_obj.command_tail);
         EXCEPTION
             WHEN OTHERS
-                THEN raise_application_error(-20000, 'Cannot drop ' || c_repo_prc.object_type || ' ' || c_repo_prc.object_name);
+                THEN raise_application_error(-20000, 'Cannot drop ' || c_repo_obj.object_type || ' ' || c_repo_obj.object_name);
         END;
     END LOOP;
 END;
