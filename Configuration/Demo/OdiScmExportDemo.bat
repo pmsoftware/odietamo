@@ -20,10 +20,12 @@ REM
 REM set ODI_MASTER_DRIVER=org.hsqldb.jdbcDriver
 REM set ODI_MASTER_URL=jdbc:hsqldb:hsql://localhost
 REM set ODI_MASTER_USER=sa
-REM set ODI_MASTER_ENCODED_PASS=b9yXdq4ffjI6As5.VP4Ulleuf
+REM set ODI_MASTER_ENCODED_PASS=bQyprtMRerZs8o.O3mkA6Jk
 REM set ODI_SECU_WORK_REP=WORKREP
 REM set ODI_USER=SUPERVISOR
 REM set ODI_ENCODED_PASS=LELKIELGLJMDLKMGHEHJDBGBGFDGGH
+REM set ODI_SUPERVISOR=SUPERVISOR
+REM set ODI_SUPERVISOR_ENCODED_PASS=a7ypkyTouerpM2OSBUM0oDZhy
 
 set PROC=OdiScmDemoExport
 set IM=%PROC%: INFO:
@@ -237,6 +239,7 @@ if ERRORLEVEL 1 (
 )
 
 :ExitOk
+echo %IM% standard demo export completed successfully
 exit %IsBatchExit% 0
 
 :ExitFail
