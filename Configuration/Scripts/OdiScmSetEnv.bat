@@ -338,7 +338,7 @@ if ERRORLEVEL 1 (
 	goto SetConfigExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" %1 %2 >"%TEMPFILE%" 2>&1
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" %1 %2 >"%TEMPFILE%" 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% cannot get value for section ^<%1^> key ^<%2^>
 	goto SetConfigExitFail

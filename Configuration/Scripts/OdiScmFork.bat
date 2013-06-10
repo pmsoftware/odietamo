@@ -1,10 +1,11 @@
 @echo off
 rem
-rem Run a batch file in a child/forked cmd.exe so that we avoid all issues of trying to
+rem Run a command or batch file in a child/forked cmd.exe so that we avoid all issues of trying to
 rem manage local/global variable scope.
 rem
-rem This batch file should be run using "CALL <path-to>\OdiScmExec.bat <command-and-args>".
-rem The called batch file can exit with with "EXIT" or "EXIT /B".
+rem This batch file should be run using "CALL <path-to>\OdiScmFork.bat <command-and-args>".
+rem If running a batch file then it should be exitted with "EXIT [exit status]" instead
+rem of "EXIT /B [exit status]" so that the exit status is accessible to the calling process.
 rem
 
 rem

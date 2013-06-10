@@ -111,7 +111,7 @@ rem
 rem Run the generated ODI-SCM repository infrastructure set up script.
 rem
 echo %IM% creating ODI-SCM repository objects
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" /b %TEMPFILE%3 %STDOUTFILE% %STDERRFILE%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" /b %TEMPFILE%3 %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto CreateInfrastructureFail
 
 goto CreateInfrastructureChkStdErr
@@ -152,7 +152,7 @@ goto ExitFail
 
 :StartImport
 echo %IM% starting import of ODI-SCM repository objects
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat" %ODI_SCM_HOME%\Source\ODI
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat" %ODI_SCM_HOME%\Source\ODI
 if ERRORLEVEL 1 goto ImportFail
 
 echo %IM% completed import of ODI-SCM repository objects
@@ -198,7 +198,7 @@ rem
 rem Prime the export control metadata.
 rem
 echo %IM% priming ODI-SCM export control metadata
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" /b %ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" /b %ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql
 if ERRORLEVEL 1 goto PrimeExportControlFail
 
 echo %IM% completed priming of ODI-SCM export control metadata

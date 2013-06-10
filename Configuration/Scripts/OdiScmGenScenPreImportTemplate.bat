@@ -45,8 +45,8 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen10_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen10_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-rem echo %IM% executing command: call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmJisqlRepoBat>" <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen10Initialise.sql %STDOUTFILE% %STDERRFILE%
-call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmJisqlRepoBat>" <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen10Initialise.sql %STDOUTFILE% %STDERRFILE%
+rem echo %IM% executing command: call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen10Initialise.sql %STDOUTFILE% %STDERRFILE%
+call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen10Initialise.sql %STDOUTFILE% %STDERRFILE%
 set EXITSTATUS=%ERRORLEVEL%
 echo %IM% command exited with status ^<%EXITSTATUS%^>
 if not "%EXITSTATUS%" == "0" goto BatchFileNotOk10

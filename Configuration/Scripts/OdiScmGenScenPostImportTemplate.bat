@@ -4,6 +4,13 @@ set FN=OdiScmGenScenPostImport
 set IM=%FN%: INFO:
 set EM=%FN%: ERROR:
 
+if /i "%1" == "/b" (
+	set IsBatchExit=/b
+	shift
+) else (
+	set IsBatchExit=
+)
+
 set EXITSTATUS=0
 set FILENO=%RANDOM%
 
@@ -39,7 +46,7 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen20_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen20_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmJisqlRepoBat>" /b <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen20DeleteOldScenScript.sql %STDOUTFILE% %STDERRFILE%
+call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" <OdiScmGenScenDeleteOldSql> %STDOUTFILE% %STDERRFILE%
 if not ERRORLEVEL 1 goto BatchFileOk20
 
 echo %EM% Batch file MoiJisqlRepo.bat returned non-zero ERRORLEVEL
@@ -78,7 +85,7 @@ rem
 setlocal enabledelayedexpansion
 for /f "tokens=1 delims=" %%g in (%STDOUTFILE%) do (
 	call :TrimSpace %%g
-	echo %IM% Read command from stdout ^<%TSOutput%^>
+	echo %IM% Read command from stdout ^<!TSOutput!^>
 	call :ExecBatchCommand %TSOutput%
 )
 endlocal enabledelayedexpansion
@@ -95,7 +102,7 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen30_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen30_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmJisqlRepoBat>" /b <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen30MarkUpSourceObjects.sql %STDOUTFILE% %STDERRFILE%
+call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen30MarkUpSourceObjects.sql %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto BatchFileNotOk30
 goto BatchFileOk30
 
@@ -133,7 +140,7 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen40_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen40_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmJisqlRepoBat>" /b <OdiScmGenScenNewSql> %STDOUTFILE% %STDERRFILE%
+call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" <OdiScmGenScenNewSql> %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto BatchFileNotOk40
 goto BatchFileOk40
 
@@ -174,8 +181,8 @@ rem
 setlocal enabledelayedexpansion
 for /f "tokens=1 delims=" %%g in (%STDOUTFILE%) do (
 	call :TrimSpace %%g
-	echo %IM% Read command from stdout ^<%TSOutput%^>
-	call :ExecBatchCommand %%g
+	echo %IM% Read command from stdout ^<!TSOutput!^>
+	call :ExecBatchCommand !TSOutput!
 )
 endlocal enabledelayedexpansion
 echo %IM% Completed execution of batch file commands with ^<%BATCHFILEERRCOUNT%^> errors
@@ -191,7 +198,7 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen50_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen50_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmExecBat.bat" "<OdiScmJisqlRepoBat>" /b <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen50Terminate.sql %STDOUTFILE% %STDERRFILE%
+call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen50Terminate.sql %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto BatchFileNotOk50
 goto BatchFileOk50
 
@@ -230,7 +237,7 @@ echo %EM% Scenario build process has failed.
 echo %EM% Check contents of the StdOut and StdErr files
 
 :Exit
-exit /b %EXITSTATUS%
+exit %IsBatchExit% %EXITSTATUS%
 
 rem *************************************************************
 rem **                    S U B R O U T I N E S                **

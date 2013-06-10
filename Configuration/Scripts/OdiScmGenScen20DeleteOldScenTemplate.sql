@@ -3,7 +3,7 @@
 -- We delete scenarios for objects that have been updated by an import process
 -- We don't care if the source object has been marked or not as 'should have a scenario'.
 --
-SELECT 'call startcmd.bat OdiDeleteScen "-SCEN_NAME='
+SELECT 'call <OdiScmOdiStartCmdBat> OdiDeleteScen "-SCEN_NAME='
     || scen_name
     || '" "-SCEN_VERSION='
     || scen_version
@@ -24,6 +24,7 @@ SELECT 'call startcmd.bat OdiDeleteScen "-SCEN_NAME='
                 JOIN snp_project p
                   ON f.i_project = p.i_project
                WHERE p.project_name <> 'ODI-SVN'
+                 AND p.project_name <> 'ODI-SCM'
                  AND i.last_date >
                      (
                      SELECT import_start_datetime
@@ -43,6 +44,7 @@ SELECT 'call startcmd.bat OdiDeleteScen "-SCEN_NAME='
                 JOIN snp_project p
                   ON t.i_project = p.i_project
                WHERE p.project_name <> 'ODI-SVN'
+                 AND p.project_name <> 'ODI-SCM'
                  AND t.last_date >
                      (
                      SELECT import_start_datetime
@@ -65,6 +67,7 @@ SELECT 'call startcmd.bat OdiDeleteScen "-SCEN_NAME='
                 JOIN snp_project p
                   ON f.i_project = p.i_project
                WHERE p.project_name <> 'ODI-SVN'
+                 AND p.project_name <> 'ODI-SCM'
                  AND a.last_date >
                      (
                      SELECT import_start_datetime

@@ -80,8 +80,8 @@ if ERRORLEVEL 1 (
 :TempFileAbsent
 rem
 rem Extract the repository connection details into the environment (i.e. variables).
-rem Note that we don't execute this via OdiScmExecBat.bat as we want the current environment
-rem to be set. Using OdiScmExecBat.bat would cause the forked child environment to be set and
+rem Note that we don't execute this via OdiScmFork.bat as we want the current environment
+rem to be set. Using OdiScmFork.bat would cause the forked child environment to be set and
 rem this would be lost when the child process terminated.
 rem
 rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetRepoEnvFromOdiParams.bat"
@@ -149,7 +149,7 @@ REM :ConnStringGenOk
 rem
 rem Run the script file. Pass through any StdOut and StdErr capture file paths/names.
 rem
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat" %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %SCRIPTFILE% %2 %3
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat" %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %SCRIPTFILE% %2 %3
 if ERRORLEVEL 1 goto RunScriptFail
 goto RunScriptOk
 

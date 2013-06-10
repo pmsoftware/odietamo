@@ -33,6 +33,12 @@ if "%1" == "" (
 	call :ShowUsage
 	goto ExitFail
 ) else (
+	call :NormalisePath %1
+	echo %IM% specified local working copy path directory ^<%OUTPATH%^>
+	if /i "%OUTPATH%" == "%CD%" (
+		echo %EM% cannot run this command from the root of the working copy to be rebuilt
+		goto ExitFail
+	)
 	set WC_ROOT=%1
 )
 
@@ -257,7 +263,7 @@ if ERRORLEVEL 1 (
 REM
 REM Drop contents of existing repository schema.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat" /b %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownOracleSchema.sql
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat" /b %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownOracleSchema.sql
 if ERRORLEVEL 1 (
 	echo %EM% dropping ODI repository objects
 	goto ExitFail
@@ -300,7 +306,7 @@ if EXIST "%TEMPPSSCRIPTFILE%" (
 REM
 REM Execute the main OdiScmGet process.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGet.bat"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGet.bat"
 if ERRORLEVEL 1 (
 	echo %EM% executing OdiScmGet process
 	goto ExitNotifyFail
@@ -309,8 +315,7 @@ if ERRORLEVEL 1 (
 REM
 REM Execute the OdiScmGet process output script.
 REM
-echo on
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Logs\%ODI_SCM_GENERATE_OUTPUT_TAG%\OdiScmBuild_%ODI_SCM_GENERATE_OUTPUT_TAG%.bat"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Logs\%ODI_SCM_GENERATE_OUTPUT_TAG%\OdiScmBuild_%ODI_SCM_GENERATE_OUTPUT_TAG%.bat"
 if ERRORLEVEL 1 (
 	echo %EM% executing generated OdiScm build script
 	goto ExitNotifyFail
@@ -365,4 +370,8 @@ set PROC=OdiScmAutoRebuild
 set IM=%PROC%: INFO:
 set EM=%PROC%: ERROR:
 set WM=%PROC%: WARNING:
+goto :eof
+
+:NormalisePath
+set "OUTPATH=%~f1"
 goto :eof

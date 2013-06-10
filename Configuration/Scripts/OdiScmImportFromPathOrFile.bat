@@ -68,7 +68,7 @@ rem Generate a startcmd.bat script file using the current environment settings.
 rem
 set STARTCMDFILE=%TEMPDIR%\OdiImportFromPathOrFile_StartCmd_%YYYYMMDD%_%HHMMSS%.bat
 echo %IM% generating startcmd.bat file ^<%STARTCMDFILE%^>
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat" %TEMPDIR%\OdiImportFromPathOrFile_StartCmd_%YYYYMMDD%_%HHMMSS%.bat
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat" %TEMPDIR%\OdiImportFromPathOrFile_StartCmd_%YYYYMMDD%_%HHMMSS%.bat
 if ERRORLEVEL 1 (
 	echo %EM% generating StartCmd batch script file ^<%STARTCMDFILE%^>
 	goto ExitFail
@@ -253,7 +253,7 @@ rem *************************************************************
 echo %IM% importing non-container type object from file ^<%1^>
 echo %IM% date ^<%DATE%^> time ^<%TIME%^>
 rem cd /d %ODI_BIN_DIR%
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%STARTCMDFILE%" OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_INSERT_UPDATE -WORK_REP_NAME=WORKREP
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%STARTCMDFILE%" OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_INSERT_UPDATE -WORK_REP_NAME=WORKREP
 if ERRORLEVEL 1 goto IOFail
 goto :eof
 :IOFail
@@ -270,13 +270,13 @@ rem
 rem We try update first so that if there's nothing to update the operation is fairly quick.
 rem
 echo %IM% trying SYNONYNM_UPDATE import mode
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%STARTCMDFILE%" OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_UPDATE
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%STARTCMDFILE%" OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_UPDATE
 if ERRORLEVEL 1 goto ICOFail
 rem
 rem The insert should do nothing and return exit status of 0 if the object already exists.
 rem
 echo %IM% trying SYNONYM_INSERT import mode
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecBat.bat" "%STARTCMDFILE%" OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_INSERT
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%STARTCMDFILE%" OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_INSERT
 if ERRORLEVEL 1 goto ICOFail
 goto :eof
 :ICOFail
