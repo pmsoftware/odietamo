@@ -135,7 +135,7 @@ if not "<OdiStandardsCheckScript>" == "None" (
 	set STDOUTFILE=<GenScriptRootDir>\OdiScmValidateRepositoryIntegrity_StdOut_%YYYYMMDD%_%HHMM%.log
 	set STDERRFILE=<GenScriptRootDir>\OdiScmValidateRepositoryIntegrity_StdErr_%YYYYMMDD%_%HHMM%.log
 	rem
-	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" /b <OdiStandardsCheckScript> %STDOUTFILE% %STDERRFILE%
+	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" <OdiStandardsCheckScript> %STDOUTFILE% %STDERRFILE%
 	if ERRORLEVEL 1 (
 		echo %EM% Batch file ^<<OdiScmJisqlRepoBat>^> returned non-zero ERRORLEVEL
 		echo %IM% whilst running ODI standards check/report SQL script ^<<OdiStandardsCheckScript>^>
