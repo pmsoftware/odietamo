@@ -4,9 +4,10 @@ REM Create a copy of the ODI startcmd.bat batch script with hard coded values fo
 REM connection details.
 REM
 setlocal
-set FN=OdiScmMakeStartCmd.bat
+set FN=OdiScmGenStartCmd.bat
 set IM=%FN%: INFO:
 set EM=%FN%: ERROR:
+set WM=%FN%: WARNING:
 
 set ISBATCHEXIT=
 
@@ -47,9 +48,11 @@ if "%ODI_SECU_USER%" == "" (
 	goto ExitFail
 )
 
+REM
+REM Null master repository passwords are allowed. Warn if so.
+REM
 if "%ODI_SECU_ENCODED_PASS%" == "" (
-	echo %EM% environment variable ODI_SECU_ENCODED_PASS is not set
-	goto ExitFail
+	echo %WM% environment variable ODI_SECU_ENCODED_PASS is not set
 )
 
 if "%ODI_USER%" == "" (

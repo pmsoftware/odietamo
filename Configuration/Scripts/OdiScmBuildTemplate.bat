@@ -132,8 +132,8 @@ if not "<OdiStandardsCheckScript>" == "None" (
 	echo %IM% %MSG%
 	rem
 	call :SetDateTimeStrings
-	set STDOUTFILE=<GenScriptRootDir>\OdiScmValidateRepositoryIntegrity_StdOut_%YYYYMMDD%_%HHMM%.log
-	set STDERRFILE=<GenScriptRootDir>\OdiScmValidateRepositoryIntegrity_StdErr_%YYYYMMDD%_%HHMM%.log
+	set STDOUTFILE=<GenScriptRootDir>\OdiScmStandardsCheck_StdOut_%YYYYMMDD%_%HHMM%.log
+	set STDERRFILE=<GenScriptRootDir>\OdiScmStandardsCheck_StdErr_%YYYYMMDD%_%HHMM%.log
 	rem
 	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" <OdiStandardsCheckScript> %STDOUTFILE% %STDERRFILE%
 	if ERRORLEVEL 1 (

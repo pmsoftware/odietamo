@@ -1,4 +1,4 @@
-@echo off
+rem @echo off
 REM ===============================================
 REM Set environment variables for the OdiScm configuration
 REM that will be used by the system.
@@ -343,16 +343,20 @@ if ERRORLEVEL 1 (
 	echo %EM% cannot get value for section ^<%1^> key ^<%2^>
 	goto SetConfigExitFail
 )
+
 set /p ENVVARVAL=<"%TEMPFILE%"
 echo %IM% setting environment variable ^<%3^> to value ^<%ENVVARVAL%^>
 REM Include quotes around the entire VAR=VAL string to deal with brackets in variable values.
 REM E.g. C:\Program Files (x86)\...
+REM set SetEnvVarCmd=set "%3=OdiScmDummy"
 set SetEnvVarCmd=set "%3=%ENVVARVAL%"
 
 %SetEnvVarCmd%
 if ERRORLEVEL 1 (
-	echo %EM% cannot set value for environment variable ^<%1^>
-	goto SetConfigExitFail
+	if not "%ENVARVAL%" == "" (
+		echo %EM% cannot set value for environment variable ^<%1^>
+		goto SetConfigExitFail
+	)
 )
 
 exit /b 0

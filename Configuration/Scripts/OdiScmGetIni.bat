@@ -52,6 +52,15 @@ goto GotTempDir
 set TEMPDIR=%CD%
 
 :GotTempDir
+
+REM
+REM Check basic environment check.
+REM
+if not EXIST "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIniTemplate.awk" (
+	echo %EM% cannot find required OdiScm scripts in directory ^<%ODI_SCM_HOME%\Configuration\Scripts^>
+	goto ExitFail
+)
+
 REM
 REM Create an AWK script to extract the key.
 REM
