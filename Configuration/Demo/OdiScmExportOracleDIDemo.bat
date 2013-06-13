@@ -27,10 +27,7 @@ REM ODI_ENCODED_PASS=LELKIELGLJMDLKMGHEHJDBGBGFDGGH
 REM ODI_SUPERVISOR=SUPERVISOR
 REM ODI_SUPERVISOR_ENCODED_PASS=a7ypkyTouerpM2OSBUM0oDZhy
 
-set PROC=OdiScmExportOracleDIDemo
-set IM=%PROC%: INFO:
-set EM=%PROC%: ERROR:
-set WM=%PROC%: WARNING:
+call :SetMsgPrefixes
 
 echo %IM% starts
 
@@ -114,7 +111,9 @@ REM
 REM Set the environment from the configuration INI file.
 REM
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat" /b
-if ERRORLEVEL 1 (
+set EXITSTATUS=%ERRORLEVEL%
+call :SetMsgPrefixes
+if not "%EXITSTATUS%" == "0" (
 	echo %EM% setting environment from configuration INI file
 	goto ExitFail
 )
@@ -325,3 +324,12 @@ exit %IsBatchExit% 0
 
 :ExitFail
 exit %IsBatchExit% 1
+
+rem *************************************************************
+rem **                    S U B R O U T I N E S                **
+rem *************************************************************
+:SetMsgPrefixes
+set PROC=OdiScmExportOracleDIDemo
+set IM=%PROC%: INFO:
+set EM=%PROC%: ERROR:
+set WM=%PROC%: WARNING:

@@ -1,7 +1,15 @@
 @echo off
-set FN=OdiScmImportOdiScm
-set IM=%FN%: INFO:
-set EM=%FN%: ERROR:
+
+call :SetMsgPrefixes
+
+echo %IM% starts
+
+if /i "%1" == "/b" (
+	set IsBatchExit=/b
+	shift
+) else (
+	set IsBatchExit=
+)
 
 set PRIMEMETADATA=FALSE
 
@@ -23,66 +31,64 @@ if "%1" == "ExportPrimeLast" (
 )
 
 echo %EM% invalid argument ^<%1%^>
-echo %IM% usage OdiScmImportOdiScm ^[NoExportPrime ^| ExportPrimeFirst ^| ExportPrimeLast^]
+echo %IM% usage %PROC% ^[NoExportPrime ^| ExportPrimeFirst ^| ExportPrimeLast^]
 goto ExitFail
 
 :ArgsOk
-if "%ODI_HOME%" == "" goto NoOdiHomeError
-goto OdiHomeOk
 
-:NoOdiHomeError
-echo %EM% environment variable ODI_HOME is not set
-goto ExitFail
+REM
+REM Check basic environment requirements.
+REM
+if "%ODI_SCM_HOME%" == "" (
+	echo %EM% no OdiScm home directory specified in environment variable ODI_SCM_HOME
+	goto ExitFail
+)
 
-:OdiHomeOk
-if "%ODI_SCM_HOME%" == "" goto NoOdiScmHomeError
-goto OdiScmHomeOk
+if "%ODI_SCM_INI%" == "" (
+	echo %EM% no configuration INI file specified in environment variable ODI_SCM_INI
+	goto ExitFail
+) else (
+	echo %IM% using source configuration INI file ^<%ODI_SCM_INI%^> 
+)
 
-:NoOdiScmHomeError
-echo %EM% environment variable ODI_SCM_HOME is not set
-goto ExitFail
+REM
+REM Set the environment from the configuration INI file.
+REM
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat" /b
+set EXITSTATUS=%ERRORLEVEL%
+call :SetMsgPrefixes
+if not "%EXITSTATUS%" == "0" (
+	echo %EM% setting environment from configuration INI file
+	goto ExitFail
+)
 
-:OdiScmHomeOk
-if "%ODI_SCM_JISQL_HOME%" == "" goto NoOdiScmJisqlScmHomeError
-goto OdiScmJisqlHomeOk
+if not EXIST "%ODI_SCM_HOME%\Source\ODI" (
+	echo %EM% OdiScm repository components not found in directory ^<%ODI_SCM_HOME%\Source\ODI^>
+	goto ExitFail
+)
 
-:NoOdiScmJisqlScmHomeError
-echo %EM% environment variable ODI_SCM_JISQL_HOME is not set
-goto ExitFail
+if not EXIST "%ODI_HOME%\bin\startcmd.bat" (
+	echo %EM% bin\startcmd.bat script not found in ODI_HOME directory ^<%ODI_HOME%\bin^>
+	goto ExitFail
+)
 
-:OdiScmJisqlHomeOk
-if "%TEMP%" == "" goto NoTempDir
-set TEMPDIR=%TEMP%
-goto GotTempDir
+REM
+REM Define a temporary work directory.
+REM
+if not "%TEMP%" == "" (
+	set TEMPDIR=%TEMP%
+) else (
+	if not "%TMP%" == "" (
+		set TEMPDIR=%TMP%
+	) else (
+		set TEMPDIR=%CD%
+	)
+)
 
-:NoTempDir
-if "%TMP%" == "" goto NoTmpDir
-set TEMPDIR=%TMP%
-goto GotTempDir
-
-:NoTmpDir
-set TEMPDIR=%CD%
-
-:GotTempDir
-echo %IM% using temporary directory ^<%TEMPDIR%^>
-
-set EMPTYFILE=%TEMPDIR%\%RANDOM%_OdiScm_Empty.txt
-type nul > %EMPTYFILE%
-if ERRORLEVEL 1 goto CreateEmptyFileFail
-echo %IM% created empty file ^<%EMPTYFILE%^>
-goto CreateEmptyFileOk
-
-:CreateEmptyFileFail
-echo %EM% cannot create empty file ^<%EMPTYFILE%^>
-goto ExitFail
-
-:CreateEmptyFileOk
 rem
 rem Create a version of the ODI-SCM infrastructure setup script for this repository.
 rem
-set TEMPSTR=%RANDOM%
-
-set TEMPFILE=%TEMPDIR%\%TEMPSTR%_OdiScmImportOdiScm.txt
+set TEMPFILE=%TEMPDIR%\%RANDOM%_OdiScmImportOdiScm_CreateInfrastructure.sql
 cat "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateInfrastructureTemplate.sql" | sed s/"<OdiWorkRepoUserName>"/%ODI_SECU_USER%/ > "%TEMPFILE%"
 if ERRORLEVEL 1 goto ScriptGenFail
 
@@ -111,7 +117,7 @@ rem
 rem Run the generated ODI-SCM repository infrastructure set up script.
 rem
 echo %IM% creating ODI-SCM repository objects
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" /b %TEMPFILE%3 %STDOUTFILE% %STDERRFILE%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" %TEMPFILE%3 %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto CreateInfrastructureFail
 
 goto CreateInfrastructureChkStdErr
@@ -182,10 +188,10 @@ echo %IM% import of ODI-SCM ODI components completed successfully
 goto ExitOk
 
 :ExitFail
-exit /b 1
+exit %IsBatchExit% 1
 
 :ExitOk
-exit /b 0
+exit %IsBatchExit% 0
 
 rem *************************************************************
 rem **                    S U B R O U T I N E S                **
@@ -207,3 +213,10 @@ goto :eof
 :PrimeExportControlFail
 echo %EM% priming ODI-SCM export metadata
 exit /b 1
+
+:SetMsgPrefixes
+set PROC=OdiScmImportOdiScm
+set IM=%PROC%: INFO:
+set EM=%PROC%: ERROR:
+set WM=%PROC%: WARNING:
+goto :eof
