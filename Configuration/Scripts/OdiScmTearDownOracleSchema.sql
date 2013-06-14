@@ -12,7 +12,12 @@ BEGIN
                               END
                                  AS command_tail
                         FROM user_objects
-                       WHERE object_type <> 'LOB'
+                       WHERE object_type
+                         NOT
+                          IN (
+                             'LOB'
+                           , 'INDEX'
+                             )
                        ORDER
                           BY CASE WHEN object_type = 'VIEW'
                                   THEN 1
@@ -41,6 +46,7 @@ BEGIN
                       )
     LOOP
         BEGIN
+            dbms_output.put_line('Dropping object ' || c_repo_obj.object_name || ' of type ' || c_repo_obj.object_type);
             EXECUTE IMMEDIATE('DROP ' || c_repo_obj.object_type || ' ' || c_repo_obj.object_name || c_repo_obj.command_tail);
         EXCEPTION
             WHEN OTHERS
