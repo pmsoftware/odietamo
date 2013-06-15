@@ -158,7 +158,7 @@ goto ExitFail
 
 :StartImport
 echo %IM% starting import of ODI-SCM repository objects
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat" %ODI_SCM_HOME%\Source\ODI
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat" %ODI_SCM_HOME%\Source\OdiScm
 if ERRORLEVEL 1 goto ImportFail
 
 echo %IM% completed import of ODI-SCM repository objects
