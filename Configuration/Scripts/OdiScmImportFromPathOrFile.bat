@@ -88,7 +88,7 @@ dir /s /b /o:n %IMPORT_DIR%\*.SnpConnect >>%OBJLISTFILE% 2>NUL
 dir /s /b /o:n %IMPORT_DIR%\*.SnpPschema >>%OBJLISTFILE% 2>NUL
 rem
 rem SnpContext before SnpLschema because the SnpLschema files, not the
-rem SnpConext files contain the SnpContext/SnpLschema/SnpPschema mappings
+rem SnpContext files contain the SnpContext/SnpLschema/SnpPschema mappings
 rem in our solution.
 rem
 dir /s /b /o:n %IMPORT_DIR%\*.SnpContext >>%OBJLISTFILE% 2>NUL
@@ -178,7 +178,7 @@ for /f %%A in (%OBJLISTFILE%) do (
 	)
 	
 	set CONTAINEROBJTYPE=FALSE
-	for %%G in (SnpConnect SnpModFolder SnpModel SnpSubModel SnpProject SnpFolder) do (
+	for %%G in (SnpConnect SnpLschema SnpModFolder SnpModel SnpSubModel SnpProject SnpFolder) do (
 		if "!IMPORTFILEEXT2!"=="" (
 			if !IMPORTFILEEXT!==%%G set CONTAINEROBJTYPE=TRUE
 		) else (
