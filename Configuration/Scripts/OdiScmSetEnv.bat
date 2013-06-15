@@ -1,4 +1,4 @@
-rem @echo off
+@echo off
 REM ===============================================
 REM Set environment variables for the OdiScm configuration
 REM that will be used by the system.
