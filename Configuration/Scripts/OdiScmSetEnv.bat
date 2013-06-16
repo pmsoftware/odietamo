@@ -294,18 +294,24 @@ for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
 	)
 )
 
-REM Set the command path if not already set.
-REM call :SetPath %ODI_SCM_HOME%\Configuration\Scripts
-REM if ERRORLEVEL 1 (
-REM 	echo %EM% setting PATH environment variable for OdiScm scripts directory ^<%ODI_SCM_HOME%\Configuration\Scripts^>
-REM 	goto ExitFail
-REM )
-
-call :SetPath %ORACLE_HOME%\bin
+REM Configure PATH for the OdiScm script directory.
+echo %IM% configuring PATH for OdiScm scripts directory ^<%ODI_SCM_HOME%\Configuration\Scripts^>
+call :SetPath %ODI_SCM_HOME%\Configuration\Scripts
 if ERRORLEVEL 1 (
-	echo %EM% setting PATH environment variable for Oracle client bin directory ^<%ORACLE_HOME%\bin^>
+	echo %EM% setting PATH environment variable for OdiScm scripts directory ^<%ODI_SCM_HOME%\Configuration\Scripts^>
 	goto ExitFail
 )
+
+REM if "%ORACLE_HOME%" == "" (
+	REM echo %IM% environment variable ORACLE_HOME not set. Skipping PATH configuration for Oracle bin directory
+REM ) else (
+	REM echo %IM% configuring PATH for Oracle bin directory ^<%ORACLE_HOME%\bin^>
+	REM call :SetPath %ORACLE_HOME%\bin
+	REM if ERRORLEVEL 1 (
+		REM echo %EM% setting PATH environment variable for Oracle client bin directory ^<%ORACLE_HOME%\bin^>
+		REM goto ExitFail
+	REM )
+REM )
 
 :ExitOk
 REM if exist "%TEMPFILE%" del /f "%TEMPFILE%"
@@ -325,6 +331,7 @@ REM ===============================================
 REM ===============================================
 REM Set an environment variable from a configuration file key.
 REM ===============================================
+rem echo on
 echo %IM% processing configuration section ^<%1^> key ^<%2^>
 if "%3" == "" (
 	echo %EM% no target environment variable name passed to SetConfig
@@ -368,23 +375,29 @@ REM ===============================================
 REM Set the command path if it doesn't already contain the specfied directory.
 REM ===============================================
 REM Escape back slash characters for use with sed.
-for /f "tokens=*" %%g in ('echo %1 ^| sed "s/\\/\\\\/g" ^| sed "s/ //g"') do (
+REM Also, remove brackets from the path to check for as these cause issues on the command line.
+
+for /f "tokens=*" %%g in ('echo %1 ^| sed "s/(//g" ^| sed "s/)//g" ^| sed "s/\\/\\\\/g" ^| sed "s/ //g"') do (
 	set DirNameEscaped=%%g
 )
+
 REM Remove spaces in PATH and look for the specified directory in the path string.
-set DirNameInPath=
-for /f "tokens=* eol=# delims=;" %%g in ('echo %PATH% ^| sed "s/ //g" ^| grep -i %DirNameEscaped%') do (
+REM Also, remove brackets from the PATH for the comparison.
+for /f "tokens=* eol=# delims=;" %%g in ('echo %%PATH%% ^| sed "s/(//g" ^| sed "s/)//g"') do (
+	set PathNoBrackets=%%g
+)
+
+for /f "tokens=* eol=# delims=;" %%g in ('echo %PathNoBrackets% ^| sed "s/ //g" ^| grep -i %DirNameEscaped%') do (
 	set DirNameInPath=%%g
 )
-rem echo DirNameInPath=%DirNameInPath%
 
 if "%DirNameInPath%" == "" goto SetDirNamePath
 
-echo %IM% Directory ^<%1^> is in the command PATH
+echo %IM% directory ^<%1^> is already in the command PATH
 goto DirNamePathSet
 
 :SetDirNamePath
-echo %IM% Directory ^<%1^> is not in the command PATH environment variable
+echo %IM% directory ^<%1^> is not in the command PATH environment variable
 echo %IM% adding directory ^<%1^> to command PATH environment variable
 REM Include quotes around the entire VAR=VAL string to deal with brackets in variable values.
 REM E.g. C:\Program Files (x86)\...

@@ -62,7 +62,7 @@ if not "%EXITSTATUS%" == "0" (
 	goto ExitFail
 )
 
-if not EXIST "%ODI_SCM_HOME%\Source\ODI" (
+if not EXIST "%ODI_SCM_HOME%\Source\OdiScm" (
 	echo %EM% OdiScm repository components not found in directory ^<%ODI_SCM_HOME%\Source\ODI^>
 	goto ExitFail
 )
