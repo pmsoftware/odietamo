@@ -81,6 +81,11 @@ if not EXIST "%ODI_HOME%\bin\startcmd.bat" (
 	goto ExitFail
 )
 
+if not EXIST "%ODI_HOME%\bin\odiparams.bat" (
+	echo %EM% ODI odiparams.bat batch script not found in directory ^<%ODI_HOME%\bin^>
+	goto ExitFail
+)
+
 if "%TEMP%" == "" (
 	if "%TMP%" == "" (
 		set TEMPDIR=%CD%
