@@ -21,8 +21,10 @@ Download the latest ODI-SCM files from GitHub::
 *	https://github.com/pmsoftware/odietamo/archive/master.zip
 
 Unpack the contents of "odietamo-master" to a new empty directory. E.g. to C:\OdiScm.
-Add a new environment variable ODI_SCM_HOME (My Computer -> Advanced -> Environment Variables) either in the User or System sections. Set the variable value to the path of the new directory into which the ODI-SCM files were unpacked.
-Add the ODI-SCM scripts directory to the Windows command PATH variable. I.e. add “%ODI_SCM_HOME%\Configuration\Scripts” to the PATH variable either in the User or System sections.
+Add a new environment variable ODI_SCM_HOME (My Computer -> Advanced -> Environment Variables)
+either in the User or System sections. Set the variable value to the path of the new directory into which the ODI-SCM files were unpacked.
+Add the ODI-SCM scripts directory to the Windows command PATH variable.
+I.e. add “%ODI_SCM_HOME%\Configuration\Scripts” to the PATH variable either in the User or System sections.
 
  
 Install dependencies and configure the environment
@@ -501,7 +503,7 @@ Apply new Marker to objects in the Demo project
 Apply the new HAS_SCENARIO marker to each and every Interface and Procedure in the “Sales Administration” folder in the Demo project. E.g.:
 When applied to all objects you’ll see this (as long as the “Display markers and memo flags” is turned on, on the “Windows” menu):
 
-.. figure:: imgs/7_1_1.png
+.. figure:: imgs/7_2_1.png
 
 Create a new empty Subversion repository and working copy
 ---------------------------------------------------------
