@@ -1,8 +1,5 @@
 #! -*- coding: utf-8 -*-
 
-====================
-ODI-SCM Walk-Through
-====================
  
 Walk Through Overview
 =====================
@@ -18,7 +15,7 @@ This walk through shows the following operations::
 * Creating a second repository from the code checked into Subversion (SVN).
  
 Install the ODI-SCM solution
-----------------------------
+============================
 
 Download the latest ODI-SCM files from GitHub::
 *	https://github.com/pmsoftware/odietamo/archive/master.zip
@@ -29,10 +26,10 @@ Add the ODI-SCM scripts directory to the Windows command PATH variable. I.e. add
 
  
 Install dependencies and configure the environment
---------------------------------------------------
+==================================================
 
 Install Windows PowerShell
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------
 
 Start a Windows command prompt (cmd.exe), start PowerShell and check the installed version::
 
@@ -44,7 +41,7 @@ If PowerShell is not available then install it from the download at::
    http://support.microsoft.com/kb/968929
 
 Oracle Data Integrator
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
 This walk through will use ``ODI 10.1.3.5.6_02``. This version is known to support the API functions,
 used in this solution, with no bugs adversely affecting it.
@@ -55,7 +52,7 @@ The base installer (``10.1.3.5.0``) and the patches (``10.1.3.5.6``, ``10.1.3.5.
 We assume you already know your way around the UIs, directory structure and scripts!
 
 Install Subversion
-~~~~~~~~~~~~~~~~~~
+------------------
 
 
 Download Subversion, and install it, from::
@@ -63,7 +60,7 @@ Download Subversion, and install it, from::
     http://subversion.tigris.org/downloads/subversion-1.6.20.zip
 
 Install UnxUtils command line tools
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------
 
 
 Download the collection from::
@@ -77,7 +74,7 @@ either in the User or System sections::
 	My Computer -> Properties -> Advanced -> Environment Variables
 
 Install Jisql command line tool
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------
 
 Download the tool from::
 
@@ -90,7 +87,7 @@ set it to the subdirectory containing the "runit.bat" script. E.g.::
 	C:\Jisql\jisql-2.0.11
 
 Configure JAVA_HOME environment variable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------
 
 
 Note that a 32 bit JVM is required. A 64 bit JVM should be identifiable by examining the output of the command, above.
@@ -106,11 +103,15 @@ or not, by starting a command prompt (cmd.exe) and typing::
     echo %JAVA_HOME%
 
 If the JAVA_HOME environment variable is...
-... not already defined, then create the new JAVA_HOME environment variable and set its value to the directory path of where the JVM, for use with ODI, is installed. E.g.::
+
+
+... not already defined, then create the new JAVA_HOME environment variable
+and set its value to the directory path of where the JVM, for use with ODI, is installed. E.g.::
 
 	C:\Program Files\Java\jdk1.6.0_29
 
-... already defined but is set to a directory that contains a JVM other than the required version, then update the existing JAVA_HOME environment variable to set its value
+... already defined but is set to a directory that contains a JVM other than the required version,
+then update the existing JAVA_HOME environment variable to set its value
 to the directory path of where the JVM, for use with ODI, is installed. E.g.::
 
     C:\Program Files\Java\jdk1.6.0_29
@@ -121,11 +122,10 @@ to the end of the path, either in the User or System sections::
     My Computer -> Properties -> Advanced -> Environment Variables
  
 Create a new linked master and work repository
-----------------------------------------------
-
+==============================================
 
 Create a new Oracle user
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 
 Create a new user in an Oracle database and grant the user CONNECT and RESOURCE roles. Note that this demo uses a local Oracle XE installation.
 E.g. connect to the database as a user that can create new users (e.g. SYSTEM) using SQL*Plus. E.g.::
@@ -140,54 +140,88 @@ Then ::
 	GRANT CREATE DATABASE LINK TO odirepofordemo;
 
 Create a new master repository
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------
 
 
-Create a new empty master repository, with internal ID 800, using the repository creation wizard (repcreate.bat)::
+Create a new empty master repository, with internal ID 800, using the repository creation wizard (repcreate.bat)
+
+.. figure:: imgs/4_2.png
+
+   Wait for the wizard to create the master repository.
  
-Wait for the wizard to create the master repository.
+.. figure:: imgs/4_2_1.png
+
+   Then click OK to exit the wizard when prompted
+
+.. figure:: imgs/4_2_2.png
  
-Then click OK to exit the wizard when prompted::
- 
-Create a new master repository connection profile for the new master repository from Topology Manager (topology.bat). Use the default SUPERVISOR user (password "SUNOPSIS")::  
-Use the test function (Local agent) to check the entered details::
+    Create a new master repository connection profile for the new master repository from Topology Manager (topology.bat).
+    Use the default SUPERVISOR user (password "SUNOPSIS") 
+
+.. figure:: imgs/4_2_3.png
+
+   Use the test function (Local agent) to check the entered details
+
+.. figure:: imgs/4_2_4.png
 
 
 
 Create a new work repository in the same DB schema
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------------------
 
+.. figure:: imgs/4_3_0.png
 
-Connect to the new master repository and create a new work repository from the Repositories tab by right-clicking on "Work Repositories" -> "Insert Work Repository::
-	 
-Complete the "Definition" tab for the new work repository connection::
- 
-Then complete the JDBC tab::  
-Use the "Test" function, using the Local agent, to test the connection details for the work repository::
- 
-Then enter the details of the new work repository. Ensure 800 is used at the internal ID::
-	 
-Click OK and a few seconds for the new work repository structure to be created.
-Open the Designer UI from the toolbar icon in Topology Manager and create a new work repository connection profile for the new work repository::  
-Use the "Test" function, using the Local agent, to test the connection details for the work repository:: 
-You can now connect to the new, empty, work repository. Have a look. It’s empty!
+   Connect to the new master repository and create a new work repository from the
+   Repositories tab by right-clicking on Work Repositories -> Insert Work Repository
+
+.. figure:: imgs/4_3_1.png
+
+   Complete the "Definition" tab for the new work repository connection::
+
+.. figure:: imgs/4_3_2.png
+
+    Then complete the JDBC tab
+
+.. figure:: imgs/4_3_3.png
+
+    Use the "Test" function, using the Local agent, to test the connection details for the work repository::
+
+.. figure:: imgs/4_3_4.png
+
+    Then enter the details of the new work repository. Ensure 800 is used at the internal ID::
+    Click OK and a few seconds for the new work repository structure to be created.
+
+.. figure:: imgs/4_3_5.png
+
+    Open the Designer UI from the toolbar icon in Topology Manager and create a new work repository connection profile for the new work repository::  
+
+.. figure:: imgs/4_3_6.png
+
+    Use the "Test" function, using the Local agent, to test the connection details for the work repository:: 
+    You can now connect to the new, empty, work repository. Have a look. It’s empty!
  
 Install and configure the ODI-SCM repository components
--------------------------------------------------------
+=======================================================
 
 
 Set environment variables
-~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------
 
 Start a new Windows command prompt window (Start Menu -> Run… -> cmd.exe).
 
+
+
 “CD” to the ODI home directory to use for this session. I.e. the directory containing the ODI “bin” directory (the ODI binaries). E.g.::
-cd /d C:\oracledi_fordemo1
-Set the ODI_HOME environment variable for this session::
-set ODI_HOME=%CD%
+
+::
+
+    cd /d C:\oracledi_fordemo1
+    Set the ODI_HOME environment variable for this session::
+    set ODI_HOME=%CD%
+
 
 Configure “odiparams”
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 “CD” to the ODI “bin” directory::
 cd %ODI_HOME%\bin
 Create the encoded representation of the master repository password for the new master repository by typing, at the command prompt. E.g.::
@@ -209,14 +243,19 @@ the entry in blue is the encoded password string created using “agent encode�
     set ODI_USER=SUPERVISOR
     set ODI_ENCODED_PASS=a7ypx6q1nhHGmAgO4acSJbMxp
 
-Test the connection details, entered into the “odiparams.bat” file by running the command “agentscheduler.bat”. If the connection details have been correctly entered into the “odiparams.bat” file then you will see an error message indicating that an ODI agent definition does not exist in the repository (i.e. the process was at least able to connect to the repository)::  
+Test the connection details, entered into the “odiparams.bat” file by running the command “agentscheduler.bat”. If the connection details have been correctly entered into the “odiparams.bat” file then you will see an error message indicating that an ODI agent
+definition does not exist in the repository (i.e. the process was at least able to connect to the repository)
+
+.. figure:: imgs/5_2_0.png
 
 Import the ODI-SCM repository components
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------
 
 Run the following command to import the ODI code components of ODI-SCM  into the new repository::
 
     OdiScmImportOdiScm.bat NoExportPrime
+
+.. figure:: imgs/5_3_0.png
  
 Configure the ODI-SCM export mechanism
 --------------------------------------
@@ -248,7 +287,11 @@ Password set to the master repository database user password. E.g.::
 
 	odirepofordemo
 
+.. figure:: imgs/5_41_0.png
+
 JDBC tab::
+
+
 
 JDBC Driver – set to the Java class name of the JDBC driver . E.g.::
 
@@ -259,6 +302,9 @@ JDBC URL – set to the URL to connect to the database. E.g.::
 	jdbc:oracle:thin:@localhost:1521:XE
 
 Use the Test function to check the entered details::
+
+
+.. figure:: imgs/5_41_1.png
  
 Under this Data Server edit the physical schema ``ODIMASTERREP_DATA.$DBUSER``::
 
@@ -272,6 +318,9 @@ Schema (Schema)  – to the master repository user name. E.g.::
 Schema (Work Schema) – to the master repository user name. E.g.::
 
 	Odirepofordemo
+
+.. figure:: imgs/5_41_2.png
+
 
 Edit the ODIWORKREP_DATA data store to set the following fields::
 
@@ -289,6 +338,8 @@ Password set to the work repository database user password. E.g.::
 
 	odirepofordemo
 
+.. figure:: imgs/5_41_3.png
+
 JDBC tab::
 
 JDBC Driver – set to the Java class name of the JDBC driver . E.g.::
@@ -299,11 +350,15 @@ JDBC URL – set to the URL to connect to the database. E.g.::
 
     jdbc:oracle:thin:@localhost:1521:XE
 
-Use the Test function to check the entered details::
- 
-Under this Data Server edit the physical schema ``ODIMASTERREP_DATA.$DBUSER``::
+.. figure:: imgs/5_41_4.png
 
-On the definition tab set the field::
+   Use the Test function to check the entered details:
+
+
+Under this Data Server edit the physical schema ``ODIMASTERREP_DATA.$DBUSER``
+On the definition tab set the field:
+
+.. figure:: imgs/5_41_5.png
 
 Schema (Schema)  – to the work repository user name. E.g.::
 
@@ -314,7 +369,9 @@ Schema (Work Schema) – to the master repository user name. E.g.::
     Odirepofordemo
 
 
- 
+.. figure:: imgs/5_41_6.png
+
+
 Working Copy File System
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -332,48 +389,69 @@ Overwrite “WorkingCopyDir” with the path to the SCM system working copy. E.g
 Overwrite “WorkingDir” with the path a file system directory where temporary files can be created/deleted by the ODI-SCM mechanism. E.g::
 
     C:/Temp
+
+
+.. figure:: imgs/5_42_0.png
  
 Logical to Physical Schema Mappings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. XXX - convert to tables
 
-Finally, within Topology Manager, set up the GLOBAL context schema mappings from the Contexts tab::
+Finally, within Topology Manager, set up the GLOBAL context schema mappings from the Contexts tab:
 
-    Logical Schema	Physical Schema
+==================    =================================================
+Logical Schema        Physical Schema
+==================    =================================================
+ODIMASTERREP_DATA	  ODIMASTERREP_DATA.<your master repo schema name>
+==================    =================================================
 
-    ODIMASTERREP_DATA	ODIMASTERREP_DATA.<your master repo schema name>
 
-E.g.::
 
-    ODIMASTERREP_DATA.odirepofordemo
-    ODIWORKREP_DATA	ODIWORKREP_DATA.<your work repo schema name>
+==================    =================================================
+Logical Schema        Physical Schema
+==================    =================================================
+ODIWORKREP_DATA	      ODIWORKREP_DATA.<your work repo schema name>
+==================    =================================================
 
-E.g.::
 
-    ODIWORKREP_DATA.odirepofordemo
-    ODISCMWC_DATA	ODISCMWC_DATA.<your working copy directory>
+==================    =================================================
+Logical Schema        Physical Schema
+==================    =================================================
+ODISCMWC_DATA	      ODISCMWC_DATA.<your working copy directory>
+==================    =================================================
 
-E.g.::
+e.g.::
 
    ODISCMWC_DATA.C:/DemoSvnWc/DemoSvnRepo
 
+.. figure:: imgs/5_43_0.png
+
 Version Control System
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
 Within the Designer UI, navigate to the ODI-SCM project, navigate to Variables. Change the following variables’ defaut values::
 
+.. figure:: imgs/5_44_0.png
+
 
     VCSRequiresCheckOut	- from “Yes” to “No”.
+
+.. figure:: imgs/5_44_1.png
  
     VCSAddFileCommand – from “tf.exe add %s /lock:none” to “svn add %s --force”.
-  
+
+.. figure:: imgs/5_44_2.png
+
     VCSBasicCommand – from “tf.exe /?” to “svn help”.
- 
+
+.. figure:: imgs/5_44_3.png
+
     VCSCheckFileInSourceControlCommand – from “tf.exe dir %s” to “svn info %s”.
 
  
 Prime export mechanism
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
 Run the following command to prime the export ‘control’ metadata::
 
@@ -381,7 +459,9 @@ Run the following command to prime the export ‘control’ metadata::
     OdiScmJisqlRepo.bat %ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql
  
 Import the standard ODI demo 
-----------------------------
+============================
+
+.. figure:: imgs/6_0_0.png
 
 
 “CD” to the “Demo” directory of the OdiScm directory tree. E.g.::
@@ -400,31 +480,34 @@ Refresh the Projects and Models views in Designer, and the Logical Architecture 
 Physical Architecture view in Topology Manager, and the standard ODI demo material will now be visible.
  
 Add ODI-SCM custom markers
---------------------------
+==========================
 
 
 Create new Marker Group and Marker in Demo project
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------------------
+
+.. figure:: imgs/7_1_0.png
 
 
 Create a new Marker Group, in the Demo project, with name and code set to “ODISCM_AUTOMATION” and Order set to “99”.
 In this new group, create a new marker with name and code set to “HAS_SCENARIO” and an icon of the ‘Thumbs Up’ image.
  
 Apply new Marker to objects in the Demo project
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------------------
+
+.. figure:: imgs/7_2_0.png
 
 
-Apply the new HAS_SCENARIO marker to each and every Interface and Procedure in the “Sales Administration” folder in the Demo project. E.g.::
-When applied to all objects you’ll see this (as long as the “Display markers and memo flags” is turned on, on the “Windows” menu):: 
+Apply the new HAS_SCENARIO marker to each and every Interface and Procedure in the “Sales Administration” folder in the Demo project. E.g.:
+When applied to all objects you’ll see this (as long as the “Display markers and memo flags” is turned on, on the “Windows” menu):
 
-  fig
-
+.. figure:: imgs/7_1_1.png
 
 Create a new empty Subversion repository and working copy
 ---------------------------------------------------------
 
 New SVN repository
-~~~~~~~~~~~~~~~~~~
+------------------
 
 
 Create a new file based SVN repository. E.g.::
@@ -432,18 +515,21 @@ Create a new file based SVN repository. E.g.::
     svnadmin create C:\DemoSvnRepo
 
 New Working Copy
-~~~~~~~~~~~~~~~~
+----------------
 
 Create a new working copy directory. E.g.::
 
     mkdir C:\DemoSvnWc
     cd C:\DemoSvnWc
     svn checkout file:///C:/DemoSvnRepo
- 
+
+.. figure:: imgs/8_2_0.png
+
  
 Export the standard ODI demo and check into SVN
 -----------------------------------------------
 
+.. figure:: imgs/9_1_0.png
 
 ‘Flush’ changes in the repository to the SVN working copy
 From within the Designer UI navigate to::
@@ -455,17 +541,23 @@ Right-click on the Scenario for the package OSUTL_FLUSH_REPOSITORY -> Execute, s
 Monitor the session in the Operator UI::
 
   fig
- 
+
+.. figure:: imgs/9_1_1.png
+
+
 Note the step “Create Flush Control” that failed with a warning message.
 The ‘flush control’ table was created by the ODI-SCM demo import script. It’s safe to ignore this warning.
 
 Check in the exported code to the SVN repository
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 
 
 From the command prompt “CD” to the SVN working copy directory corresponding to the SVN repository root directory. E.g.::
 
     cd  C:\DemoSvnWc\DemoSvnRepo
+
+.. figure:: imgs/9_2_0.png
+
 
 Examine the status of the working copy using the command “svn status”. E.g::
 
@@ -476,13 +568,18 @@ Mark all files created by the ODI-SCM export mechanism to be added to the reposi
 
     svn add . –force
 
+.. figure:: imgs/9_2_1.png
+
 (Note that “—force” is used to add all files in all subdirectories).
  
 Commit the files to the SVN repository. E.g.::
 
 
     svn commit –m “Initial checkin of the standard ODI demo”
- 
+
+.. figure:: imgs/9_2_2.png
+
+
 Note that now the SVN repository also contains a copy of the ODI-SCM export components
 with the version control system configuration options (‘requires checkout?’, etc) set, earlier.
 This copy of the ODI-SCM code can then be imported into other repositories via the version control
@@ -502,7 +599,9 @@ Create a second working copy of the SVN repository based on the initial empty re
 
     mkdir C:\DemoSvnWc2
     cd C:\DemoSvnWc2
-    svn checkout file:///C:/DemoSvnRepo --revision 0  
+    svn checkout file:///C:/DemoSvnRepo --revision 0
+
+.. figure:: imgs/10_0_0.png
 
 Create a plain (ASCII) text format INI file named “OdiScm.ini” file for the ODI-SCM import mechanism in the working copy root. E.g. in::
 
