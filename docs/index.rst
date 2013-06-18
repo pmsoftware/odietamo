@@ -1,12 +1,7 @@
-.. odisvn documentation master file, created by
-   sphinx-quickstart on Fri Feb  1 16:20:24 2013.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to odisvn's documentation!
+Welcome to ODIetAmo documentation!
 ==================================
 
-ODI is Oracle's premier ETL tool.  However like its main competitor
+ODI is Oracles premier ETL tool.  However like its main competitor
 infomatica, the source code is stored as binary-like formats and
 cannot be (easily/at all) extracted out and stored in a modern 
 source control tool
@@ -18,10 +13,21 @@ will extract the code and put it into source control.
 We do just that.
 
 
-Contents:
+Contents
+--------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
+   walk-through
+   
+
+Internal Notes
+--------------
+
+.. toctree::
+   :maxdepth: 1
+
+   how-to-write-docs
 
 
