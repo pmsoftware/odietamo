@@ -1,5 +1,4 @@
 #! -*- coding: utf-8 -*-
-
  
 Walk Through Overview
 =====================
@@ -7,26 +6,28 @@ Walk Through Overview
 This walk through shows the following operations::
 
 * Installing the ODI-SCM solution.
-* Setting up the tools required for the ODI-SCM solution.
-* Creating a new repository.
+* Setting up additional tools required for the ODI-SCM solution.
+* Creating a new Oracle based repository and installing the standard ODI demo repository.
 * Installing the ODI-SCM repository components.
-* Exporting code into a Subversion (SVN) repository working copy.
-* Checking code into Subversion (SVN).
+* Exporting code into a Subversion (SVN) repository working copy and checking code into Subversion.
 * Creating a second repository from the code checked into Subversion (SVN).
  
 Install the ODI-SCM solution
 ============================
 
 Download the latest ODI-SCM files from GitHub::
-*	https://github.com/pmsoftware/odietamo/archive/master.zip
 
-Unpack the contents of "odietamo-master" to a new empty directory. E.g. to C:\OdiScm.
+	https://github.com/pmsoftware/odietamo/archive/master.zip
+
+Unpack the contents of "odietamo-master.zip" to a new empty directory. E.g. to::
+
+	C:\OdiScm
+
 Add a new environment variable ODI_SCM_HOME (My Computer -> Advanced -> Environment Variables)
-either in the User or System sections. Set the variable value to the path of the new directory into which the ODI-SCM files were unpacked.
-Add the ODI-SCM scripts directory to the Windows command PATH variable.
-I.e. add “%ODI_SCM_HOME%\Configuration\Scripts” to the PATH variable either in the User or System sections.
+either in the User or System sections. Set the variable value to the path of the new directory into which the ODI-SCM files were unpacked. E.g. to::
 
- 
+	C:\OdiScm\odietamo-master
+
 Install dependencies and configure the environment
 ==================================================
 
@@ -38,91 +39,68 @@ Start a Windows command prompt (cmd.exe), start PowerShell and check the install
     $ powershell -command $host
 
 The required version is 2.0 or later.
+
 If PowerShell is not available then install it from the download at::
 
-   http://support.microsoft.com/kb/968929
+   http://support.microsoft.com/kb/968929		(Powershell 2.0)
 
 Oracle Data Integrator
 ----------------------
 
-This walk through will use ``ODI 10.1.3.5.6_02``. This version is known to support the API functions,
-used in this solution, with no bugs adversely affecting it.
+This walk through has been tested with ODI 10g and 11g. 
 
-The base installer (``10.1.3.5.0``) and the patches (``10.1.3.5.6``, ``10.1.3.5.6_01`` and ``10.1.3.5.6_02``) can be downloaded from the Oracle support website.
+The specific ODI 10g version is ``ODI 10.1.3.5.6_02``. This version is known to support the API functions, used in this solution, with no bugs adversely affecting it. The base installer (``10.1.3.5.0``) and the patches (``10.1.3.5.6``, ``10.1.3.5.6_01`` and ``10.1.3.5.6_02``) can be downloaded from the Oracle support website.
 
+The specific ODI 11g version is ``ODI 11.1.1.6.0``.
 
 We assume you already know your way around the UIs, directory structure and scripts!
 
 Install Subversion
 ------------------
 
+Download Subversion, and install it, from one of the binary distributions listed at::
 
-Download Subversion, and install it, from::
+	http://subversion.apache.org/packages.html#windows
 
-    http://subversion.tigris.org/downloads/subversion-1.6.20.zip
-
-Install UnxUtils command line tools
------------------------------------
-
+Install UnxUtils
+----------------
 
 Download the collection from::
 
-    http://sourceforge.net/projects/unxutils
+	http://sourceforge.net/projects/unxutils
 
-Unpack the archive to an empty directory and add the full path of the `usr\local\wbin` subdirectory
-(E.g. "C:\UnxUtils\usr\local\wbin" without the double quotes) to the Windows command path, to the end of the path,
-either in the User or System sections::
+Unpack the archive to an empty directory and add the full path of the `usr\\local\\wbin` subdirectory. E.g. add::
+
+	C:\UnxUtils\usr\local\wbin
+
+to the *end* of the Windows command path, either in the User or System sections::
 
 	My Computer -> Properties -> Advanced -> Environment Variables
 
-Install Jisql command line tool
--------------------------------
+Install Jisql
+-------------
 
 Download the tool from::
 
-    http://www.xigole.com/software/jisql/build/jisql-2.0.11.zip
+	http://www.xigole.com/software/jisql/build/jisql-2.0.11.zip
 
-Unpack the archive to an empty directory. 
-Create a new environment variable (ODI_SCM_JISQL_HOME), either in the User or System sections and
-set it to the subdirectory containing the "runit.bat" script. E.g.::
+Unpack the archive to an empty directory. E.g. add::
 
-	C:\Jisql\jisql-2.0.11
+	C:\jisql-2.0.1
 
-Configure JAVA_HOME environment variable
-----------------------------------------
+Install Java
+------------
 
+The Java VM used by your ODI installation can also be used for the Jisql tool as long as it's a Java 6 or later VM. If you're using ODI 11g then you'll be using a Java 6 or later VM anyway. If you're using ODI 10g then this can be used with a Java 5 VM so you'll need an additional Java 6 VM (either JRE or JDK) installed.
 
-Note that a 32 bit JVM is required. A 64 bit JVM should be identifiable by examining the output of the command, above.
-Note that the required JVM version is 1.6.0 or later. This JVM will be used for the Jisql tool.  (Note that the version of ODI used in this walk-through requires a 1.5, or later, JVM.)
+Note that a 32 bit JVM (JRE or JDK) is required. A 32 bit versus 64 bit JVM should be identifiable by examining the output of the command: -
+
+	java -version
+
 Note JVMs (we prefer to download JDKs instead of JREs) can be downloaded from Oracle’s website, at::
 
-   http://download.oracle.com/otn-pub/java/jdk/6u39-b04/jdk-6u39-windows-i586.exe
+   http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-javase6-419409.html	(Java 6)
 
-
-Start a Windows command prompt (cmd.exe) and check if the JAVA_HOME environment variable is already set,
-or not, by starting a command prompt (cmd.exe) and typing::
-
-    echo %JAVA_HOME%
-
-If the JAVA_HOME environment variable is...
-
-
-... not already defined, then create the new JAVA_HOME environment variable
-and set its value to the directory path of where the JVM, for use with ODI, is installed. E.g.::
-
-	C:\Program Files\Java\jdk1.6.0_29
-
-... already defined but is set to a directory that contains a JVM other than the required version,
-then update the existing JAVA_HOME environment variable to set its value
-to the directory path of where the JVM, for use with ODI, is installed. E.g.::
-
-    C:\Program Files\Java\jdk1.6.0_29
-
-Add the "%JAVA_HOME%\bin" (without the double quotes) subdirectory to the Windows command path,
-to the end of the path, either in the User or System sections::
-
-    My Computer -> Properties -> Advanced -> Environment Variables
- 
 Create a new linked master and work repository
 ==============================================
 
@@ -132,10 +110,9 @@ Create a new Oracle user
 Create a new user in an Oracle database and grant the user CONNECT and RESOURCE roles. Note that this demo uses a local Oracle XE installation.
 E.g. connect to the database as a user that can create new users (e.g. SYSTEM) using SQL*Plus. E.g.::
 
-    sqlplus system/password@Xe
+	sqlplus system/password@XE
 
-
-Then ::
+Then::
 
 	CREATE USER odirepofordemo IDENTIFIED BY odirepofordemo DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp;
 	GRANT CONNECT, RESOURCE TO odirepofordemo;
@@ -145,7 +122,13 @@ Create a new master repository
 ------------------------------
 
 
-Create a new empty master repository, with internal ID 800, using the repository creation wizard (repcreate.bat)
+Create a new empty master repository using the repository creation wizard. If you're using ODI 10g then start the wizard by starting running the Master Repository creation wizard by starting the batch script::
+
+	"<Your OracleDI home directory>\bin\repcreate.bat"
+
+If you're using ODI 11g then start the wizard from the ODI Studio's File menu. I.e.::
+
+	File -> New... -> Master Repository Creation Wizard
 
 .. figure:: imgs/4_2.png
 
