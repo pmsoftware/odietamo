@@ -39,7 +39,7 @@ $ScriptFileContent = $ScriptFileContent -Replace $OdiParamsCallText, $OdiParamsT
 $ScriptFileContent = $ScriptFileContent | out-string
 
 $ScriptFileContent = $ScriptFileContent.Replace("%ODI_HOME%",$env:ODI_HOME)
-$ScriptFileContent = $ScriptFileContent.Replace("%ODI_JAVA_HOME%",$env:ODI_HOME)
+$ScriptFileContent = $ScriptFileContent.Replace("%ODI_JAVA_HOME%",$env:ODI_JAVA_HOME)
 $ScriptFileContent = $ScriptFileContent.Replace("%ODI_SECU_WORK_REP%",$env:ODI_SECU_WORK_REP)
 $ScriptFileContent = $ScriptFileContent.Replace("%ODI_USER%",$env:ODI_USER)
 $ScriptFileContent = $ScriptFileContent.Replace("%ODI_ENCODED_PASS%",$env:ODI_ENCODED_PASS)

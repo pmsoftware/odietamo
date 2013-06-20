@@ -213,7 +213,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'odisvn', u'odisvn Documentation',
+    ('index', 'odiscm', u'odiscm Documentation',
      [u'Paul Brian, Mark Matten'], 1)
 ]
 
@@ -227,8 +227,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'odisvn', u'odisvn Documentation',
-   u'Paul Brian, Mark Matten', 'odisvn', 'One line description of project.',
+  ('index', 'odiscm', u'odiscm Documentation',
+   u'Paul Brian, Mark Matten', 'odiscm', 'One line description of project.',
    'Miscellaneous'),
 ]
 

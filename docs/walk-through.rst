@@ -5,17 +5,18 @@ Walk Through Overview
 
 This walk through shows the following operations::
 
-* Installing the ODI-SCM solution.
+* Installing the OdiScm solution.
 * Setting up additional tools required for the ODI-SCM solution.
+* Start the standard ODI demo repository and export it.
 * Creating a new Oracle based repository and installing the standard ODI demo repository.
-* Installing the ODI-SCM repository components.
+* Installing the OdiScm repository components.
 * Exporting code into a Subversion (SVN) repository working copy and checking code into Subversion.
 * Creating a second repository from the code checked into Subversion (SVN).
  
-Install the ODI-SCM solution
+Install the OdiScm solution
 ============================
 
-Download the latest ODI-SCM files from GitHub::
+Download the latest OdiScm files from GitHub::
 
 	https://github.com/pmsoftware/odietamo/archive/master.zip
 
@@ -24,7 +25,7 @@ Unpack the contents of "odietamo-master.zip" to a new empty directory. E.g. to::
 	C:\OdiScm
 
 Add a new environment variable ODI_SCM_HOME (My Computer -> Advanced -> Environment Variables)
-either in the User or System sections. Set the variable value to the path of the new directory into which the ODI-SCM files were unpacked. E.g. to::
+either in the User or System sections. Set the variable value to the path of the new directory into which the OdiScm files were unpacked. E.g. to::
 
 	C:\OdiScm\odietamo-master
 
@@ -77,6 +78,8 @@ to the *end* of the Windows command path, either in the User or System sections:
 
 	My Computer -> Properties -> Advanced -> Environment Variables
 
+Note that we add this collection to the *end* of the command path so minimise conflicts with Windows commands having the same name as commands from the UnxUtils collection.
+
 Install Jisql
 -------------
 
@@ -88,18 +91,110 @@ Unpack the archive to an empty directory. E.g. add::
 
 	C:\jisql-2.0.1
 
+There is no need to add the command directory to the PATH environment variable.
+
 Install Java
 ------------
 
 The Java VM used by your ODI installation can also be used for the Jisql tool as long as it's a Java 6 or later VM. If you're using ODI 11g then you'll be using a Java 6 or later VM anyway. If you're using ODI 10g then this can be used with a Java 5 VM so you'll need an additional Java 6 VM (either JRE or JDK) installed.
 
-Note that a 32 bit JVM (JRE or JDK) is required. A 32 bit versus 64 bit JVM should be identifiable by examining the output of the command: -
+Note that a 32 bit JVM (JRE or JDK) is required. A 32 bit versus 64 bit JVM should be identifiable by examining the output of the command::
 
 	java -version
 
 Note JVMs (we prefer to download JDKs instead of JREs) can be downloaded from Oracle’s website, at::
 
-   http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-javase6-419409.html	(Java 6)
+	http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-javase6-419409.html	(Java 6)
+
+Install Oracle Client
+---------------------
+
+An Oracle client is required for repository backup operations. A fat client is required rather than the 'instant' client as the OdiScm solution requires the 'exp' command line utility in order to create repository backups. The Oracle client software that OdiScm will use must be compatible with the Oracle database(s) that host the ODI repositories that you will be using.
+
+Export the standard ODI demo repository
+=======================================
+
+Start the standard ODI demo repository
+--------------------------------------
+
+Start a new command prompt (CMD.EXE) window. Change the working directory to the ODI directory containing the "startdemo.bat" batch script::
+
+* For ODI 10g:		cd /d <Your OracleDI home directory>\bin
+* For ODI 11g:		cd /d <Your OracleDI home directory>\demo\bin
+
+Start the standard ODI demo environment (ODI repository, source system and target system)::
+
+	startdemo.bat
+
+You should see three console windows open (one for each of the demo repository, source system and target system).
+
+If an error message such as the following is observed::
+
+	The Java Virtual Machine was not found at the following location:
+	The ODI_JAVA_HOME environment variable is not defined correctly.
+	Please set this variable in odiparams.bat.
+
+The set either the ODI_JAVA_HOME or JAVA_HOME environment variable in the current prompt window session to the root (home) directory of the Java installation that you will use for your verison of ODI::
+
+	set ODI_JAVA_HOME=<path/to/your/JVM/home/directory>
+
+E.g.::
+
+	set ODI_JAVA_HOME=C:\Program Files\Java\jdk1.6.0_29
+
+Export the standard ODI demo repository
+---------------------------------------
+
+Copy the file "OdiScmExportStandardOdiDemoTemplate.ini" to a new, temporary, location::
+
+	copy "%ODI_SCM_HOME%\Configuration\Demo\OdiScmExportStandardOdiDemoTemplate.ini" <path/to/your/temp/directory>\OdiScmExportStandardOdiDemo.ini
+
+E.g.: -::
+
+	copy "%ODI_SCM_HOME%\Configuration\Demo\OdiScmExportStandardOdiDemoTemplate.ini" C:\Temp\OdiScmExportStandardOdiDemo.ini
+
+Open the new file in a text editor and edit the following entries: -
+
+* ODI_HOME=<OracleDI home dir>
+* ODI_JAVA_HOME=<Java home dir>
+
+Replace <OracleDI home dir> with the path to your ODI home directory. The ODI home directory, for OdiScm, is the directory containing the "bin" directory that contains the "startcmd.bat" and "odiparams.bat" batch script files. 
+
+Replace <Java home dir> with the path to the root of the JVM that you'll be using with ODI. 
+
+E.g.: -
+
+* ODI_HOME=C:\\OracleDI
+* ODI_JAVA_HOME=C:\\Java\\jre6
+
+Save the file. Then tell OdiScm to use this file for its configuration file::
+
+	set ODI_SCM_INI=<your new INI file path and name>
+
+E.g.::
+
+	set ODI_SCM_INI=C:\Temp\OdiScmExportStandardOdiDemo.ini
+
+Change the working directory to the OdiScm demo directory::
+
+	cd /d %ODI_SCM_HOME%\Configuration\Demo
+
+Export the standard demo repository to a new directory using the following command (ensure you include the "/b" switch or the command prompt window will close!)::
+
+	call OdiScmExportOracleDIDemo.bat /b <path/to/new/directory/to/create> <10G | 11G>
+
+Note.: -
+
+* Replace <path/to/new/directory/to/create> with the path of a directory that does not currently exist and can be created by the OdiScmExportOracleDIDemo.bat script.
+* 10G or 11G must be specified and must correspond to the version of ODI that you're using.
+
+The standard ODI demo repository will then be exported:
+
+.. figure:: imgs/11_1_1.png
+
+Change the working directory to the ODI directory containing the "startdemo.bat" batch script and shut down the standard demo environment::
+
+	stopdemo.bat
 
 Create a new linked master and work repository
 ==============================================
@@ -107,7 +202,7 @@ Create a new linked master and work repository
 Create a new Oracle user
 ------------------------
 
-Create a new user in an Oracle database and grant the user CONNECT and RESOURCE roles. Note that this demo uses a local Oracle XE installation.
+Create a new user in an Oracle database and grant the user CONNECT and RESOURCE roles. Note that examples in this walk-through use a local Oracle XE installation.
 E.g. connect to the database as a user that can create new users (e.g. SYSTEM) using SQL*Plus. E.g.::
 
 	sqlplus system/password@XE
@@ -121,70 +216,182 @@ Then::
 Create a new master repository
 ------------------------------
 
+Create a new empty Master Repository using the repository creation wizard. 
 
-Create a new empty master repository using the repository creation wizard. If you're using ODI 10g then start the wizard by starting running the Master Repository creation wizard by starting the batch script::
+If you're using ODI 10g then start the wizard by starting running the Master Repository creation wizard by starting the batch script:
 
-	"<Your OracleDI home directory>\bin\repcreate.bat"
+	"<Your OracleDI home directory>\\bin\\repcreate.bat"
+
+.. figure:: imgs/4_2.png
+
+Any value in the range 1 to 899 may be used for the walk-through Master Repository internal ID. Wait for the wizard to create the Master Repository:
+
+.. figure:: imgs/4_2_1.png
+
+Then click OK to exit the wizard when prompted.
+
+.. figure:: imgs/4_2_2.png
+
+Create a new master repository connection profile for the new Master Repository from Topology Manager (topology.bat). Use the new SUPERVISOR user (password "SUNOPSIS").
+
+.. figure:: imgs/4_2_3.png
+
+Use the test function (with the Local Agent) to check the entered details.
+
+.. figure:: imgs/4_2_4.png
 
 If you're using ODI 11g then start the wizard from the ODI Studio's File menu. I.e.::
 
 	File -> New... -> Master Repository Creation Wizard
 
-.. figure:: imgs/4_2.png
+Note that the ODI 11g Master Repository creation wizard requires a login, to the database, with DBA privileges.
 
-   Wait for the wizard to create the master repository.
- 
-.. figure:: imgs/4_2_1.png
+.. figure:: imgs/4_2_5.png
 
-   Then click OK to exit the wizard when prompted
+Enter the ODI SUPERVISOR password and click "Next >".
 
-.. figure:: imgs/4_2_2.png
- 
-    Create a new master repository connection profile for the new master repository from Topology Manager (topology.bat).
-    Use the default SUPERVISOR user (password "SUNOPSIS") 
+.. figure:: imgs/4_2_6.png
 
-.. figure:: imgs/4_2_3.png
+Select Internal Password Storage and click "Next >".
 
-   Use the test function (Local agent) to check the entered details
+.. figure:: imgs/4_2_7.png
 
-.. figure:: imgs/4_2_4.png
+Any value in the range 1 to 899 may be used for the walk-through Master Repository internal ID. Wait for the wizard to create the Master Repository. Wait for the wizard to create the master repository:
 
+.. figure:: imgs/4_2_9.png
 
+Then click OK to exit the wizard when prompted.
 
-Create a new work repository in the same DB schema
---------------------------------------------------
+.. figure:: imgs/4_2_8.png
+
+Create a new master repository connection profile for the new master repository from the "Connect To Repository..." icon in the ODI Studio UI. Use the SUPERVISOR user (password "SUNOPSIS").
+
+.. figure:: imgs/4_2_10.png
+
+Use the test function (with the Local Agent) to check the entered details.
+
+.. figure:: imgs/4_2_11.png
+
+Create a new Work Repository in the Master Repository DB schema
+---------------------------------------------------------------
+
+Use the new connection profile to connect to the new Master Repository and view the ODI Topology definitions:
+
+* ODI 10g: start the Toplogy Manager UI using "topology.bat".
+* ODI 11g: start the Toplogy Navigator using the ODI Studio UI.
+
+Create a new work repository from the Repositories tree view by right-clicking on the "Work Repositories" node then clicking "Insert Work Repository". (The ODI 10g UI is shown in the following figures).
 
 .. figure:: imgs/4_3_0.png
 
-   Connect to the new master repository and create a new work repository from the
-   Repositories tab by right-clicking on Work Repositories -> Insert Work Repository
+Complete the "Definition" tab for the new work repository connection:
 
 .. figure:: imgs/4_3_1.png
 
-   Complete the "Definition" tab for the new work repository connection::
+Then complete the JDBC tab:
 
 .. figure:: imgs/4_3_2.png
 
-    Then complete the JDBC tab
+Use the "Test" function, using the Local agent, to test the connection details for the work repository:
 
 .. figure:: imgs/4_3_3.png
 
-    Use the "Test" function, using the Local agent, to test the connection details for the work repository::
+Then enter the details of the new work repository. Any value in the range 1 to 899 may be used for the walk-through Work Repository internal ID. Click OK and wait for a few seconds for the new work repository structure to be created:
 
 .. figure:: imgs/4_3_4.png
 
-    Then enter the details of the new work repository. Ensure 800 is used at the internal ID::
-    Click OK and a few seconds for the new work repository structure to be created.
+Open the Designer UI from the toolbar icon in Topology Manager and create a new work repository connection profile for the new work repository:
 
 .. figure:: imgs/4_3_5.png
 
-    Open the Designer UI from the toolbar icon in Topology Manager and create a new work repository connection profile for the new work repository::  
+Use the "Test" function, using the Local agent, to test the connection details for the work repository:
 
 .. figure:: imgs/4_3_6.png
 
-    Use the "Test" function, using the Local agent, to test the connection details for the work repository:: 
-    You can now connect to the new, empty, work repository. Have a look. It’s empty!
- 
+You can now connect to the new, empty, work repository. Have a look. It’s empty!
+
+Import the standard ODI demo repository into the new Oracle-based repository
+============================================================================
+
+Create an OdiScm configuration file for the import
+--------------------------------------------------
+
+We now create an OdiScm configuration file for the new Master and Work repository.
+
+Copy the file "OdiScmImportStandardOdiDemoTemplate.ini" to a new, temporary, location::
+
+	copy "%ODI_SCM_HOME%\Configuration\Demo\OdiScmExportStandardOdiDemoTemplate.ini" <path/to/your/temp/directory>\OdiScmExportStandardOdiDemo.ini
+
+E.g.: -::
+
+	copy "%ODI_SCM_HOME%\Configuration\Demo\OdiScmExportStandardOdiDemoTemplate.ini" C:\Temp\OdiScmImportStandardOdiDemo.ini
+
+Open the new file in a text editor and edit the following entries in the [OracleDI] section::
+
+* ODI_HOME=<OracleDI Home Dir>
+* ODI_JAVA_HOME=<Java Home Dir for OracleDI>
+* ODI_ENCODED_PASS=<OracleDI user encoded password>
+* ODI_SECU_USER=<OracleDI master repository user name>
+* ODI_SECU_PASS=<OracleDI master repository database user password>
+* ODI_SECU_ENCODED_PASS=<OracleDI master repository database user encoded password>
+* ODI_SECU_URL=jdbc:oracle:thin:@<host>:<port>:<sid>
+* ODI_SECU_WORK_REP=<OracleDI work repository name>
+
+Replace::
+* <OracleDI home dir> with the path to your ODI home directory. The ODI home directory, for OdiScm, is the directory containing the "bin" directory that contains the "startcmd.bat" and "odiparams.bat" batch script files. 
+
+Replace <Java home Dir for OracleDI> with the path to the root of the JVM that you'll be using with ODI. 
+
+Replace <OracleDI user encoded password> with the password for the corresponding ODI user name entry (ODI_USER). Passwords are encoded using the command::
+
+* ODI 10g:		<OracleDI Home Dir>\bin\agent.bat encode <password-to-encode>
+* ODI 10g:		<OracleDI Home Dir>\agent\bin\encode.bat <password-to-encode>
+
+Replace <OracleDI master repository user name> with the Oracle user name that contains the Master Repository.
+
+Replace <OracleDI master repository database user password> with the unencoded password for the Oracle user that contains the Master Repository.
+
+Replace <OracleDI master repository database user encoded password> with the encoded password for the Oracle user that contains the Master Repository.
+
+Replace <host> with the machine name or IP address of the machine that hosts the Master Repository database.
+Replace <port> with the TCP port number on which the Master Repository's Oracle database listener accepts connections.
+Replace <sid> with the Master Repository's Oracle database SID.
+
+Replace <OracleDI work repository name> with the name of the Work Repository.
+
+Edit the following entries in the [Tools] section::
+
+*ODI_SCM_JISQL_JAVA_HOME=<Java Home Dir for Jisql>
+*ODI_SCM_JISQL_HOME=<Jisql Home Dir>
+
+Replace <Java Home Dir for Jisql> with the path to the root of the JVM that you'll be using with Jisql (i.e. a Java 6 or later JVM).
+Replace <Jisql Home Dir> with the path your Jisql home directory (i.e. the directory containing the "runit.bat" batch script).
+
+Save the file. Then tell OdiScm to use this file for its configuration file::
+
+	set ODI_SCM_INI=<your new INI file path and name>
+
+E.g.::
+
+	set ODI_SCM_INI=C:\Temp\OdiScmImportStandardOdiDemo.ini
+
+Change the working directory to the OdiScm demo directory::
+
+	cd /d %ODI_SCM_HOME%\Configuration\Demo
+
+Export the standard demo repository to a new directory using the following command (ensure you include the "/b" switch or the command prompt window will close!)::
+
+	call OdiScmImportOracleDIDemo.bat /b <path/to/demo/repository/export> <10G | 11G>
+
+Note.: -
+
+* Replace <path/to/demo/repository/export> with the path of the directory created previously by the demo repository export process.
+* 10G or 11G must be specified and must correspond to the version of ODI that you're using.
+
+The standard ODI demo repository will then be imported into the new repository:
+
+.. figure:: imgs/11_1_2.png
+
 Install and configure the ODI-SCM repository components
 =======================================================
 

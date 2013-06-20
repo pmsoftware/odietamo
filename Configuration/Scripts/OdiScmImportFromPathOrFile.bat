@@ -253,7 +253,7 @@ rem *************************************************************
 echo %IM% importing non-container type object from file ^<%1^>
 echo %IM% date ^<%DATE%^> time ^<%TIME%^>
 rem cd /d %ODI_BIN_DIR%
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%STARTCMDFILE%" OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_INSERT_UPDATE -WORK_REP_NAME=WORKREP
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%STARTCMDFILE%" OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_INSERT_UPDATE
 if ERRORLEVEL 1 goto IOFail
 goto :eof
 :IOFail
