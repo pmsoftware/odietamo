@@ -254,6 +254,7 @@ REM
 echo %IM% processing configuration section ^<Tools^>
 echo ODI_SCM_JISQL_HOME>%TEMPFILE2%
 echo ODI_SCM_JISQL_JAVA_HOME>>%TEMPFILE2%
+echo ODI_SCM_JISQL_ADDITIONAL_CLASSPATH>>%TEMPFILE2%
 echo ORACLE_HOME>>%TEMPFILE2%
 
 for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (

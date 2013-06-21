@@ -20,12 +20,12 @@ Download the latest OdiScm files from GitHub::
 
 	https://github.com/pmsoftware/odietamo/archive/master.zip
 
-Unpack the contents of "odietamo-master.zip" to a new empty directory. E.g. to::
+Unpack the contents of "odietamo-master.zip" to a new empty directory::
 
 	C:\OdiScm
 
 Add a new environment variable ODI_SCM_HOME (My Computer -> Advanced -> Environment Variables)
-either in the User or System sections. Set the variable value to the path of the new directory into which the OdiScm files were unpacked. E.g. to::
+either in the User or System sections. Set the variable value to the path of the new directory into which the OdiScm files were unpacked::
 
 	C:\OdiScm\odietamo-master
 
@@ -70,7 +70,11 @@ Download the collection from::
 
 	http://sourceforge.net/projects/unxutils
 
-Unpack the archive to an empty directory and add the full path of the `usr\\local\\wbin` subdirectory. E.g. add::
+Unpack the archive to the new empty directory::
+
+	C:\UnxUtils
+
+and add the subdirectory path::
 
 	C:\UnxUtils\usr\local\wbin
 
@@ -80,18 +84,41 @@ to the *end* of the Windows command path, either in the User or System sections:
 
 Note that we add this collection to the *end* of the command path so minimise conflicts with Windows commands having the same name as commands from the UnxUtils collection.
 
+Test the availability of the UnxUtils commands by opening a command prompt (cmd.exe) window and running a couple of commands::
+
+	gawk.exe
+	du.exe
+
+Both of the above commands should be found and display their options.
+
+.. figure:: imgs/3_1_1.png
+
 Install Jisql
 -------------
 
-Download the tool from::
+Download the latest version of Jisql from::
 
 	http://www.xigole.com/software/jisql/build/jisql-2.0.11.zip
 
-Unpack the archive to an empty directory. E.g. add::
+Note that at the time of writing the latest version is 2.0.11. In general the latest version can download from::
 
-	C:\jisql-2.0.1
+	http://www.xigole.com/software/jisql/jisql.jsp
 
-There is no need to add the command directory to the PATH environment variable.
+Unpack the archive to an empty directory::
+
+	C:\jisql
+
+So, at the time of writing we have the direcotry structure::
+
+	C:\jisql
+	C:\jisql\jisql-2.0.11
+	C:\jisql\jisql-2.0.11\<jisql sub directories>
+
+There is no need to add the command directory::
+
+	C:\jisql\jisql-2.0.11		(or the eqivalent path for your Jisql version)
+
+to the PATH environment variable.
 
 Install Java
 ------------
@@ -110,6 +137,12 @@ Install Oracle Client
 ---------------------
 
 An Oracle client is required for repository backup operations. A fat client is required rather than the 'instant' client as the OdiScm solution requires the 'exp' command line utility in order to create repository backups. The Oracle client software that OdiScm will use must be compatible with the Oracle database(s) that host the ODI repositories that you will be using.
+
+This installation can be tested by running the exp.exe command.
+
+.. figure:: imgs/3_1_2.png
+
+If installed correctly, the imp.exe command will prompt for a database logon user name. Pressing <Control>-C will return you to the command prompt.
 
 Export the standard ODI demo repository
 =======================================
@@ -145,13 +178,13 @@ E.g.::
 Export the standard ODI demo repository
 ---------------------------------------
 
-Copy the file "OdiScmExportStandardOdiDemoTemplate.ini" to a new, temporary, location::
+Create a new empty directory for the walk-through::
 
-	copy "%ODI_SCM_HOME%\Configuration\Demo\OdiScmExportStandardOdiDemoTemplate.ini" <path/to/your/temp/directory>\OdiScmExportStandardOdiDemo.ini
+	mkdir C:\OdiScmWalkThrough
 
-E.g.: -::
+Copy the file "OdiScmExportStandardOdiDemoTemplate.ini" to the walk-through directory::
 
-	copy "%ODI_SCM_HOME%\Configuration\Demo\OdiScmExportStandardOdiDemoTemplate.ini" C:\Temp\OdiScmExportStandardOdiDemo.ini
+	copy "%ODI_SCM_HOME%\Configuration\Demo\OdiScmExportStandardOdiDemoTemplate.ini" C:\OdiScmWalkThrough\OdiScmExportStandardOdiDemo.ini
 
 Open the new file in a text editor and edit the following entries: -
 
@@ -169,23 +202,15 @@ E.g.: -
 
 Save the file. Then tell OdiScm to use this file for its configuration file::
 
-	set ODI_SCM_INI=<your new INI file path and name>
+	set ODI_SCM_INI=C:\OdiScmWalkThrough\OdiScmExportStandardOdiDemo.ini
 
-E.g.::
+Export the standard demo repository to a new directory using the following command. Ensure you include the "/b" switch or the command prompt window will close! Also, ensure you specify either 10G or 11G:
 
-	set ODI_SCM_INI=C:\Temp\OdiScmExportStandardOdiDemo.ini
-
-Change the working directory to the OdiScm demo directory::
-
-	cd /d %ODI_SCM_HOME%\Configuration\Demo
-
-Export the standard demo repository to a new directory using the following command (ensure you include the "/b" switch or the command prompt window will close!)::
-
-	call OdiScmExportOracleDIDemo.bat /b <path/to/new/directory/to/create> <10G | 11G>
+	call "%ODI_SCM_HOME%\Configuration\Demo\OdiScmExportOracleDIDemo.bat" /b C:\OdiScmWalkThrough\StandardDemoRepoExport <10G | 11G>
 
 Note.: -
 
-* Replace <path/to/new/directory/to/create> with the path of a directory that does not currently exist and can be created by the OdiScmExportOracleDIDemo.bat script.
+* The directory path specified will be created by the export script. It must not already exist.
 * 10G or 11G must be specified and must correspond to the version of ODI that you're using.
 
 The standard ODI demo repository will then be exported:
@@ -202,8 +227,9 @@ Create a new linked master and work repository
 Create a new Oracle user
 ------------------------
 
-Create a new user in an Oracle database and grant the user CONNECT and RESOURCE roles. Note that examples in this walk-through use a local Oracle XE installation.
-E.g. connect to the database as a user that can create new users (e.g. SYSTEM) using SQL*Plus. E.g.::
+Note that examples in this walk-through use a local Oracle XE installation.
+
+Connect to the database as a user that can create new users (e.g. SYSTEM) using SQL*Plus::
 
 	sqlplus system/password@XE
 
@@ -284,7 +310,7 @@ Create a new work repository from the Repositories tree view by right-clicking o
 
 .. figure:: imgs/4_3_0.png
 
-Complete the "Definition" tab for the new work repository connection:
+Complete the "Definition" tab for the new work repository connection. Note that we're creating a Work Repository in the same schema/user as the Master Repository::
 
 .. figure:: imgs/4_3_1.png
 
@@ -296,7 +322,7 @@ Use the "Test" function, using the Local agent, to test the connection details f
 
 .. figure:: imgs/4_3_3.png
 
-Then enter the details of the new work repository. Any value in the range 1 to 899 may be used for the walk-through Work Repository internal ID. Click OK and wait for a few seconds for the new work repository structure to be created:
+Then enter the details of the new work repository. Any value in the range 1 to 899 may be used for the walk-through Work Repository internal ID. Use the name "WORKREP" for the name of the work repository. Click OK and wait for a few seconds for the new work repository structure to be created:
 
 .. figure:: imgs/4_3_4.png
 
@@ -318,134 +344,79 @@ Create an OdiScm configuration file for the import
 
 We now create an OdiScm configuration file for the new Master and Work repository.
 
-Copy the file "OdiScmImportStandardOdiDemoTemplate.ini" to a new, temporary, location::
+Copy the file "OdiScmImportStandardOdiDemoTemplate.ini" to the walk-through directory::
 
-	copy "%ODI_SCM_HOME%\Configuration\Demo\OdiScmExportStandardOdiDemoTemplate.ini" <path/to/your/temp/directory>\OdiScmExportStandardOdiDemo.ini
-
-E.g.: -::
-
-	copy "%ODI_SCM_HOME%\Configuration\Demo\OdiScmExportStandardOdiDemoTemplate.ini" C:\Temp\OdiScmImportStandardOdiDemo.ini
+	copy "%ODI_SCM_HOME%\Configuration\Demo\OdiScmExportStandardOdiDemoTemplate.ini" C:\OdiScmWalkThrough\OdiScmExportStandardOdiDemo.ini
 
 Open the new file in a text editor and edit the following entries in the [OracleDI] section::
 
-* ODI_HOME=<OracleDI Home Dir>
-* ODI_JAVA_HOME=<Java Home Dir for OracleDI>
-* ODI_ENCODED_PASS=<OracleDI user encoded password>
-* ODI_SECU_USER=<OracleDI master repository user name>
-* ODI_SECU_PASS=<OracleDI master repository database user password>
-* ODI_SECU_ENCODED_PASS=<OracleDI master repository database user encoded password>
-* ODI_SECU_URL=jdbc:oracle:thin:@<host>:<port>:<sid>
-* ODI_SECU_WORK_REP=<OracleDI work repository name>
+	ODI_HOME=<OracleDI Home Dir>
+	ODI_JAVA_HOME=<Java Home Dir for OracleDI>
+	ODI_SECU_URL=jdbc:oracle:thin:@<host>:<port>:<sid>
 
-Replace::
-* <OracleDI home dir> with the path to your ODI home directory. The ODI home directory, for OdiScm, is the directory containing the "bin" directory that contains the "startcmd.bat" and "odiparams.bat" batch script files. 
+Replace <OracleDI home dir> with the path to your ODI home directory. The ODI home directory, for OdiScm, is the directory containing the "bin" directory that contains the "startcmd.bat" and "odiparams.bat" batch script files. 
 
 Replace <Java home Dir for OracleDI> with the path to the root of the JVM that you'll be using with ODI. 
 
-Replace <OracleDI user encoded password> with the password for the corresponding ODI user name entry (ODI_USER). Passwords are encoded using the command::
-
-* ODI 10g:		<OracleDI Home Dir>\bin\agent.bat encode <password-to-encode>
-* ODI 10g:		<OracleDI Home Dir>\agent\bin\encode.bat <password-to-encode>
-
-Replace <OracleDI master repository user name> with the Oracle user name that contains the Master Repository.
-
-Replace <OracleDI master repository database user password> with the unencoded password for the Oracle user that contains the Master Repository.
-
-Replace <OracleDI master repository database user encoded password> with the encoded password for the Oracle user that contains the Master Repository.
-
 Replace <host> with the machine name or IP address of the machine that hosts the Master Repository database.
-Replace <port> with the TCP port number on which the Master Repository's Oracle database listener accepts connections.
-Replace <sid> with the Master Repository's Oracle database SID.
 
-Replace <OracleDI work repository name> with the name of the Work Repository.
+Replace <port> with the TCP port number on which the Master Repository's Oracle database listener accepts connections.
+
+Replace <sid> with the Master Repository's Oracle database SID.
 
 Edit the following entries in the [Tools] section::
 
-*ODI_SCM_JISQL_JAVA_HOME=<Java Home Dir for Jisql>
-*ODI_SCM_JISQL_HOME=<Jisql Home Dir>
+	ODI_SCM_JISQL_JAVA_HOME=<Java 6+ Home Dir>
+	ODI_SCM_JISQL_HOME=<Jisql Home Dir>
 
-Replace <Java Home Dir for Jisql> with the path to the root of the JVM that you'll be using with Jisql (i.e. a Java 6 or later JVM).
-Replace <Jisql Home Dir> with the path your Jisql home directory (i.e. the directory containing the "runit.bat" batch script).
+Replace <Java 6+ Home Dir> with the path to the root of the JVM that you'll be using with Jisql (i.e. a Java 6 or later JVM).
+
+Replace <Jisql Home Dir> with the path your Jisql home directory (i.e. the directory containing the "runit.bat" batch script). E.g.::
+
+	C:\jisql\jisql-2.0.11
+
+If you're using ODI 11g then also set a value for the entry::
+
+	ODI_SCM_JISQL_ADDITIONAL_CLASSPATH
+
+This must include the absolute path and name of the JAR files "odj.jar" and "dms.jar". As of ODI 11.1.1.6.0 these are located in the following directories::
+
+	<Oracle Home>\modules\oracle.odl_11.1.1\ojdl.jar
+	<Oracle Home>\modules\oracle.dms_11.1.1\dms.jar
+
+Where <Oracle Home> is the Oracle home directory created by the Oracle installer. E.g. set the entry to::
+
+	C:\oracle\product\11.1.1\Oracle_ODI_1\modules\oracle.odl_11.1.1\ojdl.jar;C:\oracle\product\11.1.1\Oracle_ODI_1\modules\oracle.dms_11.1.1\dms.jar
+
+Note that this option can be used to add any other additional Class or JAR files for Jisql.
 
 Save the file. Then tell OdiScm to use this file for its configuration file::
 
-	set ODI_SCM_INI=<your new INI file path and name>
+	set ODI_SCM_INI=C:\OdiScmWalkThrough\OdiScmImportStandardOdiDemo.ini
 
-E.g.::
+Import the standard demo repository to the Oracle-based Master/Work repository using the following command (ensure you include the "/b" switch or the command prompt window will close!)::
 
-	set ODI_SCM_INI=C:\Temp\OdiScmImportStandardOdiDemo.ini
-
-Change the working directory to the OdiScm demo directory::
-
-	cd /d %ODI_SCM_HOME%\Configuration\Demo
-
-Export the standard demo repository to a new directory using the following command (ensure you include the "/b" switch or the command prompt window will close!)::
-
-	call OdiScmImportOracleDIDemo.bat /b <path/to/demo/repository/export> <10G | 11G>
+	call "%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportOracleDIDemo.bat" /b C:\OdiScmWalkThrough\StandardDemoRepoExport <10G | 11G>
 
 Note.: -
 
-* Replace <path/to/demo/repository/export> with the path of the directory created previously by the demo repository export process.
 * 10G or 11G must be specified and must correspond to the version of ODI that you're using.
 
 The standard ODI demo repository will then be imported into the new repository:
 
 .. figure:: imgs/11_1_2.png
 
+Connect to the Oracle-based Work Repository, if you're not already, otherwise refresh the Designer views (Projects and Models). Have a look. It contains the standard ODI demo projects and models!
+
 Install and configure the ODI-SCM repository components
 =======================================================
-
-
-Set environment variables
--------------------------
-
-Start a new Windows command prompt window (Start Menu -> Run… -> cmd.exe).
-
-
-
-“CD” to the ODI home directory to use for this session. I.e. the directory containing the ODI “bin” directory (the ODI binaries). E.g.::
-
-::
-
-    cd /d C:\oracledi_fordemo1
-    Set the ODI_HOME environment variable for this session::
-    set ODI_HOME=%CD%
-
-
-Configure “odiparams”
----------------------
-“CD” to the ODI “bin” directory::
-cd %ODI_HOME%\bin
-Create the encoded representation of the master repository password for the new master repository by typing, at the command prompt. E.g.::
-agent encode odirepofordemo
-Set the repository connection details in the “odiparams.bat” file in the “bin” directory. Note that one might want to create a backup of your existing “odiparams.bat” file first. Alternatively one can ‘comment out’ the existing section and create a new copy of this section in the same file, immediately after the existing section, to override the environment variable settings with values for the new repository. 
-Note that::
-the entry in bold below is a custom entry required by the OdiScm mechanism::
-the entry in blue is the encoded password string created using “agent encode…” command, above::
-
-    rem
-    rem Repository Connection Information
-    rem
-    set ODI_SECU_DRIVER=oracle.jdbc.driver.OracleDriver
-    set ODI_SECU_URL=jdbc:oracle:thin:@localhost:1521:xe
-    set ODI_SECU_USER=odirepofordemo
-    set ODI_SECU_ENCODED_PASS=brfXH96Z5HtVgL5staMYzldCSb
-    set ODI_SECU_PASS=odirepofordemo
-    set ODI_SECU_WORK_REP=WORKREP
-    set ODI_USER=SUPERVISOR
-    set ODI_ENCODED_PASS=a7ypx6q1nhHGmAgO4acSJbMxp
-
-Test the connection details, entered into the “odiparams.bat” file by running the command “agentscheduler.bat”. If the connection details have been correctly entered into the “odiparams.bat” file then you will see an error message indicating that an ODI agent
-definition does not exist in the repository (i.e. the process was at least able to connect to the repository)
-
-.. figure:: imgs/5_2_0.png
 
 Import the ODI-SCM repository components
 ----------------------------------------
 
 Run the following command to import the ODI code components of ODI-SCM  into the new repository::
 
-    OdiScmImportOdiScm.bat NoExportPrime
+	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportOdiScm.bat" NoExportPrime
 
 .. figure:: imgs/5_3_0.png
  

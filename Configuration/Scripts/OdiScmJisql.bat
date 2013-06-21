@@ -82,20 +82,18 @@ set JISQL_LIB=%ODI_SCM_JISQL_HOME%\lib
 REM
 REM Build the class path.
 REM
-REM echo %IM% adding files from Jisql lib directory ^<%JISQL_LIB%^> to class path
 set JISQL_CLASS_PATH=
-setlocal enabledelayedexpansion
-for /f %%f in ('dir /b %JISQL_LIB%') do (
-	REM echo %IM% adding file ^<%%f^>
-	if "!JISQL_CLASS_PATH!" == "" (
-		set JISQL_CLASS_PATH=%JISQL_LIB%\%%f
-	) else (
-		set JISQL_CLASS_PATH=%JISQL_LIB%\%%f;!JISQL_CLASS_PATH!
-	)
+
+if not "%ODI_SCM_JISQL_ADDITIONAL_CLASSPATH%" == "" (
+	echo %IM% using additional class path from environment variable ODI_SCM_JISQL_ADDITIONAL_CLASSPATH
+	set JISQL_CLASS_PATH=%ODI_SCM_JISQL_ADDITIONAL_CLASSPATH%
+) else (
+	echo %IM% no additional class path specified in environment variable ODI_SCM_JISQL_ADDITIONAL_CLASSPATH
 )
 
-REM echo %IM% adding files from OracleDI drivers directory ^<%ODI_HOME%	^> to class path
+setlocal enabledelayedexpansion
 
+REM echo %IM% adding files from OracleDI drivers directory ^<%ODI_HOME%	^> to class path
 for /f %%f in ('dir /b %ODI_HOME%\drivers') do (
 	REM echo %IM% adding file ^<%%f^>
 	if "!JISQL_CLASS_PATH!" == "" (
@@ -105,7 +103,17 @@ for /f %%f in ('dir /b %ODI_HOME%\drivers') do (
 	)
 )
 
-echo %IM% Jisql class path ^<%JISQL_CLASS_PATH%^>
+REM echo %IM% adding files from Jisql lib directory ^<%JISQL_LIB%^> to class path
+for /f %%f in ('dir /b %JISQL_LIB%') do (
+	REM echo %IM% adding file ^<%%f^>
+	if "!JISQL_CLASS_PATH!" == "" (
+		set JISQL_CLASS_PATH=%JISQL_LIB%\%%f
+	) else (
+		set JISQL_CLASS_PATH=%JISQL_LIB%\%%f;!JISQL_CLASS_PATH!
+	)
+)
+
+REM echo %IM% Jisql class path ^<%JISQL_CLASS_PATH%^>
 echo %IM% executing command ^<"%ODI_SCM_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 ^>%STDOUTFILE% 2^>%STDERRFILE%^>
 
 "%ODI_SCM_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 >%STDOUTFILE% 2>%STDERRFILE%
