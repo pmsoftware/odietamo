@@ -379,16 +379,20 @@ If you're using ODI 11g then also set a value for the entry::
 
 	ODI_SCM_JISQL_ADDITIONAL_CLASSPATH
 
-This must include the absolute path and name of the JAR files "odj.jar" and "dms.jar". As of ODI 11.1.1.6.0 these are located in the following directories::
+If you want to use the Oracle JDBC driver supplied with ODI 11g (ojdbc6dms.jar) then this entry must include the absolute path and name of the JAR files "odj.jar" and "dms.jar". As of ODI 11.1.1.6.0 these are located in the following directories::
 
 	<Oracle Home>\modules\oracle.odl_11.1.1\ojdl.jar
 	<Oracle Home>\modules\oracle.dms_11.1.1\dms.jar
 
 Where <Oracle Home> is the Oracle home directory created by the Oracle installer. E.g. set the entry to::
 
-	C:\oracle\product\11.1.1\Oracle_ODI_1\modules\oracle.odl_11.1.1\ojdl.jar;C:\oracle\product\11.1.1\Oracle_ODI_1\modules\oracle.dms_11.1.1\dms.jar
+	ODI_SCM_JISQL_ADDITIONAL_CLASSPATH=C:\oracle\product\11.1.1\Oracle_ODI_1\modules\oracle.odl_11.1.1\ojdl.jar;C:\oracle\product\11.1.1\Oracle_ODI_1\modules\oracle.dms_11.1.1\dms.jar
 
-Note that this option can be used to add any other additional Class or JAR files for Jisql.
+Alternatively, you can download and use the standard JDBC driver by downloading ojdbc6.jar and including the JAR file in the entry. For example::
+
+	ODI_SCM_JISQL_ADDITIONAL_CLASSPATH=C:\Drivers\ojdbc6.jar
+
+Note that this entry can also be used to add any other additional Class or JAR files for Jisql.
 
 Save the file. Then tell OdiScm to use this file for its configuration file::
 
