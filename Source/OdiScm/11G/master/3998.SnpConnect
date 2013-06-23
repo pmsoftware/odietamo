@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SunopsisExport>
+<Admin RepositoryVersion="04.03.04.02" />
 <Object class="com.sunopsis.dwg.dbobj.SnpConnect">
 		<Field name="BatchUpdateSize" type="com.sunopsis.sql.DbInt"><![CDATA[30]]></Field>
 	<Field name="ConnectType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ConName" type="java.lang.String"><![CDATA[ODIMASTERREP_DATA]]></Field>
-	<Field name="DservName" type="java.lang.String"><![CDATA[$DB]]></Field>
+	<Field name="ConName" type="java.lang.String"><![CDATA[ODIWORKREP_DATA]]></Field>
+	<Field name="DservName" type="java.lang.String">null</Field>
 	<Field name="FetchArrayServ" type="com.sunopsis.sql.DbInt"><![CDATA[30]]></Field>
 	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndJndi" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="IConnect" type="com.sunopsis.sql.DbInt"><![CDATA[2998]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
+	<Field name="IConnect" type="com.sunopsis.sql.DbInt"><![CDATA[3998]]></Field>
 	<Field name="IHost" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="ITechno" type="com.sunopsis.sql.DbInt"><![CDATA[1999]]></Field>
-	<Field name="ITxtJavaUrl" type="com.sunopsis.sql.DbInt"><![CDATA[2998]]></Field>
+	<Field name="ITxtJavaUrl" type="com.sunopsis.sql.DbInt"><![CDATA[3998]]></Field>
 	<Field name="ITxtJndiUrl" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="ITxtWsBaseUrl" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="JavaDriver" type="java.lang.String"><![CDATA[oracle.jdbc.driver.OracleDriver]]></Field>
@@ -24,6 +26,16 @@
 	<Field name="JndiUser" type="java.lang.String">null</Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="OnConApplyCond" type="java.lang.String">null</Field>
+	<Field name="OnConCmd" type="java.lang.String">null</Field>
+	<Field name="OnConIndCommit" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="OnConIndErr" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="OnConLogLevel" type="java.lang.String"><![CDATA[3]]></Field>
+	<Field name="OnDcnApplyCond" type="java.lang.String">null</Field>
+	<Field name="OnDcnCmd" type="java.lang.String">null</Field>
+	<Field name="OnDcnIndCommit" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="OnDcnIndErr" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="OnDcnLogLevel" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="Pass" type="java.lang.String"><![CDATA[$PASSWORD]]></Field>
 	<Field name="UserName" type="java.lang.String"><![CDATA[$DBUSER]]></Field>
 	<Field name="WsDeployMode" type="java.lang.String"><![CDATA[U]]></Field>
@@ -31,7 +43,8 @@
 <Object class="com.sunopsis.dwg.dbobj.SnpMtxt">
 		<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[2998]]></Field>
+	<Field name="FullTxt" type="java.lang.String"><![CDATA[jdbc:oracle:thin:@bupaczc1497313:1521:xe]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[3998]]></Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[jdbc:oracle:thin:@$HOSTNAME:1526:$DBSERVICE]]></Field>
 </Object>
@@ -46,24 +59,38 @@
 	<Field name="ColPrfTab" type="java.lang.String"><![CDATA[C$_]]></Field>
 	<Field name="DefConPschema" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="ErrPrfTab" type="java.lang.String"><![CDATA[E$_]]></Field>
-	<Field name="ExtName" type="java.lang.String"><![CDATA[ODIMASTERREP_DATA.$DBUSER]]></Field>
+	<Field name="ExtName" type="java.lang.String"><![CDATA[ODIWORKREP_DATA.$DBUSER]]></Field>
 	<Field name="ExtVersion" type="java.lang.String">null</Field>
 	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="IdxPrfTab" type="java.lang.String"><![CDATA[IX$_]]></Field>
 	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
 	<Field name="IntPrfTab" type="java.lang.String"><![CDATA[I$_]]></Field>
-	<Field name="IConnect" type="com.sunopsis.sql.DbInt"><![CDATA[2998]]></Field>
-	<Field name="IPschema" type="com.sunopsis.sql.DbInt"><![CDATA[1998]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="IConnect" type="com.sunopsis.sql.DbInt"><![CDATA[3998]]></Field>
+	<Field name="IPschema" type="com.sunopsis.sql.DbInt"><![CDATA[2998]]></Field>
 	<Field name="JrnPrfTab" type="java.lang.String"><![CDATA[J$]]></Field>
 	<Field name="JrnPrfTrg" type="java.lang.String"><![CDATA[T$]]></Field>
 	<Field name="JrnPrfVie" type="java.lang.String"><![CDATA[JV$]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LocObjPattern" type="java.lang.String"><![CDATA[%SCHEMA.%OBJECT]]></Field>
+	<Field name="LocSeqPattern" type="java.lang.String">null</Field>
+	<Field name="PartPattern" type="java.lang.String">null</Field>
 	<Field name="RemObjPattern" type="java.lang.String"><![CDATA[%SCHEMA.%OBJECT@%DSERVER]]></Field>
+	<Field name="RemSeqPattern" type="java.lang.String">null</Field>
 	<Field name="SchemaName" type="java.lang.String"><![CDATA[$DBUSER]]></Field>
+	<Field name="SubPartPattern" type="java.lang.String">null</Field>
 	<Field name="WcatalogName" type="java.lang.String">null</Field>
 	<Field name="WschemaName" type="java.lang.String"><![CDATA[$DBUSER]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpMImportRep">
+		<Field name="RepShortId" type="com.sunopsis.sql.DbInt"><![CDATA[999]]></Field>
+	<Field name="RepTimestamp" type="java.lang.String"><![CDATA[1034693943302]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpMImportRep">
+		<Field name="RepShortId" type="com.sunopsis.sql.DbInt"><![CDATA[998]]></Field>
+	<Field name="RepTimestamp" type="java.lang.String"><![CDATA[1371290449516]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.DwgExportSummary">
 		<Field name="ExpTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
@@ -84,6 +111,8 @@
 	<Field name="UeUsedNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="VarPlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="OdiVersion" type="java.lang.String"><![CDATA[11.1.1.6.4 - 01/02/2013]]></Field>
 	<Field name="OriginRepositoryID" type="com.sunopsis.sql.DbInt"><![CDATA[998]]></Field>
+	<Field name="RepositoryVersion" type="java.lang.String"><![CDATA[04.03.04.02]]></Field>
 </Object>
 </SunopsisExport>
