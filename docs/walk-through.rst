@@ -204,7 +204,7 @@ Save the file. Then tell OdiScm to use this file for its configuration file::
 
 	set ODI_SCM_INI=C:\OdiScmWalkThrough\OdiScmExportStandardOdiDemo.ini
 
-Export the standard demo repository to a new directory using the following command. Ensure you include the "/b" switch or the command prompt window will close! Also, ensure you specify either 10G or 11G:
+Export the standard demo repository to a new directory using the following command. Ensure you include the "/b" switch or the command prompt window will close! Also, ensure you specify either 10G or 11G::
 
 	call "%ODI_SCM_HOME%\Configuration\Demo\OdiScmExportOracleDIDemo.bat" /b C:\OdiScmWalkThrough\StandardDemoRepoExport <10G | 11G>
 
