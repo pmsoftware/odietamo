@@ -8,6 +8,13 @@ rem Enable variables to be expanded as, not before, commands are executed.
 rem
 setlocal enabledelayedexpansion
 
+if /i "%1" == "/b" (
+	set IsBatchExit=/b
+	shift
+) else (
+	set IsBatchExit=
+)
+
 if "%1" == "" goto ParamCodeMissing
 if "%ODI_HOME%" == "" goto OdiHomeMissing
 goto ParamOk
@@ -178,7 +185,7 @@ for /f %%A in (%OBJLISTFILE%) do (
 	)
 	
 	set CONTAINEROBJTYPE=FALSE
-	for %%G in (SnpConnect SnpLschema SnpModFolder SnpModel SnpSubModel SnpProject SnpFolder) do (
+	for %%G in (SnpTechno SnpConnect SnpLschema SnpModFolder SnpModel SnpSubModel SnpProject SnpFolder) do (
 		if "!IMPORTFILEEXT2!"=="" (
 			if !IMPORTFILEEXT!==%%G set CONTAINEROBJTYPE=TRUE
 		) else (
@@ -205,17 +212,16 @@ for /f %%A in (%OBJLISTFILE%) do (
 		rem
 		rem Abort the script immediately.
 		rem
-		exit /b 1
+		exit %IsBatchExit% 1
 	)
 )
 
-echo %IM% successfully completed import of Work Repository objects
 echo %IM% successfully completed import process
-exit /b 0
+exit %IsBatchExit% 0
 
 :ExitFail
 echo %EM% import process failed
-exit /b 1
+exit %IsBatchExit% 1
 
 rem *************************************************************
 rem **                    S U B R O U T I N E S                **
@@ -263,20 +269,48 @@ exit /b 1
 rem *************************************************************
 :ImportContainerObject
 rem *************************************************************
+rem echo on
 echo %IM% importing container type object from file ^<%1^>
 echo %IM% date ^<%DATE%^> time ^<%TIME%^>
+
+set FILEPATHNAME=%1
+
+for %%g in ("%FILEPATHNAME%") do (
+	set FILENAME=%%~nxg
+)
+
+set CLASSNAME=%FILENAME:*.=%
+set RAND=%RANDOM%
+
+setlocal enabledelayedexpansion
+
+rem
+rem Work around (yet another) bug in ODI (as of 11.1.1.6.4) where an SnpProject can't be imported
+rem unless it has the file name prefix "PROJ_".
+rem
+if "%CLASSNAME%" == "SnpProject%" (
+	set IMPORTSOURCEFILE=%TEMPDIR%\PROJ_%RAND%_%FILENAME%
+	echo %IM% creating SnpProject object file copy ^<!IMPORTSOURCEFILE!^>
+	copy "%FILEPATHNAME%" "!IMPORTSOURCEFILE!" >NUL 2>&1
+	if ERRORLEVEL 1 (
+		echo %EM% creating renamed copy ^<!IMPORTSOURCEFILE!^> of SnpProject object file ^<%FILEPATHNAME%^>
+	)
+) else (
+	set IMPORTSOURCEFILE=%FILEPATHNAME%
+)
+
 rem cd /d %ODI_BIN_DIR%
 rem
 rem We try update first so that if there's nothing to update the operation is fairly quick.
 rem
 echo %IM% trying SYNONYNM_UPDATE import mode
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%STARTCMDFILE%" OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_UPDATE
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%STARTCMDFILE%" OdiImportObject -FILE_NAME=%IMPORTSOURCEFILE% -IMPORT_MODE=SYNONYM_UPDATE
 if ERRORLEVEL 1 goto ICOFail
 rem
 rem The insert should do nothing and return exit status of 0 if the object already exists.
 rem
 echo %IM% trying SYNONYM_INSERT import mode
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%STARTCMDFILE%" OdiImportObject -FILE_NAME=%1 -IMPORT_MODE=SYNONYM_INSERT
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%STARTCMDFILE%" OdiImportObject -FILE_NAME=%IMPORTSOURCEFILE% -IMPORT_MODE=SYNONYM_INSERT
 if ERRORLEVEL 1 goto ICOFail
 goto :eof
 :ICOFail
