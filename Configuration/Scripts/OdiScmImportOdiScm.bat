@@ -150,6 +150,7 @@ type %STDERRFILE%
 goto ExitFail
 
 :CreateInfrastructureOk
+
 echo %IM% completed creation of ODI-SCM infrastructure repository objects
 
 rem
@@ -233,7 +234,7 @@ goto ExitFail
 :ConfigureSCMActionsChkStdErr
 rem
 rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.
-rem 
+rem
 echo %IM% Batch file OdiScmJisqlRepo.bat returned zero ERRORLEVEL
 echo fc %EMPTYFILE% %STDERRFILE%
 fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
@@ -282,22 +283,27 @@ rem Modify the contents of the SnpConnect files.
 rem
 for /f %%g in ('dir /s /b "%TEMPOBJSDIR%\*.SnpConnect"') do (
 	echo %IM% preparing data server file ^<%%g^>
-	cat "%%g" | sed s/"<OdiScmJavaDriverClass>"/"%ODI_SECU_DRIVER%"/g > %%g
+	cat "%%g" | sed s/"<OdiScmJavaDriverClass>"/"%ODI_SECU_DRIVER%"/g > %%g.1
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
-	cat "%%g" | sed s/"<OdiScmPassWord>"/"%ODI_SECU_ENCODED_PASS%"/g > %%g
+	cat "%%g.1" | sed s/"<OdiScmPassWord>"/"%ODI_SECU_ENCODED_PASS%"/g > %%g.2
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
-	cat "%%g" | sed s/"<OdiScmUserName>"/"%ODI_SECU_USER%"/g > %%g
+	cat "%%g.2" | sed s/"<OdiScmUserName>"/"%ODI_SECU_USER%"/g > %%g.3
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
-	cat "%%g" | sed s/"<OdiScmUrl>"/"%ODI_SECU_URL%"/g > %%g
+	cat "%%g.3" | sed s/"<OdiScmUrl>"/"%ODI_SECU_URL%"/g > %%g.4
+	if ERRORLEVEL 1 (
+		echo %EM% preparing OdiScm repository components for import
+		goto ExitFail
+	)
+	copy "%%g.4" "%%g" >NUL 2>NUL
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
