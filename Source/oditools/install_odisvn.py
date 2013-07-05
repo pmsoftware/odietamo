@@ -52,33 +52,25 @@ import zipfile  #check jython support?
 
 #### simplest logging possible
 import logging
-
-from install_lib import (depends_get_file,
-                         depends_mkroottree,
-                         depends_prepare_root,
-                         depends_install_odisvn,
-                         install_odi,
+from install_lib import (common_download_file,
+                         tools_mkroottree,
+                         tools_prepare_root,
+                         install_odisvnzip,
+                         install_unixutils,
                          prepare_a_repo,
                          depends_checkdeps)
-
-logging.basicConfig(level=logging.DEBUG)
-lgr = logging.getLogger("ODISVN-installer")
-
-### simple ini to dict
+## simple ini to dict
 import conf
-
 
 ### controlling functions, calling lib. #######################################
  
-def main():
+def main(confd):
     """
     
     """
-    opts, args = parse_args()
-    confd = conf.get_config(opts.conf)
-    depends_prepare_root(confd)
 
-    depends_checkdeps()
+    tools_prepare_root(confd)
+    depends_checkdeps(confd)
     
 #    install_odi(confd)
 #    install_odisvn(confd)
@@ -98,5 +90,11 @@ def parse_args():
 
 
 if __name__ == '__main__':
-    main()
+    fmt = "** %(message)s"
+    logging.basicConfig(level=logging.DEBUG, format=fmt)
+    lgr = logging.getLogger("ODISVN-installer")
+    opts, args = parse_args()
+    confd = conf.get_config(opts.conf)
+    lgr.info("starting main")
+    main(confd)
                     
