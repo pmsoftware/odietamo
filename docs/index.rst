@@ -22,6 +22,9 @@ Contents
    walk-through
    
 
+Please see the :doc:`demo installer docs <demo-installer>` 
+
+
 Internal Notes
 --------------
 
