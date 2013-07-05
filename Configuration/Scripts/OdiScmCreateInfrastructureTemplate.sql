@@ -9,6 +9,17 @@ DECLARE
 						  || ', code_branch_last_import_rev    VARCHAR(1000)'
 --------------------------|| ', import_in_progress_ind         CHAR(1) NOT NULL'
 						  || ')';
+	l_crt_vcs_ddl			VARCHAR(1000) := 'CREATE TABLE odiscm_scm_actions'
+						  || '('
+						  || '  odi_user_name                  VARCHAR2(35) PRIMARY KEY'
+						  || ', system_type_name               VARCHAR2(50)'
+						  || ', add_file_command_text          VARCHAR2(200)'
+						  || ', basic_command_text             VARCHAR2(200)'
+						  || ', chk_file_in_src_cntrl_cmd_text VARCHAR2(200)'
+						  || ', check_out_command_text         VARCHAR2(200)'
+						  || ', requires_check_out_ind         VARCHAR2(200)'
+						  || ', wc_config_delete_file_cmd_text VARCHAR2(200)'
+						  || ')';
 	l_crt_scen_ddl			VARCHAR(1000) := 'CREATE TABLE odiscm_genscen_sources'
 						  || '('
 						  || '  source_object_id               INTEGER NOT NULL'
@@ -52,7 +63,25 @@ BEGIN
 				raise_application_error(-20000, 'Cannot create or analyse table ODISCM_CONTROLS');
 		END;
 	END IF;
-
+	
+	SELECT COUNT(*)
+	  INTO l_count
+	  FROM user_tables
+	 WHERE table_name = 'ODISCM_SCM_ACTIONS'
+	;
+	
+	IF l_count = 0
+	THEN
+		BEGIN
+			EXECUTE IMMEDIATE l_crt_vcs_ddl;
+			EXECUTE IMMEDIATE 'ANALYZE TABLE odiscm_scm_actions ESTIMATE STATISTICS';
+		EXCEPTION
+			WHEN OTHERS
+			THEN
+				raise_application_error(-20000, 'Cannot create or analyse table ODISCM_SCM_ACTIONS');
+		END;
+	END IF;
+	
 	SELECT COUNT(*)
 	  INTO l_count
 	  FROM user_tables

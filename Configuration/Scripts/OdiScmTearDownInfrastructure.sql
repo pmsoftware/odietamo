@@ -69,6 +69,23 @@ BEGIN
 		END;
 	END IF;
 	
+	SELECT COUNT(*)
+	  INTO l_count
+	  FROM user_tables
+	 WHERE table_name = 'ODISCM_SCM_ACTIONS'
+	;
+	
+	IF l_count = 0
+	THEN
+		BEGIN
+			EXECUTE IMMEDIATE 'DROP TABLE odiscm_scm_actions CASCADE CONSTRAINTS';
+		EXCEPTION
+			WHEN OTHERS
+			THEN
+				raise_application_error(-20000, 'Cannot drop table ODISCM_SCM_ACTIONS');
+		END;
+	END IF;
+	
 	FOR c_repo_dbl IN (
 	                  SELECT db_link
 	                    FROM user_db_links
@@ -81,6 +98,6 @@ BEGIN
 			WHEN OTHERS
 				THEN raise_application_error(-20000, 'Cannot drop database link ' || c_repo_dbl.db_link);
 		END;
-    END LOOP;
+	END LOOP;
 END;
 /

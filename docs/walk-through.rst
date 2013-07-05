@@ -108,17 +108,13 @@ Unpack the archive to an empty directory::
 
 	C:\jisql
 
-So, at the time of writing we have the direcotry structure::
+So, at the time of writing we have the directory structure::
 
 	C:\jisql
 	C:\jisql\jisql-2.0.11
 	C:\jisql\jisql-2.0.11\<jisql sub directories>
 
-There is no need to add the command directory::
-
-	C:\jisql\jisql-2.0.11		(or the eqivalent path for your Jisql version)
-
-to the PATH environment variable.
+There is NO need to add the command directory to the command PATH.
 
 Install Java
 ------------
@@ -167,13 +163,13 @@ If an error message such as the following is observed::
 	The ODI_JAVA_HOME environment variable is not defined correctly.
 	Please set this variable in odiparams.bat.
 
-The set either the ODI_JAVA_HOME or JAVA_HOME environment variable in the current prompt window session to the root (home) directory of the Java installation that you will use for your verison of ODI::
+Then set JAVA_HOME environment variable in the current prompt window session to the root (home) directory of the Java installation that you will use for your verison of ODI::
 
-	set ODI_JAVA_HOME=<path/to/your/JVM/home/directory>
+	set JAVA_HOME=<path/to/your/JVM/home/directory>
 
 E.g.::
 
-	set ODI_JAVA_HOME=C:\Program Files\Java\jdk1.6.0_29
+	set JAVA_HOME=C:\Program Files\Java\jdk1.6.0_29
 
 Export the standard ODI demo repository
 ---------------------------------------
@@ -236,8 +232,7 @@ Connect to the database as a user that can create new users (e.g. SYSTEM) using 
 Then::
 
 	CREATE USER odirepofordemo IDENTIFIED BY odirepofordemo DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp;
-	GRANT CONNECT, RESOURCE TO odirepofordemo;
-	GRANT CREATE DATABASE LINK TO odirepofordemo;
+	GRANT CONNECT, RESOURCE, CREATE DATABASE LINK TO odirepofordemo;
 
 Create a new master repository
 ------------------------------
@@ -270,7 +265,7 @@ If you're using ODI 11g then start the wizard from the ODI Studio's File menu. I
 
 	File -> New... -> Master Repository Creation Wizard
 
-Note that the ODI 11g Master Repository creation wizard requires a login, to the database, with DBA privileges.
+Note that the ODI 11g Master Repository creation wizard requires a login, to the database, with DBA privileges. 
 
 .. figure:: imgs/4_2_5.png
 
@@ -310,7 +305,7 @@ Create a new work repository from the Repositories tree view by right-clicking o
 
 .. figure:: imgs/4_3_0.png
 
-Complete the "Definition" tab for the new work repository connection. Note that we're creating a Work Repository in the same schema/user as the Master Repository::
+Complete the "Definition" tab for the new work repository connection. Note that we're creating a Work Repository in the same schema/user as the Master Repository:
 
 .. figure:: imgs/4_3_1.png
 
@@ -346,7 +341,7 @@ We now create an OdiScm configuration file for the new Master and Work repositor
 
 Copy the file "OdiScmImportStandardOdiDemoTemplate.ini" to the walk-through directory::
 
-	copy "%ODI_SCM_HOME%\Configuration\Demo\OdiScmExportStandardOdiDemoTemplate.ini" C:\OdiScmWalkThrough\OdiScmExportStandardOdiDemo.ini
+	copy "%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportStandardOdiDemoTemplate.ini" C:\OdiScmWalkThrough\OdiScmImportStandardOdiDemo.ini
 
 Open the new file in a text editor and edit the following entries in the [OracleDI] section::
 
@@ -423,205 +418,60 @@ Run the following command to import the ODI code components of ODI-SCM  into the
 	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportOdiScm.bat" NoExportPrime
 
 .. figure:: imgs/5_3_0.png
- 
-Configure the ODI-SCM export mechanism
---------------------------------------
 
-
-Master and Work repository connections
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Connect to the master repository with Topology Manager, and locate the following Data Servers in Physical Architecture -> Technologies -> Oracle::
-
-   ODIMASTERREP_DATA
-   ODIWORKREP_DATA
-
-
-Edit the ODIMASTERREP_DATA data store to set the following fields::
-
-Definition tab::
-
-Instance – set to the master repository Oracle SID. E.g.::
-
-	XE
-
-User – set to the master repository database user name. E.g.::
-
-	odirepofordemo
-
-Password set to the master repository database user password. E.g.::
-
-	odirepofordemo
-
-.. figure:: imgs/5_41_0.png
-
-JDBC tab::
-
-
-
-JDBC Driver – set to the Java class name of the JDBC driver . E.g.::
-
-	oracle.jdbc.driver.OracleDriver
-
-JDBC URL – set to the URL to connect to the database. E.g.::
-
-	jdbc:oracle:thin:@localhost:1521:XE
-
-Use the Test function to check the entered details::
-
-
-.. figure:: imgs/5_41_1.png
- 
-Under this Data Server edit the physical schema ``ODIMASTERREP_DATA.$DBUSER``::
-
-On the definition tab set the field::
-
-
-Schema (Schema)  – to the master repository user name. E.g.::
-
-	Odirepofordemo
-
-Schema (Work Schema) – to the master repository user name. E.g.::
-
-	Odirepofordemo
-
-.. figure:: imgs/5_41_2.png
-
-
-Edit the ODIWORKREP_DATA data store to set the following fields::
-
-Definition tab::
-
-Instance – set to the master repository Oracle SID. E.g.::
-
-    XE
-
-User – set to the work repository database user name. E.g.::
-
-	odirepofordemo
-
-Password set to the work repository database user password. E.g.::
-
-	odirepofordemo
-
-.. figure:: imgs/5_41_3.png
-
-JDBC tab::
-
-JDBC Driver – set to the Java class name of the JDBC driver . E.g.::
-
-	oracle.jdbc.driver.OracleDriver
-
-JDBC URL – set to the URL to connect to the database. E.g.::
-
-    jdbc:oracle:thin:@localhost:1521:XE
-
-.. figure:: imgs/5_41_4.png
-
-   Use the Test function to check the entered details:
-
-
-Under this Data Server edit the physical schema ``ODIMASTERREP_DATA.$DBUSER``
-On the definition tab set the field:
-
-.. figure:: imgs/5_41_5.png
-
-Schema (Schema)  – to the work repository user name. E.g.::
-
-    Odirepofordemo
-
-Schema (Work Schema) – to the master repository user name. E.g.::
-
-    Odirepofordemo
-
-
-.. figure:: imgs/5_41_6.png
-
+Configure the ODI-SCM repository components
+-------------------------------------------
 
 Working Copy File System
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-Within Topology Manager locate the following Data Server in Physical Architecture -> Technologies -> File::
+Connect to the master repository with Topology Manager, and locate the following Data Servers in Physical Architecture -> Technologies -> File::
 
     ODISCMWC_DATA
 
-Under this data server edit the physical schema ODISCMWC_DATA.WorkingCopyDir::
-
-Overwrite “WorkingCopyDir” with the path to the SCM system working copy. E.g.::
+Under this data server edit the physical schema ODISCMWC_DATA.<OdiScmWorkingCopyDir>. Overwrite <OdiScmWorkingCopyDir> with the path to the SCM system working copy. E.g.::
 
     C:/DemoSvnWc/DemoSvnRepo
 
-Overwrite “WorkingDir” with the path a file system directory where temporary files can be created/deleted by the ODI-SCM mechanism. E.g::
+Overwrite <OdiScmTempDir> with the path a file system directory where temporary files can be created/deleted by the ODI-SCM mechanism. E.g::
 
     C:/Temp
 
+The ODI 10g UI is shown in the following figures.
 
 .. figure:: imgs/5_42_0.png
  
 Logical to Physical Schema Mappings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. XXX - convert to tables
+Finally, within Topology Manager, ensure that the GLOBAL context schema mappings from the Contexts tab:
 
-Finally, within Topology Manager, set up the GLOBAL context schema mappings from the Contexts tab:
+==================     =================================================
+Logical Schema         Physical Schema
+==================     =================================================
+ODIMASTERREP_DATA      ODIMASTERREP_DATA.<your master repo schema name>
+ODIWORKREP_DATA        ODIWORKREP_DATA.<your work repo schema name>
+ODISCMWC_DATA          ODISCMWC_DATA.<your working copy directory>
+==================     =================================================
 
-==================    =================================================
-Logical Schema        Physical Schema
-==================    =================================================
-ODIMASTERREP_DATA	  ODIMASTERREP_DATA.<your master repo schema name>
-==================    =================================================
+e.g.:
 
+==================     =================================================
+Logical Schema         Physical Schema
+==================     =================================================
+ODIMASTERREP_DATA      ODIMASTERREP_DATA.odirepofordemo
+ODIWORKREP_DATA        ODIWORKREP_DATA.odirepofordemo
+ODISCMWC_DATA          ODISCMWC_DATA.C:/DemoSvnWc/DemoSvnRepo
+==================     =================================================
 
-
-==================    =================================================
-Logical Schema        Physical Schema
-==================    =================================================
-ODIWORKREP_DATA	      ODIWORKREP_DATA.<your work repo schema name>
-==================    =================================================
-
-
-==================    =================================================
-Logical Schema        Physical Schema
-==================    =================================================
-ODISCMWC_DATA	      ODISCMWC_DATA.<your working copy directory>
-==================    =================================================
-
-e.g.::
-
-   ODISCMWC_DATA.C:/DemoSvnWc/DemoSvnRepo
+The ODI 10g UI is shown in the following figure.
 
 .. figure:: imgs/5_43_0.png
 
-Version Control System
-----------------------
-
-Within the Designer UI, navigate to the ODI-SCM project, navigate to Variables. Change the following variables’ defaut values::
-
-.. figure:: imgs/5_44_0.png
-
-
-    VCSRequiresCheckOut	- from “Yes” to “No”.
-
-.. figure:: imgs/5_44_1.png
- 
-    VCSAddFileCommand – from “tf.exe add %s /lock:none” to “svn add %s --force”.
-
-.. figure:: imgs/5_44_2.png
-
-    VCSBasicCommand – from “tf.exe /?” to “svn help”.
-
-.. figure:: imgs/5_44_3.png
-
-    VCSCheckFileInSourceControlCommand – from “tf.exe dir %s” to “svn info %s”.
-
- 
 Prime export mechanism
 ----------------------
 
 Run the following command to prime the export ‘control’ metadata::
-
 
     OdiScmJisqlRepo.bat %ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql
  
@@ -757,8 +607,8 @@ Build a second ODI repository from SVN
 
 Create a second new Oracle user using the same process as the first. E.g. with user name “odirepo2fordemo”::
 
-    create user odirepo2fordemo identified by odirepo2fordemo default tablespace users temporary tablespace temp;
-    grant connect, resource to odirepo2fordemo;
+	CREATE USER odirepofordemo2 IDENTIFIED BY odirepofordemo2 DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp;
+	GRANT CONNECT, RESOURCE, CREATE DATABASE LINK TO odirepofordemo2;
 
 Create a second master repository in this schema with a different internal ID. E.g. 801.
 Create a second work repository, with name WORKREP, in the new schema (again, the same schema as the master repository) with a different internal ID to the first. E.g. 801.
