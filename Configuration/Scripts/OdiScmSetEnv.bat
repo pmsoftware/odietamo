@@ -239,6 +239,8 @@ echo %IM% processing configuration section ^<SCMSystem^>
 echo SCMSystemTypeName ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME>%TEMPFILE2%
 echo SCMSystemURL ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL>>%TEMPFILE2%
 echo SCMBranchURL ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL>>%TEMPFILE2%
+echo WorkingCopyRoot ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT>>%TEMPFILE2%
+echo WorkingRoot ODI_SCM_SCM_SCM_SYSTEM_WORKING_ROOT>>%TEMPFILE2%
 
 for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
 	call :SetConfig SCMSystem %%g %%h

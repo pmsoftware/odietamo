@@ -3,7 +3,7 @@
 Walk Through Overview
 =====================
 
-This walk through shows the following operations::
+This walk through shows the following operations:
 
 * Installing the OdiScm solution.
 * Setting up additional tools required for the ODI-SCM solution.
@@ -50,9 +50,9 @@ Oracle Data Integrator
 
 This walk through has been tested with ODI 10g and 11g. 
 
-The specific ODI 10g version is ``ODI 10.1.3.5.6_02``. This version is known to support the API functions, used in this solution, with no bugs adversely affecting it. The base installer (``10.1.3.5.0``) and the patches (``10.1.3.5.6``, ``10.1.3.5.6_01`` and ``10.1.3.5.6_02``) can be downloaded from the Oracle support website.
+The specific ODI 10g version is ``ODI 10.1.3.5.6_02``. This version is known to support the API functions, used in the OdiScm solution, with no bugs adversely affecting it. The base installer (``10.1.3.5.0``) and the patches (``10.1.3.5.6``, ``10.1.3.5.6_01`` and ``10.1.3.5.6_02``) can be downloaded from the Oracle support website.
 
-The specific ODI 11g version is ``ODI 11.1.1.6.0``.
+The specific ODI 11g version is ``ODI 11.1.1.6.4``. This version is known to support the API functions, used in the OdiScm solution, with no bugs adversely affecting it. The base installer (``11.1.1.6.0``) and the patch (``11.1.1.6.4``) can be downloaded from the Oracle support website.
 
 We assume you already know your way around the UIs, directory structure and scripts!
 
@@ -114,7 +114,7 @@ So, at the time of writing we have the directory structure::
 	C:\jisql\jisql-2.0.11
 	C:\jisql\jisql-2.0.11\<jisql sub directories>
 
-There is NO need to add the command directory to the command PATH.
+There is **no** need to add the command directory to the command PATH.
 
 Install Java
 ------------
@@ -407,8 +407,8 @@ The standard ODI demo repository will then be imported into the new repository:
 
 Connect to the Oracle-based Work Repository, if you're not already, otherwise refresh the Designer views (Projects and Models). Have a look. It contains the standard ODI demo projects and models!
 
-Install and configure the ODI-SCM repository components
-=======================================================
+Install the ODI-SCM repository components
+=========================================
 
 Import the ODI-SCM repository components
 ----------------------------------------
@@ -473,13 +473,14 @@ Prime export mechanism
 
 Run the following command to prime the export ‘control’ metadata::
 
-    OdiScmJisqlRepo.bat %ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql
+    call "%ODI_SCM_HOME%\Configuration\OdiScmJisqlRepo.bat" %ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql
  
+This command sets a timestamp value in the OdiScm metadata in the ODI repository. This metadata is used by the OdiScm 
+
 Import the standard ODI demo 
 ============================
 
 .. figure:: imgs/6_0_0.png
-
 
 “CD” to the “Demo” directory of the OdiScm directory tree. E.g.::
 

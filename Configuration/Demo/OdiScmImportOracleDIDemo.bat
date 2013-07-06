@@ -70,13 +70,13 @@ if not EXIST "%1" (
 REM
 REM Set the environment from the configuration INI file.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat" /b
-set EXITSTATUS=%ERRORLEVEL%
-call :SetMsgPrefixes
-if not "%EXITSTATUS%" == "0" (
-	echo %EM% setting environment from configuration INI file
-	goto ExitFail
-)
+REM call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat" /b
+REM set EXITSTATUS=%ERRORLEVEL%
+REM call :SetMsgPrefixes
+REM if not "%EXITSTATUS%" == "0" (
+	REM echo %EM% setting environment from configuration INI file
+	REM goto ExitFail
+REM )
 
 REM if "%ODI_HOME%" == "" (
 	REM echo %EM% environment variable ODI_HOME is not set

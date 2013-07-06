@@ -303,7 +303,17 @@ for /f %%g in ('dir /s /b "%TEMPOBJSDIR%\*.SnpConnect"') do (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
-	copy "%%g.4" "%%g" >NUL 2>NUL
+	cat "%%g.4" | sed s/"<OdiScmWorkingCopyDir>"/"%ODI_SCM_WC_ROOT%"/g > %%g.5
+	if ERRORLEVEL 1 (
+		echo %EM% preparing OdiScm repository components for import
+		goto ExitFail
+	)
+	cat "%%g.5" | sed s/"<OdiScmTempDir>"/"%ODI_SCM_SCM_SCM_SYSTEM_WORKING_ROOT%"/g > %%g.6
+	if ERRORLEVEL 1 (
+		echo %EM% preparing OdiScm repository components for import
+		goto ExitFail
+	)
+	copy "%%g.6" "%%g" >NUL 2>NUL
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
