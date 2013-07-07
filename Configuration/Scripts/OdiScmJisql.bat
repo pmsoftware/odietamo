@@ -32,23 +32,29 @@ echo %IM% StdErrFile is ^<%7^>
 if not "%6"=="" goto StdOutPassed
 
 echo %IM% No StdOut file specified
-set STDOUTFILE=CON
+set STDOUTFILE=
+set STDOUTREDIR=
 goto StdErr
 
 :StdOutPassed
 echo %IM% StdOut file specified is ^<%6^>
 set STDOUTFILE=%6
+set STDOUTREDIR=1^>%STDOUTFILE%
+set STDOUTREDIRDISP=1^^^>%STDOUTFILE%
 
 :StdErr
 if not "%7"=="" goto StdErrPassed
 
 echo %IM% No StdErr file specified
-set STDERRFILE=CON
+set STDERRFILE=
+set STDERRREDIR=
 goto RunIt
 
 :StdErrPassed
 echo %IM% StdErr file specified is ^<%7^>
 set STDERRFILE=%7
+set STDERRREDIR=2^>%STDERRFILE%
+set STDERRREDIRDISP=2^^^>%STDERRFILE%
 
 :RunIt
 if "%ODI_SCM_JISQL_JAVA_HOME%" == "" goto NoOdiScmJisqlJavaHomeError
@@ -114,9 +120,10 @@ for /f %%f in ('dir /b %JISQL_LIB%') do (
 )
 
 REM echo %IM% Jisql class path ^<%JISQL_CLASS_PATH%^>
-echo %IM% executing command ^<"%ODI_SCM_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 ^>%STDOUTFILE% 2^>%STDERRFILE%^>
+echo %IM% executing command ^<"%ODI_SCM_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 %STDOUTREDIRDISP% %STDERRREDIRDISP%^>
 
-"%ODI_SCM_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 >%STDOUTFILE% 2>%STDERRFILE%
+
+"%ODI_SCM_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 %STDOUTREDIR% %STDERRREDIR%
 if ERRORLEVEL 1 goto ExitFail
 exit %ISBATCHEXIT% 0
 
