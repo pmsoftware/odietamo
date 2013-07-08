@@ -1,4 +1,4 @@
-UPDATE odiscm_scm_actions
+UPDATE odiscm_configurations
    SET system_type_name               = '<SCMSystemTypeName>'
      , add_file_command_text          = '<SCMAddFileCommand>'
      , basic_command_text             = '<SCMBasicCommand>'
@@ -6,11 +6,12 @@ UPDATE odiscm_scm_actions
      , check_out_command_text         = '<SCMCheckOutCommand>'
      , requires_check_out_ind         = '<SCMRequiresCheckOut>'
      , wc_config_delete_file_cmd_text = '<SCMWorkingCopyDeleteFileCommand>'
+     , exp_ref_phy_architect_only_ind = '<ExportRefPhysArchOnly>'
  WHERE odi_user_name = '<OdiScmOdiUserName>'
 /
 
 INSERT
-  INTO odiscm_scm_actions
+  INTO odiscm_configurations
        (
        odi_user_name
      , system_type_name
@@ -20,6 +21,7 @@ INSERT
      , check_out_command_text
      , requires_check_out_ind
      , wc_config_delete_file_cmd_text
+     , exp_ref_phy_architect_only_ind
        )
 SELECT '<OdiScmOdiUserName>'
      , '<SCMSystemTypeName>'
@@ -29,12 +31,13 @@ SELECT '<OdiScmOdiUserName>'
      , '<SCMCheckOutCommand>'
      , '<SCMRequiresCheckOut>'
      , '<SCMWorkingCopyDeleteFileCommand>'
+     , '<ExportRefPhysArchOnly>'
   FROM dual
  WHERE '<OdiScmOdiUserName>'
    NOT
     IN ( 
        SELECT odi_user_name
-         FROM odiscm_scm_actions
+         FROM odiscm_configurations
        )
 /
 

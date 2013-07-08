@@ -1,6 +1,6 @@
 @echo off
-
 call :SetMsgPrefixes
+echo %IM% starts
 
 rem
 rem Check basic environment requirements.
@@ -104,7 +104,7 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-echo %IM% creating existing demo repository database users
+echo %IM% creating demo repository database users
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" %ODI_SCM_HOME%\Configuration\Demo\OdiScmCreateDemoRepoUsers.sql >NUL 2>&1
 if ERRORLEVEL 1 (
 	goto ExitFail
@@ -113,13 +113,13 @@ if ERRORLEVEL 1 (
 set ODI_SECU_USER=%PODI_SECU_USER%
 set ODI_SECU_PASS=%PODI_SECU_PASS%
 
-set ODI_SCM_INI=%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportStandardOdiDemoRepo1.ini
-echo %IM% setting OdiScm environment from configuration INI file ^<%ODI_SCM_INI%^>
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat" /b >NUL
-if ERRORLEVEL 1 (
-	goto ExitFail
-)
-call :SetMsgPrefixes
+REM set ODI_SCM_INI=%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportStandardOdiDemoRepo1.ini
+REM echo %IM% setting OdiScm environment from configuration INI file ^<%ODI_SCM_INI%^>
+REM call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat" /b >NUL
+REM if ERRORLEVEL 1 (
+	REM goto ExitFail
+REM )
+REM call :SetMsgPrefixes
 
 echo %IM% importing demo repository 1
 %ORACLE_HOME%\bin\imp.exe %ODI_SECU_USER%/%ODI_SECU_PASS%@%ODI_SECU_URL_HOST%:%ODI_SECU_URL_PORT%/%ODI_SECU_URL_SID% file=%ODI_SCM_HOME%\Configuration\Demo\%ODI_SECU_USER%_repid_100_empty_master_work.dmp full=y >NUL 2>&1
@@ -134,7 +134,7 @@ if ERRORLEVEL 1 (
 )
 
 echo %IM% importing OdiScm into demo repository 1
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat" %ODI_SCM_HOME%\Source\OdiScm >NUL
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportOdiScm.bat" ExportPrimeLast >NUL
 if ERRORLEVEL 1 (
 	goto ExitFail
 )
@@ -147,27 +147,29 @@ if ERRORLEVEL 1 (
 )
 call :SetMsgPrefixes
 
-echo %IM% importing demo repository 1
+echo %IM% importing demo repository 2
 %ORACLE_HOME%\bin\imp.exe %ODI_SECU_USER%/%ODI_SECU_PASS%@%ODI_SECU_URL_HOST%:%ODI_SECU_URL_PORT%/%ODI_SECU_URL_SID% file=%ODI_SCM_HOME%\Configuration\Demo\%ODI_SECU_USER%_repid_101_empty_master_work.dmp full=y >NUL 2>&1
 if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
 echo %IM% importing standard ODI demo into demo repository 2
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportOracleDIDemo.bat" %ODI_SCM_HOME%\Configuration\Demo\Odi10gStandardDemo
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportOracleDIDemo.bat" %ODI_SCM_HOME%\Configuration\Demo\Odi10gStandardDemo >NUL
 if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-echo %IM% importing OdiScm into demo repository 1
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat" %ODI_SCM_HOME%\Source\OdiScm
+echo %IM% importing OdiScm into demo repository 2
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportOdiScm.bat" ExportPrimeLast >NUL
 if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+echo %IM% demo repository creation completed successfully 
 exit /b 0
 
 :ExitFail
+echo %IM% demo repository creation failed
 exit /b 1
 
 rem *************************************************************

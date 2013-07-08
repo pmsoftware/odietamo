@@ -43,32 +43,17 @@
 	<Field name="ScenVersion" type="java.lang.String"><![CDATA[001]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
-		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2012-06-11 16:11:19.0]]></Field>
+		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2011-08-08 13:08:19.0]]></Field>
 	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="DefV" type="java.lang.String"><![CDATA[tf.exe checkout /lock:none %s]]></Field>
-	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
+	<Field name="DefV" type="java.lang.String">null</Field>
+	<Field name="IndStore" type="java.lang.String"><![CDATA[S]]></Field>
 	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[255998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[41998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
-	<Field name="VarName" type="java.lang.String"><![CDATA[OS.VCSCheckOutCommand]]></Field>
+	<Field name="VarName" type="java.lang.String"><![CDATA[OS.ExportFileName]]></Field>
 	<Field name="VarParam" type="java.lang.String"><![CDATA[1]]></Field>
-	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
-		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
-	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[255998]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
-	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[The operating system command used to check out files from the Version Control System before files are exported to the file system by the repository export or flush procedures.
-
-E.g.	tf.exe checkout <file>
-
-VCSs such as SVN do not require check-out operations in order to update a file in the file system. TFS generally leaves files read-only unless they have first been checked out.]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
 		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2011-08-01 18:56:11.0]]></Field>
@@ -82,19 +67,6 @@ VCSs such as SVN do not require check-out operations in order to update a file i
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.ExportFilePathName]]></Field>
 	<Field name="VarParam" type="java.lang.String"><![CDATA[1]]></Field>
 	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
-		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2011-08-08 13:08:19.0]]></Field>
-	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="DefV" type="java.lang.String">null</Field>
-	<Field name="IndStore" type="java.lang.String"><![CDATA[S]]></Field>
-	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[41998]]></Field>
-	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
-	<Field name="VarName" type="java.lang.String"><![CDATA[OS.ExportFileName]]></Field>
-	<Field name="VarParam" type="java.lang.String"><![CDATA[1]]></Field>
-	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
 		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2012-06-14 22:44:44.0]]></Field>
@@ -121,6 +93,34 @@ VCSs such as SVN do not require check-out operations in order to update a file i
 
 E.g.	tf.exe dir <file>
 	svn info <file>]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
+		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2012-06-11 16:11:19.0]]></Field>
+	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="DefV" type="java.lang.String"><![CDATA[tf.exe checkout /lock:none %s]]></Field>
+	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
+	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[255998]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[41998]]></Field>
+	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
+	<Field name="VarName" type="java.lang.String"><![CDATA[OS.VCSCheckOutCommand]]></Field>
+	<Field name="VarParam" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
+		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[255998]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[The operating system command used to check out files from the Version Control System before files are exported to the file system by the repository export or flush procedures.
+
+E.g.	tf.exe checkout <file>
+
+VCSs such as SVN do not require check-out operations in order to update a file in the file system. TFS generally leaves files read-only unless they have first been checked out.]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenStep">

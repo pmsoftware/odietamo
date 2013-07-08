@@ -223,6 +223,7 @@ REM Generation options.
 REM
 echo %IM% processing configuration section ^<Generate^>
 echo OutputTag ODI_SCM_GENERATE_OUTPUT_TAG>%TEMPFILE2%
+echo ExportRefPhysArchOnly ODI_SCM_GENERATE_EXPORT_REF_PHYS_ARCH_ONLY>>%TEMPFILE2%
 
 for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
 	call :SetConfig Generate %%g %%h
@@ -240,7 +241,7 @@ echo SCMSystemTypeName ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME>%TEMPFILE2%
 echo SCMSystemURL ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL>>%TEMPFILE2%
 echo SCMBranchURL ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL>>%TEMPFILE2%
 echo WorkingCopyRoot ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT>>%TEMPFILE2%
-echo WorkingRoot ODI_SCM_SCM_SCM_SYSTEM_WORKING_ROOT>>%TEMPFILE2%
+echo WorkingRoot ODI_SCM_SCM_SYSTEM_WORKING_ROOT>>%TEMPFILE2%
 
 for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
 	call :SetConfig SCMSystem %%g %%h

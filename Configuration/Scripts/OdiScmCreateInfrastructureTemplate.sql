@@ -5,11 +5,10 @@ DECLARE
 						  || '('
 						  || '  odi_user_name                  VARCHAR2(35) PRIMARY KEY'
 						  || ', import_start_datetime          DATE'
-						  || ', code_branch_name               VARCHAR(1000)'
-						  || ', code_branch_last_import_rev    VARCHAR(1000)'
---------------------------|| ', import_in_progress_ind         CHAR(1) NOT NULL'
+						  || ', code_branch_name               VARCHAR2(1000)'
+						  || ', code_branch_last_import_rev    VARCHAR2(1000)'
 						  || ')';
-	l_crt_vcs_ddl			VARCHAR(1000) := 'CREATE TABLE odiscm_scm_actions'
+	l_crt_vcs_ddl			VARCHAR(1000) := 'CREATE TABLE odiscm_configurations'
 						  || '('
 						  || '  odi_user_name                  VARCHAR2(35) PRIMARY KEY'
 						  || ', system_type_name               VARCHAR2(50)'
@@ -19,6 +18,7 @@ DECLARE
 						  || ', check_out_command_text         VARCHAR2(200)'
 						  || ', requires_check_out_ind         VARCHAR2(200)'
 						  || ', wc_config_delete_file_cmd_text VARCHAR2(200)'
+						  || ', exp_ref_phy_architect_only_ind VARCHAR2(3)'
 						  || ')';
 	l_crt_scen_ddl			VARCHAR(1000) := 'CREATE TABLE odiscm_genscen_sources'
 						  || '('
@@ -67,18 +67,18 @@ BEGIN
 	SELECT COUNT(*)
 	  INTO l_count
 	  FROM user_tables
-	 WHERE table_name = 'ODISCM_SCM_ACTIONS'
+	 WHERE table_name = 'ODISCM_CONFIGURATIONS'
 	;
 	
 	IF l_count = 0
 	THEN
 		BEGIN
 			EXECUTE IMMEDIATE l_crt_vcs_ddl;
-			EXECUTE IMMEDIATE 'ANALYZE TABLE odiscm_scm_actions ESTIMATE STATISTICS';
+			EXECUTE IMMEDIATE 'ANALYZE TABLE odiscm_configurations ESTIMATE STATISTICS';
 		EXCEPTION
 			WHEN OTHERS
 			THEN
-				raise_application_error(-20000, 'Cannot create or analyse table ODISCM_SCM_ACTIONS');
+				raise_application_error(-20000, 'Cannot create or analyse table ODISCM_CONFIGURATIONS');
 		END;
 	END IF;
 	

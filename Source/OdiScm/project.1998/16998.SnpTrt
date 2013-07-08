@@ -52,28 +52,28 @@
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[N]]></Field>
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.SubModelInternalID]]></Field>
-	<Field name="VarParam" type="java.lang.String">null</Field>
-	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="VarParam" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
 		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2012-06-11 11:12:57.0]]></Field>
 	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="DefV" type="java.lang.String"><![CDATA[Yes]]></Field>
-	<Field name="IndStore" type="java.lang.String"><![CDATA[S]]></Field>
-	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[219998]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[218998]]></Field>
+	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
+	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[2415998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[2414998]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.VCSRequiresCheckOut]]></Field>
-	<Field name="VarParam" type="java.lang.String">null</Field>
-	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="VarParam" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
 		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[219998]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[2415998]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[Yes]]></Field>
@@ -84,7 +84,7 @@
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[218998]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[2414998]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[Valid values are: -
@@ -280,309 +280,6 @@ raise(a)]]></Field>
 	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
 	<Field name="DefLschemaName" type="java.lang.String">null</Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
-	<Field name="DefTechIntName" type="java.lang.String"><![CDATA[JYTHON]]></Field>
-	<Field name="ExeChannel" type="java.lang.String"><![CDATA[B]]></Field>
-	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="IndLogMethod" type="java.lang.String">null</Field>
-	<Field name="IndLogNb" type="java.lang.String">null</Field>
-	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[80]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="TaskName1" type="java.lang.String"><![CDATA[Procedure]]></Field>
-	<Field name="TaskName2" type="java.lang.String"><![CDATA[OSUTL_EXPORT_SUB_MODEL]]></Field>
-	<Field name="TaskName3" type="java.lang.String"><![CDATA[SnpSubModel Fake]]></Field>
-	<Field name="TaskType" type="java.lang.String"><![CDATA[S]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[# pbrian mattenm
-# will provide a faked submodel to cope with 10.1.3.4.2 bug until the upgrade to 10.1.3.5.2 has been completed.
-#
-#Variables passed to the scenario:
-# SubModelInternalID
-#
-#Variables passed from the Command on Source:
-# i_mod
-# smod_]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[name
-# smod_type
-# cod_smod
-# i_smod_parent
-
-import os
-
-fake_submodel_xml = '''&lt?xml version="1.0" encoding="ISO-8859-1"?&gt
-&ltSunopsisExport&gt
-&ltObject class="com.sunopsis.dwg.dbobj.SnpSubModel"&gt
-		&ltField name="CodSmod" type="java.lang.Stri]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ng"&gt&lt![CDATA[DEFAULT]]&gt&lt/Field&gt
-	&ltField name="FirstDate" type="java.sql.Timestamp"&gt&lt![CDATA[2001-01-01 00:00:00.0]]&gt&lt/Field&gt
-	&ltField name="FirstUser" type="java.lang.String"&gt&lt![CDATA[SUPERVISOR]]&gt&lt/Field&gt
-	&ltField n]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ame="IndChange" type="java.lang.String"&gt&lt![CDATA[I]]&gt&lt/Field&gt
-	&ltField name="IntVersion" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[null]]&gt&lt/Field&gt
-	&ltField name="IMod" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[%(imod)s]]&gt&lt/Fie]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ld&gt
-	&ltField name="ISmod" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[%(ismod)s]]&gt&lt/Field&gt
-	&ltField name="ISmodParent" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[%(i_smod_parent)s]]&gt&lt/Field&gt
-	&ltField name="LastDate" type="java.sql.Tim]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[estamp"&gt&lt![CDATA[2001-01-01 00:00:00.0]]&gt&lt/Field&gt
-	&ltField name="LastUser" type="java.lang.String"&gt&lt![CDATA[SUPERVISOR]]&gt&lt/Field&gt
-	&ltField name="RevApplyPattern" type="java.lang.String"&gtnull&lt/Field&gt
-	&ltField name="RevPatt]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ernOrder" type="java.lang.String"&gtnull&lt/Field&gt
-	&ltField name="SmodName" type="java.lang.String"&gt&lt![CDATA[%(smod_name)s]]&gt&lt/Field&gt
-	&ltField name="SmodType" type="java.lang.String"&gt&lt![CDATA[%(smod_type)s]]&gt&lt/Field&gt
-	&ltField]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ name="TableNamePattern" type="java.lang.String"&gtnull&lt/Field&gt
-&lt/Object&gt
-&ltObject class="com.sunopsis.dwg.DwgExportSummary"&gt
-		&ltField name="ExpTxtNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="InstObjN]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[b" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="JoinColNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="JoinNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField ]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[name="KeyColNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="KeyNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="LinkDiagNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[gt
-	&ltField name="MorigTxtNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="MtxtNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="OrigTxtNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[]]&gt&lt/Field&gt
-	&ltField name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[1]]&gt&lt/Field&gt
-	&ltField name="PlanAgentNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="StepNb" type="com.sunopsis.sql.]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[11]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="TxtNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="UeOrigNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="UeUsedNb" type="com.su]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[12]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[nopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="VarPlanAgentNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="ScenTxtNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="O]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[13]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[riginRepositoryID" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[751]]&gt&lt/Field&gt
-&lt/Object&gt
-&lt/SunopsisExport&gt'''
-
-fake_submodel_xml = fake_submodel_xml.replace('&lt','<')
-fake_submodel_xml = fake_submodel_xml.replace('&gt','>')
-
-output_dict ]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[14]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[= {
-  'imod': '#i_mod'
-, 'ismod': '#OS.SubModelInternalID'
-, 'smod_name': '#smod_name'
-, 'smod_type': '#smod_type'
-, 'cod_smod': '#cod_smod'
-, 'i_smod_parent': '#i_smod_parent'
-}
-
-output_string = fake_submodel_xml % output_dict
-
-output_filename = '#O]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[15]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[S.SubModelInternalID.SnpSubModel'
-output_filepath = os.path.join('<?=snpRef.getSchemaName("ODISVNWC_DATA", "D") ?>',
-                                               os.path.join('model.#i_mod', output_filename)
-                                        ]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[16]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[      )
-fo = open(output_filepath, 'w')
-fo.write(output_string)
-fo.close()]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[17]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT i_mod
-     , smod_name
-     , smod_type
-     , cod_smod
-     , NVL(TO_CHAR(i_smod_parent), 'null')
-           AS i_smod_parent
-  FROM snp_sub_model
- WHERE i_smod = #OS.SubModelInternalID]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTask">
-		<Field name="ColConnectId" type="java.lang.String">null</Field>
-	<Field name="ColContextCode" type="java.lang.String">null</Field>
-	<Field name="ColIndCommit" type="java.lang.String">null</Field>
-	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
-	<Field name="ColLschemaName" type="java.lang.String"><![CDATA[ODIWORKREP_DATA]]></Field>
-	<Field name="ColPlanComp" type="java.lang.String">null</Field>
-	<Field name="ColTechIntName" type="java.lang.String"><![CDATA[ORACLE]]></Field>
-	<Field name="DefConnectId" type="java.lang.String">null</Field>
-	<Field name="DefContextCode" type="java.lang.String">null</Field>
-	<Field name="DefIndCommit" type="java.lang.String">null</Field>
-	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
-	<Field name="DefLschemaName" type="java.lang.String">null</Field>
-	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechIntName" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
 	<Field name="ExeChannel" type="java.lang.String"><![CDATA[S]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
@@ -592,7 +289,7 @@ fo.close()]]></Field>
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[90]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
 	<Field name="TaskName1" type="java.lang.String"><![CDATA[Procedure]]></Field>
 	<Field name="TaskName2" type="java.lang.String"><![CDATA[OSUTL_EXPORT_SUB_MODEL]]></Field>
 	<Field name="TaskName3" type="java.lang.String"><![CDATA[SnpSubModel]]></Field>
@@ -604,7 +301,7 @@ fo.close()]]></Field>
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_OBJECT -OS.ExportClassName=SnpSubModel -OS.ExportObjectInternalID=#OS.SubModelInternalID -OS.ExportFilePathName=model.#o2id -OS.ExportFileName=#OS.SubModelInternalID.SnpSubModel -OS.ExportChildObjectsInd=no]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
@@ -614,7 +311,7 @@ fo.close()]]></Field>
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[56998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT i_mod
            AS o2id
   FROM snp_sub_model
@@ -807,174 +504,6 @@ fo.close()]]></Field>
 raise(a)]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3998]]></Field>
-	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
-	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
-	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
-	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
-		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[1]]></Field>
-	<Field name="ColConnectId" type="java.lang.String">null</Field>
-	<Field name="ColContextCode" type="java.lang.String">null</Field>
-	<Field name="ColIndCommit" type="java.lang.String">null</Field>
-	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
-	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[189998]]></Field>
-	<Field name="ColLschemaName" type="java.lang.String"><![CDATA[ODIWORKREP_DATA]]></Field>
-	<Field name="ColPlanComp" type="java.lang.String">null</Field>
-	<Field name="ColTechno" type="java.lang.String"><![CDATA[ORACLE]]></Field>
-	<Field name="DefConnectId" type="java.lang.String">null</Field>
-	<Field name="DefContextCode" type="java.lang.String">null</Field>
-	<Field name="DefIndCommit" type="java.lang.String">null</Field>
-	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
-	<Field name="DefITxt" type="com.sunopsis.sql.DbInt"><![CDATA[188998]]></Field>
-	<Field name="DefLschemaName" type="java.lang.String">null</Field>
-	<Field name="DefPlanComp" type="java.lang.String">null</Field>
-	<Field name="DefTechno" type="java.lang.String"><![CDATA[JYTHON]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
-	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="IndLogMethod" type="java.lang.String">null</Field>
-	<Field name="IndLogNb" type="java.lang.String">null</Field>
-	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[16998]]></Field>
-	<Field name="KcmAk" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KcmCond" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KcmErrDel" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KcmJoin" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KcmNull" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KcmPk" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KimJrn" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KimJrnPop" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KjmCreate" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KjmDrop" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KjmExtend" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KjmLock" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KjmPurge" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KjmSetInstall" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KjmSetUninstall" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KjmSubscribe" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KjmTableOrder" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KjmUnlock" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KjmUnsubscribe" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
-	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
-	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[80]]></Field>
-	<Field name="SqlName" type="java.lang.String"><![CDATA[SnpSubModel Fake]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
-		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[188998]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[# pbrian mattenm
-# will provide a faked submodel to cope with 10.1.3.4.2 bug until the upgrade to 10.1.3.5.2 has been completed.
-#
-#Variables passed to the scenario:
-# SubModelInternalID
-#
-#Variables passed from the Command on Source:
-# i_mod
-# smod_name
-# smod_type
-# cod_smod
-# i_smod_parent
-
-import os
-
-fake_submodel_xml = '''&lt?xml version="1.0" encoding="ISO-8859-1"?&gt
-&ltSunopsisExport&gt
-&ltObject class="com.sunopsis.dwg.dbobj.SnpSubModel"&gt
-		&ltField name="CodSmod" type="java.lang.String"&gt&lt![CDATA[DEFAULT]]&gt&lt/Field&gt
-	&ltField name="FirstDate" type="java.sql.Timestamp"&gt&lt![CDATA[2001-01-01 00:00:00.0]]&gt&lt/Field&gt
-	&ltField name="FirstUser" type="java.lang.String"&gt&lt![CDATA[SUPERVISOR]]&gt&lt/Field&gt
-	&ltField name="IndChange" type="java.lang.String"&gt&lt![CDATA[I]]&gt&lt/Field&gt
-	&ltField name="IntVersion" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[null]]&gt&lt/Field&gt
-	&ltField name="IMod" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[%(imod)s]]&gt&lt/Field&gt
-	&ltField name="ISmod" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[%(ismod)s]]&gt&lt/Field&gt
-	&ltField name="ISmodParent" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[%(i_smod_parent)s]]&gt&lt/Field&gt
-	&ltField name="LastDate" type="java.sql.Timestamp"&gt&lt![CDATA[2001-01-01 00:00:00.0]]&gt&lt/Field&gt
-	&ltField name="LastUser" type="java.lang.String"&gt&lt![CDATA[SUPERVISOR]]&gt&lt/Field&gt
-	&ltField name="RevApplyPattern" type="java.lang.String"&gtnull&lt/Field&gt
-	&ltField name="RevPatternOrder" type="java.lang.String"&gtnull&lt/Field&gt
-	&ltField name="SmodName" type="java.lang.String"&gt&lt![CDATA[%(smod_name)s]]&gt&lt/Field&gt
-	&ltField name="SmodType" type="java.lang.String"&gt&lt![CDATA[%(smod_type)s]]&gt&lt/Field&gt
-	&ltField name="TableNamePattern" type="java.lang.String"&gtnull&lt/Field&gt
-&lt/Object&gt
-&ltObject class="com.sunopsis.dwg.DwgExportSummary"&gt
-		&ltField name="ExpTxtNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="InstObjNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="JoinColNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="JoinNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="KeyColNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="KeyNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="LinkDiagNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="MorigTxtNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="MtxtNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="OrigTxtNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[1]]&gt&lt/Field&gt
-	&ltField name="PlanAgentNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="StepNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="TxtNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="UeOrigNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="UeUsedNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="VarPlanAgentNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="ScenTxtNb" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[0]]&gt&lt/Field&gt
-	&ltField name="OriginRepositoryID" type="com.sunopsis.sql.DbInt"&gt&lt![CDATA[751]]&gt&lt/Field&gt
-&lt/Object&gt
-&lt/SunopsisExport&gt'''
-
-fake_submodel_xml = fake_submodel_xml.replace('&lt','<')
-fake_submodel_xml = fake_submodel_xml.replace('&gt','>')
-
-output_dict = {
-  'imod': '#i_mod'
-, 'ismod': '#SubModelInternalID'
-, 'smod_name': '#smod_name'
-, 'smod_type': '#smod_type'
-, 'cod_smod': '#cod_smod'
-, 'i_smod_parent': '#i_smod_parent'
-}
-
-output_string = fake_submodel_xml % output_dict
-
-output_filename = '#SubModelInternalID.SnpSubModel'
-output_filepath = os.path.join('<%=snpRef.getSchemaName("ODISVNWC_DATA", "D")%>',
-                                               os.path.join('model.#i_mod', output_filename)
-                                              )
-fo = open(output_filepath, 'w')
-fo.write(output_string)
-fo.close()]]></Field>
-	<Field name="LangName" type="java.lang.String">null</Field>
-	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3998]]></Field>
-	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
-	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
-	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
-	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
-		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[189998]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT i_mod
-     , smod_name
-     , smod_type
-     , cod_smod
-     , NVL(TO_CHAR(i_smod_parent), 'null')
-           AS i_smod_parent
-  FROM snp_sub_model
- WHERE i_smod = #SubModelInternalID]]></Field>
-	<Field name="LangName" type="java.lang.String">null</Field>
-	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
@@ -1358,13 +887,13 @@ fo.close()]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
 		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[16998]]></Field>
-	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[33998]]></Field>
-	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[100]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[32998]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[110]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
 		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[16998]]></Field>
-	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[32998]]></Field>
-	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[110]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[33998]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[100]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.DwgExportSummary">
 		<Field name="ExpTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
@@ -1377,14 +906,14 @@ fo.close()]]></Field>
 	<Field name="MorigTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="MtxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="OrigTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
-	<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA[21]]></Field>
+	<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA[19]]></Field>
 	<Field name="PlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="StepNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="TxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[13]]></Field>
+	<Field name="TxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[11]]></Field>
 	<Field name="UeOrigNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="UeUsedNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="VarPlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[26]]></Field>
+	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
 	<Field name="OriginRepositoryID" type="com.sunopsis.sql.DbInt">null</Field>
 </Object>
 </SunopsisExport>

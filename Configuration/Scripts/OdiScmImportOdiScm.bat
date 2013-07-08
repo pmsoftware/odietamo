@@ -124,6 +124,7 @@ rem
 rem Run the generated ODI-SCM repository infrastructure set up script.
 rem
 echo %IM% creating ODI-SCM repository objects
+echo
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat^" %TEMPFILE%3 %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto CreateInfrastructureFail
 
@@ -156,21 +157,22 @@ echo %IM% completed creation of ODI-SCM infrastructure repository objects
 rem
 rem Configure the ODI-SCM repository infrastructure - SCM actions metadata.
 rem
-if "%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%" == "" goto DoneScmConfig
+echo on
+if "%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%" == "" goto DoneConfig
 
 set TEMPFILE=%TEMPDIR%\%RANDOM%_OdiScmImportOdiScm_ConfigureSCMActions.sql
 
-cat "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetScmActionsTemplate.sql" | sed s/"<OdiScmOdiUserName>"/%ODI_USER%/ > "%TEMPFILE%"
+cat "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmConfigureRepositoryMetadataTemplate.sql" | sed s/"<OdiScmOdiUserName>"/%ODI_USER%/ > "%TEMPFILE%"
 if ERRORLEVEL 1 goto SCMActionsScriptGenFail
 
 cat "%TEMPFILE%" | sed s/"<SCMSystemTypeName>"/%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%/ > "%TEMPFILE%2"
 if ERRORLEVEL 1 goto SCMActionsScriptGenFail
 
 if "%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%" == "TFS" (
-	set SCM_ADD_FILE_COMMAND=tf.exe add %%s /lock:none
-	set SCM_BASIC_COMMAND=tf.exe /?
+	set SCM_ADD_FILE_COMMAND=tf.exe add %%s \/lock:none
+	set SCM_BASIC_COMMAND=tf.exe \/?
 	set SCM_CHECK_FILE_IN_SOURCE_CONTROL_COMMAND=tf.exe dir %%s
-	set SCM_CHECK_OUT_COMMAND=tf.exe checkout /lock:none %%s
+	set SCM_CHECK_OUT_COMMAND=tf.exe checkout \/lock:none %%s
 	set SCM_REQUIRES_CHECK_OUT=Yes
 	set SCM_WC_CONFIG_DELETE_FILE_COMMAND=tf delete %%s
 ) else (
@@ -201,11 +203,14 @@ if ERRORLEVEL 1 goto SCMActionsScriptGenFail
 
 cat "%TEMPFILE%" | sed s/"<SCMWorkingCopyDeleteFileCommand>"/"%SCM_WC_CONFIG_DELETE_FILE_COMMAND%"/g > "%TEMPFILE%2"
 if ERRORLEVEL 1 goto SCMActionsScriptGenFail
- 
+
+cat "%TEMPFILE%2" | sed s/"<ExportRefPhysArchOnly>"/"%ODI_SCM_GENERATE_EXPORT_REF_PHYS_ARCH_ONLY%"/g > "%TEMPFILE%"
+if ERRORLEVEL 1 goto SCMActionsScriptGenFail
+
 goto SCMActionsScriptGenOk
 
 :SCMActionsScriptGenFail
-echo %EM% creating ODI-SCM repository infrastructure SCM actions configuration script
+echo %EM% creating ODI-SCM repository infrastructure configuration script
 goto ExitFail
 
 :SCMActionsScriptGenOk
@@ -217,21 +222,21 @@ set STDOUTFILE=%TEMPDIR%\%TEMPFILESTR%_OdiScmImportOdiScm_SCMActions_StdOut.log
 set STDERRFILE=%TEMPDIR%\%TEMPFILESTR%_OdiScmImportOdiScm_SCMActions_StdErr.log
 
 rem
-rem Run the generated ODI-SCM SCM actions repository infrastructure configuration script.
+rem Run the generated ODI-SCM repository infrastructure configuration script.
 rem
-echo %IM% configuring ODI-SCM SCM actions repository metadata
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat^" %TEMPFILE%2 %STDOUTFILE% %STDERRFILE%
-if ERRORLEVEL 1 goto ConfigureSCMActionsFail
+echo %IM% configuring ODI-SCM metadata
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat^" %TEMPFILE% %STDOUTFILE% %STDERRFILE%
+if ERRORLEVEL 1 goto ConfigureFail
 
-goto ConfigureSCMActionsChkStdErr
+goto ConfigureChkStdErr
 
-:ConfigureSCMActionsFail
+:ConfigureFail
 echo %EM% Batch file OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL
 echo %IM% StdErr content:
 type %STDERRFILE%
 goto ExitFail
 
-:ConfigureSCMActionsChkStdErr
+:ConfigureChkStdErr
 rem
 rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.
 rem
@@ -246,9 +251,9 @@ type %STDERRFILE%
 goto ExitFail
 
 :ConfigureSCMActionsOk
-echo %IM% completed configuration of ODI-SCM SCM Actions repository metadata
+echo %IM% completed configuration of ODI-SCM repository metadata
 
-:DoneScmConfig
+:DoneConfig
 if %PRIMEMETADATA% == FALSE goto StartImport
 
 if %PRIMEMETADATA% == LAST goto StartImport
@@ -281,34 +286,45 @@ if ERRORLEVEL 1 (
 rem
 rem Modify the contents of the SnpConnect files.
 rem
+setlocal enabledelayedexpansion
 for /f %%g in ('dir /s /b "%TEMPOBJSDIR%\*.SnpConnect"') do (
 	echo %IM% preparing data server file ^<%%g^>
+	echo %DEBUG% setting driver class
 	cat "%%g" | sed s/"<OdiScmJavaDriverClass>"/"%ODI_SECU_DRIVER%"/g > %%g.1
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
+	echo %DEBUG% setting pass word
 	cat "%%g.1" | sed s/"<OdiScmPassWord>"/"%ODI_SECU_ENCODED_PASS%"/g > %%g.2
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
+	echo %DEBUG% setting user name
 	cat "%%g.2" | sed s/"<OdiScmUserName>"/"%ODI_SECU_USER%"/g > %%g.3
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
+	echo %DEBUG% setting URL
 	cat "%%g.3" | sed s/"<OdiScmUrl>"/"%ODI_SECU_URL%"/g > %%g.4
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
-	cat "%%g.4" | sed s/"<OdiScmWorkingCopyDir>"/"%ODI_SCM_WC_ROOT%"/g > %%g.5
+	echo %DEBUG% setting working copy dir root
+	set WCROOT=%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT:\=\\%
+	set WCROOT=!WCROOT:/=\/!
+	cat "%%g.4" | sed s/"<OdiScmWorkingCopyDir>"/"!WCROOT!"/g > %%g.5
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
-	cat "%%g.5" | sed s/"<OdiScmTempDir>"/"%ODI_SCM_SCM_SCM_SYSTEM_WORKING_ROOT%"/g > %%g.6
+	echo %DEBUG% setting work dir
+	set WDIR=%ODI_SCM_SCM_SYSTEM_WORKING_ROOT:\=\\%
+	set WDIR=!WDIR:/=\/!
+	cat "%%g.5" | sed s/"<OdiScmTempDir>"/"!WDIR!"/g > %%g.6
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
@@ -347,7 +363,7 @@ goto ExitFail
 
 :PrimeExportLastOk
 rem
-rem Configure the ODI-SCM ODI constants (variables) that define the actions for the SCM system.
+rem Configure the ODI-SCM ODI constants (variables).
 rem
 set TEMPSTARTCMD=%TEMPDIR%\%RANDOM%_OdiScmImportOdiScm_StartCmd.bat
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat^" %TEMPSTARTCMD%
@@ -356,7 +372,7 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-call "%TEMPSTARTCMD%" OdiStartScen -SCEN_NAME=OSCONFIGURE_VCS -SCEN_VERSION=-1 -CONTEXT=GLOBAL
+call "%TEMPSTARTCMD%" OdiStartScen -SCEN_NAME=OSCONFIGURE -SCEN_VERSION=-1 -CONTEXT=GLOBAL
 if ERRORLEVEL 1 (
 	echo %EM% setting ODI-SCM ODI repository SCM actions constants
 	goto ExitFail
@@ -397,4 +413,5 @@ set PROC=OdiScmImportOdiScm
 set IM=%PROC%: INFO:
 set EM=%PROC%: ERROR:
 set WM=%PROC%: WARNING:
+set DEBUG=%PROC%: DEBUG:
 goto :eof

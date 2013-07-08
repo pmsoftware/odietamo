@@ -1325,6 +1325,70 @@ flog.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[58998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[16]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Join:
+	if str(x) not in all_ids_in_repo_SnpJoin:
+		# Delete the working copy file.
+		for snpId, filePathName in allgroups["SnpJoin"]:
+			if snpId == str(x):
+				if os.path.isfile(filePathName):
+					flog.write('Deleting file: ' + filePathName + '\n')]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[32]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[58998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[16]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[
+					os.system('#OS.WCConfigDeleteFileCmd ' + filePathName)
+				else:
+					flog.write('Cannot find file: ' + filePathName + '\n')
+
+# Delete working copy files for deleted SnpModFolder objects.
+flog.write('SnpModFolder repository IDs loaded: ' + str(]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[33]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[58998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[16]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[len(all_ids_in_wc_SnpModFolder)) + '\n')
+for x in all_ids_in_wc_SnpModFolder:
+	if x not in all_ids_in_repo_SnpModFolder: 
+		# Delete the working copy file.
+		for snpId, filePathName in allgroups["SnpModFolder"]:
+			if snpId == x:
+				if os.path.isfil]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[34]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[58998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[16]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[e(filePathName):
+					flog.write('Deleting file: ' + filePathName + '\n')
+					os.system('#OS.WCConfigDeleteFileCmd ' + filePathName)
+				else:
+					flog.write('Cannot find file: ' + filePathName + '\n')
+
+flog.close()]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[35]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[58998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[16]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[flog = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/OSUTL_FLUSH_WORK_REPOSITORY_DELETIONS_<?=snpRef.getSession("SESS_NO") ?>.log','a')
 
 all_ids_in_wc_SnpProject.sort()
@@ -1833,70 +1897,6 @@ for x in all_ids_in_wc_SnpTable:
 # Delete working copy files for deleted SnpJoin objects.
 for x in all_ids_in_wc_Snp]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[31]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[58998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[16]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[Join:
-	if str(x) not in all_ids_in_repo_SnpJoin:
-		# Delete the working copy file.
-		for snpId, filePathName in allgroups["SnpJoin"]:
-			if snpId == str(x):
-				if os.path.isfile(filePathName):
-					flog.write('Deleting file: ' + filePathName + '\n')]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[32]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[58998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[16]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[
-					os.system('#OS.WCConfigDeleteFileCmd ' + filePathName)
-				else:
-					flog.write('Cannot find file: ' + filePathName + '\n')
-
-# Delete working copy files for deleted SnpModFolder objects.
-flog.write('SnpModFolder repository IDs loaded: ' + str(]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[33]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[58998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[16]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[len(all_ids_in_wc_SnpModFolder)) + '\n')
-for x in all_ids_in_wc_SnpModFolder:
-	if x not in all_ids_in_repo_SnpModFolder: 
-		# Delete the working copy file.
-		for snpId, filePathName in allgroups["SnpModFolder"]:
-			if snpId == x:
-				if os.path.isfil]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[34]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[58998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[16]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[e(filePathName):
-					flog.write('Deleting file: ' + filePathName + '\n')
-					os.system('#OS.WCConfigDeleteFileCmd ' + filePathName)
-				else:
-					flog.write('Cannot find file: ' + filePathName + '\n')
-
-flog.close()]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[35]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
 		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[1]]></Field>

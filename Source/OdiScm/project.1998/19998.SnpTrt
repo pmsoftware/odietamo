@@ -54,6 +54,19 @@
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
+		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2011-08-06 20:16:07.0]]></Field>
+	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="DefV" type="java.lang.String">null</Field>
+	<Field name="IndStore" type="java.lang.String"><![CDATA[S]]></Field>
+	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[59998]]></Field>
+	<Field name="VarDatatype" type="java.lang.String"><![CDATA[N]]></Field>
+	<Field name="VarName" type="java.lang.String"><![CDATA[OS.ReferenceInternalID]]></Field>
+	<Field name="VarParam" type="java.lang.String">null</Field>
+	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
 		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2012-06-11 11:12:57.0]]></Field>
 	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="DefV" type="java.lang.String"><![CDATA[Yes]]></Field>
@@ -95,19 +108,6 @@
 
 ]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
-		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2011-08-06 20:16:07.0]]></Field>
-	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="DefV" type="java.lang.String">null</Field>
-	<Field name="IndStore" type="java.lang.String"><![CDATA[S]]></Field>
-	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[59998]]></Field>
-	<Field name="VarDatatype" type="java.lang.String"><![CDATA[N]]></Field>
-	<Field name="VarName" type="java.lang.String"><![CDATA[OS.ReferenceInternalID]]></Field>
-	<Field name="VarParam" type="java.lang.String">null</Field>
-	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenStep">
 		<Field name="ContextCode" type="java.lang.String">null</Field>
@@ -204,16 +204,6 @@ raise(a)]]></Field>
 		<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[59998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_CREATE_MODEL_DIRECTORIES -SESSION_NAME=OSUTL_CREATE_MODEL_DIRECTORIES.#oid -OS.ModelInternalID=#oid]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[59998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
@@ -227,6 +217,16 @@ raise(a)]]></Field>
          FROM snp_join
         WHERE i_join = #OS.ReferenceInternalID
        )]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[59998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_CREATE_MODEL_DIRECTORIES -SESSION_NAME=OSUTL_CREATE_MODEL_DIRECTORIES.#oid -OS.ModelInternalID=#oid]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTask">
@@ -372,10 +372,10 @@ raise(a)]]></Field>
 	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[19998]]></Field>
 	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[34998]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[35998]]></Field>
 	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="ShortValue" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="UeName" type="java.lang.String"><![CDATA[ExportModelInd]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[ExportDataStoreInd]]></Field>
 	<Field name="UeSdesc" type="java.lang.String">null</Field>
 	<Field name="UeType" type="java.lang.String"><![CDATA[C]]></Field>
 </Object>
@@ -398,10 +398,10 @@ raise(a)]]></Field>
 	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[19998]]></Field>
 	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[36998]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[34998]]></Field>
 	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="ShortValue" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="UeName" type="java.lang.String"><![CDATA[ExportModelFolderInd]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[ExportModelInd]]></Field>
 	<Field name="UeSdesc" type="java.lang.String">null</Field>
 	<Field name="UeType" type="java.lang.String"><![CDATA[C]]></Field>
 </Object>
@@ -411,10 +411,10 @@ raise(a)]]></Field>
 	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[19998]]></Field>
 	<Field name="ITxtUeHelp" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="ITxtValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[35998]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[36998]]></Field>
 	<Field name="Position" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="ShortValue" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="UeName" type="java.lang.String"><![CDATA[ExportDataStoreInd]]></Field>
+	<Field name="UeName" type="java.lang.String"><![CDATA[ExportModelFolderInd]]></Field>
 	<Field name="UeSdesc" type="java.lang.String">null</Field>
 	<Field name="UeType" type="java.lang.String"><![CDATA[C]]></Field>
 </Object>
@@ -1171,23 +1171,23 @@ raise(a)]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
 		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[19998]]></Field>
-	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[35998]]></Field>
-	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[30]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
-		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[19998]]></Field>
-	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[37998]]></Field>
-	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[40]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
-		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[19998]]></Field>
 	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[34998]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[50]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
 		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[19998]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[35998]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[30]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
+		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[19998]]></Field>
 	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[36998]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[60]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrtUe">
+		<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[19998]]></Field>
+	<Field name="IUserExit" type="com.sunopsis.sql.DbInt"><![CDATA[37998]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[40]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.DwgExportSummary">
 		<Field name="ExpTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>

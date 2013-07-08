@@ -34,7 +34,7 @@
 	<Field name="IPop" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IScenFolder" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[15998]]></Field>
-	<Field name="ITxtScen" type="com.sunopsis.sql.DbInt"><![CDATA[217998]]></Field>
+	<Field name="ITxtScen" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IVar" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
@@ -42,19 +42,18 @@
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
 	<Field name="ScenVersion" type="java.lang.String"><![CDATA[001]]></Field>
 </Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
-		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
-	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[217998]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
-	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[DATE		AUTHOR		DESCRIPTION
-2012-05-22		M. Matten		Use SYSDATE (absolute system date/time) instead of CURRENT_DATE (client time
-				zone sensitive) in incremental export mechanism.
-2012-08-29		M. Matten		Export Technology where a data type has been created/modified.]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+<Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
+		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 07:47:48.0]]></Field>
+	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="DefV" type="java.lang.String"><![CDATA[Yes]]></Field>
+	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
+	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
+	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
+	<Field name="VarName" type="java.lang.String"><![CDATA[OS.ExportReferencePhysicalArchitectureOnlyInd]]></Field>
+	<Field name="VarParam" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenStep">
 		<Field name="ContextCode" type="java.lang.String">null</Field>
@@ -299,7 +298,7 @@ MATCHED
  WHERE last_date >= 
        (
        SELECT flush_from_datetime
-         FROM odisvn_master_flush_controls
+         FROM odiscm_master_flush_controls
         WHERE odi_user_name =
               (
               SELECT user_name
@@ -356,7 +355,7 @@ MATCHED
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_TECHNOLOGY -SCEN_VERSION=999 -SESSION_NAME=OSUTL_EXPORT_TECHNOLOGY.#oid -OS.TechnologyInternalID=#oid]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_TECHNOLOGY -SESSION_NAME=OSUTL_EXPORT_TECHNOLOGY.#oid -OS.TechnologyInternalID=#oid]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -372,7 +371,7 @@ MATCHED
  WHERE last_date >= 
        (
        SELECT flush_from_datetime
-         FROM odisvn_master_flush_controls
+         FROM odiscm_master_flush_controls
         WHERE odi_user_name =
               (
               SELECT user_name
@@ -407,7 +406,7 @@ SELECT i_techno
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[    FROM odisvn_master_flush_controls
+	<Field name="Txt" type="java.lang.String"><![CDATA[    FROM odiscm_master_flush_controls
         WHERE odi_user_name =
               (
               SELECT user_name
@@ -461,10 +460,43 @@ SELECT i_techno
 		<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[ WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
+              )
+       )
+   AND (
+       '#OS.ExportReferencePhysicalArchitectureOnlyInd' = 'No'
+    OR (
+       context_name = 'REFERENCE'
+   AND context_code = 'REFERENCE'
+   AND c.context_name = ]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA['REFERENCE'
+   AND c.context_code = 'REFERENCE'
+   AND p.schema_name LIKE 'REF_%'
+   AND p.ext_name LIKE 'REF_%'
+       )
+       )]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_LOGICAL_SCHEMA -SCEN_VERSION=999 -SESSION_NAME=OSUTL_EXPORT_LOGICAL_SCHEMA.#oid -OS.LogicalSchemaInternalID=#oid]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_LOGICAL_SCHEMA -SESSION_NAME=OSUTL_EXPORT_LOGICAL_SCHEMA.#oid -OS.LogicalSchemaInternalID=#oid]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -499,29 +531,13 @@ SELECT i_techno
  WHERE l.last_date >= 
        (
        SELECT flush_from_datetime
-         FROM odisvn_master_flush_controls
+         FROM odiscm_master_flush_controls
         WHERE odi_user_name =
               (
               SELECT user_name
                 FROM snp_session@odiworkrep_data
               ]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
-              )
-       )
-   AND c.context_name = 'REFERENCE'
-   AND c.context_code = 'REFERENCE'
-   AND p.schema_name LIKE 'REF_%'
-   AND p.ext_name LIKE 'REF_%']]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTask">
 		<Field name="ColConnectId" type="java.lang.String">null</Field>
@@ -559,7 +575,7 @@ SELECT i_techno
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_CONTEXT -SCEN_VERSION=999 -SESSION_NAME=OSUTL_EXPORT_CONTEXT.#oid -OS.ContextInternalID=#oid]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_CONTEXT -SESSION_NAME=OSUTL_EXPORT_CONTEXT.#oid -OS.ContextInternalID=#oid]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -575,7 +591,7 @@ SELECT i_techno
  WHERE last_date >= 
        (
        SELECT flush_from_datetime
-         FROM odisvn_master_flush_controls
+         FROM odiscm_master_flush_controls
         WHERE odi_user_name =
               (
               SELECT user_name
@@ -593,8 +609,25 @@ SELECT i_techno
                WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
               )
        )
-   AND context_name = 'REFERENCE']]></Field>
+   AND (
+       '#OS.ExportReferencePhysicalArchitectureOnlyInd' = 'No'
+    OR (
+       context_name = 'REFERENCE'
+   AND ]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[context_code = 'REFERENCE'
+       )
+       )
+]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTask">
 		<Field name="ColConnectId" type="java.lang.String">null</Field>
@@ -632,7 +665,7 @@ SELECT i_techno
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_DATA_SERVER -SCEN_VERSION=999 -SESSION_NAME=OSUTL_EXPORT_DATA_SERVER.#oid -OS.DataServerInternalID=#oid]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_DATA_SERVER -SESSION_NAME=OSUTL_EXPORT_DATA_SERVER.#oid -OS.DataServerInternalID=#oid]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -648,7 +681,7 @@ SELECT i_techno
  WHERE last_date >= 
        (
        SELECT flush_from_datetime
-         FROM odisvn_master_flush_controls
+         FROM odiscm_master_flush_controls
         WHERE odi_user_name =
               (
               SELECT user_name
@@ -666,8 +699,24 @@ SELECT i_techno
                WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
               )
        )
-   AND con_name LIKE 'REF_%']]></Field>
+   AND (
+       '#OS.ExportReferencePhysicalArchitectureOnlyInd' = 'No'
+    OR (
+       con_name LIKE 'REF_%'
+   AND '#OS.]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[ExportReferencePhysicalArchitectureOnlyInd' = 'Yes'
+       )
+       )]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTask">
 		<Field name="ColConnectId" type="java.lang.String">null</Field>
@@ -705,7 +754,7 @@ SELECT i_techno
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA -SCEN_VERSION=999 -SESSION_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA.#oid -OS.PhysicalSchemaInternalID=#oid]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA -SESSION_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA.#oid -OS.PhysicalSchemaInternalID=#oid]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -721,7 +770,7 @@ SELECT i_techno
  WHERE last_date >= 
        (
        SELECT flush_from_datetime
-         FROM odisvn_master_flush_controls
+         FROM odiscm_master_flush_controls
         WHERE odi_user_name =
               (
               SELECT user_name
@@ -739,12 +788,11 @@ SELECT i_techno
                WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
               )
        )
-   AND i_connect
-    IN (
-       SELECT i_connect
-                  AS oid
-         FROM snp_connect
-        WHERE con_nam]]></Field>
+   AND (
+       '#OS.ExportReferencePhysicalArchitectureOnlyInd' = 'No'
+    OR (
+       schema_name LIKE 'REF_%'
+   AND '#]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -754,7 +802,8 @@ SELECT i_techno
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[e LIKE 'REF_%'
+	<Field name="Txt" type="java.lang.String"><![CDATA[OS.ExportReferencePhysicalArchitectureOnlyInd' = 'Yes'
+       )
        )]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
@@ -1122,7 +1171,7 @@ MATCHED
  WHERE last_date >= 
        (
        SELECT flush_from_datetime
-         FROM odisvn_master_flush_controls
+         FROM odiscm_master_flush_controls
         WHERE odi_user_name =
               (
               SELECT user_name
@@ -1198,7 +1247,7 @@ MATCHED
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[174998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_TECHNOLOGY -SCEN_VERSION=999 -SESSION_NAME=OSUTL_EXPORT_TECHNOLOGY.#oid -OS.TechnologyInternalID=#oid]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_TECHNOLOGY -SESSION_NAME=OSUTL_EXPORT_TECHNOLOGY.#oid -OS.TechnologyInternalID=#oid]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
@@ -1220,7 +1269,7 @@ MATCHED
  WHERE last_date >= 
        (
        SELECT flush_from_datetime
-         FROM odisvn_master_flush_controls
+         FROM odiscm_master_flush_controls
         WHERE odi_user_name =
               (
               SELECT user_name
@@ -1235,7 +1284,7 @@ SELECT i_techno
  WHERE last_date >= 
        (
        SELECT flush_from_datetime
-         FROM odisvn_master_flush_controls
+         FROM odiscm_master_flush_controls
         WHERE odi_user_name =
               (
               SELECT user_name
@@ -1311,7 +1360,7 @@ SELECT i_techno
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[176998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_LOGICAL_SCHEMA -SCEN_VERSION=999 -SESSION_NAME=OSUTL_EXPORT_LOGICAL_SCHEMA.#oid -OS.LogicalSchemaInternalID=#oid]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_LOGICAL_SCHEMA -SESSION_NAME=OSUTL_EXPORT_LOGICAL_SCHEMA.#oid -OS.LogicalSchemaInternalID=#oid]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
@@ -1342,7 +1391,7 @@ SELECT i_techno
  WHERE l.last_date >= 
        (
        SELECT flush_from_datetime
-         FROM odisvn_master_flush_controls
+         FROM odiscm_master_flush_controls
         WHERE odi_user_name =
               (
               SELECT user_name
@@ -1350,10 +1399,17 @@ SELECT i_techno
                WHERE sess_no = <%=odiRef.getSession("SESS_NO")%>
               )
        )
+   AND (
+       '#ExportReferencePhysicalArchitectureOnlyInd' = 'No'
+    OR (
+       context_name = 'REFERENCE'
+   AND context_code = 'REFERENCE'
    AND c.context_name = 'REFERENCE'
    AND c.context_code = 'REFERENCE'
    AND p.schema_name LIKE 'REF_%'
-   AND p.ext_name LIKE 'REF_%']]></Field>
+   AND p.ext_name LIKE 'REF_%'
+       )
+       )]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
@@ -1421,7 +1477,7 @@ SELECT i_techno
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[178998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_CONTEXT -SCEN_VERSION=999 -SESSION_NAME=OSUTL_EXPORT_CONTEXT.#oid -OS.ContextInternalID=#oid]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_CONTEXT -SESSION_NAME=OSUTL_EXPORT_CONTEXT.#oid -OS.ContextInternalID=#oid]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
@@ -1443,7 +1499,7 @@ SELECT i_techno
  WHERE last_date >= 
        (
        SELECT flush_from_datetime
-         FROM odisvn_master_flush_controls
+         FROM odiscm_master_flush_controls
         WHERE odi_user_name =
               (
               SELECT user_name
@@ -1451,7 +1507,14 @@ SELECT i_techno
                WHERE sess_no = <%=odiRef.getSession("SESS_NO")%>
               )
        )
-   AND context_name = 'REFERENCE']]></Field>
+   AND (
+       '#ExportReferencePhysicalArchitectureOnlyInd' = 'No'
+    OR (
+       context_name = 'REFERENCE'
+   AND context_code = 'REFERENCE'
+       )
+       )
+]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
@@ -1519,7 +1582,7 @@ SELECT i_techno
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[180998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_DATA_SERVER -SCEN_VERSION=999 -SESSION_NAME=OSUTL_EXPORT_DATA_SERVER.#oid -OS.DataServerInternalID=#oid]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_DATA_SERVER -SESSION_NAME=OSUTL_EXPORT_DATA_SERVER.#oid -OS.DataServerInternalID=#oid]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
@@ -1541,7 +1604,7 @@ SELECT i_techno
  WHERE last_date >= 
        (
        SELECT flush_from_datetime
-         FROM odisvn_master_flush_controls
+         FROM odiscm_master_flush_controls
         WHERE odi_user_name =
               (
               SELECT user_name
@@ -1549,7 +1612,13 @@ SELECT i_techno
                WHERE sess_no = <%=odiRef.getSession("SESS_NO")%>
               )
        )
-   AND con_name LIKE 'REF_%']]></Field>
+   AND (
+       '#ExportReferencePhysicalArchitectureOnlyInd' = 'No'
+    OR (
+       con_name LIKE 'REF_%'
+   AND '#ExportReferencePhysicalArchitectureOnlyInd' = 'Yes'
+       )
+       )]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
@@ -1617,7 +1686,7 @@ SELECT i_techno
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[182998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA -SCEN_VERSION=999 -SESSION_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA.#oid -OS.PhysicalSchemaInternalID=#oid]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA -SESSION_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA.#oid -OS.PhysicalSchemaInternalID=#oid]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
@@ -1639,7 +1708,7 @@ SELECT i_techno
  WHERE last_date >= 
        (
        SELECT flush_from_datetime
-         FROM odisvn_master_flush_controls
+         FROM odiscm_master_flush_controls
         WHERE odi_user_name =
               (
               SELECT user_name
@@ -1647,12 +1716,12 @@ SELECT i_techno
                WHERE sess_no = <%=odiRef.getSession("SESS_NO")%>
               )
        )
-   AND i_connect
-    IN (
-       SELECT i_connect
-                  AS oid
-         FROM snp_connect
-        WHERE con_name LIKE 'REF_%'
+   AND (
+       '#ExportReferencePhysicalArchitectureOnlyInd' = 'No'
+    OR (
+       schema_name LIKE 'REF_%'
+   AND '#ExportReferencePhysicalArchitectureOnlyInd' = 'Yes'
+       )
        )]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
@@ -1743,7 +1812,7 @@ SELECT i_techno
 	<Field name="EncKey" type="java.lang.String">null</Field>
 </Object>
 <Object class="com.sunopsis.dwg.DwgExportSummary">
-		<Field name="ExpTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+		<Field name="ExpTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="InstObjNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="JoinColNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="JoinNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
@@ -1753,14 +1822,14 @@ SELECT i_techno
 	<Field name="MorigTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="MtxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="OrigTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-	<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA[21]]></Field>
+	<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA[22]]></Field>
 	<Field name="PlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="StepNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="TxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[17]]></Field>
 	<Field name="UeOrigNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="UeUsedNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="VarPlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[31]]></Field>
+	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[34]]></Field>
 	<Field name="OriginRepositoryID" type="com.sunopsis.sql.DbInt">null</Field>
 </Object>
 </SunopsisExport>

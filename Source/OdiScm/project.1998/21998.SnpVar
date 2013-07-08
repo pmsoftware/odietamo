@@ -51,7 +51,7 @@ E.g.	tf.exe add <file>
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[621998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT add_file_command_text
-  FROM odiscm_scm_actions
+  FROM odiscm_configurations
  WHERE odi_user_name = 
        (
        SELECT user_name
