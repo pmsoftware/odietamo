@@ -10,21 +10,16 @@ if "%ODI_SCM_HOME%" == "" (
 	goto ExitFail
 )
 
-if "%ODI_SCM_DBA_USER%" == "" (
-	echo %EM% environment variable ODI_SCM_DBA_USER is not set
-	goto ExitFail
-)
-
-if "%ODI_SCM_DBA_PASS%" == "" (
-	echo %EM% environment variable ODI_SCM_DBA_PASS is not set
-	goto ExitFail
-)
-
 if EXIST "C:\OdiScmWalkThrough" (
 	echo %IM% deleting existing walk through directory tree ^<C:\OdiScmWalkThrough^>
 	rem We don't use Windows RMDIR / RD here as the exit status does not reliably indicate success/failure.
 	rem rd /s /q "C:\OdiScmWalkThrough"
-	rm -r "C:\OdiScmWalkThrough"
+	chmod -R a+w "C:\OdiScmWalkThrough"
+	if ERRORLEVEL 1 (
+		echo %EM% making writeable in directory tree ^<C:\OdiScmWalkThrough^>
+		goto ExitFail
+	)
+	rm -fr "C:\OdiScmWalkThrough"
 	if ERRORLEVEL 1 (
 		echo %EM% deleting existing walk through directory tree ^<C:\OdiScmWalkThrough^>
 		goto ExitFail
@@ -62,7 +57,7 @@ if ERRORLEVEL 1 (
 )
 
 rem
-rem 
+rem Source the working directory.
 rem
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
 if ERRORLEVEL 1 (
@@ -81,22 +76,32 @@ REM )
 rem pause
 
 rem
-rem Just to set up the Jisql tool.
+rem Just to set up the Jisql tool and get the DBA user name and password.
 rem Note that both demo repositories will be created in the database that's included in the URL in the Repo1 INI file.
 rem
 set ODI_SCM_INI=%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportStandardOdiDemoRepo1.ini
-echo %IM% setting OdiScm environment from configuration INI file ^<%ODI_SCM_INI%^>
+echo %IM% setting OdiScm environment from ^<%ODI_SCM_INI%^>
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat" /b >NUL
 if ERRORLEVEL 1 (
 	goto ExitFail
 )
 call :SetMsgPrefixes
 
+if "%ODI_ADMIN_USER%" == "" (
+	echo %EM% environment variable ODI_ADMIN_USER is not set
+	goto ExitFail
+)
+
+if "%ODI_ADMIN_PASS%" == "" (
+	echo %EM% environment variable ODI_ADMIN_PASS is not set
+	goto ExitFail
+)
+
 set PODI_SECU_USER=%ODI_SECU_USER%
 set PODI_SECU_PASS=%ODI_SECU_PASS%
 
-set ODI_SECU_USER=%ODI_SCM_DBA_USER%
-set ODI_SECU_PASS=%ODI_SCM_DBA_PASS%
+set ODI_SECU_USER=%ODI_ADMIN_USER%
+set ODI_SECU_PASS=%ODI_ADMIN_PASS%
 
 echo %IM% dropping existing demo repository database users
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" %ODI_SCM_HOME%\Configuration\Demo\OdiScmDropDemoRepoUsers.sql >NUL 2>&1
@@ -114,7 +119,7 @@ set ODI_SECU_USER=%PODI_SECU_USER%
 set ODI_SECU_PASS=%PODI_SECU_PASS%
 
 REM set ODI_SCM_INI=%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportStandardOdiDemoRepo1.ini
-REM echo %IM% setting OdiScm environment from configuration INI file ^<%ODI_SCM_INI%^>
+REM echo %IM% setting OdiScm environment from ^<%ODI_SCM_INI%^>
 REM call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat" /b >NUL
 REM if ERRORLEVEL 1 (
 	REM goto ExitFail
@@ -127,20 +132,20 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-echo %IM% importing standard ODI demo into demo repository 1
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportOracleDIDemo.bat" %ODI_SCM_HOME%\Configuration\Demo\Odi10gStandardDemo >NUL
-if ERRORLEVEL 1 (
-	goto ExitFail
-)
-
 echo %IM% importing OdiScm into demo repository 1
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportOdiScm.bat" ExportPrimeLast >NUL
 if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+REM echo %IM% importing standard ODI demo into demo repository 1
+REM call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportOracleDIDemo.bat" %ODI_SCM_HOME%\Configuration\Demo\Odi10gStandardDemo >NUL
+REM if ERRORLEVEL 1 (
+	REM goto ExitFail
+REM )
+
 set ODI_SCM_INI=%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportStandardOdiDemoRepo2.ini
-echo %IM% setting OdiScm environment from configuration INI file ^<%ODI_SCM_INI%^>
+echo %IM% setting OdiScm environment from ^<%ODI_SCM_INI%^>
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat" /b >NUL
 if ERRORLEVEL 1 (
 	goto ExitFail
@@ -153,15 +158,65 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+echo %IM% importing OdiScm into demo repository 2
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportOdiScm.bat" ExportPrimeLast >NUL
+if ERRORLEVEL 1 (
+	goto ExitFail
+)
+
+rem
+rem Import the standard ODI demo after OdiScm so that we can flush it out to the working copy later on.
+rem
 echo %IM% importing standard ODI demo into demo repository 2
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportOracleDIDemo.bat" %ODI_SCM_HOME%\Configuration\Demo\Odi10gStandardDemo >NUL
 if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-echo %IM% importing OdiScm into demo repository 2
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportOdiScm.bat" ExportPrimeLast >NUL
+rem
+rem Create a working copy of the SCM repository.
+rem
+rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScm.bat^" 
+echo %IM% deleting existing TFS workspace ^<DemoMaster^>
+tf.exe workspace /delete /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL% DemoMaster >NUL 2>&1
+
+echo %IM% creating TFS workspace ^<DemoMaster^>
+tf.exe workspace /new /noprompt DemoMaster /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%
 if ERRORLEVEL 1 (
+	echo %EM% creating TFS workspace ^<DemoMaster^>
+	goto ExitFail
+)
+
+echo %IM% deleting default folder mapping for TFS workspace ^<DemoMaster^>
+tf.exe workfold /unmap /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL% /workspace:DemoMaster $/
+if ERRORLEVEL 1 (
+	echo %EM% deleting default folder mapping for TFS workspace ^<DemoMaster^>
+	goto ExitFail
+)
+
+echo %IM% creating mapping for TFS workspace ^<DemoMaster^> to branch URL ^<%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%^>
+tf.exe workfold /map "%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" /workspace:DemoMaster /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%
+if ERRORLEVEL 1 (
+	echo %EM% creating mapping for TFS workspace ^<DemoMaster^>
+	goto ExitFail
+)
+
+rem
+rem Export the demo, using OdiScm, to the working copy from demo repository 2.
+rem
+rem First, create a StartCmd.bat for the current environment.
+rem
+set TEMPSTARTCMD=%TEMPDIR%\%RANDOM%_%PROC%_StartCmd.bat
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat^" %TEMPSTARTCMD%
+if ERRORLEVEL 1 (
+	echo %EM% creating StartCmd wrapper script
+	goto ExitFail
+)
+
+echo %IM% exporting demo from demo repository 2
+call "%TEMPSTARTCMD%" OdiStartScen -SCEN_NAME=OSFLUSH_REPOSITORY -SCEN_VERSION=-1 -CONTEXT=GLOBAL >NUL
+if ERRORLEVEL 1 (
+	echo %EM% exporting demo from demo repository 2
 	goto ExitFail
 )
 

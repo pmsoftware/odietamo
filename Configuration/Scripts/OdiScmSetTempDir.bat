@@ -8,7 +8,7 @@ if "%TEMP%" == "" (
 	set TEMPDIR=%TEMP%
 )
 
-set TEMPDIR=%TEMPDIR%\%RANDOM%
+set TEMPDIR=%TEMPDIR%\OdiScm_%RANDOM%
 
 if EXIST "%TEMPDIR" (
 	rd /s /q "%TEMPDIR%" >NUL 2>NUL

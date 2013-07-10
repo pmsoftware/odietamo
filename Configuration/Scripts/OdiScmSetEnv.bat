@@ -170,6 +170,8 @@ echo ODI_SECU_PASS>>%TEMPFILE2%
 echo ODI_USER>>%TEMPFILE2%
 echo ODI_ENCODED_PASS>>%TEMPFILE2%
 echo ODI_SECU_WORK_REP>>%TEMPFILE2%
+echo ODI_ADMIN_USER>>%TEMPFILE2%
+echo ODI_ADMIN_PASS>>%TEMPFILE2%
 
 for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
 	call :SetConfig OracleDI %%g %%g
