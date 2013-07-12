@@ -290,7 +290,7 @@ if ERRORLEVEL 1 (
 )
 
 echo %IM% exporting demo from demo environment 2 repository
-call "%TEMPSTARTCMD%" OdiStartScen -SCEN_NAME=OSFLUSH_REPOSITORY -SCEN_VERSION=-1 -CONTEXT=GLOBAL %DiscardStdOut%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%^" OdiStartScen -SCEN_NAME=OSFLUSH_REPOSITORY -SCEN_VERSION=-1 -CONTEXT=GLOBAL %DiscardStdOut%
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo from demo repository 2
 	goto ExitFail
