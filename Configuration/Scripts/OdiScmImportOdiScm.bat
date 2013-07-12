@@ -261,6 +261,7 @@ if ERRORLEVEL 1 (
 	echo %EM% importing ODI-SCM ODI repository objects
 	goto ExitFail
 )
+
 echo %IM% completed import of ODI-SCM master repository objects
 
 REM echo %IM% starting import of ODI-SCM work repository objects
@@ -283,14 +284,14 @@ if %PRIMEMETADATA% == LAST (
 	)
 )
 
-			rem
-			rem Configure the ODI-SCM ODI constants (variables).
-			rem
-			call "%TEMPSTARTCMD%" OdiStartScen -SCEN_NAME=OSCONFIGURE -SCEN_VERSION=-1 -CONTEXT=GLOBAL
-			if ERRORLEVEL 1 (
-				echo %EM% setting ODI-SCM ODI repository SCM actions constants
-				goto ExitFail
-			)
+rem
+rem Configure the ODI-SCM ODI constants (variables).
+rem
+call "%TEMPSTARTCMD%" OdiStartScen -SCEN_NAME=OSCONFIGURE -SCEN_VERSION=-1 -CONTEXT=GLOBAL
+if ERRORLEVEL 1 (
+	echo %EM% setting ODI-SCM ODI repository SCM actions constants
+	goto ExitFail
+)
 
 echo %IM% import of ODI-SCM ODI components completed successfully
 goto ExitOk

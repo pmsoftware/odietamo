@@ -160,7 +160,8 @@ REM
 REM OracleDI configuration.
 REM
 echo %IM% processing configuration section ^<OracleDI^>
-echo ODI_HOME>%TEMPFILE2%
+echo ODI_VERSION>%TEMPFILE2%
+echo ODI_HOME>>%TEMPFILE2%
 echo ODI_JAVA_HOME>>%TEMPFILE2%
 echo ODI_SECU_DRIVER>>%TEMPFILE2%
 echo ODI_SECU_URL>>%TEMPFILE2%
