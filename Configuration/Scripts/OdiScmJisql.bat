@@ -9,18 +9,13 @@ set EM=%FN%: ERROR:
 
 echo %IM% starts
 
-set ISBATCHEXIT=
+if /i "%1" == "/b" (
+	set IsBatchExit=/b
+	shift
+) else (
+	set IsBatchExit=
+)
 
-if "%1" == "/b" goto IsBatchExit
-if "%1" == "/B" goto IsBatchExit
-
-goto IsNotBatchExit
-
-:IsBatchExit
-set ISBATCHEXIT=/b
-shift
-
-:IsNotBatchExit
 echo %IM% UserName is ^<%1^>
 echo %IM% PassWord is ^<%2^>
 echo %IM% Driver is ^<%3^>
@@ -29,59 +24,64 @@ echo %IM% Script is ^<%5^>
 echo %IM% StdOutFile is ^<%6^>
 echo %IM% StdErrFile is ^<%7^>
 
-if not "%6"=="" goto StdOutPassed
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
+if ERRORLEVEL 1 (
+	echo %EM% creating working directory ^<%TEMPDIR%^>
+	goto ExitFail
+)
 
-echo %IM% No StdOut file specified
-set STDOUTFILE=
-set STDOUTREDIR=
-goto StdErr
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEmptyFile.bat"
+if ERRORLEVEL 1 (
+	echo %EM% creating temporary empty file ^<%EMPTYFILE%^>
+	goto ExitFail
+)
 
-:StdOutPassed
-echo %IM% StdOut file specified is ^<%6^>
-set STDOUTFILE=%6
-set STDOUTREDIR=1^>%STDOUTFILE%
-set STDOUTREDIRDISP=1^^^>%STDOUTFILE%
+set RANDSTR=%RANDOM%
+set STDOUTWORKFILE=%TEMPDIR%\OdiScmJisql_StdOut_%RANDSTR%.txt
+set STDERRWORKFILE=%TEMPDIR%\OdiScmJisql_StdErr_%RANDSTR%.txt
 
-:StdErr
-if not "%7"=="" goto StdErrPassed
+setlocal enabledelayedexpansion
 
-echo %IM% No StdErr file specified
-set STDERRFILE=
-set STDERRREDIR=
-goto RunIt
+if "%6"=="" (
+	echo %IM% No StdOut file specified
+	set STDOUTFILE=
+	set STDOUTREDIR=
+) else (
+	echo %IM% StdOut file specified is ^<%6^>
+	set STDOUTFILE=%6
+	set STDOUTREDIR=1^>!STDOUTFILE!
+	set STDOUTREDIRDISP=1^^^>!STDOUTFILE!
+)
 
-:StdErrPassed
-echo %IM% StdErr file specified is ^<%7^>
-set STDERRFILE=%7
-set STDERRREDIR=2^>%STDERRFILE%
-set STDERRREDIRDISP=2^^^>%STDERRFILE%
+if "%7"=="" (
+	echo %IM% No StdErr file specified
+	set STDERRFILE=
+	set STDERRREDIR=
+) else (
+	echo %IM% StdErr file specified is ^<%7^>
+	set STDERRFILE=%7
+	set STDERRREDIR=2^>%!STDERRFILE!
+	set STDERRREDIRDISP=2^^^>!STDERRFILE!
+)
 
 :RunIt
-if "%ODI_SCM_JISQL_JAVA_HOME%" == "" goto NoOdiScmJisqlJavaHomeError
-echo %IM% using ODI_SCM_JISQL_JAVA_HOME ^<%ODI_SCM_JISQL_JAVA_HOME%^>
-goto OdiScmJisqlJavaHomeOk
+if "%ODI_SCM_JISQL_JAVA_HOME%" == "" (
+	echo %EM% environment variable ODI_SCM_JISQL_JAVA_HOME is not set
+	goto ExitFail
+) else (
+	echo %IM% using ODI_SCM_JISQL_JAVA_HOME ^<%ODI_SCM_JISQL_JAVA_HOME%^>
+)
 
-:NoOdiScmJisqlJavaHomeError
-echo %EM% environment variable ODI_SCM_JISQL_JAVA_HOME is not set
-goto ExitFail
+if "%ODI_HOME%" == "" (
+	echo %EM% environment variable ODI_HOME is not set
+	goto ExitFail
+)
 
-:OdiScmJisqlJavaHomeOk
-if "%ODI_HOME%" == "" goto NoOdiHomeError
-goto OdiHomeOk
+if "%ODI_SCM_JISQL_HOME%" == "" (
+	echo %EM% environment variable ODI_SCM_JISQL_HOME is not set
+	goto ExitFail
+)
 
-:NoOdiHomeError
-echo %EM% environment variable ODI_HOME is not set
-goto ExitFail
-
-:OdiHomeOk
-if "%ODI_SCM_JISQL_HOME%" == "" goto NoJisqlHomeError
-goto JisqlHomeOk
-
-:NoJisqlHomeError
-echo %EM% environment variable ODI_SCM_JISQL_HOME is not set
-goto ExitFail
-
-:JisqlHomeOk
 rem set PATH="%JAVA_HOME%\bin";%PATH%
 set JISQL_LIB=%ODI_SCM_JISQL_HOME%\lib
 
@@ -96,8 +96,6 @@ if not "%ODI_SCM_JISQL_ADDITIONAL_CLASSPATH%" == "" (
 ) else (
 	echo %IM% no additional class path specified in environment variable ODI_SCM_JISQL_ADDITIONAL_CLASSPATH
 )
-
-setlocal enabledelayedexpansion
 
 REM echo %IM% adding files from OracleDI drivers directory ^<%ODI_HOME%	^> to class path
 for /f %%f in ('dir /b %ODI_HOME%\drivers') do (
@@ -120,12 +118,35 @@ for /f %%f in ('dir /b %JISQL_LIB%') do (
 )
 
 REM echo %IM% Jisql class path ^<%JISQL_CLASS_PATH%^>
-echo %IM% executing command ^<"%ODI_SCM_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 %STDOUTREDIRDISP% %STDERRREDIRDISP%^>
+echo %IM% executing command ^<"%ODI_SCM_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 1^>%STDOUTWORKFILE% 2^>%STDERRWORKFILE%^>
 
+"%ODI_SCM_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 1>%STDOUTWORKFILE% 2>%STDERRWORKFILE%
+set EXITSTATUS=%ERRORLEVEL%
 
-"%ODI_SCM_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 %STDOUTREDIR% %STDERRREDIR%
-if ERRORLEVEL 1 goto ExitFail
-exit %ISBATCHEXIT% 0
+if "%STDOUTFILE%" == "" (
+	type "%STDOUTWORKFILE%"
+) else (
+	type "%STDOUTWORKFILE%" > "%STDOUTFILE%"
+)
+
+if "%STDERRFILE%" == "" (
+	type "%STDERRWORKFILE%" 1>&2
+) else (
+	type "%STDERRWORKFILE%" > "%STDERRFILE%"
+)
+
+if not "%EXITSTATUS%" == "0" (
+	echo %EM% executing SQL script ^<%5^>
+	goto ExitFail
+)
+
+fc "%EMPTYFILE%" "%STDERRWORKFILE%" >NUL
+if ERRORLEVEL 1 (
+	echo %EM% Jisql command returned stderr text
+	goto ExitFail
+)
+
+exit %IsBatchExit% 0
 
 :ExitFail
-exit %ISBATCHEXIT% 1
+exit %IsBatchExit% 1

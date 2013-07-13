@@ -62,9 +62,9 @@ set ODI_SECU_PASS=%ODI_ADMIN_PASS%
 
 echo %IM% dropping existing demo environment repository database users
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" %ODI_SCM_HOME%\Configuration\Demo\OdiScmDropDemoRepoUsers.sql %DiscardOutput% %DiscardStdErr%
-if ERRORLEVEL 1 (
-	goto ExitFail
-)
+rem if ERRORLEVEL 1 (
+rem 	goto ExitFail
+rem )
 
 echo %IM% creating demo environment repository database users
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" %ODI_SCM_HOME%\Configuration\Demo\OdiScmCreateDemoRepoUsers.sql %DiscardStdOut% %DiscardStdErr%
@@ -92,7 +92,7 @@ rem Working copy directories.
 rem
 if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" (
 	echo %IM% deleting existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
-	chmod a+w "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
+	chmod -R a+w "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% making existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^> writable
 		got ExitFail
@@ -106,12 +106,12 @@ if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" (
 
 if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%" (
 	echo %IM% deleting existing working root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^>
-	chmod a+w "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
+	chmod -R a+w "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% making existing working root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^> writable
 		got ExitFail
 	)
-	rm -r "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
+	rm -fr "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% deleting existing working directory tree ^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^>
 		got ExitFail
@@ -176,7 +176,7 @@ rem Working copy directories.
 rem
 if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" (
 	echo %IM% deleting existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
-	chmod a+w "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
+	chmod -R a+w "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% making existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^> writable
 		got ExitFail
@@ -190,12 +190,12 @@ if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" (
 
 if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%" (
 	echo %IM% deleting existing working root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^>
-	chmod a+w "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
+	chmod -R a+w "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% making existing working root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^> writable
 		got ExitFail
 	)
-	rm -r "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
+	rm -fr "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% deleting existing working directory tree ^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^>
 		got ExitFail
@@ -300,7 +300,7 @@ echo %IM% demo repository creation completed successfully
 exit /b 0
 
 :ExitFail
-echo %IM% demo repository creation failed
+echo %EM% demo repository creation failed
 exit /b 1
 
 rem *************************************************************
