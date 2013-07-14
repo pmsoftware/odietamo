@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="odi"/>
+	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi.sdk/lib/XmlSchema-1.4.2.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi.sdk/lib/odi-core.jar"/>
 	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi.sdk/lib/activation.jar"/>
 	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi.sdk/lib/ant.jar"/>
 	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi.sdk/lib/ant-antlr.jar"/>
@@ -70,7 +69,6 @@
 	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi.sdk/lib/mail.jar"/>
 	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi.sdk/lib/mrua.jar"/>
 	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi.sdk/lib/odi_hfm.jar"/>
-	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi.sdk/lib/odi-core.jar"/>
 	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi.sdk/lib/odihapp_common.jar"/>
 	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi.sdk/lib/odihapp_essbase.jar"/>
 	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi.sdk/lib/odihapp_planning.jar"/>
@@ -93,6 +91,37 @@
 	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi.sdk/lib/spring-web.jar"/>
 	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi.sdk/lib/trove.jar"/>
 	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi.sdk/lib/wlthint3client.jar"/>
-	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/drivers/ojdbc6.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi.sdk/lib/XmlSchema-1.4.2.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/drivers/ojdbc6dms.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/activation.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/commons-cli-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/FastInfoset.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/http.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/jaxb-api.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/jaxb-impl.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/jaxb-xjc.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/jaxp-api.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/jaxp-ri.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/jaxws-api.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/jaxws-rt.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/jaxws-tools.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/jetty-6.1.18.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/jetty-naming-6.1.18.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/jetty-plus-6.1.18.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/jetty-util-6.1.18.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/jsr173_api.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/jsr181-api.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/jsr250-api.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/mimepull.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/odi-standalone-agent.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/odi-web-agent.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/oracle.odi-agent-jse_11.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/orasaaj.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/orasaaj-rt.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/resolver.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/servlet-api-2.5-20081211.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/stax-ex.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/streambuffer.jar"/>
+	<classpathentry kind="lib" path="C:/oracle/product/11.1.1/Oracle_ODI_1/oracledi/agent/lib/woodstox.jar"/>
+	<classpathentry kind="output" path=""/>
 </classpath>

@@ -97,19 +97,19 @@ if not "%ODI_SDK%" == "" (
 	)
 )
 
-echo %IM% adding files from Jisql lib directory ^<%ODI_SCM_JISQL_HOME%\lib^> to class path
-rem TODO: check if this dir actually exists.
-for /f %%f in ('dir /b /s %ODI_SCM_JISQL_HOME%\lib\*.jar 2^>NUL') do (
-	echo %IM% adding file ^<%%f^>
-	rem <nul set /p =%%f >> "%TEMPFILE%"
-	call :AddToManifest %%f
-)
+REM echo %IM% adding files from Jisql lib directory ^<%ODI_SCM_JISQL_HOME%\lib^> to class path
+REM rem TODO: check if this dir actually exists.
+REM for /f %%f in ('dir /b /s %ODI_SCM_JISQL_HOME%\lib\*.jar 2^>NUL') do (
+	REM echo %IM% adding file ^<%%f^>
+	REM rem <nul set /p =%%f >> "%TEMPFILE%"
+	REM call :AddToManifest %%f
+REM )
 
-for /f %%f in ('dir /b /s %ODI_SCM_JISQL_HOME%\lib\*.zip 2^>NUL') do (
-	echo %IM% adding file ^<%%f^>
-	rem <nul set /p =%%f >> "%TEMPFILE%"
-	call :AddToManifest %%f
-)
+REM for /f %%f in ('dir /b /s %ODI_SCM_JISQL_HOME%\lib\*.zip 2^>NUL') do (
+	REM echo %IM% adding file ^<%%f^>
+	REM rem <nul set /p =%%f >> "%TEMPFILE%"
+	REM call :AddToManifest %%f
+REM )
 
 rem
 rem Ensure the Class-Path entry ends with a new line character (LF or CR).

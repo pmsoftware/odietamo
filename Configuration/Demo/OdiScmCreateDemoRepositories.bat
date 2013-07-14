@@ -253,29 +253,32 @@ rem Create a working copy of the SCM repository.
 rem *************************************************************
 
 rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScm.bat^" 
-echo %IM% deleting existing TFS workspace ^<DemoMaster^>
-tf.exe workspace /delete /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL% DemoMaster /noprompt %DiscardStdOut% %DiscardStdErr%
+rem TODO: replace most OdiScmXXXX.bat commands with a central OdiScm.bat that takes the command as first arg and forks shells.
+rem TODO: create SCM agnostic command to create/delete working copies.
 
-echo %IM% creating TFS workspace ^<DemoMaster^>
-tf.exe workspace /new /noprompt DemoMaster /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%
-if ERRORLEVEL 1 (
-	echo %EM% creating TFS workspace ^<DemoMaster^>
-	goto ExitFail
-)
+REM echo %IM% deleting existing TFS workspace ^<DemoMaster^>
+REM tf.exe workspace /delete /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL% DemoMaster /noprompt %DiscardStdOut% %DiscardStdErr%
 
-echo %IM% deleting default folder mapping for TFS workspace ^<DemoMaster^>
-tf.exe workfold /noprompt /unmap /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL% /workspace:DemoMaster $/
-if ERRORLEVEL 1 (
-	echo %EM% deleting default folder mapping for TFS workspace ^<DemoMaster^>
-	goto ExitFail
-)
+REM echo %IM% creating TFS workspace ^<DemoMaster^>
+REM tf.exe workspace /new /noprompt DemoMaster /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%
+REM if ERRORLEVEL 1 (
+	REM echo %EM% creating TFS workspace ^<DemoMaster^>
+	REM goto ExitFail
+REM )
 
-echo %IM% creating mapping for TFS workspace ^<DemoMaster^> to branch URL ^<%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%^>
-tf.exe workfold /map "%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" /workspace:DemoMaster /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%
-if ERRORLEVEL 1 (
-	echo %EM% creating mapping for TFS workspace ^<DemoMaster^>
-	goto ExitFail
-)
+REM echo %IM% deleting default folder mapping for TFS workspace ^<DemoMaster^>
+REM tf.exe workfold /noprompt /unmap /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL% /workspace:DemoMaster $/
+REM if ERRORLEVEL 1 (
+	REM echo %EM% deleting default folder mapping for TFS workspace ^<DemoMaster^>
+	REM goto ExitFail
+REM )
+
+REM echo %IM% creating mapping for TFS workspace ^<DemoMaster^> to branch URL ^<%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%^>
+REM tf.exe workfold /map "%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" /workspace:DemoMaster /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%
+REM if ERRORLEVEL 1 (
+	REM echo %EM% creating mapping for TFS workspace ^<DemoMaster^>
+	REM goto ExitFail
+REM )
 
 rem
 rem Export the demo, using OdiScm, to the working copy from demo repository 2.
