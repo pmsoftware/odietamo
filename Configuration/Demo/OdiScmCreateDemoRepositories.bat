@@ -76,14 +76,6 @@ if ERRORLEVEL 1 (
 set ODI_SECU_USER=%PODI_SECU_USER%
 set ODI_SECU_PASS=%PODI_SECU_PASS%
 
-REM set ODI_SCM_INI=%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportStandardOdiDemoRepo1.ini
-REM echo %IM% setting OdiScm environment from ^<%ODI_SCM_INI%^>
-REM call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat" /b >NUL
-REM if ERRORLEVEL 1 (
-	REM goto ExitFail
-REM )
-REM call :SetMsgPrefixes
-
 rem *************************************************************
 rem Demo environment 1.
 rem *************************************************************
