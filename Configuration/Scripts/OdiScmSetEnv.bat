@@ -323,6 +323,16 @@ REM ) else (
 	REM )
 REM )
 
+REM
+REM Create the OdiScm JAR file that will include all the JARs we need for all the Java commands we use.
+REM Execute in the current shell environment to retain the value of ODI_SCM_JAR_FILE.
+REM
+REM call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateClassPathJar.bat" /b
+REM if ERRORLEVEL 1 (
+	REM echo %EM% creating OdiScm class path JAR file
+	REM goto ExitFail
+REM )
+
 :ExitOk
 REM if exist "%TEMPFILE%" del /f "%TEMPFILE%"
 REM if exist "%TEMPFILE2%" del /f %TEMPFILE2%

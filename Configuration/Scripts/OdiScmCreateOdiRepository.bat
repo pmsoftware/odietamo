@@ -35,51 +35,31 @@ if "%ODI_JAVA_HOME%" == "" (
 	goto ExitFail
 )
 
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
+if ERRORLEVEL 1 (
+	echo %EM% creating temporary working directory ^<%TEMPDIR%^>
+	goto ExitFail
+)
+
+set TEMPJARFILE=%TEMPDIR%\%PROC%.jar
+
 setlocal enabledelayedexpansion
 
-set ODI_SCM_CLASS_PATH=%ODI_SCM_HOME%\Configuration\Bin\OdiScm.jar
+set ODI_SCM_CLASS_PATH=%ODI_SCM_HOME%\Configuration\bin\OdiScm.jar
 
-echo %IM% adding files from OracleDI drivers directory ^<%ODI_HOME%\drivers^> to class path
-for /f %%f in ('dir /b %ODI_HOME%\drivers') do (
-	REM echo %IM% adding file ^<%%f^>
-	set ODI_SCM_CLASS_PATH=%ODI_HOME%\drivers\%%f;!ODI_SCM_CLASS_PATH!
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" %ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiClassPathJar.bat %TEMPJARFILE%
+if ERRORLEVEL 1 (
+	echo %EM% creating ODI class path helper JAR file
+	goto ExitFail
 )
 
-if not "%ODI_COMMON%" == "" (
-	echo %IM% adding OracleDI common directory ^<%ODI_COMMON%\odi^> to class path
-	set ODI_SCM_CLASS_PATH=%ODI_COMMON%\odi;!ODI_SCM_CLASS_PATH!
-	echo %IM% adding files from OracleDI common lib directory ^<%ODI_COMMON%\odi^> to class path
-	for /f %%f in ('dir /b /s %ODI_COMMON%\odi\*.jar') do (
-		echo %IM% adding file ^<%%f^>
-		set ODI_SCM_CLASS_PATH=%%f;!ODI_SCM_CLASS_PATH!
-	)
-)
+set ODI_SCM_CLASS_PATH=%ODI_SCM_CLASS_PATH%;%TEMPJARFILE%
 
-if not "%ODI_SDK%" == "" (
-	echo %IM% adding files from OracleDI SDK lib directory ^<%ODI_SDK%^> to class path
-	for /f %%f in ('dir /b /s %ODI_SDK%\lib\odi*.jar') do (
-		echo %IM% adding file ^<%%f^>
-		set ODI_SCM_CLASS_PATH=%%f;!ODI_SCM_CLASS_PATH!
-	)
-	for /f %%f in ('dir /b /s %ODI_SDK%\spring*.jar') do (
-		echo %IM% adding file ^<%%f^>
-		set ODI_SCM_CLASS_PATH=%%f;!ODI_SCM_CLASS_PATH!
-	)
-	set ODI_SCM_CLASS_PATH=%ODI_SDK%\lib\SchemaVersion.jar;!ODI_SCM_CLASS_PATH!
-	set ODI_SCM_CLASS_PATH=%ODI_SDK%\lib\commons-lang-2.2.jar;!ODI_SCM_CLASS_PATH!
-	set ODI_SCM_CLASS_PATH=%ODI_SDK%\lib\commons-logging-1.1.1.jar;!ODI_SCM_CLASS_PATH!
-	set ODI_SCM_CLASS_PATH=%ODI_SDK%\lib\bsf.jar;!ODI_SCM_CLASS_PATH!
-	set ODI_SCM_CLASS_PATH=%ODI_SDK%\lib\bsh-2.0b2.jar;!ODI_SCM_CLASS_PATH!
-	set ODI_SCM_CLASS_PATH=%ODI_SDK%\lib\javolution.jar;!ODI_SCM_CLASS_PATH!
-	set ODI_SCM_CLASS_PATH=%ODI_SDK%\lib\eclipselink.jar;!ODI_SCM_CLASS_PATH!
-	set ODI_SCM_CLASS_PATH=%ODI_SDK%\lib\oracle.ucp_11.1.0.jar;!ODI_SCM_CLASS_PATH!
-	set ODI_SCM_CLASS_PATH=%ODI_SDK%\lib\commons-collections-3.2.jar;!ODI_SCM_CLASS_PATH!
-	set ODI_SCM_CLASS_PATH=%ODI_SDK%\lib\persistence.jar;!ODI_SCM_CLASS_PATH!
-)
-
+rem
+rem We use the CLASSPATH environment variable just for a change!
+rem
 echo %IM% using class path of ^<%ODI_SCM_CLASS_PATH%^>
 set CLASSPATH=%ODI_SCM_CLASS_PATH%
-echo %CLASSPATH%>c:\temp\classpath.txt
 
 echo %IM% running command ^<"%ODI_JAVA_HOME%\bin\java.exe" odietamo.OdiScm.CreateRepository %ODI_USER% %ODI_PASS% %ODI_SECU_URL% %ODI_SECU_DRIVER% %ODI_SECU_USER% %ODI_SECU_PASS% %1 %ODI_SECU_WORK_REP% %ODI_ADMIN_USER% %ODI_ADMIN_PASS%^>
 

@@ -1,0 +1,1 @@
+set ODI_SCM_HOME=%CD%

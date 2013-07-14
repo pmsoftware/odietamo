@@ -62,13 +62,14 @@ set ODI_SECU_PASS=%ODI_ADMIN_PASS%
 
 echo %IM% dropping existing demo environment repository database users
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" %ODI_SCM_HOME%\Configuration\Demo\OdiScmDropDemoRepoUsers.sql %DiscardOutput% %DiscardStdErr%
-rem if ERRORLEVEL 1 (
-rem 	goto ExitFail
-rem )
+if ERRORLEVEL 1 (
+	echo %WM% failure dropping existing demo environment repository database users
+)
 
 echo %IM% creating demo environment repository database users
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" %ODI_SCM_HOME%\Configuration\Demo\OdiScmCreateDemoRepoUsers.sql %DiscardStdOut% %DiscardStdErr%
 if ERRORLEVEL 1 (
+	echo %EM% creating demo environment repository database users
 	goto ExitFail
 )
 

@@ -8,7 +8,14 @@ if "%TEMP%" == "" (
 	set TEMPDIR=%TEMP%
 )
 
-set TEMPDIR=%TEMPDIR%\OdiScm_%RANDOM%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetDateTimeStrings.bat"
+if ERRORLEVEL 1 (
+	echo %EM% setting date and time strings
+	exit /b 1
+)
+
+rem set TEMPDIR=%TEMPDIR%\OdiScm_%RANDOM%
+set TEMPDIR=%TEMPDIR%\OdiScm_%YYYYMMDD%_%HHMMSSFF%
 
 if EXIST "%TEMPDIR" (
 	rd /s /q "%TEMPDIR%" >NUL 2>NUL

@@ -21,8 +21,9 @@ echo %IM% PassWord is ^<%2^>
 echo %IM% Driver is ^<%3^>
 echo %IM% Url is ^<%4^>
 echo %IM% Script is ^<%5^>
-echo %IM% StdOutFile is ^<%6^>
-echo %IM% StdErrFile is ^<%7^>
+echo %IM% Class Path Base is ^<%6^>
+echo %IM% StdOutFile is ^<%7^>
+echo %IM% StdErrFile is ^<%8^>
 
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
 if ERRORLEVEL 1 (
@@ -42,29 +43,34 @@ set STDERRWORKFILE=%TEMPDIR%\OdiScmJisql_StdErr_%RANDSTR%.txt
 
 setlocal enabledelayedexpansion
 
-if "%6"=="" (
+if "%7"=="" (
 	echo %IM% No StdOut file specified
 	set STDOUTFILE=
 	set STDOUTREDIR=
 ) else (
-	echo %IM% StdOut file specified is ^<%6^>
-	set STDOUTFILE=%6
+	echo %IM% StdOut file specified is ^<%7^>
+	set STDOUTFILE=%7
 	set STDOUTREDIR=1^>!STDOUTFILE!
 	set STDOUTREDIRDISP=1^^^>!STDOUTFILE!
 )
 
-if "%7"=="" (
+if "%8"=="" (
 	echo %IM% No StdErr file specified
 	set STDERRFILE=
 	set STDERRREDIR=
 ) else (
-	echo %IM% StdErr file specified is ^<%7^>
-	set STDERRFILE=%7
+	echo %IM% StdErr file specified is ^<%8^>
+	set STDERRFILE=%8
 	set STDERRREDIR=2^>%!STDERRFILE!
 	set STDERRREDIRDISP=2^^^>!STDERRFILE!
 )
 
 :RunIt
+if "%ODI_SCM_JISQL_HOME%" == "" (
+	echo %EM% environment variable ODI_SCM_JISQL_HOME is not set
+	goto ExitFail
+)
+
 if "%ODI_SCM_JISQL_JAVA_HOME%" == "" (
 	echo %EM% environment variable ODI_SCM_JISQL_JAVA_HOME is not set
 	goto ExitFail
@@ -72,15 +78,10 @@ if "%ODI_SCM_JISQL_JAVA_HOME%" == "" (
 	echo %IM% using ODI_SCM_JISQL_JAVA_HOME ^<%ODI_SCM_JISQL_JAVA_HOME%^>
 )
 
-if "%ODI_HOME%" == "" (
-	echo %EM% environment variable ODI_HOME is not set
-	goto ExitFail
-)
-
-if "%ODI_SCM_JISQL_HOME%" == "" (
-	echo %EM% environment variable ODI_SCM_JISQL_HOME is not set
-	goto ExitFail
-)
+REM if "%ODI_HOME%" == "" (
+	REM echo %EM% environment variable ODI_HOME is not set
+	REM goto ExitFail
+REM )
 
 rem set PATH="%JAVA_HOME%\bin";%PATH%
 set JISQL_LIB=%ODI_SCM_JISQL_HOME%\lib
@@ -97,19 +98,19 @@ if not "%ODI_SCM_JISQL_ADDITIONAL_CLASSPATH%" == "" (
 	echo %IM% no additional class path specified in environment variable ODI_SCM_JISQL_ADDITIONAL_CLASSPATH
 )
 
-REM echo %IM% adding files from OracleDI drivers directory ^<%ODI_HOME%	^> to class path
-for /f %%f in ('dir /b %ODI_HOME%\drivers') do (
-	REM echo %IM% adding file ^<%%f^>
-	if "!JISQL_CLASS_PATH!" == "" (
-		set JISQL_CLASS_PATH=%ODI_HOME%\drivers\%%f
-	) else (
-		set JISQL_CLASS_PATH=%ODI_HOME%\drivers\%%f;!JISQL_CLASS_PATH!
-	)
-)
+rem echo %IM% adding files from OracleDI drivers directory ^<%ODI_HOME%	^> to class path
+REM for /f %%f in ('dir /b %ODI_HOME%\drivers') do (
+	rem echo %IM% adding file ^<%%f^>
+	REM if "!JISQL_CLASS_PATH!" == "" (
+		REM set JISQL_CLASS_PATH=%ODI_HOME%\drivers\%%f
+	REM ) else (
+		REM set JISQL_CLASS_PATH=%ODI_HOME%\drivers\%%f;!JISQL_CLASS_PATH!
+	REM )
+REM )
 
-REM echo %IM% adding files from Jisql lib directory ^<%JISQL_LIB%^> to class path
+echo %IM% adding files from Jisql lib directory ^<%JISQL_LIB%^> to class path
 for /f %%f in ('dir /b %JISQL_LIB%') do (
-	REM echo %IM% adding file ^<%%f^>
+	echo %IM% adding file ^<%%f^>
 	if "!JISQL_CLASS_PATH!" == "" (
 		set JISQL_CLASS_PATH=%JISQL_LIB%\%%f
 	) else (
@@ -118,9 +119,9 @@ for /f %%f in ('dir /b %JISQL_LIB%') do (
 )
 
 REM echo %IM% Jisql class path ^<%JISQL_CLASS_PATH%^>
-echo %IM% executing command ^<"%ODI_SCM_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 1^>%STDOUTWORKFILE% 2^>%STDERRWORKFILE%^>
+echo %IM% executing command ^<"%ODI_SCM_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH%;%6 com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 1^>%STDOUTWORKFILE% 2^>%STDERRWORKFILE%^>
 
-"%ODI_SCM_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH% com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 1>%STDOUTWORKFILE% 2>%STDERRWORKFILE%
+"%ODI_SCM_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH%;%6 com.xigole.util.sql.Jisql -user %1 -pass %2 -driver %3 -cstring %4 -c / -formatter default -delimiter=" " -noheader -trim -input %5 1>%STDOUTWORKFILE% 2>%STDERRWORKFILE%
 set EXITSTATUS=%ERRORLEVEL%
 
 if "%STDOUTFILE%" == "" (
