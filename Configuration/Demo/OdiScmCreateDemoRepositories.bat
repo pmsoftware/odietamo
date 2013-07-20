@@ -19,11 +19,6 @@ if "%ODI_SCM_HOME%" == "" (
 	goto ExitFail
 )
 
-if "%ODI_VERSION%" == "" (
-	echo %EM% environment variable ODI_VERSION is not set
-	got ExitFail
-)
-
 rem
 rem Source the working directory.
 rem
@@ -88,12 +83,12 @@ if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" (
 	chmod -R a+w "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% making existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^> writable
-		got ExitFail
+		goto ExitFail
 	)
 	rm -r "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% deleting existing working copy directory tree ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
-		got ExitFail
+		goto ExitFail
 	)
 )
 
@@ -102,12 +97,12 @@ if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%" (
 	chmod -R a+w "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% making existing working root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^> writable
-		got ExitFail
+		goto ExitFail
 	)
 	rm -fr "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% deleting existing working directory tree ^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^>
-		got ExitFail
+		goto ExitFail
 	)
 )
 
@@ -172,12 +167,12 @@ if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" (
 	chmod -R a+w "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% making existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^> writable
-		got ExitFail
+		goto ExitFail
 	)
 	rm -r "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% deleting existing working copy directory tree ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
-		got ExitFail
+		goto ExitFail
 	)
 )
 
@@ -186,12 +181,12 @@ if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%" (
 	chmod -R a+w "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% making existing working root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^> writable
-		got ExitFail
+		goto ExitFail
 	)
 	rm -fr "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% deleting existing working directory tree ^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^>
-		got ExitFail
+		goto ExitFail
 	)
 )
 

@@ -34,24 +34,13 @@
 	<Field name="IPop" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IScenFolder" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[23998]]></Field>
-	<Field name="ITxtScen" type="com.sunopsis.sql.DbInt"><![CDATA[224998]]></Field>
+	<Field name="ITxtScen" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IVar" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="ScenName" type="java.lang.String"><![CDATA[OSUTL_EXPORT_DATA_STORE]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
 	<Field name="ScenVersion" type="java.lang.String"><![CDATA[001]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
-		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
-	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[224998]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
-	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[Version to export data stores with relationships in separate export files.]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
 		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2011-08-04 18:22:33.0]]></Field>
@@ -63,28 +52,28 @@
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[N]]></Field>
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.DataStoreInternalID]]></Field>
-	<Field name="VarParam" type="java.lang.String">null</Field>
-	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="VarParam" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
 		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2012-06-11 11:12:57.0]]></Field>
 	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="DefV" type="java.lang.String"><![CDATA[Yes]]></Field>
-	<Field name="IndStore" type="java.lang.String"><![CDATA[S]]></Field>
-	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[226998]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[225998]]></Field>
+	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
+	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[3031998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[3030998]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.VCSRequiresCheckOut]]></Field>
-	<Field name="VarParam" type="java.lang.String">null</Field>
-	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="VarParam" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
 		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[226998]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[3031998]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[Yes]]></Field>
@@ -95,7 +84,7 @@
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[225998]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[3030998]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[Valid values are: -
@@ -152,7 +141,7 @@
 	<Field name="IndLogNb" type="java.lang.String">null</Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[15]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="TaskName1" type="java.lang.String"><![CDATA[Procedure]]></Field>
@@ -364,9 +353,13 @@ raise(a)]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[f = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/model.#o2id/#OS.DataStoreInternalID.SnpTable','r')
-g = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.DataStoreInternalID.SnpTable.noSnpJoins.<?=snpRef.getSession("SESS_NO") ?>',']]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[") ?>/#OS.DataStoreInternalID.SnpTable.noSnpJoins.<?=snpRef.getSession("SESS_NO") ?>'
+print 'gn: ' + gn
+fn = '<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/model.#o2id/#OS.DataStoreInternalID.SnpTable'
+print 'fn: ' + fn
+
+g = open('<?=snpRef.getSch]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
 		<Field name="Enc" type="java.lang.String">null</Field>
@@ -375,133 +368,31 @@ g = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.DataStoreInternal
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[w')
-
-inIgnoredObject = 'F'
-
-lsrc = f.readline()
-
-while (lsrc):
-	#print "Got a line:" + lsrc
-	if lsrc.startswith('<Object class="com.sunopsis.dwg.dbobj.SnpJoin'):
-		#print "found a join\n"
-		inIgnoredObject = 'T'
-		lsrc = f.readline()
-		continue
-	else]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[:
-		if lsrc.startswith('<Object class="com.sunopsis.dwg.dbobj.SnpJoinCol'):
-			#print "found a join col\n"
-			inIgnoredObject = 'T'
-			lsrc = f.readline()
-			continue
-		else:
-			if lsrc.startswith('</Object>'):
-				#print "found an object end\n"
-				]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[if inIgnoredObject == 'T':
-					# We've reached the end of the object to ignore.
-					#print "stopping ignoring the current object\n"
-					inIgnoredObject = 'F'
-					lsrc = f.readline()
-					continue
-				else:
-					#print "...not being ignored"
-					]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[pass
-			else:
-				print "a normal line"
-				if inIgnoredObject == 'T':
-					#print "ignoring ignored object line"
-					lsrc = f.readline()
-					continue
-
-	if lsrc.startswith('\t<Field name="JoinColNb'):
-		#print "Found join col summary"
-		lsrc = '\t<]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[Field name="JoinColNb" type="com.sunopsis.sql.DbInt"><![CDATA[0SNPS_CDATA_END_TAG</Field>\n'
-
-	if  lsrc.startswith('\t<Field name="JoinNb'):
-		#print "Found join summary"
-		lsrc = '\t<Field name="JoinNb" type="com.sunopsis.sql.DbInt"><![CDATA[0SNPS_C]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[DATA_END_TAG</Field>\n'
-
-	#print "writing the line"
-
-	g.write(lsrc)
-	lsrc = f.readline()
-
-g.close()
-f.close()
-
-g = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.DataStoreInternalID.SnpTable.noSnpJoins.<?=snpRef.getSession("SESS_NO") ?>',]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA['r')
+	<Field name="Txt" type="java.lang.String"><![CDATA[emaName("ODISCMWC_DATA", "W") ?>/#OS.DataStoreInternalID.SnpTable.noSnpJoins.<?=snpRef.getSession("SESS_NO") ?>','r')
 f = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/model.#o2id/#OS.DataStoreInternalID.SnpTable','w')
 
 lsrc = g.readline()
 
-while (lsrc):
+]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[while (lsrc):
 	#print "Got a line:" + lsrc
 	f.write(lsrc)
 	lsrc = g.readline()
 
 f.close()
-g.close()]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
+g.close()
+
+print 'OSUTL_EXPORT_DATA_STORE: SnpTable SnpJoin Remove: Ends']]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
 		<Field name="Enc" type="java.lang.String">null</Field>
@@ -515,6 +406,148 @@ g.close()]]></Field>
   FROM snp_table
  WHERE i_table = #OS.DataStoreInternalID]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[print 'OSUTL_EXPORT_DATA_STORE: SnpTable SnpJoin Remove: Starts'
+
+fn = '<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/model.#o2id/#OS.DataStoreInternalID.SnpTable'
+print 'fn: ' + fn
+gn = '<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.DataSt]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[oreInternalID.SnpTable.noSnpJoins.<?=snpRef.getSession("SESS_NO") ?>'
+print 'gn: ' + gn
+
+f = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/model.#o2id/#OS.DataStoreInternalID.SnpTable','r')
+g = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", ]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA["W") ?>/#OS.DataStoreInternalID.SnpTable.noSnpJoins.<?=snpRef.getSession("SESS_NO") ?>','w')
+
+inIgnoredObject = 'F'
+
+lsrc = f.readline()
+
+while (lsrc):
+	#print "Got a line:" + lsrc
+	if lsrc.startswith('<Object class="com.sunopsis.dwg.dbobj.SnpJoin'):]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[
+		#print "found a join\n"
+		inIgnoredObject = 'T'
+		lsrc = f.readline()
+		continue
+	else:
+		if lsrc.startswith('<Object class="com.sunopsis.dwg.dbobj.SnpJoinCol'):
+			#print "found a join col\n"
+			inIgnoredObject = 'T'
+			lsrc = f.readline()
+			con]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[tinue
+		else:
+			if lsrc.startswith('</Object>'):
+				#print "found an object end\n"
+				if inIgnoredObject == 'T':
+					# We've reached the end of the object to ignore.
+					#print "stopping ignoring the current object\n"
+					inIgnoredObject = 'F'
+]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[					lsrc = f.readline()
+					continue
+				else:
+					#print "...not being ignored"
+					pass
+			else:
+				#print "a normal line"
+				if inIgnoredObject == 'T':
+					#print "ignoring ignored object line"
+					lsrc = f.readline()
+					continue
+
+	if ls]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[rc.startswith('\t<Field name="JoinColNb'):
+		#print "Found join col summary"
+		lsrc = '\t<Field name="JoinColNb" type="com.sunopsis.sql.DbInt"><![CDATA[0SNPS_CDATA_END_TAG</Field>\n'
+
+	if  lsrc.startswith('\t<Field name="JoinNb'):
+		#print "Found joi]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[61998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[n summary"
+		lsrc = '\t<Field name="JoinNb" type="com.sunopsis.sql.DbInt"><![CDATA[0SNPS_CDATA_END_TAG</Field>\n'
+
+	#print "writing the line"
+
+	g.write(lsrc)
+	lsrc = f.readline()
+
+g.close()
+f.close()
+
+gn = '<?=snpRef.getSchemaName("ODISCMWC_DATA", "W]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[259998]]></Field>
@@ -761,7 +794,7 @@ g.close()]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
-	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[15]]></Field>
 	<Field name="SqlName" type="java.lang.String"><![CDATA[Display Input Parameters]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
@@ -1010,7 +1043,14 @@ raise(a)]]></Field>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[268998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[f = open('<%=snpRef.getSchemaName("ODISCMWC_DATA","D")%>/model.#o2id/#DataStoreInternalID.SnpTable','r')
+	<Field name="Txt" type="java.lang.String"><![CDATA[print 'OSUTL_EXPORT_DATA_STORE: SnpTable SnpJoin Remove: Starts'
+
+fn = '<%=snpRef.getSchemaName("ODISCMWC_DATA","D")%>/model.#o2id/#DataStoreInternalID.SnpTable'
+print 'fn: ' + fn
+gn = '<%=snpRef.getSchemaName("ODISCMWC_DATA","W")%>/#DataStoreInternalID.SnpTable.noSnpJoins.<%=snpRef.getSession("SESS_NO")%>'
+print 'gn: ' + gn
+
+f = open('<%=snpRef.getSchemaName("ODISCMWC_DATA","D")%>/model.#o2id/#DataStoreInternalID.SnpTable','r')
 g = open('<%=snpRef.getSchemaName("ODISCMWC_DATA","W")%>/#DataStoreInternalID.SnpTable.noSnpJoins.<%=snpRef.getSession("SESS_NO")%>','w')
 
 inIgnoredObject = 'F'
@@ -1043,7 +1083,7 @@ while (lsrc):
 					#print "...not being ignored"
 					pass
 			else:
-				print "a normal line"
+				#print "a normal line"
 				if inIgnoredObject == 'T':
 					#print "ignoring ignored object line"
 					lsrc = f.readline()
@@ -1065,6 +1105,11 @@ while (lsrc):
 g.close()
 f.close()
 
+gn = '<%=snpRef.getSchemaName("ODISCMWC_DATA","W")%>/#DataStoreInternalID.SnpTable.noSnpJoins.<%=snpRef.getSession("SESS_NO")%>'
+print 'gn: ' + gn
+fn = '<%=snpRef.getSchemaName("ODISCMWC_DATA","D")%>/model.#o2id/#DataStoreInternalID.SnpTable'
+print 'fn: ' + fn
+
 g = open('<%=snpRef.getSchemaName("ODISCMWC_DATA","W")%>/#DataStoreInternalID.SnpTable.noSnpJoins.<%=snpRef.getSession("SESS_NO")%>','r')
 f = open('<%=snpRef.getSchemaName("ODISCMWC_DATA","D")%>/model.#o2id/#DataStoreInternalID.SnpTable','w')
 
@@ -1076,12 +1121,14 @@ while (lsrc):
 	lsrc = g.readline()
 
 f.close()
-g.close()]]></Field>
+g.close()
+
+print 'OSUTL_EXPORT_DATA_STORE: SnpTable SnpJoin Remove: Ends']]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
 	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
@@ -1503,7 +1550,7 @@ g.close()]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[80]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.DwgExportSummary">
-		<Field name="ExpTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
+		<Field name="ExpTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 	<Field name="InstObjNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="JoinColNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="JoinNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
@@ -1520,7 +1567,7 @@ g.close()]]></Field>
 	<Field name="UeOrigNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="UeUsedNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="VarPlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[16]]></Field>
+	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[19]]></Field>
 	<Field name="OriginRepositoryID" type="com.sunopsis.sql.DbInt">null</Field>
 </Object>
 </SunopsisExport>

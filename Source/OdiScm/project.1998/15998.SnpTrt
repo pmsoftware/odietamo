@@ -127,6 +127,45 @@
 	<Field name="ColContextCode" type="java.lang.String">null</Field>
 	<Field name="ColIndCommit" type="java.lang.String">null</Field>
 	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechIntName" type="java.lang.String">null</Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefLschemaName" type="java.lang.String">null</Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechIntName" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
+	<Field name="ExeChannel" type="java.lang.String"><![CDATA[S]]></Field>
+	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String">null</Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
+	<Field name="TaskName1" type="java.lang.String"><![CDATA[Procedure]]></Field>
+	<Field name="TaskName2" type="java.lang.String"><![CDATA[OSUTL_FLUSH_MASTER_REPOSITORY]]></Field>
+	<Field name="TaskName3" type="java.lang.String"><![CDATA[Check VCS Interface]]></Field>
+	<Field name="TaskType" type="java.lang.String"><![CDATA[S]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_CHECK_VCS_INTERFACE]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTask">
+		<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
 	<Field name="ColLschemaName" type="java.lang.String"><![CDATA[ODIWORKREP_DATA]]></Field>
 	<Field name="ColPlanComp" type="java.lang.String">null</Field>
 	<Field name="ColTechIntName" type="java.lang.String"><![CDATA[ORACLE]]></Field>
@@ -143,9 +182,9 @@
 	<Field name="IndLogNb" type="java.lang.String">null</Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[15]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 	<Field name="TaskName1" type="java.lang.String"><![CDATA[Procedure]]></Field>
 	<Field name="TaskName2" type="java.lang.String"><![CDATA[OSUTL_FLUSH_MASTER_REPOSITORY]]></Field>
 	<Field name="TaskName3" type="java.lang.String"><![CDATA[Flush Control Get Next]]></Field>
@@ -157,7 +196,7 @@
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[MERGE
    INTO odiscm_master_flush_controls odfc
   USING (
@@ -174,7 +213,7 @@
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[  , SYSDATE
                    AS flush_to_datetime
           FROM dual
@@ -194,7 +233,7 @@ MATCHED
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[_by_command_name = 'Flush Control Get Next: flush_to_datetime:=' || TO_CHAR(flco.flush_to_datetime, 'YYYY-MM-DD HH24:MI:SS')
    WHEN
     NOT
@@ -213,7 +252,7 @@ MATCHED
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[ last_updated_by_command_name
         )
  VALUES (
@@ -229,7 +268,7 @@ MATCHED
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[_datetime, 'YYYY-MM-DD HH24:MI:SS')
         )]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
@@ -240,7 +279,7 @@ MATCHED
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT user_name
   FROM <?=snpRef.getSchemaName("ODIWORKREP_DATA", "D") ?>.snp_session
  WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>]]></Field>
@@ -269,7 +308,7 @@ MATCHED
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[20]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
 	<Field name="TaskName1" type="java.lang.String"><![CDATA[Procedure]]></Field>
 	<Field name="TaskName2" type="java.lang.String"><![CDATA[OSUTL_FLUSH_MASTER_REPOSITORY]]></Field>
 	<Field name="TaskName3" type="java.lang.String"><![CDATA[SnpLang]]></Field>
@@ -281,7 +320,7 @@ MATCHED
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_LANGUAGE -SESSION_NAME=OSUTL_EXPORT_LANGUAGE.#oid -OS.LanguageInternalID=#oid]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
@@ -291,7 +330,7 @@ MATCHED
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT i_lang
            AS oid
   FROM snp_lang
@@ -311,7 +350,7 @@ MATCHED
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[OM snp_session@odiworkrep_data
                WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
               )
@@ -342,7 +381,7 @@ MATCHED
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[30]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
 	<Field name="TaskName1" type="java.lang.String"><![CDATA[Procedure]]></Field>
 	<Field name="TaskName2" type="java.lang.String"><![CDATA[OSUTL_FLUSH_MASTER_REPOSITORY]]></Field>
 	<Field name="TaskName3" type="java.lang.String"><![CDATA[SnpTechno]]></Field>
@@ -354,7 +393,7 @@ MATCHED
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_TECHNOLOGY -SESSION_NAME=OSUTL_EXPORT_TECHNOLOGY.#oid -OS.TechnologyInternalID=#oid]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
@@ -364,7 +403,7 @@ MATCHED
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT i_techno
            AS oid
   FROM snp_techno
@@ -384,7 +423,7 @@ MATCHED
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[  FROM snp_session@odiworkrep_data
                WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
               )
@@ -405,7 +444,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[    FROM odiscm_master_flush_controls
         WHERE odi_user_name =
               (
@@ -422,7 +461,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[   )
 ]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
@@ -450,7 +489,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[40]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
 	<Field name="TaskName1" type="java.lang.String"><![CDATA[Procedure]]></Field>
 	<Field name="TaskName2" type="java.lang.String"><![CDATA[OSUTL_FLUSH_MASTER_REPOSITORY]]></Field>
 	<Field name="TaskName3" type="java.lang.String"><![CDATA[SnpLschema]]></Field>
@@ -462,7 +501,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_LOGICAL_SCHEMA -SESSION_NAME=OSUTL_EXPORT_LOGICAL_SCHEMA.#oid -OS.LogicalSchemaInternalID=#oid]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
@@ -472,7 +511,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT l.i_lschema
            AS oid
   FROM snp_lschema l
@@ -493,7 +532,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[
  WHERE l.last_date >= 
        (
@@ -512,7 +551,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[ WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
               )
        )
@@ -530,7 +569,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA['REFERENCE'
    AND c.context_code = 'REFERENCE'
    AND p.schema_name LIKE 'REF_%'
@@ -562,7 +601,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[50]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
 	<Field name="TaskName1" type="java.lang.String"><![CDATA[Procedure]]></Field>
 	<Field name="TaskName2" type="java.lang.String"><![CDATA[OSUTL_FLUSH_MASTER_REPOSITORY]]></Field>
 	<Field name="TaskName3" type="java.lang.String"><![CDATA[SnpContext]]></Field>
@@ -574,7 +613,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_CONTEXT -SESSION_NAME=OSUTL_EXPORT_CONTEXT.#oid -OS.ContextInternalID=#oid]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
@@ -584,7 +623,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT i_context
            AS oid
   FROM snp_context
@@ -604,7 +643,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[    FROM snp_session@odiworkrep_data
                WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
               )
@@ -622,7 +661,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[context_code = 'REFERENCE'
        )
        )
@@ -652,7 +691,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[60]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
 	<Field name="TaskName1" type="java.lang.String"><![CDATA[Procedure]]></Field>
 	<Field name="TaskName2" type="java.lang.String"><![CDATA[OSUTL_FLUSH_MASTER_REPOSITORY]]></Field>
 	<Field name="TaskName3" type="java.lang.String"><![CDATA[SnpConnect]]></Field>
@@ -664,7 +703,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[LECT user_name
                 FROM snp_session@odiworkrep_data
                WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
@@ -682,7 +721,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[e LIKE 'REF_%'
    AND '#OS.ExportReferencePhysicalArchitectureOnlyInd' = 'Yes'
        )
@@ -695,7 +734,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_DATA_SERVER -SESSION_NAME=OSUTL_EXPORT_DATA_SERVER.#oid -OS.DataServerInternalID=#oid]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
@@ -705,7 +744,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT i_connect
            AS oid
   FROM snp_connect
@@ -742,7 +781,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[70]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
 	<Field name="TaskName1" type="java.lang.String"><![CDATA[Procedure]]></Field>
 	<Field name="TaskName2" type="java.lang.String"><![CDATA[OSUTL_FLUSH_MASTER_REPOSITORY]]></Field>
 	<Field name="TaskName3" type="java.lang.String"><![CDATA[SnpPschema]]></Field>
@@ -754,7 +793,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA -SESSION_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA.#oid -OS.PhysicalSchemaInternalID=#oid]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
@@ -764,7 +803,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT i_pschema
            AS oid
   FROM snp_pschema
@@ -784,7 +823,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[    FROM snp_session@odiworkrep_data
                WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
               )
@@ -802,7 +841,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[OS.ExportReferencePhysicalArchitectureOnlyInd' = 'Yes'
        )
        )]]></Field>
@@ -831,7 +870,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[80]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
 	<Field name="TaskName1" type="java.lang.String"><![CDATA[Procedure]]></Field>
 	<Field name="TaskName2" type="java.lang.String"><![CDATA[OSUTL_FLUSH_MASTER_REPOSITORY]]></Field>
 	<Field name="TaskName3" type="java.lang.String"><![CDATA[Flush Control Set Next]]></Field>
@@ -843,7 +882,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[UPDATE odiscm_master_flush_controls odfc
    SET flush_from_datetime = flush_to_datetime
      , last_updated_by_command_name = 'Flush Control Set Next: flush_from_datetime:=' || TO_CHAR(flush_to_datetime, 'YYYY-MM-DD HH24:MI:SS')
@@ -856,7 +895,7 @@ SELECT i_techno
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[= 
        (
        SELECT user_name
@@ -1019,7 +1058,7 @@ SELECT i_techno
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
-	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[15]]></Field>
 	<Field name="SqlName" type="java.lang.String"><![CDATA[Flush Control Get Next]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
@@ -1813,6 +1852,74 @@ SELECT i_techno
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
 </Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
+		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColITxt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechno" type="java.lang.String">null</Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefITxt" type="com.sunopsis.sql.DbInt"><![CDATA[647998]]></Field>
+	<Field name="DefLschemaName" type="java.lang.String">null</Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechno" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String">null</Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[15998]]></Field>
+	<Field name="KcmAk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmCond" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmErrDel" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmJoin" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmNull" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KcmPk" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KimJrnPop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmCreate" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmDrop" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmExtend" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmLock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmPurge" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetInstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSetUninstall" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmSubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmTableOrder" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnlock" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KjmUnsubscribe" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="KxmUsed" type="java.lang.String">null</Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+	<Field name="SqlName" type="java.lang.String"><![CDATA[Check VCS Interface]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[647998]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_CHECK_VCS_INTERFACE]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3998]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
 <Object class="com.sunopsis.dwg.DwgExportSummary">
 		<Field name="ExpTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="InstObjNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
@@ -1824,14 +1931,14 @@ SELECT i_techno
 	<Field name="MorigTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="MtxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="OrigTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-	<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA[22]]></Field>
+	<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA[24]]></Field>
 	<Field name="PlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="StepNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="TxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[17]]></Field>
+	<Field name="TxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[18]]></Field>
 	<Field name="UeOrigNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="UeUsedNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="VarPlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[34]]></Field>
+	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[35]]></Field>
 	<Field name="OriginRepositoryID" type="com.sunopsis.sql.DbInt">null</Field>
 </Object>
 </SunopsisExport>
