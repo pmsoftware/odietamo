@@ -43,7 +43,6 @@ set ODI_SCM_DEMO_BASE=C:\OdiScmWalkThrough
 rem
 rem Create the SCM repository.
 rem
-
 set ODI_SCM_SCM_REPO_ROOT=%ODI_SCM_DEMO_BASE%\SvnRepoRoot
 
 if EXIST "%ODI_SCM_SCM_REPO_ROOT%" (
@@ -58,6 +57,12 @@ if EXIST "%ODI_SCM_SCM_REPO_ROOT%" (
 		echo %EM% deleting existing SVN repository directory tree ^<%ODI_SCM_SCM_REPO_ROOT%^> 1>&2
 		goto ExitFail
 	)
+)
+
+md "%ODI_SCM_SCM_REPO_ROOT%"
+if ERRORLEVEL 1 (
+	echo %EM% creating demo base directory ^<%ODI_SCM_SCM_DEMO_BASE%^> 1>&2
+	goto ExitFail
 )
 
 svnadmin create "%ODI_SCM_SCM_REPO_ROOT%"
@@ -273,17 +278,35 @@ rem
 rem First, create a StartCmd.bat for the current environment.
 rem
 echo %IM% creating StartCmd script for demo environment 2
-set TEMPSTARTCMD=%TEMPDIR%\%RANDOM%_%PROC%_StartCmd.bat
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat^" %TEMPSTARTCMD% %DiscardStdOut%
+set DEMOENV2STARTCMD=%TEMPDIR%\%RANDOM%_%PROC%_StartCmd.bat
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat^" %DEMOENV2STARTCMD% %DiscardStdOut%
 if ERRORLEVEL 1 (
-	echo %EM% creating StartCmd wrapper script
+	echo %EM% creating StartCmd wrapper script 1>&2
 	goto ExitFail
 )
 
 echo %IM% exporting demo from demo environment 2 repository
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%^" OdiStartScen -SCEN_NAME=OSFLUSH_REPOSITORY -SCEN_VERSION=-1 -CONTEXT=GLOBAL %DiscardStdOut%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%DEMOENV2STARTCMD%^" OdiStartScen -SCEN_NAME=OSFLUSH_REPOSITORY -SCEN_VERSION=-1 -CONTEXT=GLOBAL %DiscardStdOut%
 if ERRORLEVEL 1 (
-	echo %EM% exporting demo from demo repository 2
+	echo %EM% exporting demo from demo repository 2 1>&2
+	goto ExitFail
+)
+
+rem
+rem Add the exported demo files to the SCM system working copy.
+rem
+svn add %ODI_SCM_SCM_SYSTEM_WORKING_COPY% --force
+if ERRORLEVEL 1 (
+	echo %EM% adding exported demo files to source control 1>&2
+	goto ExitFail
+)
+
+rem
+rem Commit the exported demo files to the SCM repository.
+rem
+svn commit -m "Demo auto check in of initial demo export" %ODI_SCM_SCM_SYSTEM_WORKING_COPY%
+if ERRORLEVEL 1 (
+	echo %EM% checking in demo export to SCM repository 1>&2
 	goto ExitFail
 )
 
