@@ -62,6 +62,14 @@ if not "%EXITSTATUS%" == "0" (
 	goto ExitFail
 )
 
+set ODI_SCM_ODI_VERSION_MAJOR=%ODI_VERSION:~0,3%
+if not "%ODI_SCM_ODI_VERSION_MAJOR%" == "10." (
+	if not "%ODI_SCM_ODI_VERSION_MAJOR%" == "11." (
+		echo %EM% invalid ODI version ^<%ODI_VERSION%^> specified in environment variable ODI_VERSION 1>&2
+		goto ExitFail
+	)
+)
+
 if not EXIST "%ODI_SCM_HOME%\Source\OdiScm" (
 	echo %EM% OdiScm repository components not found in directory ^<%ODI_SCM_HOME%\Source\ODI^>
 	goto ExitFail
@@ -271,10 +279,26 @@ REM if ERRORLEVEL 1 (
 	REM goto ExitFail
 REM )
 
-call "%TEMPSTARTCMD%" OdiImportObject "-FILE_NAME=%ODI_SCM_HOME%\Source\OdiScm\PROJ_ODI-SCM.xml" -IMPORT_MODE=SYNONYM_INSERT_UPDATE
-rem -WORK_REP_NAME=%ODI_SECU_WORK_REP%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%^" OdiImportObject -FILE_NAME=%ODI_SCM_HOME%\Source\OdiScm\PROJ_ODI-SCM.xml -IMPORT_MODE=SYNONYM_INSERT_UPDATE
+if ERRORLEVEL 1 (
+	echo %EM% importing ODI-SCM ODI project
+	goto ExitFail
+)
 
 echo %IM% completed import of ODI-SCM work repository objects
+
+echo %IM% regenerating ODI-SCM ODI project scenarios
+if "%ODI_SCM_ODI_VERSION_MAJOR%" == "10." (
+	set ODI_SCM_PROJECT=1998
+) else (
+	set ODI_SCM_PROJECT=OS
+)
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%^" OdiGenerateAllScen -PROJECT=%ODI_SCM_PROJECT% -MODE=REPLACE -GENERATE_PACK=YES -GENERATE_POP=NO -GENERATE_TRT=YES -GENERATE_VAR=NO
+if ERRORLEVEL 1 (
+	echo %EM% regenerating ODI-SCM ODI project scenarios
+	goto ExitFail
+)
 
 if %PRIMEMETADATA% == LAST (
 	call :PrimeExport
@@ -287,7 +311,7 @@ if %PRIMEMETADATA% == LAST (
 rem
 rem Configure the ODI-SCM ODI constants (variables).
 rem
-call "%TEMPSTARTCMD%" OdiStartScen -SCEN_NAME=OSCONFIGURE -SCEN_VERSION=-1 -CONTEXT=GLOBAL
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%^" OdiStartScen -SCEN_NAME=OSCONFIGURE -SCEN_VERSION=-1 -CONTEXT=GLOBAL
 if ERRORLEVEL 1 (
 	echo %EM% setting ODI-SCM ODI repository SCM actions constants
 	goto ExitFail

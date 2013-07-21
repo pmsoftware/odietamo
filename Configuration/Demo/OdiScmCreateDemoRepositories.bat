@@ -28,8 +28,7 @@ if ERRORLEVEL 1 (
 )
 
 rem
-rem Just to set up the Jisql tool and get the DBA user name and password.
-rem Note that both demo repositories will be created in the database that's included in the URL in the Repo1 INI file.
+rem Just to set the environment to create the SCM repository.
 rem
 set ODI_SCM_INI=%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportStandardOdiDemoRepo1.ini
 echo %IM% setting OdiScm environment from ^<%ODI_SCM_INI%^>
@@ -39,57 +38,57 @@ if ERRORLEVEL 1 (
 )
 call :SetMsgPrefixes
 
-if "%ODI_ADMIN_USER%" == "" (
-	echo %EM% environment variable ODI_ADMIN_USER is not set
-	goto ExitFail
+set ODI_SCM_DEMO_BASE=C:\OdiScmWalkThrough
+
+rem
+rem Create the SCM repository.
+rem
+
+set ODI_SCM_SCM_REPO_ROOT=%ODI_SCM_DEMO_BASE%\SvnRepoRoot
+
+if EXIST "%ODI_SCM_SCM_REPO_ROOT%" (
+	echo %IM% deleting existing SVN repository directory tree ^<%ODI_SCM_SCM_REPO_ROOT%^>
+	chmod -R a+w "%ODI_SCM_SCM_REPO_ROOT%"
+	if ERRORLEVEL 1 (
+		echo %EM% making existing SVN repository directory tree ^<%ODI_SCM_SCM_REPO_ROOT%^> writable 1>&2
+		goto ExitFail
+	)
+	rm -fr "%ODI_SCM_SCM_REPO_ROOT%"
+	if ERRORLEVEL 1 (
+		echo %EM% deleting existing SVN repository directory tree ^<%ODI_SCM_SCM_REPO_ROOT%^> 1>&2
+		goto ExitFail
+	)
 )
 
-if "%ODI_ADMIN_PASS%" == "" (
-	echo %EM% environment variable ODI_ADMIN_PASS is not set
-	goto ExitFail
-)
-
-set PODI_SECU_USER=%ODI_SECU_USER%
-set PODI_SECU_PASS=%ODI_SECU_PASS%
-
-set ODI_SECU_USER=%ODI_ADMIN_USER%
-set ODI_SECU_PASS=%ODI_ADMIN_PASS%
-
-echo %IM% dropping existing demo environment repository database users
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" %ODI_SCM_HOME%\Configuration\Demo\OdiScmDropDemoRepoUsers.sql %DiscardOutput% %DiscardStdErr%
+svnadmin create "%ODI_SCM_SCM_REPO_ROOT%"
 if ERRORLEVEL 1 (
-	echo %WM% failure dropping existing demo environment repository database users
-)
-
-echo %IM% creating demo environment repository database users
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" %ODI_SCM_HOME%\Configuration\Demo\OdiScmCreateDemoRepoUsers.sql %DiscardStdOut% %DiscardStdErr%
-if ERRORLEVEL 1 (
-	echo %EM% creating demo environment repository database users
+	echo %EM% creating demo SVN repository 1>&2
 	goto ExitFail
 )
-
-set ODI_SECU_USER=%PODI_SECU_USER%
-set ODI_SECU_PASS=%PODI_SECU_PASS%
 
 rem *************************************************************
 rem Demo environment 1.
 rem *************************************************************
 
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmDropOdiRepositoryDbUser.bat^" %DiscardStdOut%
+if ERRORLEVEL 1 (
+	echo %EM% dropping existing demo environment 1 ODI repository database user
+	goto ExitFail
+)
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiRepositoryDbUser.bat^" %DiscardStdOut%
+if ERRORLEVEL 1 (
+	echo %EM% creating demo environment 1 ODI repository database user
+	goto ExitFail
+)
+
 rem
 rem Working copy directories.
 rem
-if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" (
-	echo %IM% deleting existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
-	chmod -R a+w "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
-	if ERRORLEVEL 1 (
-		echo %EM% making existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^> writable
-		goto ExitFail
-	)
-	rm -r "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
-	if ERRORLEVEL 1 (
-		echo %EM% deleting existing working copy directory tree ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
-		goto ExitFail
-	)
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateWorkingCopy.bat^" EMPTY
+if ERRORLEVEL 1 (
+	echo %EM% creating demo environment 1 working copy >&2
+	goto ExitFail
 )
 
 if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%" (
@@ -104,11 +103,6 @@ if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%" (
 		echo %EM% deleting existing working directory tree ^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^>
 		goto ExitFail
 	)
-)
-
-md "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
-if ERRORLEVEL 1 (
-	echo %EM% creating demo environment 2 working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
 )
 
 md "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
@@ -159,21 +153,25 @@ if ERRORLEVEL 1 (
 )
 call :SetMsgPrefixes
 
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmDropOdiRepositoryDbUser.bat^" %DiscardStdOut%
+if ERRORLEVEL 1 (
+	echo %EM% dropping existing demo environment 2 ODI repository database user 1>&2
+	goto ExitFail
+)
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiRepositoryDbUser.bat^" %DiscardStdOut%
+if ERRORLEVEL 1 (
+	echo %EM% creating demo environment 2 ODI repository database user 1>&2
+	goto ExitFail
+)
+
 rem
 rem Working copy directories.
 rem
-if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" (
-	echo %IM% deleting existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
-	chmod -R a+w "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
-	if ERRORLEVEL 1 (
-		echo %EM% making existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^> writable
-		goto ExitFail
-	)
-	rm -r "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
-	if ERRORLEVEL 1 (
-		echo %EM% deleting existing working copy directory tree ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
-		goto ExitFail
-	)
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateWorkingCopy.bat^" EMPTY
+if ERRORLEVEL 1 (
+	echo %EM% creating demo environment 2 working copy 1>&2
+	goto ExitFail
 )
 
 if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%" (
@@ -188,11 +186,6 @@ if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%" (
 		echo %EM% deleting existing working directory tree ^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^>
 		goto ExitFail
 	)
-)
-
-md "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
-if ERRORLEVEL 1 (
-	echo %EM% creating demo environment 2 working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
 )
 
 md "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
@@ -239,9 +232,16 @@ rem *************************************************************
 rem Create a working copy of the SCM repository.
 rem *************************************************************
 
-rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScm.bat^" 
 rem TODO: replace most OdiScmXXXX.bat commands with a central OdiScm.bat that takes the command as first arg and forks shells.
 rem TODO: create SCM agnostic command to create/delete working copies.
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateWorkingCopy.bat^" EMPTY
+if ERRORLEVEL 1 (
+	echo %EM% creating demo environment 1 working copy 1>&2
+	got ExitFail
+)
+
+
 
 REM echo %IM% deleting existing TFS workspace ^<DemoMaster^>
 REM tf.exe workspace /delete /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL% DemoMaster /noprompt %DiscardStdOut% %DiscardStdErr%
