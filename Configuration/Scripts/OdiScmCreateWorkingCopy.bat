@@ -70,20 +70,25 @@ if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" (
 		echo %EM% making existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^> writable
 		goto ExitFail
 	)
-	rm -r "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
+	rm -fr "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% deleting existing working copy directory tree ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
 		goto ExitFail
 	)
 )
 
+echo %IM% creating existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
 md "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
 if ERRORLEVEL 1 (
 	echo %EM% creating working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
 	goto ExitFail
 )
 
-cd /d "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
+for /f "tokens=* delims=^<" %%g in ('echo %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT% ^| sed s/\//\\/g') do (
+	set WINDIRPATH=%%g
+)
+
+cd /d "%WINDIRPATH%"
 if ERRORLEVEL 1 (
 	echo %EM% cannot change working directory to working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^> 1>&2
 	goto ExitFail
@@ -121,6 +126,14 @@ if ERRORLEVEL 1 (
 )
 
 :GetCode
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
+if ERRORLEVEL 1 (
+	echo %EM% creating temporary working directory
+	goto ExitFail
+)
+
+set TEMPFILE=%TEMPDIR%\%PROC%.txt
+
 if "%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
 	echo %IM% creating SVN working copy
 	svn checkout %ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL% %INITREV%
@@ -130,7 +143,7 @@ if "%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
 	)
 ) else (
 	echo %IM% getting contents from SCM repository for TFS workspace ^<%ARGV1%^> 1>&2
-	tf get %ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL% %INITREV% /recursive /force /noprompt
+	tf get %ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL% %INITREV% /recursive /force /noprompt
 	if ERRORLEVEL 1 (
 		echo %EM% getting contents from SCM repository for TFS workspace ^<%ARGV1%^> 1>&2
 		goto ExitFail

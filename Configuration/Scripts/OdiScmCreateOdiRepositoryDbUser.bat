@@ -39,7 +39,7 @@ set PODI_SECU_PASS=%ODI_SECU_PASS%
 set ODI_SECU_USER=%ODI_ADMIN_USER%
 set ODI_SECU_PASS=%ODI_ADMIN_PASS%
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" %TEMPFILE%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" /p %TEMPFILE%
 if ERRORLEVEL 1 (
 	echo %EM% creating repository database user
 	goto ExitFail

@@ -3,58 +3,50 @@ setlocal
 REM
 REM Get a configuration INI file entry.
 REM
-set FN=OdiScmGetIni
-set IM=%FN%: INFO:
-set EM=%FN%: ERROR:
 
-set ISBATCHEXIT=
+rem
+rem Check basic environment requirements.
+rem
+if "%ODI_SCM_HOME%" == "" (
+	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME
+	goto ExitFail
+)
 
-if "%1" == "/b" goto IsBatchExit
-if "%1" == "/B" goto IsBatchExit
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
 
-goto IsNotBatchExit
+rem echo %DM% starts >CON
 
-:IsBatchExit
-set ISBATCHEXIT=/b
-shift
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*
+if ERRORLEVEL 1 (
+	echo %EM% processing script arguments 1>&2
+	goto ExitFail
+)
 
-:IsNotBatchExit
 if "%ODI_SCM_INI%" == "" (
 	echo %EM% configuration INI file environment variable ODI_SCM_INI file is not set
 	goto ExitFail
 )
 
-if "%ODI_SCM_HOME%" == "" (
-	echo %EM% environment variable ODI_SCM_HOME file is not set
+rem echo %DM% processing section name ^<%ARGV1%^> key name ^<%ARGV2%^> >CON
+
+if "%ARGV1%" == "" (
+	echo %EM% usage: %FN% ^<Section Name^> ^<Key Name^> 1>&2
 	goto ExitFail
 )
 
-if not "%1" == "" goto Arg1Ok
-echo %EM% usage: %FN% ^<Section Name^> ^<Key Name^>
-goto ExitFail
+if "%ARGV2%" == "" (
+	echo %EM% usage: %FN% ^<Section Name^> ^<Key Name^> 1>&2
+	goto ExitFail
+)
 
-:Arg1Ok
-if not "%2" == "" goto Arg2Ok
-echo %EM% usage: %FN% ^<Section Name^> ^<Key Name^>
-goto ExitFail
-
-:Arg2Ok
-if "%TEMP%" == "" goto NoTempDir
-set TEMPDIR=%TEMP%
-goto GotTempDir
-
-:NoTempDir
-if "%TMP%" == "" goto NoTmpDir
-set TEMPDIR=%TMP%
-goto GotTempDir
-
-:NoTmpDir
-set TEMPDIR=%CD%
-
-:GotTempDir
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
+if ERRORLEVEL 1 (
+	echo %EM% creating temporary working directory 1>&2
+	goto ExitFail
+)
 
 REM
-REM Check basic environment check.
+REM Check basic environment.
 REM
 if not EXIST "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIniTemplate.awk" (
 	echo %EM% cannot find required OdiScm scripts in directory ^<%ODI_SCM_HOME%\Configuration\Scripts^>
@@ -68,22 +60,23 @@ set TEMPSTR=%RANDOM%
 set TEMPSCRIPT=%TEMPDIR%\%TEMPSTR%_OdiScmGetIni.awk
 set TEMPSTDOUT=%TEMPDIR%\%TEMPSTR%_OdiScmGetIni.stdout
 
-cat "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIniTemplate.awk" | sed "s/<SectionName>/%1/g" | sed "s/<KeyName>/%2/g" > %TEMPSCRIPT%
+type "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIniTemplate.awk" | sed "s/<SectionName>/%ARGV1%/g" | sed "s/<KeyName>/%ARGV2%/g" > %TEMPSCRIPT%
 if ERRORLEVEL 1 (
 	echo %EM% creating AWK script
 	goto ExitFail
 )
 rem echo on
 rem echo %IM% using generated script file ^<%TEMPSCRIPT%^>
-cat %ODI_SCM_INI% | gawk -f "%TEMPSCRIPT%"
+type %ODI_SCM_INI% | gawk -f "%TEMPSCRIPT%"
 if ERRORLEVEL 1 (
 	echo %EM% executing AWK script
 	goto ExitFail
 )
 
 :ExitOk
+rem echo %DM% exiting successfully >CON
 exit %IsBatchExit% 0
 
 :ExitFail
-rem echo %EM% exiting with status 1
+rem echo %DM% exiting with failure >CON
 exit %IsBatchExit% 1

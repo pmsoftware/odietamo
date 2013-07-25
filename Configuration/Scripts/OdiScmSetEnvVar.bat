@@ -6,30 +6,34 @@ REM
 REM Note that for this script to have any useful effect it must be
 REM executed with CALL and passed the /B switch.
 REM ===============================================
-set FN=OdiScmSetEnvVar
-set IM=%FN%: INFO:
-set EM=%FN%: ERROR:
-set WM=%FN%: WARNING:
 
 REM
 REM BEWARE of SETLOCAL. We need to ensure that variable value assignments survive the exit from this script
 REM for them to be useful.
 REM
 
-REM
-REM Determine how to exit the script.
-REM
-if /i "%1" == "/b" (
-	set IsBatchExit=/b
-	shift
-) else (
-	set IsBatchExit=
+rem
+rem Check basic environment requirements.
+rem
+if "%ODI_SCM_HOME%" == "" (
+	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME
+	goto ExitFail
+)
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
+
+echo %IM% starts
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*
+if ERRORLEVEL 1 (
+	echo %EM% processing script arguments 1>&2
+	goto ExitFail
 )
 
 REM ===============================================
 REM Verify parameter arguments specified.
 REM ===============================================
-if "%1" == "" (
+if "%ARGV1%" == "" (
 	echo %EM% no configuration INI file section specified
 	call :ShowUsage
 	goto ExitFail
@@ -37,21 +41,21 @@ if "%1" == "" (
 
 set PINISECTION=%1
 
-if "%2" == "" (
+if "%ARGV2%" == "" (
 	echo %EM% no configuration INI file key specified
 	call :ShowUsage
 	goto ExitFail
 )
 
-set PINIKEY=%2
+set PINIKEY=%ARGV2%
 
-if "%3" == "" (
+if "%ARGV3%" == "" (
 	echo %EM% no envrionemnt variable name specified
 	call :ShowUsage
 	goto ExitFail
 )
 
-set PENVVAR=%3
+set PENVVAR=%ARGV3%
 
 REM ===============================================
 REM Verify minimum requirements - ODI_SCM_HOME must be defined.
@@ -123,7 +127,7 @@ REM ===============================================
 REM ===============================================
 REM Set an environment variable from a configuration file key.
 REM ===============================================
-echo %IM% processing configuration section ^<%1^> key ^<%2^>
+echo %IM% processing configuration section ^<%ARGV1%^> key ^<%ARGV2%^>
 
 set ENVVARVAL=
 type NUL >"%TEMPFILE%" 2>&1
@@ -132,20 +136,20 @@ if ERRORLEVEL 1 (
 	goto SetConfigExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" %1 %2 >"%TEMPFILE%" 2>&1
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" /p %ARGV1% %ARGV2% >"%TEMPFILE%" 2>&1
 if ERRORLEVEL 1 (
-	echo %EM% cannot get value for section ^<%1^> key ^<%2^>
+	echo %EM% cannot get value for section ^<%ARGV1%^> key ^<%ARGV2%^>
 	goto SetConfigExitFail
 )
 set /p ENVVARVAL=<"%TEMPFILE%"
-echo %IM% setting environment variable ^<%3^> to value ^<%ENVVARVAL%^>
+echo %IM% setting environment variable ^<%ARGV3%^> to value ^<%ENVVARVAL%^>
 REM Include quotes around the entire VAR=VAL string to deal with brackets in variable values.
 REM E.g. C:\Program Files (x86)\...
-set SetEnvVarCmd=set "%3=%ENVVARVAL%"
+set SetEnvVarCmd=set "%ARGV3%=%ENVVARVAL%"
 
 %SetEnvVarCmd%
 if ERRORLEVEL 1 (
-	echo %EM% cannot set value for environment variable ^<%3^>
+	echo %EM% cannot set value for environment variable ^<%ARGV3%^>
 	goto SetConfigExitFail
 )
 

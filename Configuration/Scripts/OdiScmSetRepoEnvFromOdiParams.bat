@@ -5,19 +5,25 @@ REM
 REM TODO: change from using repository connection details extracted from the odiparams script
 REM       to those from configuration INI file specified in the environment variable ODI_SCM_INI.
 REM
-set FN=OdiScmSetRepoEnvFromOdiParams
-set IM=%FN%: INFO:
-set EM=%FN%: ERROR:
 
-if "%ODI_HOME%" == "" goto NoOdiHomeError
-echo %IM% using ODI_HOME directory ^<%ODI_HOME%^>
-goto OdiHomeOk
+rem
+rem Check basic environment requirements.
+rem
+if "%ODI_SCM_HOME%" == "" (
+	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME
+	goto ExitFail
+)
 
-:NoOdiHomeError
-echo %EM% environment variable ODI_HOME is not set
-goto ExitFail
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
 
-:OdiHomeOk
+echo %IM% starts
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*
+if ERRORLEVEL 1 (
+	echo %EM% processing script arguments 1>&2
+	goto ExitFail
+)
+
 set PARAMFILE=%ODI_HOME%\bin\odiparams.bat
 if not EXIST "%PARAMFILE%" (
 	echo %EM% parameter file ^<%PARAMFILE%^> does not exist
@@ -156,7 +162,7 @@ goto ExitFail
 :ConnStringGenOk
 
 :ExitOk
-exit /b 0
+exit %IsBatchExit% 0
 
 :ExitFail
-exit /b 1
+exit %IsBatchExit% 1

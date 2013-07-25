@@ -3,26 +3,27 @@ setlocal
 REM
 REM Set a configuration INI file entry.
 REM
-set FN=OdiScmSetIni
-set IM=%FN%: INFO:
-set EM=%FN%: ERROR:
+
+rem
+rem Check basic environment requirements.
+rem
+if "%ODI_SCM_HOME%" == "" (
+	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME
+	goto ExitFail
+)
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
 
 echo %IM% starts
 
-set ISBATCHEXIT=
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*
+if ERRORLEVEL 1 (
+	echo %EM% processing script arguments 1>&2
+	goto ExitFail
+)
 
-if "%1" == "/b" goto IsBatchExit
-if "%1" == "/B" goto IsBatchExit
-
-goto IsNotBatchExit
-
-:IsBatchExit
-set ISBATCHEXIT=/b
-shift
-
-:IsNotBatchExit
 if "%ODI_SCM_INI%" == "" (
-	echo %EM% configuration INI file environment variable ODI_SCM_INI file is not set
+	echo %EM% configuration INI file environment variable ODI_SCM_INI file is not set 1>&2
 	goto ExitFail
 )
 
@@ -31,34 +32,27 @@ if "%ODI_SCM_HOME%" == "" (
 	goto ExitFail
 )
 
-if not "%1" == "" goto Arg1Ok
-echo %EM% usage: %FN% ^<Section Name^> ^<Key Name^> ^<Key Value^>
+if not "%ARGV1%" == "" goto Arg1Ok
+echo %EM% usage: %FN% ^<Section Name^> ^<Key Name^> ^<Key Value^> 1>&2
 goto ExitFail
 
 :Arg1Ok
-if not "%2" == "" goto Arg2Ok
-echo %EM% usage: %FN% ^<Section Name^> ^<Key Name^> ^<Key Value^>
+if not "%ARGV2%" == "" goto Arg2Ok
+echo %EM% usage: %FN% ^<Section Name^> ^<Key Name^> ^<Key Value^> 1>&2
 goto ExitFail
 
 :Arg2Ok
-if not "%3" == "" goto Arg3Ok
-echo %EM% usage: %FN% ^<Section Name^> ^<Key Name^> ^<Key Value^>
+if not "%ARGV3%" == "" goto Arg3Ok
+echo %EM% usage: %FN% ^<Section Name^> ^<Key Name^> ^<Key Value^> 1>&2
 goto ExitFail
 
 :Arg3Ok
-if "%TEMP%" == "" goto NoTempDir
-set TEMPDIR=%TEMP%
-goto GotTempDir
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
+if ERRORLEVEL 1 (
+	echo %EM% creating temporary working directory 1>&2
+	goto ExitFail
+)
 
-:NoTempDir
-if "%TMP%" == "" goto NoTmpDir
-set TEMPDIR=%TMP%
-goto GotTempDir
-
-:NoTmpDir
-set TEMPDIR=%CD%
-
-:GotTempDir
 REM
 REM Create an AWK script to set the key.
 REM
@@ -67,21 +61,21 @@ set TEMPSCRIPT=%TEMPDIR%\%TEMPSTR%_OdiScmSetIni.awk
 echo %IM% using generated AWK script ^<%TEMPSCRIPT%^>
 set TEMPSTDOUT=%TEMPDIR%\%TEMPSTR%_OdiScmSetIni.stdout
 
-cat "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetIniTemplate.awk" | sed "s/<SectionName>/%1/g" | sed "s/<KeyName>/%2/g" | sed "s/<KeyValue>/%3/g" > %TEMPSCRIPT%
+cat "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetIniTemplate.awk" | sed "s/<SectionName>/%ARGV1%/g" | sed "s/<KeyName>/%ARGV2%/g" | sed "s/<KeyValue>/%ARGV3%/g" > %TEMPSCRIPT%
 if ERRORLEVEL 1 (
-	echo %EM% creating AWK script
+	echo %EM% creating AWK script 1>&2
 	goto ExitFail
 )
 
 cat %ODI_SCM_INI% | gawk -f "%TEMPSCRIPT%" > %TEMPSTDOUT%
 if ERRORLEVEL 1 (
-	echo %EM% executing AWK script or configuration INI file ^<%ODI_SCM_INI%^> does not contain the requested section or key
+	echo %EM% executing AWK script or configuration INI file ^<%ODI_SCM_INI%^> does not contain the requested section or key 1>&2
 	goto ExitFail
 )
 
 cat %TEMPSTDOUT% > %ODI_SCM_INI%
 if ERRORLEVEL 1 (
-	echo %EM% copying temporary file ^<%TEMPSTDOUT%^> to configuration INI file ^<%ODI_SCM_INI%^>
+	echo %EM% copying temporary file ^<%TEMPSTDOUT%^> to configuration INI file ^<%ODI_SCM_INI%^> 1>&2
 	goto ExitFail
 )
 

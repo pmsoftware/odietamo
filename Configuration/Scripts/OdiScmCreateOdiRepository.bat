@@ -1,17 +1,23 @@
 @echo off
 
-call :SetMsgPrefixes
-
-echo %IM% starts
-
-if /i "%1" == "/b" (
-	set IsBatchExit=/b
-	shift
-) else (
-	set IsBatchExit=
+rem
+rem Check basic environment requirements.
+rem
+if "%ODI_SCM_HOME%" == "" (
+	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME
+	goto ExitFail
 )
 
-if "%1" == "" (
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
+echo %IM% starts
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*
+if ERRORLEVEL 1 (
+	echo %EM% processing script arguments 1>&2
+	goto ExitFail
+)
+
+if "%ARGV1%" == "" (
 	echo %EM% master/work repository ID must be specified
 	echo %IM% usage: %PROC% ^<master/work repository ID^>
 	goto ExitFail
@@ -61,9 +67,9 @@ rem
 echo %IM% using class path of ^<%ODI_SCM_CLASS_PATH%^>
 set CLASSPATH=%ODI_SCM_CLASS_PATH%
 
-echo %IM% running command ^<"%ODI_JAVA_HOME%\bin\java.exe" odietamo.OdiScm.CreateRepository %ODI_USER% %ODI_PASS% %ODI_SECU_URL% %ODI_SECU_DRIVER% %ODI_SECU_USER% %ODI_SECU_PASS% %1 %ODI_SECU_WORK_REP% %ODI_ADMIN_USER% %ODI_ADMIN_PASS%^>
+echo %IM% running command ^<"%ODI_JAVA_HOME%\bin\java.exe" odietamo.OdiScm.CreateRepository %ODI_USER% %ODI_PASS% %ODI_SECU_URL% %ODI_SECU_DRIVER% %ODI_SECU_USER% %ODI_SECU_PASS% %ARGV1% %ODI_SECU_WORK_REP% %ODI_ADMIN_USER% %ODI_ADMIN_PASS%^>
 
-"%ODI_JAVA_HOME%\bin\java.exe" odietamo.OdiScm.CreateRepository %ODI_USER% %ODI_PASS% %ODI_SECU_URL% %ODI_SECU_DRIVER% %ODI_SECU_USER% %ODI_SECU_PASS% %1 %ODI_SECU_WORK_REP% %ODI_ADMIN_USER% %ODI_ADMIN_PASS%
+"%ODI_JAVA_HOME%\bin\java.exe" odietamo.OdiScm.CreateRepository %ODI_USER% %ODI_PASS% %ODI_SECU_URL% %ODI_SECU_DRIVER% %ODI_SECU_USER% %ODI_SECU_PASS% %ARGV1% %ODI_SECU_WORK_REP% %ODI_ADMIN_USER% %ODI_ADMIN_PASS%
 if ERRORLEVEL 1 (
 	echo %EM% creating Master/Work repository
 	goto ExitFail
@@ -74,17 +80,3 @@ exit %IsBatchExit% 0
 
 :ExitFail
 exit %IsBatchExit% 1
-
-rem *************************************************************
-rem **                    S U B R O U T I N E S                **
-rem *************************************************************
-
-rem *************************************************************
-:SetMsgPrefixes
-rem *************************************************************
-set PROC=OdiScmCreateOdiRepository
-set IM=%PROC%: INFO:
-set EM=%PROC%: ERROR:
-set WM=%PROC%: WARNING:
-set DEBUG=%PROC%: DEBUG:
-goto :eof

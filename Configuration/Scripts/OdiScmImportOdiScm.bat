@@ -1,48 +1,46 @@
 @echo off
+rem
+rem Check basic environment requirements.
+rem
+if "%ODI_SCM_HOME%" == "" (
+	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME
+	goto ExitFail
+)
 
-call :SetMsgPrefixes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
 
 echo %IM% starts
 
-if /i "%1" == "/b" (
-	set IsBatchExit=/b
-	shift
-) else (
-	set IsBatchExit=
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*
+if ERRORLEVEL 1 (
+	echo %EM% processing script arguments 1>&2
+	goto ExitFail
 )
 
 set PRIMEMETADATA=FALSE
 
-if "%1" == "" goto ArgsOk
+if "%ARGV1%" == "" goto ArgsOk
 
-if "%1" == "NoExportPrime" (
+if "%ARGV1%" == "NoExportPrime" (
 	set PRIMEMETADATA=FALSE
 	goto ArgsOk
 )
 
-if "%1" == "ExportPrimeFirst" (
+if "%ARGV1%" == "ExportPrimeFirst" (
 	set PRIMEMETADATA=FIRST
 	goto ArgsOk
 )
 
-if "%1" == "ExportPrimeLast" (
+if "%ARGV1%" == "ExportPrimeLast" (
 	set PRIMEMETADATA=LAST
 	goto ArgsOk
 )
 
-echo %EM% invalid argument ^<%1%^>
+echo %EM% invalid argument ^<%ARGV1%^>
 echo %IM% usage %PROC% ^[NoExportPrime ^| ExportPrimeFirst ^| ExportPrimeLast^]
 goto ExitFail
 
 :ArgsOk
-
-REM
-REM Check basic environment requirements.
-REM
-if "%ODI_SCM_HOME%" == "" (
-	echo %EM% no OdiScm home directory specified in environment variable ODI_SCM_HOME
-	goto ExitFail
-)
 
 if "%ODI_SCM_INI%" == "" (
 	echo %EM% no configuration INI file specified in environment variable ODI_SCM_INI
@@ -54,9 +52,9 @@ if "%ODI_SCM_INI%" == "" (
 REM
 REM Set the environment from the configuration INI file.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat" /b
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat"
 set EXITSTATUS=%ERRORLEVEL%
-call :SetMsgPrefixes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
 if not "%EXITSTATUS%" == "0" (
 	echo %EM% setting environment from configuration INI file
 	goto ExitFail
@@ -103,7 +101,7 @@ rem
 rem Create a StartCmd.bat script for the current environment.
 rem
 set TEMPSTARTCMD=%TEMPDIR%\%RANDOM%_OdiScmImportOdiScm_StartCmd.bat
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat^" %TEMPSTARTCMD%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat^" /p %TEMPSTARTCMD%
 if ERRORLEVEL 1 (
 	echo %EM% creating StartCmd wrapper script
 	goto ExitFail
@@ -141,8 +139,7 @@ rem
 rem Run the generated ODI-SCM repository infrastructure set up script.
 rem
 echo %IM% creating ODI-SCM repository objects
-echo
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat^" %TEMPFILE%3 %STDOUTFILE% %STDERRFILE%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat^" /p %TEMPFILE%3 %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 goto CreateInfrastructureFail
 
 goto CreateInfrastructureChkStdErr
@@ -158,7 +155,6 @@ rem
 rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.
 rem 
 echo %IM% Batch file OdiScmJisqlRepo.bat returned zero ERRORLEVEL
-echo fc %EMPTYFILE% %STDERRFILE%
 fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
 if not ERRORLEVEL 1 goto CreateInfrastructureOk
 
@@ -174,7 +170,7 @@ echo %IM% completed creation of ODI-SCM infrastructure repository objects
 rem
 rem Configure the ODI-SCM repository metadata.
 rem
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetRepoConfig.bat^"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetRepoConfig.bat^" /p
 if ERRORLEVEL 1 (
 	echo %EM% configurating ODI-SCM repository metadata
 	goto ExitFail
@@ -213,7 +209,50 @@ if ERRORLEVEL 1 (
 rem
 rem Modify the contents of the SnpConnect files.
 rem
+
+rem
+rem Determine the actual working copy directory that files will be exported to.
+rem
 setlocal enabledelayedexpansion
+
+if "%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
+	rem
+	rem For SVN we need to take the final part of the system URL and/or branch URL and append to the specified working copy path.
+	rem This is because the last path component will have a working copy directory created for it when we check out of SVN.
+	rem Note: beware of extra spaces at the end of the variable expansion.
+	rem
+	for /f "tokens=* delims=/" %%g in ('echo %ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%^| tr [/] [\n]') do (
+		set SCMSYSTEMURLLASTPATH=%%g
+	)
+	rem echo set SCMSYSTEMURLLASTPATH to -!SCMSYSTEMURLLASTPATH!-
+	if "!SCMSYSTEMURLLASTPATH!" == "" (
+		echo %EM% last path component of SCM system URL ^<%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%^> is empty 1>&2
+		goto ExitFail
+	)
+	for /f "tokens=* delims=/" %%g in ('echo %ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%^| tr [/] [\n]') do (
+		set SCMBRANCHURLLASTPATH=%%g
+	)
+	rem echo set SCMBRANCHURLLASTPATH to -!SCMBRANCHURLLASTPATH!-
+	if "!SCMBRANCHURLLASTPATH!" == "" (
+		echo %EM% last path component of SCM branch URL ^<%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%^> is empty 1>&2
+		goto ExitFail
+	)
+	if "!SCMBRANCHURLLASTPATH!" == "." (
+		set WCAPPEND=/!SCMSYSTEMURLLASTPATH!
+		rem echo set WCAPPEND to -!WCAPPEND!- from SCMSYSTEMURLLASTPATH
+		rem PAUSE
+	) else (
+		set WCAPPEND=/!SCMBRANCHURLLASTPATH!
+		rem echo set WCAPPEND to -!WCAPPEND!- from SCMBRANCHURLLASTPATH
+		rem PAUSE
+	)
+) else (
+	rem
+	rem For TFS or any unspecfied SCM system we don't need to append anything to the specified working copy root directory.
+	rem
+	set WCAPPEND=
+)
+
 for /f %%g in ('dir /s /b "%TEMPOBJSDIR%\*.SnpConnect"') do (
 	echo %IM% preparing data server file ^<%%g^>
 	rem echo %DEBUG% setting driver class
@@ -241,8 +280,14 @@ for /f %%g in ('dir /s /b "%TEMPOBJSDIR%\*.SnpConnect"') do (
 		goto ExitFail
 	)
 	rem echo %DEBUG% setting working copy dir root
-	set WCROOT=%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT:\=\\%
+	set WCROOT=%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT:\=/%
+	rem echo WCROOT now -!WCROOT!-
+	set WCROOT=!WCROOT!%WCAPPEND%
+	rem echo WCROOT now -!WCROOT!-
 	set WCROOT=!WCROOT:/=\/!
+	rem echo WCROOT now -!WCROOT!-
+	rem echo cat "%%g.4" ^| sed s/"<OdiScmWorkingCopyDir>"/"!WCROOT!"/g
+	rem PAUSE
 	cat "%%g.4" | sed s/"<OdiScmWorkingCopyDir>"/"!WCROOT!"/g > %%g.5
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
@@ -264,7 +309,7 @@ for /f %%g in ('dir /s /b "%TEMPOBJSDIR%\*.SnpConnect"') do (
 )
 
 echo %IM% starting import of ODI-SCM master repository objects
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat^" %TEMPOBJSDIR%\master
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat^" /p %TEMPOBJSDIR%\master
 if ERRORLEVEL 1 (
 	echo %EM% importing ODI-SCM ODI repository objects
 	goto ExitFail
@@ -273,7 +318,7 @@ if ERRORLEVEL 1 (
 echo %IM% completed import of ODI-SCM master repository objects
 
 REM echo %IM% starting import of ODI-SCM work repository objects
-REM call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat^" %TEMPOBJSDIR%\project.1998
+REM call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat^" /p %TEMPOBJSDIR%\project.1998
 REM if ERRORLEVEL 1 (
 	REM echo %EM% importing ODI-SCM ODI repository objects
 	REM goto ExitFail
@@ -337,7 +382,7 @@ rem
 rem Prime the export control metadata.
 rem
 echo %IM% priming ODI-SCM export control metadata
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat^" %ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat^" /p %ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql
 if ERRORLEVEL 1 goto PrimeExportControlFail
 
 echo %IM% completed priming of ODI-SCM export control metadata
@@ -346,11 +391,3 @@ goto :eof
 :PrimeExportControlFail
 echo %EM% priming ODI-SCM export metadata
 exit /b 1
-
-:SetMsgPrefixes
-set PROC=OdiScmImportOdiScm
-set IM=%PROC%: INFO:
-set EM=%PROC%: ERROR:
-set WM=%PROC%: WARNING:
-set DEBUG=%PROC%: DEBUG:
-goto :eof

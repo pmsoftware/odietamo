@@ -6,15 +6,22 @@ REM
 REM Usage: OdiScmAutoRebuild <working copy path> <empty master/work repo backup file> [<TFS workspace name>]
 REM
 REM ==========================================================================
-call :SetMsgPrefixes
 
+rem
+rem Check basic environment requirements.
+rem
+if "%ODI_SCM_HOME%" == "" (
+	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME
+	goto ExitFail
+)
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
 echo %IM% starts
 
-if /i "%1" == "/b" (
-	set IsBatchExit=/b
-	shift
-) else (
-	set IsBatchExit=
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*
+if ERRORLEVEL 1 (
+	echo %EM% processing script arguments 1>&2
+	goto ExitFail
 )
 
 REM TODO: put paths to these tools into the OdiScm.ini file.
@@ -28,45 +35,37 @@ REM --------------------------------------------------------------------------
 REM
 REM Get the local working copy path.
 REM
-if "%1" == "" (
+if "%ARGV1%" == "" (
 	echo %EM% no local working copy path specified
 	call :ShowUsage
 	goto ExitFail
 ) else (
-	call :NormalisePath %1
+	call :NormalisePath %ARGV1%
 	echo %IM% specified local working copy path directory ^<%OUTPATH%^>
 	if /i "%OUTPATH%" == "%CD%" (
 		echo %EM% cannot run this command from the root of the working copy to be rebuilt
 		goto ExitFail
 	)
-	set WC_ROOT=%1
+	set WC_ROOT=%ARGV1%
 )
 
 REM
 REM Get ODI empty master/work repository backup file.
 REM
-if "%2" == "" (
+if "%ARGV2%" == "" (
 	echo %EM% no ODI empty master/work repository backup file specified
 	call :ShowUsage
 	goto ExitFail
 ) else (
-	set ODI_REPO_BACKUP=%2
+	set ODI_REPO_BACKUP=%ARGV2%
 )
 
 REM
 REM Get the TFS workspace name.
 REM
-if not "%3" == "" (
-	set WS_NAME=%3
+if not "%ARGV3%" == "" (
+	set WS_NAME=%ARGV3%
 ) 
-
-REM
-REM Check basic environment requirements.
-REM
-if "%ODI_SCM_HOME%" == "" (
-	echo %EM% no OdiScm home directory specified in environment variable ODI_SCM_HOME
-	goto ExitFail
-)
 
 if "%ODI_SCM_INI%" == "" (
 	echo %EM% no configuration INI file specified in environment variable ODI_SCM_INI
@@ -74,32 +73,6 @@ if "%ODI_SCM_INI%" == "" (
 ) else (
 	echo %IM% using source configuration INI file ^<%ODI_SCM_INI%^> 
 )
-
-REM REM
-REM REM THESE VARIABLES ARE NOW SET BY THE CALL TO OdiScmSetEnv.bat.
-REM REM
-REM REM Get additional configuration INI file settings for build notification.
-REM REM
-REM call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b Build UserEmailAddress ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS
-REM if ERRORLEVEL 1 (
-	REM echo %EM% getting build notification user email address from configuration INI file
-	REM echo %EM% section ^<Build^> key ^<UserEmailAddress^>
-	REM goto ExitFail
-REM )
-
-REM call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b Build UserName ODI_SCM_NOTIFY_USER_NAME
-REM if ERRORLEVEL 1 (
-	REM echo %EM% getting build notification user name from configuration INI file
-		REM echo %EM% section ^<Build^> key ^<UserName^>
-	REM goto ExitFail
-REM )
-
-REM call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnvVar.bat" /b Build EmailSMTPServer ODI_SCM_NOTIFY_SMTP_SERVER
-REM if ERRORLEVEL 1 (
-	REM echo %EM% getting build notification email SMTP server from configuration INI file
-	REM echo %EM% section ^<Build^> key ^<EmailSMTPServer^>
-	REM goto ExitFail
-REM )
 
 REM
 REM Destroy and recreate the working copy root directory.
@@ -144,33 +117,10 @@ if ERRORLEVEL 1 (
 
 set ODI_SCM_INI=%WC_ROOT%\OdiScm.ini
 
-REM
-REM Define a temporary work directory.
-REM
-if "%TEMP%" == "" goto NoTempDir
-set TEMPDIR=%TEMP%
-goto GotTempDir
-
-:NoTempDir
-if "%TMP%" == "" goto NoTmpDir
-set TEMPDIR=%TMP%
-goto GotTempDir
-
-:NoTmpDir
-set TEMPDIR=%CD%
-
-:GotTempDir
-
-REM
-REM Define a temporary work file.
-REM
-set TEMPFILE=%TEMPDIR%\%RANDOM%_OdiScmAutoRebuild.txt
-if EXIST "%TEMPFILE%" (
-	del /f "%TEMPFILE%" >NUL 2>NUL
-	if ERRORLEVEL 1 (
-		echo %EM% deleting existing working file ^<%TEMPFILE%^>
-		goto ExitFail
-	)
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
+if ERRORLEVEL 1 (
+	echo %EM% creating temporary working directory 1>&2
+	goto ExitFail
 )
 
 REM
@@ -263,7 +213,7 @@ if ERRORLEVEL 1 (
 REM
 REM Drop contents of existing repository schema.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat" /b %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownOracleSchema.sql
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat" /p %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownOracleSchema.sql
 if ERRORLEVEL 1 (
 	echo %EM% dropping ODI repository objects
 	goto ExitFail
@@ -363,13 +313,6 @@ REM
 REM Display command usage.
 REM
 echo %IM% usage: %PROC% ^<local working copy directory^> ^<repository export backup file^> [TFS workspace name]
-goto :eof
-
-:SetMsgPrefixes
-set PROC=OdiScmAutoRebuild
-set IM=%PROC%: INFO:
-set EM=%PROC%: ERROR:
-set WM=%PROC%: WARNING:
 goto :eof
 
 :NormalisePath

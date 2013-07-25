@@ -3,37 +3,31 @@ setlocal
 REM
 REM Execute a SQL script against the ODI repository.
 REM
-set FN=OdiScmJisqlRepo
-set IM=%FN%: INFO:
-set EM=%FN%: ERROR:
 
-set ISBATCHEXIT=
+rem
+rem Check basic environment requirements.
+rem
+if "%ODI_SCM_HOME%" == "" (
+	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME
+	goto ExitFail
+)
 
-if "%1" == "/b" goto IsBatchExit
-if "%1" == "/B" goto IsBatchExit
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
 
-goto IsNotBatchExit
+echo %IM% starts
 
-:IsBatchExit
-set ISBATCHEXIT=/b
-shift
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*
+if ERRORLEVEL 1 (
+	echo %EM% processing script arguments 1>&2
+	goto ExitFail
+)
 
-:IsNotBatchExit
-if "%ODI_SCM_HOME%" == "" goto NoOdiScmHomeError
-echo %IM% using ODI_SCM_HOME directory ^<%ODI_SCM_HOME%^>
-goto OdiScmHomeOk
-
-:NoOdiScmHomeError
-echo %EM% environment variable ODI_SCM_HOME is not set
-goto ExitFail
-
-:OdiScmHomeOk
-if EXIST "%1" goto ScriptExists
-echo %EM% cannot access script file ^<%1^>
+if EXIST "%ARGV1%" goto ScriptExists
+echo %EM% cannot access script file ^<%ARGV1%^>
 goto ExitFail
 
 :ScriptExists
-set SCRIPTFILE=%1
+set SCRIPTFILE=%ARGV1%
 
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
 if ERRORLEVEL 1 (
@@ -43,7 +37,7 @@ if ERRORLEVEL 1 (
 
 set TEMPJARFILE=%TEMPDIR%\%PROC%.jar
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" %ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiClassPathJar.bat %TEMPJARFILE%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiClassPathJar.bat^" /p %TEMPJARFILE%
 if ERRORLEVEL 1 (
 	echo %EM% creating ODI class path helper JAR file
 	goto ExitFail
@@ -52,7 +46,7 @@ if ERRORLEVEL 1 (
 rem
 rem Run the script file. Pass through any StdOut and StdErr capture file paths/names.
 rem
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat" %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %SCRIPTFILE% %TEMPJARFILE% %2 %3
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat^" /p %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %SCRIPTFILE% %TEMPJARFILE% %ARGV2% %ARGV3%
 if ERRORLEVEL 1 goto RunScriptFail
 goto RunScriptOk
 
@@ -63,7 +57,7 @@ goto ExitFail
 :RunScriptOk
 
 :ExitOk
-exit %ISBATCHEXIT% 0
+exit %IsBatchExit% 0
 
 :ExitFail
-exit %ISBATCHEXIT% 1
+exit %IsBatchExit% 1

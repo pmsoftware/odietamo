@@ -1,71 +1,56 @@
 @echo off
-set FN=OdiScmImportFromPathOrFile
-set IM=%FN%: INFO:
-set EM=%FN%: ERROR:
+
+rem
+rem Check basic environment requirements.
+rem
+if "%ODI_SCM_HOME%" == "" (
+	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME
+	goto ExitFail
+)
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
+
+echo %IM% starts
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*
+if ERRORLEVEL 1 (
+	echo %EM% processing script arguments 1>&2
+	goto ExitFail
+)
 
 rem
 rem Enable variables to be expanded as, not before, commands are executed.
 rem
 setlocal enabledelayedexpansion
 
-if /i "%1" == "/b" (
-	set IsBatchExit=/b
-	shift
-) else (
-	set IsBatchExit=
+if "%ARGV1%" == "" (
+:ParamCodeMissing
+	echo %EM% no argument for code directory root parameter supplied
+	echo %EM% usage: OdiScmImportFromPathOrFile.bat ^<ODI source code root directory^> [ODI source code object list file]
+	goto ExitFail
 )
 
-if "%1" == "" goto ParamCodeMissing
-if "%ODI_HOME%" == "" goto OdiHomeMissing
-goto ParamOk
+set IMPORT_DIR=%ARGV1%
 
-:ParamCodeMissing
-echo %EM% no argument for code directory root parameter supplied
-goto ShowUsage
+if not "%ARGV2%" == "" (
+	rem
+	rem We've been passed a file of objects to import.
+	rem This can be used to manually restart the import operation.
+	rem
+	echo %IM% object override list file passed. Using file ^<%ARGV2%^>
+	if not EXIST "%ARGV2%" (
+		echo %EM% object list file ^<%ARGV2%^> does not exist 1>&2
+		goto ExitFail
+	)
+	set OBJLISTFILE=%ARGV2%
+	goto StartImport
+)
 
-:OdiHomeMissing
-echo %EM% environment variable ODI_HOME is not set
-goto ShowUsage
-
-:ShowUsage
-echo %EM% usage: OdiScmImportFromPathOrFile.bat ^<ODI source code root directory^> [ODI source code object list file]
-goto ExitFail
-
-:ParamOk
-set IMPORT_DIR=%1
-rem set ODI_BIN_DIR=%ODI_HOME%\bin
-
-if "%2" == "" goto NoObjFilePassed
-
-rem
-rem We've been passed a file of objects to import.
-rem This can be used to manually restart the import operation.
-rem
-echo %IM% object override list file passed. Using file ^<%3^>
-if EXIST "%2" goto PassedObjFileExists
-
-echo %EM% object list file "%2" does not exist
-goto ExitFail
-
-set OBJLISTFILE=%2%
-goto StartImport
-
-:NoObjFilePassed
-
-rem
-rem Define a temporary working directory.
-rem
-if "%TEMP%" == "" goto NoTempDir
-set TEMPDIR=%TEMP%
-goto GotTempDir
-
-:NoTempDir
-if "%TMP%" == "" goto NoTmpDir
-set TEMPDIR=%TMP%
-goto GotTempDir
-
-:NoTmpDir
-set TEMPDIR=%CD%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
+if ERRORLEVEL 1 (
+	echo %EM% creating temporary working directory 1>&2
+	goto ExitFail
+)
 
 :GotTempDir
 call :SetDateTimeStrings
@@ -75,7 +60,7 @@ rem Generate a startcmd.bat script file using the current environment settings.
 rem
 set STARTCMDFILE=%TEMPDIR%\OdiImportFromPathOrFile_StartCmd_%YYYYMMDD%_%HHMMSS%.bat
 echo %IM% generating startcmd.bat file ^<%STARTCMDFILE%^>
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat" %TEMPDIR%\OdiImportFromPathOrFile_StartCmd_%YYYYMMDD%_%HHMMSS%.bat
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat" /p %TEMPDIR%\OdiImportFromPathOrFile_StartCmd_%YYYYMMDD%_%HHMMSS%.bat
 if ERRORLEVEL 1 (
 	echo %EM% generating StartCmd batch script file ^<%STARTCMDFILE%^>
 	goto ExitFail
@@ -84,7 +69,7 @@ if ERRORLEVEL 1 (
 rem
 rem Generate the list of files to import.
 rem
-echo %IM% no object override list file passed. Looking for files at ^<%1^>
+echo %IM% no object override list file passed. Looking for files at ^<%IMPORT_DIR%^>
 set OBJLISTFILE=%TEMPDIR%\OdiImportFromPathOrFile_FilesToImport_%YYYYMMDD%_%HHMMSS%.txt
 
 rem

@@ -1,3 +1,4 @@
+rem echo DEBUG: entering OdiScmSetMsgPrefixes
 rem *************************************************************
 rem SetMsgPrexixes
 rem *************************************************************

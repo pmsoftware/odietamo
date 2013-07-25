@@ -27,22 +27,20 @@ REM ODI_ENCODED_PASS=LELKIELGLJMDLKMGHEHJDBGBGFDGGH
 REM ODI_SUPERVISOR=SUPERVISOR
 REM ODI_SUPERVISOR_ENCODED_PASS=a7ypkyTouerpM2OSBUM0oDZhy
 
-call :SetMsgPrefixes
-
-echo %IM% starts
-
-if /i "%1" == "/b" (
-	set IsBatchExit=/b
-	shift
-) else (
-	set IsBatchExit=
+rem
+rem Check basic environment requirements.
+rem
+if "%ODI_SCM_HOME%" == "" (
+	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME
+	goto ExitFail
 )
 
-REM
-REM Check basic environment requirements.
-REM
-if "%ODI_SCM_HOME%" == "" (
-	echo %EM% no OdiScm home directory specified in environment variable ODI_SCM_HOME
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
+echo %IM% starts
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*
+if ERRORLEVEL 1 (
+	echo %EM% processing script arguments 1>&2
 	goto ExitFail
 )
 
@@ -56,29 +54,29 @@ if "%ODI_SCM_INI%" == "" (
 REM
 REM Check parameter arguments.
 REM
-if "%1" == "" (
+if "%ARGV1%" == "" (
 	echo %EM% no target directory specified
 	echo %IM% usage: %PROC% ^<export target directory^> ^<10G ^| 11G^>
 	goto ExitFail
 )
 
-if EXIST "%1" (
-	echo %EM% specified target directory ^<%1^> exists. Specify a directory path to be created
+if EXIST "%ARGV1%" (
+	echo %EM% specified target directory ^<%ARGV1%^> exists. Specify a directory path to be created
 	goto ExitFail
 )
 
-if "%2" == "" (
+if "%ARGV2%" == "" (
 	echo %EM% no OracleDI version specified. Specify either 10G or 11G
 	echo %IM% usage: %PROC% ^<export target directory^> ^<10G ^| 11G^>
 	goto ExitFail
 )
 
-if "%2" == "10G" (
+if "%ARGV2%" == "10G" (
 	set EXPDIR1=
-	set EXPDIR2=%1\
+	set EXPDIR2=%ARGV1%\
 ) else (
-	if "%2" == "11G" (
-		set EXPDIR1=-EXPORT_DIR=%1
+	if "%ARGV2%" == "11G" (
+		set EXPDIR1=-EXPORT_DIR=%ARGV1%
 		set EXPDIR2=
 	) else (
 		echo %EM% invalid OracleDI version specified. Specify either 10G or 11G
@@ -87,22 +85,22 @@ if "%2" == "10G" (
 	)
 )
 
-if "%2" == "10G" (
+if "%ARGV2%" == "10G" (
 	REM Create the directory if not present.
-	if not EXIST "%1" (
-		md "%1"
+	if not EXIST "%ARGV1%" (
+		md "%ARGV1%"
 		if ERRORLEVEL 1 (
-			echo %EM% creating directory ^<%1^>
+			echo %EM% creating directory ^<%ARGV1%^>
 			goto ExitFail
 		)
 	) else (
-		echo %EM% target directory ^<%1^> already exists. Specify a new target directory name
+		echo %EM% target directory ^<%ARGV1%^> already exists. Specify a new target directory name
 		goto ExitFail
 	)
 ) else (
 	REM Check that the directory does not already exist.
-	if EXIST "%1" (
-		echo %EM% target directory ^<%1^> already exists. Specify a new target directory name
+	if EXIST "%ARGV1%" (
+		echo %EM% target directory ^<%ARGV1%^> already exists. Specify a new target directory name
 		goto ExitFail
 	)
 )
@@ -110,35 +108,23 @@ if "%2" == "10G" (
 REM
 REM Set the environment from the configuration INI file.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat" /b
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat"
 set EXITSTATUS=%ERRORLEVEL%
-call :SetMsgPrefixes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
 if not "%EXITSTATUS%" == "0" (
 	echo %EM% setting environment from configuration INI file
 	goto ExitFail
 )
-
-REM if "%ODI_HOME%" == "" (
-	REM echo %EM% environment variable ODI_HOME is not set
-	REM goto ExitFail
-REM )
 
 if not EXIST "%ODI_HOME%\bin\startcmd.bat" (
 	echo %EM% bin\startcmd.bat script not found in ODI_HOME directory ^<%ODI_HOME%\bin^>
 	goto ExitFail
 )
 
-REM
-REM Define a temporary work directory and file.
-REM
-if not "%TEMP%" == "" (
-	set TEMPDIR=%TEMP%
-) else (
-	if not "%TMP%" == "" (
-		set TEMPDIR=%TMP%
-	) else (
-		set TEMPDIR=%CD%
-	)
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
+if ERRORLEVEL 1 (
+	echo %EM% creating temporary working directory 1>&2
+	goto ExitFail
 )
 
 set TEMPFILE=%TEMPDIR%\%RANDOM%_OdiScmExportOracleDIDemo_StartCmd.bat
@@ -147,7 +133,7 @@ REM
 REM Make a startcmd.bat specific to this environment.
 REM
 echo %IM% creating OracleDI environment wrapper script ^<%TEMPFILE%^>
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat" %TEMPFILE%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat" /p %TEMPFILE%
 if ERRORLEVEL 1 (
 	echo %EM% generating startcmd.bat script for current environment
 	goto ExitFail
@@ -264,7 +250,7 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-if "%2" == "11G" (
+if "%ARGV2%" == "11G" (
 	call "%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpLschema -I_OBJECT=12999 %EXPDIR1% -FILE_NAME=%EXPDIR2%LSC_File_Server_for_SAP_ABAP.xml -RECURSIVE_EXPORT=yes
 	if ERRORLEVEL 1 (
 		echo %EM% exporting demo object
@@ -272,7 +258,7 @@ if "%2" == "11G" (
 	)
 )
 
-if "%2" == "11G" (
+if "%ARGV2%" == "11G" (
 	call "%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpLschema -I_OBJECT=13999 %EXPDIR1% -FILE_NAME=%EXPDIR2%LSC__MEMORY_ENGINE.xml -RECURSIVE_EXPORT=yes
 	if ERRORLEVEL 1 (
 		echo %EM% exporting demo object
@@ -310,7 +296,7 @@ REM if ERRORLEVEL 1 (
 	REM goto ExitFail
 REM )
 
-REM if "%2" == "11G" (
+REM if "%ARGV2%" == "11G" (
 	REM call "%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpPschema -I_OBJECT=15999 %EXPDIR1% -FILE_NAME=%EXPDIR2%PSC_MEMORY_ENGINE_Default.xml -RECURSIVE_EXPORT=yes
 	REM if ERRORLEVEL 1 (
 		REM echo %EM% exporting demo object
@@ -324,12 +310,3 @@ exit %IsBatchExit% 0
 
 :ExitFail
 exit %IsBatchExit% 1
-
-rem *************************************************************
-rem **                    S U B R O U T I N E S                **
-rem *************************************************************
-:SetMsgPrefixes
-set PROC=OdiScmExportOracleDIDemo
-set IM=%PROC%: INFO:
-set EM=%PROC%: ERROR:
-set WM=%PROC%: WARNING:

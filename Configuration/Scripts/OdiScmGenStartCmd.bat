@@ -3,30 +3,30 @@ REM
 REM Create a copy of the ODI startcmd.bat batch script with hard coded values for the repository
 REM connection details.
 REM
-setlocal
-set FN=OdiScmGenStartCmd.bat
-set IM=%FN%: INFO:
-set EM=%FN%: ERROR:
-set WM=%FN%: WARNING:
 
-set ISBATCHEXIT=
+rem
+rem Check basic environment requirements.
+rem
+if "%ODI_SCM_HOME%" == "" (
+	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME
+	goto ExitFail
+)
 
-if "%1" == "/b" goto IsBatchExit
-if "%1" == "/B" goto IsBatchExit
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
+echo %IM% starts
 
-goto IsNotBatchExit
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*
+if ERRORLEVEL 1 (
+	echo %EM% processing script arguments 1>&2
+	goto ExitFail
+)
 
-:IsBatchExit
-set ISBATCHEXIT=/b
-shift
-
-:IsNotBatchExit
-if "%1" == "" (
+if "%ARGV1%" == "" (
 	echo %EM% usage: %FN% ^<output path and file name^>
 	goto ExitFail
 )
 
-set OUTFILE=%1
+set OUTFILE=%ARGV1%
 
 if "%ODI_HOME%" == "" (
 	echo %EM% environment variable ODI_HOME is not set
@@ -86,16 +86,6 @@ if not EXIST "%ODI_HOME%\bin\odiparams.bat" (
 	goto ExitFail
 )
 
-if "%TEMP%" == "" (
-	if "%TMP%" == "" (
-		set TEMPDIR=%CD%
-	) else (
-		set TEMPDIR=%TMP%
-	)
-) else (
-	set TEMPDIR=%TEMP%
-)
-
 rem
 rem Ensure the output file can be written to.
 rem
@@ -114,7 +104,7 @@ if ERRORLEVEL 1 (
 )
 
 :ExitOk
-exit %ISBATCHEXIT% 0
+exit %IsBatchExit% 0
 
 :ExitFail
-exit %ISBATCHEXIT% 1
+exit %IsBatchExit% 1

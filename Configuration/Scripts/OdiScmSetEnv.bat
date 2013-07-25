@@ -1,4 +1,6 @@
 @echo off
+rem echo DEBUG: OdiScmSetEnv: starts >CON
+
 REM ===============================================
 REM Set environment variables for the OdiScm configuration
 REM that will be used by the system.
@@ -6,27 +8,29 @@ REM
 REM Note that for this script to have any useful effect it must be
 REM executed with CALL and passed the /B switch.
 REM ===============================================
-call :SetMsgPrefixes
+
+rem
+rem Check basic environment requirements.
+rem
+if "%ODI_SCM_HOME%" == "" (
+	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME
+	goto ExitFail
+)
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
+
+echo %IM% starts
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*
+if ERRORLEVEL 1 (
+	echo %EM% processing script arguments 1>&2
+	goto ExitFail
+)
 
 REM
 REM BEWARE of SETLOCAL. We need to ensure that variable value assignments survive the exit from this script
 REM for them to be useful.
 REM
-
-set CmdDrivePathFile=%0
-rem echo CmdDrivePathFile is %CmdDrivePathFile%
-set CmdDrivePath=%~dp0
-rem echo CmdDrivePath is %CmdDrivePath%
-
-REM
-REM Determine how to exit the script.
-REM
-if /i "%1" == "/b" (
-	set IsBatchExit=/b
-	shift
-) else (
-	set IsBatchExit=
-)
 
 REM
 REM Check presence of dependencies.
@@ -38,123 +42,14 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-REM
-REM Define a temporary work directory.
-REM
-if "%TEMP%" == "" goto NoTempDir
-set TEMPDIR=%TEMP%
-goto GotTempDir
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
+if ERRORLEVEL 1 (
+	echo %EM% creating temporary working directory
+	goto ExitFail
+)
 
-:NoTempDir
-if "%TMP%" == "" goto NoTmpDir
-set TEMPDIR=%TMP%
-goto GotTempDir
-
-:NoTmpDir
-set TEMPDIR=%CD%
-
-:GotTempDir
-REM
-REM Define a temporary work file.
-REM
 set TEMPFILE=%TEMPDIR%\%RANDOM%_OdiScmSetEnv.txt
-
-REM ===============================================
-REM Verify minimum requirements - ODI_SCM_HOME must be defined.
-REM ===============================================
-if not "%ODI_SCM_HOME%" == "" goto OdiScmHomeSet
-
-REM echo %WM% OdiScm home directory environment variable ODI_SCM_HOME is not set
-REM echo %WM% setting from this script's command path
-
-echo %EM% OdiScm home directory environment variable ODI_SCM_HOME is not set
-goto ExitFail
-
-REM
-REM Derive the directory from the path to this script.
-REM NOTE: the configuration INI file is not used to specify a value for ODI_SCM_HOME.
-REM
-rem echo setting it to %CmdDrivePath%
-rem set OdiScmHome=
-rem echo set OdiScmHome=%CmdDrivePath%
-rem echo OdiScmHome is %OdiScmHome%
-rem set OdiScmHome=%CmdDrivePath%
-rem echo set it to %OdiScmHome%
-REM Remove the trailing back slash character.
-rem set OdiScmHome=%OdiScmHome:~0,-1%
-rem echo OdiScmHome is then %OdiScmHome%
-rem set ODI_SCM_HOME=%OdiScmHome:\Configuration\Scripts=%
-rem echo %IM% setting ODI_SCM_HOME to ^<%ODI_SCM_HOME%^>
-
-:OdiScmHomeSet
-
-REM ===============================================
-REM Verify minimum requirements - ODI_SCM_INI must be defined.
-REM ===============================================
-if not "%ODI_SCM_INI%" == "" goto OdiScmIniSet
-
-echo %EM% OdiScm configuration INI file environment variable ODI_SCM_INI is not set
-goto ExitFail
-
-rem echo %WM% OdiScm configuration INI file environment variable ODI_SCM_INI is not set
-rem echo %WM% it is highly recommended to set this variable to explicitly set the configuration
-rem if exist ".\OdiScm.ini" goto DeriveOdiScmIni
-
-rem echo %EM% no configuration INI file ^<OdiScm.ini^> found in current working directory
-rem goto ExitFail
-
-rem :DeriveOdiScmIni
-rem set ODI_SCM_INI=%CD%\OdiScm.ini
-rem echo %IM% found configuration INI file ^<OdiScm.ini^> in current working directory
-rem echo %IM% setting ODI_SCM_INI to ^<%ODI_SCM_INI%^>
-
-:OdiScmIniSet
-
-REM ===============================================
-REM Show the configuration from the INI file.
-REM ===============================================
-
 set TEMPFILE2=%TEMPDIR%\%RANDOM%_OdiScmSetEnv.txt
-
-REM
-REM OdiScm configuration.
-REM
-rem echo %IM% looking for section ^<OdiScm^> key ^<ODI_SCM_HOME^> in configuration INI file
-
-rem echo.>"%TEMPFILE%" 
-rem if ERRORLEVEL 1 (
-rem 	echo %EM% initialising temporary working file ^<%TEMPFILE%^>
-rem 	goto ExitFail
-rem )
-rem set ENVVARVAL=
-rem echo getting ini to file %TEMPFILE%
-rem call %ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat /b OdiScm ODI_SCM_HOME >"%TEMPFILE%" 2>&1
-rem if ERRORLEVEL 1 (
-rem 	echo %EM% cannot get value for section ^<OdiScm^> key ^<ODI_SCM_HOME^>
-rem 	goto ExitFail
-rem )
-rem echo on
-rem echo getting val from file %TEMPFILE%
-rem echo "file contains >>>"
-rem type %TEMPFILE%
-rem echo "<<<"
-rem set /p ENVVARVAL=<"%TEMPFILE%"
-rem echo got "%ENVVARVAL%"
-rem if "%ENVVARVAL%" == "" (
-rem 	echo %IM% configuration INI file does not contain entry for section ^<OdiScm^> key ^<ODI_SCM_HOME^>
-rem 	goto NoOdiScmHomeInIni
-rem )
-
-rem echo %IM% found section ^<OdiScm^> key ^<ODI_SCM_HOME^> in configuration INI file
-rem echo %IM% setting environment variable ^<ODI_SCM_HOME^> to value 
-rem echo val is "%ENVVARVAL%"
-rem set SetEnvVarCmd=set ODI_SCM_HOME=%ENVVARVAL%
-rem %SetEnvVarCmd%
-rem if ERRORLEVEL 1 (
-rem 	echo %EM% cannot set value for environment variable ^<%1^>
-rem 	got SetConfigExitFail
-rem )
-rem :NoOdiScmHomeInIni
 
 REM
 REM OracleDI configuration.
@@ -261,13 +156,14 @@ REM
 REM Tools configuration.
 REM
 echo %IM% processing configuration section ^<Tools^>
-echo ODI_SCM_JISQL_HOME>%TEMPFILE2%
-echo ODI_SCM_JISQL_JAVA_HOME>>%TEMPFILE2%
-echo ODI_SCM_JISQL_ADDITIONAL_CLASSPATH>>%TEMPFILE2%
-echo ORACLE_HOME>>%TEMPFILE2%
+echo ODI_SCM_JISQL_HOME ODI_SCM_JISQL_HOME>%TEMPFILE2%
+echo ODI_SCM_JISQL_JAVA_HOME ODI_SCM_JISQL_JAVA_HOME>>%TEMPFILE2%
+echo ODI_SCM_JISQL_ADDITIONAL_CLASSPATH ODI_SCM_JISQL_ADDITIONAL_CLASSPATH>>%TEMPFILE2%
+echo ORACLE_HOME ORACLE_HOME>>%TEMPFILE2%
+echo UnxUtilsHome ODI_SCM_TOOLS_UNXUTILS_HOME>>%TEMPFILE2%
 
 for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
-	call :SetConfig Tools %%g %%g
+	call :SetConfig Tools %%g %%h
 	if ERRORLEVEL 1 (
 		echo %EM% getting configuration INI value for section ^<Tools^> key ^<%%g^>
 		goto ExitFail
@@ -336,12 +232,12 @@ REM )
 :ExitOk
 REM if exist "%TEMPFILE%" del /f "%TEMPFILE%"
 REM if exist "%TEMPFILE2%" del /f %TEMPFILE2%
-exit %IsBatchExit% 0
+exit /b 0
 
 :ExitFail
 REM if exist "%TEMPFILE%" del /f "%TEMPFILE%"
 REM if exist "%TEMPFILE2%" del /f %TEMPFILE2%
-exit %IsBatchExit% 1
+exit /b 1
 
 REM ===============================================
 REM S U B R O U T I N E S
@@ -365,12 +261,14 @@ if ERRORLEVEL 1 (
 	goto SetConfigExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat" %1 %2 >"%TEMPFILE%" 2>&1
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGetIni.bat^" /p %1 %2 >"%TEMPFILE%" 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% cannot get value for section ^<%1^> key ^<%2^>
 	goto SetConfigExitFail
 )
 
+rem echo set /p ENVVARVAL=^<"%TEMPFILE%" >CON
+rem echo on
 set /p ENVVARVAL=<"%TEMPFILE%"
 echo %IM% setting environment variable ^<%3^> to value ^<%ENVVARVAL%^>
 REM Include quotes around the entire VAR=VAL string to deal with brackets in variable values.
@@ -425,10 +323,3 @@ set "PATH=%1;%PATH%"
 
 :DirNamePathSet
 exit /b 0
-
-:SetMsgPrefixes
-set FN=OdiScmSetEnv
-set IM=%FN%: INFO:
-set EM=%FN%: ERROR:
-set WM=%FN%: WARNING:
-goto :eof
