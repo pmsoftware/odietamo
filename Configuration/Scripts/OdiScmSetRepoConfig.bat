@@ -48,7 +48,7 @@ rem Configure the ODI-SCM repository infrastructure - SCM actions metadata.
 rem
 set TEMPFILE=%TEMPDIR%\%RANDOM%_OdiScmImportOdiScm_Configure.sql
 
-cat "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmConfigureRepositoryMetadataTemplate.sql" | sed s/"<OdiScmOdiUserName>"/%ODI_USER%/ > "%TEMPFILE%"
+cat "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmConfigureRepositoryMetadataTemplate.sql" | sed s/"<OdiScmOdiUserName>"/%ODI_SCM_ORACLEDI_USER%/ > "%TEMPFILE%"
 if ERRORLEVEL 1 (
 	echo %EM% substituting ODI user name
 	goto ExitFail

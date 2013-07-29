@@ -46,7 +46,8 @@ if ERRORLEVEL 1 (
 rem
 rem Run the script file. Pass through any StdOut and StdErr capture file paths/names.
 rem
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat^" /p %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %SCRIPTFILE% %TEMPJARFILE% %ARGV2% %ARGV3%
+echo %IM% executing command ^<call ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat^" ^^^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat^^^" /p %ODI_SCM_ORACLEDI_SECU_USER% %ODI_SCM_ORACLEDI_SECU_PASS% %ODI_SCM_ORACLEDI_SECU_DRIVER% %ODI_SCM_ORACLEDI_SECU_URL% %SCRIPTFILE% %TEMPJARFILE% %ARGV2% %ARGV3%^>
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat^" /p %ODI_SCM_ORACLEDI_SECU_USER% %ODI_SCM_ORACLEDI_SECU_PASS% %ODI_SCM_ORACLEDI_SECU_DRIVER% %ODI_SCM_ORACLEDI_SECU_URL% %SCRIPTFILE% %TEMPJARFILE% %ARGV2% %ARGV3%
 if ERRORLEVEL 1 goto RunScriptFail
 goto RunScriptOk
 

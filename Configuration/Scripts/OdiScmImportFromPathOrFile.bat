@@ -32,7 +32,7 @@ if "%ARGV1%" == "" (
 
 set IMPORT_DIR=%ARGV1%
 
-if not "%ARGV2%" == "" (
+if "%ARGC%" == "2" (
 	rem
 	rem We've been passed a file of objects to import.
 	rem This can be used to manually restart the import operation.

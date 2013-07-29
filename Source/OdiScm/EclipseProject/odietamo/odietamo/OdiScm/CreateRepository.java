@@ -14,6 +14,12 @@ import oracle.odi.setup.JdbcProperties;
 
 public class CreateRepository {
 
+	private static final String modName = "OdiScm";
+	private static final String procName = modName + ": CreateRepository";
+	private static final String infoMsg = procName + ": INFO: ";
+	private static final String errMsg = procName + ": ERROR: ";
+	private static final String warnMsg = procName + ": WARNING: ";
+		
 	public static void main(String[] args)
 	{
 		/*
@@ -29,27 +35,21 @@ public class CreateRepository {
 		 *      9: Oracle DBA password.
 		 */
 		if (args.length != 10) {
-			System.err.println("ERROR: Invalid arguments");
-			System.out.println("INFO: usage: CreateRepository <Supervisor User Name> <Supervisor User Password> <Master/Work DB URL> <Master/Work JDBC driver> <Master/Work DB User Name> <Master/Work DB User Name> <Master/Work Internal ID> <Work Repositroy Name> <Oracle DBA User Name> <Oracle DBA Password>");
+			System.err.println(errMsg + "invalid arguments");
+			System.out.println(infoMsg + "usage: CreateRepository <Supervisor User Name> <Supervisor User Password> <Master/Work DB URL> <Master/Work JDBC driver> <Master/Work DB User Name> <Master/Work DB User Name> <Master/Work Internal ID> <Work Repositroy Name> <Oracle DBA User Name> <Oracle DBA Password>");
 			System.exit(1);
 		}
-		
-		//String odiSupervisorUser = "SUPERVISOR"; //$NON-NLS-1$
+
 		String odiSupervisorUser = args[0].replace("\"", "");
 		
-		//String odiSupervisorPassword = "SUNOPSIS"; //$NON-NLS-1$
 		String odiSupervisorPassword = args[1].replace("\"", "");
 		
-		//String masterRepositoryJdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe"; //$NON-NLS-1$
 		String RepositoryJdbcUrl = args[2].replace("\"", "");
 		
-		//String masterRepositoryJdbcDriver = "oracle.jdbc.OracleDriver"; //$NON-NLS-1$
 		String RepositoryJdbcDriver = args[3].replace("\"", "");
 		
-		//String masterRepositoryJdbcUser = "NEWODIMASTER"; //$NON-NLS-1$
 		String RepositoryJdbcUserName = args[4].replace("\"", "");
 		                                       
-		//String masterRepositoryJdbcPassword = "NEWODIMASTER";//$NON-NLS-1$
 		String RepositoryJdbcPassword = args[5].replace("\"", "");
 
 		TechnologyName RepositoryTechnology = TechnologyName.ORACLE;
@@ -60,9 +60,8 @@ public class CreateRepository {
 			RepositoryId = (new Integer(args[6].replace("\"",""))).intValue();
 		}
 		catch (Exception e) {
-			System.err.println("ERROR: Invalid repository ID specified");
-			System.err.println("ERROR: repository ID must be an integer value");
-			System.exit(1);
+			System.err.println(errMsg + "invalid repository ID specified");
+			System.err.println(errMsg + "repository ID must be an integer value");
 		}
 
 		String workRepositoryName = args[7].replace("\"", "");
@@ -72,17 +71,8 @@ public class CreateRepository {
 		PasswordStorageConfiguration psc = new PasswordStorageConfiguration.InternalPasswordStorageConfiguration();
 		AuthenticationConfiguration authConf = AuthenticationConfiguration.createStandaloneAuthenticationConfiguration(odiSupervisorPassword.toCharArray());
 		
-		//TechnologyName workRepositoryTechnology = TechnologyName.ORACLE;
-		//String workRepositoryJdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe"; //$NON-NLS-1$
-		//String workRepositoryJdbcDriver = "oracle.jdbc.OracleDriver"; //$NON-NLS-1$
-
-		//String workRepositoryJdbcUsername = "NEWODIWORK"; //$NON-NLS-1$
-		//String workRepositoryJdbcPassword = "NEWODIWORK"; //$NON-NLS-1$
-
 		String workRepositoryPassword = "";
           
-		//int workRepositoryId = 678;
-		
 		int ExitStatus = 0;
 		
 		try {
@@ -91,13 +81,14 @@ public class CreateRepository {
 	            
 			JdbcProperties mrjp = new JdbcProperties(RepositoryJdbcUrl, RepositoryJdbcDriver, RepositoryJdbcUserName, RepositoryJdbcPassword.toCharArray());
 			
-			System.out.println("About to start master repository creation");
+			System.out.println(infoMsg + "creating master repository");
 			if (masterRepositorySetup.createMasterRepository(mrjp, DbaUserName, DbaPassword.toCharArray(), RepositoryId, RepositoryTechnology, false, authConf, psc)) {
-				System.out.println("Master repository creation succeeded");
+				System.out.println(infoMsg + "master repository creation succeeded");
 			}
 			else {
-				System.err.println("Master repository creation failed");
-				System.exit(1);
+				System.err.println(errMsg + "master repository creation failed");
+				throw new RepositorySetupException("createMasterRepository returned false", new Throwable());
+				//System.exit(1);
 			}
 
 			SimpleOdiInstanceHandle handle = SimpleOdiInstanceHandle.create(RepositoryJdbcUrl, RepositoryJdbcDriver, RepositoryJdbcUserName, RepositoryJdbcPassword, odiSupervisorUser, odiSupervisorPassword);
@@ -109,17 +100,20 @@ public class CreateRepository {
 				WorkType wt = WorkType.DESIGN;
 				JdbcProperties wrjp = new JdbcProperties(RepositoryJdbcUrl, RepositoryJdbcDriver, RepositoryJdbcUserName, RepositoryJdbcPassword.toCharArray());
 				
-				System.out.println("About to start work repository creation");
+				System.out.println(infoMsg + "creating work repository");
 				if (workRepositorySetup.createWorkRepository(wt, wrjp, RepositoryId, workRepositoryName, RepositoryTechnology, false, workRepositoryPassword.toCharArray())) {
-					System.out.println("Work repository creation succeeded");
+					System.out.println(errMsg + "work repository creation succeeded");
 				}
 				else {
-					System.err.println("Work repository creation failed");
-					ExitStatus = 1;
+					System.err.println(errMsg + "work repository creation failed");
+					throw new RepositorySetupException("createMasterRepository returned false", new Throwable());
+					//ExitStatus = 1;
 				}
 			}
 	        catch (RepositorySetupException e) {
-	        	System.err.println("Work repository creation failed");
+	        	System.err.println(errMsg + "work repository creation failed");
+	        	throw new RepositorySetupException("createMasterRepository returned false", new Throwable());
+	        	//ExitStatus = 1;
 	        }
 			finally {
 				handle.release();
@@ -127,8 +121,8 @@ public class CreateRepository {
 		}
         catch (RepositorySetupException e) {
             e.printStackTrace();
+            ExitStatus = 1;
         }
         System.exit(ExitStatus);
 	}
 }
-

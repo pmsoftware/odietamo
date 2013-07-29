@@ -52,18 +52,20 @@ if "%ODI_SCM_INI%" == "" (
 REM
 REM Set the environment from the configuration INI file.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat"
+set PIsBatchExit=%IsBatchExit%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmEnvSet.bat"
 set EXITSTATUS=%ERRORLEVEL%
+set IsBatchExit=%PIsBatchExit%
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
 if not "%EXITSTATUS%" == "0" (
 	echo %EM% setting environment from configuration INI file
 	goto ExitFail
 )
 
-set ODI_SCM_ODI_VERSION_MAJOR=%ODI_VERSION:~0,3%
-if not "%ODI_SCM_ODI_VERSION_MAJOR%" == "10." (
-	if not "%ODI_SCM_ODI_VERSION_MAJOR%" == "11." (
-		echo %EM% invalid ODI version ^<%ODI_VERSION%^> specified in environment variable ODI_VERSION 1>&2
+set ODI_SCM_ODI_SCM_ORACLEDI_VERSION_MAJOR=%ODI_SCM_ORACLEDI_VERSION:~0,3%
+if not "%ODI_SCM_ODI_SCM_ORACLEDI_VERSION_MAJOR%" == "10." (
+	if not "%ODI_SCM_ODI_SCM_ORACLEDI_VERSION_MAJOR%" == "11." (
+		echo %EM% invalid ODI version ^<%ODI_SCM_ORACLEDI_VERSION%^> specified in environment variable ODI_SCM_ORACLEDI_VERSION 1>&2
 		goto ExitFail
 	)
 )
@@ -73,8 +75,8 @@ if not EXIST "%ODI_SCM_HOME%\Source\OdiScm" (
 	goto ExitFail
 )
 
-if not EXIST "%ODI_HOME%\bin\startcmd.bat" (
-	echo %EM% bin\startcmd.bat script not found in ODI_HOME directory ^<%ODI_HOME%\bin^>
+if not EXIST "%ODI_SCM_ORACLEDI_HOME%\bin\startcmd.bat" (
+	echo %EM% bin\startcmd.bat script not found in ODI_SCM_ORACLEDI_HOME directory ^<%ODI_SCM_ORACLEDI_HOME%\bin^>
 	goto ExitFail
 )
 
@@ -111,13 +113,13 @@ rem
 rem Create a version of the ODI-SCM infrastructure setup script for this repository.
 rem
 set TEMPFILE=%TEMPDIR%\%RANDOM%_OdiScmImportOdiScm_CreateInfrastructure.sql
-cat "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateInfrastructureTemplate.sql" | sed s/"<OdiWorkRepoUserName>"/%ODI_SECU_USER%/ > "%TEMPFILE%"
+cat "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateInfrastructureTemplate.sql" | sed s/"<OdiWorkRepoUserName>"/%ODI_SCM_ORACLEDI_SECU_USER%/ > "%TEMPFILE%"
 if ERRORLEVEL 1 goto ScriptGenFail
 
-cat "%TEMPFILE%" | sed s/"<OdiWorkRepoPassWord>"/%ODI_SECU_PASS%/ > "%TEMPFILE%2"
+cat "%TEMPFILE%" | sed s/"<OdiWorkRepoPassWord>"/%ODI_SCM_ORACLEDI_SECU_PASS%/ > "%TEMPFILE%2"
 if ERRORLEVEL 1 goto ScriptGenFail
 
-set CONNSTR=%ODI_SECU_URL_HOST%:%ODI_SECU_URL_PORT%\/%ODI_SECU_URL_SID%
+set CONNSTR=%ODI_SCM_ORACLEDI_SECU_URL_HOST%:%ODI_SCM_ORACLEDI_SECU_URL_PORT%\/%ODI_SCM_ORACLEDI_SECU_URL_SID%
 cat "%TEMPFILE%2" | sed s/"<OdiWorkRepoConnectionString>"/%CONNSTR%/ > "%TEMPFILE%3"
 if ERRORLEVEL 1 goto ScriptGenFail
 
@@ -215,26 +217,26 @@ rem Determine the actual working copy directory that files will be exported to.
 rem
 setlocal enabledelayedexpansion
 
-if "%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
+if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
 	rem
 	rem For SVN we need to take the final part of the system URL and/or branch URL and append to the specified working copy path.
 	rem This is because the last path component will have a working copy directory created for it when we check out of SVN.
 	rem Note: beware of extra spaces at the end of the variable expansion.
 	rem
-	for /f "tokens=* delims=/" %%g in ('echo %ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%^| tr [/] [\n]') do (
+	for /f "tokens=* delims=/" %%g in ('echo %ODI_SCM_SCM_SYSTEM_SYSTEM_URL%^| tr [/] [\n]') do (
 		set SCMSYSTEMURLLASTPATH=%%g
 	)
 	rem echo set SCMSYSTEMURLLASTPATH to -!SCMSYSTEMURLLASTPATH!-
 	if "!SCMSYSTEMURLLASTPATH!" == "" (
-		echo %EM% last path component of SCM system URL ^<%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%^> is empty 1>&2
+		echo %EM% last path component of SCM system URL ^<%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%^> is empty 1>&2
 		goto ExitFail
 	)
-	for /f "tokens=* delims=/" %%g in ('echo %ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%^| tr [/] [\n]') do (
+	for /f "tokens=* delims=/" %%g in ('echo %ODI_SCM_SCM_SYSTEM_BRANCH_URL%^| tr [/] [\n]') do (
 		set SCMBRANCHURLLASTPATH=%%g
 	)
 	rem echo set SCMBRANCHURLLASTPATH to -!SCMBRANCHURLLASTPATH!-
 	if "!SCMBRANCHURLLASTPATH!" == "" (
-		echo %EM% last path component of SCM branch URL ^<%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%^> is empty 1>&2
+		echo %EM% last path component of SCM branch URL ^<%ODI_SCM_SCM_SYSTEM_BRANCH_URL%^> is empty 1>&2
 		goto ExitFail
 	)
 	if "!SCMBRANCHURLLASTPATH!" == "." (
@@ -256,25 +258,25 @@ if "%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
 for /f %%g in ('dir /s /b "%TEMPOBJSDIR%\*.SnpConnect"') do (
 	echo %IM% preparing data server file ^<%%g^>
 	rem echo %DEBUG% setting driver class
-	cat "%%g" | sed s/"<OdiScmJavaDriverClass>"/"%ODI_SECU_DRIVER%"/g > %%g.1
+	cat "%%g" | sed s/"<OdiScmJavaDriverClass>"/"%ODI_SCM_ORACLEDI_SECU_DRIVER%"/g > %%g.1
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
 	rem echo %DEBUG% setting pass word
-	cat "%%g.1" | sed s/"<OdiScmPassWord>"/"%ODI_SECU_ENCODED_PASS%"/g > %%g.2
+	cat "%%g.1" | sed s/"<OdiScmPassWord>"/"%ODI_SCM_ORACLEDI_SECU_ENCODED_PASS%"/g > %%g.2
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
 	rem echo %DEBUG% setting user name
-	cat "%%g.2" | sed s/"<OdiScmUserName>"/"%ODI_SECU_USER%"/g > %%g.3
+	cat "%%g.2" | sed s/"<OdiScmUserName>"/"%ODI_SCM_ORACLEDI_SECU_USER%"/g > %%g.3
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
 	rem echo %DEBUG% setting URL
-	cat "%%g.3" | sed s/"<OdiScmUrl>"/"%ODI_SECU_URL%"/g > %%g.4
+	cat "%%g.3" | sed s/"<OdiScmUrl>"/"%ODI_SCM_ORACLEDI_SECU_URL%"/g > %%g.4
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
@@ -309,6 +311,7 @@ for /f %%g in ('dir /s /b "%TEMPOBJSDIR%\*.SnpConnect"') do (
 )
 
 echo %IM% starting import of ODI-SCM master repository objects
+rem echo running: call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat^" /p %TEMPOBJSDIR%\master
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat^" /p %TEMPOBJSDIR%\master
 if ERRORLEVEL 1 (
 	echo %EM% importing ODI-SCM ODI repository objects
@@ -333,7 +336,7 @@ if ERRORLEVEL 1 (
 echo %IM% completed import of ODI-SCM work repository objects
 
 echo %IM% regenerating ODI-SCM ODI project scenarios
-if "%ODI_SCM_ODI_VERSION_MAJOR%" == "10." (
+if "%ODI_SCM_ODI_SCM_ORACLEDI_VERSION_MAJOR%" == "10." (
 	set ODI_SCM_PROJECT=1998
 ) else (
 	set ODI_SCM_PROJECT=OS

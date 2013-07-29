@@ -1,0 +1,76 @@
+call OdiScmReplaceStrings /b OdiScmSetEnv.bat OdiScmEnvSet.bat
+rem OracleDI
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_VERSION                                 ODI_SCM_ORACLEDI_VERSION
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_HOME                                    ODI_SCM_ORACLEDI_HOME
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_JAVA_HOME                               ODI_SCM_ORACLEDI_JAVA_HOME
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SECU_DRIVER                             ODI_SCM_ORACLEDI_SECU_DRIVER
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SECU_URL                                ODI_SCM_ORACLEDI_SECU_URL
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SECU_USER                               ODI_SCM_ORACLEDI_SECU_USER
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SECU_ENCODED_PASS                       ODI_SCM_ORACLEDI_ENCODED_PASS
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SECU_PASS                               ODI_SCM_ORACLEDI_SECU_PASS
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_USER                                    ODI_SCM_ORACLEDI_USER
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_PASS                                    ODI_SCM_ORACLEDI_PASS
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_ENCODED_PASS                            ODI_SCM_ORACLEDI_ENCODED_PASS
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SECU_WORK_REP                           ODI_SCM_ORACLEDI_SECU_WORK_REP
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_ADMIN_USER                              ODI_SCM_ORACLEDI_ADMIN_USER
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_ADMIN_PASS                              ODI_SCM_ORACLEDI_ADMIN_PASS
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_COMMON                                  ODI_SCM_ORACLEDI_COMMON
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SDK                                     ODI_SCM_ORACLEDI_SDK
+if ERRORLEVEL 1 goto ExitFail
+rem Tools
+call OdiScmReplaceStrings /b ODI_SCM_JISQL_JAVA_HOME                     ODI_SCM_TOOLS_JISQL_JAVA_HOME
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SCM_JISQL_HOME                          ODI_SCM_TOOLS_JISQL_HOME
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SCM_JISQL_ADDITIONAL_CLASSPATH          ODI_SCM_TOOLS_JISQL_ADDITIONAL_CLASSPATH
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ORACLE_HOME                                 ODI_SCM_TOOLS_ORACLE_HOME
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SCM_UNXUTILS_HOME                       ODI_SCM_TOOLS_UNXUTILS_HOME
+if ERRORLEVEL 1 goto ExitFail
+rem SCM System
+call OdiScmReplaceStrings /b ODI_SCM_TFS_GLOBAL_USER_NAME                ODI_SCM_SCM_SYSTEM_GLOBAL_USER_NAME
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SCM_TFS_GLOBAL_USER_PASSWORD            ODI_SCM_SCM_SYSTEM_GLOBAL_USER_PASSWORD
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME     ODI_SCM_SCM_SYSTEM_TYPE_NAME
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL           ODI_SCM_SCM_SYSTEM_SYSTEM_URL
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL           ODI_SCM_SCM_SYSTEM_BRANCH_URL
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT        ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SCM_SCM_SYSTEM_WORKING_ROOT             ODI_SCM_SCM_SYSTEM_WORKING_ROOT
+if ERRORLEVEL 1 goto ExitFail
+rem Generate
+call OdiScmReplaceStrings /b ODI_SCM_GENERATE_OUTPUT_TAG                 ODI_SCM_GENERATE_OUTPUT_TAG
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SCM_GENERATE_EXPORT_REF_PHYS_ARCH_ONLY  ODI_SCM_GENERATE_EXPORT_REF_PHYS_ARCH_ONLY
+if ERRORLEVEL 1 goto ExitFail
+rem Notify
+call OdiScmReplaceStrings /b ODI_SCM_NOTIFY_USER_NAME             ODI_SCM_NOTIFY_USER_NAME
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS    ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS
+if ERRORLEVEL 1 goto ExitFail
+call OdiScmReplaceStrings /b ODI_SCM_NOTIFY_SMTP_SERVER           ODI_SCM_NOTIFY_SMTP_SERVER
+if ERRORLEVEL 1 goto ExitFail
+rem Testing
+call OdiScmReplaceStrings /b ODI_SCM_TEST_ODI_STANDARDS_SCRIPT    ODI_SCM_TESTING_ODI_STANDARDS_SCRIPT
+if ERRORLEVEL 1 goto ExitFail

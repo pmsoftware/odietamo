@@ -126,27 +126,19 @@ function SetIniContent ($InputObject, $FilePath)
 
 function CreateSetEnvScript
 {
-	$FN = "CreateSetEnvScript"
+	$FN = "OdiScmIni: CreateSetEnvScript"
 	$IM = $FN + ": INFO:"
 	$EM = $FN + ": ERROR:"
-	
-	if (($env:ODI_SCM_INI -eq $Null) -or ($env:ODI_SCM_INI -eq "")) {
-		write-error "$EM configuration INI file not specified in environment variable ODI_SCM_INI"
-		exit 1
-	}
-	
-	if (!(test-path "$env:ODI_SCM_INI")) {
-		write-error "$EM cannot access configuration INI file <$env:ODI_SCM_INI>"
-		exit 1
-	}
 	
 	#
 	# Load the INI file.
 	#
-	#$OutputPathFile = new-item -itemtype file -path $OutputPathFile -force
-	write-host "loaded ini file"
-	DebuggingPause
+	#DebuggingPause
 	$IniTable = GetIniContent($env:ODI_SCM_INI)
+	if ($IniTable -eq $False) {
+		write-error "$EM loading configuration INI file <env:ODI_SCM_INI>"
+		return $False
+	}
 	
 	foreach ($i in $IniTable.keys)
 	{
@@ -160,7 +152,7 @@ function CreateSetEnvScript
 				# The top level hash table entry is a comment.
 				#
 				#write-output "processing a top level comment"
-				$strOutText = ";" + $($IniTable[$i])
+				$strOutText = ";" + $($IniTable[$i]) #+ [Environment]::NewLine
 				write-output $strOutText
 				#DebuggingPause
 			}
@@ -171,7 +163,7 @@ function CreateSetEnvScript
 				#write-output "processing a top level key: " $($IniTable[$i])
 				$strKeyName = $i
 				$strKeyValue = $($IniTable[$i])
-				$strOutText = $strKeyName + "=" + $strKeyValue
+				$strOutText = $strKeyName + "=" + $strKeyValue #+ [Environment]::NewLine
 				write-output $strOutText
 				DebuggingPause
 			}
@@ -196,17 +188,55 @@ function CreateSetEnvScript
 					$strKeyValue = $($IniTable[$i][$j])
 					$strEnvVarName = "ODI_SCM_" + $strSectionName.ToUpper() + "_" + $strKeyName.ToUpper()
 					$strEnvVarName = $strEnvVarName.Replace(" ","_")
-					$strOutText = "set " + $strEnvVarName + "=" + $strKeyValue
+					$strOutText = "set " + $strEnvVarName + "=" + $strKeyValue #+ [Environment]::NewLine
 					write-output $strOutText
-					#DebuggingPause
-					#add-content -path $outFile -value $strOutText.ToUpper()
+					if ($strEnvVarName -eq "ODI_SCM_ORACLEDI_SECU_URL") {
+						# jdbc:oracle:thin:@localhost:1521:xe
+						$strKeyValueFields = $strKeyValue.split(":")
+						$strUrlHost = $($strKeyValueFields[3]).replace("@","")
+						$strUrlPort = $strKeyValueFields[4]
+						$strUrlSID = $strKeyValueFields[5]
+						write-output "set ODI_SCM_ORACLEDI_SECU_URL_HOST=$strUrlHost" 
+						write-output "set ODI_SCM_ORACLEDI_SECU_URL_PORT=$strUrlPort"
+						write-output "set ODI_SCM_ORACLEDI_SECU_URL_SID=$strUrlSID"
+					}
 					#DebuggingPause
 				}
 			}
-			#add-content -path $OutputPathFile -value ""
 		}
     }
 }
 
-$DebuggingActive = $True
-CreateSetEnvScript
+$FN = "OdiScmIni"
+$IM = $FN + ": INFO:"
+$EM = $FN + ": ERROR:"
+	
+$DebuggingActive = $False
+
+if ($args.Count -ne 1) {
+	write-error "OdiScmCreateSetEnvScript: missing output script name"
+	write-error "OdiScmCreateSetEnvScript: usage OdiScmCreateSetEnv <output batch script path and name>"
+}
+
+if (($env:ODI_SCM_INI -eq $Null) -or ($env:ODI_SCM_INI -eq "")) {
+	write-error "$EM configuration INI file not specified in environment variable ODI_SCM_INI"
+	exit 1
+}
+
+if (!(test-path "$env:ODI_SCM_INI")) {
+	write-error "$EM cannot access configuration INI file <$env:ODI_SCM_INI>"
+	exit 1
+}
+
+$BatContent=CreateSetEnvScript
+if ($BatContent -eq $False) {
+	exit 1
+}
+
+set-content -path $args[0] -value $BatContent
+if (!($?)) {
+	write-error "$EM cannot create batch script file <$($args[0])>"
+	exit 1
+}
+
+exit 0

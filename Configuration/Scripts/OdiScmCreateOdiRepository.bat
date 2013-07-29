@@ -31,13 +31,13 @@ if "%ODI_SCM_HOME%" == "" (
 	goto ExitFail
 )
 
-if "%ODI_HOME%" == "" (
-	echo %EM% environment variable ODI_HOME is not set
+if "%ODI_SCM_ORACLEDI_HOME%" == "" (
+	echo %EM% environment variable ODI_SCM_ORACLEDI_HOME is not set
 	goto ExitFail
 )
 
-if "%ODI_JAVA_HOME%" == "" (
-	echo %EM% environment variable ODI_JAVA_HOME is not set
+if "%ODI_SCM_ORACLEDI_JAVA_HOME%" == "" (
+	echo %EM% environment variable ODI_SCM_ORACLEDI_JAVA_HOME is not set
 	goto ExitFail
 )
 
@@ -67,9 +67,9 @@ rem
 echo %IM% using class path of ^<%ODI_SCM_CLASS_PATH%^>
 set CLASSPATH=%ODI_SCM_CLASS_PATH%
 
-echo %IM% running command ^<"%ODI_JAVA_HOME%\bin\java.exe" odietamo.OdiScm.CreateRepository %ODI_USER% %ODI_PASS% %ODI_SECU_URL% %ODI_SECU_DRIVER% %ODI_SECU_USER% %ODI_SECU_PASS% %ARGV1% %ODI_SECU_WORK_REP% %ODI_ADMIN_USER% %ODI_ADMIN_PASS%^>
+echo %IM% running command ^<"%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\java.exe" odietamo.OdiScm.CreateRepository %ODI_SCM_ORACLEDI_USER% %ODI_SCM_ORACLEDI_PASS% %ODI_SCM_ORACLEDI_SECU_URL% %ODI_SCM_ORACLEDI_SECU_DRIVER% %ODI_SCM_ORACLEDI_SECU_USER% %ODI_SCM_ORACLEDI_SECU_PASS% %ARGV1% %ODI_SCM_ORACLEDI_SECU_WORK_REP% %ODI_SCM_ORACLEDI_ADMIN_USER% %ODI_SCM_ORACLEDI_ADMIN_PASS%^>
 
-"%ODI_JAVA_HOME%\bin\java.exe" odietamo.OdiScm.CreateRepository %ODI_USER% %ODI_PASS% %ODI_SECU_URL% %ODI_SECU_DRIVER% %ODI_SECU_USER% %ODI_SECU_PASS% %ARGV1% %ODI_SECU_WORK_REP% %ODI_ADMIN_USER% %ODI_ADMIN_PASS%
+"%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\java.exe" odietamo.OdiScm.CreateRepository %ODI_SCM_ORACLEDI_USER% %ODI_SCM_ORACLEDI_PASS% %ODI_SCM_ORACLEDI_SECU_URL% %ODI_SCM_ORACLEDI_SECU_DRIVER% %ODI_SCM_ORACLEDI_SECU_USER% %ODI_SCM_ORACLEDI_SECU_PASS% %ARGV1% %ODI_SCM_ORACLEDI_SECU_WORK_REP% %ODI_SCM_ORACLEDI_ADMIN_USER% %ODI_SCM_ORACLEDI_ADMIN_PASS%
 if ERRORLEVEL 1 (
 	echo %EM% creating Master/Work repository
 	goto ExitFail

@@ -1,3 +1,7 @@
+rem if not "%TEMPDIR%" == "" (
+rem 	exit /b 0
+rem )
+
 if "%TEMP%" == "" (
 	if "%TMP%" == "" (
 		set TEMPDIR=%CD%

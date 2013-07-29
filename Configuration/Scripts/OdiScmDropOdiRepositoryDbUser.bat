@@ -1,5 +1,4 @@
 @echo off
-
 rem
 rem Check basic environment requirements.
 rem
@@ -27,17 +26,17 @@ if ERRORLEVEL 1 (
 )
 
 set TEMPFILE=%TEMPDIR%\%PROC%.txt
-type "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmDropOdiRepositoryDbUser.sql" | sed s/"<OdiSecuUser>"/%ODI_SECU_USER%/g >%TEMPFILE%
+type "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmDropOdiRepositoryDbUser.sql" | sed s/"<OdiSecuUser>"/%ODI_SCM_ORACLEDI_SECU_USER%/g >%TEMPFILE%
 if ERRORLEVEL 1 (
 	echo %EM% creating database user deletion script 1>&2
 	goto ExitFail
 )
 
-set PODI_SECU_USER=%ODI_SECU_USER%
-set PODI_SECU_PASS=%ODI_SECU_PASS%
+set PODI_SCM_ORACLEDI_SECU_USER=%ODI_SCM_ORACLEDI_SECU_USER%
+set PODI_SCM_ORACLEDI_SECU_PASS=%ODI_SCM_ORACLEDI_SECU_PASS%
 
-set ODI_SECU_USER=%ODI_ADMIN_USER%
-set ODI_SECU_PASS=%ODI_ADMIN_PASS%
+set ODI_SCM_ORACLEDI_SECU_USER=%ODI_SCM_ORACLEDI_ADMIN_USER%
+set ODI_SCM_ORACLEDI_SECU_PASS=%ODI_SCM_ORACLEDI_ADMIN_PASS%
 
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" /p %TEMPFILE%
 if ERRORLEVEL 1 (
@@ -48,8 +47,8 @@ if ERRORLEVEL 1 (
 rem
 rem Restore variable values in case this script was CALLed directly (instead of forked).
 rem
-set ODI_SECU_USER=%PODI_SECU_USER%
-set ODI_SECU_PASS=%PODI_SECU_PASS%
+set ODI_SCM_ORACLEDI_SECU_USER=%PODI_SCM_ORACLEDI_SECU_USER%
+set ODI_SCM_ORACLEDI_SECU_PASS=%PODI_SCM_ORACLEDI_SECU_PASS%
 
 :ExitOk
 exit %IsBatchExit% 0

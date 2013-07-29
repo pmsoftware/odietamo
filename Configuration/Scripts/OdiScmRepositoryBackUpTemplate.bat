@@ -4,15 +4,15 @@ set FN=OdiScmRepositoryBackUp
 set IM=%FN%: INFO:
 set EM=%FN%: ERROR:
 
-REM set BU_ORACLE_HOME=%ORACLE_HOME%
+REM set BU_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME=%ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME%
 set BU_PATH=%PATH%
 
-REM set ORACLE_HOME=C:\MOI\Configuration\Tools\Oracle10gClient
+REM set ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME=C:\MOI\Configuration\Tools\Oracle10gClient
 REM set PATH=C:\MOI\Configuration\Tools\Oracle10gClient\BIN
-set PATH=%ORACLE_HOME%\bin
+set PATH=%ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME%\bin
 
 echo %IM% backing up user ^<<OdiWorkRepoUserName>^> in database ^<<OdiWorkRepoServer>:<OdiWorkRepoPort>/<OdiWorkRepoSID>^>
-"%ORACLE_HOME%\bin\exp.exe" <OdiWorkRepoUserName>/<OdiWorkRepoPassWord>@<OdiWorkRepoServer>:<OdiWorkRepoPort>/<OdiWorkRepoSID> owner=<OdiWorkRepoUserName> file=<ExportBackUpFile> statistics=none
+"%ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME%\bin\exp.exe" <OdiWorkRepoUserName>/<OdiWorkRepoPassWord>@<OdiWorkRepoServer>:<OdiWorkRepoPort>/<OdiWorkRepoSID> owner=<OdiWorkRepoUserName> file=<ExportBackUpFile> statistics=none
 if ERRORLEVEL 1 goto ExportFail
 goto ExportOk
 
@@ -42,11 +42,11 @@ goto ExitError
 goto ExitOk
 
 :ExitOk
-set ORACLE_HOME=%BU_ORACLE_HOME%
+set ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME=%BU_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME%
 set PATH=%BU_PATH%
-exit /b 0
+exit 0
 
 :ExitError
-set ORACLE_HOME=%BU_ORACLE_HOME%
+set ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME=%BU_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME%
 set PATH=%BU_PATH%
-exit /b 1
+exit 1

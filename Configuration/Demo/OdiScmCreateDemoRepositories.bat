@@ -38,10 +38,11 @@ rem Just to set the environment to create the SCM repository.
 rem
 set ODI_SCM_INI=%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportStandardOdiDemoRepo1.ini
 echo %IM% setting OdiScm environment from ^<%ODI_SCM_INI%^>
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat" %DiscardOutput%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmEnvSet.bat" %DiscardOutput%
 if ERRORLEVEL 1 (
 	goto ExitFail
 )
+
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
 
 set ODI_SCM_DEMO_BASE=C:\OdiScmWalkThrough
@@ -80,7 +81,6 @@ if ERRORLEVEL 1 (
 rem *************************************************************
 rem Demo environment 1.
 rem *************************************************************
-
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmDropOdiRepositoryDbUser.bat^" /p %DiscardStdOut%
 if ERRORLEVEL 1 (
 	echo %EM% dropping existing demo environment 1 ODI repository database user
@@ -124,22 +124,22 @@ if ERRORLEVEL 1 (
 	echo %EM% creating demo environment 2 working directory %ODI_SCM_SCM_SYSTEM_WORKING_ROOT%
 )
 
-if "%ODI_VERSION:~0,3%" == "10." (
+if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "10." (
 	echo %IM% importing demo environment 1 repository
-	%ORACLE_HOME%\bin\imp.exe %ODI_SECU_USER%/%ODI_SECU_PASS%@%ODI_SECU_URL_HOST%:%ODI_SECU_URL_PORT%/%ODI_SECU_URL_SID% file=%ODI_SCM_HOME%\Configuration\Demo\%ODI_SECU_USER%_repid_100_empty_master_work_%ODI_VERSION%.dmp full=y %DiscardStdOut% %DiscardStdErr%
+	%ODI_SCM_TOOLS_ORACLE_HOME%\bin\imp.exe %ODI_SCM_ORACLEDI_SECU_USER%/%ODI_SCM_ORACLEDI_SECU_PASS%@%ODI_SCM_ORACLEDI_SECU_URL_HOST%:%ODI_SCM_ORACLEDI_SECU_URL_PORT%/%ODI_SCM_ORACLEDI_SECU_URL_SID% file=%ODI_SCM_HOME%\Configuration\Demo\%ODI_SCM_ORACLEDI_SECU_USER%_repid_100_empty_master_work_%ODI_SCM_ORACLEDI_VERSION%.dmp full=y %DiscardStdOut% %DiscardStdErr%
 	if ERRORLEVEL 1 (
 		goto ExitFail
 	)
 ) else (
-	if "%ODI_VERSION:~0,3%" == "11." (
+	if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "11." (
 		echo %IM% creating demo environment 2 repository
 		call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiRepository.bat" /p 1
 		if ERRORLEVEL 1 (
-			echo %EM% creating demo environment 2 repository
+			echo %EM% creating demo environment 1 repository
 			goto ExitFail
 		)
 	) else (
-		echo %EM% unsupported ODI version number ^<%ODI_VERSION%^>
+		echo %EM% unsupported ODI version number ^<%ODI_SCM_ORACLEDI_VERSION%^>
 		goto ExitFail
 	)
 )
@@ -161,7 +161,7 @@ rem Demo environment 2.
 rem *************************************************************
 set ODI_SCM_INI=%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportStandardOdiDemoRepo2.ini
 echo %IM% setting OdiScm environment from ^<%ODI_SCM_INI%^>
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat" %DiscardStdOut%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmEnvSet.bat" %DiscardStdOut%
 if ERRORLEVEL 1 (
 	goto ExitFail
 )
@@ -210,14 +210,14 @@ if ERRORLEVEL 1 (
 	echo %EM% creating demo environment 2 working directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^>
 )
 
-if "%ODI_VERSION:~0,3%" == "10." (
+if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "10." (
 	echo %IM% importing demo environment 2 repository
-	%ORACLE_HOME%\bin\imp.exe %ODI_SECU_USER%/%ODI_SECU_PASS%@%ODI_SECU_URL_HOST%:%ODI_SECU_URL_PORT%/%ODI_SECU_URL_SID% file=%ODI_SCM_HOME%\Configuration\Demo\%ODI_SECU_USER%_repid_101_empty_master_work_%ODI_VERSION%.dmp full=y %DiscardStdOut% %DiscardStdErr%
+	%ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME%\bin\imp.exe %ODI_SCM_ORACLEDI_SECU_USER%/%ODI_SCM_ORACLEDI_SECU_PASS%@%ODI_SCM_ORACLEDI_SECU_URL_HOST%:%ODI_SCM_ORACLEDI_SECU_URL_PORT%/%ODI_SCM_ORACLEDI_SECU_URL_SID% file=%ODI_SCM_HOME%\Configuration\Demo\%ODI_SCM_ORACLEDI_SECU_USER%_repid_101_empty_master_work_%ODI_SCM_ORACLEDI_VERSION%.dmp full=y %DiscardStdOut% %DiscardStdErr%
 	if ERRORLEVEL 1 (
 		goto ExitFail
 	)
 ) else (
-	if "%ODI_VERSION:~0,3%" == "11." (
+	if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "11." (
 		echo %IM% creating demo environment 2 repository
 		call  "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiRepository.bat^" /p 2
 		if ERRORLEVEL 1 (
@@ -225,7 +225,7 @@ if "%ODI_VERSION:~0,3%" == "10." (
 			goto ExitFail
 		)
 	) else (
-		echo %EM% unsupported ODI version number ^<%ODI_VERSION%^>
+		echo %EM% unsupported ODI version number ^<%ODI_SCM_ORACLEDI_VERSION%^>
 		goto ExitFail
 	)
 )
@@ -245,42 +245,8 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-rem *************************************************************
-rem Create a working copy of the SCM repository.
-rem *************************************************************
-
 rem TODO: replace most OdiScmXXXX.bat commands with a central OdiScm.bat that takes the command as first arg and forks shells.
 rem TODO: create SCM agnostic command to create/delete working copies.
-
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateWorkingCopy.bat^" /p EMPTY
-if ERRORLEVEL 1 (
-	echo %EM% creating demo environment 1 working copy 1>&2
-	got ExitFail
-)
-
-REM echo %IM% deleting existing TFS workspace ^<DemoMaster^>
-REM tf.exe workspace /delete /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL% DemoMaster /noprompt %DiscardStdOut% %DiscardStdErr%
-
-REM echo %IM% creating TFS workspace ^<DemoMaster^>
-REM tf.exe workspace /new /noprompt DemoMaster /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%
-REM if ERRORLEVEL 1 (
-	REM echo %EM% creating TFS workspace ^<DemoMaster^>
-	REM goto ExitFail
-REM )
-
-REM echo %IM% deleting default folder mapping for TFS workspace ^<DemoMaster^>
-REM tf.exe workfold /noprompt /unmap /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL% /workspace:DemoMaster $/
-REM if ERRORLEVEL 1 (
-	REM echo %EM% deleting default folder mapping for TFS workspace ^<DemoMaster^>
-	REM goto ExitFail
-REM )
-
-REM echo %IM% creating mapping for TFS workspace ^<DemoMaster^> to branch URL ^<%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%^>
-REM tf.exe workfold /map "%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" /workspace:DemoMaster /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%
-REM if ERRORLEVEL 1 (
-	REM echo %EM% creating mapping for TFS workspace ^<DemoMaster^>
-	REM goto ExitFail
-REM )
 
 rem
 rem Export the demo, using OdiScm, to the working copy from demo repository 2.

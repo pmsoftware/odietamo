@@ -6,13 +6,13 @@ REM demo repository connection details.
 REM
 REM For ODI 10g: -
 REM (Note null password encoded with "agent.bat encode")
-REM ODI_SECU_DRIVER=org.hsqldb.jdbcDriver
-REM ODI_SECU_URL=jdbc:hsqldb:hsql://localhost
-REM ODI_SECU_USER=sa
-REM ODI_SECU_ENCODED_PASS=dTyp9sae2kd8phQdZtwE
-REM ODI_SECU_WORK_REP=WORKREP
-REM ODI_USER=SUPERVISOR
-REM ODI_ENCODED_PASS=LELKIELGLJMDLKMGHEHJDBGBGFDGGH
+REM ODI_SCM_ORACLEDI_SECU_DRIVER=org.hsqldb.jdbcDriver
+REM ODI_SCM_ORACLEDI_SECU_URL=jdbc:hsqldb:hsql://localhost
+REM ODI_SCM_ORACLEDI_SECU_USER=sa
+REM ODI_SCM_ENCODED_PASS=dTyp9sae2kd8phQdZtwE
+REM ODI_SCM_ORACLEDI_SECU_WORK_REP=WORKREP
+REM ODI_SCM_ORACLEDI_USER=SUPERVISOR
+REM ODI_SCM_ORACLEDI_ENCODED_PASS=LELKIELGLJMDLKMGHEHJDBGBGFDGGH
 REM
 REM For ODI 11g: -
 REM (Note null password encoded with "encode.bat")
@@ -21,9 +21,9 @@ REM ODI_MASTER_DRIVER=org.hsqldb.jdbcDriver
 REM ODI_MASTER_URL=jdbc:hsqldb:hsql://localhost
 REM ODI_MASTER_USER=sa
 REM ODI_MASTER_ENCODED_PASS=bQyprtMRerZs8o.O3mkA6Jk
-REM ODI_SECU_WORK_REP=WORKREP
-REM ODI_USER=SUPERVISOR
-REM ODI_ENCODED_PASS=LELKIELGLJMDLKMGHEHJDBGBGFDGGH
+REM ODI_SCM_ORACLEDI_SECU_WORK_REP=WORKREP
+REM ODI_SCM_ORACLEDI_USER=SUPERVISOR
+REM ODI_SCM_ORACLEDI_ENCODED_PASS=LELKIELGLJMDLKMGHEHJDBGBGFDGGH
 REM ODI_SUPERVISOR=SUPERVISOR
 REM ODI_SUPERVISOR_ENCODED_PASS=a7ypkyTouerpM2OSBUM0oDZhy
 
@@ -108,7 +108,7 @@ if "%ARGV2%" == "10G" (
 REM
 REM Set the environment from the configuration INI file.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmEnvSet.bat"
 set EXITSTATUS=%ERRORLEVEL%
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
 if not "%EXITSTATUS%" == "0" (
@@ -116,8 +116,8 @@ if not "%EXITSTATUS%" == "0" (
 	goto ExitFail
 )
 
-if not EXIST "%ODI_HOME%\bin\startcmd.bat" (
-	echo %EM% bin\startcmd.bat script not found in ODI_HOME directory ^<%ODI_HOME%\bin^>
+if not EXIST "%ODI_SCM_ORACLEDI_HOME%\bin\startcmd.bat" (
+	echo %EM% bin\startcmd.bat script not found in ODI_SCM_ORACLEDI_HOME directory ^<%ODI_SCM_ORACLEDI_HOME%\bin^>
 	goto ExitFail
 )
 

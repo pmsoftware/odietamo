@@ -38,50 +38,51 @@ set TEMPFILE=%TEMPDIR%\%PROC%_Maniftest.txt
 <nul set /p =Class-Path:> "%TEMPFILE%"
 
 rem TODO: get jars from this var and add separately.
-if not "%ODI_SCM_JISQL_ADDITIONAL_CLASSPATH%" == "" (
-	echo %IM% using additional class path from environment variable ODI_SCM_JISQL_ADDITIONAL_CLASSPATH
-	set JISQL_CLASS_PATH=%ODI_SCM_JISQL_ADDITIONAL_CLASSPATH%
+if not "%ODI_SCM_TOOLS_JISQL_ADDITIONAL_CLASSPATH%" == "" (
+	echo %IM% using additional class path from environment variable ODI_SCM_TOOLS_JISQL_ADDITIONAL_CLASSPATH
+	set JISQL_CLASS_PATH=%ODI_SCM_TOOLS_JISQL_ADDITIONAL_CLASSPATH%
 ) else (
-	echo %IM% no additional class path specified in environment variable ODI_SCM_JISQL_ADDITIONAL_CLASSPATH
+	echo %IM% no additional class path specified in environment variable ODI_SCM_TOOLS_JISQL_ADDITIONAL_CLASSPATH
 )
 
-echo %IM% adding files from OracleDI drivers directory ^<%ODI_HOME%^> to class path
-for /f %%f in ('dir /b /s %ODI_HOME%\drivers\*.jar 2^>NUL') do (
+echo %IM% adding files from OracleDI drivers directory ^<%ODI_SCM_ORACLEDI_HOME%^> to class path
+for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_HOME%\drivers\*.jar 2^>NUL') do (
 	rem <nul set /p =%%f >> "%TEMPFILE%"
 	call :AddToManifest %%f
 )
 
-for /f %%f in ('dir /b /s %ODI_HOME%\drivers\*.zip 2^>NUL') do (
+for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_HOME%\drivers\*.zip 2^>NUL') do (
 	rem <nul set /p =%%f >> "%TEMPFILE%"
 	call :AddToManifest %%f
 )
 
-echo %IM% adding OracleDI common directory ^<%ODI_COMMON%^> to class path
-call :AddToManifest %ODI_COMMON%\odi\
-
-if not "%ODI_COMMON%" == "" (
+if not "%ODI_SCM_ORACLEDI_COMMON%" == "" (
 	rem TODO: check if this dir actually exists.
-	echo %IM% adding files from OracleDI common directory ^<%ODI_COMMON%^> to class path
-	for /f %%f in ('dir /b /s %ODI_COMMON%\*.jar 2^>NUL') do (
+	echo %IM% adding OracleDI common directory ^<%ODI_SCM_ORACLEDI_COMMON%^> to class path
+	call :AddToManifest %ODI_SCM_ORACLEDI_COMMON%\odi\
+	echo %IM% adding files from OracleDI common directory ^<%ODI_SCM_ORACLEDI_COMMON%^> to class path
+	for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_COMMON%\*.jar 2^>NUL') do (
 		rem <nul set /p =%%f >> "%TEMPFILE%"
 		call :AddToManifest %%f
 	)
 	
-	for /f %%f in ('dir /b /s %ODI_COMMON%\*.zip 2^>NUL') do (
+	for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_COMMON%\*.zip 2^>NUL') do (
 		rem <nul set /p =%%f >> "%TEMPFILE%"
 		call :AddToManifest %%f
 	)
 )
 
-if not "%ODI_SDK%" == "" (
+if not "%ODI_SCM_ORACLEDI_SDK%" == "" (
 	rem TODO: check if this dir actually exists.
-	echo %IM% adding files from OracleDI SDK directory ^<%ODI_SDK%^> to class path
-	for /f %%f in ('dir /b /s %ODI_SDK%\*.jar 2^>NUL') do (
+	echo %IM% adding OracleDI SDK directory ^<%ODI_SCM_ORACLEDI_SDK%^> to class path
+	call :AddToManifest %ODI_SCM_ORACLEDI_SDK%\lib\
+	echo %IM% adding files from OracleDI SDK directory ^<%ODI_SCM_ORACLEDI_SDK%^> to class path
+	for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_SDK%\*.jar 2^>NUL') do (
 		rem <nul set /p =%%f >> "%TEMPFILE%"
 		call :AddToManifest %%f
 	)
 	
-	for /f %%f in ('dir /b /s %ODI_SDK%\*.zip 2^>NUL') do (
+	for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_SDK%\*.zip 2^>NUL') do (
 		rem <nul set /p =%%f >> "%TEMPFILE%"
 		call :AddToManifest %%f
 	)
@@ -95,7 +96,7 @@ echo.>>"%TEMPFILE%"
 rem
 rem Make the JAR file.
 rem
-"%ODI_JAVA_HOME%\bin\jar.exe" cfm "%OUTJARFILE%" "%TEMPFILE%" 
+"%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\jar.exe" cfm "%OUTJARFILE%" "%TEMPFILE%" 
 if ERRORLEVEL 1 (
 	echo %EM% creating JAR file ^<%OUTJARFILE%^> from manifest file ^<%TEMPFILE%^>
 	goto ExitFail

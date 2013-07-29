@@ -55,22 +55,22 @@ REM
 REM OracleDI configuration.
 REM
 echo %IM% processing configuration section ^<OracleDI^>
-echo ODI_VERSION>%TEMPFILE2%
-echo ODI_HOME>>%TEMPFILE2%
-echo ODI_JAVA_HOME>>%TEMPFILE2%
-echo ODI_SECU_DRIVER>>%TEMPFILE2%
-echo ODI_SECU_URL>>%TEMPFILE2%
-echo ODI_SECU_USER>>%TEMPFILE2%
-echo ODI_SECU_ENCODED_PASS>>%TEMPFILE2%
-echo ODI_SECU_PASS>>%TEMPFILE2%
-echo ODI_USER>>%TEMPFILE2%
-echo ODI_PASS>>%TEMPFILE2%
-echo ODI_ENCODED_PASS>>%TEMPFILE2%
-echo ODI_SECU_WORK_REP>>%TEMPFILE2%
-echo ODI_ADMIN_USER>>%TEMPFILE2%
-echo ODI_ADMIN_PASS>>%TEMPFILE2%
-echo ODI_COMMON>>%TEMPFILE2%
-echo ODI_SDK>>%TEMPFILE2%
+echo ODI_SCM_ORACLEDI_VERSION>%TEMPFILE2%
+echo ODI_SCM_ORACLEDI_HOME>>%TEMPFILE2%
+echo ODI_SCM_ORACLEDI_JAVA_HOME>>%TEMPFILE2%
+echo ODI_SCM_ORACLEDI_SECU_DRIVER>>%TEMPFILE2%
+echo ODI_SCM_ORACLEDI_SECU_URL>>%TEMPFILE2%
+echo ODI_SCM_ORACLEDI_SECU_USER>>%TEMPFILE2%
+echo ODI_SCM_ENCODED_PASS>>%TEMPFILE2%
+echo ODI_SCM_ORACLEDI_SECU_PASS>>%TEMPFILE2%
+echo ODI_SCM_ORACLEDI_USER>>%TEMPFILE2%
+echo ODI_SCM_ORACLEDI_PASS>>%TEMPFILE2%
+echo ODI_SCM_ORACLEDI_ENCODED_PASS>>%TEMPFILE2%
+echo ODI_SCM_ORACLEDI_SECU_WORK_REP>>%TEMPFILE2%
+echo ODI_SCM_ORACLEDI_ADMIN_USER>>%TEMPFILE2%
+echo ODI_SCM_ORACLEDI_ADMIN_PASS>>%TEMPFILE2%
+echo ODI_SCM_ORACLEDI_COMMON>>%TEMPFILE2%
+echo ODI_SCM_ORACLEDI_SDK>>%TEMPFILE2%
 
 for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
 	call :SetConfig OracleDI %%g %%g
@@ -83,41 +83,41 @@ for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
 REM
 REM Extract the ODI repository server/port/SID from the URL.
 REM
-echo %ODI_SECU_URL% | cut -f4 -d: | sed s/@// >"%TEMPFILE2%" 2>&1
+echo %ODI_SCM_ORACLEDI_SECU_URL% | cut -f4 -d: | sed s/@// >"%TEMPFILE2%" 2>&1
 if ERRORLEVEL 1 (
-	echo %EM% cannot extract server name from ODI repository URL ^<%ODI_SECU_URL%^>
+	echo %EM% cannot extract server name from ODI repository URL ^<%ODI_SCM_ORACLEDI_SECU_URL%^>
 	goto ExitFail
 )
 
-set /p ODI_SECU_URL_HOST=<"%TEMPFILE2%"
-echo %IM% setting environment variable ^<ODI_SECU_URL_HOST^> to value ^<%ODI_SECU_URL_HOST%%^>
+set /p ODI_SCM_ORACLEDI_SECU_URL_HOST=<"%TEMPFILE2%"
+echo %IM% setting environment variable ^<ODI_SCM_ORACLEDI_SECU_URL_HOST^> to value ^<%ODI_SCM_ORACLEDI_SECU_URL_HOST%%^>
 REM Include quotes around the entire VAR=VAL string to deal with brackets in variable values.
 REM E.g. C:\Program Files (x86)\...
-set "ODI_SECU_URL_HOST=%ODI_SECU_URL_HOST%"
+set "ODI_SCM_ORACLEDI_SECU_URL_HOST=%ODI_SCM_ORACLEDI_SECU_URL_HOST%"
 
-echo %ODI_SECU_URL% | cut -f5 -d: >"%TEMPFILE2%" 2>&1
+echo %ODI_SCM_ORACLEDI_SECU_URL% | cut -f5 -d: >"%TEMPFILE2%" 2>&1
 if ERRORLEVEL 1 (
-	echo %EM% cannot extract listener port from ODI repository URL ^<%ODI_SECU_URL%^>
+	echo %EM% cannot extract listener port from ODI repository URL ^<%ODI_SCM_ORACLEDI_SECU_URL%^>
 	goto ExitFail
 )
 
-set /p ODI_SECU_URL_PORT=<"%TEMPFILE2%"
-echo %IM% setting environment variable ^<ODI_SECU_URL_PORT^> to value ^<%ODI_SECU_URL_PORT%%^>
+set /p ODI_SCM_ORACLEDI_SECU_URL_PORT=<"%TEMPFILE2%"
+echo %IM% setting environment variable ^<ODI_SCM_ORACLEDI_SECU_URL_PORT^> to value ^<%ODI_SCM_ORACLEDI_SECU_URL_PORT%%^>
 REM Include quotes around the entire VAR=VAL string to deal with brackets in variable values.
 REM E.g. C:\Program Files (x86)\...
-set "ODI_SECU_URL_PORT=%ODI_SECU_URL_PORT%"
+set "ODI_SCM_ORACLEDI_SECU_URL_PORT=%ODI_SCM_ORACLEDI_SECU_URL_PORT%"
 
-echo %ODI_SECU_URL%: | cut -f6 -d: >"%TEMPFILE2%" 2>&1
+echo %ODI_SCM_ORACLEDI_SECU_URL%: | cut -f6 -d: >"%TEMPFILE2%" 2>&1
 if ERRORLEVEL 1 (
-	echo %EM% cannot extract SID from ODI repository URL ^<%ODI_SECU_URL%^>
+	echo %EM% cannot extract SID from ODI repository URL ^<%ODI_SCM_ORACLEDI_SECU_URL%^>
 	goto ExitFail
 )
 
-set /p ODI_SECU_URL_SID=<"%TEMPFILE2%"
-echo %IM% setting environment variable ^<ODI_SECU_URL_SID^> to value ^<%ODI_SECU_URL_SID%%^>
+set /p ODI_SCM_ORACLEDI_SECU_URL_SID=<"%TEMPFILE2%"
+echo %IM% setting environment variable ^<ODI_SCM_ORACLEDI_SECU_URL_SID^> to value ^<%ODI_SCM_ORACLEDI_SECU_URL_SID%%^>
 REM Include quotes around the entire VAR=VAL string to deal with brackets in variable values.
 REM E.g. C:\Program Files (x86)\...
-set ODI_SECU_URL_SID=%ODI_SECU_URL_SID%
+set ODI_SCM_ORACLEDI_SECU_URL_SID=%ODI_SCM_ORACLEDI_SECU_URL_SID%
 
 REM
 REM Generation options.
@@ -139,8 +139,8 @@ REM SCM system configuration.
 REM
 echo %IM% processing configuration section ^<SCMSystem^>
 echo SCMSystemTypeName ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME>%TEMPFILE2%
-echo SCMSystemURL ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL>>%TEMPFILE2%
-echo SCMBranchURL ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL>>%TEMPFILE2%
+echo SCMSystemURL ODI_SCM_SCM_SYSTEM_SYSTEM_URL>>%TEMPFILE2%
+echo SCMBranchURL ODI_SCM_SCM_SYSTEM_BRANCH_URL>>%TEMPFILE2%
 echo WorkingCopyRoot ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT>>%TEMPFILE2%
 echo WorkingRoot ODI_SCM_SCM_SYSTEM_WORKING_ROOT>>%TEMPFILE2%
 
@@ -156,10 +156,10 @@ REM
 REM Tools configuration.
 REM
 echo %IM% processing configuration section ^<Tools^>
-echo ODI_SCM_JISQL_HOME ODI_SCM_JISQL_HOME>%TEMPFILE2%
-echo ODI_SCM_JISQL_JAVA_HOME ODI_SCM_JISQL_JAVA_HOME>>%TEMPFILE2%
-echo ODI_SCM_JISQL_ADDITIONAL_CLASSPATH ODI_SCM_JISQL_ADDITIONAL_CLASSPATH>>%TEMPFILE2%
-echo ORACLE_HOME ORACLE_HOME>>%TEMPFILE2%
+echo ODI_SCM_TOOLS_JISQL_HOME ODI_SCM_TOOLS_JISQL_HOME>%TEMPFILE2%
+echo ODI_SCM_TOOLS_JISQL_JAVA_HOME ODI_SCM_TOOLS_JISQL_JAVA_HOME>>%TEMPFILE2%
+echo ODI_SCM_TOOLS_JISQL_ADDITIONAL_CLASSPATH ODI_SCM_TOOLS_JISQL_ADDITIONAL_CLASSPATH>>%TEMPFILE2%
+echo ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME>>%TEMPFILE2%
 echo UnxUtilsHome ODI_SCM_TOOLS_UNXUTILS_HOME>>%TEMPFILE2%
 
 for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
@@ -190,7 +190,7 @@ REM
 REM Testing configuration.
 REM
 echo %IM% processing configuration section ^<Test^>
-echo ODIStandardsScript ODI_SCM_TEST_ODI_STANDARDS_SCRIPT>%TEMPFILE2%
+echo ODIStandardsScript ODI_SCM_TESTING_ODI_STANDARDS_SCRIPT>%TEMPFILE2%
 
 for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
 	call :SetConfig Test %%g %%h
@@ -208,13 +208,13 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-REM if "%ORACLE_HOME%" == "" (
-	REM echo %IM% environment variable ORACLE_HOME not set. Skipping PATH configuration for Oracle bin directory
+REM if "%ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME%" == "" (
+	REM echo %IM% environment variable ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME not set. Skipping PATH configuration for Oracle bin directory
 REM ) else (
-	REM echo %IM% configuring PATH for Oracle bin directory ^<%ORACLE_HOME%\bin^>
-	REM call :SetPath %ORACLE_HOME%\bin
+	REM echo %IM% configuring PATH for Oracle bin directory ^<%ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME%\bin^>
+	REM call :SetPath %ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME%\bin
 	REM if ERRORLEVEL 1 (
-		REM echo %EM% setting PATH environment variable for Oracle client bin directory ^<%ORACLE_HOME%\bin^>
+		REM echo %EM% setting PATH environment variable for Oracle client bin directory ^<%ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME%\bin^>
 		REM goto ExitFail
 	REM )
 REM )

@@ -24,7 +24,7 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-set PARAMFILE=%ODI_HOME%\bin\odiparams.bat
+set PARAMFILE=%ODI_SCM_ORACLEDI_HOME%\bin\odiparams.bat
 if not EXIST "%PARAMFILE%" (
 	echo %EM% parameter file ^<%PARAMFILE%^> does not exist
 	goto ExitFail
@@ -80,55 +80,55 @@ if ERRORLEVEL 1 (
 )
 
 :TempFileAbsent
-set MSG=extracting ODI_SECU_DRIVER
-cat "%PARAMFILE%" | gawk "/^set ODI_SECU_DRIVER/ { print $0 }" | tail -1 | cut -f2 -d= > "%TEMPFILE%"
+set MSG=extracting ODI_SCM_ORACLEDI_SECU_DRIVER
+cat "%PARAMFILE%" | gawk "/^set ODI_SCM_ORACLEDI_SECU_DRIVER/ { print $0 }" | tail -1 | cut -f2 -d= > "%TEMPFILE%"
 if ERRORLEVEL 1 goto GetOdiParamsParseFail
-set /p ODI_SECU_DRIVER=<"%TEMPFILE%"
+set /p ODI_SCM_ORACLEDI_SECU_DRIVER=<"%TEMPFILE%"
 
-set MSG=extracting ODI_SECU_URL
-cat "%PARAMFILE%" | gawk "/^set ODI_SECU_URL/ { print $0 }" | tail -1 | cut -f2 -d= > "%TEMPFILE%"
+set MSG=extracting ODI_SCM_ORACLEDI_SECU_URL
+cat "%PARAMFILE%" | gawk "/^set ODI_SCM_ORACLEDI_SECU_URL/ { print $0 }" | tail -1 | cut -f2 -d= > "%TEMPFILE%"
 if ERRORLEVEL 1 goto GetOdiParamsParseFail
-set /p ODI_SECU_URL=<"%TEMPFILE%"
+set /p ODI_SCM_ORACLEDI_SECU_URL=<"%TEMPFILE%"
 
-set MSG=extracting ODI_SECU_USER
-cat "%PARAMFILE%" | gawk "/^set ODI_SECU_USER/ { print $0 }" | tail -1 | cut -f2 -d= > "%TEMPFILE%"
+set MSG=extracting ODI_SCM_ORACLEDI_SECU_USER
+cat "%PARAMFILE%" | gawk "/^set ODI_SCM_ORACLEDI_SECU_USER/ { print $0 }" | tail -1 | cut -f2 -d= > "%TEMPFILE%"
 if ERRORLEVEL 1 goto GetOdiParamsParseFail
-set /p ODI_SECU_USER=<"%TEMPFILE%"
+set /p ODI_SCM_ORACLEDI_SECU_USER=<"%TEMPFILE%"
 
-set MSG=extracting ODI_SECU_PASS
-cat "%PARAMFILE%" | gawk "/^set ODI_SECU_PASS/ { print $0 }" | tail -1 | cut -f2 -d= > "%TEMPFILE%"
+set MSG=extracting ODI_SCM_ORACLEDI_SECU_PASS
+cat "%PARAMFILE%" | gawk "/^set ODI_SCM_ORACLEDI_SECU_PASS/ { print $0 }" | tail -1 | cut -f2 -d= > "%TEMPFILE%"
 if ERRORLEVEL 1 goto GetOdiParamsParseFail
-set /p ODI_SECU_PASS=<"%TEMPFILE%"
+set /p ODI_SCM_ORACLEDI_SECU_PASS=<"%TEMPFILE%"
 
-set MSG=extracting ODI_SECU_ENCODED_PASS
-cat "%PARAMFILE%" | gawk "/^set ODI_SECU_ENCODED_PASS/ { print $0 }" | tail -1 | cut -f2 -d= > "%TEMPFILE%"
+set MSG=extracting ODI_SCM_ENCODED_PASS
+cat "%PARAMFILE%" | gawk "/^set ODI_SCM_ENCODED_PASS/ { print $0 }" | tail -1 | cut -f2 -d= > "%TEMPFILE%"
 if ERRORLEVEL 1 goto GetOdiParamsParseFail
-set /p ODI_SECU_ENCODED_PASS=<"%TEMPFILE%"
+set /p ODI_SCM_ENCODED_PASS=<"%TEMPFILE%"
 
-set MSG=extracting ODI_SECU_WORK_REP
-cat "%PARAMFILE%" | gawk "/^set ODI_SECU_WORK_REP/ { print $0 }" | tail -1 | cut -f2 -d= > "%TEMPFILE%"
+set MSG=extracting ODI_SCM_ORACLEDI_SECU_WORK_REP
+cat "%PARAMFILE%" | gawk "/^set ODI_SCM_ORACLEDI_SECU_WORK_REP/ { print $0 }" | tail -1 | cut -f2 -d= > "%TEMPFILE%"
 if ERRORLEVEL 1 goto GetOdiParamsParseFail
-set /p ODI_SECU_WORK_REP=<"%TEMPFILE%"
+set /p ODI_SCM_ORACLEDI_SECU_WORK_REP=<"%TEMPFILE%"
 
-set MSG=extracting ODI_USER
-cat "%PARAMFILE%" | gawk "/^set ODI_USER/ { print $0 }" | tail -1 | cut -f2 -d= > "%TEMPFILE%"
+set MSG=extracting ODI_SCM_ORACLEDI_USER
+cat "%PARAMFILE%" | gawk "/^set ODI_SCM_ORACLEDI_USER/ { print $0 }" | tail -1 | cut -f2 -d= > "%TEMPFILE%"
 if ERRORLEVEL 1 goto GetOdiParamsParseFail
-set /p ODI_USER=<"%TEMPFILE%"
+set /p ODI_SCM_ORACLEDI_USER=<"%TEMPFILE%"
 
-set MSG=extracting ODI_ENCODED_PASS
-cat "%PARAMFILE%" | gawk "/^set ODI_ENCODED_PASS/ { print $0 }" | tail -1 | cut -f2 -d= > "%TEMPFILE%"
+set MSG=extracting ODI_SCM_ORACLEDI_ENCODED_PASS
+cat "%PARAMFILE%" | gawk "/^set ODI_SCM_ORACLEDI_ENCODED_PASS/ { print $0 }" | tail -1 | cut -f2 -d= > "%TEMPFILE%"
 if ERRORLEVEL 1 goto GetOdiParamsParseFail
-set /p ODI_ENCODED_PASS=<"%TEMPFILE%"
+set /p ODI_SCM_ORACLEDI_ENCODED_PASS=<"%TEMPFILE%"
 
 echo %IM% completed parsing of odiparams.bat
-echo %IM% extracted ODI_SECU_DRIVER ^<%ODI_SECU_DRIVER%^>
-echo %IM% extracted ODI_SECU_URL ^<%ODI_SECU_URL%^>
-echo %IM% extracted ODI_SECU_USER ^<%ODI_SECU_USER%^>
-echo %IM% extracted ODI_SECU_PASS ^<%ODI_SECU_PASS%^>
-echo %IM% extracted ODI_SECU_ENCODED_PASS ^<%ODI_SECU_ENCODED_PASS%^>
-echo %IM% extracted ODI_SECU_WORK_REP ^<%ODI_SECU_WORK_REP%^>
-echo %IM% extracted ODI_USER ^<%ODI_USER%^>
-echo %IM% extracted ODI_ENCODED_PASS ^<%ODI_ENCODED_PASS%^>
+echo %IM% extracted ODI_SCM_ORACLEDI_SECU_DRIVER ^<%ODI_SCM_ORACLEDI_SECU_DRIVER%^>
+echo %IM% extracted ODI_SCM_ORACLEDI_SECU_URL ^<%ODI_SCM_ORACLEDI_SECU_URL%^>
+echo %IM% extracted ODI_SCM_ORACLEDI_SECU_USER ^<%ODI_SCM_ORACLEDI_SECU_USER%^>
+echo %IM% extracted ODI_SCM_ORACLEDI_SECU_PASS ^<%ODI_SCM_ORACLEDI_SECU_PASS%^>
+echo %IM% extracted ODI_SCM_ENCODED_PASS ^<%ODI_SCM_ENCODED_PASS%^>
+echo %IM% extracted ODI_SCM_ORACLEDI_SECU_WORK_REP ^<%ODI_SCM_ORACLEDI_SECU_WORK_REP%^>
+echo %IM% extracted ODI_SCM_ORACLEDI_USER ^<%ODI_SCM_ORACLEDI_USER%^>
+echo %IM% extracted ODI_SCM_ORACLEDI_ENCODED_PASS ^<%ODI_SCM_ORACLEDI_ENCODED_PASS%^>
 
 goto OdiParamsParsedOk
 
@@ -137,21 +137,21 @@ echo %EM% %MSG%
 goto ExitFail
 
 :OdiParamsParsedOk
-echo %ODI_SECU_URL%|cut -f4 -d:|sed s/@// > "%TEMPFILE%"
+echo %ODI_SCM_ORACLEDI_SECU_URL%|cut -f4 -d:|sed s/@// > "%TEMPFILE%"
 if ERRORLEVEL 1 goto ConnStringGenFail
-set /p ODI_SECU_URL_HOST=<"%TEMPFILE%"
+set /p ODI_SCM_ORACLEDI_SECU_URL_HOST=<"%TEMPFILE%"
 
-echo %ODI_SECU_URL%|cut -f5 -d: > "%TEMPFILE%"
+echo %ODI_SCM_ORACLEDI_SECU_URL%|cut -f5 -d: > "%TEMPFILE%"
 if ERRORLEVEL 1 goto ConnStringGenFail
-set /p ODI_SECU_URL_PORT=<"%TEMPFILE%"
+set /p ODI_SCM_ORACLEDI_SECU_URL_PORT=<"%TEMPFILE%"
 
-echo %ODI_SECU_URL%|cut -f6 -d: > "%TEMPFILE%"
+echo %ODI_SCM_ORACLEDI_SECU_URL%|cut -f6 -d: > "%TEMPFILE%"
 if ERRORLEVEL 1 goto ConnStringGenFail
-set /p ODI_SECU_URL_SID=<"%TEMPFILE%"
+set /p ODI_SCM_ORACLEDI_SECU_URL_SID=<"%TEMPFILE%"
 
-echo %IM% extracted ODI_SECU_URL_HOST ^<%ODI_SECU_URL_HOST%^>
-echo %IM% extracted ODI_SECU_URL_PORT ^<%ODI_SECU_URL_PORT%^>
-echo %IM% extracted ODI_SECU_URL_SID ^<%ODI_SECU_URL_SID%^>
+echo %IM% extracted ODI_SCM_ORACLEDI_SECU_URL_HOST ^<%ODI_SCM_ORACLEDI_SECU_URL_HOST%^>
+echo %IM% extracted ODI_SCM_ORACLEDI_SECU_URL_PORT ^<%ODI_SCM_ORACLEDI_SECU_URL_PORT%^>
+echo %IM% extracted ODI_SCM_ORACLEDI_SECU_URL_SID ^<%ODI_SCM_ORACLEDI_SECU_URL_SID%^>
 
 goto ConnStringGenOk
 

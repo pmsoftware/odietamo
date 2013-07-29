@@ -127,7 +127,7 @@ REM
 REM Set the environment from the configuration INI file.
 REM
 echo %IM% setting environment variables from configuration INI file ^<%ODI_SCM_INI%^> 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEnv.bat" /b
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmEnvSet.bat" /b
 set EXITSTATUS=%ERRORLEVEL%
 call :SetMsgPrefixes
 if %EXITSTATUS% geq 1 (
@@ -165,7 +165,7 @@ rem 	echo %IM% no existing TFS workspace ^<%WS_NAME%^>
 rem ) else (
 rem 	echo %IM% found existing TFS workspace ^<%WS_NAME%^>. Deleting...
 echo %IM% deleting any existing TFS workspace ^<%WS_NAME%^>
-tf workspace /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL% /delete %WS_NAME% /noprompt >NUL 2>NUL
+tf workspace /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% /delete %WS_NAME% /noprompt >NUL 2>NUL
 rem 	if ERRORLEVEL 1 (
 rem 		echo %EM% deleting existing workspace ^<%WS_NAME%^>
 rem 		goto ExitFail
@@ -174,14 +174,14 @@ rem 	echo %IM% ...done
 rem )
 
 echo %IM% creating new workspace ^<%WS_NAME%^>
-tf workspace /new /noprompt %WS_NAME% /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL% /permission:Private
+tf workspace /new /noprompt %WS_NAME% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% /permission:Private
 if ERRORLEVEL 1 (
 	echo %EM% creating workspace ^<%WS_NAME%^>
 	goto ExitFail
 )
 
 echo %IM% deleting default workspace mappings for workspace ^<%WS_NAME%^>
-tf workfold /unmap /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL% /workspace:%WS_NAME% $/
+tf workfold /unmap /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% /workspace:%WS_NAME% $/
 if ERRORLEVEL 1 (
 	echo %EM% removing default workspace mapping for workspace ^<%WS_NAME%^>
 	goto ExitFail
@@ -191,7 +191,7 @@ REM
 REM Don't create a workspace / folder as "workspace /new" creates one for the current workiing directory.
 REM
 echo %IM% creating workspace mapping for workspace ^<%WS_NAME%^>
-tf workfold /map %ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL% %WC_ROOT% /collection:%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL% /workspace:%WS_NAME%
+tf workfold /map %ODI_SCM_SCM_SYSTEM_BRANCH_URL% %WC_ROOT% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% /workspace:%WS_NAME%
 if ERRORLEVEL 1 (
 	echo %EM% creating workspace mapping for branch URL ^<%ODI_SCM_SYSTEM_SCM_BRANCH_URL%^>
 	echo %EM% for workspace ^<%WS_NAME%^> to working copy root directory ^<%WC_ROOT%^>
@@ -201,9 +201,9 @@ if ERRORLEVEL 1 (
 goto DoneWc
 
 :DoWcSVN
-svn checkout %ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%
+svn checkout %ODI_SCM_SCM_SYSTEM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_BRANCH_URL%
 if ERRORLEVEL 1 (
-	echo %EM% creating working copy for branch URL ^<%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%^>
+	echo %EM% creating working copy for branch URL ^<%ODI_SCM_SCM_SYSTEM_BRANCH_URL%^>
 	echo %EM% in working copy root directory ^<%WC_ROOT%^>
 	goto ExitFail
 )
@@ -213,7 +213,7 @@ if ERRORLEVEL 1 (
 REM
 REM Drop contents of existing repository schema.
 REM
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat" /p %ODI_SECU_USER% %ODI_SECU_PASS% %ODI_SECU_DRIVER% %ODI_SECU_URL% %ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownOracleSchema.sql
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisql.bat" /p %ODI_SCM_ORACLEDI_SECU_USER% %ODI_SCM_ORACLEDI_SECU_PASS% %ODI_SCM_ORACLEDI_SECU_DRIVER% %ODI_SCM_ORACLEDI_SECU_URL% %ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownOracleSchema.sql
 if ERRORLEVEL 1 (
 	echo %EM% dropping ODI repository objects
 	goto ExitFail
@@ -222,7 +222,7 @@ if ERRORLEVEL 1 (
 REM
 REM Import empty master/work repository from export backup.
 REM
-imp %ODI_SECU_USER%/%ODI_SECU_PASS%@%ODI_SECU_URL_HOST%:%ODI_SECU_URL_PORT%/%ODI_SECU_URL_SID% FILE=%ODI_REPO_BACKUP% FULL=Y
+imp %ODI_SCM_ORACLEDI_SECU_USER%/%ODI_SCM_ORACLEDI_SECU_PASS%@%ODI_SCM_ORACLEDI_SECU_URL_HOST%:%ODI_SCM_ORACLEDI_SECU_URL_PORT%/%ODI_SCM_ORACLEDI_SECU_URL_SID% FILE=%ODI_REPO_BACKUP% FULL=Y
 if ERRORLEVEL 1 (
 	echo %EM% importing ODI empty master/work repository from backup file ^<%ODI_REPO_BACKUP%^>
 	goto ExitFail
@@ -271,13 +271,13 @@ if ERRORLEVEL 1 (
 	goto ExitNotifyFail
 )
 
-echo send-mailmessage -from "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -to "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -subject "Auto Build For Source URL <%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%> has succeeded" -smtpserver %ODI_SCM_NOTIFY_SMTP_SERVER% -body "Auto Build For Source URL <%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%> has succeeded" >"%TEMPPSSCRIPTFILE%"
+echo send-mailmessage -from "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -to "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -subject "Auto Build For Source URL <%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_BRANCH_URL%> has succeeded" -smtpserver %ODI_SCM_NOTIFY_SMTP_SERVER% -body "Auto Build For Source URL <%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_BRANCH_URL%> has succeeded" >"%TEMPPSSCRIPTFILE%"
 powershell -file "%TEMPPSSCRIPTFILE%"
 
 goto ExitOk
 
 :ExitNotifyFail
-echo send-mailmessage -from "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -to "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -subject "Auto Build For Source URL <%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%> has failed" -smtpserver %ODI_SCM_NOTIFY_SMTP_SERVER% -body "Auto Build For Source URL <%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_SCM_BRANCH_URL%> has failed" >"%TEMPPSSCRIPTFILE%"
+echo send-mailmessage -from "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -to "%ODI_SCM_NOTIFY_USER_NAME% <%ODI_SCM_NOTIFY_USER_EMAIL_ADDRESS%>" -subject "Auto Build For Source URL <%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_BRANCH_URL%> has failed" -smtpserver %ODI_SCM_NOTIFY_SMTP_SERVER% -body "Auto Build For Source URL <%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_BRANCH_URL%> has failed" >"%TEMPPSSCRIPTFILE%"
 powershell -file "%TEMPPSSCRIPTFILE%"
 
 :ExitOk
