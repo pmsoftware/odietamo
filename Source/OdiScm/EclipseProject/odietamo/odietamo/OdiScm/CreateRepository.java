@@ -102,7 +102,7 @@ public class CreateRepository {
 				
 				System.out.println(infoMsg + "creating work repository");
 				if (workRepositorySetup.createWorkRepository(wt, wrjp, RepositoryId, workRepositoryName, RepositoryTechnology, false, workRepositoryPassword.toCharArray())) {
-					System.out.println(errMsg + "work repository creation succeeded");
+					System.out.println(infoMsg + "work repository creation succeeded");
 				}
 				else {
 					System.err.println(errMsg + "work repository creation failed");
