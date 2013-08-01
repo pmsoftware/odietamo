@@ -54,13 +54,13 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-cat "%TEMPFILE%" | sed s/"<SCMSystemTypeName>"/%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%/ > "%TEMPFILE%2"
+cat "%TEMPFILE%" | sed s/"<SCMSystemTypeName>"/%ODI_SCM_SCM_SYSTEM_TYPE_NAME%/ > "%TEMPFILE%2"
 if ERRORLEVEL 1 (
 	echo %EM% substituting SCM system type name
 	goto ExitFail
 )
 
-if "%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%" == "" (
+if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "" (
 	set SCM_ADD_FILE_COMMAND=
 	set SCM_BASIC_COMMAND=
 	set SCM_CHECK_FILE_IN_SOURCE_CONTROL_COMMAND=
@@ -68,7 +68,7 @@ if "%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%" == "" (
 	set SCM_REQUIRES_CHECK_OUT=
 	set SCM_WC_CONFIG_DELETE_FILE_COMMAND=
 ) else (
-	if "%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%" == "TFS" (
+	if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "TFS" (
 		set SCM_ADD_FILE_COMMAND=tf.exe add %%s \/lock:none
 		set SCM_BASIC_COMMAND=tf.exe \/?
 		set SCM_CHECK_FILE_IN_SOURCE_CONTROL_COMMAND=tf.exe dir %%s
@@ -76,7 +76,7 @@ if "%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%" == "" (
 		set SCM_REQUIRES_CHECK_OUT=Yes
 		set SCM_WC_CONFIG_DELETE_FILE_COMMAND=tf delete %%s
 	) else (
-		if "%ODI_SCM_SCM_SYSTEM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
+		if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
 			set SCM_ADD_FILE_COMMAND=svn add %%s
 			set SCM_BASIC_COMMAND=svn help
 			set SCM_CHECK_FILE_IN_SOURCE_CONTROL_COMMAND=svn info %%s

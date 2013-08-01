@@ -385,12 +385,18 @@ rem
 rem Prime the export control metadata.
 rem
 echo %IM% priming ODI-SCM export control metadata
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat^" /p %ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql
-if ERRORLEVEL 1 goto PrimeExportControlFail
+set TEMPFILE=%TEMPDIR%\OdiScmPrimeExportNow_%ODI_SCM_ORACLEDI_USER%.sql
+cat "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql" | sed s/"<OdiScmUserName>"/%ODI_SCM_ORACLEDI_USER%/g > "%TEMPFILE%"
+if ERRORLEVEL 1 (
+	echo %EM% generating creating temporary script ^<%TEMPFILE%^> to prime export mechanism
+	goto ExitFail
+)
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat^" /p %TEMPFILE%
+if ERRORLEVEL 1 (
+	echo %EM% priming ODI-SCM export metadata
+	exit /b 1
+)
 
 echo %IM% completed priming of ODI-SCM export control metadata
 goto :eof
-
-:PrimeExportControlFail
-echo %EM% priming ODI-SCM export metadata
-exit /b 1

@@ -18,7 +18,7 @@ set ODI_SCM_INI=<OdiScmIniFile>
 set ODI_SCM_HOME=<OdiScmHomeDir>
 set ODI_SCM_TOOLS_JISQL_HOME=<OdiScmJisqlHomeDir>
 set ODI_SCM_TOOLS_JISQL_JAVA_HOME=<OdiScmJisqlJavaHomeDir>
-set ODI_SCM_TOOLS_ODI_SCM_TOOLS_ODI_SCM_TOOLS_ORACLE_HOME=<OracleHomeDir>
+set ODI_SCM_TOOLS_ORACLE_HOME=<OracleHomeDir>
 
 if "%TEMP%" == "" goto NoTempDir
 set TEMPDIR=%TEMP%

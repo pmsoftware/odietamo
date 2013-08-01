@@ -43,7 +43,7 @@ $ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_ENCODED_PA
 $ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_SECU_DRIVER%"      , $env:ODI_SCM_ORACLEDI_SECU_DRIVER }
 $ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_SECU_URL%"         , $env:ODI_SCM_ORACLEDI_SECU_URL }
 $ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_SECU_USER%"        , $env:ODI_SCM_ORACLEDI_SECU_USER }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_SECU_ENCODED_PASS%", $env:ODI_SCM_ORACLEDI_ENCODED_PASS }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_SECU_ENCODED_PASS%", $env:ODI_SCM_ORACLEDI_SECU_ENCODED_PASS }
 #
 # ODI 11g variables.
 #
@@ -56,8 +56,8 @@ $ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_MASTER_ENC
 # Modify variable SET statements.
 #######################################################################
 $ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_HOME=.*"         , "set ODI_HOME=$env:ODI_SCM_ORACLEDI_HOME" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_JAVA_HOME=.*"    , "set ODI_HOME=$env:ODI_SCM_ORACLEDI_JAVA_HOME" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set JAVA_HOME=.*"        , "set ODI_HOME=$env:ODI_SCM_ORACLEDI_JAVA_HOME" }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_JAVA_HOME=.*"    , "set ODI_JAVA_HOME=$env:ODI_SCM_ORACLEDI_JAVA_HOME" }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set JAVA_HOME=.*"        , "set JAVA_HOME=$env:ODI_SCM_ORACLEDI_JAVA_HOME" }
 $ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_WORK_REP=.*", "set ODI_SECU_WORK_REP=$env:ODI_SCM_ORACLEDI_SECU_WORK_REP" }
 $ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_USER=.*"         , "set ODI_USER=$env:ODI_SCM_ORACLEDI_USER" }
 $ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_ENCODED_PASS=.*" , "set ODI_ENCODED_PASS=$env:ODI_SCM_ORACLEDI_ENCODED_PASS" }
@@ -67,7 +67,7 @@ $ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_ENCODE
 $ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_DRIVER=.*"      , "set ODI_SECU_DRIVER=$env:ODI_SCM_ORACLEDI_SECU_DRIVER" }
 $ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_URL=.*"         , "set ODI_SECU_URL=$env:ODI_SCM_ORACLEDI_SECU_URL" }
 $ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_USER=.*"        , "set ODI_SECU_USER=$env:ODI_SCM_ORACLEDI_SECU_USER" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_ENCODED_PASS=.*", "set ODI_SECU_ENCODED_PASS=$env:ODI_SCM_ORACLEDI_ENCODED_PASS" }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_ENCODED_PASS=.*", "set ODI_SECU_ENCODED_PASS=$env:ODI_SCM_ORACLEDI_SECU_ENCODED_PASS" }
 #
 # ODI 11g variables.
 #

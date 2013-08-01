@@ -245,9 +245,6 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-rem TODO: replace most OdiScmXXXX.bat commands with a central OdiScm.bat that takes the command as first arg and forks shells.
-rem TODO: create SCM agnostic command to create/delete working copies.
-
 rem
 rem Export the demo, using OdiScm, to the working copy from demo repository 2.
 rem
@@ -275,6 +272,30 @@ echo %IM% committing standard ODI demo files to SCM repository from demo environ
 svn commit -m "Demo auto check in of initial demo export" %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%/SvnRepoRoot/*.*
 if ERRORLEVEL 1 (
 	echo %EM% checking in demo export to SCM repository 1>&2
+	goto ExitFail
+)
+
+rem *************************************************************
+rem Demo environment 1 - populate the repository from the code
+rem checked in to SVN.
+rem *************************************************************
+set ODI_SCM_INI=%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportStandardOdiDemoRepo1.ini
+echo %IM% setting OdiScm environment from ^<%ODI_SCM_INI%^>
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmEnvSet.bat" %DiscardStdOut%
+if ERRORLEVEL 1 (
+	goto ExitFail
+)
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGet.bat^" /p %DiscardStdOut%
+if ERRORLEVEL 1 (
+	echo %EM% getting code from SCM repository to demo environment 1 working copy
+	goto ExitFail
+)
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Logs\DemoEnvironment1\OdiScmBuild_DemoEnvironment1.bat^" %DiscardStdOut%
+if ERRORLEVEL 1 (
+	echo %EM% updating demo environment 1 repository from SCM system updates
 	goto ExitFail
 )
 

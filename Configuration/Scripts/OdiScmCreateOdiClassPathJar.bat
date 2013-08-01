@@ -117,7 +117,7 @@ REM ===============================================
 REM ===============================================
 :AddToManifest
 REM ===============================================
-echo %IM% adding file ^<%1^>
+echo %IM% adding entry ^<%1^>
 set FILESTRING= file:///%1
 rem Note: the space after the file name is required in the manifest file.
 echo %FILESTRING:\=/% >> "%TEMPFILE%"
