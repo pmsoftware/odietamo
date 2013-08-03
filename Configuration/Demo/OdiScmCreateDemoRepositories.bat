@@ -133,7 +133,10 @@ if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "10." (
 ) else (
 	if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "11." (
 		echo %IM% creating demo environment 2 repository
-		call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiRepository.bat" /p 1
+		rem
+		rem Use a repository that doesn't conflict with with the standard ODI demo.
+		rem
+		call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiRepository.bat" /p 100
 		if ERRORLEVEL 1 (
 			echo %EM% creating demo environment 1 repository
 			goto ExitFail
@@ -219,7 +222,10 @@ if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "10." (
 ) else (
 	if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "11." (
 		echo %IM% creating demo environment 2 repository
-		call  "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiRepository.bat^" /p 2
+		rem
+		rem Use a repository that doesn't conflict with with the standard ODI demo.
+		rem
+		call  "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiRepository.bat^" /p 200
 		if ERRORLEVEL 1 (
 			echo %EM% creating demo environment 2 repository
 			goto ExitFail
