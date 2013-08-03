@@ -46,14 +46,30 @@ if /i "%~1" == "/process" (
 
 if /i "%~1" == "/v" (
 	set BeVerbose=TRUE
-	set DiscardStdOut=1^>NUL
-	set DiscardStdErr=2^>NUL
+	set DiscardStdOut=
+	set DiscardStdErr=
 	rem shift
 	rem goto DoNextSwitch
 )
 
 if /i "%~1" == "/verbose" (
 	set BeVerbose=TRUE
+	set DiscardStdOut=
+	set DiscardStdErr=
+	rem shift
+	rem goto DoNextSwitch
+)
+
+if /i "%~1" == "/q" (
+	set BeVerbose=FALSE
+	set DiscardStdOut=1^>NUL
+	set DiscardStdErr=2^>NUL
+	rem shift
+	rem goto DoNextSwitch
+)
+
+if /i "%~1" == "/quiet" (
+	set BeVerbose=FALSE
 	set DiscardStdOut=1^>NUL
 	set DiscardStdErr=2^>NUL
 	rem shift
