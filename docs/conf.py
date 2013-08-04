@@ -40,7 +40,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'odisvn'
+project = u'OdiScm'
 copyright = u'2013, Paul Brian, Mark Matten'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -164,7 +164,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'odisvndoc'
+htmlhelp_basename = 'OdiScmDoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -183,7 +183,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'odisvn.tex', u'odisvn Documentation',
+  ('index', 'odiscm.tex', u'odiscm Documentation',
    u'Paul Brian, Mark Matten', 'manual'),
 ]
 

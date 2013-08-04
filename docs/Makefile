@@ -77,17 +77,17 @@ qthelp:
 	@echo
 	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
 	      ".qhcp project file in $(BUILDDIR)/qthelp, like this:"
-	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/odisvn.qhcp"
+	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/odiscm.qhcp"
 	@echo "To view the help file:"
-	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/odisvn.qhc"
+	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/odiscm.qhc"
 
 devhelp:
 	$(SPHINXBUILD) -b devhelp $(ALLSPHINXOPTS) $(BUILDDIR)/devhelp
 	@echo
 	@echo "Build finished."
 	@echo "To view the help file:"
-	@echo "# mkdir -p $$HOME/.local/share/devhelp/odisvn"
-	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/odisvn"
+	@echo "# mkdir -p $$HOME/.local/share/devhelp/odiscm"
+	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/odiscm"
 	@echo "# devhelp"
 
 epub:

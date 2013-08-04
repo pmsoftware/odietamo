@@ -1,6 +1,5 @@
 Welcome to ODIetAmo documentation!
 ==================================
-
 Oracle Data Integrator (ODI) is Oracle's premier data integration/ETL tool.
 However, like its main competitor, Infomatica, the source code is stored as binary-like formats and
 cannot be (easily/at all) extracted out and stored in a modern 
@@ -14,20 +13,14 @@ We do just that.
 
 Contents
 --------
-
 .. toctree::
    :maxdepth: 2
    :numbered:
 
-   walk-through
-   
-
-Please see the :doc:`demo installer docs <demo-installer>` 
-
+   Demo1StepByStep
 
 Internal Notes
 --------------
-
 .. toctree::
    :maxdepth: 1
 

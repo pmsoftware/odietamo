@@ -584,7 +584,7 @@ Examine the status of the working copy using the command “svn status”. E.g::
 
 Mark all files created by the ODI-SCM export mechanism to be added to the repository::
 
-    svn add . –force
+    svn add . –-force
 
 .. figure:: imgs/9_2_1.png
 
