@@ -337,7 +337,8 @@ echo %IM% completed import of ODI-SCM work repository objects
 
 echo %IM% regenerating ODI-SCM ODI project scenarios
 if "%ODI_SCM_ODI_SCM_ORACLEDI_VERSION_MAJOR%" == "10." (
-	set ODI_SCM_PROJECT=1998
+	rem set ODI_SCM_PROJECT=1998
+	set ODI_SCM_PROJECT=OS
 ) else (
 	set ODI_SCM_PROJECT=OS
 )

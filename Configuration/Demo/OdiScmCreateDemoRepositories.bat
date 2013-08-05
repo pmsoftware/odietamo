@@ -153,7 +153,7 @@ if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "10." (
 	if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "11." (
 		echo %IM% creating demo environment 1 ODI repository
 		rem
-		rem Use a repository that doesn't conflict with with the standard ODI demo.
+		rem Use a repository ID that doesn't conflict with with the standard ODI demo.
 		rem
 		call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiRepository.bat^" /p 100 %DiscardStdOut% %DiscardStdErr%
 		if ERRORLEVEL 1 (
@@ -173,16 +173,56 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-REM echo %IM% importing standard ODI demo into demo repository 1
-REM call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportOracleDIDemo.bat" %ODI_SCM_HOME%\Configuration\Demo\Odi10gStandardDemo >NUL
-REM if ERRORLEVEL 1 (
-	REM goto ExitFail
-REM )
+echo %IM% importing standard ODI demo into demo repository 1
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportOracleDIDemo.bat" %ODI_SCM_HOME%\Configuration\Demo\Odi10gStandardDemo >NUL
+if ERRORLEVEL 1 (
+	goto ExitFail
+)
+
+rem
+rem Import the standard ODI demo after OdiScm so that we can flush it out to the working copy later on.
+rem
+echo %IM% importing standard ODI demo into demo environment 1 repository
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportOracleDIDemo.bat^" /p %ODI_SCM_HOME%\Configuration\Demo\Odi10gStandardDemo %DiscardStdOut%
+if ERRORLEVEL 1 (
+	echo %IM% importing standard ODI demo into demo environment 1 ODI repository 1>&2
+	goto ExitFail
+)
+
+rem
+rem Export the demo, using OdiScm, to the working copy from demo repository 1.
+rem
+echo %IM% flushing demo environment 1 ODI repository to demo environment 1 SVN repository working copy
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFlushRepository.bat^" /p %DiscardStdOut%
+if ERRORLEVEL 1 (
+	echo %EM% flushing demo environment 1 ODI repository to demo environment 1 SVN repository working copy 1>&2
+	goto ExitFail
+)
+
+rem
+rem Add the exported demo files to the SCM system working copy.
+rem
+echo %IM% adding standard ODI demo files flushed from demo environment 1 ODI repository to demo environment 1 SVN repository working copy
+svn add %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%/SvnRepoRoot/*.* --force %DiscardStdOut% %DiscardStdErr%
+if ERRORLEVEL 1 (
+	echo %EM% adding standard ODI demo files flushed from demo environment 1 ODI repository to demo environment 1 SVN repository working copy 1>&2
+	goto ExitFail
+)
+
+rem
+rem Commit the exported demo files to the SCM repository.
+rem
+echo %IM% committing changes in demo environment 1 SVN repository working copy to SVN repository
+svn commit -m "Demo auto check in of initial demo export" %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%/SvnRepoRoot/*.* %DiscardStdOut% %DiscardStdErr%
+if ERRORLEVEL 1 (
+	echo %EM% committing changes in demo environment 1 SVN repository working copy to SVN repository 1>&2
+	goto ExitFail
+)
 
 rem *************************************************************
 rem Demo environment 2.
 rem *************************************************************
-set DEMO_ENV2_INI=%ODI_SCM_DEMO_BASE%\OdiScmImportStandardOdiDemoRepo1.ini
+set DEMO_ENV2_INI=%ODI_SCM_DEMO_BASE%\OdiScmImportStandardOdiDemoRepo2.ini
 
 copy "%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportStandardOdiDemoRepo2.ini" "%DEMO_ENV2_INI%" >NUL
 if ERRORLEVEL 1 (
@@ -259,7 +299,7 @@ if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "10." (
 	if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "11." (
 		echo %IM% creating demo environment 2 ODI repository
 		rem
-		rem Use a repository that doesn't conflict with with the standard ODI demo.
+		rem Use a repository ID that doesn't conflict with with the standard ODI demo.
 		rem
 		call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiRepository.bat^" /p 200 %DiscardStdOut% %DiscardStdErr%
 		if ERRORLEVEL 1 (
@@ -279,72 +319,17 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-rem
-rem Import the standard ODI demo after OdiScm so that we can flush it out to the working copy later on.
-rem
-echo %IM% importing standard ODI demo into demo environment 2 repository
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportOracleDIDemo.bat^" /p %ODI_SCM_HOME%\Configuration\Demo\Odi10gStandardDemo %DiscardStdOut%
-if ERRORLEVEL 1 (
-	echo %IM% importing standard ODI demo into demo environment 2 ODI repository 1>&2
-	goto ExitFail
-)
-
-rem
-rem Export the demo, using OdiScm, to the working copy from demo repository 2.
-rem
-echo %IM% flushing demo environment 2 ODI repository to demo environment 2 SVN repository working copy
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFlushRepository.bat^" /p %DiscardStdOut%
-if ERRORLEVEL 1 (
-	echo %EM% flushing demo environment 2 ODI repository to demo environment 2 SVN repository working copy 1>&2
-	goto ExitFail
-)
-
-rem
-rem Add the exported demo files to the SCM system working copy.
-rem
-echo %IM% adding standard ODI demo files flushed from demo environment 2 ODI repository to demo environment 2 SVN repository working copy
-svn add %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%/SvnRepoRoot/*.* --force %DiscardStdOut% %DiscardStdErr%
-if ERRORLEVEL 1 (
-	echo %EM% adding standard ODI demo files flushed from demo environment 2 ODI repository to demo environment 2 SVN repository working copy 1>&2
-	goto ExitFail
-)
-
-rem
-rem Commit the exported demo files to the SCM repository.
-rem
-echo %IM% committing changes in demo environment 2 SVN repository working copy to SVN repository
-svn commit -m "Demo auto check in of initial demo export" %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%/SvnRepoRoot/*.* %DiscardStdOut% %DiscardStdErr%
-if ERRORLEVEL 1 (
-	echo %EM% committing changes in demo environment 2 SVN repository working copy to SVN repository 1>&2
-	goto ExitFail
-)
-
-rem *************************************************************
-rem Demo environment 1 - populate the repository from the code
-rem checked in to SVN.
-rem *************************************************************
-set ODI_SCM_INI=%DEMO_ENV1_INI%
-echo %IM% setting OdiScm environment for demo 1 environment from ^<%ODI_SCM_INI%^>
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSaveScriptSwitches.bat"
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmEnvSet.bat" %DiscardStdOut%
-if ERRORLEVEL 1 (
-	echo %IM% setting OdiScm environment for demo 1 environment from ^<%ODI_SCM_INI%^> 1>&2
-	goto ExitFail
-)
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmLoadScriptSwitches.bat"
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
-
-echo %IM% updating demo environment 1 SVN repository working copy from SVN repository and generating ODI code import scripts
+echo %IM% updating demo environment 2 SVN repository working copy from SVN repository and generating ODI code import scripts
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGet.bat^" /p %DiscardStdOut% %DiscardStdErr%
 if ERRORLEVEL 1 (
-	echo %EM% updating demo environment 1 SVN repository working copy from SVN repository and generating ODI code import scripts 1>&2
+	echo %EM% updating demo environment 2 SVN repository working copy from SVN repository and generating ODI code import scripts 1>&2
 	goto ExitFail
 )
 
-echo %IM% executing generated ODI code import scripts to update demo environment 1 ODI repository
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Logs\DemoEnvironment1\OdiScmBuild_DemoEnvironment1.bat^" %DiscardStdOut% %DiscardStdErr%
+echo %IM% executing generated ODI code import scripts to update demo environment 2 ODI repository
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Logs\DemoEnvironment2\OdiScmBuild_DemoEnvironment2.bat^" %DiscardStdOut% %DiscardStdErr%
 if ERRORLEVEL 1 (
-	echo %EM% executing generated ODI code import scripts to update demo environment 1 ODI repository 1>&2
+	echo %EM% executing generated ODI code import scripts to update demo environment 2 ODI repository 1>&2
 	goto ExitFail
 )
 
@@ -352,5 +337,5 @@ echo %IM% demo creation completed successfully
 exit %IsBatchExit% 0
 
 :ExitFail
-echo %EM% demo creation failed 1>^2
+echo %EM% demo creation failed 1>&2
 exit %IsBatchExit% 1

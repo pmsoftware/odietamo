@@ -80,10 +80,9 @@ if "%ODI_SCM_TOOLS_JISQL_HOME%" == "" (
 if "%ODI_SCM_TOOLS_JISQL_JAVA_HOME%" == "" (
 	echo %EM% environment variable ODI_SCM_TOOLS_JISQL_JAVA_HOME is not set
 	goto ExitFail
-) else (
-	echo %IM% using ODI_SCM_TOOLS_JISQL_JAVA_HOME ^<%ODI_SCM_TOOLS_JISQL_JAVA_HOME%^>
 )
 
+echo %IM% using ODI_SCM_TOOLS_JISQL_JAVA_HOME ^<%ODI_SCM_TOOLS_JISQL_JAVA_HOME%^>
 set JISQL_LIB=%ODI_SCM_TOOLS_JISQL_HOME%\lib
 
 REM
