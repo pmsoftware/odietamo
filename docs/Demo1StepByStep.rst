@@ -122,47 +122,14 @@ The specific ODI 10g version is ``ODI 10.1.3.5.6_02``. The base installer (``10.
 
 The specific ODI 11g version is ``ODI 11.1.1.6.4``. The base installer (``11.1.1.6.0``) and the patch (``11.1.1.6.4``) can be downloaded from the Oracle support website.
 
-These ODI versions have proven free *enough* of bugs to work with the OdiScm system. Note that we say 'free enough' as there are still some bugs in these versions of the import/export API that we have had to work around. Our experience with ODI over the years, since it was Sunopsis v3, seems to have been a long battle against bugs in the product!
+These ODI versions have proven free *enough* of bugs to work with the OdiScm system. Note that we say *free enough* as there are still some bugs in these versions of the import/export API that we have had to work around.
 
 We assume you already know your way around the ODI UIs, directory structure and scripts.
 
 For ODI 10g the usual content of the "oracledi" directory is required.
 For ODI 11g the usual content of the *Oracle Home* directory, containing the "oracledi" directory, is required. The ODI SDK must also be installed.
 
-The Jython package cache
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-Finally, it is necessary to *prime* ODI's Jython package cache. This is because of one of those bugs, in ODI, that we've worked around - the "startcmd.bat" script and the ODI Java binary called by it always returns an exit status of 0 (signifying 'success') even when the called ODI command fails. 
-
-So, in order for us to determine whether the command *actually* completed successfully we look at the exit status and also output on the stderr (standard error) channel. If we see any stderr output, at all, we conclude that the command actually failed.
-
-For some reason Jython writes info messages to stderr when it notices new Java archives (JAR files) to add to its package cache. So, for our workaround to work we need to either supress the Jython info messages or prepopulate the Jython cache so that these messages don't appear when we're running our tools.
-
-It is possible to prevent Jython from populating ODI's package cache by setting the a Java system property. We could easily add this to the ``odiparams.bat`` script by adding ``-Dpython.cachedir.skip=true`` to the variable ``ODI_ADDITIONAL_JAVA_OPTIONS``. But, this would reduce performance of any ODI code that uses Jython though, as Jython would need to scan the class path for JARs every time it was invoked. As the ODI import/export API is already pretty slow we recommend prepopulating the cache instead of supressing the population of it.
-
-To prime the cache, from the command prompt::
-
-	set ODI_JAVA_HOME=<path\to\your\JVM\home\dir>
-	set JAVA_HOME=<path\to\your\JVM\home\dir>
-	
-	cd /d <path\to\your\ODI\bin\dir>
-	call odiparams.bat
-	%ODI_JAVA_START% org.python.util.jython "-Dpython.home=%ODI_HOME%/lib/scripting"
-
-For example::
-
-	set ODI_JAVA_HOME=C:\Program Files\Java\jdk1.6.0_45
-	set JAVA_HOME=C:\Program Files\Java\jdk1.6.0_45
-	
-	cd /d C:\oracle\product\11.1.1\Oracle_ODI_1\oracledi\agent\bin
-	call odiparams.bat
-	%ODI_JAVA_START% org.python.util.jython "-Dpython.home=%ODI_HOME%/lib/scripting"
-
-If there are any new Java files to process then you will see Jython add these to ODI's Jython package cache.
-
-.. figure:: imgs/3_1_4.png
-
-Press Control-D to exit the Jython shell.
+A fairly standard, or *clean*, ``odiparams.bat`` script is required in the installation that you're using as OdiScm uses this script to generate its own *startcmd.bat* replacement at run time.
 
 Install Oracle Client
 ---------------------
@@ -301,21 +268,21 @@ Create a new empty Master Repository using the repository creation wizard.
 
 Specify the new master repository details: -
 
-+---------------+-----------------------------------+
-|Attribute      |Value                              |
-+===============+===================================+
-|Technology Type|Oracle                             |
-+---------------+-----------------------------------+
-|JDBC Driver    |oracle.jdbc.driver.OracleDriver    |
-+---------------+-----------------------------------+
-|JDBC URL       |jdbc.oracle.thin:@localhost:1521:xe|
-+---------------+-----------------------------------+
-|User Name      |odirepofordemo                     |
-+---------------+-----------------------------------+
-|Password       |odirepofordemo                     |
-+---------------+-----------------------------------+
-|Repository ID  |100                                |
-+---------------+-----------------------------------+
++----------------------+-----------------------------------+
+|Attribute             |Value                              |
++======================+===================================+
+|Technology Type       |Oracle                             |
++----------------------+-----------------------------------+
+|JDBC Driver           |oracle.jdbc.driver.OracleDriver    |
++----------------------+-----------------------------------+
+|JDBC URL              |jdbc.oracle.thin:@localhost:1521:xe|
++----------------------+-----------------------------------+
+|User Name             |odirepofordemo                     |
++----------------------+-----------------------------------+
+|Password              |odirepofordemo                     |
++----------------------+-----------------------------------+
+|Master Repository ID  |100                                |
++----------------------+-----------------------------------+
 
 Using ODI 10g
 ~~~~~~~~~~~~~
@@ -446,7 +413,7 @@ Open the copied file (``C:\OdiScmWalkThrough\Repo1WorkingCopy\OdiScmImportStanda
 +=========+===================+=========================================================================================================+
 |OracleDI | Home              | Home directory of your ODI installation.                                                                |
 |         |                   +---------------------------------------------------------------------------------------------------------+
-|         |                   | This is the directory containing the 'bin' directory that contains the 'startcmd.bat' script.           |
+|         |                   | This is the directory containing the *bin* directory that contains the 'startcmd.bat' script.           |
 |         +-------------------+---------------------------------------------------------------------------------------------------------+
 |         | Version           | The version of ODI you're running.                                                                      |
 |         +-------------------+---------------------------------------------------------------------------------------------------------+
@@ -456,19 +423,19 @@ Open the copied file (``C:\OdiScmWalkThrough\Repo1WorkingCopy\OdiScmImportStanda
 |         |                   |                                                                                                         |
 |         |                   | For ODI 11g set to the path of the 'oracledi.common' directory for your ODI installation.               |
 |         |                   |                                                                                                         |
-|         |                   | E.g. to ``C:\\oracle\\product\\11.1.1\\Oracle_ODI_1\\oracledi.common``.                                 |
+|         |                   | E.g. to ``C:\oracle\product\11.1.1\Oracle_ODI_1\oracledi.common``.                                      |
 |         +-------------------+---------------------------------------------------------------------------------------------------------+
 |         | SDK               | Set to empty for ODI 10g.                                                                               |
 |         |                   |                                                                                                         |
 |         |                   | For ODI 11g set to the path of the 'oracledi.sdk' directory for your ODI installation.                  |
 |         |                   |                                                                                                         |
-|         |                   | E.g. to ``C:\\oracle\\product\\11.1.1\\Oracle_ODI_1\\oracledi.sdk``.                                    |
+|         |                   | E.g. to ``C:\oracle\product\11.1.1\Oracle_ODI_1\oracledi.sdk``.                                         |
 +---------+-------------------+---------------------------------------------------------------------------------------------------------+
 |Tools    | Oracle Home       | Home directory of your Oracle client installation.                                                      |
 |         |                   |                                                                                                         |
 |         |                   | This is the directory containing the 'bin' directory that contains the 'exp.exe' and 'imp.exe' binaries.|
 |         |                   |                                                                                                         |
-|         |                   | E.g. set this to ``C:\\oraclexe\\app\\oracle\\product\\11.2.0\\server``.                                |
+|         |                   | E.g. set this to ``C:\oraclexe\app\oracle\product\11.2.0\server``.                                      |
 |         +-------------------+---------------------------------------------------------------------------------------------------------+
 |         | Jisql Java Home   | The home directory of the JVM that you're using with Jisql.                                             |
 |         |                   |                                                                                                         |
@@ -486,7 +453,7 @@ First, tell OdiScm to use the new configuration INI file. From the command promp
 
 Run the following command to import the ODI code components of OdiScm into the new repository::
 
-	call OdiScmImportOdiScm ExportPrimeLast
+	OdiScmImportOdiScm ExportPrimeLast
 
 .. figure:: imgs/5_3_0.png
 
@@ -497,7 +464,7 @@ Import the standard ODI demo repository into demo environment 1 ODI repository
 
 Run the following command from the command prompt::
 
-    call "%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportOracleDIDemo"
+    "%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportOracleDIDemo"
 
 Refresh the Projects and Models views in the ODI Designer UI, and the Logical Architecture and Physical Architecture view in the ODI Topology UI, and the standard ODI demo material will now be visible.
  
@@ -507,17 +474,27 @@ Add OdiScm custom markers to demo environment 1 ODI repository
 Create new Marker Group and Marker in Demo project
 --------------------------------------------------
 
+Create a new Marker Group, in the Demo project, with the following details: -
+
+================== =======================
+Field              Value
+================== =======================
+Marker Group Name  ODISCM
+Marker Group Code  OdiScm
+Marker Name        Has Scenario
+Marker Code        HAS_SCENARIO
+================== =======================
+
 .. figure:: imgs/7_1_0.png
 
-Create a new Marker Group, in the Demo project, with name and code set to ``ODISCM_AUTOMATION`` and Order set to ``99``.
-In this new group, create a new marker with name and code set to ``HAS_SCENARIO``. Choose an icon from the available list.
+You can choose the other field values (e.g. icon, order, position, etc) yourself.
 
 Apply new Marker to objects in the Demo project
 -----------------------------------------------
 
 .. figure:: imgs/7_2_0.png
 
-Apply the new HAS_SCENARIO marker to each and every Interface and Procedure in the *Sales Administration* folder in the Demo project. Note that in this figure *Display markers and memo flags* is turned on in the ODI user parameters.
+Apply the new *Has Scenario* marker to each and every Interface and Procedure in the *Sales Administration* folder in the Demo project. Note that in this figure *Display markers and memo flags* is turned on in the ODI user parameters.
 
 These markers will cause scenarios to be generated for these objects later on in the demo.
 
@@ -553,8 +530,6 @@ Examine the status of the working copy::
 	svn status
 
 .. figure:: imgs/9_2_0.png
-
-
 
 You should see files prefixed with "?". These are files that are not known to the SVN working copy.
 
@@ -608,14 +583,56 @@ From the command prompt, create a working directory::
 Create demo environment 2 ODI repository
 ----------------------------------------
 
-Create a second new Oracle user using the same process as the first, but with a user name and password of "odirepo2fordemo"::
+Create a second new Oracle user using the same process as the first, but with a user name and password of ``odirepofordemo2``::
+
+Connect to the database as the SYSTEM user (this user can create new users) using SQL*Plus::
+
+	sqlplus system/xe@localhost:1521/xe
+
+Then::
 
 	CREATE USER odirepofordemo2 IDENTIFIED BY odirepofordemo2 DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp;
 	GRANT CONNECT, RESOURCE, CREATE DATABASE LINK TO odirepofordemo2;
 
-Create a second master repository in the new "odirepofordemo2" schema with the internal ID of 200.
+Create a second master repository in the new ``odirepofordemo2`` schema with the internal ID of *200*. I.e. using details as follows: -
 
-Create a second work repository, with name WORKREP, in the new schema (again, the same schema as the master repository) with the internal ID of 200.
++----------------------+-----------------------------------+
+|Attribute             |Value                              |
++======================+===================================+
+|Technology Type       |Oracle                             |
++----------------------+-----------------------------------+
+|JDBC Driver           |oracle.jdbc.driver.OracleDriver    |
++----------------------+-----------------------------------+
+|JDBC URL              |jdbc.oracle.thin:@localhost:1521:xe|
++----------------------+-----------------------------------+
+|User Name             |odirepofordemo2                    |
++----------------------+-----------------------------------+
+|Password              |odirepofordemo2                    |
++----------------------+-----------------------------------+
+|Master Repository ID  |200                                |
++----------------------+-----------------------------------+
+
+Create a second work repository, with name WORKREP, in the new schema (again, the same schema as the master repository) with the internal ID of *200*. I.e. using details as follows: -
+
++--------------------+-----------------------------------+
+|Attribute           |Value                              |
++====================+===================================+
+|Work Repository Name|WORKREP                            |
++--------------------+-----------------------------------+
+|Technology Type     |Oracle                             |
++--------------------+-----------------------------------+
+|JDBC Driver         |oracle.jdbc.driver.OracleDriver    |
++--------------------+-----------------------------------+
+|JDBC URL            |jdbc.oracle.thin:@localhost:1521:xe|
++--------------------+-----------------------------------+
+|User Name           |odirepofordemo2                    |
++--------------------+-----------------------------------+
+|Password            |odirepofordemo2                    |
++--------------------+-----------------------------------+
+|Work Repository ID  |200                                |
++--------------------+-----------------------------------+
+
+Create a login profile for the new Master and Work repository. Log into the Work repository. It's empty.
 
 Install the OdiScm repository components into demo environment 2 ODI repository
 -------------------------------------------------------------------------------
@@ -627,7 +644,7 @@ From the command prompt (cmd.exe), copy the pre-defined demo environment 2 OdiSc
 
 	copy "%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportStandardOdiDemoRepo2.ini" C:\OdiScmWalkThrough\
 
-Open the copied file (C:\OdiScmWalkThrough\OdiScmImportStandardOdiDemoRepo2.ini) in a text editor and edit the same entries as for the configuration INI file for demo environment 1.
+Open the copied file (``C:\OdiScmWalkThrough\OdiScmImportStandardOdiDemoRepo2.ini``) in a text editor and edit the same entries as for the configuration INI file for demo environment 1.
 
 Note that the values given to the entries, for demo environment 2, can be exactly the same as for demo environment 1. You *could* have separate installations of ODI, Oracle client, Jisql, etc, if you wish to, but there's certainly no need. You certainly *should* be using the same version ODI against the same code base.
 
@@ -642,27 +659,41 @@ First, tell OdiScm to use the new configuration INI file. From the command promp
 
 Run the following command to import the ODI code components of OdiScm into the new repository::
 
-	call OdiScmImportOdiScm ExportPrimeLast
+	OdiScmImportOdiScm ExportPrimeLast
 
 Refresh the Projects and Models views in the ODI Designer UI, and the Logical Architecture and Physical Architecture view in the ODI Topology UI, and the ODI-SCM project, and supporting Topology items.
 
 Populate demo environment 2 ODI repository from the SVN repository
 ==================================================================
 
-Next, we update the empty demo environment 2 SVN working copy from the SVN repository, and at the same time, generate scripts to import the downloaded code into the demo environment 2 ODI repository.
+Next, we update the empty demo environment 2 SVN working copy from the SVN repository, and at the same time, automatically generate scripts to import the downloaded code into the demo environment 2 ODI repository.
 
 From the command prompt::
 
-	call OdiScmGet.bat /b
+	OdiScmGet.bat
 
-Then, from the command prompt, run the generated script::
+.. figure:: imgs/13_1_1.png
 
-	call %ODI_SCM_HOME%\Logs\DemoEnvironment2\OdiScmBuild_DemoEnvironment2
+Examine the working copy (``C:\OdiScmWalkThrough\Repo2WorkingCopy\SvnRepoRoot``). You'll find exactly the same set of files as we checked in from the demo environment 1 working copy, earlier.
+
+Then run the generated script to import the changes to the working copy into the ODI repository. From the command prompt::
+
+	"%ODI_SCM_HOME%\Logs\DemoEnvironment2\OdiScmBuild_DemoEnvironment2"
+
+.. figure:: imgs/13_1_2.png
+
+The generated script performs the following process:
+
+1.	Back up the ODI repository by creating an Oracle export backup of the repository schema.
+2.	Import ODI source object files, added or updated in the SVN working copy by the OdiScmGet process, into the ODI repository.
+3.	Regenerate Scenarios in the ODI repository for all Packages/Interfaces/Procedures, imported by the import process, where they have the custom OdiScm *Has Scenario* marker.
+4.	Validate the ODI repository internal ID allocation/tracking metadata.
+5.	Update the SCM revision number tracking in the OdiScm configuration INI file and OdiScm ODI repository metadata.
 
 Refresh the Projects and Models views in the ODI Designer UI, and the Logical Architecture and Physical Architecture view in the ODI Topology UI, and the standard ODI demo material will now be visible.
 
-Note that the objects, marked with the custom ODISCM_AUTOMATION/HAS_SCENARIO markers, in the demo environment 2 ODI repository, will have scenarios. But, in the demo environment 1 ODI repository the scenarios are not present. Hence the code in the SVN repository also does contain scenarios.
+Note that the objects, marked with the custom OdiScm *Has Scenario* marker, in the demo environment 2 ODI repository, will have scenarios. But, in the demo environment 1 ODI repository the scenarios are not present. Hence the code in the SVN repository also does contain scenarios.
 
-This shows the purpose of these markers - to identify those source objects that should have scenarios.
+This shows the purpose of these markers - to identify those source objects that should have a Scenario.
 
-The OdiScm solution will generate scenarios for these objecs when importing code from an SCM repository. Scenarios are not stored in the SCM repository because ODI does not consistently consistently generate Scenarios (the order of elements Scenarios tends to differ) from a consistent set of source objects, and we do not want a variation in a Scenario to be considered a change to a source object being controlled by the SCM repository.
+The OdiScm solution will generate scenarios for these objects when importing code from an SCM repository. Scenarios are not stored in the SCM repository because ODI does not consistently consistently generate Scenarios (the order of elements Scenarios tends to differ) from a consistent set of source objects, and we do not want a variation in a Scenario to be considered a change to a source object being controlled by the SCM repository.

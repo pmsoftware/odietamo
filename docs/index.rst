@@ -17,7 +17,7 @@ Contents
    :maxdepth: 2
    :numbered:
 
-   Demo1StepByStep
+   odiscm-demonstrations
 
 Internal Notes
 --------------

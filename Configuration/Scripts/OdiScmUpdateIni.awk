@@ -3,20 +3,20 @@ BEGIN {
 	###print "Using KeyValue: " KeyValue
 }
 
-#^[ImportControls]$ 
+#^[Import Controls]$ 
 #{
 	###print "Found section using expression"
 #}
 
-/^\[ImportControls\]$/ {
+/^\[Import Controls\]$/ {
 	###print "Found section using regular expression"
 	ProcessingSection = 1;
 }
 
-/^OracleDIImportedRevision=/ {
+/^OracleDI Imported Revision=/ {
 	if (ProcessingSection) {
 		###print "Found key"
-		print "OracleDIImportedRevision=" KeyValue;
+		print "OracleDI Imported Revision=" KeyValue;
 	}
 	WrittenKey = 1
 }

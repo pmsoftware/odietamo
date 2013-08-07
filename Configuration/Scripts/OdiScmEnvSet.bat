@@ -33,7 +33,8 @@ if ERRORLEVEL 1 (
 
 call "%SETENVSCRIPT%"
 if ERRORLEVEL 1 (
-	echo %WM% executing temporary script file ^<%SETENVSCRIPT%^> 1>&2
+	echo %EM% executing temporary script file ^<%SETENVSCRIPT%^> 1>&2
+	goto ExitFail
 )
 
 :ExitOk

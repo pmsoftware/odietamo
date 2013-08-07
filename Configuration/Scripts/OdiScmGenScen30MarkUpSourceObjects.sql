@@ -41,24 +41,10 @@ SELECT p.i_pop
     ON s2.i_grp_state = gs.i_grp_state
  WHERE os.i_object = 3100
    AND (
-       (
-       --
-       -- This marker group is deprecated.
-       --
-       gs.grp_state_code = 'MOI_CODE_RECONCILLIATION'
-   AND gs.grp_state_name = 'MOI_CODE_RECONCILLIATION'
-   AND s2.state_code = 'MOI_CODE_RECONCILLIATION'
-   AND s2.state_name = 'MOI_CODE_RECONCILLIATION'
-       )
-    OR (
-       --
-       -- This is the new marker group going forward.
-       --
-       gs.grp_state_code = 'ODISCM_AUTOMATION'
-   AND gs.grp_state_name = 'ODISCM_AUTOMATION'
+       gs.grp_state_code = 'ODISCM'
+   AND gs.grp_state_name = 'OdiScm'
    AND s2.state_code = 'HAS_SCENARIO'
-   AND s2.state_name = 'HAS_SCENARIO'
-       )
+   AND s2.state_name = 'Has Scenario'
        )
    AND p.last_date >
        (
@@ -89,24 +75,10 @@ SELECT t.i_trt
     ON s2.i_grp_state = gs.i_grp_state
  WHERE os.i_object = 3600
    AND (
-       (
-       --
-       -- This marker group is deprecated.
-       --
-       gs.grp_state_code = 'MOI_CODE_RECONCILLIATION'
-   AND gs.grp_state_name = 'MOI_CODE_RECONCILLIATION'
-   AND s2.state_code = 'MOI_CODE_RECONCILLIATION'
-   AND s2.state_name = 'MOI_CODE_RECONCILLIATION'
-       )
-    OR (
-       --
-       -- This is the new marker group going forward.
-       --
-       gs.grp_state_code = 'ODISCM_AUTOMATION'
-   AND gs.grp_state_name = 'ODISCM_AUTOMATION'
+       gs.grp_state_code = 'ODISCM'
+   AND gs.grp_state_name = 'OdiScm'
    AND s2.state_code = 'HAS_SCENARIO'
-   AND s2.state_name = 'HAS_SCENARIO'
-       )
+   AND s2.state_name = 'Has Scenario'
        ) 
    AND t.last_date >
        (
@@ -137,24 +109,10 @@ SELECT p.i_package
     ON s2.i_grp_state = gs.i_grp_state
  WHERE os.i_object = 3200    
    AND (
-       (
-       --
-       -- This marker group is deprecated.
-       --
-       gs.grp_state_code = 'MOI_CODE_RECONCILLIATION'
-   AND gs.grp_state_name = 'MOI_CODE_RECONCILLIATION'
-   AND s2.state_code = 'MOI_CODE_RECONCILLIATION'
-   AND s2.state_name = 'MOI_CODE_RECONCILLIATION'
-       )
-    OR (
-       --
-       -- This is the new marker group going forward.
-       --
-       gs.grp_state_code = 'ODISCM_AUTOMATION'
-   AND gs.grp_state_name = 'ODISCM_AUTOMATION'
+       gs.grp_state_code = 'ODISCM'
+   AND gs.grp_state_name = 'OdiScm'
    AND s2.state_code = 'HAS_SCENARIO'
-   AND s2.state_name = 'HAS_SCENARIO'
-       )
+   AND s2.state_name = 'Has Scenario'
        ) 
    AND p.last_date >
        (
@@ -204,24 +162,10 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
     ON p.i_package = s.i_package
  WHERE os.i_object = 3200
    AND (
-       (
-       --
-       -- This marker group is deprecated.
-       --
-       gs.grp_state_code = 'MOI_CODE_RECONCILLIATION'
-   AND gs.grp_state_name = 'MOI_CODE_RECONCILLIATION'
-   AND s2.state_code = 'MOI_CODE_RECONCILLIATION'
-   AND s2.state_name = 'MOI_CODE_RECONCILLIATION'
-       )
-    OR (
-       --
-       -- This is the new marker group going forward.
-       --
-       gs.grp_state_code = 'ODISCM_AUTOMATION'
-   AND gs.grp_state_name = 'ODISCM_AUTOMATION'
+       gs.grp_state_code = 'ODISCM'
+   AND gs.grp_state_name = 'OdiScm'
    AND s2.state_code = 'HAS_SCENARIO'
-   AND s2.state_name = 'HAS_SCENARIO'
-       )
+   AND s2.state_name = 'Has Scenario'
        )
    AND s.i_pop
     IN (
@@ -275,24 +219,10 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
     ON p.i_package = s.i_package
  WHERE os.i_object = 3200
    AND (
-       (
-       --
-       -- This marker group is deprecated.
-       --
-       gs.grp_state_code = 'MOI_CODE_RECONCILLIATION'
-   AND gs.grp_state_name = 'MOI_CODE_RECONCILLIATION'
-   AND s2.state_code = 'MOI_CODE_RECONCILLIATION'
-   AND s2.state_name = 'MOI_CODE_RECONCILLIATION'
-       )
-    OR (
-       --
-       -- This is the new marker group going forward.
-       --
-       gs.grp_state_code = 'ODISCM_AUTOMATION'
-   AND gs.grp_state_name = 'ODISCM_AUTOMATION'
+       gs.grp_state_code = 'ODISCM'
+   AND gs.grp_state_name = 'OdiScm'
    AND s2.state_code = 'HAS_SCENARIO'
-   AND s2.state_name = 'HAS_SCENARIO'
-       )
+   AND s2.state_name = 'Has Scenario'
        ) 
    AND s.i_trt
     IN (
@@ -351,24 +281,10 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
     ON p.i_package = s.i_package
  WHERE os.i_object = 3200
    AND (
-       (
-       --
-       -- This marker group is deprecated.
-       --
-       gs.grp_state_code = 'MOI_CODE_RECONCILLIATION'
-   AND gs.grp_state_name = 'MOI_CODE_RECONCILLIATION'
-   AND s2.state_code = 'MOI_CODE_RECONCILLIATION'
-   AND s2.state_name = 'MOI_CODE_RECONCILLIATION'
-       )
-    OR (
-       --
-       -- This is the new marker group going forward.
-       --
-       gs.grp_state_code = 'ODISCM_AUTOMATION'
-   AND gs.grp_state_name = 'ODISCM_AUTOMATION'
+       gs.grp_state_code = 'ODISCM'
+   AND gs.grp_state_name = 'OdiScm'
    AND s2.state_code = 'HAS_SCENARIO'
-   AND s2.state_name = 'HAS_SCENARIO'
-       )
+   AND s2.state_name = 'Has Scenario'
        ) 
    AND s.i_var
     IN (
@@ -426,24 +342,10 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
     ON p.i_package = s.i_package
  WHERE os.i_object = 3200
    AND (
-       (
-       --
-       -- This marker group is deprecated.
-       --
-       gs.grp_state_code = 'MOI_CODE_RECONCILLIATION'
-   AND gs.grp_state_name = 'MOI_CODE_RECONCILLIATION'
-   AND s2.state_code = 'MOI_CODE_RECONCILLIATION'
-   AND s2.state_name = 'MOI_CODE_RECONCILLIATION'
-       )
-    OR (
-       --
-       -- This is the new marker group going forward.
-       --
-       gs.grp_state_code = 'ODISCM_AUTOMATION'
-   AND gs.grp_state_name = 'ODISCM_AUTOMATION'
+       gs.grp_state_code = 'ODISCM'
+   AND gs.grp_state_name = 'OdiScm'
    AND s2.state_code = 'HAS_SCENARIO'
-   AND s2.state_name = 'HAS_SCENARIO'
-       )
+   AND s2.state_name = 'Has Scenario'
        )  
    AND (
        s.i_mod IN (
@@ -551,24 +453,10 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
     ON p.i_package = s.i_package
  WHERE os.i_object = 3200
    AND (
-       (
-       --
-       -- This marker group is deprecated.
-       --
-       gs.grp_state_code = 'MOI_CODE_RECONCILLIATION'
-   AND gs.grp_state_name = 'MOI_CODE_RECONCILLIATION'
-   AND s2.state_code = 'MOI_CODE_RECONCILLIATION'
-   AND s2.state_name = 'MOI_CODE_RECONCILLIATION'
-       )
-    OR (
-       --
-       -- This is the new marker group going forward.
-       --
-       gs.grp_state_code = 'ODISCM_AUTOMATION'
-   AND gs.grp_state_name = 'ODISCM_AUTOMATION'
+       gs.grp_state_code = 'ODISCM'
+   AND gs.grp_state_name = 'OdiScm'
    AND s2.state_code = 'HAS_SCENARIO'
-   AND s2.state_name = 'HAS_SCENARIO'
-       )
+   AND s2.state_name = 'Has Scenario'
        ) 
    AND (
        s.i_table IN (
@@ -661,7 +549,7 @@ BEGIN
                          BY project_id
                      )
     LOOP
-        dbms_output.put_line('ODISCM: Creating temporary GENERATE_SCENARIO marker for project ' ||  c_project.project_id);
+        dbms_output.put_line('ODISCM: Creating temporary ''Generate Scenario'' marker for project ' ||  c_project.project_id);
 
         iState := iState + 1;
         INSERT
@@ -686,7 +574,7 @@ BEGIN
         SELECT TO_NUMBER(iState || cRepId)
              , sngs.i_grp_state
              , 'GENERATE_SCENARIO'
-             , 'GENERATE_SCENARIO'
+             , 'Generate Scenario'
              , -99                          -- State order
              , '1'                          -- In Use
              , '1'                          -- Show Desc
@@ -699,46 +587,7 @@ BEGIN
              , 'ODISCM'                     -- First User
              , 'ODISCM'                     -- Last User 
           FROM snp_grp_state sngs
-         WHERE sngs.grp_state_code = 'ODISCM_AUTOMATION'
-           AND sngs.i_project = c_project.project_id
-        ;
-        iState := iState + 1;
-        INSERT
-          INTO snp_state2
-               (
-               i_state                       
-             , i_grp_state                   
-             , state_code                    
-             , state_name                   
-             , state_order                   
-             , in_use                        
-             , show_desc                     
-             , icon_res                      
-             , state_datatype                
-             , last_date                     
-             , int_version                   
-             , ind_change                    
-             , first_date                    
-             , first_user                    
-             , last_user
-               )
-        SELECT TO_NUMBER(iState || cRepId)
-             , sngs.i_grp_state
-             , 'GENERATE_SCENARIO'
-             , 'GENERATE_SCENARIO'
-             , -99                          -- State order
-             , '1'                          -- In Use
-             , '1'                          -- Show Desc
-             , NULL                         -- Icon Res
-             , 'A'                          -- State data type
-             , SYSDATE                      -- Last Date
-             , NULL                         -- Internal version
-             , 'I'                          -- Ind Change
-             , SYSDATE                      -- First Date
-             , 'ODISCM'                     -- First User
-             , 'ODISCM'                     -- Last User 
-          FROM snp_grp_state sngs
-         WHERE sngs.grp_state_code = 'MOI_CODE_RECONCILLIATION'
+         WHERE sngs.grp_state_code = 'ODISCM'
            AND sngs.i_project = c_project.project_id
         ;
     END LOOP;
@@ -758,22 +607,14 @@ BEGIN
                       JOIN snp_state2 sns2
                         ON sngs.i_grp_state = sns2.i_grp_state
                      WHERE (
-                           (
-                           sngs.grp_state_code = 'MOI_CODE_RECONCILLIATION'
-                       AND sngs.grp_state_name = 'MOI_CODE_RECONCILLIATION'
+                           sngs.grp_state_code = 'ODISCM'
+                       AND sngs.grp_state_name = 'OdiScm'
                        AND sns2.state_code = 'GENERATE_SCENARIO'
-                       AND sns2.state_name = 'GENERATE_SCENARIO'
-                           )
-                        OR (
-                           sngs.grp_state_code = 'ODISCM_AUTOMATION'
-                       AND sngs.grp_state_name = 'ODISCM_AUTOMATION'
-                       AND sns2.state_code = 'GENERATE_SCENARIO'
-                       AND sns2.state_name = 'GENERATE_SCENARIO'
-                           )
+                       AND sns2.state_name = 'Generate Scenario'
                            )
                     )
     LOOP
-        dbms_output.put_line('ODISCM: Creating temporary object-to-marker relationship for state <' || c_object.i_state
+        dbms_output.put_line('OdiScm: Creating temporary object-to-marker relationship for state <' || c_object.i_state
                           || '> source object <' ||  c_object.source_object_id || '> object type <' || c_object.source_type_id || '>');
         iObjState := iObjState + 1;
 

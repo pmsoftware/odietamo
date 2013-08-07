@@ -152,7 +152,7 @@ function CreateSetEnvScript
 				# The top level hash table entry is a comment.
 				#
 				#write-output "processing a top level comment"
-				$strOutText = ";" + $($IniTable[$i]) #+ [Environment]::NewLine
+				$strOutText = "REM " + $($IniTable[$i]) #+ [Environment]::NewLine
 				write-output $strOutText
 				#DebuggingPause
 			}
@@ -163,7 +163,20 @@ function CreateSetEnvScript
 				#write-output "processing a top level key: " $($IniTable[$i])
 				$strKeyName = $i
 				$strKeyValue = $($IniTable[$i])
-				$strOutText = $strKeyName + "=" + $strKeyValue #+ [Environment]::NewLine
+				$strEnvVarName = "ODI_SCM_" + $strKeyName.ToUpper()
+				$strEnvVarName = $strEnvVarName.Replace(" ","_")
+				
+				#
+				# If setting the variable to empty (i.e. removing the variable definition) only do this if the variable is actually set.
+				# Otherwise (certainly in Windows XP) the SET command sets a non 0 ERRORLEVEL.
+				#
+				if ($strKeyValue -eq "" -or $strKeyValue -eq $Null) {
+					$strOutText = "if DEFINED $strEnvVarName set $strEnvVarName="
+				}
+				else {
+					$strOutText = "set $strEnvVarName=$strKeyValue" #+ [Environment]::NewLine
+				}
+				
 				write-output $strOutText
 				DebuggingPause
 			}
@@ -188,17 +201,53 @@ function CreateSetEnvScript
 					$strKeyValue = $($IniTable[$i][$j])
 					$strEnvVarName = "ODI_SCM_" + $strSectionName.ToUpper() + "_" + $strKeyName.ToUpper()
 					$strEnvVarName = $strEnvVarName.Replace(" ","_")
-					$strOutText = "set " + $strEnvVarName + "=" + $strKeyValue #+ [Environment]::NewLine
-					write-output $strOutText
+					
+					#
+					# If setting the variable to empty (i.e. removing the variable definition) only do this if the variable is actually set.
+					# Otherwise (certainly in Windows XP) the SET command sets a non 0 ERRORLEVEL.
+					#
+					if ($strKeyValue -eq "" -or $strKeyValue -eq $Null) {
+						write-output "if DEFINED $strEnvVarName set $strEnvVarName="
+						write-output "if ERRORLEVEL 1 exit /b 1"
+					}
+					else {
+						write-output "set $strEnvVarName=$strKeyValue" #+ [Environment]::NewLine
+						write-output "if ERRORLEVEL 1 exit /b 1"
+					}
+					
 					if ($strEnvVarName -eq "ODI_SCM_ORACLEDI_SECU_URL") {
 						# jdbc:oracle:thin:@localhost:1521:xe
 						$strKeyValueFields = $strKeyValue.split(":")
 						$strUrlHost = $($strKeyValueFields[3]).replace("@","")
 						$strUrlPort = $strKeyValueFields[4]
 						$strUrlSID = $strKeyValueFields[5]
-						write-output "set ODI_SCM_ORACLEDI_SECU_URL_HOST=$strUrlHost" 
-						write-output "set ODI_SCM_ORACLEDI_SECU_URL_PORT=$strUrlPort"
-						write-output "set ODI_SCM_ORACLEDI_SECU_URL_SID=$strUrlSID"
+						
+						if ($strUrlHost -eq "" -or $strUrlHost -eq $Null) {
+							write-output "if defined ODI_SCM_ORACLEDI_SECU_URL_HOST set ODI_SCM_ORACLEDI_SECU_URL_HOST="
+							write-output "if ERRORLEVEL 1 exit /b 1"
+						}
+						else {
+							write-output "set ODI_SCM_ORACLEDI_SECU_URL_HOST=$strUrlHost"
+							write-output "if ERRORLEVEL 1 exit /b 1"
+						}
+						
+						if ($strUrlPort -eq "" -or $strUrlPort -eq $Null) {
+							write-output "if defined ODI_SCM_ORACLEDI_SECU_URL_PORT set ODI_SCM_ORACLEDI_SECU_URL_PORT="
+							write-output "if ERRORLEVEL 1 exit /b 1"
+						}
+						else {
+							write-output "set ODI_SCM_ORACLEDI_SECU_URL_PORT=$strUrlPort"
+							write-output "if ERRORLEVEL 1 exit /b 1"
+						}
+						
+						if ($strUrlSID -eq "" -or $strUrlSID -eq $Null) {
+							write-output "if defined ODI_SCM_ORACLEDI_SECU_URL_SID set ODI_SCM_ORACLEDI_SECU_URL_SID="
+							write-output "if ERRORLEVEL 1 exit /b 1"
+						}
+						else {
+							write-output "set ODI_SCM_ORACLEDI_SECU_URL_SID=$strUrlSID"
+							write-output "if ERRORLEVEL 1 exit /b 1"
+						}
 					}
 					#DebuggingPause
 				}

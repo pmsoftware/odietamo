@@ -81,6 +81,18 @@ $OdiParamsText += $ScriptFileContent | out-string
 $OdiParamsText += [Environment]::NewLine
 $OdiParamsText += "REM OdiScm: end of odiparams.bat insertion" + [Environment]::NewLine
 
+#
+# Run an empty (NUL) Jython script to prime the package cache. Discard stderr so it doesn't interfere with our dectecting of if
+# the ODI command actually completed successfully.
+#
+$OdiParamsText += "REM OdiScm: start of Jython package cache priming insertion" + [Environment]::NewLine
+$OdiParamsText += '%ODI_JAVA_START% org.python.util.jython "-Dpython.home=%ODI_HOME%/lib/scripting" NUL 2>NUL' + [Environment]::NewLine
+$OdiParamsText += "if ERRORLEVEL 1 (" + [Environment]::NewLine
+$OdiParamsText += "	echo %EM% priming Jython package cache" + [Environment]::NewLine
+$OdiParamsText += "	exit /b 1" + [Environment]::NewLine
+$OdiParamsText += ")" + [Environment]::NewLine
+$OdiParamsText += "REM OdiScm: end of Jython package cache priming insertion" + [Environment]::NewLine
+
 $StartCmdOdiParamsCallText = '^call \"%ODI_HOME%\\bin\\odiparams.bat.*$'
 $StartCmdFileContent = get-content $StartCmdBat
 $OutStartCmdScriptFileContent = $StartCmdFileContent -Replace $StartCmdOdiParamsCallText, $OdiParamsText
@@ -123,7 +135,13 @@ $ScriptFileContent += "@echo off" + [Environment]::NewLine
 $ScriptFileContent += "set PROC=" + $strProc + [Environment]::NewLine
 $ScriptFileContent += "set IM=" + $strProc + ": INFO:" + [Environment]::NewLine
 $ScriptFileContent += "set EM=" + $strProc + ": ERROR:" + [Environment]::NewLine
+
 $ScriptFileContent += 'type NUL 1>"' + $strEmptyFile + '"' + [Environment]::NewLine
+$ScriptFileContent += "if ERRORLEVEL 1 (" + [Environment]::NewLine
+$ScriptFileContent += "	echo %EM% creating empty file ^<" + $strEmptyFile + "^>" + [Environment]::NewLine
+$ScriptFileContent += "	goto ExitFail" + [Environment]::NewLine
+$ScriptFileContent += ")" + [Environment]::NewLine
+
 $ScriptFileContent += "echo %IM% executing OracleDI command ^<%*^>" + [Environment]::NewLine
 $ScriptFileContent += 'call "' + $OutStartCmdBat + '" %*' 
 $ScriptFileContent += ' 1>"' + $strStdOutFile +'"'

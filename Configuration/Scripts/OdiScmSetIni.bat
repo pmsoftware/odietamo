@@ -32,36 +32,38 @@ if "%ODI_SCM_HOME%" == "" (
 	goto ExitFail
 )
 
-if not "%ARGV1%" == "" goto Arg1Ok
-echo %EM% usage: %FN% ^<Section Name^> ^<Key Name^> ^<Key Value^> 1>&2
-goto ExitFail
+if "%ARGV1%" == "" (
+	echo %EM% usage: %FN% ^<Section Name^> ^<Key Name^> ^<Key Value^> 1>&2
+	goto ExitFail
+)
 
-:Arg1Ok
-if not "%ARGV2%" == "" goto Arg2Ok
-echo %EM% usage: %FN% ^<Section Name^> ^<Key Name^> ^<Key Value^> 1>&2
-goto ExitFail
+if "%ARGV2%" == "" (
+	echo %EM% usage: %FN% ^<Section Name^> ^<Key Name^> ^<Key Value^> 1>&2
+	goto ExitFail
+)
 
-:Arg2Ok
-if not "%ARGV3%" == "" goto Arg3Ok
-echo %EM% usage: %FN% ^<Section Name^> ^<Key Name^> ^<Key Value^> 1>&2
-goto ExitFail
+if "%ARGV3%" == "" (
+	echo %EM% usage: %FN% ^<Section Name^> ^<Key Name^> ^<Key Value^> 1>&2
+	goto ExitFail
+)
 
-:Arg3Ok
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
 if ERRORLEVEL 1 (
 	echo %EM% creating temporary working directory 1>&2
 	goto ExitFail
 )
 
-REM
-REM Create an AWK script to set the key.
-REM
-set TEMPSTR=%RANDOM%
-set TEMPSCRIPT=%TEMPDIR%\%TEMPSTR%_OdiScmSetIni.awk
+rem
+rem Create an AWK script to set the key.
+rem
+set TEMPSCRIPT=%TEMPDIR%\OdiScmSetIni.awk
 echo %IM% using generated AWK script ^<%TEMPSCRIPT%^>
-set TEMPSTDOUT=%TEMPDIR%\%TEMPSTR%_OdiScmSetIni.stdout
+set TEMPSTDOUT=%TEMPDIR%\OdiScmSetIni.stdout
 
-cat "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetIniTemplate.awk" | sed "s/<SectionName>/%ARGV1%/g" | sed "s/<KeyName>/%ARGV2%/g" | sed "s/<KeyValue>/%ARGV3%/g" > %TEMPSCRIPT%
+set INISECTIONNAME=%ARGV1:$= %
+set INIKEYNAME=%ARGV2:$= %
+
+cat "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetIniTemplate.awk" | sed "s/<SectionName>/%INISECTIONNAME%/g" | sed "s/<KeyName>/%INIKEYNAME%/g" | sed "s/<KeyValue>/%ARGV3%/g" > %TEMPSCRIPT%
 if ERRORLEVEL 1 (
 	echo %EM% creating AWK script 1>&2
 	goto ExitFail

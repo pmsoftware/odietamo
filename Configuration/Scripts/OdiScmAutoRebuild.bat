@@ -24,8 +24,6 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-REM TODO: put paths to these tools into the OdiScm.ini file.
-set PATH=C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE;%PATH%
 set PATH=C:\MOI\Configuration\Tools\Sysinternals;%PATH%
 
 REM --------------------------------------------------------------------------
