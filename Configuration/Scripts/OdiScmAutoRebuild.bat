@@ -24,8 +24,6 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-set PATH=C:\MOI\Configuration\Tools\Sysinternals;%PATH%
-
 REM --------------------------------------------------------------------------
 REM Get parameter arguments.
 REM --------------------------------------------------------------------------
