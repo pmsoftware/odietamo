@@ -160,9 +160,21 @@ echo %IM% %MSG%
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmGenScenPostImportBat>"
 if ERRORLEVEL 1 goto MainExitFail
 
+rem
+rem Update the ODI repository flush control metadata after the import metadata if the user preference is set.
+rem
+set MSG=updating OdiScm flush control metadata
+if /i "<OdiScmGenerateImportResetsFlushControl>" == "Yes" (
+	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"<OdiScmHomeDir>\Configuration\Scripts\OdiScmPrimeRepoFlush.bat^" /p both
+	if ERRORLEVEL 1 (
+		echo %EM% %MSG%
+		goto ExitFail
+	)
+)
+
 set MSG=updating OdiScm local working copy metadata
 echo %IM% %MSG%
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetIni.bat^" /p Import$Controls OracleDI$Imported$Revision <OdiScmLatestChangeSet>
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"<OdiScmHomeDir>\Configuration\Scripts\OdiScmSetIni.bat^" /p Import$Controls OracleDI$Imported$Revision <OdiScmLatestChangeSet>
 if ERRORLEVEL 1 goto MainExitFail
 
 set MSG=updating OdiScm repository ChangeSet metadata

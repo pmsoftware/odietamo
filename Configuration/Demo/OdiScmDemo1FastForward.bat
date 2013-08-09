@@ -183,6 +183,9 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+echo check flush control metadata NOW
+pause
+
 rem
 rem Import the standard ODI demo after OdiScm so that we can flush it out to the working copy later on.
 rem
@@ -358,6 +361,9 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+echo check flush control metadata NOW
+pause
+
 set MSG=updating demo environment 2 SVN repository working copy from SVN repository and generating ODI code import scripts
 echo %IM% %MSG%
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGet.bat^" /p %DiscardStdOut% %DiscardStdErr%
@@ -373,6 +379,9 @@ if ERRORLEVEL 1 (
 	echo %EM% %MSG% 1>&2
 	goto ExitFail
 )
+
+echo imported from svn, check flush control metadata NOW
+pause
 
 rem
 rem Create a new project and package in demo environment 2 ODI repository.

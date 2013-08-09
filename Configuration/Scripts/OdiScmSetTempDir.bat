@@ -21,7 +21,7 @@ if ERRORLEVEL 1 (
 rem set TEMPDIR=%TEMPDIR%\OdiScm_%RANDOM%
 set TEMPDIR=%TEMPDIR%\OdiScm\OdiScm_%YYYYMMDD%_%HHMMSSFF%
 
-if EXIST "%TEMPDIR" (
+if EXIST "%TEMPDIR%" (
 	rd /s /q "%TEMPDIR%" >NUL 2>NUL
 	if ERRORLEVEL 1 (
 		echo %EM% deleting existing temporary directory ^<%TEMPDIR%^>

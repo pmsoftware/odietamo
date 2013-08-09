@@ -179,7 +179,7 @@ if ERRORLEVEL 1 (
 )
 
 if %PRIMEMETADATA% == FIRST (
-	call :PrimeExport
+	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeRepoFlush.bat^" /p both
 	if ERRORLEVEL 1 (
 		echo %EM% priming ODI-SCM export metadata before ODI-SCM import
 		goto ExitFail
@@ -350,7 +350,7 @@ if ERRORLEVEL 1 (
 )
 
 if %PRIMEMETADATA% == LAST (
-	call :PrimeExport
+	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeRepoFlush.bat^" /p both
 	if ERRORLEVEL 1 (
 		echo %EM% priming ODI-SCM export metadata after ODI-SCM import
 		goto ExitFail
@@ -378,26 +378,3 @@ exit %IsBatchExit% 0
 rem *************************************************************
 rem **                    S U B R O U T I N E S                **
 rem *************************************************************
-
-rem *************************************************************
-:PrimeExport
-rem *************************************************************
-rem
-rem Prime the export control metadata.
-rem
-echo %IM% priming ODI-SCM export control metadata
-set TEMPFILE=%TEMPDIR%\OdiScmPrimeExportNow_%ODI_SCM_ORACLEDI_USER%.sql
-cat "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeExportNow.sql" | sed s/"<OdiScmUserName>"/%ODI_SCM_ORACLEDI_USER%/g > "%TEMPFILE%"
-if ERRORLEVEL 1 (
-	echo %EM% generating creating temporary script ^<%TEMPFILE%^> to prime export mechanism
-	goto ExitFail
-)
-
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat^" /p %TEMPFILE%
-if ERRORLEVEL 1 (
-	echo %EM% priming ODI-SCM export metadata
-	exit /b 1
-)
-
-echo %IM% completed priming of ODI-SCM export control metadata
-goto :eof

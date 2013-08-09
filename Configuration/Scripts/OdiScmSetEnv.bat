@@ -125,6 +125,7 @@ REM
 echo %IM% processing configuration section ^<Generate^>
 echo OutputTag ODI_SCM_GENERATE_OUTPUT_TAG>%TEMPFILE2%
 echo ExportRefPhysArchOnly ODI_SCM_GENERATE_EXPORT_REF_PHYS_ARCH_ONLY>>%TEMPFILE2%
+echo ImportResetsFlushControl ODI_SCM_GENERATE_IMPORT_RESETS_FLUSH_CONTROL>>%TEMPFILE2%
 
 for /f "tokens=1,2" %%g in (%TEMPFILE2%) do (
 	call :SetConfig Generate %%g %%h

@@ -1,7 +1,8 @@
 Demonstration 1 - Step By Step
 ==============================
 
-This step-by-step demo shows the OdiScm solution used to build an ODI repository containing the standard ODI demo, export the demo to an Subversion (SVN) repository, then build a second ODI repository from the SVN respository.
+This step-by-step demo shows the OdiScm solution used to build an ODI repository containing the standard ODI demo, export the demo to a Subversion (SVN) repository, then build a second ODI repository from the SVN respository.
+Finally, we make some code changes in the second repository and send the code, via the SVN repository, to the first repository.
 
 We go through the following steps: -
 
@@ -16,6 +17,8 @@ We go through the following steps: -
 * Checking in ODI code from demo environment 1 SVN working copy to the SVN repository.
 * Creating demo environment 2.
 * Populating demo environment 2 ODI repository from the SVN repository.
+* Creating changes in demo environment 2 ODI repository, *flushing* them to the SVN working copy and checking them in to the SVN repository.
+* Updating demo environment 1 ODI repository from the SVN repository.
 
 Note: for the highly automated version of this demo, see the doc Demo1FastFoward. This uses more of the OdiScm utilities to automate most of the demo, following the initial installation of OdiScm and other tools. How exciting! But, we recommend you follow this demo through *first*.
 
@@ -159,6 +162,8 @@ Set the password of the SYSTEM user to "xe" during the installation.
 .. figure:: imgs/3_1_3.png
 
 A quick installation guide can be found here: http://bpits.net/how-to-set-up-local-oracle-sql-database-in-3-steps
+
+Note that the OracleXE installation includes an Oracle client.
 
 Install Subversion
 ------------------
@@ -451,6 +456,10 @@ First, tell OdiScm to use the new configuration INI file. From the command promp
 
 	set ODI_SCM_INI=C:\OdiScmWalkThrough\OdiScmImportStandardOdiDemoRepo1.ini
 
+Set the environment from the configuration INI file. From the command prompt::
+
+	call OdiScmEnvSet
+
 Run the following command to import the ODI code components of OdiScm into the new repository::
 
 	OdiScmImportOdiScm ExportPrimeLast
@@ -494,7 +503,8 @@ Apply new Marker to objects in the Demo project
 
 .. figure:: imgs/7_2_0.png
 
-Apply the new *Has Scenario* marker to each and every Interface and Procedure in the *Sales Administration* folder in the Demo project. Note that in this figure *Display markers and memo flags* is turned on in the ODI user parameters.
+Apply the new *Has Scenario* marker to each and every *Interface* in the *Sales Administration* folder in the Demo project. Leave the procedure *Delete Targets* for now.
+Note that in this figure *Display markers and memo flags* is turned on in the ODI user parameters.
 
 These markers will cause scenarios to be generated for these objects later on in the demo.
 
@@ -551,7 +561,7 @@ The *added* files are shown. Note the first column containing ``A`` (Added).
 
 Finally commit the files to the SVN repository::
 
-    svn commit –m "Initial check in of the standard ODI demo"
+	svn commit . –m "Initial check in of the standard ODI demo"
 
 .. figure:: imgs/9_2_2.png
 
@@ -657,6 +667,10 @@ First, tell OdiScm to use the new configuration INI file. From the command promp
 
 	set ODI_SCM_INI=C:\OdiScmWalkThrough\OdiScmImportStandardOdiDemoRepo2.ini
 
+Set the environment from the configuration INI file. From the command prompt::
+
+	call OdiScmEnvSet
+
 Run the following command to import the ODI code components of OdiScm into the new repository::
 
 	OdiScmImportOdiScm ExportPrimeLast
@@ -692,8 +706,110 @@ The generated script performs the following process:
 
 Refresh the Projects and Models views in the ODI Designer UI, and the Logical Architecture and Physical Architecture view in the ODI Topology UI, and the standard ODI demo material will now be visible.
 
-Note that the objects, marked with the custom OdiScm *Has Scenario* marker, in the demo environment 2 ODI repository, will have scenarios. But, in the demo environment 1 ODI repository the scenarios are not present. Hence the code in the SVN repository also does contain scenarios.
+Note that the objects, marked with the custom OdiScm *Has Scenario* marker (all the interfaces, but not the procedure), in the demo environment 2 ODI repository, will have scenarios. But, in the demo environment 1 ODI repository the scenarios are not present. Hence the code in the SVN repository also does contain scenarios.
 
 This shows the purpose of these markers - to identify those source objects that should have a Scenario.
 
 The OdiScm solution will generate scenarios for these objects when importing code from an SCM repository. Scenarios are not stored in the SCM repository because ODI does not consistently consistently generate Scenarios (the order of elements Scenarios tends to differ) from a consistent set of source objects, and we do not want a variation in a Scenario to be considered a change to a source object being controlled by the SCM repository.
+
+Create new objects in demo environment 2 ODI repository
+=======================================================
+
+Right, let's change some objects are create some new ODI objects in demo environment 2:
+
+Change procedure Delete Targets
+-------------------------------
+
+Open the procedure *Delete Targets* and add some new text to the end of the Definition. E.g. from::
+
+	Delete the target tables (evaluation purpose only)
+
+To::
+
+	Delete the target tables (evaluation purpose only)
+
+	==================================
+	Added the OdiScm automation marker
+	==================================
+
+.. figure:: imgs/13_1_3.png
+
+Also, add the OdiScm *Has Scenario* marker to the procedure:
+
+.. figure:: imgs/13_1_4.png
+
+Create a new project and package
+--------------------------------
+
+Create a new project with the following properties: -
+
+============== =========================
+Attribute      Value
+============== =========================
+Project Name   Demo2
+Project Code   DEMO2
+============== =========================
+
+.. figure:: imgs/13_1_5.png
+
+Then, inside the default project folder *First Folder* create a new package named *Demo2 Package*.
+
+.. figure:: imgs/13_1_6.png
+
+Flush the new and changed code to the SVN working copy
+------------------------------------------------------
+
+In addition, to using the OdiScm Designer objects, we can also flush additions and changes made in the ODI repository using an OdiScm command line command. From the command prompt::
+
+	OdiScmFlushRepository
+
+.. figure:: imgs/13_1_7.png
+
+You can see the job logs in the ODI Operator UI: -
+
+.. figure:: imgs/13_1_8.png
+
+Examine the SVN working copy. You'll find a new directory containing files for the new the project container object, the default project folder, the package we created, and the default marker groups created by ODI. These files have are not yet being tracked by the SVN working copy.
+
+Also, if you examine the ODI job logs, in the ODI Operator UI, you'll find that only the additions and changes applied to the ODI repository, via the Designer UI, *since* we populated the ODI repository from the SVN repository, were exported by the *flush* operation. The *flush* operation is *incremental*. In other words, it exports object that have been created or changed since the previous *flush* operation or installation of the OdiScm repository components.
+
+Next, add the newly exported files to, then check the status of, the SVN working copy. From the command prompt::
+
+	cd C:\OdiScmWalkThrough\Repo2WorkingCopy\SvnRepoRoot
+	svn add . --force
+	svn status
+
+.. figure:: imgs/13_1_9.png
+
+Finally, check in the pended working copy changes to the SVN repository. From the command prompt::
+
+	svn commit . –m "Adding some new stuff"
+
+*Update* demo environment 1 ODI repository from the SVN repository
+==================================================================
+
+We end this demo by switching back to demo environment 1 and updating the ODI repository from the work created in demo environment 2.
+
+First, tell OdiScm to use the new configuration INI file. From the command prompt::
+
+	set ODI_SCM_INI=C:\OdiScmWalkThrough\OdiScmImportStandardOdiDemoRepo1.ini
+
+Set the environment from the configuration INI file. From the command prompt::
+
+	call OdiScmEnvSet
+
+Get the updates from the SVN repository and generate the ODI import scripts. From the command prompt::
+
+	OdiScmGet
+
+.. figure:: imgs/13_1_10.png
+
+Execute the generated script. From the command prompt::
+
+	C:\OdiScm\odietamo\Logs\DemoEnvironment1\OdiScmBuild_DemoEnvironment1.bat
+
+.. figure:: imgs/13_1_11.png
+
+Refresh the Projects view in the ODI Designer UI and the new and changed objects will now be visible.
+
+.. figure:: imgs/13_1_12.png
