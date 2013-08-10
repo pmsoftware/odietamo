@@ -40,7 +40,12 @@ From the command prompt::
 
 Sit back and enjoy the output of the ODI-SCM commands!
 
+.. figure:: imgs/20_1_1.png
+
 Note that the ``/v`` (or ``/verbose``) switch causes the command to output additional progress messages.
 
+Without this switch specified, you'd see a much smaller output:
+
+.. figure:: imgs/20_1_2.png
 
 Please take a look inside the ``OdiScmDemo1FastForward.bat`` script for which ODI-SCM commands are used and how they work.

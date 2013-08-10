@@ -20,9 +20,9 @@ if ERRORLEVEL 1 (
 rem
 rem Validate arguments.
 rem
-if "%ARGC"%" neq "2" (
+if "%ARGC%" neq "2" (
 	echo %EM% invalid number of arguments 1>&2
-	echo %EM% usage: ^<%PROC%^> ^<path/to/demo/env1/INI/file^> ^<path/to/demo/env1/INI/file^> 1>&2
+	echo %EM% usage: ^<%PROC%^> ^<path/to/demo/env1/INI/file^> ^<path/to/demo/env2/INI/file^> 1>&2
 	goto ExitFail
 )
 
