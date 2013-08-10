@@ -1,10 +1,10 @@
-OdiScm Demonstrations
-=====================
+ODI-SCM Demonstrations
+======================
 
-Contents
---------
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :numbered:
 
    Demo1StepByStep
+   Demo1FastForward
+   continuous-auto-rebuild

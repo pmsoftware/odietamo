@@ -1,5 +1,5 @@
 Notes on documenting the project
---------------------------------
+================================
 
 I am using the Python based project `Sphinx <http://sphinx.pococo.org>`_ for creating
 decent documentation from text files.  This way we can store the docs, as plain text
@@ -20,8 +20,6 @@ Quick version
    $ start _build\html
 
 Thats it.
-
-
 
 Installation
 ------------
@@ -53,8 +51,6 @@ with the right layout for sphinx.  It asks you some simple questions, and you wi
 default, or really obvious stuff like your name.
 
 ::
-
-
    C:\Users\pbrian\foo\docs>sphinx-quickstart
    Welcome to the Sphinx 1.2b1 quickstart utility.
 
@@ -131,21 +127,18 @@ default, or really obvious stuff like your name.
       make builder
    where "builder" is one of the supported builders, e.g. html, latex or linkcheck.
 
-
 OK, we now have a directory structure like::
 
    C:\Users\pbrian\foo\docs>ls
    Makefile    _static     conf.py     make.bat
    _build      _templates  index.rst
 
-we only need to worry about two things
+We only need to worry about two things:
 
 1. index.rst
 2. make.bat
 
-
 Here is the layout of index.rst, with some crud at the top and bottom removed.::
-
 
    Welcome to Foo's documentation!
    ===============================
@@ -155,7 +148,7 @@ Here is the layout of index.rst, with some crud at the top and bottom removed.::
    .. toctree::
       :maxdepth: 2
 
-We shall expand this a little bit ::
+We shall expand this a little bit::
 
    $ mkdir foobar
    $ notepad foobar/whatIdidlastsummer.rst
@@ -163,24 +156,22 @@ We shall expand this a little bit ::
 It is convenient to have the index.rst file as the only thing in docs/ and to put all the real docs in
 foobar, for convenience.
 
-We now write some docs in ``foobar/whatIdidlastsummer.rst`` ::
-
+We now write some docs in ``foobar/whatIdidlastsummer.rst``::
 
    Last Summer
    ===========
 
-   Underlineing the above will make it an H1.  THis paragrpah will be quite normal
+   Underlineing the above will make it an H1. This paragrpah will be quite normal
    and then these will be bullet points
 
    * Sunbathed
    * Wrote code
    * Slept
 
-   Another paragrpah here.
+   Another paragraph here.
 
 Now we need to tell the index about the page we have just written::
    
-
    Welcome to Foo's documentation!
    ===============================
 
@@ -194,7 +185,7 @@ Now we need to tell the index about the page we have just written::
 Making HTML
 -----------
 
-We are nearly there.::
+We are nearly there::
 
    $ make.bat html
    ... lots of messages
@@ -204,12 +195,10 @@ And then click on index.html
 
 Hey - we have documentation.
 
-
 How to run this for odietamo::
 
-   $ cd c:\src\odietamo\docs
+   $ cd c:\OdiScm\odietamo\docs
    $ make.bat html
    $ start _build\html
 
-
-Thats it
+Thats it.

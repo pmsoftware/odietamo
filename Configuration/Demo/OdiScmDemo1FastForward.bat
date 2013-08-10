@@ -18,6 +18,27 @@ if ERRORLEVEL 1 (
 )
 
 rem
+rem Validate arguments.
+rem
+if "%ARGC"%" neq "2" (
+	echo %EM% invalid number of arguments 1>&2
+	echo %EM% usage: ^<%PROC%^> ^<path/to/demo/env1/INI/file^> ^<path/to/demo/env1/INI/file^> 1>&2
+	goto ExitFail
+)
+
+if not EXIST "%ARGV1%" (
+	echo %EM% specified demo environment 1 configuration INI file ^<%ARGV1%^> does not exist 1>&2
+	goto ExitFail
+)
+
+set DEMO_ENV1_INI=%ARGV1%
+
+if not EXIST "%ARGV2%" (
+	echo %EM% specified demo environment 2 configuration INI file ^<%ARGV2%^> does not exist 1>&2
+	goto ExitFail
+)
+
+rem
 rem Source the working directory.
 rem
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
@@ -25,6 +46,8 @@ if ERRORLEVEL 1 (
 	echo %EM% creating temporary working directory 1>&2
 	goto ExitFail
 )
+
+set DEMO_ENV2_INI=%ODI_SCM_DEMO_BASE%\OdiScmImportStandardOdiDemoRepo2.ini
 
 rem
 rem Create the demo base directory.
@@ -78,14 +101,6 @@ if ERRORLEVEL 1 (
 rem *************************************************************
 rem Demo environment 1.
 rem *************************************************************
-set DEMO_ENV1_INI=%ODI_SCM_DEMO_BASE%\OdiScmImportStandardOdiDemoRepo1.ini
-
-copy "%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportStandardOdiDemoRepo1.ini" "%DEMO_ENV1_INI%" >NUL
-if ERRORLEVEL 1 (
-	echo %EM% copying demo environment 1 configuration INI file to demo base directory ^<%ODI_SCM_DEMO_BASE%^> 1>&2
-	goto ExitFail
-)
-
 set ODI_SCM_INI=%DEMO_ENV1_INI%
 set MSG=setting OdiScm environment for demo 1 environment from ^^^<%ODI_SCM_INI%^^^>
 echo %IM% %MSG%
@@ -183,9 +198,6 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-echo check flush control metadata NOW
-pause
-
 rem
 rem Import the standard ODI demo after OdiScm so that we can flush it out to the working copy later on.
 rem
@@ -256,14 +268,6 @@ if ERRORLEVEL 1 (
 rem *************************************************************
 rem Demo environment 2.
 rem *************************************************************
-set DEMO_ENV2_INI=%ODI_SCM_DEMO_BASE%\OdiScmImportStandardOdiDemoRepo2.ini
-
-copy "%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportStandardOdiDemoRepo2.ini" "%DEMO_ENV2_INI%" >NUL
-if ERRORLEVEL 1 (
-	echo %EM% copying demo environment 2 configuration INI file to demo base directory ^<%ODI_SCM_DEMO_BASE%^> 1>&2
-	goto ExitFail
-)
-
 set ODI_SCM_INI=%DEMO_ENV2_INI%
 set MSG=setting OdiScm environment for demo 2 environment from ^^^<%ODI_SCM_INI%^^^>
 echo %IM% %MSG%
@@ -361,9 +365,6 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-echo check flush control metadata NOW
-pause
-
 set MSG=updating demo environment 2 SVN repository working copy from SVN repository and generating ODI code import scripts
 echo %IM% %MSG%
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGet.bat^" /p %DiscardStdOut% %DiscardStdErr%
@@ -379,9 +380,6 @@ if ERRORLEVEL 1 (
 	echo %EM% %MSG% 1>&2
 	goto ExitFail
 )
-
-echo imported from svn, check flush control metadata NOW
-pause
 
 rem
 rem Create a new project and package in demo environment 2 ODI repository.
