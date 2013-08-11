@@ -23,6 +23,7 @@ Contents
    project-background
    odiscm-installation
    odiscm-demonstrations
+   odiscm-working-practices
    odiscm-technical-manual
    bugs-enhancement-suggestions
    contributing

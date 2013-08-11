@@ -229,3 +229,31 @@ A example configuration file (borrowed from the output of demo 1) with all secti
 	[Import Controls]
 	OracleDI Imported Revision=2
 	Working Copy Revision=2
+
+The *Get* Process
+-----------------
+
+The OdiScmGet command is the command that updates the working copy, from the SCM system, *and* generates the scripts to update the ODI repository with the new/changed files from the *Get* operation.
+
+Dealing with Conflicts
+~~~~~~~~~~~~~~~~~~~~~~
+
+Details of how to handle conflicts between *your* code and incoming code from the *Get* process - coming very soon!
+
+Details of how to handle *check in* conflicts - coming very soon!
+
+The *Flush* Process
+-------------------
+
+The ODI repository *flush* is the process that exports additions and changes, made to the ODI repository (either via the ODI UI, or the ODI 11g SDK) to the working copy so that the new/changed code can be added and checked in to the SCM system.
+
+The *flush* process is invoked either from the command prompt, using the ``OdiScmFlushRepository`` command, or from the ODI *Designer* UI, by executing the Scenario::
+
+	ODI-SCM (project) -> COMMON (folder) -> Packages -> OSUTL_FLUSH_REPOSITORY -> Scenarios -> OSUTL_FLUSH_REPOSITORY Version 001
+
+Note: you might see the version number ``1`` instead of ``001`` depending upon the version of ODI you're using.
+
+Reference Topology
+------------------
+
+Details coming soon!
