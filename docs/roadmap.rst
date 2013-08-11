@@ -7,7 +7,7 @@ Well, a few off of the tops of our heads:
 
 * Fully document the ODI-SCM commands.
 * Less noisy command output!
-* Documentation and demonstration of check-in and marge conflict detection and resolution.
+* Documentation and demonstration of check-in and merge conflict detection and resolution.
 * Get through the current enhancements list (tracked as Issues on the GitHub site).
 * Deployment of database structures from the SCM system.
 * Documentation and demonstration of ODI test automation.

@@ -41,7 +41,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'OdiScm'
-copyright = u'2013, Mark Matten'
+copyright = u'2013, Mark Matten, Paul Brian'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -188,7 +188,7 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'odiscm.tex', u'odiscm Documentation',
-   u'Mark Matten', 'manual'),
+   u'Mark Matten', u'Paul Brian', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -218,7 +218,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'odiscm', u'odiscm Documentation',
-     [u'Mark Matten'], 1)
+     [u'Mark Matten', u'Paul Brian'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -232,7 +232,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'odiscm', u'odiscm Documentation',
-   u'Mark Matten', 'odiscm', 'One line description of project.',
+   u'Mark Matten, Paul Brian', 'odiscm', 'One line description of project.',
    'Miscellaneous'),
 ]
 

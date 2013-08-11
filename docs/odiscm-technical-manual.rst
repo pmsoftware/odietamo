@@ -274,7 +274,7 @@ To tell SVN not to automatically merge ODI object source files, we tell SVN to t
 The SVN Configuraton File
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The SVN configuration file, named ``config``, is created by SVN the first time that the SVN command line client (svn.exe) is run. On Windows systems it exists in a directory called ``Subversion`` that is located in ``AppData`` direcotory of the user's profile directory. The user's profile directory has different locations depending upon the version of Windows being used.
+The SVN configuration file, named ``config``, is created by SVN the first time that the SVN command line client (svn.exe) is run. On Windows systems it exists in a directory called ``Subversion`` that is located in ``AppData`` directory of the user's profile directory. The user's profile directory has different locations depending upon the version of Windows being used.
 
 E.g. on a Windows 7 machine, the config file might be::
 

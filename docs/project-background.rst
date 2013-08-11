@@ -11,7 +11,7 @@ So, we built.
 
 We built a tool to recover our source code base for each production Scenario that we had executing: a tool to scour the landscape of repositories and identify the correct source (where it still existed).
 
-We built tools to export source objects at the *right* level of granularity, for check in our source code control systems.
+We built tools to export source objects at the *right* level of granularity, for check in to our source code control systems.
 
 And, we established.
 
