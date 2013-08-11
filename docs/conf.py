@@ -166,6 +166,10 @@ html_static_path = ['_static']
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'OdiScmDoc'
 
+#
+# Added to get the Blue/Default Sphinx theme on readthedocs.org.
+#
+html_style = 'default.css'
 
 # -- Options for LaTeX output --------------------------------------------------
 
