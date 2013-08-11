@@ -257,3 +257,56 @@ Reference Topology
 ------------------
 
 Details coming soon!
+
+Configuring Your SVN Client
+---------------------------
+
+If you're using Subversion, not TFS, with ODI-SCM, then you will need to prevent SVN from automatically *merging* changes in ODI object source files. We do not want to let SVN merge changes, coming from the SVN repository into the working copy, with changes made to the ODI object source file, via the ODI UI (and exported via ODI-SCM).
+
+This is because SVN will perform a textual merge of the two sets of changes and produce a new merged (text) file. Although the ODI object source files, produced by ODI-SCM, are text (XML) files the textual merge performed by SVN is not guaranteed to produce a usable/coherent ODI object source file.
+
+So when we prevent SVN from doing this SVN will highlight any conflicts between theirs (the incoming changes from the SVN repository) and ours (the code we've exported from our ODI repository) at the source file level.
+
+How we deal with any conflicts that we come across is discussed in another section.
+
+To tell SVN not to automatically merge ODI object source files, we tell SVN to treat these file types as binary file types. SVN will not attempt to merge changes for binary files (because the results are unlikely to be useful). We tell SVN to treat the ODI source object files as binary by assigning each file the SVN property ``svn:mime-type`` and a property value of ``application/octet-stream``. This property is assigned to the file when the file is first created in SVN repository.
+
+The SVN Configuraton File
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The SVN configuration file, named ``config``, is created by SVN the first time that the SVN command line client (svn.exe) is run. On Windows systems it exists in a directory called ``Subversion`` that is located in ``AppData`` direcotory of the user's profile directory. The user's profile directory has different locations depending upon the version of Windows being used.
+
+E.g. on a Windows 7 machine, the config file might be::
+
+	C:\Users\Mark Matten\AppData\Roaming\Subversion\config
+
+E.g. on a Windows XP machine, the config file might be::
+
+	C:\Documents and Settings\mattenm\AppData\Roaming\Subversion\config
+
+For more information on this subject see the SVN book, online at http://svnbook.red-bean.com/en/1.7/svn.advanced.confarea.html.
+
+To enable to automatic property assignment, ensure that in the ``[miscellany]`` section of the configuration file ensure that the entry ``enable-auto-props`` is set to ``yes``. I.e.::
+
+	enable-auto-props = yes
+
+In the ``[auto-props]`` section of the configuration file add an entry, for each of the ODI object types that are exportable by ODI-SCM. You can copy and paste the following into your configuration file::
+
+*.SnpTechno = svn:mime-type=application/octet-stream
+*.SnpConnect = svn:mime-type=application/octet-stream
+*.SnpPschema = svn:mime-type=application/octet-stream
+*.SnpLschema = svn:mime-type=application/octet-stream
+*.SnpContext = svn:mime-type=application/octet-stream
+*.SnpProject = svn:mime-type=application/octet-stream
+*.SnpFolder = svn:mime-type=application/octet-stream
+*.SnpTrt = svn:mime-type=application/octet-stream
+*.SnpPackage = svn:mime-type=application/octet-stream
+*.SnpPop = svn:mime-type=application/octet-stream
+*.SnpVar = svn:mime-type=application/octet-stream
+*.SnpUfunc = svn:mime-type=application/octet-stream
+*.SnpSequence = svn:mime-type=application/octet-stream
+*.SnpGrpState = svn:mime-type=application/octet-stream
+*.SnpModFolder = svn:mime-type=application/octet-stream
+*.SnpModel = svn:mime-type=application/octet-stream
+*.SnpSubModel = svn:mime-type=application/octet-stream
+*.SnpTable = svn:mime-type=application/octet-stream
