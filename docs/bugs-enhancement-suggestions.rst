@@ -1,6 +1,12 @@
-Bugs, enhancements and suggestions
-==================================
+Support, Bugs, Enhancements and Suggestions
+===========================================
 
-Please log all bugs, requests for enhancements and suggestions as *Issues* on the ODI-SCM GitHub project, at::
+Got *Issues*?
+-------------
 
-	https://github.com/pmsoftware/odietamo
+Get them off your chest by airing them in the dicussion group at https://groups.google.com/forum/#!forum/odi-scm.
+
+Help *Us* Help *You*
+--------------------
+
+Please log all bugs, requests for enhancements and suggestions as *Issues* on the ODI-SCM GitHub project, at https://github.com/pmsoftware/odietamo.
