@@ -21,10 +21,6 @@ Start PowerShell. From the command prompt::
 
 	powershell
 
-Set the script execution policy::
-
-	set-executionpolicy unrestricted
-
 Then press ``Y`` to confirm.
 
 Exit PowerShell. From the command promt::
@@ -144,6 +140,10 @@ Install the ODI-SCM solution
 Download the latest ODI-SCM files from GitHub, either by downloading a ZIP file archive of the latest version. The ZIP file can be downloaded from::
 
 	https://github.com/pmsoftware/odietamo/archive/master.zip
+
+*Unblock* the downloaded ZIP file by clicking *Unblock* on the ZIP file *properties dialogue* in Windows Explorer:
+
+.. figure:: imgs/3_1_5.png
 
 Unpack the contents of "odietamo-master.zip" to a new empty directory::
 

@@ -90,6 +90,14 @@ if /i "%ARGV:~0,1%" == "/" (
 rem
 rem Now process regular parameters and populate ARGV1...ARGVn and ARGC.
 rem
+
+rem
+rem First, initialise ARGC and the ARGn variables to remove any inherited values.
+rem
+for /f %%g in ('set ^| grep ARGV[1-9].* ^| cut -f1 -d^=') do (
+	set %%g=
+)
+
 set ARGC=0
 set /a ParamNo=0
 
