@@ -33,7 +33,7 @@ set ODI_SCM_DEMO_BASE=C:\OdiScmWalkThrough
 
 if not EXIST "%ODI_SCM_DEMO_BASE%" (
 	echo %IM% creating demo base directory ^<%ODI_SCM_DEMO_BASE%^>
-	md "%ODI_SCM_SCM_REPO_ROOT%"
+	md "%ODI_SCM_DEMO_BASE%"
 	if ERRORLEVEL 1 (
 		echo %EM% creating demo base directory ^<%ODI_SCM_DEMO_BASE%^> 1>&2
 		goto ExitFail
