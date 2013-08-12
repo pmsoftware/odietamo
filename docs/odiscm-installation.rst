@@ -1,8 +1,8 @@
-Install and set up the OdiScm solution
-======================================
+Install and set up the ODI-SCM solution
+=======================================
 
-Set up additional tools for the OdiScm solution
------------------------------------------------
+Set up additional tools for the ODI-SCM solution
+------------------------------------------------
 
 Install Windows PowerShell
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -104,19 +104,19 @@ The specific ODI 10g version is ``ODI 10.1.3.5.6_02``. The base installer (``10.
 
 The specific ODI 11g version is ``ODI 11.1.1.6.4``. The base installer (``11.1.1.6.0``) and the patch (``11.1.1.6.4``) can be downloaded from the Oracle support website.
 
-These ODI versions have proven free *enough* of bugs to work with the OdiScm system. Note that we say *free enough* as there are still some bugs in these versions of the import/export API that we have had to work around.
+These ODI versions have proven free *enough* of bugs to work with the ODI-SCM system. Note that we say *free enough* as there are still some bugs in these versions of the import/export API that we have had to work around.
 
 We assume you already know your way around the ODI UIs, directory structure and scripts.
 
 For ODI 10g the usual content of the "oracledi" directory is required.
 For ODI 11g the usual content of the *Oracle Home* directory, containing the "oracledi" directory, is required. The ODI SDK must also be installed.
 
-A fairly standard, or *clean*, ``odiparams.bat`` script is required in the installation that you're using as OdiScm uses this script to generate its own *startcmd.bat* replacement at run time.
+A fairly standard, or *clean*, ``odiparams.bat`` script is required in the installation that you're using as ODI-SCM uses this script to generate its own *startcmd.bat* replacement at run time.
 
 Install Oracle Client
 ~~~~~~~~~~~~~~~~~~~~~
 
-An Oracle client is required for repository backup operations. A fat client is required rather than the 'instant' client as the OdiScm solution requires the 'exp' command line utility in order to create repository backups. The Oracle client software that OdiScm will use must be compatible with the Oracle database(s) that host the ODI repositories that you will be using during this demo.
+An Oracle client is required for repository backup operations. A fat client is required rather than the 'instant' client as the ODI-SCM solution requires the 'exp' command line utility in order to create repository backups. The Oracle client software that ODI-SCM will use must be compatible with the Oracle database(s) that host the ODI repositories that you will be using during this demo.
 
 This installation can be tested by running the exp.exe command.
 
@@ -124,10 +124,10 @@ This installation can be tested by running the exp.exe command.
 
 If installed correctly, the imp.exe command will prompt for a database logon user name. Pressing <Control>-C will return you to the command prompt.
 
-Install the OdiScm solution
----------------------------
+Install the ODI-SCM solution
+----------------------------
 
-Download the latest OdiScm files from GitHub, either by downloading a ZIP file archive of the latest version. The ZIP file can be downloaded from::
+Download the latest ODI-SCM files from GitHub, either by downloading a ZIP file archive of the latest version. The ZIP file can be downloaded from::
 
 	https://github.com/pmsoftware/odietamo/archive/master.zip
 
@@ -146,13 +146,13 @@ You should see a directory structure similar to this::
 	C:\OdiScm\odietamo-master\Source
 	C:\OdiScm\odietamo-master\docs
 
-Alternatively the OdiScm solution can be downloaded by *cloning* the *master* branch of the GitHub Git repository using Git software. See http://git-scm.com if you're new to GIT. If using this method to download the OdiScm files then the directory structure will likely be different. For example the directory ``odietamo-master`` will likely be called ``odietamo`` instead. Adjust, as appropriate, the paths mentioned in the remainder of this demo.
+Alternatively the OdiScm solution can be downloaded by *cloning* the *master* branch of the GitHub Git repository using Git software. See http://git-scm.com if you're new to GIT. If using this method to download the ODI-SCM files then the directory structure will likely be different. For example the directory ``odietamo-master`` will likely be called ``odietamo`` instead. Adjust, as appropriate, the paths mentioned in the remainder of this demo.
 
-Add a new environment variable ODI_SCM_HOME (My Computer -> Advanced -> Environment Variables) either in the User or System sections. Set the variable value to the path of the new directory into which the OdiScm files were unpacked::
+Add a new environment variable ODI_SCM_HOME (My Computer -> Advanced -> Environment Variables) either in the User or System sections. Set the variable value to the path of the new directory into which the ODI-SCM files were unpacked::
 
 	C:\OdiScm\odietamo-master
 
-Next, add the OdiScm scripts directory::
+Next, add the ODI-SCM scripts directory::
 
 	C:\OdiScm\odietamo-master\Configuration\Scripts
 
