@@ -17,6 +17,20 @@ If PowerShell is not available then install it from the download at::
 
    http://support.microsoft.com/kb/968929		(Powershell 2.0)
 
+Start PowerShell. From the command prompt::
+
+	powershell
+
+Set the script execution policy::
+
+	set-executionpolicy unrestricted
+
+Then press ``Y`` to confirm.
+
+Exit PowerShell. From the command promt::
+
+	exit
+
 Install UnxUtils
 ~~~~~~~~~~~~~~~~
 
