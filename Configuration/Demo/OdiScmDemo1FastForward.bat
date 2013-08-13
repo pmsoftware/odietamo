@@ -38,16 +38,7 @@ if not EXIST "%ARGV2%" (
 	goto ExitFail
 )
 
-rem
-rem Source the working directory.
-rem
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
-if ERRORLEVEL 1 (
-	echo %EM% creating temporary working directory 1>&2
-	goto ExitFail
-)
-
-set DEMO_ENV2_INI=%ODI_SCM_DEMO_BASE%\OdiScmImportStandardOdiDemoRepo2.ini
+set DEMO_ENV2_INI=%ARGV2%
 
 rem
 rem Create the demo base directory.
@@ -143,9 +134,11 @@ if ERRORLEVEL 1 (
 rem
 rem Working directory.
 rem
+setlocal enabledelayedexpansion
+
 if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%" (
-	set MSG=deleting existing demo environment 1 working directory tree ^^^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^^^>
-	echo %IM% %MSG%
+	set MSG=deleting existing demo environment 1 working directory tree ^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^>
+	echo %IM% !MSG!
 	chmod -R a+w "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% making existing demo environment 1 working directory tree ^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^> writable 1>&2
@@ -153,7 +146,7 @@ if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%" (
 	)
 	rm -fr "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
 	if ERRORLEVEL 1 (
-		echo %EM% %MSG% 1>&2
+		echo %EM% !MSG! 1>&2
 		goto ExitFail
 	)
 )
@@ -166,22 +159,22 @@ if ERRORLEVEL 1 (
 
 if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "10." (
 	set MSG=importing demo environment 1 ODI repository
-	echo %IM% %MSG%
+	echo %IM% !MSG!
 	"%ODI_SCM_TOOLS_ORACLE_HOME%\bin\imp.exe" %ODI_SCM_ORACLEDI_SECU_USER%/%ODI_SCM_ORACLEDI_SECU_PASS%@%ODI_SCM_ORACLEDI_SECU_URL_HOST%:%ODI_SCM_ORACLEDI_SECU_URL_PORT%/%ODI_SCM_ORACLEDI_SECU_URL_SID% file=%ODI_SCM_HOME%\Configuration\Demo\%ODI_SCM_ORACLEDI_SECU_USER%_repid_100_empty_master_work_%ODI_SCM_ORACLEDI_VERSION%.dmp full=y %DiscardStdOut% %DiscardStdErr%
 	if ERRORLEVEL 1 (
-		echo %EM% %MSG% 1>&2
+		echo %EM% !MSG! 1>&2
 		goto ExitFail
 	)
 ) else (
 	if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "11." (
 		set MSG=creating demo environment 1 ODI repository
-		echo %IM% %MSG%
+		echo %IM% !MSG!
 		rem
 		rem Use a repository ID that doesn't conflict with with the standard ODI demo.
 		rem
 		call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiRepository.bat^" /p 100 %DiscardStdOut% %DiscardStdErr%
 		if ERRORLEVEL 1 (
-			echo %EM% %MSG% 1>&2
+			echo %EM% !MSG! 1>&2
 			goto ExitFail
 		)
 	) else (
@@ -311,8 +304,8 @@ rem
 rem Working directory.
 rem
 if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%" (
-	set MSG=deleting existing demo environment 2 working root directory ^^^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^^^>
-	echo %IM% %MSG%
+	set MSG=deleting existing demo environment 2 working root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^>
+	echo %IM% !MSG!
 	chmod -R a+w "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% making existing demo environment 2 working root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%^> writable 1>&2
@@ -320,7 +313,7 @@ if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%" (
 	)
 	rm -fr "%ODI_SCM_SCM_SYSTEM_WORKING_ROOT%"
 	if ERRORLEVEL 1 (
-		echo %EM% %MSG% 1>&2
+		echo %EM% !MSG! 1>&2
 		goto ExitFail
 	)
 )
@@ -333,22 +326,22 @@ if ERRORLEVEL 1 (
 
 if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "10." (
 	set MSG=importing demo environment 2 ODI repository
-	echo %IM% %MSG%
+	echo %IM% !MSG!
 	"%ODI_SCM_TOOLS_ORACLE_HOME%\bin\imp.exe" %ODI_SCM_ORACLEDI_SECU_USER%/%ODI_SCM_ORACLEDI_SECU_PASS%@%ODI_SCM_ORACLEDI_SECU_URL_HOST%:%ODI_SCM_ORACLEDI_SECU_URL_PORT%/%ODI_SCM_ORACLEDI_SECU_URL_SID% file=%ODI_SCM_HOME%\Configuration\Demo\%ODI_SCM_ORACLEDI_SECU_USER%_repid_200_empty_master_work_%ODI_SCM_ORACLEDI_VERSION%.dmp full=y %DiscardStdOut% %DiscardStdErr%
 	if ERRORLEVEL 1 (
-		echo %IM% %MSG% 1>&2
+		echo %IM% !MSG! 1>&2
 		goto ExitFail
 	)
 ) else (
 	if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "11." (
 		set MSG=creating demo environment 2 ODI repository
-		echo %IM% %MSG%
+		echo %IM% !MSG!
 		rem
 		rem Use a repository ID that doesn't conflict with with the standard ODI demo.
 		rem
 		call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiRepository.bat^" /p 200 %DiscardStdOut% %DiscardStdErr%
 		if ERRORLEVEL 1 (
-			echo %EM% %MSG% 1>&2
+			echo %EM% !MSG! 1>&2
 			goto ExitFail
 		)
 	) else (
@@ -401,6 +394,70 @@ echo %IM% %MSG%
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo^" /p %ODI_SCM_HOME%\Configuration\Scripts\OdiScmRestoreRepositoryIntegrity.sql %DiscardStdOut%
 if ERRORLEVEL 1 (
 	echo %IM% %MSG% 1>&2
+	goto ExitFail
+)
+
+rem
+rem Export the new project and package and updated procedure, using OdiScm, to the working copy from demo repository 2.
+rem
+set MSG=flushing demo environment 2 ODI repository to demo environment 2 SVN repository working copy
+echo %IM% %MSG%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFlushRepository.bat^" /p %DiscardStdOut%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
+
+rem
+rem Add the new and updated ODI object files to the SCM system working copy.
+rem
+set MSG=adding new and updated ODI object files flushed from demo environment 2 ODI repository to demo environment 2 SVN repository working copy
+echo %IM% %MSG%
+svn add %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%/SvnRepoRoot/*.* --force %DiscardStdOut% %DiscardStdErr%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
+
+rem
+rem Commit the new and updated ODI object files to the SCM repository.
+rem
+set MSG=committing changes in demo environment 2 SVN repository working copy to SVN repository
+echo %IM% %MSG%
+svn commit -m "Demo auto check in of initial demo export" %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%/SvnRepoRoot/*.* %DiscardStdOut% %DiscardStdErr%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
+
+rem *************************************************************
+rem Demo environment 1.
+rem *************************************************************
+set ODI_SCM_INI=%DEMO_ENV1_INI%
+set MSG=setting OdiScm environment for demo 1 environment from ^^^<%ODI_SCM_INI%^^^>
+echo %IM% %MSG%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSaveScriptSwitches.bat"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmEnvSet.bat" %DiscardStdOut%
+if ERRORLEVEL 1 (
+	echo %IM% %MSG% 1>&2
+	goto ExitFail
+)
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmLoadScriptSwitches.bat"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
+
+set MSG=updating demo environment 1 SVN repository working copy from SVN repository and generating ODI code import scripts
+echo %IM% %MSG%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGet.bat^" /p %DiscardStdOut% %DiscardStdErr%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
+
+set MSG=executing generated ODI code import scripts to update demo environment 1 ODI repository
+echo %IM% %MSG%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Logs\DemoEnvironment1\OdiScmBuild_DemoEnvironment1.bat^" %DiscardStdOut% %DiscardStdErr%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
 	goto ExitFail
 )
 

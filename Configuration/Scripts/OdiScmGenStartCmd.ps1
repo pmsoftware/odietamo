@@ -1,9 +1,9 @@
-$FN = "OdiScmMakeStartCmd"
+$FN = "OdiScmGenStartCmd"
 $IM = $FN + ": INFO:"
 $EM = $FN + ": ERROR:"
 
 if ($args.count -ne 1) {
-	write-output "$EM usage: OdiScmMakeStartCmd <output path and file name>"
+	write-output "$EM usage: $FN <output path and file name>"
 	exit 1
 }
 
@@ -26,11 +26,73 @@ if (!(test-path $OdiParamsBat)) {
 	exit 1
 }
 
-$ScriptFileContent = get-content $OdiParamsBat
+#
+# Load odiparams.bat into an array.
+#
+[array] $arrOdiParamsContent = get-content $OdiParamsBat
+
+$arrOdiParamsOutText = @()
+
+$arrOdiParamsOutText += "REM"
+$arrOdiParamsOutText += "REM OdiScm: start of odiparams.bat insertion"
+$arrOdiParamsOutText += "REM"
+
+foreach ($x in $arrOdiParamsContent) {
+	$arrOdiParamsOutText += $x
+}
+
+$arrOdiParamsOutText += "REM"
+$arrOdiParamsOutText += "REM OdiScm: end of odiparams.bat insertion"
+$arrOdiParamsOutText += "REM"
+
+#
+# Run an empty (NUL) Jython script to prime the package cache. Discard stderr so it doesn't interfere with our dectecting of if
+# the ODI command actually completed successfully.
+#
+$arrOdiParamsOutText += "REM"
+$arrOdiParamsOutText += "REM OdiScm: start of Jython package cache priming insertion"
+$arrOdiParamsOutText += "REM"
+$arrOdiParamsOutText += '%ODI_JAVA_START% org.python.util.jython "-Dpython.home=%ODI_HOME%/lib/scripting" NUL 2>NUL'
+$arrOdiParamsOutText += "if ERRORLEVEL 1 ("
+$arrOdiParamsOutText += "     echo %EM% priming Jython package cache"
+$arrOdiParamsOutText += "     exit /b 1"
+$arrOdiParamsOutText += ")"
+$arrOdiParamsOutText += "REM"
+$arrOdiParamsOutText += "REM OdiScm: end of Jython package cache priming insertion"
+$arrOdiParamsOutText += "REM"
+
+$StartCmdOdiParamsCallText = '^call \"%ODI_HOME%\\bin\\odiparams.bat.*$'
+#
+# Load startcmd.bat.bat into an array.
+#
+$arrStartCmdContent = get-content $StartCmdBat
+
+$OutStartCmdScriptFileContent = $arrStartCmdContent | foreach {
+	if ($_ -match $StartCmdOdiParamsCallText) {
+		#
+		# Replace the call to odiparams.bat in the pipeline output.
+		#
+		foreach ($x in $arrOdiParamsOutText) {
+			write-output $x
+		}
+	}
+	else {
+		#
+		# Pass through the current record to the pipeline output.
+		#
+		write-output $_
+	}
+}
+
+# write-host "printing merged text.............................................................."
+# $OutStartCmdScriptFileContent | foreach { write-host $_ }
+# write-host "end of printing merged text.............................................................."
 
 #######################################################################
 # Expand variable values.
 #######################################################################
+$ScriptFileContent = $OutStartCmdScriptFileContent
+
 $ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_HOME%"         , $env:ODI_SCM_ORACLEDI_HOME }
 $ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_JAVA_HOME%"    , $env:ODI_SCM_ORACLEDI_JAVA_HOME }
 $ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%JAVA_HOME%"        , $env:ODI_SCM_ORACLEDI_JAVA_HOME }
@@ -55,47 +117,31 @@ $ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_MASTER_ENC
 #######################################################################
 # Modify variable SET statements.
 #######################################################################
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_HOME=.*"         , "set ODI_HOME=$env:ODI_SCM_ORACLEDI_HOME" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_JAVA_HOME=.*"    , "set ODI_JAVA_HOME=$env:ODI_SCM_ORACLEDI_JAVA_HOME" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set JAVA_HOME=.*"        , "set JAVA_HOME=$env:ODI_SCM_ORACLEDI_JAVA_HOME" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_WORK_REP=.*", "set ODI_SECU_WORK_REP=$env:ODI_SCM_ORACLEDI_SECU_WORK_REP" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_USER=.*"         , "set ODI_USER=$env:ODI_SCM_ORACLEDI_USER" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_ENCODED_PASS=.*" , "set ODI_ENCODED_PASS=$env:ODI_SCM_ORACLEDI_ENCODED_PASS" }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_HOME=.*$"         , "set ODI_HOME=$env:ODI_SCM_ORACLEDI_HOME" }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_JAVA_HOME=.*$"    , "set ODI_JAVA_HOME=$env:ODI_SCM_ORACLEDI_JAVA_HOME" }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set JAVA_HOME=.*$"        , "set JAVA_HOME=$env:ODI_SCM_ORACLEDI_JAVA_HOME" }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_WORK_REP=.*$", "set ODI_SECU_WORK_REP=$env:ODI_SCM_ORACLEDI_SECU_WORK_REP" }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_USER=.*$"         , "set ODI_USER=$env:ODI_SCM_ORACLEDI_USER" }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_ENCODED_PASS=.*$" , "set ODI_ENCODED_PASS=$env:ODI_SCM_ORACLEDI_ENCODED_PASS" }
 #
 # ODI 10g variables.
 #
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_DRIVER=.*"      , "set ODI_SECU_DRIVER=$env:ODI_SCM_ORACLEDI_SECU_DRIVER" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_URL=.*"         , "set ODI_SECU_URL=$env:ODI_SCM_ORACLEDI_SECU_URL" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_USER=.*"        , "set ODI_SECU_USER=$env:ODI_SCM_ORACLEDI_SECU_USER" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_ENCODED_PASS=.*", "set ODI_SECU_ENCODED_PASS=$env:ODI_SCM_ORACLEDI_SECU_ENCODED_PASS" }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_DRIVER=.*$"      , "set ODI_SECU_DRIVER=$env:ODI_SCM_ORACLEDI_SECU_DRIVER" }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_URL=.*$"         , "set ODI_SECU_URL=$env:ODI_SCM_ORACLEDI_SECU_URL" }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_USER=.*$"        , "set ODI_SECU_USER=$env:ODI_SCM_ORACLEDI_SECU_USER" }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_ENCODED_PASS=.*$", "set ODI_SECU_ENCODED_PASS=$env:ODI_SCM_ORACLEDI_SECU_ENCODED_PASS" }
 #
 # ODI 11g variables.
 #
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_MASTER_DRIVER=.*"      , "set ODI_MASTER_DRIVER=$env:ODI_SCM_ORACLEDI_SECU_DRIVER" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_MASTER_URL=.*"         , "set ODI_MASTER_URL=$env:ODI_SCM_ORACLEDI_SECU_URL" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_MASTER_USER=.*"        , "set ODI_MASTER_USER=$env:ODI_SCM_ORACLEDI_SECU_USER" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_MASTER_ENCODED_PASS=.*", "set ODI_MASTER_ENCODED_PASS=$env:ODI_SCM_ORACLEDI_SECU_ENCODED_PASS" }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_MASTER_DRIVER=.*$"      , "set ODI_MASTER_DRIVER=$env:ODI_SCM_ORACLEDI_SECU_DRIVER" }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_MASTER_URL=.*$"         , "set ODI_MASTER_URL=$env:ODI_SCM_ORACLEDI_SECU_URL" }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_MASTER_USER=.*$"        , "set ODI_MASTER_USER=$env:ODI_SCM_ORACLEDI_SECU_USER" }
+$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_MASTER_ENCODED_PASS=.*$", "set ODI_MASTER_ENCODED_PASS=$env:ODI_SCM_ORACLEDI_SECU_ENCODED_PASS" }
 
-$OdiParamsText = "REM OdiScm: start of odiparams.bat insertion" + [Environment]::NewLine
-$OdiParamsText += $ScriptFileContent | out-string
-$OdiParamsText += [Environment]::NewLine
-$OdiParamsText += "REM OdiScm: end of odiparams.bat insertion" + [Environment]::NewLine
+$OutStartCmdScriptFileContent = $ScriptFileContent
 
-#
-# Run an empty (NUL) Jython script to prime the package cache. Discard stderr so it doesn't interfere with our dectecting of if
-# the ODI command actually completed successfully.
-#
-$OdiParamsText += "REM OdiScm: start of Jython package cache priming insertion" + [Environment]::NewLine
-$OdiParamsText += '%ODI_JAVA_START% org.python.util.jython "-Dpython.home=%ODI_HOME%/lib/scripting" NUL 2>NUL' + [Environment]::NewLine
-$OdiParamsText += "if ERRORLEVEL 1 (" + [Environment]::NewLine
-$OdiParamsText += "	echo %EM% priming Jython package cache" + [Environment]::NewLine
-$OdiParamsText += "	exit /b 1" + [Environment]::NewLine
-$OdiParamsText += ")" + [Environment]::NewLine
-$OdiParamsText += "REM OdiScm: end of Jython package cache priming insertion" + [Environment]::NewLine
-
-$StartCmdOdiParamsCallText = '^call \"%ODI_HOME%\\bin\\odiparams.bat.*$'
-$StartCmdFileContent = get-content $StartCmdBat
-$OutStartCmdScriptFileContent = $StartCmdFileContent -Replace $StartCmdOdiParamsCallText, $OdiParamsText
+# write-host "printing again.............................................................."
+# $OutStartCmdScriptFileContent | foreach { write-host $_ }
 
 ###write-host "OutStartCmdScriptFileContent: " $OutStartCmdScriptFileContent
 

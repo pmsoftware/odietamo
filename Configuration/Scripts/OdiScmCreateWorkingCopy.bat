@@ -101,27 +101,27 @@ if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
 rem
 rem Create a TFS workspace.
 rem
-echo %IM% deleting existing TFS workspace ^<%ARGV1%^>
-tf workspace /delete /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% %ARGV1% /noprompt 2>NUL
+echo %IM% deleting existing TFS workspace ^<%ARGV2%^>
+tf workspace /delete /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% %ARGV2% /noprompt 2>NUL
 
-echo %IM% creating TFS workspace ^<%ARGV1%^>
-tf workspace /new /noprompt %ARGV1% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%
+echo %IM% creating TFS workspace ^<%ARGV2%^>
+tf workspace /new /noprompt %ARGV2% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%
 if ERRORLEVEL 1 (
-	echo %EM% creating TFS workspace ^<%ARGV1%^> 1>&2
+	echo %EM% creating TFS workspace ^<%ARGV2%^> 1>&2
 	goto ExitFail
 )
 
-echo %IM% deleting default folder mapping for TFS workspace ^<%ARGV1%^>
-tf workfold /noprompt /unmap /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% /workspace:%ARGV1% $/
+echo %IM% deleting default folder mapping for TFS workspace ^<%ARGV2%^>
+tf workfold /noprompt /unmap /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% /workspace:%ARGV2% $/
 if ERRORLEVEL 1 (
-	echo %EM% deleting default folder mapping for TFS workspace ^<%ARGV1%^> 1>&2
+	echo %EM% deleting default folder mapping for TFS workspace ^<%ARGV2%^> 1>&2
 	goto ExitFail
 )
 
-echo %IM% creating mapping for TFS workspace ^<%ARGV1%^> to branch URL ^<%ODI_SCM_SCM_SYSTEM_BRANCH_URL%^>
-tf workfold /map "%ODI_SCM_SCM_SYSTEM_BRANCH_URL%" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" /workspace:%ARGV1% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%
+echo %IM% creating mapping for TFS workspace ^<%ARGV2%^> to branch URL ^<%ODI_SCM_SCM_SYSTEM_BRANCH_URL%^>
+tf workfold /map "%ODI_SCM_SCM_SYSTEM_BRANCH_URL%" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" /workspace:%ARGV2% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%
 if ERRORLEVEL 1 (
-	echo %EM% creating mapping for TFS workspace ^<%ARGV1%^> to branch URL ^<%ODI_SCM_SCM_SYSTEM_BRANCH_URL%^> 1>&2
+	echo %EM% creating mapping for TFS workspace ^<%ARGV2%^> to branch URL ^<%ODI_SCM_SCM_SYSTEM_BRANCH_URL%^> 1>&2
 	goto ExitFail
 )
 
@@ -142,10 +142,10 @@ if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
 		goto ExitFail
 	)
 ) else (
-	echo %IM% getting contents from SCM repository for TFS workspace ^<%ARGV1%^> 1>&2
+	echo %IM% getting contents from SCM repository for TFS workspace ^<%ARGV2%^> 1>&2
 	tf get %ODI_SCM_SCM_SYSTEM_BRANCH_URL% %INITREV% /recursive /force /noprompt
 	if ERRORLEVEL 1 (
-		echo %EM% getting contents from SCM repository for TFS workspace ^<%ARGV1%^> 1>&2
+		echo %EM% getting contents from SCM repository for TFS workspace ^<%ARGV2%^> 1>&2
 		goto ExitFail
 	)
 )
