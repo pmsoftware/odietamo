@@ -48,7 +48,7 @@ if "%BeVerbose%" == "TRUE" (
 	set VerboseSwitch=
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Demo\OdiScmDemo1FastForward.bat^" %VerboseSwitch% %DEMO_ENV1_INI% %DEMO_ENV1_INI%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Demo\OdiScmDemo1FastForward.bat^" %VerboseSwitch% %DEMO_ENV1_INI% %DEMO_ENV2_INI%
 if ERRORLEVEL 1 (
 	echo %EM% executing demo 1 Fast Foward script 1>&2
 	goto ExitFail
