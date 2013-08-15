@@ -21,9 +21,6 @@ rem Run the passed command in a new cmd.exe.
 rem
 cmd.exe /c %*
 set EXITSTATUS=%ERRORLEVEL%
-rem echo got back EL of %errorlevel%
-::echo back from child
-::tasklist | grep cmd.exe
 rem
 rem Return the passed command's exit status to the calling batch file.
 rem

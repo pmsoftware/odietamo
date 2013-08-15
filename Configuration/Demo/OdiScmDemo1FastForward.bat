@@ -160,7 +160,7 @@ if ERRORLEVEL 1 (
 if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "10." (
 	set MSG=importing demo environment 1 ODI repository
 	echo %IM% !MSG!
-	"%ODI_SCM_TOOLS_ORACLE_HOME%\bin\imp.exe" %ODI_SCM_ORACLEDI_SECU_USER%/%ODI_SCM_ORACLEDI_SECU_PASS%@%ODI_SCM_ORACLEDI_SECU_URL_HOST%:%ODI_SCM_ORACLEDI_SECU_URL_PORT%/%ODI_SCM_ORACLEDI_SECU_URL_SID% file=%ODI_SCM_HOME%\Configuration\Demo\%ODI_SCM_ORACLEDI_SECU_USER%_repid_100_empty_master_work_%ODI_SCM_ORACLEDI_VERSION%.dmp full=y %DiscardStdOut% %DiscardStdErr%
+	"%ODI_SCM_TOOLS_ORACLE_HOME%\bin\imp.exe" %ODI_SCM_ORACLEDI_SECU_USER%/%ODI_SCM_ORACLEDI_SECU_PASS%@%ODI_SCM_ORACLEDI_SECU_URL_HOST%:%ODI_SCM_ORACLEDI_SECU_URL_PORT%/%ODI_SCM_ORACLEDI_SECU_URL_SID% file=%ODI_SCM_HOME%\Configuration\Demo\%ODI_SCM_ORACLEDI_SECU_USER%_repid_%ODI_SCM_ORACLEDI_REPOSITORY_ID%_empty_master_work_%ODI_SCM_ORACLEDI_VERSION%.dmp full=y %DiscardStdOut% %DiscardStdErr%
 	if ERRORLEVEL 1 (
 		echo %EM% !MSG! 1>&2
 		goto ExitFail
@@ -172,7 +172,7 @@ if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "10." (
 		rem
 		rem Use a repository ID that doesn't conflict with with the standard ODI demo.
 		rem
-		call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiRepository.bat^" /p 100 %DiscardStdOut% %DiscardStdErr%
+		call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiRepository.bat^" /p %ODI_SCM_ORACLEDI_REPOSITORY_ID% %DiscardStdOut% %DiscardStdErr%
 		if ERRORLEVEL 1 (
 			echo %EM% !MSG! 1>&2
 			goto ExitFail
@@ -327,7 +327,7 @@ if ERRORLEVEL 1 (
 if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "10." (
 	set MSG=importing demo environment 2 ODI repository
 	echo %IM% !MSG!
-	"%ODI_SCM_TOOLS_ORACLE_HOME%\bin\imp.exe" %ODI_SCM_ORACLEDI_SECU_USER%/%ODI_SCM_ORACLEDI_SECU_PASS%@%ODI_SCM_ORACLEDI_SECU_URL_HOST%:%ODI_SCM_ORACLEDI_SECU_URL_PORT%/%ODI_SCM_ORACLEDI_SECU_URL_SID% file=%ODI_SCM_HOME%\Configuration\Demo\%ODI_SCM_ORACLEDI_SECU_USER%_repid_200_empty_master_work_%ODI_SCM_ORACLEDI_VERSION%.dmp full=y %DiscardStdOut% %DiscardStdErr%
+	"%ODI_SCM_TOOLS_ORACLE_HOME%\bin\imp.exe" %ODI_SCM_ORACLEDI_SECU_USER%/%ODI_SCM_ORACLEDI_SECU_PASS%@%ODI_SCM_ORACLEDI_SECU_URL_HOST%:%ODI_SCM_ORACLEDI_SECU_URL_PORT%/%ODI_SCM_ORACLEDI_SECU_URL_SID% file=%ODI_SCM_HOME%\Configuration\Demo\%ODI_SCM_ORACLEDI_SECU_USER%_repid_%ODI_SCM_ORACLEDI_REPOSITORY_ID%_empty_master_work_%ODI_SCM_ORACLEDI_VERSION%.dmp full=y %DiscardStdOut% %DiscardStdErr%
 	if ERRORLEVEL 1 (
 		echo %IM% !MSG! 1>&2
 		goto ExitFail
@@ -339,7 +339,7 @@ if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "10." (
 		rem
 		rem Use a repository ID that doesn't conflict with with the standard ODI demo.
 		rem
-		call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiRepository.bat^" /p 200 %DiscardStdOut% %DiscardStdErr%
+		call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiRepository.bat^" /p %ODI_SCM_ORACLEDI_REPOSITORY_ID% %DiscardStdOut% %DiscardStdErr%
 		if ERRORLEVEL 1 (
 			echo %EM% !MSG! 1>&2
 			goto ExitFail

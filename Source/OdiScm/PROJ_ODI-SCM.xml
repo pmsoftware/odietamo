@@ -66,6 +66,75 @@
 	<Field name="SnpsTable" type="java.lang.String"><![CDATA[SNP_VAR]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpVar">
+		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2013-08-14 16:31:57.0]]></Field>
+	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="DefV" type="java.lang.String"><![CDATA[Yes]]></Field>
+	<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-14 16:34:44.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
+	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IProject" type="com.sunopsis.sql.DbInt"><![CDATA[1998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[664998]]></Field>
+	<Field name="ITxtVarIn" type="com.sunopsis.sql.DbInt"><![CDATA[665998]]></Field>
+	<Field name="ITxtVarValTxt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IVar" type="com.sunopsis.sql.DbInt"><![CDATA[40998]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:36:45.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="LschemaName" type="java.lang.String"><![CDATA[ODIMASTERREP_DATA]]></Field>
+	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
+	<Field name="VarName" type="java.lang.String"><![CDATA[ExportCleansImportRepObjs]]></Field>
+	<Field name="VarType" type="java.lang.String"><![CDATA[P]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[664998]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Determines whether the ODI-SCM export process removes SnpMImportRep object types from the exported XML or not.
+
+Removing them allows us to import objects into a repository of the same ID as they were originally created in. This is ok was we re-align the SNP_ID and SNP_ENT_ID tables after our imports.]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2998]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:36:45.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:36:45.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpOrigTxt">
+		<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2998]]></Field>
+	<Field name="OrigineName" type="java.lang.String"><![CDATA[Variable description]]></Field>
+	<Field name="SnpsCol" type="java.lang.String"><![CDATA[I_TXT_VAR]]></Field>
+	<Field name="SnpsTable" type="java.lang.String"><![CDATA[SNP_VAR]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpTxt">
+		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[665998]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT export_cleans_importrep
+  FROM odiscm_configurations
+ WHERE odi_user_name = 
+       (
+       SELECT user_name
+         FROM snp_session@odiworkrep_data
+        WHERE sess_no = <%=odiRef.getSession("SESS_NO")%>
+       )]]></Field>
+	<Field name="LangName" type="java.lang.String">null</Field>
+	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[11998]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:36:45.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:36:45.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpVar">
 		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2012-06-11 11:12:57.0]]></Field>
 	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="DefV" type="java.lang.String"><![CDATA[Yes]]></Field>
@@ -132,12 +201,6 @@
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpOrigTxt">
-		<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[2998]]></Field>
-	<Field name="OrigineName" type="java.lang.String"><![CDATA[Variable description]]></Field>
-	<Field name="SnpsCol" type="java.lang.String"><![CDATA[I_TXT_VAR]]></Field>
-	<Field name="SnpsTable" type="java.lang.String"><![CDATA[SNP_VAR]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[625998]]></Field>
@@ -47810,7 +47873,7 @@ finally:
 	<Field name="KmDefault" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KmSrcTechno" type="java.lang.String">null</Field>
 	<Field name="KmTechno" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-20 11:12:34.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:36:04.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LChecksum" type="com.sunopsis.sql.DbInt"><![CDATA[2496]]></Field>
 	<Field name="LCode" type="java.lang.String">null</Field>
@@ -47820,7 +47883,7 @@ finally:
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScen">
 		<Field name="ExtVersion" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-20 15:21:15.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:17.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
 	<Field name="IndPromptParam" type="java.lang.String">null</Field>
@@ -47830,7 +47893,7 @@ finally:
 	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[50998]]></Field>
 	<Field name="ITxtScen" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IVar" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-20 15:21:17.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:18.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="ScenName" type="java.lang.String"><![CDATA[OSUTL_EXPORT_OBJECT]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
@@ -47861,6 +47924,32 @@ finally:
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.ExportClassName]]></Field>
 	<Field name="VarParam" type="java.lang.String"><![CDATA[1]]></Field>
 	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
+		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2013-08-14 16:31:57.0]]></Field>
+	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="DefV" type="java.lang.String"><![CDATA[Yes]]></Field>
+	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
+	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[3411998]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
+	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
+	<Field name="VarName" type="java.lang.String"><![CDATA[OS.ExportCleansImportRepObjs]]></Field>
+	<Field name="VarParam" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
+		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:18.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[3411998]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:18.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Determines whether the ODI-SCM export process removes SnpMImportRep object types from the exported XML or not.
+
+Removing them allows us to import objects into a repository of the same ID as they were originally created in. This is ok was we re-align the SNP_ID and SNP_ENT_ID tables after our imports.]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
 		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2011-08-08 13:08:19.0]]></Field>
@@ -48038,98 +48127,11 @@ raise(a)]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[Session("SESS_NO") ?>', 'r')
-ftrg = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/#OS.ExportFilePathName/#OS.ExportFileName', 'w')
-
-try:
-	lsrc = fsrc.readline()
-	while (lsrc):
-		ltrg = lsrc
-		ftrg.write(ltrg)
-		lsrc = fsrc.readline()
-finally]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[:
-	fsrc.close()
-	ftrg.close()
-
-print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[# Import Regular Expressions library.
-import re
-print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Starts'
-fsrc = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.ExportFileName', 'r')
-ftrg = open('<?=snpRef.getSchemaName("ODISCMWC_DATA",]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ "W") ?>/#OS.ExportFileName.<?=snpRef.getSession("SESS_NO") ?>', 'w')
-
-try:
-	lsrc = fsrc.readline()
-	while (lsrc):
-		#if lsrc.startswith('\t<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA['):
-		if lsrc.find('<Field name="FirstDate" type="j]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ava.sql.Timestamp"><![CDATA[') >= 0:
-			#ltrg = ''\t<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0SNPS_CDATA_END_TAG</Field>\n'
-			ltrg = re.sub('CDATA\[.*\]\]','CDATA[2001-01-01 00:00:00.0]]',lsrc)
-		#elif lsrc.star]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[tswith('\t<Field name="LastDate" type="java.sql.Timestamp"><![CDATA['):
-		elif lsrc.find('<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[') >= 0:
-			#ltrg = '\t<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[SNPS_CDATA_END_TAG</Field>\n'
-			ltrg = re.sub('CDATA\[.*\]\]','CDATA[2001-01-01 00:00:00.0]]',lsrc)
-		#elif lsrc.startswith('\t<Field name="FirstUser" type="java.lang.String"><![CDATA['):
-		elif lsrc.find('<Field name="FirstUser" type="java.lang.Str]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[A[') >= 0:
+			ltrg = re.sub('CDATA\[.*\]\]','CDATA[SUPERVISOR]]',lsrc)
+		elif lsrc.find('<Field name="OriginRepositoryID" type="com.sunopsis.sql.DbInt">') >= 0:
+			ltrg = re.sub('\>.*\<','>null<',lsrc)
+		elif lsrc.find('<Field name="IndChange" type="]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -48139,10 +48141,10 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ing"><![CDATA[') >= 0:
-			#ltrg = '\t<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISORSNPS_CDATA_END_TAG</Field>\n'
-			ltrg = re.sub('CDATA\[.*\]\]','CDATA[SUPERVISOR]]',lsrc)
-		#elif lsrc.startswith('\t<Field name="LastUser" type="]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[java.lang.String"><![CDATA[') >= 0:
+			ltrg = re.sub('CDATA\[.*\]\]','CDATA[I]]',lsrc)
+		elif (lsrc.find('<Object class="com.sunopsis.dwg.dbobj.SnpMImportRep">') >= 0) or (lsrc.find('<Object class="com.sunopsis.dwg.dbobj.SnpImportRep">') >= 0):
+			##]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -48152,10 +48154,16 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[java.lang.String"><![CDATA['):
-		elif lsrc.find('<Field name="LastUser" type="java.lang.String"><![CDATA[') >= 0:
-			#ltrg = '\t<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISORSNPS_CDATA_END_TAG</Field>\n'
-			ltrg = re.sub('CDATA\[.]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[#print 'OSUTL_EXPORT_OBJECT: DEBUG: found an SnpMImportRep'
+			blnfoundSnpMImportRep = "True"
+			ltrg = lsrc
+		else:
+			ltrg = lsrc
+		
+		blnWriteOut = "True"
+		
+		if blnfoundSnpMImportRep:
+			###print 'OSUTL_EXPORT_OBJECT: DEBUG: we have still found ]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -48165,11 +48173,12 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[*\]\]','CDATA[SUPERVISOR]]',lsrc)
-		elif lsrc.find('<Field name="OriginRepositoryID" type="com.sunopsis.sql.DbInt">') >= 0:
-			ltrg = re.sub('\>.*\<','>null<',lsrc)
-		elif lsrc.find('<Field name="IndChange" type="java.lang.String"><![CDATA[') >= 0:
-	]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[an SnpMImportRep'
+			if "#OS.ExportCleansImportRepObjs" == "Yes":
+				blnWriteOut = ""
+			if lsrc.find('</Object>') >= 0:
+				# We have reached the end of the SnpMImportRep object.
+				###print 'OSUTL_EXPORT_OBJECT: DEBUG: found end of an SnpMImportR]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -48179,18 +48188,131 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[		ltrg = re.sub('CDATA\[.*\]\]','CDATA[I]]',lsrc)
+	<Field name="Txt" type="java.lang.String"><![CDATA[ep'
+				blnfoundSnpMImportRep = ""
 		else:
-			ltrg = lsrc
+			blnWriteOut = "True"
+		
+		###print 'OSUTL_EXPORT_OBJECT: DEBUG: blnfoundSnpMImportRep: ' + blnfoundSnpMImportRep
+		###print 'OSUTL_EXPORT_OBJECT: DEBUG: blnWriteOut: ' + blnWriteOut
+		
+		if blnWriteOut:
+	]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[		###print 'OSUTL_EXPORT_OBJECT: DEBUG: writing record: ' + ltrg
+			ftrg.write(ltrg)
+		###else:
+			###print 'OSUTL_EXPORT_OBJECT: DEBUG: discarding record: ' + ltrg
+		
+		lsrc = fsrc.readline()
+finally:
+	fsrc.close()
+	ftrg.close()
 
+fsrc = open('<?=snp]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Ref.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.ExportFileName.<?=snpRef.getSession("SESS_NO") ?>', 'r')
+ftrg = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/#OS.ExportFilePathName/#OS.ExportFileName', 'w')
+
+try:
+	lsrc = fsrc.readline()
+	whil]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[e (lsrc):
+		ltrg = lsrc
 		ftrg.write(ltrg)
 		lsrc = fsrc.readline()
 finally:
 	fsrc.close()
 	ftrg.close()
 
-fsrc = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.ExportFileName.<?=snpRef.get]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
+print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[11]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Starts'
+
+# Import Regular Expressions library.
+import re
+
+fsrc = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.ExportFileName', 'r')
+ftrg = open('<?=snpRef.getSchemaName("ODISCMWC_DATA]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[", "W") ?>/#OS.ExportFileName.<?=snpRef.getSession("SESS_NO") ?>', 'w')
+
+blnfoundSnpMImportRep = ""
+
+try:
+	lsrc = fsrc.readline()
+	while (lsrc):
+		###print 'OSUTL_EXPORT_OBJECT: DEBUG: processing source record: ' + lsrc
+		
+		if lsrc.find('<Field name]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[="FirstDate" type="java.sql.Timestamp"><![CDATA[') >= 0:
+			ltrg = re.sub('CDATA\[.*\]\]','CDATA[2001-01-01 00:00:00.0]]',lsrc)
+		elif lsrc.find('<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[') >= 0:
+			ltrg = re.sub('CDATA\[.*\]\]','CDA]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[43998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[TA[2001-01-01 00:00:00.0]]',lsrc)
+		elif lsrc.find('<Field name="FirstUser" type="java.lang.String"><![CDATA[') >= 0:
+			ltrg = re.sub('CDATA\[.*\]\]','CDATA[SUPERVISOR]]',lsrc)
+		elif lsrc.find('<Field name="LastUser" type="java.lang.String"><![CDAT]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpUserExit">
 		<Field name="ExtVersion" type="java.lang.String">null</Field>
@@ -48401,7 +48523,7 @@ raise(a)]]></Field>
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-20 11:12:35.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:36:04.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[90]]></Field>
@@ -48410,39 +48532,62 @@ raise(a)]]></Field>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[603998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[# Import Regular Expressions library.
+	<Field name="Txt" type="java.lang.String"><![CDATA[print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Starts'
+
+# Import Regular Expressions library.
 import re
-print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Starts'
+
 fsrc = open('<%=odiRef.getSchemaName("ODISCMWC_DATA", "W")%>/#ExportFileName', 'r')
 ftrg = open('<%=odiRef.getSchemaName("ODISCMWC_DATA", "W")%>/#ExportFileName.<%=snpRef.getSession("SESS_NO")%>', 'w')
+
+blnfoundSnpMImportRep = ""
 
 try:
 	lsrc = fsrc.readline()
 	while (lsrc):
-		#if lsrc.startswith('\t<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA['):
+		###print 'OSUTL_EXPORT_OBJECT: DEBUG: processing source record: ' + lsrc
+		
 		if lsrc.find('<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[') >= 0:
-			#ltrg = ''\t<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0SNPS_CDATA_END_TAG</Field>\n'
 			ltrg = re.sub('CDATA\[.*\]\]','CDATA[2001-01-01 00:00:00.0]]',lsrc)
-		#elif lsrc.startswith('\t<Field name="LastDate" type="java.sql.Timestamp"><![CDATA['):
 		elif lsrc.find('<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[') >= 0:
-			#ltrg = '\t<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0SNPS_CDATA_END_TAG</Field>\n'
 			ltrg = re.sub('CDATA\[.*\]\]','CDATA[2001-01-01 00:00:00.0]]',lsrc)
-		#elif lsrc.startswith('\t<Field name="FirstUser" type="java.lang.String"><![CDATA['):
 		elif lsrc.find('<Field name="FirstUser" type="java.lang.String"><![CDATA[') >= 0:
-			#ltrg = '\t<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISORSNPS_CDATA_END_TAG</Field>\n'
 			ltrg = re.sub('CDATA\[.*\]\]','CDATA[SUPERVISOR]]',lsrc)
-		#elif lsrc.startswith('\t<Field name="LastUser" type="java.lang.String"><![CDATA['):
 		elif lsrc.find('<Field name="LastUser" type="java.lang.String"><![CDATA[') >= 0:
-			#ltrg = '\t<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISORSNPS_CDATA_END_TAG</Field>\n'
 			ltrg = re.sub('CDATA\[.*\]\]','CDATA[SUPERVISOR]]',lsrc)
 		elif lsrc.find('<Field name="OriginRepositoryID" type="com.sunopsis.sql.DbInt">') >= 0:
 			ltrg = re.sub('\>.*\<','>null<',lsrc)
 		elif lsrc.find('<Field name="IndChange" type="java.lang.String"><![CDATA[') >= 0:
 			ltrg = re.sub('CDATA\[.*\]\]','CDATA[I]]',lsrc)
+		elif (lsrc.find('<Object class="com.sunopsis.dwg.dbobj.SnpMImportRep">') >= 0) or (lsrc.find('<Object class="com.sunopsis.dwg.dbobj.SnpImportRep">') >= 0):
+			###print 'OSUTL_EXPORT_OBJECT: DEBUG: found an SnpMImportRep'
+			blnfoundSnpMImportRep = "True"
+			ltrg = lsrc
 		else:
 			ltrg = lsrc
-
-		ftrg.write(ltrg)
+		
+		blnWriteOut = "True"
+		
+		if blnfoundSnpMImportRep:
+			###print 'OSUTL_EXPORT_OBJECT: DEBUG: we have still found an SnpMImportRep'
+			if "#ExportCleansImportRepObjs" == "Yes":
+				blnWriteOut = ""
+			if lsrc.find('</Object>') >= 0:
+				# We have reached the end of the SnpMImportRep object.
+				###print 'OSUTL_EXPORT_OBJECT: DEBUG: found end of an SnpMImportRep'
+				blnfoundSnpMImportRep = ""
+		else:
+			blnWriteOut = "True"
+		
+		###print 'OSUTL_EXPORT_OBJECT: DEBUG: blnfoundSnpMImportRep: ' + blnfoundSnpMImportRep
+		###print 'OSUTL_EXPORT_OBJECT: DEBUG: blnWriteOut: ' + blnWriteOut
+		
+		if blnWriteOut:
+			###print 'OSUTL_EXPORT_OBJECT: DEBUG: writing record: ' + ltrg
+			ftrg.write(ltrg)
+		###else:
+			###print 'OSUTL_EXPORT_OBJECT: DEBUG: discarding record: ' + ltrg
+		
 		lsrc = fsrc.readline()
 finally:
 	fsrc.close()
@@ -48467,9 +48612,9 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-20 11:12:35.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:36:04.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-20 11:12:35.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:36:04.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -49073,7 +49218,7 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="IPackage" type="com.sunopsis.sql.DbInt"><![CDATA[2998]]></Field>
 	<Field name="IState" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="ITxtPack" type="com.sunopsis.sql.DbInt"><![CDATA[619998]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:05.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="OrdFolder" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="PackName" type="java.lang.String"><![CDATA[OSCONFIGURE]]></Field>
@@ -49087,9 +49232,9 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:05.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:05.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -49130,7 +49275,7 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="KoNextStep" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="KoRetry" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="KoRetryInterv" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LockJrn" type="java.lang.String">null</Field>
 	<Field name="ModCod" type="java.lang.String">null</Field>
@@ -49162,9 +49307,9 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -49205,7 +49350,7 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="KoNextStep" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="KoRetry" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="KoRetryInterv" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LockJrn" type="java.lang.String">null</Field>
 	<Field name="ModCod" type="java.lang.String">null</Field>
@@ -49237,9 +49382,9 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -49274,7 +49419,7 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="KoNextStep" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="KoRetry" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="KoRetryInterv" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LockJrn" type="java.lang.String">null</Field>
 	<Field name="ModCod" type="java.lang.String">null</Field>
@@ -49306,9 +49451,9 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -49343,7 +49488,7 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="KoNextStep" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="KoRetry" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="KoRetryInterv" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LockJrn" type="java.lang.String">null</Field>
 	<Field name="ModCod" type="java.lang.String">null</Field>
@@ -49375,9 +49520,9 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -49412,7 +49557,7 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="KoNextStep" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="KoRetry" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="KoRetryInterv" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LockJrn" type="java.lang.String">null</Field>
 	<Field name="ModCod" type="java.lang.String">null</Field>
@@ -49465,7 +49610,7 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="KoNextStep" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="KoRetry" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="KoRetryInterv" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LockJrn" type="java.lang.String">null</Field>
 	<Field name="ModCod" type="java.lang.String">null</Field>
@@ -49497,9 +49642,9 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -49517,7 +49662,7 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="HeightVal" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String"><![CDATA[Y]]></Field>
 	<Field name="IMod" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IPackage" type="com.sunopsis.sql.DbInt"><![CDATA[2998]]></Field>
@@ -49534,14 +49679,14 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="KoNextStep" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="KoRetry" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="KoRetryInterv" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:25:06.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LockJrn" type="java.lang.String">null</Field>
 	<Field name="ModCod" type="java.lang.String">null</Field>
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
-	<Field name="OkExit" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="OkExit" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="OkExitCode" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="OkNextStep" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="OkNextStep" type="com.sunopsis.sql.DbInt"><![CDATA[13998]]></Field>
 	<Field name="PosX" type="com.sunopsis.sql.DbInt"><![CDATA[636]]></Field>
 	<Field name="PosY" type="com.sunopsis.sql.DbInt"><![CDATA[179]]></Field>
 	<Field name="PurgeJrn" type="java.lang.String">null</Field>
@@ -49557,9 +49702,62 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="VarOp" type="java.lang.String"><![CDATA[=]]></Field>
 	<Field name="WidthVal" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 </Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpStep">
+		<Field name="Clean" type="java.lang.String">null</Field>
+	<Field name="ContextCode" type="java.lang.String">null</Field>
+	<Field name="CreateJournal" type="java.lang.String">null</Field>
+	<Field name="CreateSubcriber" type="java.lang.String">null</Field>
+	<Field name="DeleteErrors" type="java.lang.String">null</Field>
+	<Field name="DropJournal" type="java.lang.String">null</Field>
+	<Field name="DropSubscriber" type="java.lang.String">null</Field>
+	<Field name="ExtendJrn" type="java.lang.String">null</Field>
+	<Field name="ExtVersion" type="java.lang.String">null</Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-14 16:45:16.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="HeightVal" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
+	<Field name="IndLogMethod" type="java.lang.String"><![CDATA[Y]]></Field>
+	<Field name="IMod" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IPackage" type="com.sunopsis.sql.DbInt"><![CDATA[2998]]></Field>
+	<Field name="IPop" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ISmod" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IStep" type="com.sunopsis.sql.DbInt"><![CDATA[13998]]></Field>
+	<Field name="ITable" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ITxtAction" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ITxtVarValue" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="IVar" type="com.sunopsis.sql.DbInt"><![CDATA[40998]]></Field>
+	<Field name="KoExit" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="KoExitCode" type="java.lang.String">null</Field>
+	<Field name="KoNextStep" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="KoRetry" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="KoRetryInterv" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:34:34.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="LockJrn" type="java.lang.String">null</Field>
+	<Field name="ModCod" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
+	<Field name="OkExit" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="OkExitCode" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="OkNextStep" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="PosX" type="com.sunopsis.sql.DbInt"><![CDATA[495]]></Field>
+	<Field name="PosY" type="com.sunopsis.sql.DbInt"><![CDATA[147]]></Field>
+	<Field name="PurgeJrn" type="java.lang.String">null</Field>
+	<Field name="SetInstallJrn" type="java.lang.String">null</Field>
+	<Field name="SetUninstallJrn" type="java.lang.String">null</Field>
+	<Field name="SmodCod" type="java.lang.String">null</Field>
+	<Field name="StepName" type="java.lang.String"><![CDATA[ExportCleansImportRepObjs]]></Field>
+	<Field name="StepType" type="java.lang.String"><![CDATA[V]]></Field>
+	<Field name="SubscriberLst" type="java.lang.String">null</Field>
+	<Field name="TableName" type="java.lang.String">null</Field>
+	<Field name="UnlockJrn" type="java.lang.String">null</Field>
+	<Field name="VarIncr" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="VarOp" type="java.lang.String"><![CDATA[=]]></Field>
+	<Field name="WidthVal" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+</Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScen">
 		<Field name="ExtVersion" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 12:47:09.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:12.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
 	<Field name="IndPromptParam" type="java.lang.String">null</Field>
@@ -49569,11 +49767,37 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="ITxtScen" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IVar" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 12:47:11.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:14.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="ScenName" type="java.lang.String"><![CDATA[OSCONFIGURE]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[82998]]></Field>
 	<Field name="ScenVersion" type="java.lang.String"><![CDATA[001]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
+		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2013-08-14 16:31:57.0]]></Field>
+	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="DefV" type="java.lang.String"><![CDATA[Yes]]></Field>
+	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
+	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[3408998]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[82998]]></Field>
+	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
+	<Field name="VarName" type="java.lang.String"><![CDATA[OS.ExportCleansImportRepObjs]]></Field>
+	<Field name="VarParam" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
+		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:14.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[3408998]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:14.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Determines whether the ODI-SCM export process removes SnpMImportRep object types from the exported XML or not.
+
+Removing them allows us to import objects into a repository of the same ID as they were originally created in. This is ok was we re-align the SNP_ID and SNP_ENT_ID tables after our imports.]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
 		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 07:47:48.0]]></Field>
@@ -49594,7 +49818,7 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="DefV" type="java.lang.String"><![CDATA[tf.exe add %s /lock:none]]></Field>
 	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
 	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[2319998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[3405998]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[82998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.VCSAddFileCommand]]></Field>
@@ -49602,12 +49826,12 @@ print 'OSUTL_EXPORT_OBJECT: Recondition Export File: Ends']]></Field>
 	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
-		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 12:47:11.0]]></Field>
+		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:14.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[2319998]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 12:47:11.0]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[3405998]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:14.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[The operating system command used to add a file to source control.
 
@@ -49621,7 +49845,7 @@ E.g.	tf.exe add <file>
 	<Field name="DefV" type="java.lang.String"><![CDATA[tf.exe /?]]></Field>
 	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
 	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[2322998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[3409998]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[82998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.VCSBasicCommand]]></Field>
@@ -49629,12 +49853,12 @@ E.g.	tf.exe add <file>
 	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
-		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 12:47:11.0]]></Field>
+		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:14.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[2322998]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 12:47:11.0]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[3409998]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:14.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[The operating system command used to check that the Version Control System interface command is available.
 
@@ -49650,7 +49874,7 @@ The command is expected to return an exist status of 0 to indicate success.]]></
 	<Field name="DefV" type="java.lang.String"><![CDATA[tf.exe dir %s]]></Field>
 	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
 	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[2323998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[3410998]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[82998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.VCSCheckFileInSourceControlCommand]]></Field>
@@ -49658,12 +49882,12 @@ The command is expected to return an exist status of 0 to indicate success.]]></
 	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
-		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 12:47:11.0]]></Field>
+		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:14.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[2323998]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 12:47:11.0]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[3410998]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:14.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[The operating system command used to check that a file is under source control. The command must return a 0 exit status if the file is under source control else return a non zero exit status.
 
@@ -49677,7 +49901,7 @@ E.g.	tf.exe dir <file>
 	<Field name="DefV" type="java.lang.String"><![CDATA[tf.exe checkout /lock:none %s]]></Field>
 	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
 	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[2317998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[3403998]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[82998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.VCSCheckOutCommand]]></Field>
@@ -49685,12 +49909,12 @@ E.g.	tf.exe dir <file>
 	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
-		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 12:47:11.0]]></Field>
+		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:14.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[2317998]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 12:47:11.0]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[3403998]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:14.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[The operating system command used to check out files from the Version Control System before files are exported to the file system by the repository export or flush procedures.
 
@@ -49704,8 +49928,8 @@ VCSs such as SVN do not require check-out operations in order to update a file i
 	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="DefV" type="java.lang.String"><![CDATA[Yes]]></Field>
 	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
-	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[2321998]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[2320998]]></Field>
+	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[3407998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[3406998]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[82998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.VCSRequiresCheckOut]]></Field>
@@ -49713,23 +49937,23 @@ VCSs such as SVN do not require check-out operations in order to update a file i
 	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
-		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 12:47:11.0]]></Field>
+		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:14.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[2321998]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 12:47:11.0]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[3407998]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:14.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[Yes]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
-		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 12:47:11.0]]></Field>
+		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:14.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[2320998]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 12:47:11.0]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[3406998]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:14.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[Valid values are: -
 	Yes
@@ -49748,7 +49972,7 @@ VCSs such as SVN do not require check-out operations in order to update a file i
 	<Field name="DefV" type="java.lang.String"><![CDATA[tf delete]]></Field>
 	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
 	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[2318998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[3404998]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[82998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.WCConfigDeleteFileCmd]]></Field>
@@ -49756,12 +49980,12 @@ VCSs such as SVN do not require check-out operations in order to update a file i
 	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
-		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 12:47:11.0]]></Field>
+		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:14.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[2318998]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 12:47:11.0]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[3404998]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-08-15 08:42:14.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[The OS command used to delete a file from the Working Copy.
 E.g. when using: -
@@ -50188,9 +50412,9 @@ TFS "tf delete <file>"]]></Field>
 	<Field name="MaxErr" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="MaxErrPrct" type="java.lang.String">null</Field>
 	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
-	<Field name="OkExit" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="OkExit" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="OkExitCode" type="java.lang.String"><![CDATA[0]]></Field>
-	<Field name="OkNextStep" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="OkNextStep" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[82998]]></Field>
 	<Field name="StepName" type="java.lang.String"><![CDATA[ExportReferencePhysicalArchitectureOnlyInd]]></Field>
 	<Field name="StepType" type="java.lang.String"><![CDATA[V]]></Field>
@@ -50245,8 +50469,76 @@ TFS "tf delete <file>"]]></Field>
        )]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenStep">
+		<Field name="ContextCode" type="java.lang.String">null</Field>
+	<Field name="IndLogMethod" type="java.lang.String"><![CDATA[Y]]></Field>
+	<Field name="KoExit" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="KoExitCode" type="java.lang.String">null</Field>
+	<Field name="KoNextStep" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="KoRetry" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="KoRetryInterv" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="MaxErr" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="MaxErrPrct" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
+	<Field name="OkExit" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="OkExitCode" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="OkNextStep" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[82998]]></Field>
+	<Field name="StepName" type="java.lang.String"><![CDATA[ExportCleansImportRepObjs]]></Field>
+	<Field name="StepType" type="java.lang.String"><![CDATA[V]]></Field>
+	<Field name="VarIncr" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="VarName" type="java.lang.String"><![CDATA[OS.ExportCleansImportRepObjs]]></Field>
+	<Field name="VarOp" type="java.lang.String"><![CDATA[=]]></Field>
+	<Field name="VarValue" type="java.lang.String">null</Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTask">
+		<Field name="ColConnectId" type="java.lang.String">null</Field>
+	<Field name="ColContextCode" type="java.lang.String">null</Field>
+	<Field name="ColIndCommit" type="java.lang.String">null</Field>
+	<Field name="ColIsolLevel" type="java.lang.String">null</Field>
+	<Field name="ColLschemaName" type="java.lang.String">null</Field>
+	<Field name="ColPlanComp" type="java.lang.String">null</Field>
+	<Field name="ColTechIntName" type="java.lang.String">null</Field>
+	<Field name="DefConnectId" type="java.lang.String">null</Field>
+	<Field name="DefContextCode" type="java.lang.String">null</Field>
+	<Field name="DefIndCommit" type="java.lang.String">null</Field>
+	<Field name="DefIsolLevel" type="java.lang.String">null</Field>
+	<Field name="DefLschemaName" type="java.lang.String"><![CDATA[ODIMASTERREP_DATA]]></Field>
+	<Field name="DefPlanComp" type="java.lang.String">null</Field>
+	<Field name="DefTechIntName" type="java.lang.String">null</Field>
+	<Field name="ExeChannel" type="java.lang.String">null</Field>
+	<Field name="IndErr" type="java.lang.String">null</Field>
+	<Field name="IndLogMethod" type="java.lang.String">null</Field>
+	<Field name="IndLogNb" type="java.lang.String">null</Field>
+	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
+	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[82998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
+	<Field name="TaskName1" type="java.lang.String"><![CDATA[Variable]]></Field>
+	<Field name="TaskName2" type="java.lang.String"><![CDATA[ExportCleansImportRepObjs]]></Field>
+	<Field name="TaskName3" type="java.lang.String">null</Field>
+	<Field name="TaskType" type="java.lang.String"><![CDATA[V]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[82998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT export_cleans_importrep
+  FROM odiscm_configurations
+ WHERE odi_user_name = 
+       (
+       SELECT user_name
+         FROM snp_session@odiworkrep_data
+        WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
+       )]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+</Object>
 <Object class="com.sunopsis.dwg.DwgExportSummary">
-		<Field name="ExpTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[62]]></Field>
+		<Field name="ExpTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[64]]></Field>
 	<Field name="InstObjNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="JoinColNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="JoinNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
@@ -50256,14 +50548,14 @@ TFS "tf delete <file>"]]></Field>
 	<Field name="MorigTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="MtxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="OrigTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
-	<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA[839]]></Field>
+	<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA[844]]></Field>
 	<Field name="PlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="StepNb" type="com.sunopsis.sql.DbInt"><![CDATA[11]]></Field>
-	<Field name="TxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[509]]></Field>
+	<Field name="StepNb" type="com.sunopsis.sql.DbInt"><![CDATA[12]]></Field>
+	<Field name="TxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[511]]></Field>
 	<Field name="UeOrigNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="UeUsedNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="VarPlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[718]]></Field>
+	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[720]]></Field>
 	<Field name="OriginRepositoryID" type="com.sunopsis.sql.DbInt"><![CDATA[998]]></Field>
 </Object>
 </SunopsisExport>

@@ -19,6 +19,7 @@ DECLARE
 						  || ', requires_check_out_ind         VARCHAR2(200)'
 						  || ', wc_config_delete_file_cmd_text VARCHAR2(200)'
 						  || ', exp_ref_phy_architect_only_ind VARCHAR2(3)'
+						  || ', export_cleans_importrep        VARCHAR2(3)'
 						  || ')';
 	l_crt_scen_ddl			VARCHAR(1000) := 'CREATE TABLE odiscm_genscen_sources'
 						  || '('

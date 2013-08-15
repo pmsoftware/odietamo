@@ -72,17 +72,17 @@ BEGIN
 	SELECT COUNT(*)
 	  INTO l_count
 	  FROM user_tables
-	 WHERE table_name = 'ODISCM_SCM_ACTIONS'
+	 WHERE table_name = 'ODISCM_CONFIGURATIONS'
 	;
 	
 	IF l_count = 0
 	THEN
 		BEGIN
-			EXECUTE IMMEDIATE 'DROP TABLE odiscm_scm_actions CASCADE CONSTRAINTS';
+			EXECUTE IMMEDIATE 'DROP TABLE odiscm_configurations CASCADE CONSTRAINTS';
 		EXCEPTION
 			WHEN OTHERS
 			THEN
-				raise_application_error(-20000, 'Cannot drop table ODISCM_SCM_ACTIONS');
+				raise_application_error(-20000, 'Cannot drop table ODISCM_CONFIGURATIONS');
 		END;
 	END IF;
 	

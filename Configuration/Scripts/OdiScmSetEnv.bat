@@ -1,5 +1,4 @@
 @echo off
-rem echo DEBUG: OdiScmSetEnv: starts >CON
 
 REM ===============================================
 REM Set environment variables for the OdiScm configuration
@@ -7,6 +6,9 @@ REM that will be used by the system.
 REM
 REM Note that for this script to have any useful effect it must be
 REM executed with CALL and passed the /B switch.
+REM
+REM Also, beware of the call, in this script, to REM OdiScmProcessScriptArgs.bat
+REM as this will repopulate ARGC and ARGVn
 REM ===============================================
 
 rem

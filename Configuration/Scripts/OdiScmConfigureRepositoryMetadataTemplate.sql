@@ -7,6 +7,7 @@ UPDATE odiscm_configurations
      , requires_check_out_ind         = '<SCMRequiresCheckOut>'
      , wc_config_delete_file_cmd_text = '<SCMWorkingCopyDeleteFileCommand>'
      , exp_ref_phy_architect_only_ind = '<ExportRefPhysArchOnly>'
+     , export_cleans_importrep        = '<ExportCleansImportRepObjs>'
  WHERE odi_user_name = '<OdiScmOdiUserName>'
 /
 
@@ -22,6 +23,7 @@ INSERT
      , requires_check_out_ind
      , wc_config_delete_file_cmd_text
      , exp_ref_phy_architect_only_ind
+     , export_cleans_importrep
        )
 SELECT '<OdiScmOdiUserName>'
      , '<SCMSystemTypeName>'
@@ -32,6 +34,7 @@ SELECT '<OdiScmOdiUserName>'
      , '<SCMRequiresCheckOut>'
      , '<SCMWorkingCopyDeleteFileCommand>'
      , '<ExportRefPhysArchOnly>'
+     , '<ExportCleansImportRepObjs>'
   FROM dual
  WHERE '<OdiScmOdiUserName>'
    NOT

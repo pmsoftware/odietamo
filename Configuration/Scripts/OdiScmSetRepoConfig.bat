@@ -129,6 +129,18 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+cat "%TEMPFILE%" | sed s/"<ExportCleansImportRepObjs>"/"%ODI_SCM_GENERATE_EXPORT_CLEANS_IMPORTREP_OBJECTS%"/g > "%TEMPFILE%"2
+if ERRORLEVEL 1 (
+	echo %EM% substituting OdiScm export only reference physical architecture indicator
+	goto ExitFail
+)
+
+cat "%TEMPFILE%"2 > "%TEMPFILE%"
+if ERRORLEVEL 1 (
+	echo %EM% creating final substituted OdiScm configuration settings script
+	goto ExitFail
+)
+
 rem
 rem Define files used to capture standard output and standard error channels.
 rem
@@ -152,7 +164,6 @@ rem
 rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.
 rem
 echo %IM% Batch file OdiScmJisqlRepo.bat returned zero ERRORLEVEL
-echo fc %EMPTYFILE% %STDERRFILE%
 fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
 if ERRORLEVEL 1 (
 	echo %IM% Batch file OdiScmJisqlRepo.bat returned StdErr content:
