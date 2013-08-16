@@ -103,7 +103,7 @@ Then::
 
 	exp.exe odirepofordemo3/odirepofordemo3@localhost:1521/xe owner=odirepofordemo3 file=C:\OdiScmResources\odirepofordemo3_REPID_100_empty_master_work_%ODI_SCM_ORACLEDI_VERSION%.dmp statistics=none
 
-	.. figure:: imgs/30_80_10.png
+.. figure:: imgs/30_80_10.png
 
 The export tool will terminate. Check that the export file has been created. From the command prompt::
 
@@ -112,7 +112,7 @@ The export tool will terminate. Check that the export file has been created. Fro
 .. figure:: imgs/30_90_10.png
 
 A Point About The Repository ID
-------------------------------
+-------------------------------
 
 If you've just skipped the additional step, required for ODI 10g users, then you might not have noticed that, in this demo,
 we have are using ``100`` for the new ODI repository's ID.
