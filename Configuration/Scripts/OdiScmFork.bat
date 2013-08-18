@@ -10,17 +10,28 @@ rem
 
 rem
 rem Ensure this batch file doesn't alter any variables' values in the calling process.
-rem
+rem Note that forked (i.e. child) shells (cmd.exe) will still inherit the environment.
 setlocal
 
-::echo in outer bat
-::tasklist | grep cmd.exe
-::echo running child using ^<%*^>
+if not DEFINED ODI_SCM_CMDLVL (
+	set ODI_SCM_CMDLVL=0
+)
+
+set /a ODI_SCM_CMDLVL=%ODI_SCM_CMDLVL% + 1 >NUL
+
+rem echo =============================================================================
+rem echo == about to exec command: %*
+rem echo =============================================================================
+rem echo CMDLVL=%ODI_SCM_CMDLVL%
 rem
 rem Run the passed command in a new cmd.exe.
 rem
 cmd.exe /c %*
 set EXITSTATUS=%ERRORLEVEL%
+rem echo =============================================================================
+rem echo == back from command: %*
+rem echo =============================================================================
+rem echo CMDLVL=%ODI_SCM_CMDLVL%
 rem
 rem Return the passed command's exit status to the calling batch file.
 rem

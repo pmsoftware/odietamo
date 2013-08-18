@@ -136,7 +136,7 @@ function CreateSetEnvScript
 	#DebuggingPause
 	$IniTable = GetIniContent($env:ODI_SCM_INI)
 	if ($IniTable -eq $False) {
-		write-error "$EM loading configuration INI file <env:ODI_SCM_INI>"
+		write-error "$EM loading configuration INI file <$env:ODI_SCM_INI>"
 		return $False
 	}
 	
@@ -264,7 +264,7 @@ $DebuggingActive = $False
 
 if ($args.Count -ne 1) {
 	write-error "OdiScmCreateSetEnvScript: missing output script name"
-	write-error "OdiScmCreateSetEnvScript: usage OdiScmCreateSetEnv <output batch script path and name>"
+	write-error "OdiScmCreateSetEnvScript: usage: OdiScmCreateSetEnv <output batch script path and name>"
 }
 
 if (($env:ODI_SCM_INI -eq $Null) -or ($env:ODI_SCM_INI -eq "")) {

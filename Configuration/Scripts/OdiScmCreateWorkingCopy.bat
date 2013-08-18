@@ -67,12 +67,12 @@ if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" (
 	echo %IM% deleting existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
 	chmod -R a+w "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
 	if ERRORLEVEL 1 (
-		echo %EM% making existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^> writable
+		echo %EM% making existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^> writable 1>&2
 		goto ExitFail
 	)
 	rm -fr "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
 	if ERRORLEVEL 1 (
-		echo %EM% deleting existing working copy directory tree ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
+		echo %EM% deleting existing working copy directory tree ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^> 1>&2
 		goto ExitFail
 	)
 )
@@ -80,7 +80,7 @@ if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" (
 echo %IM% creating existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
 md "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
 if ERRORLEVEL 1 (
-	echo %EM% creating working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
+	echo %EM% creating working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^> 1>&2
 	goto ExitFail
 )
 
@@ -128,11 +128,9 @@ if ERRORLEVEL 1 (
 :GetCode
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
 if ERRORLEVEL 1 (
-	echo %EM% creating temporary working directory
+	echo %EM% creating temporary working directory 1>&2
 	goto ExitFail
 )
-
-set TEMPFILE=%TEMPDIR%\%PROC%.txt
 
 if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
 	echo %IM% creating SVN working copy
@@ -142,7 +140,7 @@ if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
 		goto ExitFail
 	)
 ) else (
-	echo %IM% getting contents from SCM repository for TFS workspace ^<%ARGV2%^> 1>&2
+	echo %IM% getting contents from SCM repository for TFS workspace ^<%ARGV2%^>
 	tf get %ODI_SCM_SCM_SYSTEM_BRANCH_URL% %INITREV% /recursive /force /noprompt
 	if ERRORLEVEL 1 (
 		echo %EM% getting contents from SCM repository for TFS workspace ^<%ARGV2%^> 1>&2

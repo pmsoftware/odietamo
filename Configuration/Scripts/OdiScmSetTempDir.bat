@@ -12,6 +12,9 @@ if "%TEMP%" == "" (
 	set TEMPDIR=%TEMP%
 )
 
+set PYYYYMMDD=%YYYYMMDD%
+set PHHMMSSFF=%HHMMSSFF%
+
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetDateTimeStrings.bat"
 if ERRORLEVEL 1 (
 	echo %EM% setting date and time strings
@@ -34,3 +37,6 @@ if ERRORLEVEL 1 (
 	echo %EM% deleting existing temporary directory ^<%TEMPDIR%^>
 	exit /b 1
 )
+
+set YYYYMMDD=%PYYYYMMDD%
+set HHMMSSFF=%PHHMMSSFF%
