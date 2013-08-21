@@ -63,34 +63,33 @@ if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "TFS" (
 rem
 rem Create the working copy root directory.
 rem
-if EXIST "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" (
-	echo %IM% deleting existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
-	chmod -R a+w "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
+set WCROOT=%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT:/=\%
+
+if EXIST "%WCROOT%" (
+	echo %IM% making all files writable in existing working copy root directory ^<%WCROOT%^>
+	chmod -R a+w "%WCROOT%"
 	if ERRORLEVEL 1 (
-		echo %EM% making existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^> writable 1>&2
+		echo %EM% making existing working copy directory tree ^<%WCROOT%^> writable 1>&2
 		goto ExitFail
 	)
-	rm -fr "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
+	echo %IM% deleting existing working copy directory tree ^<%WCROOT%^>
+	rm -fr "%WCROOT%"
 	if ERRORLEVEL 1 (
-		echo %EM% deleting existing working copy directory tree ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^> 1>&2
+		echo %EM% deleting existing working copy directory tree ^<%WCROOT%^> 1>&2
 		goto ExitFail
 	)
 )
 
-echo %IM% creating existing working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^>
-md "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%"
+echo %IM% creating working copy root directory ^<%WCROOT%^>
+md "%WCROOT%"
 if ERRORLEVEL 1 (
-	echo %EM% creating working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^> 1>&2
+	echo %EM% creating working copy root directory ^<%WCROOT%^> 1>&2
 	goto ExitFail
 )
 
-for /f "tokens=* delims=^<" %%g in ('echo %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT% ^| sed s/\//\\/g') do (
-	set WINDIRPATH=%%g
-)
-
-cd /d "%WINDIRPATH%"
+cd /d "%WCROOT%"
 if ERRORLEVEL 1 (
-	echo %EM% cannot change working directory to working copy root directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%^> 1>&2
+	echo %EM% cannot change working directory to working copy root directory ^<%WCROOT%^> 1>&2
 	goto ExitFail
 )
 
@@ -119,19 +118,39 @@ if ERRORLEVEL 1 (
 )
 
 echo %IM% creating mapping for TFS workspace ^<%ARGV2%^> to branch URL ^<%ODI_SCM_SCM_SYSTEM_BRANCH_URL%^>
-tf workfold /map "%ODI_SCM_SCM_SYSTEM_BRANCH_URL%" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%" /workspace:%ARGV2% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%
+tf workfold /map "%ODI_SCM_SCM_SYSTEM_BRANCH_URL%" "%WCROOT%" /workspace:%ARGV2% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%
 if ERRORLEVEL 1 (
 	echo %EM% creating mapping for TFS workspace ^<%ARGV2%^> to branch URL ^<%ODI_SCM_SCM_SYSTEM_BRANCH_URL%^> 1>&2
 	goto ExitFail
 )
 
-:GetCode
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
 if ERRORLEVEL 1 (
 	echo %EM% creating temporary working directory 1>&2
 	goto ExitFail
 )
 
+set TEMPFILE=%TEMPDIR%\OdiScmCreateWorkingCopyTfsWorkspaceCheck.txt
+echo %IM% verifying mapping for TFS workspace ^<%ARGV2%^> to directory ^<%WCROOT%^>
+tf workfold /workspace:%ARGV2% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% > "%TEMPFILE%"
+if ERRORLEVEL 1 (
+	echo %EM% verifying mapping for TFS workspace ^<%ARGV2%^> to directory ^<%WCROOT%^> 1>&2
+	goto ExitFail
+)
+
+rem
+rem Note the "\" to escape the "$" in TFS URLs.
+rem
+cat "%TEMPFILE%" | grep "\%ODI_SCM_SCM_SYSTEM_BRANCH_URL%" | cut -f3 -d" " >"%TEMPFILE%"2
+set /p TFSWORKMAPPEDDIR=<"%TEMPFILE%"2
+
+if /i not "%TFSWORKMAPPEDDIR%" == "%WCROOT%" (
+	echo %EM% mismatched directory names whilst verifying mapping for TFS workspace ^<%ARGV2%^> 1>&2
+	echo %EM% expected directory name ^<%WCROOT%^> actual directory name ^<%TFSWORKMAPPEDDIR%^> 1>&2
+	goto ExitFail
+)
+
+:GetCode
 if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
 	echo %IM% creating SVN working copy
 	svn checkout %ODI_SCM_SCM_SYSTEM_SYSTEM_URL%/%ODI_SCM_SCM_SYSTEM_BRANCH_URL% %INITREV%

@@ -87,9 +87,34 @@ call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetDateTimeStrings.bat"
 rem
 rem Execute the rebuild process, capturing stdout and stderr to a log file.
 rem
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmRebuildOdiRepo.bat^" /p 2>&1 | tee "%REBUILDLOGFILE%"
+set TEMPEMPTYFILE=%TEMPDIR%\OdiScmRebuildOdiRepo.Empty.Txt
+type NUL > %TEMPEMPTYFILE%
+set TEMPSTDERR=%TEMPDIR%\OdiScmRebuildOdiRepo.StdErr.Txt
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmRebuildOdiRepo.bat^" /p 2>%TEMPSTDERR% | tee "%REBUILDLOGFILE%"
+set EXITSTATUS=%ERRORLEVEL%
+
+set ERROROCCURED=
+
+fc "%TEMPEMPTYFILE%" "%TEMPSTDERR%"
 if ERRORLEVEL 1 (
+	set ERROROCCURED=TRUE
+) else (
+	set ERROROCCURED=TRUE
+)
+
+if not "%EXITSTATUS%" == "0" (
+	set ERROROCCURED=TRUE
+) else (
+	set ERROROCCURED=TRUE
+)
+
+if "%ERROROCCURED%" == "TRUE" (
 	echo %EM% executing rebuild process 1>&2
+	echo ************************************************************ >> "%REBUILDLOGFILE%"
+	echo ** STDERR from command OdiScmRebuildOdiRepo.bat           ** >> "%REBUILDLOGFILE%"
+	echo ************************************************************ >> "%REBUILDLOGFILE%"
+	cat "%TEMPSTDERR%" >> "%REBUILDLOGFILE%"
 	goto ExitFail
 )
 

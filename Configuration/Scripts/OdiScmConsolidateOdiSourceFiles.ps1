@@ -17,7 +17,7 @@ function CreateConsolidatedOdiSourceFile ($fileList, $outFile) {
 	
 	foreach ($File in $FileList) {
 		
-		#write-host "doing file "$file
+		write-host "$IM processing object source file <$file>"
 		$RecordList = get-content $File
 		
 		$blnFoundXmlDocHeader           = $False
@@ -28,85 +28,48 @@ function CreateConsolidatedOdiSourceFile ($fileList, $outFile) {
 		$blnFoundSummaryHeader          = $False
 		#$blnFoundSummaryTrailer        = $False
 		
-		foreach ($Record in $RecordList) {
+		if ($RecordList.length -lt 3) {
+			write-error "$EM object source file contains less records that the minimum necessary for an ODI object"
+			return $False
+		}
+		
+		if ($RecordList[0] -ne '<?xml version="1.0" encoding="ISO-8859-1"?>') {
+			write-error "$EM first record does not contain the XML document header"
+			return $False
+		}
+		
+		if ($RecordList[1] -ne '<SunopsisExport>') {
+			write-error "$EM second record does not contain the <SunopsisExport> tag"
+			return $False
+		}
+		
+		for ($intRecIdx = 2; $intRecIdx -lt $RecordList.length; $intRecIdx++) {
 			
+			$Record = $RecordList[$intRecIdx]
+			
+			###write-host "$IM processing record <$Record>"
 			$blnSuppressRecord = $False
 			
-			if ($Record -eq "") {
-				if (!($blnFoundXmlDocHeader)) {
-					#
-					# Unexpected records before the XML doc header.
-					#
-					write-error "$EM found unexpected blank line before the XML doc header"
-					return $False
-				}
-				if (!($blnFoundExportHeader)) {
-					#
-					# Unexpected records before the export header.
-					#
-					write-error "$EM found unexpected blank line before the export header"
-					return $False
+			if (!($blnFoundAdminRepositoryVersion)) {
+				if ($Record.StartsWith('<Admin RepositoryVersion="')) {
+					continue
 				}
 			}
 			
-			if ($Record -eq '<?xml version="1.0" encoding="ISO-8859-1"?>') {
-				if ($blnFoundXmlDocHeader) {
-					# Another XML doc header found.
-					write-error "$EM found duplicate XML doc header"
-					return $False
-				}
-				else {
-					$blnFoundXmlDocHeader = $True
-					$blnSuppressRecord = $True
-				}
-			}
-			
-			if ($Record -eq '<SunopsisExport>') {
-				if ($blnFoundExportHeader) {
-					# Another export header found.
-					write-error "$EM found duplicate export header"
-					return $False
-				}
-				else {
-					$blnFoundExportHeader = $True
-					$blnSuppressRecord = $True
-				}
-			}
-			
-			if ($Record.StartsWith('<Admin RepositoryVersion="')) {
-				$blnSuppressRecord = $True
-			}
-			
+			#
+			# Check every non XML / export header record for the summary header.
+			#
 			if ($Record -eq '<Object class="com.sunopsis.dwg.DwgExportSummary">') {
-				if ($blnFoundSummaryHeader) {
-					# Another summary start found.
-					write-error "$EM found duplicate summary start"
-					return $False
-				}
-				else {
-					$blnFoundSummaryHeader = $True
-					$blnSuppressRecord = $True
-				}
+				break
 			}
 			
-			#
-			# Decide what to do with the record.
-			#
-			if (!($blnFoundSummaryHeader)) {
-				# Only output records before the start of the summary section.
-				if ($blnFoundXmlDocHeader) {
-					if ($blnFoundExportHeader) {
-						if (!($blnSuppressRecord)) {
-							# The current record is a source object/object attribute.
-							$outRecordList += $Record
-						}
-					}
-				}
-			}
+			$outRecordList += $Record
 		}
 	}
 	
 	$outRecordList += '</SunopsisExport>'
+	write-host "$IM starting to write file <$outFile>"
 	$outRecordList | set-content $outFile
+	write-host "$IM finished writing file <$outFile>"
 	return $True
 }

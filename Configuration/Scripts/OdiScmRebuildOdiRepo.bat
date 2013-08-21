@@ -111,8 +111,13 @@ if "%ODI_MAJOR_VERSION%" == "10." (
 	rem
 	rem Import empty master/work repository from export backup.
 	rem
-	"%ODI_SCM_TOOLS_ORACLE_HOME%\bin\imp.exe" %ODI_SCM_ORACLEDI_SECU_USER%/%ODI_SCM_ORACLEDI_SECU_PASS%@%ODI_SCM_ORACLEDI_SECU_URL_HOST%:%ODI_SCM_ORACLEDI_SECU_URL_PORT%/%ODI_SCM_ORACLEDI_SECU_URL_SID% FILE=%ODI_REPO_BACKUP% FULL=Y
-	if ERRORLEVEL 1 (
+	set TEMPSTDERRFILE=%TEMPDIR%\%PROC%_imp_stderr.txt
+	"%ODI_SCM_TOOLS_ORACLE_HOME%\bin\imp.exe" %ODI_SCM_ORACLEDI_SECU_USER%/%ODI_SCM_ORACLEDI_SECU_PASS%@%ODI_SCM_ORACLEDI_SECU_URL_HOST%:%ODI_SCM_ORACLEDI_SECU_URL_PORT%/%ODI_SCM_ORACLEDI_SECU_URL_SID% FILE=%ODI_REPO_BACKUP% FULL=Y 2>!TEMPSTDERRFILE!
+	set EXITSTATUS=%ERRORLEVEL%
+	echo %EM% start of stderr text ^<
+	cat !TEMPSTDERRFILE!
+	echo %EM% ^> end of stderr text
+	if not "!EXITSTATUS!" == "0" (
 		echo %EM% importing ODI empty master/work repository from backup file ^<%ODI_REPO_BACKUP%^> 1>&2
 		goto ExitFail
 	)
