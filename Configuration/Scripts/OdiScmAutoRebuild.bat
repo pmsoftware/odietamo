@@ -96,21 +96,21 @@ set EXITSTATUS=%ERRORLEVEL%
 
 set ERROROCCURED=
 
-fc "%TEMPEMPTYFILE%" "%TEMPSTDERR%"
+fc "%TEMPEMPTYFILE%" "%TEMPSTDERR%" >NUL 2>NUL
 if ERRORLEVEL 1 (
-	set ERROROCCURED=TRUE
-) else (
+	echo %EM% stderr content detected from rebuild process 1>&2
 	set ERROROCCURED=TRUE
 )
 
 if not "%EXITSTATUS%" == "0" (
 	set ERROROCCURED=TRUE
-) else (
-	set ERROROCCURED=TRUE
 )
 
 if "%ERROROCCURED%" == "TRUE" (
 	echo %EM% executing rebuild process 1>&2
+	echo %EM% start of stderr from rebuild process ^< 1>&2
+	cat "%TEMPSTDERR%" 1>&2
+	echo %EM% ^> end of stderr from rebuild process 1>&2
 	echo ************************************************************ >> "%REBUILDLOGFILE%"
 	echo ** STDERR from command OdiScmRebuildOdiRepo.bat           ** >> "%REBUILDLOGFILE%"
 	echo ************************************************************ >> "%REBUILDLOGFILE%"

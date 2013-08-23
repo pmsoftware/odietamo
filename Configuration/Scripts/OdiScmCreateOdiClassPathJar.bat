@@ -4,7 +4,7 @@ rem
 rem Check basic environment requirements.
 rem
 if "%ODI_SCM_HOME%" == "" (
-	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME
+	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME 1>&2
 	goto ExitFail
 )
 
@@ -18,8 +18,8 @@ if ERRORLEVEL 1 (
 )
 
 if "%ARGV1%" == "" (
-	echo %EM% output JAR file path/name not specified
-	echo %IM% usage: %PROC% ^<output JAR file^>
+	echo %EM% output JAR file path/name not specified 1>&2
+	echo %EM% usage: %PROC% ^<output JAR file^> 1>&2
 	goto ExitFail
 )
 
@@ -27,7 +27,7 @@ set OUTJARFILE=%ARGV1%
 
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
 if ERRORLEVEL 1 (
-	echo %EM% creating temporary working directory ^<%TEMPDIR%^>
+	echo %EM% creating temporary working directory ^<%TEMPDIR%^> 1>&2
 	goto ExitFail
 )
 
@@ -98,10 +98,12 @@ rem Make the JAR file.
 rem
 "%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\jar.exe" cfm "%OUTJARFILE%" "%TEMPFILE%" 
 if ERRORLEVEL 1 (
-	echo %EM% creating JAR file ^<%OUTJARFILE%^> from manifest file ^<%TEMPFILE%^>
+	echo %EM% creating JAR file ^<%OUTJARFILE%^> 1>&2
+	echo %EM% from manifest file ^<%TEMPFILE%^> 1>&2
 	goto ExitFail
 ) else (
-	echo %IM% successfully created JAR file ^<%OUTJARFILE%^> from manifest file ^<%TEMPFILE%^>
+	echo %IM% successfully created JAR file ^<%OUTJARFILE%^>
+	echo %IM% from manifest file ^<%TEMPFILE%^>
 )
 
 :ExitOk

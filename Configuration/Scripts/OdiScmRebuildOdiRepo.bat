@@ -22,6 +22,34 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+rem
+rem Determine if we're rebuilding from the SCM or from the existing working copy.
+rem
+if "%ARGC%" == "0" (
+	echo %IM% defaulting to using the SCM System as the rebuild source
+	set REBUILDSOURCE=SCM
+) else (
+	if "%ARGC%" == "1" (
+		if /i "%ARGV1%" == "FromSCM" (
+			echo %IM% using the SCM System as the rebuild source
+			set REBUILDSOURCE=SCM
+		) else (
+			if /i "%ARGV1%" == "FromWorkingCopy" (
+				echo %IM% using the existing working copy as the rebuild source
+				set REBUILDSOURCE=WC
+			) else (
+				echo %EM% invalid rebuild type argument 1>&2
+				call :ShowUsage
+				goto ExitFail
+			)
+		)
+	) else (
+		echo %EM% invalid arguments 1>&2
+		call :ShowUsage
+		goto ExitFail
+	)
+)
+
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
 if ERRORLEVEL 1 (
 	echo %EM% creating temporary working directory 1>&2
@@ -54,12 +82,15 @@ setlocal enabledelayedexpansion
 
 if "%ODI_MAJOR_VERSION%" == "10." (
 	set ODI_REPO_BACKUP=%ODI_SCM_MISC_RESOURCES_ROOT%\%ODI_SCM_ORACLEDI_SECU_USER%_REPID_%ODI_SCM_ORACLEDI_REPOSITORY_ID%_empty_master_work_%ODI_SCM_ORACLEDI_VERSION%.dmp
-	if not EXIST "!ODI_REPO_BACKUP!" (
-		echo %EM% empty master/work repository backup file ^<!ODI_REPO_BACKUP!^> does not exist 1>&2
-		goto ExitFail
-	)
 ) else (
 	set ODI_REPO_BACKUP=
+)
+
+if "%ODI_MAJOR_VERSION%" == "10." (
+	if not EXIST "%ODI_REPO_BACKUP%" (
+		echo %EM% empty master/work repository backup file ^<%ODI_REPO_BACKUP%^> does not exist 1>&2
+		goto ExitFail
+	)
 )
 
 rem
@@ -79,7 +110,15 @@ if not EXIST "%ODI_SCM_INI%" (
 rem
 rem Make a copy of the configuration INI file that can be updated and discarded after use.
 rem
-call :FileNameAndExtFromPath "%ODI_SCM_INI%"
+call :FileNameFromPath "%ODI_SCM_INI%"
+rem
+rem Batch file calls to labels seem suspect (at least in XP). Let's just put a dirty check in for now.
+rem
+if "%OUTFILEANDEXT%" == "" (
+	echo %EM% extracting INI file name from path and name 1>&2
+	goto ExitFail
+)
+
 set ORIG_INI=%ODI_SCM_INI%
 set ODI_SCM_INI=%TEMPDIR%\%OUTFILEANDEXT%
 
@@ -89,10 +128,15 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateWorkingCopy.bat^" /p EMPTY %ODI_SCM_SCM_SYSTEM_WORKSPACE_NAME%
-if ERRORLEVEL 1 (
-	echo %EM% re/creating working copy 1>&2
-	goto ExitFail
+rem
+rem Create/Recreate the working copy if rebuilding from an SCM system.
+rem
+if "%REBUILDSOURCE%" == "SCM" (
+	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateWorkingCopy.bat^" /p EMPTY %ODI_SCM_SCM_SYSTEM_WORKSPACE_NAME%
+	if ERRORLEVEL 1 (
+		echo %EM% re/creating working copy 1>&2
+		goto ExitFail
+	)
 )
 
 rem
@@ -113,10 +157,11 @@ if "%ODI_MAJOR_VERSION%" == "10." (
 	rem
 	set TEMPSTDERRFILE=%TEMPDIR%\%PROC%_imp_stderr.txt
 	"%ODI_SCM_TOOLS_ORACLE_HOME%\bin\imp.exe" %ODI_SCM_ORACLEDI_SECU_USER%/%ODI_SCM_ORACLEDI_SECU_PASS%@%ODI_SCM_ORACLEDI_SECU_URL_HOST%:%ODI_SCM_ORACLEDI_SECU_URL_PORT%/%ODI_SCM_ORACLEDI_SECU_URL_SID% FILE=%ODI_REPO_BACKUP% FULL=Y 2>!TEMPSTDERRFILE!
-	set EXITSTATUS=%ERRORLEVEL%
-	echo %EM% start of stderr text ^<
+	set EXITSTATUS=!ERRORLEVEL!
+	echo %IM% start of IMP output ^(stderr^) text ^<
 	cat !TEMPSTDERRFILE!
-	echo %EM% ^> end of stderr text
+	echo %IM% ^> end of IMP output ^(stderr^) text
+	
 	if not "!EXITSTATUS!" == "0" (
 		echo %EM% importing ODI empty master/work repository from backup file ^<%ODI_REPO_BACKUP%^> 1>&2
 		goto ExitFail
@@ -152,12 +197,20 @@ if DEFINED ODI_SCM_GENERATE_OUTPUT_TAG (
 )
 
 rem
-rem Execute the OdiScmGet process.
+rem Execute either the OdiScmGet or OdiScmImport process depending upon the build source.
 rem
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGet.bat^" /p
-if ERRORLEVEL 1 (
-	echo %EM% executing OdiScmGet process 1>&2
-	goto ExitFail
+if "%REBUILDSOURCE%" == "SCM" (
+	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGet.bat^" /p
+	if ERRORLEVEL 1 (
+		echo %EM% executing OdiScmGet process 1>&2
+		goto ExitFail
+	)
+) else (
+	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImport.bat^" /p
+	if ERRORLEVEL 1 (
+		echo %EM% executing OdiScmImport process 1>&2
+		goto ExitFail
+	)
 )
 
 rem
@@ -170,13 +223,27 @@ if ERRORLEVEL 1 (
 )
 
 :ExitOk
+echo %IM% ends
 exit %IsBatchExit% 0
 
 :ExitFail
+echo %EM% ends
 exit %IsBatchExit% 1
 
-:FileNameAndExtFromPath
+REM ===============================================
+REM ==           S U B R O U T I N E S           ==
+REM ===============================================
+
+REM -----------------------------------------------
+:FileNameFromPath
+REM -----------------------------------------------
 rem
 rem Extract the file name and extension from a path and file name string.
 rem
 set OUTFILEANDEXT=%~nx1
+exit /b
+
+REM -----------------------------------------------
+:ShowUsage
+REM -----------------------------------------------
+echo %EM% usage: %PROC% ^<FromSCM ^| FromWorkingCopy^> 1>&2

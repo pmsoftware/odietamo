@@ -24,7 +24,7 @@ if ERRORLEVEL 1 (
 
 set TEMPJARFILE=%TEMPDIR%\%PROC%.jar
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiClassPathJar.bat^" /p %TEMPJARFILE%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiClassPathJar.bat^" /p %TEMPJARFILE% >NUL
 if ERRORLEVEL 1 (
 	echo %EM% creating ODI class path helper JAR file
 	goto ExitFail

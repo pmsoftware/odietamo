@@ -10,7 +10,12 @@ set BU_PATH=%PATH%
 set PATH=%ODI_SCM_TOOLS_ORACLE_HOME%\bin
 
 echo %IM% backing up user ^<<OdiWorkRepoUserName>^> in database ^<<OdiWorkRepoServer>:<OdiWorkRepoPort>/<OdiWorkRepoSID>^>
-"%ODI_SCM_TOOLS_ORACLE_HOME%\bin\exp.exe" <OdiWorkRepoUserName>/<OdiWorkRepoPassWord>@<OdiWorkRepoServer>:<OdiWorkRepoPort>/<OdiWorkRepoSID> owner=<OdiWorkRepoUserName> file=<ExportBackUpFile> statistics=none
+rem
+rem Note: imp.exe and exp.exe write all messages to stderr for some reason.
+rem We reroute them so we can check for any stderr in larger, surrounding OdiScm processes.
+rem This does of course mean that we lose the ability to pinpoint stderr from exp.exe.
+rem
+"%ODI_SCM_TOOLS_ORACLE_HOME%\bin\exp.exe" <OdiWorkRepoUserName>/<OdiWorkRepoPassWord>@<OdiWorkRepoServer>:<OdiWorkRepoPort>/<OdiWorkRepoSID> owner=<OdiWorkRepoUserName> file=<ExportBackUpFile> statistics=none 2>&1
 if ERRORLEVEL 1 goto ExportFail
 goto ExportOk
 

@@ -11,18 +11,16 @@ import java.util.List;
 public class ConsolidateObjectSourceFiles {
 
 	private static final String modName = "OdiScm";
+	private static final String procName = modName + ": ConsolidateObjectSourceFiles";
+	private static final String infoMsg = procName + ": INFO: ";
+	private static final String errMsg = procName + ": ERROR: ";
+	private static final String warnMsg = procName + ": WARNING: ";
 	
 	public static void main(String[] args) {
 
-		final String procName = modName + ": ConsolidateObjectSourceFiles";
-		final String infoMsg = procName + ": INFO: ";
-		final String errMsg = procName + ": ERROR: ";
-		final String warnMsg = procName + ": WARNING: ";
-		
 		if (args.length != 4) {
 			System.err.println(errMsg + "invalid arguments");
-			System.out.println(infoMsg + "usage: ConsolidateObjectSourceFiles <input files list file> <output directory> <output files list file> <max output batch size>");
-			System.exit(1);
+			abort("usage: ConsolidateObjectSourceFiles <input files list file> <output directory> <output files list file> <max output batch size>");
 		}
 		
 		System.out.println(infoMsg + "Starts");
@@ -48,8 +46,7 @@ public class ConsolidateObjectSourceFiles {
 			intOutputBatchSize = Integer.parseInt(args[3]);   
 		}   
 		catch(Exception e) {   
-			System.err.println(errMsg + "value specified for maximum output file batch size is not an integer");
-			System.exit(1);
+			abort("value specified for maximum output file batch size is not an integer");
 		}   
 		
 		// Input source files - as String List.		
@@ -70,6 +67,7 @@ public class ConsolidateObjectSourceFiles {
 		}
 		catch (IOException e) {
 			e.printStackTrace();
+			abort("reading input files list file <" + strInputFilesListFile + ">");
 		}
 		finally {
 			try {
@@ -78,6 +76,7 @@ public class ConsolidateObjectSourceFiles {
 			}
 			catch (IOException ex) {
 				ex.printStackTrace();
+				abort("closing input files BufferedReader object");
 			}
 		}
 		
@@ -139,8 +138,7 @@ public class ConsolidateObjectSourceFiles {
 			fwOutWriter.close();
 		}
 		catch (Exception e) {
-			System.err.println(errMsg + "writing output file <" + strOutputFilesListFile + ">");
-			System.exit(1);
+			abort("writing output file <" + strOutputFilesListFile + ">");
 		}
 		finally {
 			try {
@@ -149,10 +147,11 @@ public class ConsolidateObjectSourceFiles {
 			}
 			catch (IOException ex) {
 				ex.printStackTrace();
+				abort("closing output files list FileWriter object");
 			}
 		}
 		System.out.println(infoMsg + "finished output file names file <" + strOutputFilesListFile + ">");
-		System.out.println(infoMsg + "Ends");
+		System.out.println(infoMsg + "ends");
 		System.exit(0);
 	}
 	
@@ -172,6 +171,7 @@ public class ConsolidateObjectSourceFiles {
 		}
 		catch (IOException e) {
 			e.printStackTrace();
+			abort("reading input files list into List<String> object");
 		}
 		finally {
 			try {
@@ -180,6 +180,7 @@ public class ConsolidateObjectSourceFiles {
 			}
 			catch (IOException ex) {
 				ex.printStackTrace();
+				abort("closing input files BufferedReader object");
 			}
 		}
 		
@@ -194,7 +195,7 @@ public class ConsolidateObjectSourceFiles {
 		final String errMsg = procName + ": ERROR: ";
 		final String warnMsg = procName + ": WARNING: ";
 		
-		System.out.println(infoMsg + "Starts");
+		System.out.println(infoMsg + "starts");
 		System.out.println(infoMsg + "passed <" + (lstInFileNames.size()) + "> files to consolidate");
 		System.out.println(infoMsg + "creating consolidated ODI object source file <" + strOutFileName + ">");
 		
@@ -222,21 +223,15 @@ public class ConsolidateObjectSourceFiles {
 			// Validate the source file's content.
 			//
 			if (lstCurrFileRecs.size() < 3) {
-				System.err.println(errMsg + "object source file contains less records that the minimum necessary for an ODI object");
-				// I'm too lazy to define something specific.
-				System.exit(1);
+				abort(errMsg + "object source file contains less records that the minimum necessary for an ODI object");
 			}
 			
 			if (! lstCurrFileRecs.get(0).trim().equals("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>")) {
-				System.err.println(errMsg + "first record does not contain the XML document header");
-				// I'm too lazy to define something specific.
-				System.exit(1);
+				abort(errMsg + "first record does not contain the XML document header");
 			}
 			
 			if (! lstCurrFileRecs.get(1).trim().equals("<SunopsisExport>")) {
-				System.err.println(errMsg + "second record does not contain the <SunopsisExport> tag");
-				// I'm too lazy to define something specific.
-				System.exit(1);
+				abort(errMsg + "second record does not contain the <SunopsisExport> tag");
 			}
 			
 			//
@@ -282,8 +277,7 @@ public class ConsolidateObjectSourceFiles {
 			fwOutWriter.close();
 		}
 		catch (Exception e) {
-			System.err.println(errMsg + "writing output file <" + strOutFileName + ">");
-			System.exit(1);
+			abort(errMsg + "writing output file <" + strOutFileName + ">");
 		}
 		finally {
 			try {
@@ -292,8 +286,16 @@ public class ConsolidateObjectSourceFiles {
 			}
 			catch (IOException ex) {
 				ex.printStackTrace();
+				abort("closing output FileWriter object");
 			}
 		}
 		System.out.println(infoMsg + "finished writing file <" + strOutFileName + ">");
+		System.out.println(infoMsg + "ends");
+	}
+	
+	private static void abort(String strMessage) {
+		System.err.println(errMsg + strMessage);
+		System.err.println(errMsg + "ends");
+		System.exit(1);
 	}
 }

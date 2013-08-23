@@ -100,10 +100,11 @@ for /f %%g in ('set ^| grep ARGV[1-9].* ^| cut -f1 -d^=') do (
 
 set ARGC=0
 set /a ParamNo=0
+set ARGVALL=
 
 :DoNextParam
 set /a ParamNo=%ParamNo% + 1
-call set ARGN=%%~%ParamNo%
+call set ARGN=%1
 
 if "%ARGN%" == "" (
 	goto ExitOk
@@ -111,6 +112,9 @@ if "%ARGN%" == "" (
 
 call set ARGV%ParamNo%=%ARGN%
 set /a ARGC=%ARGC% + 1
+set ARGVALL=%ARGVALL% %ARGN%
+
+shift
 goto DoNextParam
 
 :ExitOk

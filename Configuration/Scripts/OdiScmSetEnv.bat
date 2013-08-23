@@ -235,11 +235,13 @@ REM )
 :ExitOk
 REM if exist "%TEMPFILE%" del /f "%TEMPFILE%"
 REM if exist "%TEMPFILE2%" del /f %TEMPFILE2%
+echo %IM% starts
 exit /b 0
 
 :ExitFail
 REM if exist "%TEMPFILE%" del /f "%TEMPFILE%"
 REM if exist "%TEMPFILE2%" del /f %TEMPFILE2%
+echo %EM% starts
 exit /b 1
 
 REM ===============================================

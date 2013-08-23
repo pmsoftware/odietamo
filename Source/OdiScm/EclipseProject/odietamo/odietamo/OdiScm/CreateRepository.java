@@ -22,6 +22,8 @@ public class CreateRepository {
 		
 	public static void main(String[] args)
 	{
+		System.out.println(infoMsg + "starts");
+		
 		/*
 		 * Arg  0: Supervisor User name.
 		 *      1: Supervisor Password.
@@ -36,8 +38,7 @@ public class CreateRepository {
 		 */
 		if (args.length != 10) {
 			System.err.println(errMsg + "invalid arguments");
-			System.out.println(infoMsg + "usage: CreateRepository <Supervisor User Name> <Supervisor User Password> <Master/Work DB URL> <Master/Work JDBC driver> <Master/Work DB User Name> <Master/Work DB User Name> <Master/Work Internal ID> <Work Repositroy Name> <Oracle DBA User Name> <Oracle DBA Password>");
-			System.exit(1);
+			abort("usage: CreateRepository <Supervisor User Name> <Supervisor User Password> <Master/Work DB URL> <Master/Work JDBC driver> <Master/Work DB User Name> <Master/Work DB User Name> <Master/Work Internal ID> <Work Repositroy Name> <Oracle DBA User Name> <Oracle DBA Password>");
 		}
 
 		String odiSupervisorUser = args[0].replace("\"", "");
@@ -61,7 +62,7 @@ public class CreateRepository {
 		}
 		catch (Exception e) {
 			System.err.println(errMsg + "invalid repository ID specified");
-			System.err.println(errMsg + "repository ID must be an integer value");
+			abort(errMsg + "repository ID must be an integer value");
 		}
 
 		String workRepositoryName = args[7].replace("\"", "");
@@ -73,8 +74,6 @@ public class CreateRepository {
 		
 		String workRepositoryPassword = "";
           
-		int ExitStatus = 0;
-		
 		try {
 			// Create Master Repository.
 			IMasterRepositorySetup masterRepositorySetup = new MasterRepositorySetupImpl();
@@ -88,7 +87,6 @@ public class CreateRepository {
 			else {
 				System.err.println(errMsg + "master repository creation failed");
 				throw new RepositorySetupException("createMasterRepository returned false", new Throwable());
-				//System.exit(1);
 			}
 
 			SimpleOdiInstanceHandle handle = SimpleOdiInstanceHandle.create(RepositoryJdbcUrl, RepositoryJdbcDriver, RepositoryJdbcUserName, RepositoryJdbcPassword, odiSupervisorUser, odiSupervisorPassword);
@@ -107,13 +105,11 @@ public class CreateRepository {
 				else {
 					System.err.println(errMsg + "work repository creation failed");
 					throw new RepositorySetupException("createMasterRepository returned false", new Throwable());
-					//ExitStatus = 1;
 				}
 			}
 	        catch (RepositorySetupException e) {
 	        	System.err.println(errMsg + "work repository creation failed");
 	        	throw new RepositorySetupException("createMasterRepository returned false", new Throwable());
-	        	//ExitStatus = 1;
 	        }
 			finally {
 				handle.release();
@@ -121,8 +117,15 @@ public class CreateRepository {
 		}
         catch (RepositorySetupException e) {
             e.printStackTrace();
-            ExitStatus = 1;
+            abort("creating master/work repository");
         }
-        System.exit(ExitStatus);
+		System.out.println(infoMsg + "ends");
+        System.exit(0);
+	}
+	
+	private static void abort(String strMessage) {
+		System.err.println(errMsg + strMessage);
+		System.err.println(errMsg + "ends");
+		System.exit(1);
 	}
 }
