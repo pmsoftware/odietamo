@@ -40,7 +40,7 @@ function GenerateImport {
 	#
 	# Ensure the OdiScm repository infrastructure has been set up.
 	#
-	$CmdOutput = ExecOdiRepositorySql("$OdiScmRepoInfrastructureSetupSql")
+	$CmdOutput = ExecOdiRepositorySql "$OdiScmRepoInfrastructureSetupSql" $GenScriptRootDir $OdiScmJisqlRepoBat
 	if (! $CmdOutput) {
 		write-host "$EM error creating OdiScm repository infrastructure"
 		return $ExitStatus
@@ -90,7 +90,7 @@ function GenerateImport {
 	#
 	# Get the OdiScm metadata from the ODI repository.
 	#
-	$CmdOutput = ExecOdiRepositorySql("$ScriptsRootDir\OdiScmGetLastImport.sql")
+	$CmdOutput = ExecOdiRepositorySql "$ScriptsRootDir\OdiScmGetLastImport.sql" $GenScriptRootDir $OdiScmJisqlRepoBat
 	if (! $CmdOutput) {
 		write-host "$EM error retrieving last imported revision from OdiScm repository metadata"
 		return $ExitStatus

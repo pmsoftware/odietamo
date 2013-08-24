@@ -1275,7 +1275,7 @@ function SetTopLevelScriptContent ($NextImportChangeSetRange) {
 	return $ExitStatus
 }
 
-function ExecOdiRepositorySql ($SqlScriptFile) {
+function ExecOdiRepositorySql($SqlScriptFile, $strWorkDir, $strJiqlRepoBat) {
 	
 	$FN = "ExecOdiRepositorySql"
 	$IM = $FN + ": INFO:"
@@ -1292,13 +1292,13 @@ function ExecOdiRepositorySql ($SqlScriptFile) {
 	# by this function.
 	#
 	$SqlScriptFileName = split-path $SqlScriptFile -leaf
-	$StdOutLogFile = "$GenScriptRootDir\ExecOdiRepositorySql_${SqlScriptFileName}_StdOut_${VersionString}.log"
-	$StdErrLogFile = "$GenScriptRootDir\ExecOdiRepositorySql_${SqlScriptFileName}_StdErr_${VersionString}.log"
+	$StdOutLogFile = "$strWorkDir\ExecOdiRepositorySql_${SqlScriptFileName}_StdOut_${VersionString}.log"
+	$StdErrLogFile = "$strWorkDir\ExecOdiRepositorySql_${SqlScriptFileName}_StdErr_${VersionString}.log"
 	write-host "$IM StdOut will be captured in file <$StdOutLogFile>"
 	write-host "$IM StdErr will be captured in file <$StdErrLogFile>"
 	
-	write-host "$IM executing command <$OdiScmJisqlRepoBat $SqlScriptFile $StdOutLogFile $StdErrLogFile>"
-	$CmdOutput = invoke-expression "$OdiScmJisqlRepoBat $SqlScriptFile $StdOutLogFile $StdErrLogFile"
+	write-host "$IM executing command <$strJiqlRepoBat $SqlScriptFile $StdOutLogFile $StdErrLogFile>"
+	$CmdOutput = invoke-expression "$strJiqlRepoBat $SqlScriptFile $StdOutLogFile $StdErrLogFile"
 	$BatchExitCode = $LastExitCode
 	
 	write-host "$IM command returned exit status <$BatchExitCode>"

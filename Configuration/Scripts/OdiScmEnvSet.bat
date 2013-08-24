@@ -38,7 +38,9 @@ if ERRORLEVEL 1 (
 )
 
 :ExitOk
+echo %IM% ends
 exit /b 0
 
 :ExitFail
+echo %EM% starts
 exit /b 1
