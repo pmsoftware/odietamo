@@ -14,6 +14,18 @@ We do just that.
 
 Welcome to ODI-SCM.
 
+Features At A Glance
+--------------------
+
+* Automated export of ODI object for check-in to the SCM system.
+* Support for Apache Subversion and Microsoft Team Foundation (TFS) SCM systems.
+* Automated import of ODI object source code from the SCM system to the ODI repository.
+* Full or Incremental ODI repository builds from the SCM system.
+* Full ODI repository builds from an existing working copy.
+* Automated generation of Scenarios.
+* High performance object source code imports through object batching.
+* Integrates with Continuous Integration servers. E.g. Hudson / Jenkins.
+
 Contents
 --------
 .. toctree::

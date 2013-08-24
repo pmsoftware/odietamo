@@ -361,7 +361,7 @@ function GetFromFileSystem ([ref] $arrOdiObjSrcFiles) {
 	$strSourcePathRootDir = $env:ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT
 	if (!(test-path $strSourcePathRootDir)) {
 		write-host "$EM path <$strSourcePathRootDir> specified in environment"
-		wrote-host "$EM variable ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT cannot be accessed"
+		write-host "$EM variable ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT cannot be accessed"
 		return $False
 	}
 	
