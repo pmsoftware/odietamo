@@ -62,7 +62,7 @@ public class CreateRepository {
 		}
 		catch (Exception e) {
 			System.err.println(errMsg + "invalid repository ID specified");
-			abort(errMsg + "repository ID must be an integer value");
+			abort("repository ID must be an integer value");
 		}
 
 		String workRepositoryName = args[7].replace("\"", "");

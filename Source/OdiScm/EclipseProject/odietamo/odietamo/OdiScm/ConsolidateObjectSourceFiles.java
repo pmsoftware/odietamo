@@ -277,7 +277,7 @@ public class ConsolidateObjectSourceFiles {
 			fwOutWriter.close();
 		}
 		catch (Exception e) {
-			abort(errMsg + "writing output file <" + strOutFileName + ">");
+			abort("writing output file <" + strOutFileName + ">");
 		}
 		finally {
 			try {
