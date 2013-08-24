@@ -177,6 +177,15 @@ So, the configuration file is really the persisted environment for the ODI-SCM c
 |                  |                               |composed of the current date and    |                                                             |
 |                  |                               |is used.                            |                                                             |
 |                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                  |Import Object Batch Size Max   |The maximum number of ODI object    |``200``                                                      |
+|                  |                               |source files imported in a single   |                                                             |
+|                  |                               |import operation.                   |                                                             |
+|                  |                               |*Massive* import performance gains  |                                                             |
+|                  |                               |can be achieved by specifying a     |                                                             |
+|                  |                               |value for this option. Valid values |                                                             |
+|                  |                               |are positive integers. A value of   |                                                             |
+|                  |                               |``1`` means *no optimisation*.      |                                                             |
+|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
 |                  |Import Resets Flush Control    |Controls whether the ODI-SCM import |``Yes``                                                      |
 |                  |                               |process updates the ODI-SCM *flush  |                                                             |
 |                  |                               |control* metadata. Valid values are |                                                             |
@@ -272,8 +281,10 @@ A example configuration file with all sections and keys listed::
 	UnxUtils Home=C:\UnxUtils
 
 	[Generate]
+	Export Cleans ImportRep Objects=Yes
 	Export Ref Phys Arch Only=No
 	Output Tag=DemoEnvironment2
+	Import Object Batch Size Max=200
 	Import Resets Flush Control=Yes
 
 	[Test]
@@ -318,6 +329,15 @@ Reference Topology
 ------------------
 
 Details coming soon!
+
+Build Import Performance
+------------------------
+
+ODI's ``startcmd.bat`` / ``OdiImportObject`` interface is extremely slow when used to import a large number of granular (small) ODI object source files. This is *partially* because of the overhead of starting up a JVM for each import operation. But, the main performance impediment is ``OdiImportObject`` itself. The size of the data file being imported does not appear to be a major contributor to the time it takes the import operation to complete. We can only think there must be some kind of global repository integrity validation step that occurs for each import.
+
+The main weapon we have to improve performance is batching of ODI object source files into a larger import source file. Batching is controlled via the configuration file entry ``Import Object Batch Size Max`` in the section ``[Generate]``.
+
+We have experienced **massive** performance boosts by specifying a value for this parameter. On a Windows XP desktop PC, with 3GB of RAM, Intel i5 CPU, we've seen our imports, of around 11,000 source files, go *from around 20 hours to under one hour*!
 
 Configuring Your SVN Client
 ---------------------------
