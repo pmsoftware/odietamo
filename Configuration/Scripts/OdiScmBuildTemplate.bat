@@ -1,5 +1,4 @@
 @echo off
-@echo off
 
 rem
 rem Check basic environment requirements.
@@ -161,6 +160,15 @@ call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmGenScenPostIm
 if ERRORLEVEL 1 goto MainExitFail
 
 rem
+rem Generate the unit test execution script.
+rem
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"<OdiScmHomeDir>\Configuration\Scripts\OdiScmGenerateUnitTestExecs.bat^" /p <OdiScmUnitTestExecBat>
+if ERRORLEVEL 1 (
+	echo %EM% generating unit test execution script ^<OdiScmUnitTestExecBat^>
+	goto MainExitFail
+)
+
+rem
 rem Update the ODI repository flush control metadata after the import metadata if the user preference is set.
 rem
 set MSG=updating OdiScm flush control metadata
@@ -208,6 +216,7 @@ goto MainExitFail
 :MainOdiScmSetNextImportOk
 :MainExitOk
 echo %IM% OdiScm build process completed successfully
+echo %IM% unit test execution script is ^<<OdiScmUnitTestExecBat>^>
 echo %IM% ends
 exit %IsBatchExit% 0
 

@@ -143,7 +143,9 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+echo %IM% ends
 exit %IsBatchExit% 0
 
 :ExitFail
+echo %EM% ends
 exit %IsBatchExit% 1

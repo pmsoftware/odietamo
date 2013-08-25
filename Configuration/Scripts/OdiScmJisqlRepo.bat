@@ -58,7 +58,9 @@ goto ExitFail
 :RunScriptOk
 
 :ExitOk
+echo %IM% ends
 exit %IsBatchExit% 0
 
 :ExitFail
+echo %EM% ends
 exit %IsBatchExit% 1
