@@ -2,6 +2,14 @@ $FN = "OdiScmGenStartCmd"
 $IM = $FN + ": INFO:"
 $EM = $FN + ": ERROR:"
 
+#
+# Source common functions.
+#
+. "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmCommon.ps1"
+
+#
+# Validate arguments.
+#
 if ($args.count -ne 1) {
 	write-output "$EM usage: $FN <output path and file name>"
 	exit 1
@@ -31,6 +39,9 @@ if (!(test-path $OdiParamsBat)) {
 #
 [array] $arrOdiParamsContent = get-content $OdiParamsBat
 
+#
+# Build comments around the odiparams.bat script text.
+#
 $arrOdiParamsOutText = @()
 
 $arrOdiParamsOutText += "REM"
@@ -46,8 +57,8 @@ $arrOdiParamsOutText += "REM OdiScm: end of odiparams.bat insertion"
 $arrOdiParamsOutText += "REM"
 
 #
-# Run an empty (NUL) Jython script to prime the package cache. Discard stderr so it doesn't interfere with our dectecting of if
-# the ODI command actually completed successfully.
+# Add an execution of an empty (NUL) Jython script to prime the package cache.
+# Discard stderr so it doesn't interfere with our dectecting of if the ODI command actually completed successfully.
 #
 $arrOdiParamsOutText += "REM"
 $arrOdiParamsOutText += "REM OdiScm: start of Jython package cache priming insertion"
@@ -61,9 +72,14 @@ $arrOdiParamsOutText += "REM"
 $arrOdiParamsOutText += "REM OdiScm: end of Jython package cache priming insertion"
 $arrOdiParamsOutText += "REM"
 
-$StartCmdOdiParamsCallText = '^call \"%ODI_HOME%\\bin\\odiparams.bat.*$'
 #
-# Load startcmd.bat.bat into an array.
+# Define the script text that calls odiparams.bat from startcmd.bat.
+# We will replace the call with the actual odiparams.bat script text.
+#
+$StartCmdOdiParamsCallText = '^call \"%ODI_HOME%\\bin\\odiparams.bat.*$'
+
+#
+# Load startcmd.bat into an array.
 #
 $arrStartCmdContent = get-content $StartCmdBat
 
@@ -84,70 +100,14 @@ $OutStartCmdScriptFileContent = $arrStartCmdContent | foreach {
 	}
 }
 
-# write-host "printing merged text.............................................................."
-# $OutStartCmdScriptFileContent | foreach { write-host $_ }
-# write-host "end of printing merged text.............................................................."
+#
+# Expand variable values and complete SET statements.
+#
+$OutExpandedStartCmdScriptFileContent = OdiExpandedBatchScriptText $OutStartCmdScriptFileContent
 
-#######################################################################
-# Expand variable values.
-#######################################################################
-$ScriptFileContent = $OutStartCmdScriptFileContent
-
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_HOME%"         , $env:ODI_SCM_ORACLEDI_HOME }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_JAVA_HOME%"    , $env:ODI_SCM_ORACLEDI_JAVA_HOME }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%JAVA_HOME%"        , $env:ODI_SCM_ORACLEDI_JAVA_HOME }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_SECU_WORK_REP%", $env:ODI_SCM_ORACLEDI_SECU_WORK_REP }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_USER%"         , $env:ODI_SCM_ORACLEDI_USER }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_ENCODED_PASS%" , $env:ODI_SCM_ORACLEDI_ENCODED_PASS }
 #
-# ODI 10g variables.
-#
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_SECU_DRIVER%"      , $env:ODI_SCM_ORACLEDI_SECU_DRIVER }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_SECU_URL%"         , $env:ODI_SCM_ORACLEDI_SECU_URL }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_SECU_USER%"        , $env:ODI_SCM_ORACLEDI_SECU_USER }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_SECU_ENCODED_PASS%", $env:ODI_SCM_ORACLEDI_SECU_ENCODED_PASS }
-#
-# ODI 11g variables.
-#
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_MASTER_DRIVER%"      , $env:ODI_SCM_ORACLEDI_SECU_DRIVER }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_MASTER_URL%"         , $env:ODI_SCM_ORACLEDI_SECU_URL }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_MASTER_USER%"        , $env:ODI_SCM_ORACLEDI_SECU_USER }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_MASTER_ENCODED_PASS%", $env:ODI_SCM_ORACLEDI_SECU_ENCODED_PASS }
-
-#######################################################################
-# Modify variable SET statements.
-#######################################################################
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_HOME=.*$"         , "set ODI_HOME=$env:ODI_SCM_ORACLEDI_HOME" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_JAVA_HOME=.*$"    , "set ODI_JAVA_HOME=$env:ODI_SCM_ORACLEDI_JAVA_HOME" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set JAVA_HOME=.*$"        , "set JAVA_HOME=$env:ODI_SCM_ORACLEDI_JAVA_HOME" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_WORK_REP=.*$", "set ODI_SECU_WORK_REP=$env:ODI_SCM_ORACLEDI_SECU_WORK_REP" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_USER=.*$"         , "set ODI_USER=$env:ODI_SCM_ORACLEDI_USER" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_ENCODED_PASS=.*$" , "set ODI_ENCODED_PASS=$env:ODI_SCM_ORACLEDI_ENCODED_PASS" }
-#
-# ODI 10g variables.
-#
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_DRIVER=.*$"      , "set ODI_SECU_DRIVER=$env:ODI_SCM_ORACLEDI_SECU_DRIVER" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_URL=.*$"         , "set ODI_SECU_URL=$env:ODI_SCM_ORACLEDI_SECU_URL" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_USER=.*$"        , "set ODI_SECU_USER=$env:ODI_SCM_ORACLEDI_SECU_USER" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_ENCODED_PASS=.*$", "set ODI_SECU_ENCODED_PASS=$env:ODI_SCM_ORACLEDI_SECU_ENCODED_PASS" }
-#
-# ODI 11g variables.
-#
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_MASTER_DRIVER=.*$"      , "set ODI_MASTER_DRIVER=$env:ODI_SCM_ORACLEDI_SECU_DRIVER" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_MASTER_URL=.*$"         , "set ODI_MASTER_URL=$env:ODI_SCM_ORACLEDI_SECU_URL" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_MASTER_USER=.*$"        , "set ODI_MASTER_USER=$env:ODI_SCM_ORACLEDI_SECU_USER" }
-$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_MASTER_ENCODED_PASS=.*$", "set ODI_MASTER_ENCODED_PASS=$env:ODI_SCM_ORACLEDI_SECU_ENCODED_PASS" }
-
-$OutStartCmdScriptFileContent = $ScriptFileContent
-
-# write-host "printing again.............................................................."
-# $OutStartCmdScriptFileContent | foreach { write-host $_ }
-
-###write-host "OutStartCmdScriptFileContent: " $OutStartCmdScriptFileContent
-
-#######################################################################
 # Define output file names.
-#######################################################################
+#
 $OutWrapperBat = $args[0]
 $OutWrapperBatFile = split-path $OutWrapperBat -leaf
 $OutDir = split-path $OutWrapperBat -parent
@@ -157,19 +117,17 @@ $OutStartCmdBatFile += "_OdiScmStartCmd.bat"
 $OutStartCmdBat = $OutDir + "\" + $OutStartCmdBatFile
 
 #
-# Create the StartCmd script.
+# Create the StartCmd script file.
 #
-set-content -path $OutStartCmdBat -value $OutStartCmdScriptFileContent
+set-content -path $OutStartCmdBat -value $OutExpandedStartCmdScriptFileContent
 if (!($?)) {
 	write-output "$EM writing StartCmd script file <$OutStartCmdBat>"
 	exit 1
 }
 
-#######################################################################
-# Create the wrapper script, used to capture and stderr from the
-# startcmd script.
-#######################################################################
-
+#
+# Create the wrapper script, used to capture and stderr from the startcmd script.
+#
 $strStdOutFile = $OutStartCmdBat + ".stdout"
 $strStdErrFile = $OutStartCmdBat + ".stderr"
 $strEmptyFile = $OutStartCmdBat + ".empty"

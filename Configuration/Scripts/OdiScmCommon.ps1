@@ -1256,7 +1256,7 @@ function GenerateUnitTestExecScript($strOutputFile) {
 	
 	$arrOutFileLines += ('set PROC=' + $strOutPutFileName)
 	$arrOutFileLines += 'set IM=%PROC%: INFO:'
-	$arrOutFileLines += 'set EM=%ERROR%: INFO:'
+	$arrOutFileLines += 'set EM=%PROC%: ERROR:'
 	$arrOutFileLines += 'echo %IM% starts'
 	$arrOutFileLines += ''
 	$arrOutFileLines += 'if "%ODI_SCM_HOME%" == "" ('
@@ -1321,7 +1321,7 @@ function GenerateUnitTestExecScript($strOutputFile) {
 		
 		$strTestPageFilePath = ($env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT).Replace("/","\") + "\" + ($env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_NAME).Replace(".","\") + "\" + $strTestPagePath.Replace(".","\")
 
-		$arrOutFileLines += 'if not EXIST "' + $strTestPageFilePath + '\content.txt"'
+		$arrOutFileLines += 'if not EXIST "' + $strTestPageFilePath + '\content.txt" ('
 		$arrOutFileLines += '	set /a TOTALTESTPAGESMISSING=!TOTALTESTPAGESMISSING! + 1'
 		$arrOutFileLines += ') else ('
 		$arrOutFileLines += ('	' + $strFitNesseCmd)
@@ -1331,7 +1331,7 @@ function GenerateUnitTestExecScript($strOutputFile) {
 		$arrOutFileLines += '		set /a TOTALTESTFAILURES=!TOTALTESTFAILURES! + !TESTFAILURES!'
 		$arrOutFileLines += '		set /a TOTALTESTPAGEFAILURES=!TOTALTESTPAGEFAILURES! + 1'
 		$arrOutFileLines += '	) else ('
-		$arrOutFileLines += '		echo %EM% tests passed'
+		$arrOutFileLines += '		echo %IM% tests passed'
 		$arrOutFileLines += '		set /a TOTALTESTPAGEPASSES=!TOTALTESTPAGEPASSES! + 1'
 		$arrOutFileLines += '	)'
 		$arrOutFileLines += ')'
@@ -1820,6 +1820,110 @@ function CreateConsolidatedOdiSourceFile ($fileList, $outFile) {
 	return $True
 }
 
+#
+# Expand ODI variables, and complete SET statements, in batch file script text.
+#
+function OdiExpandedBatchScriptText ($arrInText) {
+	
+	$FN = "OdiExpandedBatchScriptText"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	write-host "$IM starts"
+	
+	#
+	# Expand variable values.
+	#
+	$ScriptFileContent = $arrInText
+
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_HOME%"         , $env:ODI_SCM_ORACLEDI_HOME }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_JAVA_HOME%"    , $env:ODI_SCM_ORACLEDI_JAVA_HOME }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%JAVA_HOME%"        , $env:ODI_SCM_ORACLEDI_JAVA_HOME }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_SECU_WORK_REP%", $env:ODI_SCM_ORACLEDI_SECU_WORK_REP }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_USER%"         , $env:ODI_SCM_ORACLEDI_USER }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_ENCODED_PASS%" , $env:ODI_SCM_ORACLEDI_ENCODED_PASS }
+	#
+	# ODI 10g variables.
+	#
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_SECU_DRIVER%"      , $env:ODI_SCM_ORACLEDI_SECU_DRIVER }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_SECU_URL%"         , $env:ODI_SCM_ORACLEDI_SECU_URL }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_SECU_USER%"        , $env:ODI_SCM_ORACLEDI_SECU_USER }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_SECU_ENCODED_PASS%", $env:ODI_SCM_ORACLEDI_SECU_ENCODED_PASS }
+	#
+	# ODI 11g variables.
+	#
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_MASTER_DRIVER%"      , $env:ODI_SCM_ORACLEDI_SECU_DRIVER }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_MASTER_URL%"         , $env:ODI_SCM_ORACLEDI_SECU_URL }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_MASTER_USER%"        , $env:ODI_SCM_ORACLEDI_SECU_USER }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "%ODI_MASTER_ENCODED_PASS%", $env:ODI_SCM_ORACLEDI_SECU_ENCODED_PASS }
+	
+	#
+	# Modify variable SET statements.
+	#
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_HOME=.*$"         , "set ODI_HOME=$env:ODI_SCM_ORACLEDI_HOME" }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_JAVA_HOME=.*$"    , "set ODI_JAVA_HOME=$env:ODI_SCM_ORACLEDI_JAVA_HOME" }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set JAVA_HOME=.*$"        , "set JAVA_HOME=$env:ODI_SCM_ORACLEDI_JAVA_HOME" }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_WORK_REP=.*$", "set ODI_SECU_WORK_REP=$env:ODI_SCM_ORACLEDI_SECU_WORK_REP" }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_USER=.*$"         , "set ODI_USER=$env:ODI_SCM_ORACLEDI_USER" }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_ENCODED_PASS=.*$" , "set ODI_ENCODED_PASS=$env:ODI_SCM_ORACLEDI_ENCODED_PASS" }
+	#
+	# ODI 10g variables.
+	#
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_DRIVER=.*$"      , "set ODI_SECU_DRIVER=$env:ODI_SCM_ORACLEDI_SECU_DRIVER" }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_URL=.*$"         , "set ODI_SECU_URL=$env:ODI_SCM_ORACLEDI_SECU_URL" }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_USER=.*$"        , "set ODI_SECU_USER=$env:ODI_SCM_ORACLEDI_SECU_USER" }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_SECU_ENCODED_PASS=.*$", "set ODI_SECU_ENCODED_PASS=$env:ODI_SCM_ORACLEDI_SECU_ENCODED_PASS" }
+	#
+	# ODI 11g variables.
+	#
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_MASTER_DRIVER=.*$"      , "set ODI_MASTER_DRIVER=$env:ODI_SCM_ORACLEDI_SECU_DRIVER" }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_MASTER_URL=.*$"         , "set ODI_MASTER_URL=$env:ODI_SCM_ORACLEDI_SECU_URL" }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_MASTER_USER=.*$"        , "set ODI_MASTER_USER=$env:ODI_SCM_ORACLEDI_SECU_USER" }
+	$ScriptFileContent = $ScriptFileContent | foreach { $_ -replace "^set ODI_MASTER_ENCODED_PASS=.*$", "set ODI_MASTER_ENCODED_PASS=$env:ODI_SCM_ORACLEDI_SECU_ENCODED_PASS" }
+	
+	write-host "$IM ends"
+	
+	return $ScriptFileContent
+}
+
+#
+# Create an odiparams.bat script with ODI variables expanded, and completed SET statements.
+#
+function CreateOdiParamsExpandedBatchScript ($strOutFile) {
+	
+	$FN = "CreateOdiParamsExpandedBatchScript"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	write-host "$IM starts"
+	
+	$OdiParamsBat = $env:ODI_SCM_ORACLEDI_HOME + "\bin\odiparams.bat"
+	if (!(test-path $OdiParamsBat)) {
+		write-output "$EM odiparams.bat batch script not found in ODI bin directory <$env:ODI_SCM_ORACLEDI_HOME\bin>"
+		return $False
+	}
+	
+	#
+	# Load odiparams.bat into an array.
+	#
+	[array] $arrOdiParamsContent = get-content $OdiParamsBat
+	
+	#
+	# Expand variable values and complete SET statements.
+	#
+	$ExpandedOdiParamsContent = OdiExpandedBatchScriptText $arrOdiParamsContent
+	
+	#
+	# Create the output file.
+	#
+	set-content -path $strOutFile -value $ExpandedOdiParamsContent
+	if (!($?)) {
+		write-output "$EM writing output file <$strOutFile> "
+		return $False
+	}
+	
+	write-host "$IM ends"
+	return $True
+}
+
 function PrimeWriteHost {
 	
 	$FN = "PrimeWriteHost"
@@ -1888,7 +1992,7 @@ $LogRootDir = $OdiScmHomeDir + "\Logs"
 $OdiHomeDir = ""
 $OdiJavaHomeDir = ""
 $OdiParamFile = ""
-$OdiJavaHomeDir
+$OdiJavaHomeDir = ""
 
 #
 # General Java configuration.

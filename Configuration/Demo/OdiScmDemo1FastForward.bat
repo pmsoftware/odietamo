@@ -20,9 +20,9 @@ if ERRORLEVEL 1 (
 rem
 rem Validate arguments.
 rem
-if "%ARGC%" neq "2" (
+if "%ARGC%" neq "3" (
 	echo %EM% invalid number of arguments 1>&2
-	echo %EM% usage: ^<%PROC%^> ^<path/to/demo/env1/INI/file^> ^<path/to/demo/env2/INI/file^> 1>&2
+	echo %EM% usage: ^<%PROC%^> ^<path/to/demo/env1/INI/file^> ^<path/to/demo/env2/INI/file^> ^<path/to/standard/ODI/demo/INI/file^> 1>&2
 	goto ExitFail
 )
 
@@ -40,9 +40,49 @@ if not EXIST "%ARGV2%" (
 
 set DEMO_ENV2_INI=%ARGV2%
 
-rem
+if not EXIST "%ARGV3%" (
+	echo %EM% specified standard ODI demo configuration INI file ^<%ARGV3%^> does not exist 1>&2
+	goto ExitFail
+)
+
+set ODI_DEMO_INI=%ARGV3%
+
+rem *************************************************************
+rem Export the standard ODI demo to a temporary directory.
+rem *************************************************************
+set ODI_SCM_INI=%ODI_DEMO_INI%
+set MSG=setting OdiScm environment for standard ODI demo from ^^^<%ODI_SCM_INI%^^^>
+echo %IM% %MSG%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSaveScriptSwitches.bat"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmEnvSet.bat" %DiscardStdOut%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmLoadScriptSwitches.bat"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
+
+set MSG=creating temporary directory for export of standard ODI demo repository
+echo %IM% %MSG%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
+
+set ODISTDDEMODIR=%TEMPDIR%\OracleDIStdDemoExport
+
+set MSG=exporting standard ODI demo repository
+echo %IM% %MSG%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Demo\OdiScmExportOracleDIDemo.bat^" /p %ODISTDDEMODIR%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
+
+rem *************************************************************
 rem Create the demo base directory.
-rem
+rem *************************************************************
 set ODI_SCM_DEMO_BASE=C:\OdiScmWalkThrough
 
 if not EXIST "%ODI_SCM_DEMO_BASE%" (
@@ -54,9 +94,9 @@ if not EXIST "%ODI_SCM_DEMO_BASE%" (
 	)
 )
 
-rem
+rem *************************************************************
 rem Create the SCM repository.
-rem
+rem *************************************************************
 set ODI_SCM_SCM_REPO_ROOT=%ODI_SCM_DEMO_BASE%\SvnRepoRoot
 
 if EXIST "%ODI_SCM_SCM_REPO_ROOT%" (
@@ -191,12 +231,13 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+
 rem
 rem Import the standard ODI demo after OdiScm so that we can flush it out to the working copy later on.
 rem
 set MSG=importing standard ODI demo into demo environment 1 ODI repository
 echo %IM% %MSG%
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportOracleDIDemo.bat^" /p %ODI_SCM_HOME%\Configuration\Demo\Odi10gStandardDemo %DiscardStdOut%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportOracleDIDemo.bat^" /p %ODISTDDEMODIR% %DiscardStdOut%
 if ERRORLEVEL 1 (
 	echo %IM% %MSG% 1>&2
 	goto ExitFail
@@ -368,7 +409,7 @@ if ERRORLEVEL 1 (
 
 set MSG=executing generated ODI code import scripts to update demo environment 2 ODI repository
 echo %IM% %MSG%
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Logs\DemoEnvironment2\OdiScmBuild_DemoEnvironment2.bat^" %DiscardStdOut% %DiscardStdErr%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Logs\DemoEnvironment2\OdiScmBuild_DemoEnvironment2.bat^" /p %DiscardStdOut% %DiscardStdErr%
 if ERRORLEVEL 1 (
 	echo %EM% %MSG% 1>&2
 	goto ExitFail
@@ -455,7 +496,7 @@ if ERRORLEVEL 1 (
 
 set MSG=executing generated ODI code import scripts to update demo environment 1 ODI repository
 echo %IM% %MSG%
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Logs\DemoEnvironment1\OdiScmBuild_DemoEnvironment1.bat^" %DiscardStdOut% %DiscardStdErr%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Logs\DemoEnvironment1\OdiScmBuild_DemoEnvironment1.bat^" /p %DiscardStdOut% %DiscardStdErr%
 if ERRORLEVEL 1 (
 	echo %EM% %MSG% 1>&2
 	goto ExitFail

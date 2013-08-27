@@ -1,8 +1,8 @@
 @echo off
-REM
-REM Create a copy of the ODI startcmd.bat batch script with hard coded values for the repository
-REM connection details.
-REM
+rem
+rem Create a copy of the ODI odiparams.bat batch script with hard coded values for the repository
+rem connection details.
+rem
 
 rem
 rem Check basic environment requirements.
@@ -21,6 +21,9 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+rem
+rem Validate arguments.
+rem
 if "%ARGV1%" == "" (
 	echo %EM% usage: %FN% ^<output path and file name^>
 	goto ExitFail
@@ -28,6 +31,9 @@ if "%ARGV1%" == "" (
 
 set OUTFILE=%ARGV1%
 
+rem
+rem Check repository connection details environment.
+rem
 if "%ODI_SCM_ORACLEDI_HOME%" == "" (
 	echo %EM% environment variable ODI_SCM_ORACLEDI_HOME is not set
 	goto ExitFail
@@ -70,11 +76,6 @@ if "%ODI_SCM_ORACLEDI_USER%" == "" (
 	goto ExitFail
 )
 
-if not EXIST "%ODI_SCM_ORACLEDI_HOME%\bin\startcmd.bat" (
-	echo %EM% ODI startcmd.bat batch script not found in directory ^<%ODI_SCM_ORACLEDI_HOME%\bin^>
-	goto ExitFail
-)
-
 if not EXIST "%ODI_SCM_ORACLEDI_HOME%\bin\odiparams.bat" (
 	echo %EM% ODI odiparams.bat batch script not found in directory ^<%ODI_SCM_ORACLEDI_HOME%\bin^>
 	goto ExitFail
@@ -91,9 +92,9 @@ if EXIST "%OUTFILE%" (
 	)
 )
 
-powershell -file "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.ps1" "%OUTFILE%"
+powershell -file "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenOdiParams.ps1" "%OUTFILE%"
 if ERRORLEVEL 1 (
-	echo %EM% executing PowerShell script ^<%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.ps1^>
+	echo %EM% executing PowerShell script ^<%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenOdiParams.ps1^>
 	goto ExitFail
 )
 

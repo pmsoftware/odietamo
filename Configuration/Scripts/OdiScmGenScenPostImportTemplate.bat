@@ -49,7 +49,7 @@ set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen20_Jisql_stderr_%YYYYMMDD%_%HHMM%
 call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" <OdiScmGenScenDeleteOldSql> %STDOUTFILE% %STDERRFILE%
 if not ERRORLEVEL 1 goto BatchFileOk20
 
-echo %EM% Batch file MoiJisqlRepo.bat returned non-zero ERRORLEVEL
+echo %EM% Batch file OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL
 echo %EM% Check StdOut content in file ^<%STDOUTFILE%^>
 echo %EM% Check StdErr content in file ^<%STDERRFILE%^>
 echo %IM% StdErr content:
@@ -63,7 +63,7 @@ goto ExitFail
 rem
 rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.
 rem 
-echo %IM% Batch file MoiJisqlRepo.bat returned zero ERRORLEVEL
+echo %IM% Batch file OdiScmJisqlRepo.bat returned zero ERRORLEVEL
 fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
 if not ERRORLEVEL 1 goto StdErrEmpty20
 
@@ -107,7 +107,7 @@ if ERRORLEVEL 1 goto BatchFileNotOk30
 goto BatchFileOk30
 
 :BatchFileNotOk30
-echo %EM% Batch file MoiJisqlRepo.bat returned non-zero ERRORLEVEL
+echo %EM% Batch file OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL
 echo %EM% Check StdOut content in file ^<%STDOUTFILE%^>
 echo %EM% Check StdErr content in file ^<%STDERRFILE%^>
 echo %IM% StdErr content:
@@ -121,7 +121,7 @@ goto ExitFail
 rem
 rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.
 rem 
-echo %IM% Batch file MoiJisqlRepo.bat returned zero ERRORLEVEL
+echo %IM% Batch file OdiScmJisqlRepo.bat returned zero ERRORLEVEL
 fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
 if ERRORLEVEL 1 goto StdErrNotEmpty30
 goto StdErrEmpty30
@@ -145,7 +145,7 @@ if ERRORLEVEL 1 goto BatchFileNotOk40
 goto BatchFileOk40
 
 :BatchFileNotOk40
-echo %EM% Batch file MoiJisqlRepo.bat returned non-zero ERRORLEVEL
+echo %EM% Batch file OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL
 echo %EM% Check StdOut content in file ^<%STDOUTFILE%^>
 echo %EM% Check StdErr content in file ^<%STDERRFILE%^>
 echo %IM% StdErr content:
@@ -159,7 +159,7 @@ goto ExitFail
 rem
 rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.
 rem 
-echo %IM% Batch file MoiJisqlRepo.bat returned zero ERRORLEVEL
+echo %IM% Batch file OdiScmJisqlRepo.bat returned zero ERRORLEVEL
 fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
 if ERRORLEVEL 1 goto StdErrNotEmpty40
 goto StdErrEmpty40
@@ -203,7 +203,7 @@ if ERRORLEVEL 1 goto BatchFileNotOk50
 goto BatchFileOk50
 
 :BatchFileNotOk50
-echo %EM% Batch file MoiJisqlRepo.bat returned non-zero ERRORLEVEL
+echo %EM% Batch file OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL
 echo %EM% Check StdOut content in file ^<%STDOUTFILE%^>
 echo %EM% Check StdErr content in file ^<%STDERRFILE%^>
 echo %IM% StdErr content:
@@ -217,7 +217,7 @@ goto ExitFail
 rem
 rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.
 rem 
-echo %IM% Batch file MoiJisqlRepo.bat returned zero ERRORLEVEL
+echo %IM% Batch file OdiScmJisqlRepo.bat returned zero ERRORLEVEL
 fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
 if not ERRORLEVEL 1 goto StdErrEmpty50
 
@@ -237,6 +237,7 @@ echo %EM% Scenario build process has failed.
 echo %EM% Check contents of the StdOut and StdErr files
 
 :Exit
+echo about to exit with status %EXITSTATUS% and batch exit is %IsBatchExit%
 exit %IsBatchExit% %EXITSTATUS%
 
 rem *************************************************************

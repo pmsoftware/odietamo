@@ -5,8 +5,7 @@ SELECT i_project
     || i_object
     || '/'
     || TRIM(object_name)
-    || 'END'
-  FROM (
+   FROM (
        --
        -- Interfaces with a Scenario.
        --
