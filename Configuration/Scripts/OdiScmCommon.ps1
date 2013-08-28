@@ -1322,6 +1322,7 @@ function GenerateUnitTestExecScript($strOutputFile) {
 		$strTestPageFilePath = ($env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT).Replace("/","\") + "\" + ($env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_NAME).Replace(".","\") + "\" + $strTestPagePath.Replace(".","\")
 
 		$arrOutFileLines += 'if not EXIST "' + $strTestPageFilePath + '\content.txt" ('
+		$arrOutFileLines += '	set TESTFAILURES=0'
 		$arrOutFileLines += '	set /a TOTALTESTPAGESMISSING=!TOTALTESTPAGESMISSING! + 1'
 		$arrOutFileLines += ') else ('
 		$arrOutFileLines += ('	' + $strFitNesseCmd)
@@ -1346,6 +1347,8 @@ function GenerateUnitTestExecScript($strOutputFile) {
 	$arrOutFileLines += 'echo %IM% total test failures ^<%TOTALTESTFAILURES%^>'
 	$arrOutFileLines += ''
 	$arrOutFileLines += 'set /a TOTALFAILURES=%TOTALTESTFAILURES% + %TOTALTESTPAGESMISSING%'
+	$arrOutFileLines += ''
+	$arrOutFileLines += 'echo %IM% total failures ^<%TOTALFAILURES%^>'
 	$arrOutFileLines += ''
 	$arrOutFileLines += 'if not "%TOTALFAILURES%" == "0" ('
 	$arrOutFileLines += '	echo %EM% unit tests have failed 1>&2'

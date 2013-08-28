@@ -237,7 +237,6 @@ echo %EM% Scenario build process has failed.
 echo %EM% Check contents of the StdOut and StdErr files
 
 :Exit
-echo about to exit with status %EXITSTATUS% and batch exit is %IsBatchExit%
 exit %IsBatchExit% %EXITSTATUS%
 
 rem *************************************************************
