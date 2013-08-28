@@ -248,6 +248,87 @@ Use the "Test" function, using the Local agent, to test the connection details f
 
 You can now connect to the new, empty, work repository. Have a look. It’s empty!
 
+Export the Standard ODI demo repository from the Hypersonic SQL database
+========================================================================
+
+Using ODI 10g
+~~~~~~~~~~~~~
+
+If you're using ODI 10g then you should already have the Hypersonic SQL (HSQL) demo repository files in your ODI installation directories. The files you should find are:
+
+* ``<Your ODI home directory>\bin\startdemo.bat``
+* ``<Your ODI home directory>\bin\stopdemo.bat``
+* The Hypersonic SQL database files in ``<Your ODI home directory>\demo\hsql``.
+
+Using ODI 11g
+~~~~~~~~~~~~~
+
+If you're using ODI 11g then you will need to install the standard ODI demo files into your ODI installation directories. The demo files are packaged in the ODI companion CD files ZIP archive. At the time of writing this file has the name ``ofm_odi_companion_generic_11.1.1.6.2_disk1_1o1.zip`` and can be downloaded from::
+
+	http://download.oracle.com/otn/nt/middleware/11g/111162/ofm_odi_companion_generic_11.1.1.6.2_disk1_1o1.zip
+
+Inside this ZIP file you find the file ``oracledi-demo.zip``. Unpack the contents of this file into the ``oracledi`` directory containing your ODI installation. I.e. unzipping the file should create the directory ``oracledi\demo`` in your ODI installation.
+
+Set the ODI-SCM environment for the standard ODI demo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+From the command prompt (cmd.exe), copy the pre-defined standard ODI demo environment configuration INI file to the demo directory::
+
+	copy "%ODI_SCM_HOME%\Configuration\Demo\OdiScmExportStandardOdiDemo.ini" C:\OdiScmWalkThrough\
+
+Open the copied file (``C:\OdiScmWalkThrough\OdiScmExportStandardOdiDemo.ini``) in a text editor and edit the following entries for the version and installation location of ODI that you're using.
+
++---------+-------------------+---------------------------------------------------------------------------------------------------------+
+|Section  | Key               | Description                                                                                             |
++=========+===================+=========================================================================================================+
+|OracleDI | Home              | Home directory of your ODI installation.                                                                |
+|         |                   +---------------------------------------------------------------------------------------------------------+
+|         |                   | This is the directory containing the *bin* directory that contains the 'startcmd.bat' script.           |
+|         |                   |                                                                                                         |
+|         |                   | E.g. for ODI 10g, the default installation directory might be:                                          |
+|         |                   |                                                                                                         |
+|         |                   | ``C:\OraHome_1\oracledi``                                                                               |
+|         |                   |                                                                                                         |
+|         |                   | E.g. for ODI 11g, the default installation directory might be:                                          |
+|         |                   |                                                                                                         |
+|         |                   | ``C:\oracle\product\11.1.1\Oracle_ODI_1\oracledi\agent``                                                |
+|         +-------------------+---------------------------------------------------------------------------------------------------------+
+|         | Version           | The version of ODI you're running.                                                                      |
+|         +-------------------+---------------------------------------------------------------------------------------------------------+
+|         | Java Home         | The home directory of the JVM that you're using with ODI.                                               |
+|         +-------------------+---------------------------------------------------------------------------------------------------------+
+|         | Common            | Set to empty for ODI 10g.                                                                               |
+|         |                   |                                                                                                         |
+|         |                   | For ODI 11g set to the path of the 'oracledi.common' directory for your ODI installation.               |
+|         |                   |                                                                                                         |
+|         |                   | E.g. to ``C:\oracle\product\11.1.1\Oracle_ODI_1\oracledi.common``.                                      |
+|         +-------------------+---------------------------------------------------------------------------------------------------------+
+|         | SDK               | Set to empty for ODI 10g.                                                                               |
+|         |                   |                                                                                                         |
+|         |                   | For ODI 11g set to the path of the 'oracledi.sdk' directory for your ODI installation.                  |
+|         |                   |                                                                                                         |
+|         |                   | E.g. to ``C:\oracle\product\11.1.1\Oracle_ODI_1\oracledi.sdk``.                                         |
++---------+-------------------+---------------------------------------------------------------------------------------------------------+
+
+Save the file and close the text editor.
+
+Export the demo repository
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+First, tell ODI-SCM to use the new configuration INI file. From the command prompt::
+
+	set ODI_SCM_INI=C:\OdiScmWalkThrough\OdiScmExportStandardOdiDemo.ini
+
+Set the environment from the configuration INI file. From the command prompt::
+
+	call OdiScmEnvSet
+
+Then, run the following command from the command prompt::
+
+	"%ODI_SCM_HOME%\Configuration\Demo\OdiScmExportOracleDIDemo" C:\OdiScmWalkThrough\OracleDIStdDemoExport
+
+This command will start the standard ODI demo repository, create the directory ``C:\OdiScmWalkThrough\StandardOdiDemo``, export the objects from the repository and then shut down the demo repository.
+
 Install the ODI-SCM repository components into demo environment 1 ODI repository
 ================================================================================
 
@@ -328,10 +409,10 @@ Import the standard ODI demo repository into demo environment 1 ODI repository
 
 Run the following command from the command prompt::
 
-    "%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportOracleDIDemo"
+	"%ODI_SCM_HOME%\Configuration\Demo\OdiScmImportOracleDIDemo" C:\OdiScmWalkThrough\OracleDIStdDemoExport
 
 Refresh the Projects and Models views in the ODI Designer UI, and the Logical Architecture and Physical Architecture view in the ODI Topology UI, and the standard ODI demo material will now be visible.
- 
+
 Add ODI-SCM custom markers to demo environment 1 ODI repository
 ===============================================================
 
