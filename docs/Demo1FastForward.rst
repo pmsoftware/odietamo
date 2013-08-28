@@ -15,13 +15,15 @@ Open the demo environment 1 configuration INI file (C:\OdiScmWalkThrough\OdiScmI
 
 Update the following section entries to *remove* their values:
 
-=============== ========================== =====================
-Section Name    Entry Name                 Entry Name           
-=============== ========================== =====================
-Import Controls OracleDI Imported Revision Working Copy Revision
-=============== ========================== =====================
++-----------------+-----------------------------+
+|Section Name     |Entry Name                   |
++=================+=============================+
+|Import Controls  |OracleDI Imported Revision   |
++-----------------+-----------------------------+
+|                 |Working Copy Revision        |
++-----------------+-----------------------------+
 
-I.e. the section should look like so::
+I.e. the section should look like::
 
 	[Import Controls]
 	OracleDI Imported Revision=
@@ -36,7 +38,7 @@ Run the demo
 
 From the command prompt::
 
-	%ODI_SCM_HOME%\Configuration\Demo\OdiScmDemo1FastForward /v" C:\OdiScmWalkThrough\OdiScmImportStandardOdiDemoRepo1.ini C:\OdiScmWalkThrough\OdiScmImportStandardOdiDemoRepo2.ini
+	"%ODI_SCM_HOME%\Configuration\Demo\OdiScmDemo1FastForward" /v C:\OdiScmWalkThrough\OdiScmImportStandardOdiDemoRepo1.ini C:\OdiScmWalkThrough\OdiScmImportStandardOdiDemoRepo2.ini C:\OdiScmWalkThrough\OdiScmExportStandardOdiDemo.ini
 
 Sit back and enjoy the output of the ODI-SCM commands!
 
