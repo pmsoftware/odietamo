@@ -56,11 +56,27 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+rem
+rem Execute the unit tests from demo environment 1 (the environment last updated by the demo).
+rem
+set ODI_SCM_INI=%DEMO_ENV1_INI%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSaveScriptSwitches.bat"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmEnvSet.bat" /b
+if ERRORLEVEL 1 (
+	echo %EM% setting environment for demo environment 2 1>&2
+	goto ExitFail
+)
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmLoadScriptSwitches.bat"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
+
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Logs\DemoEnvironment2\OdiScmExecUnitTests_DemoEnvironment2.bat^" /p
 if ERRORLEVEL 1 (
 	echo %EM% executing demo environment 2 unit tests 1>&2
-	goto ExitFail
+	rem goto ExitFail
 )
+
+echo shelling out for debugging...be sure to EXIT when done
+cmd
 
 echo %IM% demo creation completed successfully 
 exit %IsBatchExit% 0

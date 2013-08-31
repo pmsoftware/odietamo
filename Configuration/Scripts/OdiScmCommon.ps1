@@ -1317,11 +1317,12 @@ function GenerateUnitTestExecScript($strOutputFile) {
 		
 		$strTestPagePath += ('Odi' + $arrOutputLineParts[1] + $arrOutputLineParts[2])
 		$strFitNesseCmd += $strTestPagePath
-		$strFitNesseCmd += '?test&format=text"'
+		$strFitNesseCmd += ('?test&format=' + $env:ODI_SCM_TEST_FITNESSE_OUTPUT_FORMAT + '"')
 		
 		$strTestPageFilePath = ($env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT).Replace("/","\") + "\" + ($env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_NAME).Replace(".","\") + "\" + $strTestPagePath.Replace(".","\")
 
 		$arrOutFileLines += 'if not EXIST "' + $strTestPageFilePath + '\content.txt" ('
+		$arrOutFileLines += ('	echo %EM% cannot find FitNesse test content file ^<' + $strTestPageFilePath + '^>')
 		$arrOutFileLines += '	set TESTFAILURES=0'
 		$arrOutFileLines += '	set /a TOTALTESTPAGESMISSING=!TOTALTESTPAGESMISSING! + 1'
 		$arrOutFileLines += ') else ('
