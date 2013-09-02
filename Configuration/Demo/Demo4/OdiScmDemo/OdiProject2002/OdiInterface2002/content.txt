@@ -1,0 +1,219 @@
+!1 !c Pop. TRG_CITY
+
+| Import |
+| dbfit.fixture |
+
+| Database Environment | HSQLDB |
+| Connect | jdbc:hsqldb:hsql://localhost:20001 |
+
+| Clean |
+| table | clean? |
+| SRC_CITY | True |
+
+| Database Environment |
+| Commit |
+| Close |
+
+| Database Environment | HSQLDB |
+| Connect | jdbc:hsqldb:hsql://localhost:20001 |
+
+| Clean |
+| table | clean? |
+| SRC_CITY | True |
+
+| Database Environment |
+| Commit |
+| Close |
+
+| Database Environment | HSQLDB |
+| Connect | jdbc:hsqldb:hsql://localhost:20002 |
+
+| Clean |
+| table | clean? |
+| TRG_CITY | True |
+| TRG_REGION | True |
+| TRG_COUNTRY | True |
+
+|Insert|TRG_COUNTRY|
+|COUNTRY_ID|COUNTRY|
+|1|USA|
+|2|France|
+|3|Great Britain|
+|7|Nederland|
+|4|Germany|
+|6|Autralia|
+|5|Japan|
+
+| Insert | TRG_REGION |
+| region_id | region | country_id |
+|20|South|1|
+|21|West|1|
+|22|East Coast|1|
+|23|Mid West|1|
+|30|Paris|2|
+|31|French Alps|2|
+|32|Provence|2|
+|33|Normandy|2|
+|40|Wales|3|
+|41|Scotland|3|
+|42|Northern Ireland|3|
+|43|England|3|
+|50|South Holland|7|
+|51|North Holland|7|
+|60|Ruhr|4|
+|61|Bavaria|4|
+|62|East Germany|4|
+|70|South Wales|6|
+|71|Victoria|6|
+|72|Queensland|6|
+|80|East Japan|5|
+|81|West Japan|5|
+
+| Database Environment |
+| Commit |
+| Close |
+
+| Database Environment | HSQLDB |
+| Connect | jdbc:hsqldb:hsql://localhost:20001 |
+
+| Insert | SRC_CITY |
+| CITY_ID | CITY | REGION_ID | POPULATION |
+| 11 | Dallas | 20 | 822416 |
+| 10 | Houston | 20 | 743113 |
+| 12 | San Francisco | 21 | 157574 |
+| 13 | Los Angeles | 21 | 743878 |
+| 14 | San Diego | 21 | 840689 |
+| 15 | Chicago | 23 | 616472 |
+| 16 | Memphis | 23 | 580075 |
+| 107 | New York City | 22 | 124434 |
+| 18 | Boston | 22 | 275581 |
+| 19 | Washington D.C. | 22 | 688002 |
+| 20 | Paris | 310 | 74780 |
+| 21 | Versailles | 30 | 625097 |
+| 22 | Fontainebleau | 30 | 285559 |
+| 23 | Lyon | 31 | 689978 |
+| 24 | Grenoble | 31 | 488825 |
+| 25 | Albertville | 31 | 959909 |
+| 27 | Nice | 32 | 482282 |
+| 28 | Marseilles | 32 | 702646 |
+| 29 | Bordeaux | 32 | 898032 |
+| 30 | Swansea | 40 | 788193 |
+| 31 | Glasgow | 41 | 59540 |
+| 32 | Edinburgh | 41 | 952500 |
+| 33 | Belfast | 42 | 715052 |
+| 34 | Londonderry | 42 | 734127 |
+| 35 | London | 43 | 69042 |
+| 36 | Oxford | 43 | 270262 |
+| 37 | Manchester | 43 | 455126 |
+| 38 | Cardiff | 40 | 643 |
+| 40 | Amsterdam | 51 | 522347 |
+| 41 | Utrecht | 51 | 183244 |
+| 42 | Rotterdam | 50 | 851329 |
+| 43 | Eindhoven | 50 | 116158 |
+| 50 | Dusseldorf | 60 | 999826 |
+| 51 | Cologne | 60 | 502180 |
+| 52 | Munich | 61 | 122893 |
+| 53 | Dresden | 62 | 139454 |
+| 54 | Magdeburg | 62 | 790080 |
+| 55 | Berlin | 62 | 590032 |
+| 56 | Augsburg | 61 | 912298 |
+| 60 | Sidney | 70 | 890962 |
+| 61 | Canberra | 70 | 353288 |
+| 62 | Melbourne | 71 | 857478 |
+| 63 | Brisbane | 72 | 505179 |
+| 64 | Gold Coast | 72 | 575174 |
+| 70 | Tokyo | 80 | 992823 |
+| 71 | Yokohama | 80 | 725821 |
+| 72 | Osaka | 81 | 501768 |
+| 73 | Kyoto | 81 | 78899 |
+| 74 | Kobe | 81 | 81758 |
+| 500 | Ecully | 401 | 160994 |
+| 501 | Aix en Provence | 404 | 334847 |
+
+| Database Environment |
+| Commit |
+| Close |
+
+!| odietamo.OdiScm.OsCommandLine |
+|command|${ODI_SCM_HOME}\Configuration\Scripts\OdiScmExecOdiScen.bat /p POP__TRG_CITY|0|
+
+| Database Environment | HSQLDB |
+| Connect | jdbc:hsqldb:hsql://localhost:20002 |
+
+| Query | SELECT city_id, city, region_id, CAST(population AS VARCHAR(30)) AS population FROM trg_city |
+| CITY_ID | CITY? | REGION_ID? | POPULATION? |
+| 11 | Dallas | 20 | 822 |
+| 10 | Houston | 20 | 743 |
+| 12 | San Francisco | 21 | 157 |
+| 13 | Los Angeles | 21 | 743 |
+| 14 | San Diego | 21 | 840 |
+| 15 | Chicago | 23 | 616 |
+| 16 | Memphis | 23 | 580 |
+| 107 | New York City | 22 | 124 |
+| 18 | Boston | 22 | 275 |
+| 19 | Washington D.C. | 22 | 688 |
+| 21 | Versailles | 30 | 625 |
+| 22 | Fontainebleau | 30 | 285 |
+| 23 | Lyon | 31 | 689 |
+| 24 | Grenoble | 31 | 488 |
+| 25 | Albertville | 31 | 959 |
+| 27 | Nice | 32 | 482 |
+| 28 | Marseilles | 32 | 702 |
+| 29 | Bordeaux | 32 | 898 |
+| 30 | Swansea | 40 | 788 |
+| 31 | Glasgow | 41 | 59 |
+| 32 | Edinburgh | 41 | 952 |
+| 33 | Belfast | 42 | 715 |
+| 34 | Londonderry | 42 | 734 |
+| 35 | London | 43 | 69 |
+| 36 | Oxford | 43 | 270 |
+| 37 | Manchester | 43 | 455 |
+| 38 | Cardiff | 40 | 0 |
+| 40 | Amsterdam | 51 | 522 |
+| 41 | Utrecht | 51 | 183 |
+| 42 | Rotterdam | 50 | 851 |
+| 43 | Eindhoven | 50 | 116 |
+| 50 | Dusseldorf | 60 | 999 |
+| 51 | Cologne | 60 | 502 |
+| 52 | Munich | 61 | 122 |
+| 53 | Dresden | 62 | 139 |
+| 54 | Magdeburg | 62 | 790 |
+| 55 | Berlin | 62 | 590 |
+| 56 | Augsburg | 61 | 912 |
+| 60 | Sidney | 70 | 890 |
+| 61 | Canberra | 70 | 353 |
+| 62 | Melbourne | 71 | 857 |
+| 63 | Brisbane | 72 | 505 |
+| 64 | Gold Coast | 72 | 575 |
+| 70 | Tokyo | 80 | 992 |
+| 71 | Yokohama | 80 | 725 |
+| 72 | Osaka | 81 | 501 |
+| 73 | Kyoto | 81 | 78 |
+| 74 | Kobe | 81 | 81 |
+
+|Query|SELECT city_id, city, region_id, population FROM "E$_TRG_CITY"|
+|city_id|city?|region_id?|population?|
+|20|Paris|310|74|
+|500|Ecully|401|160|
+|501|Aix en Provence|404|334|
+
+| Clean |
+| table | clean? |
+| TRG_CITY | True |
+| TRG_REGION | True |
+| TRG_COUNTRY | True |
+
+| Database Environment |
+| Commit |
+| Close |
+
+| Database Environment | HSQLDB |
+| Connect | jdbc:hsqldb:hsql://localhost:20001 |
+
+| Clean |
+| table | clean? |
+| SRC_CITY | True |
+
+| Database Environment |
+| Commit |
+| Close |

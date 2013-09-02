@@ -922,6 +922,11 @@ function SetOutputNames {
 		New-Item -itemtype file $OdiImportScriptFile 
 	}
 	
+	#
+	# Set the flag to indicate these names have been defined.
+	#
+	$script:OdiScmOutputNamesSet = $True
+	
 	write-host "$IM ends"
 	return $True
 }
@@ -1237,6 +1242,13 @@ function GenerateUnitTestExecScript($strOutputFile) {
 	$ExitStatus = $False
 	write-host "$IM output will be written to file <$strOutputFile>"
 	
+	if (!($OdiScmOutputNamesSet)) {
+		if (!(SetOutputNames)) {
+			write-host "$EM setting output file system object names"
+			return $False
+		}
+	}
+	
 	#
 	# Generate the list of FitNesse command line calls.
 	#
@@ -1300,10 +1312,8 @@ function GenerateUnitTestExecScript($strOutputFile) {
 		$arrOutFileLines += ('echo %IM% executing unit tests for ODI object ^<' + $strOdiObj + '^>')
 		$arrOutFileLines += 'set /a TOTALTESTPAGES=%TOTALTESTPAGES% + 1'
 		
-		$strFitNesseCmd  = ('"' + $env:ODI_SCM_TOOLS_FITNESSE_JAVA_HOME + '\bin\java.exe" -jar lib/fitnesse-standalone.jar ')
-		$strFitNesseCmd += ('-d "' + $env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT +'" -r "' + $env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_NAME + '" ')
-		$strFitNesseCmd += ('-p ' + $env:ODI_SCM_TEST_FITNESSE_PORT + ' ')
-		$strFitNesseCmd += '-c "'
+		$strFitNesseCmd  = 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat"'
+		$strFitNesseCmd += ' ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecFitNesseCmd.bat^" /p '
 		
 		$strTestPagePath = ""
 		
@@ -1316,8 +1326,7 @@ function GenerateUnitTestExecScript($strOutputFile) {
 		}
 		
 		$strTestPagePath += ('Odi' + $arrOutputLineParts[1] + $arrOutputLineParts[2])
-		$strFitNesseCmd += $strTestPagePath
-		$strFitNesseCmd += ('?test&format=' + $env:ODI_SCM_TEST_FITNESSE_OUTPUT_FORMAT + '"')
+		$strFitNesseCmd += ($strTestPagePath + " test " + $GenScriptRootDir + "\UnitTestResults")
 		
 		$strTestPageFilePath = ($env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT).Replace("/","\") + "\" + ($env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_NAME).Replace(".","\") + "\" + $strTestPagePath.Replace(".","\")
 
@@ -1414,6 +1423,13 @@ function SetTopLevelScriptContent ($NextImportChangeSetRange) {
 	
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiStandardsCheckScript>", $OdiScmConfig["Test"]["ODI Standards Script"])
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmGenerateImportResetsFlushControl>", $OdiScmConfig["Generate"]["Import Resets Flush Control"])
+	
+	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmFitNesseJavaHomeDir>", $env:ODI_SCM_TOOLS_FITNESSE_JAVA_HOME)
+	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmFitNesseHomeDir>", $env:ODI_SCM_TOOLS_FITNESSE_HOME)
+	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmFitNesseOutputFormat>", $env:ODI_SCM_TEST_FITNESSE_OUTPUT_FORMAT)
+	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmFitNesseRootPageRoot>", $env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT)
+	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmFitNesseRootPageName>", $env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_NAME)
+	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmFitNesseUnitTestPageName>", $env:ODI_SCM_TEST_FITNESSE_UNIT_TEST_ROOT_PAGE_NAME)
 	
 	set-content -path $OdiScmBuildBat -value $ScriptFileContent
 	

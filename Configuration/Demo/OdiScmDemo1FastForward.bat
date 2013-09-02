@@ -260,9 +260,29 @@ rem with this same internal ID - in this script we're recreating what the user w
 rem
 set MSG=re-aligning demo environment 1 ODI repository object internal ID tracking metadata
 echo %IM% %MSG%
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo^" /p %ODI_SCM_HOME%\Configuration\Scripts\OdiScmRestoreRepositoryIntegrity.sql %DiscardStdOut%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat^" /p %ODI_SCM_HOME%\Configuration\Scripts\OdiScmRestoreRepositoryIntegrity.sql %DiscardStdOut%
 if ERRORLEVEL 1 (
 	echo %IM% %MSG% 1>&2
+	goto ExitFail
+)
+
+rem
+rem Generate scenarions for the objects we've given OdiScm markers.
+rem
+set MSG=generating StartCmd script for demo environment 1
+echo %IM% %MSG%
+set DEMOENV1STARTCMD=%TEMPDIR%\%PROC%_Env1_StartCmd.bat
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat^" /p %DEMOENV1STARTCMD% %DiscardStdOut%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
+
+set MSG=generating scenarios for object with OdiScm object markers in demo environment 1
+echo %IM% %MSG%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%DEMOENV1STARTCMD%^" OdiGenerateAllScen -PROJECT=DEMO -MODE=CREATE -GRPMARKER=ODISCM -MARKER=HAS_SCENARIO -GENERATE_PACK=YES -GENERATE_POP=YES -GENERATE_TRT=YES -GENERATE_VAR=YES %DiscardStdOut%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
 	goto ExitFail
 )
 
@@ -503,8 +523,10 @@ if ERRORLEVEL 1 (
 )
 
 echo %IM% demo creation completed successfully 
+echo %IM% ends
 exit %IsBatchExit% 0
 
 :ExitFail
 echo %EM% demo creation failed 1>&2
+echo %IM% ends 1>&2
 exit %IsBatchExit% 1

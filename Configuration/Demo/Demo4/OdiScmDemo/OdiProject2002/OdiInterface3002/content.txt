@@ -1,0 +1,96 @@
+!1 !c Pop. TRG_COUNTRY
+
+| Import |
+| dbfit.fixture |
+
+| Database Environment | HSQLDB |
+| Connect | jdbc:hsqldb:hsql://localhost:20001 |
+
+| Clean |
+| table | clean? |
+| SRC_REGION | True |
+
+| Database Environment |
+| Commit |
+| Close |
+
+| Database Environment | HSQLDB |
+| Connect | jdbc:hsqldb:hsql://localhost:20002 |
+
+| Clean |
+| table | clean? |
+| TRG_CITY | True |
+
+| Database Environment |
+| Commit |
+| Close |
+
+| Database Environment | HSQLDB |
+| Connect | jdbc:hsqldb:hsql://localhost:20001 |
+
+|Insert|SRC_REGION|
+|REGION_ID|REGION|COUNTRY_ID|COUNTRY|
+|20|South|1|USA|
+|21|West|1|USA|
+|22|East Coast|1|USA|
+|23|Mid West|1|USA|
+|30|Paris|2|France|
+|31|French Alps|2|France|
+|32|Provence|2|France|
+|33|Normandy|2|France|
+|40|Wales|3|Great Britain|
+|41|Scotland|3|Great Britain|
+|42|Northern Ireland|3|Great Britain|
+|43|England|3|Great Britain|
+|50|South Holland|7|Nederland|
+|51|North Holland|7|Nederland|
+|60|Ruhr|4|Germany|
+|61|Bavaria|4|Germany|
+|62|East Germany|4|Germany|
+|70|South Wales|6|Autralia|
+|71|Victoria|6|Autralia|
+|72|Queensland|6|Autralia|
+|80|East Japan|5|Japan|
+|81|West Japan|5|Japan|
+
+| Database Environment |
+| Commit |
+| Close |
+
+!| odietamo.OdiScm.OsCommandLine |
+|command|${ODI_SCM_HOME}\Configuration\Scripts\OdiScmExecOdiScen.bat /p POP__TRG_COUNTRY|0|
+
+| Database Environment | HSQLDB |
+| Connect | jdbc:hsqldb:hsql://localhost:20002 |
+
+| Query | SELECT country_id, country FROM trg_country |
+| country_id | country |
+|1|USA|
+|2|FRANCE|
+|3|GREAT BRITAIN|
+|7|NEDERLAND|
+|4|GERMANY|
+|6|AUTRALIA|
+|5|JAPAN|
+
+| Query | SELECT country_id, country FROM "E$_TRG_COUNTRY" |
+| country_id | country |
+
+| Clean |
+| table | clean? |
+| TRG_COUNTRY | True |
+
+| Database Environment |
+| Commit |
+| Close |
+
+| Database Environment | HSQLDB |
+| Connect | jdbc:hsqldb:hsql://localhost:20001 |
+
+| Clean |
+| table | clean? |
+| SRC_REGION | True |
+
+| Database Environment |
+| Commit |
+| Close |

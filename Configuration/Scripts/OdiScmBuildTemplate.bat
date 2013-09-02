@@ -25,6 +25,13 @@ set ODI_SCM_TOOLS_JISQL_HOME=<OdiScmJisqlHomeDir>
 set ODI_SCM_TOOLS_JISQL_JAVA_HOME=<OdiScmJisqlJavaHomeDir>
 set ODI_SCM_TOOLS_ORACLE_HOME=<OracleHomeDir>
 
+set ODI_SCM_TOOLS_FITNESSE_JAVA_HOME=<OdiScmFitNesseJavaHomeDir>
+set ODI_SCM_TOOLS_FITNESSE_HOME=<OdiScmFitNesseHomeDir>
+set ODI_SCM_TEST_FITNESSE_OUTPUT_FORMAT=<OdiScmFitNesseOutputFormat>
+set ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT=<OdiScmFitNesseRootPageRoot>
+set ODI_SCM_TEST_FITNESSE_ROOT_PAGE_NAME=<OdiScmFitNesseRootPageName>
+set ODI_SCM_TEST_FITNESSE_UNIT_TEST_ROOT_PAGE_NAME=<OdiScmFitNesseUnitTestPageName>
+
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
 if ERRORLEVEL 1 (
 	echo %EM% creating temporary working directory 1>&2

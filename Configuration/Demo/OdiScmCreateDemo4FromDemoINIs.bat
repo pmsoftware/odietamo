@@ -69,18 +69,17 @@ if ERRORLEVEL 1 (
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmLoadScriptSwitches.bat"
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Logs\DemoEnvironment2\OdiScmExecUnitTests_DemoEnvironment2.bat^" /p
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Logs\DemoEnvironment1\OdiScmExecUnitTests_DemoEnvironment1.bat^" /p
 if ERRORLEVEL 1 (
 	echo %EM% executing demo environment 2 unit tests 1>&2
-	rem goto ExitFail
+	goto ExitFail
 )
 
-echo shelling out for debugging...be sure to EXIT when done
-cmd
-
-echo %IM% demo creation completed successfully 
+echo %IM% demo creation completed successfully
+echo %IM% ends
 exit %IsBatchExit% 0
 
 :ExitFail
 echo %EM% demo creation failed 1>&2
+echo %EM% ends 1>&2
 exit %IsBatchExit% 1

@@ -1,0 +1,77 @@
+!1 !c Pop. TRG_CITY
+
+| Import |
+| dbfit.fixture |
+
+| Database Environment | HSQLDB |
+| Connect | jdbc:hsqldb:hsql://localhost:20002 |
+
+| Clean |
+| table | clean? |
+| TRG_CITY | True |
+| TRG_REGION | True |
+| TRG_COUNTRY | True |
+| TRG_PRODUCT | True |
+| TRG_PROD_FAMILY | True |
+
+|Insert|TRG_COUNTRY|
+|COUNTRY_ID|COUNTRY|
+|3|Great Britain|
+
+| Insert | TRG_REGION |
+| region_id | region | country_id |
+|43|England|3|
+
+| Insert | TRG_CITY |
+| city_id | region_id | city | population |
+|35|43|London|69042|
+
+| Insert | TRG_PROD_FAMILY |
+|family_id|family_name|
+|WAT|Watches|
+
+| Insert | TRG_PRODUCT |
+|product_id|family_id|price|product|
+|1|WAT|120|Gold Watch|
+
+| Database Environment |
+| Commit |
+| Close |
+
+!| odietamo.OdiScm.OsCommandLine |
+|command|${ODI_SCM_HOME}\Configuration\Scripts\OdiScmExecOdiScen.bat /p DELETE_TARGETS|0|
+
+| Database Environment | HSQLDB |
+| Connect | jdbc:hsqldb:hsql://localhost:20002 |
+
+|Query|SELECT COUNT(*) AS c FROM trg_prod_family|
+|c|
+|0|
+
+|Query|SELECT COUNT(*) AS c FROM trg_product|
+|c|
+|0|
+
+|Query|SELECT COUNT(*) AS c FROM trg_city|
+|c|
+|0|
+
+|Query|SELECT COUNT(*) AS c FROM trg_region|
+|c|
+|0|
+
+|Query|SELECT COUNT(*) AS c FROM trg_country|
+|c|
+|0|
+
+| Clean |
+| table | clean? |
+| TRG_CITY | True |
+| TRG_REGION | True |
+| TRG_COUNTRY | True |
+| TRG_PRODUCT | True |
+| TRG_PROD_FAMILY | True |
+
+| Database Environment |
+| Commit |
+| Close |
