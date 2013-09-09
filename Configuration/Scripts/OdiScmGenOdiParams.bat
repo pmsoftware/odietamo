@@ -84,13 +84,13 @@ if not EXIST "%ODI_SCM_ORACLEDI_HOME%\bin\odiparams.bat" (
 rem
 rem Ensure the output file can be written to.
 rem
-if EXIST "%OUTFILE%" (
-	del /f /q "%OUTFILE%" >NUL 2>NUL
-	if ERRORLEVEL 1 (
-		echo %EM% deleting existing output file ^<%OUTFILE%^>
-		goto ExitFail
-	)
-)
+REM if EXIST "%OUTFILE%" (
+	REM del /f /q "%OUTFILE%" >NUL 2>NUL
+	REM if ERRORLEVEL 1 (
+		REM echo %EM% deleting existing output file ^<%OUTFILE%^>
+		REM goto ExitFail
+	REM )
+REM )
 
 powershell -file "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenOdiParams.ps1" "%OUTFILE%"
 if ERRORLEVEL 1 (

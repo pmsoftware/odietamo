@@ -1,18 +1,7 @@
-!1 !c Pop. TRG_REGION
+!1 !c Pop. TRG_COUNTRY
 
 | Import |
 | dbfit.fixture |
-
-| Database Environment | HSQLDB |
-| Connect | jdbc:hsqldb:hsql://localhost:20001 |
-
-| Clean |
-| table | clean? |
-| SRC_REGION | True |
-
-| Database Environment |
-| Commit |
-| Close |
 
 | Database Environment | HSQLDB |
 | Connect | jdbc:hsqldb:hsql://localhost:20001 |
@@ -30,18 +19,7 @@
 
 | Clean |
 | table | clean? |
-| TRG_COUNTRY | True |
-| TRG_REGION | True |
-
-|Insert|TRG_COUNTRY|
-|COUNTRY_ID|COUNTRY|
-|1|USA|
-|2|France|
-|3|Great Britain|
-|7|Nederland|
-|4|Germany|
-|6|Autralia|
-|5|Japan|
+| TRG_CITY | True |
 
 | Database Environment |
 | Commit |
@@ -80,42 +58,26 @@
 | Close |
 
 !| odietamo.OdiScm.OsCommandLine |
-|command|${ODI_SCM_HOME}\Configuration\Scripts\OdiScmExecOdiScen.bat /p POP__TRG_REGION|0|
+|command|${ODI_SCM_HOME}\Configuration\Scripts\OdiScmExecOdiScen.bat /p POP__TRG_COUNTRY|0|
 
 | Database Environment | HSQLDB |
 | Connect | jdbc:hsqldb:hsql://localhost:20002 |
 
-| Query | SELECT region_id, region, country_id FROM trg_region |
-| region_id | region | country_id |
-|20|South|1|
-|21|West|1|
-|22|East Coast|1|
-|23|Mid West|1|
-|30|Paris|2|
-|31|French Alps|2|
-|32|Provence|2|
-|33|Normandy|2|
-|40|Wales|3|
-|41|Scotland|3|
-|42|Northern Ireland|3|
-|43|England|3|
-|50|South Holland|7|
-|51|North Holland|7|
-|60|Ruhr|4|
-|61|Bavaria|4|
-|62|East Germany|4|
-|70|South Wales|6|
-|71|Victoria|6|
-|72|Queensland|6|
-|80|East Japan|5|
-|81|West Japan|5|
+| Query | SELECT country_id, country FROM trg_country |
+| country_id | country |
+|1|USA|
+|2|FRANCE|
+|3|GREAT BRITAIN|
+|7|NEDERLAND|
+|4|GERMANY|
+|6|AUTRALIA|
+|5|JAPAN|
 
-| Query | SELECT region_id, region, country_id FROM "E$_TRG_REGION"|
-| region_id | region | country_id |
+| Query | SELECT country_id, country FROM "E$_TRG_COUNTRY" |
+| country_id | country |
 
 | Clean |
 | table | clean? |
-| TRG_REGION | True |
 | TRG_COUNTRY | True |
 
 | Database Environment |
@@ -132,3 +94,5 @@
 | Database Environment |
 | Commit |
 | Close |
+
+|fit.Summary|

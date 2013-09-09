@@ -50,6 +50,15 @@ if "%ARGC%" == "0" (
 	)
 )
 
+rem
+rem Ensure an output tag has been specified (we require a predictable import script name
+rem to ensure we can execute the import script).
+rem
+if "%ODI_SCM_GENERATE_OUTPUT_TAG%" == "" (
+	echo %EM% no output tag specified in environment variable ODI_SCM_GENERATE_OUTPUT_TAG
+	goto ExitFail
+)
+
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
 if ERRORLEVEL 1 (
 	echo %EM% creating temporary working directory 1>&2

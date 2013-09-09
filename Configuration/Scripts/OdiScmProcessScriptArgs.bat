@@ -1,3 +1,4 @@
+@echo off
 rem
 rem Remember if we need to use SETLOCAL then use with caution in this script as we need to return variable
 rem values to the caller.
@@ -79,7 +80,7 @@ if /i "%~1" == "/quiet" (
 rem
 rem First look for any switch and set a corresponding SWITCH<switch> variable.
 rem
-set ARGV=%1
+set ARGV=%~1
 if /i "%ARGV:~0,1%" == "/" (
 	call set SWITCH%ARGV:~1,%=TRUE
 	rem echo DEBUG: OdiScmProcessScriptArgs: got a switch: %ARGV% >CON
@@ -104,12 +105,15 @@ set ARGVALL=
 
 :DoNextParam
 set /a ParamNo=%ParamNo% + 1
-call set ARGN=%1
 
-if "%ARGN%" == "" (
+rem
+rem Exit when we've run out of arguments to process.
+rem
+if "%1" == "" (
 	goto ExitOk
 )
 
+call set ARGN=%~1
 call set ARGV%ParamNo%=%ARGN%
 set /a ARGC=%ARGC% + 1
 set ARGVALL=%ARGVALL% %ARGN%

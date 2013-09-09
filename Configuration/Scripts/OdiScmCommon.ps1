@@ -1248,7 +1248,7 @@ function GenerateUnitTestExecScript($strOutputFile) {
 			return $False
 		}
 	}
-	
+	DebuggingPause
 	#
 	# Generate the list of FitNesse command line calls.
 	#

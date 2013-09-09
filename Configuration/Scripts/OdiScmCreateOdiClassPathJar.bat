@@ -57,34 +57,51 @@ for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_HOME%\drivers\*.zip 2^>NUL') do (
 )
 
 if not "%ODI_SCM_ORACLEDI_COMMON%" == "" (
-	rem TODO: check if this dir actually exists.
-	echo %IM% adding OracleDI common directory ^<%ODI_SCM_ORACLEDI_COMMON%^> to class path
-	call :AddToManifest %ODI_SCM_ORACLEDI_COMMON%\odi\
-	echo %IM% adding files from OracleDI common directory ^<%ODI_SCM_ORACLEDI_COMMON%^> to class path
-	for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_COMMON%\*.jar 2^>NUL') do (
-		rem <nul set /p =%%f >> "%TEMPFILE%"
-		call :AddToManifest %%f
-	)
-	
-	for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_COMMON%\*.zip 2^>NUL') do (
-		rem <nul set /p =%%f >> "%TEMPFILE%"
-		call :AddToManifest %%f
+	if EXIST "%ODI_SCM_ORACLEDI_COMMON%" (
+		echo %IM% adding OracleDI common directory ^<%ODI_SCM_ORACLEDI_COMMON%^> to class path
+		call :AddToManifest %ODI_SCM_ORACLEDI_COMMON%\odi\
+		echo %IM% adding files from OracleDI common directory ^<%ODI_SCM_ORACLEDI_COMMON%^> to class path
+		for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_COMMON%\*.jar 2^>NUL') do (
+			rem <nul set /p =%%f >> "%TEMPFILE%"
+			call :AddToManifest %%f
+		)
+		
+		for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_COMMON%\*.zip 2^>NUL') do (
+			rem <nul set /p =%%f >> "%TEMPFILE%"
+			call :AddToManifest %%f
+		)
 	)
 )
 
 if not "%ODI_SCM_ORACLEDI_SDK%" == "" (
-	rem TODO: check if this dir actually exists.
-	echo %IM% adding OracleDI SDK directory ^<%ODI_SCM_ORACLEDI_SDK%^> to class path
-	call :AddToManifest %ODI_SCM_ORACLEDI_SDK%\lib\
-	echo %IM% adding files from OracleDI SDK directory ^<%ODI_SCM_ORACLEDI_SDK%^> to class path
-	for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_SDK%\*.jar 2^>NUL') do (
-		rem <nul set /p =%%f >> "%TEMPFILE%"
-		call :AddToManifest %%f
+	if EXIST "%ODI_SCM_ORACLEDI_SDK%" (
+		echo %IM% adding OracleDI SDK directory ^<%ODI_SCM_ORACLEDI_SDK%^> to class path
+		call :AddToManifest %ODI_SCM_ORACLEDI_SDK%\lib\
+		echo %IM% adding files from OracleDI SDK directory ^<%ODI_SCM_ORACLEDI_SDK%^> to class path
+		for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_SDK%\*.jar 2^>NUL') do (
+			rem <nul set /p =%%f >> "%TEMPFILE%"
+			call :AddToManifest %%f
+		)
+		
+		for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_SDK%\*.zip 2^>NUL') do (
+			rem <nul set /p =%%f >> "%TEMPFILE%"
+			call :AddToManifest %%f
+		)
 	)
-	
-	for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_SDK%\*.zip 2^>NUL') do (
-		rem <nul set /p =%%f >> "%TEMPFILE%"
-		call :AddToManifest %%f
+)
+
+if not "%ODI_SCM_ORACLEDI_ORACLE_HOME%" == "" (
+	if EXIST "%ODI_SCM_ORACLEDI_ORACLE_HOME%" (
+		echo %IM% adding files from OracleDI Oracle Home directory ^<%ODI_SCM_ORACLEDI_ORACLE_HOME%^> to class path
+		for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_ORACLE_HOME%\*.jar 2^>NUL') do (
+			rem <nul set /p =%%f >> "%TEMPFILE%"
+			call :AddToManifest %%f
+		)
+		
+		for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_ORACLE_HOME%\*.zip 2^>NUL') do (
+			rem <nul set /p =%%f >> "%TEMPFILE%"
+			call :AddToManifest %%f
+		)
 	)
 )
 

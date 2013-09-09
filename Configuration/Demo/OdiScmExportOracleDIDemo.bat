@@ -81,211 +81,195 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-set TEMPFILE=%TEMPDIR%\OdiScmExportOracleDIDemo_StartCmd.bat
-
 rem
 rem Generate a StartCmd script specific to this environment.
 rem
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat" /p %TEMPFILE%
+set TEMPSTARTCMD=%TEMPDIR%\OdiScmExportOracleDIDemo_StartCmd.bat
+echo %IM% creating startcmd script ^<%TEMPSTARTCMD%^>
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat" /p %TEMPSTARTCMD%
 if ERRORLEVEL 1 (
 	echo %EM% generating StartCmd script for current environment 1>&2
 	goto ExitFail
 )
 
 rem
-rem Ensure that the demo repository start and stop commands are available.
+rem Copy the HSQL database files.
 rem
-if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "10." (
-	if not EXIST "%ODI_SCM_ORACLEDI_HOME%\bin\startdemo.bat" (
-		echo %EM% startdemo.bat script not found in ODI bin directory ^<%ODI_SCM_ORACLEDI_HOME%\bin^> 1>&2
-		goto ExitFail
-	)
-	if not EXIST "%ODI_SCM_ORACLEDI_HOME%\bin\stopdemo.bat" (
-		echo %EM% stopdemo.bat script not found in ODI bin directory ^<%ODI_SCM_ORACLEDI_HOME%\bin^> 1>&2
-		goto ExitFail
-	)
-	set ODI_DEMO_HOME=%ODI_SCM_ORACLEDI_HOME%\bin
-) else (
-	if not EXIST "%ODI_SCM_ORACLEDI_ORACLE_HOME%\oracledi\demo\bin\startdemo.bat" (
-		echo %EM% startdemo.bat script not found in ODI demo bin directory ^<%ODI_SCM_ORACLEDI_ORACLE_HOME%\demo\bin^> 1>&2
-		goto ExitFail
-	)
-	if not EXIST "%ODI_SCM_ORACLEDI_ORACLE_HOME%\oracledi\demo\bin\stopdemo.bat" (
-		echo %EM% stopdemo.bat script not found in ODI demo bin directory ^<%ODI_SCM_ORACLEDI_ORACLE_HOME%\demo\bin^> 1>&2
-		goto ExitFail
-	)
-	set ODI_DEMO_HOME=%ODI_SCM_ORACLEDI_ORACLE_HOME%\oracledi\demo\bin
-)
-
-rem
-rem Generate a OdiParams script specific to this environment.
-rem
-set DUMMYCHILDDIR=%TEMPDIR%\bin
-md "%DUMMYCHILDDIR%"
+md "%TEMPDIR%\hsql"
 if ERRORLEVEL 1 (
-	echo %EM% creating dummy ODI bin directory ^<%DUMMYCHILDDIR%^>
+	echo %EM% creating HSQL demo repository copy directory ^<%TEMPDIR%\hsql^> 1>&2
 	goto ExitFail
 )
-
-set ODI_DEMO_PARAMS=%DUMMYCHILDDIR%\odiparams.bat
-
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenOdiParams.bat" /p %ODI_DEMO_PARAMS%
+echo on
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Demo\OdiScmCopyOdiDemoDbFiles.bat" "%TEMPDIR%\hsql"
 if ERRORLEVEL 1 (
-	echo %EM% generating OdiParams script for current environment 1>&2
+	echo %EM% copying HSQL demo files to directory ^<%TEMPDIR%\hsql^> 1>&2
 	goto ExitFail
 )
 
 rem
-rem Fine (de-define) ODI_HOME so that startdemo.bat and stopdemo.bat look in the dummy bin directory for odiparams.bat.
+rem Create a class path JAR for the current environment.
 rem
-set ODI_HOME=
-
-set OLDPWD=%CD%
-cd "%DUMMYCHILDDIR%"
+set TEMPCLASSPATHJAR=%TEMPDIR%\%PROC%_ClassPathJar.jar
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiClassPathJar.bat" /p "%TEMPCLASSPATHJAR%" >NUL
 if ERRORLEVEL 1 (
-	echo %EM% changing working directory to dummy directory ^<%DUMMYCHILDDIR%^>
+	echo %EM% creating temporary class path Jar file ^<%TEMPCLASSPATHJAR%^> 1>&2
 	goto ExitFail
 )
 
 rem
-rem Stop the demo repository, if running.
+rem Clear up any HSQL server.properties file.
 rem
-echo %IM% stopping existing demo repository database processes
-rem Note that we run the batch file using "cmd /c" so that the window closes when the batch file completes.
-rem      Unilike startdemo.bat, stopdemo.bat does not support the -x switch (EXIT at end of script).
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" start /D%DUMMYCHILDDIR% /min cmd /c %ODI_DEMO_HOME%\stopdemo.bat repo
-if ERRORLEVEL 1 (
-	echo %WM% stop demo repository command returned exit status 1
+if EXIST ".\server.properties" (
+	del /f ".\server.properties"
+	if ERRORLEVEL 1 (
+		echo %EM% deleting existing HSQL server properties file ^<.\server.properties^> 1>&2
+		goto ExitFail
+	)
 )
 
 rem
-rem Wait a, short, while before starting the datatabase so the shutdown does take down our new instance.
+rem Start the demo repository as a background process.
+rem We start up on a different port than when running from the standard ODI demo scripts.
 rem
+echo %IM% starting demo ODI repository in background
+echo %IM% demo database file copies at ^<%TEMPDIR%\hsql^>
+echo %IM% executing command ^<start "Demo HSQL Repository" "%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\java.exe" -classpath "%TEMPCLASSPATHJAR%" org.hsqldb.Server -port %ODI_SCM_ORACLEDI_SECU_URL_PORT% -database.0 file:"%TEMPDIR%\hsql\demo_repository_en" -no_system_exit=false^>
+start "Demo HSQL Repository" "%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\java.exe" -classpath "%TEMPCLASSPATHJAR%" org.hsqldb.Server -port %ODI_SCM_ORACLEDI_SECU_URL_PORT% -database.0 file:"%TEMPDIR%\hsql\demo_repository_en" -no_system_exit=false
+if ERRORLEVEL 1 (
+	echo %EM% starting demo repository database 1>&2
+	goto ExitFail
+)
+
+rem
+rem Wait a, short, while after starting the datatabase (as we're starting an asynchronous process).
+rem
+echo %IM% pausing for demo database start up asynchronous process
 sleep 10
 
 rem
-rem Start the demo repository.
+rem Alter the repository URLs stored in the database.
 rem
-echo %IM% starting demo repository database processes
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" start /D%DUMMYCHILDDIR% /min %ODI_DEMO_HOME%\startdemo.bat repo -x
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat^" /p %ODI_SCM_HOME%\Configuration\Demo\OdiScmModifyOracleDIDemoRepoURL.sql
 if ERRORLEVEL 1 (
-	echo %WM% start demo repository command returned exit status 1
+	echo %EM% modifying demo repository URLs 1>&2
+	goto ExitFail
 )
 
 rem
 rem Export the demo repository objects.
 rem
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%^" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpModel -I_OBJECT=2002 %EXPDIR1% -FILE_NAME=%EXPDIR2%MOD_Orders_Application_-_HSQL.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%^" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpModel -I_OBJECT=2002 %EXPDIR1% -FILE_NAME=%EXPDIR2%MOD_Orders_Application_-_HSQL.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpModel -I_OBJECT=3002 %EXPDIR1% -FILE_NAME=%EXPDIR2%MOD_Parameters_-_FILE.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpModel -I_OBJECT=3002 %EXPDIR1% -FILE_NAME=%EXPDIR2%MOD_Parameters_-_FILE.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpModel -I_OBJECT=4002 %EXPDIR1% -FILE_NAME=%EXPDIR2%MOD_Sales_Administration_-_HSQL.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpModel -I_OBJECT=4002 %EXPDIR1% -FILE_NAME=%EXPDIR2%MOD_Sales_Administration_-_HSQL.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpProject -I_OBJECT=2002 %EXPDIR1% -FILE_NAME=%EXPDIR2%PROJ_Demo.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpProject -I_OBJECT=2002 %EXPDIR1% -FILE_NAME=%EXPDIR2%PROJ_Demo.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpConnect -I_OBJECT=0 %EXPDIR1% -FILE_NAME=%EXPDIR2%CONN_Security_Connection.xml -RECURSIVE_EXPORT=yes
+rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpConnect -I_OBJECT=0 %EXPDIR1% -FILE_NAME=%EXPDIR2%CONN_Security_Connection.xml -RECURSIVE_EXPORT=yes
 rem if ERRORLEVEL 1 (
 	rem echo %EM% exporting demo object
 	rem goto ExitFail
 rem )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpConnect -I_OBJECT=5999 %EXPDIR1% -FILE_NAME=%EXPDIR2%CONN_HSQL_LOCALHOST_20001.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpConnect -I_OBJECT=5999 %EXPDIR1% -FILE_NAME=%EXPDIR2%CONN_HSQL_LOCALHOST_20001.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpConnect -I_OBJECT=6999 %EXPDIR1% -FILE_NAME=%EXPDIR2%CONN_HSQL_LOCALHOST_20002.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpConnect -I_OBJECT=6999 %EXPDIR1% -FILE_NAME=%EXPDIR2%CONN_HSQL_LOCALHOST_20002.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpConnect -I_OBJECT=7999 %EXPDIR1% -FILE_NAME=%EXPDIR2%CONN_FILE_GENERIC.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpConnect -I_OBJECT=7999 %EXPDIR1% -FILE_NAME=%EXPDIR2%CONN_FILE_GENERIC.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpConnect -I_OBJECT=8999 %EXPDIR1% -FILE_NAME=%EXPDIR2%CONN_SUNOPSIS_MEMORY_ENGINE.xml -RECURSIVE_EXPORT=no
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpConnect -I_OBJECT=8999 %EXPDIR1% -FILE_NAME=%EXPDIR2%CONN_SUNOPSIS_MEMORY_ENGINE.xml -RECURSIVE_EXPORT=no
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpConnect -I_OBJECT=9999 %EXPDIR1% -FILE_NAME=%EXPDIR2%CONN_XML_GEO_DIM.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpConnect -I_OBJECT=9999 %EXPDIR1% -FILE_NAME=%EXPDIR2%CONN_XML_GEO_DIM.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpConnect -I_OBJECT=15000 %EXPDIR1% -FILE_NAME=%EXPDIR2%CONN_WORKREP.xml -RECURSIVE_EXPORT=no
+rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpConnect -I_OBJECT=15000 %EXPDIR1% -FILE_NAME=%EXPDIR2%CONN_WORKREP.xml -RECURSIVE_EXPORT=no
 rem if ERRORLEVEL 1 (
 	rem echo %EM% exporting demo object
 	rem goto ExitFail
 rem )
 
 rem if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "11." (
-	rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpConnect -I_OBJECT=15999 %EXPDIR1% -FILE_NAME=%EXPDIR2%CONN_MEMORY_ENGINE.xml
+	rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpConnect -I_OBJECT=15999 %EXPDIR1% -FILE_NAME=%EXPDIR2%CONN_MEMORY_ENGINE.xml
 	rem if ERRORLEVEL 1 (
 	rem echo %EM% exporting demo object
 	rem goto ExitFail
 rem )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpContext -I_OBJECT=2999 %EXPDIR1% -FILE_NAME=%EXPDIR2%CTX_Global.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpContext -I_OBJECT=2999 %EXPDIR1% -FILE_NAME=%EXPDIR2%CTX_Global.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpLschema -I_OBJECT=4999 %EXPDIR1% -FILE_NAME=%EXPDIR2%LSC_HSQL_DEMO_SRC.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpLschema -I_OBJECT=4999 %EXPDIR1% -FILE_NAME=%EXPDIR2%LSC_HSQL_DEMO_SRC.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpLschema -I_OBJECT=5999 %EXPDIR1% -FILE_NAME=%EXPDIR2%LSC_HSQL_DEMO_TARG.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpLschema -I_OBJECT=5999 %EXPDIR1% -FILE_NAME=%EXPDIR2%LSC_HSQL_DEMO_TARG.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpLschema -I_OBJECT=6999 %EXPDIR1% -FILE_NAME=%EXPDIR2%LSC_FILE_DEMO_SRC.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpLschema -I_OBJECT=6999 %EXPDIR1% -FILE_NAME=%EXPDIR2%LSC_FILE_DEMO_SRC.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpLschema -I_OBJECT=7999 %EXPDIR1% -FILE_NAME=%EXPDIR2%LSC__SUNOPSIS_MEMORY_ENGINE.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpLschema -I_OBJECT=7999 %EXPDIR1% -FILE_NAME=%EXPDIR2%LSC__SUNOPSIS_MEMORY_ENGINE.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpLschema -I_OBJECT=8999 %EXPDIR1% -FILE_NAME=%EXPDIR2%LSC_XML_DEMO_GEO.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpLschema -I_OBJECT=8999 %EXPDIR1% -FILE_NAME=%EXPDIR2%LSC_XML_DEMO_GEO.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
 rem if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "11." (
-	rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpLschema -I_OBJECT=12999 %EXPDIR1% -FILE_NAME=%EXPDIR2%LSC_File_Server_for_SAP_ABAP.xml -RECURSIVE_EXPORT=yes
+	rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpLschema -I_OBJECT=12999 %EXPDIR1% -FILE_NAME=%EXPDIR2%LSC_File_Server_for_SAP_ABAP.xml -RECURSIVE_EXPORT=yes
 	rem if ERRORLEVEL 1 (
 	rem 	echo %EM% exporting demo object
 	rem 	goto ExitFail
@@ -293,45 +277,45 @@ rem if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "11." (
 rem )
 
 rem if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "11." (
-	rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpLschema -I_OBJECT=13999 %EXPDIR1% -FILE_NAME=%EXPDIR2%LSC__MEMORY_ENGINE.xml -RECURSIVE_EXPORT=yes
+	rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpLschema -I_OBJECT=13999 %EXPDIR1% -FILE_NAME=%EXPDIR2%LSC__MEMORY_ENGINE.xml -RECURSIVE_EXPORT=yes
 	rem if ERRORLEVEL 1 (
 	rem 	echo %EM% exporting demo object
 	rem 	goto ExitFail
 	rem )
 rem )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpPschema -I_OBJECT=5999 %EXPDIR1% -FILE_NAME=%EXPDIR2%PSC_HSQL_LOCALHOST_20001_Default.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpPschema -I_OBJECT=5999 %EXPDIR1% -FILE_NAME=%EXPDIR2%PSC_HSQL_LOCALHOST_20001_Default.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpPschema -I_OBJECT=6999 %EXPDIR1% -FILE_NAME=%EXPDIR2%PSC_HSQL_LOCALHOST_20002_Default.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpPschema -I_OBJECT=6999 %EXPDIR1% -FILE_NAME=%EXPDIR2%PSC_HSQL_LOCALHOST_20002_Default.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpPschema -I_OBJECT=7999 %EXPDIR1% -FILE_NAME=%EXPDIR2%PSC_FILE_GENERICdemofile.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpPschema -I_OBJECT=7999 %EXPDIR1% -FILE_NAME=%EXPDIR2%PSC_FILE_GENERICdemofile.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpPschema -I_OBJECT=8999 %EXPDIR1% -FILE_NAME=%EXPDIR2%PSC_SUNOPSIS_MEMORY_ENGINE_Default.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpPschema -I_OBJECT=8999 %EXPDIR1% -FILE_NAME=%EXPDIR2%PSC_SUNOPSIS_MEMORY_ENGINE_Default.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpPschema -I_OBJECT=9999 %EXPDIR1% -FILE_NAME=%EXPDIR2%PSC_XML_GEO_DIMGEO.xml -RECURSIVE_EXPORT=yes
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpPschema -I_OBJECT=9999 %EXPDIR1% -FILE_NAME=%EXPDIR2%PSC_XML_GEO_DIMGEO.xml -RECURSIVE_EXPORT=yes
 if ERRORLEVEL 1 (
 	echo %EM% exporting demo object
 	goto ExitFail
 )
 
 rem if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "11." (
-	rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpPschema -I_OBJECT=15999 %EXPDIR1% -FILE_NAME=%EXPDIR2%PSC_MEMORY_ENGINE_Default.xml -RECURSIVE_EXPORT=yes
+	rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%" OdiExportObject -FORCE_OVERWRITE=yes -CLASS_NAME=SnpPschema -I_OBJECT=15999 %EXPDIR1% -FILE_NAME=%EXPDIR2%PSC_MEMORY_ENGINE_Default.xml -RECURSIVE_EXPORT=yes
 	rem if ERRORLEVEL 1 (
 	rem 	echo %EM% exporting demo object
 	rem 	goto ExitFail
@@ -342,15 +326,28 @@ rem
 rem Stop the demo repository.
 rem
 echo %IM% stopping demo repository database processes
-rem Note that we run the batch file using "cmd /c" so that the window closes when the batch file completes.
-rem      Unilike startdemo.bat, stopdemo.bat does not support the -x switch (EXIT at end of script).
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" start /D%DUMMYCHILDDIR% /min cmd /c %ODI_DEMO_HOME%\stopdemo.bat repo -x
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" /p "%ODI_SCM_HOME%\Configuration\Demo\OdiScmShutDownHSQLServer.sql"
 if ERRORLEVEL 1 (
-	echo %WM% stop demo repository command returned exit status 1
+	echo %EM% executing database shut down script ^<%ODI_SCM_HOME%\Configuration\Demo\OdiScmShutDownHSQLServer.sql^> 1>&2
+	goto ExitFail
+)
+
+rem
+rem Clear up any HSQL server.properties file.
+rem
+if EXIST ".\server.properties" (
+	del /f ".\server.properties"
+	if ERRORLEVEL 1 (
+		echo %EM% deleting existing HSQL server properties file ^<.\server.properties^> 1>&2
+		goto ExitFail
+	)
 )
 
 :ExitOk
-cd %OLDPWD%
+if DEFINED OLDPWD (
+	cd %OLDPWD%
+)
+
 echo %IM% standard demo export completed successfully
 exit %IsBatchExit% 0
 

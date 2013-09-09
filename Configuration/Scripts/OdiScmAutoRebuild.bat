@@ -22,6 +22,31 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+rem
+rem Validate arguments.
+rem
+if "%ARGC%" gtr "1" (
+	echo %EM% invalid number of arguments 1>&2
+	call :ShowUsage
+	goto ExitFail
+)
+
+set REBUILDSOURCE=SCM
+
+if "%ARGC%" == "1" (
+	if /i "%ARGV1%" == "FromWorkingCopy" (
+		set REBUILDSOURCE=WorkingCopy
+	) else (
+		if /i "%ARGV1%" == "FromSCM" (
+			set REBUILDSOURCE=SCM
+		) else (
+			echo %EM% invalid argument value 1>&2
+			call :ShowUsage
+			goto ExitFail
+		)
+	)
+)
+
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
 if ERRORLEVEL 1 (
 	echo %EM% creating temporary working directory 1>&2
@@ -180,8 +205,13 @@ if EXIST "%TEMPPSSCRIPTFILEFINISH%" (
 	)
 )
 
+echo %EM% ends 1>&2
 exit %IsBatchExit% 1
 
 rem *************************************************************
 rem **                    S U B R O U T I N E S                **
 rem *************************************************************
+rem -------------------------------------------------------------
+:ShowUsage
+rem -------------------------------------------------------------
+echo %EM% usage: %PROC% [ FromSCM ^| FromWorkingCopy ] 1>&2

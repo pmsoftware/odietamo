@@ -19,6 +19,8 @@ if not DEFINED ODI_SCM_CMDLVL (
 
 set /a ODI_SCM_CMDLVL=%ODI_SCM_CMDLVL% + 1 >NUL
 
+set ODI_SCM_CMD=%*
+
 rem echo =============================================================================
 rem echo == about to exec command: %*
 rem echo =============================================================================
@@ -26,7 +28,7 @@ rem echo CMDLVL=%ODI_SCM_CMDLVL%
 rem
 rem Run the passed command in a new cmd.exe.
 rem
-cmd.exe /c %*
+cmd.exe /c "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork2.bat"
 set EXITSTATUS=%ERRORLEVEL%
 rem echo =============================================================================
 rem echo == back from command: %*

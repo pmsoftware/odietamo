@@ -114,9 +114,9 @@ set JAVA_TOOL_OPTIONS=
 set _JAVA_OPTIONS=
 
 rem echo %IM% Jisql class path ^<%JISQL_CLASS_PATH%^>
-echo %IM% executing command ^<"%ODI_SCM_TOOLS_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH%;%ARGV6% com.xigole.util.sql.Jisql -user %ARGV1% -pass %ARGV2% -driver %ARGV3% -cstring %ARGV4% -c / -formatter default -delimiter=" " -noheader -trim -input %ARGV5% 1^>%STDOUTWORKFILE% 2^>%STDERRWORKFILE%^>
+echo %IM% executing command ^<"%ODI_SCM_TOOLS_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH%;%ARGV6% com.xigole.util.sql.Jisql -user "%ARGV1%" -pass "%ARGV2%" -driver "%ARGV3%" -cstring "%ARGV4%" -c / -formatter default -delimiter=" " -noheader -trim -input "%ARGV5%" 1^>%STDOUTWORKFILE% 2^>%STDERRWORKFILE%^>
 
-"%ODI_SCM_TOOLS_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH%;%ARGV6% com.xigole.util.sql.Jisql -user %ARGV1% -pass %ARGV2% -driver %ARGV3% -cstring %ARGV4% -c / -formatter default -delimiter=" " -noheader -trim -input %ARGV5% 1>%STDOUTWORKFILE% 2>%STDERRWORKFILE%
+"%ODI_SCM_TOOLS_JISQL_JAVA_HOME%\bin\java" -classpath "%JISQL_CLASS_PATH%;%ARGV6%" com.xigole.util.sql.Jisql -user "%ARGV1%" -pass "%ARGV2%" -driver "%ARGV3%" -cstring "%ARGV4%" -c / -formatter default -delimiter=" " -noheader -trim -input "%ARGV5%" 1>"%STDOUTWORKFILE%" 2>"%STDERRWORKFILE%"
 
 set EXITSTATUS=%ERRORLEVEL%
 

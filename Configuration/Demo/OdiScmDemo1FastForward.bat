@@ -85,6 +85,18 @@ rem Create the demo base directory.
 rem *************************************************************
 set ODI_SCM_DEMO_BASE=C:\OdiScmWalkThrough
 
+if EXIST "%ODI_SCM_DEMO_BASE%" (
+	echo %IM% deleting existing demo base directory tree ^<%ODI_SCM_DEMO_BASE%^>
+	rem Note that RD/RMDIR does not return a non zero exit status on failure, in all cases.
+	rem We use || (error action) to resolve the issue ().
+	rem See for details: http://stackoverflow.com/questions/11137702/batch-exit-code-for-rd-is-0-on-error-as-well
+	rd /q /s "%ODI_SCM_DEMO_BASE%" || rem
+	if ERRORLEVEL 1 (
+		echo %EM% deleting existing demo base directory ^<%ODI_SCM_DEMO_BASE%^> 1>&2
+		goto ExitFail
+	)
+)
+
 if not EXIST "%ODI_SCM_DEMO_BASE%" (
 	echo %IM% creating demo base directory ^<%ODI_SCM_DEMO_BASE%^>
 	md "%ODI_SCM_DEMO_BASE%"
@@ -230,7 +242,6 @@ if ERRORLEVEL 1 (
 	echo %EM% %MSG% 1>&2
 	goto ExitFail
 )
-
 
 rem
 rem Import the standard ODI demo after OdiScm so that we can flush it out to the working copy later on.
