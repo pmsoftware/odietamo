@@ -155,10 +155,27 @@ This email lets you know that the build process has completed *and* if it succee
 
 .. figure:: imgs/30_120_10.png
 
+Rebuilding From the Existing Working Copy
+-----------------------------------------
+
+The above process rebuilds the ODI repository by destroying the working copy, recreating it *and* getting all of the source code from the SCM system.
+
+What if you want to rebuild the ODI repository from the existing working copy?
+
+Well, there's a simple change to the command line that let's you do this::
+
+	OdiScmAutoRebuild FromWorkingCopy
+
+The ``FromWorkingCopy`` argument tells ODI-SCM to not destroy and recreate the working copy, or get all of the source code again from the SCM system.
+
+``FromWorkingCopy`` can be used to override the default of ``FromSCM`` (the other valid argument to this command).
+
+Rebuilding from the existing working copy is actually extremely useful when we hook up ODI-SCM to a Continuous Integration server. We'll show this working in another demo.
+
 What Next?
 ----------
 
-Well, one good, simple, application would be to run ``OdiScmAutoRebuild`` in an infinite loop.
-You get a fresh full build each time it runs and you discover build integrity issues soon after they're introduced to the code base in the SCM system.
+Well, one good, simple, immediate application would be to run ``OdiScmAutoRebuild`` in an infinite loop.
+You get a fresh full build each time, from the SCM system it runs and you discover build integrity issues soon after they're introduced to the code base in the SCM system.
 
 Replace PaperCut usage with your enterprise email server, of course!

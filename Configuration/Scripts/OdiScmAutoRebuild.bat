@@ -31,14 +31,14 @@ if "%ARGC%" gtr "1" (
 	goto ExitFail
 )
 
-set REBUILDSOURCE=SCM
+set REBUILDSOURCE=FromSCM
 
 if "%ARGC%" == "1" (
 	if /i "%ARGV1%" == "FromWorkingCopy" (
-		set REBUILDSOURCE=WorkingCopy
+		set REBUILDSOURCE=FromWorkingCopy
 	) else (
 		if /i "%ARGV1%" == "FromSCM" (
-			set REBUILDSOURCE=SCM
+			set REBUILDSOURCE=FromSCM
 		) else (
 			echo %EM% invalid argument value 1>&2
 			call :ShowUsage
@@ -116,7 +116,7 @@ set TEMPEMPTYFILE=%TEMPDIR%\OdiScmRebuildOdiRepo.Empty.Txt
 type NUL > %TEMPEMPTYFILE%
 set TEMPSTDERR=%TEMPDIR%\OdiScmRebuildOdiRepo.StdErr.Txt
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmRebuildOdiRepo.bat^" /p 2>%TEMPSTDERR% | tee "%REBUILDLOGFILE%"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmRebuildOdiRepo.bat^" /p "%REBUILDSOURCE%" 2>%TEMPSTDERR% | tee "%REBUILDLOGFILE%"
 set EXITSTATUS=%ERRORLEVEL%
 
 set ERROROCCURED=
