@@ -60,11 +60,37 @@ if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "TFS" (
 	)
 )
 
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
+if ERRORLEVEL 1 (
+	echo %EM% creating temporary working directory 1>&2
+	goto ExitFail
+)
+
 rem
-rem Create the working copy root directory.
+rem Ensure the CWD is not the working copy tree to be destroyed.
 rem
 set WCROOT=%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT:/=\%
+set WCROOTFS=%WCROOT:/=\%
+set CDFS=%CD:/=\%
+set TEMPGREPOUT=%TEMPDIR%\%PROC%_grep.txt
+echo %WCROOTFS% | grep -i "^%CDFS%" >"%TEMPGREPOUT%"
+set TEMPEMPTYFILE=%TEMPDIR%\%PROC%_Empty.txt
 
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateEmptyFile.bat^" /p "%TEMPEMPTYFILE%"
+if ERRORLEVEL 1 (
+	echo %EM% creating empty file ^<%TEMPEMPTYFILE%^> 1>&2
+	goto ExitFail
+)
+
+fc "%TEMPGREPOUT%" "%TEMPEMPTYFILE%" >NUL
+if ERRORLEVEL 1 (
+	echo %EM% current working directory is in the working copy root directory that will be destroyed 1>&2
+	goto ExitFail
+)
+
+rem
+rem Destroy any existing working copy directory tree.
+rem
 if EXIST "%WCROOT%" (
 	echo %IM% making all files writable in existing working copy root directory ^<%WCROOT%^>
 	chmod -R a+w "%WCROOT%"
@@ -73,13 +99,23 @@ if EXIST "%WCROOT%" (
 		goto ExitFail
 	)
 	echo %IM% deleting existing working copy directory tree ^<%WCROOT%^>
-	rm -fr "%WCROOT%"
+	rem Note that RD/RMDIR does not return a non zero exit status on failure, in all cases.
+	rem We use || (error action) to resolve the issue ().
+	rem See for details: http://stackoverflow.com/questions/11137702/batch-exit-code-for-rd-is-0-on-error-as-well
+	rd /q /s "%WCROOT%"
 	if ERRORLEVEL 1 (
 		echo %EM% deleting existing working copy directory tree ^<%WCROOT%^> 1>&2
 		goto ExitFail
 	)
+	if EXIST "%WCROOT%" (
+		echo %EM% verifying deletion of working copy directory tree ^<%WCROOT%^> 1>&2
+		goto ExitFail
+	)
 )
 
+rem
+rem Create the working copy root directory.
+rem
 echo %IM% creating working copy root directory ^<%WCROOT%^>
 md "%WCROOT%"
 if ERRORLEVEL 1 (
@@ -121,12 +157,6 @@ echo %IM% creating mapping for TFS workspace ^<%ARGV2%^> to branch URL ^<%ODI_SC
 tf workfold /map "%ODI_SCM_SCM_SYSTEM_BRANCH_URL%" "%WCROOT%" /workspace:%ARGV2% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%
 if ERRORLEVEL 1 (
 	echo %EM% creating mapping for TFS workspace ^<%ARGV2%^> to branch URL ^<%ODI_SCM_SCM_SYSTEM_BRANCH_URL%^> 1>&2
-	goto ExitFail
-)
-
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
-if ERRORLEVEL 1 (
-	echo %EM% creating temporary working directory 1>&2
 	goto ExitFail
 )
 

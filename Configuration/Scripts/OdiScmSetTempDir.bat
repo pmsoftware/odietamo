@@ -12,6 +12,15 @@ if "%TEMP%" == "" (
 	set TEMPDIR=%TEMP%
 )
 
+set TEMPDIR=%TEMPDIR%\OdiScm
+
+if /i "%1" == "/t" (
+	rem
+	rem We were requested to just report the parent temp directory in TEMPDIR.
+	rem
+	exit /b 0
+)
+
 set PYYYYMMDD=%YYYYMMDD%
 set PHHMMSSFF=%HHMMSSFF%
 
@@ -21,8 +30,7 @@ if ERRORLEVEL 1 (
 	exit /b 1
 )
 
-rem set TEMPDIR=%TEMPDIR%\OdiScm_%RANDOM%
-set TEMPDIR=%TEMPDIR%\OdiScm\OdiScm_%YYYYMMDD%_%HHMMSSFF%
+set TEMPDIR=%TEMPDIR%\OdiScm_%YYYYMMDD%_%HHMMSSFF%
 
 if EXIST "%TEMPDIR%" (
 	rd /s /q "%TEMPDIR%" >NUL 2>NUL

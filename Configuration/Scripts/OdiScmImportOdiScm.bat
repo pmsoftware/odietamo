@@ -217,86 +217,75 @@ rem Determine the actual working copy directory that files will be exported to.
 rem
 setlocal enabledelayedexpansion
 
-if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
-	rem
-	rem For SVN we need to take the final part of the system URL and/or branch URL and append to the specified working copy path.
-	rem This is because the last path component will have a working copy directory created for it when we check out of SVN.
-	rem Note: beware of extra spaces at the end of the variable expansion.
-	rem
-	for /f "tokens=* delims=/" %%g in ('echo %ODI_SCM_SCM_SYSTEM_SYSTEM_URL%^| tr [/] [\n]') do (
-		set SCMSYSTEMURLLASTPATH=%%g
-	)
-	rem echo set SCMSYSTEMURLLASTPATH to -!SCMSYSTEMURLLASTPATH!-
-	if "!SCMSYSTEMURLLASTPATH!" == "" (
-		echo %EM% last path component of SCM system URL ^<%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%^> is empty 1>&2
-		goto ExitFail
-	)
-	for /f "tokens=* delims=/" %%g in ('echo %ODI_SCM_SCM_SYSTEM_BRANCH_URL%^| tr [/] [\n]') do (
-		set SCMBRANCHURLLASTPATH=%%g
-	)
-	rem echo set SCMBRANCHURLLASTPATH to -!SCMBRANCHURLLASTPATH!-
-	if "!SCMBRANCHURLLASTPATH!" == "" (
-		echo %EM% last path component of SCM branch URL ^<%ODI_SCM_SCM_SYSTEM_BRANCH_URL%^> is empty 1>&2
-		goto ExitFail
-	)
-	if "!SCMBRANCHURLLASTPATH!" == "." (
-		set WCAPPEND=/!SCMSYSTEMURLLASTPATH!
-		rem echo set WCAPPEND to -!WCAPPEND!- from SCMSYSTEMURLLASTPATH
-		rem PAUSE
-	) else (
-		set WCAPPEND=/!SCMBRANCHURLLASTPATH!
-		rem echo set WCAPPEND to -!WCAPPEND!- from SCMBRANCHURLLASTPATH
-		rem PAUSE
-	)
-) else (
-	rem
-	rem For TFS or any unspecfied SCM system we don't need to append anything to the specified working copy root directory.
-	rem
-	set WCAPPEND=
-)
+REM if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
+	REM rem
+	REM rem For SVN we need to take the final part of the system URL and/or branch URL and append to the specified working copy path.
+	REM rem This is because the last path component will have a working copy directory created for it when we check out of SVN.
+	REM rem Note: beware of extra spaces at the end of the variable expansion.
+	REM rem
+	REM for /f "tokens=* delims=/" %%g in ('echo %ODI_SCM_SCM_SYSTEM_SYSTEM_URL%^| tr [/] [\n]') do (
+		REM set SCMSYSTEMURLLASTPATH=%%g
+	REM )
+	REM rem echo set SCMSYSTEMURLLASTPATH to -!SCMSYSTEMURLLASTPATH!-
+	REM if "!SCMSYSTEMURLLASTPATH!" == "" (
+		REM echo %EM% last path component of SCM system URL ^<%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%^> is empty 1>&2
+		REM goto ExitFail
+	REM )
+	REM for /f "tokens=* delims=/" %%g in ('echo %ODI_SCM_SCM_SYSTEM_BRANCH_URL%^| tr [/] [\n]') do (
+		REM set SCMBRANCHURLLASTPATH=%%g
+	REM )
+	REM rem echo set SCMBRANCHURLLASTPATH to -!SCMBRANCHURLLASTPATH!-
+	REM if "!SCMBRANCHURLLASTPATH!" == "" (
+		REM echo %EM% last path component of SCM branch URL ^<%ODI_SCM_SCM_SYSTEM_BRANCH_URL%^> is empty 1>&2
+		REM goto ExitFail
+	REM )
+	REM if "!SCMBRANCHURLLASTPATH!" == "." (
+		REM set WCAPPEND=/!SCMSYSTEMURLLASTPATH!
+		REM rem echo set WCAPPEND to -!WCAPPEND!- from SCMSYSTEMURLLASTPATH
+		REM rem PAUSE
+	REM ) else (
+		REM set WCAPPEND=/!SCMBRANCHURLLASTPATH!
+		REM rem echo set WCAPPEND to -!WCAPPEND!- from SCMBRANCHURLLASTPATH
+		REM rem PAUSE
+	REM )
+REM ) else (
+	REM rem
+	REM rem For TFS or any unspecfied SCM system we don't need to append anything to the specified working copy root directory.
+	REM rem
+	REM set WCAPPEND=
+REM )
 
 for /f %%g in ('dir /s /b "%TEMPOBJSDIR%\*.SnpConnect"') do (
 	echo %IM% preparing data server file ^<%%g^>
-	rem echo %DEBUG% setting driver class
 	cat "%%g" | sed s/"<OdiScmJavaDriverClass>"/"%ODI_SCM_ORACLEDI_SECU_DRIVER%"/g > %%g.1
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
-	rem echo %DEBUG% setting pass word
 	cat "%%g.1" | sed s/"<OdiScmPassWord>"/"%ODI_SCM_ORACLEDI_SECU_ENCODED_PASS%"/g > %%g.2
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
-	rem echo %DEBUG% setting user name
 	cat "%%g.2" | sed s/"<OdiScmUserName>"/"%ODI_SCM_ORACLEDI_SECU_USER%"/g > %%g.3
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
-	rem echo %DEBUG% setting URL
 	cat "%%g.3" | sed s/"<OdiScmUrl>"/"%ODI_SCM_ORACLEDI_SECU_URL%"/g > %%g.4
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
-	rem echo %DEBUG% setting working copy dir root
-	set WCROOT=%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT:\=/%
-	rem echo WCROOT now -!WCROOT!-
-	set WCROOT=!WCROOT!%WCAPPEND%
-	rem echo WCROOT now -!WCROOT!-
+	set WCROOT=%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT:\=/%
+	rem set WCROOT=!WCROOT!%WCAPPEND%
 	set WCROOT=!WCROOT:/=\/!
-	rem echo WCROOT now -!WCROOT!-
-	rem echo cat "%%g.4" ^| sed s/"<OdiScmWorkingCopyDir>"/"!WCROOT!"/g
-	rem PAUSE
 	cat "%%g.4" | sed s/"<OdiScmWorkingCopyDir>"/"!WCROOT!"/g > %%g.5
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
-	rem echo %DEBUG% setting work dir
-	set WDIR=%ODI_SCM_SCM_SYSTEM_WORKING_ROOT:\=\\%
+	set WDIR=%ODI_SCM_SCM_SYSTEM_WORKING_ROOT:\=/%
 	set WDIR=!WDIR:/=\/!
 	cat "%%g.5" | sed s/"<OdiScmTempDir>"/"!WDIR!"/g > %%g.6
 	if ERRORLEVEL 1 (
@@ -311,8 +300,7 @@ for /f %%g in ('dir /s /b "%TEMPOBJSDIR%\*.SnpConnect"') do (
 )
 
 echo %IM% starting import of ODI-SCM master repository objects
-rem echo running: call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat^" /p %TEMPOBJSDIR%\master
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat^" /p %TEMPOBJSDIR%\master
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportFromPathOrFile.bat" /p "%TEMPOBJSDIR%\master"
 if ERRORLEVEL 1 (
 	echo %EM% importing ODI-SCM ODI repository objects
 	goto ExitFail

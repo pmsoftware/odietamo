@@ -253,13 +253,60 @@ function CreateSetEnvScript
 				}
 			}
 		}
-    }
+	}
+	write-output 'rem'
+	write-output 'rem Add derived configuration.'
+	write-output 'rem'
+	write-output 'set ODI_SCM_SCM_SYSTEM_SYSTEM_URL_FS=%ODI_SCM_SCM_SYSTEM_SYSTEM_URL:\=/%'
+	write-output 'set ODI_SCM_SCM_SYSTEM_BRANCH_URL_FS=%ODI_SCM_SCM_SYSTEM_BRANCH_URL:\=/%'
+	write-output 'set ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT_FS=%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT:\=/%'
+	write-output 'set ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT_BS=%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT:/=\%'
+	write-output ''
+	write-output 'if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "TFS" ('
+	write-output '	rem'
+	write-output '	rem For TFS or any unspecfied SCM system we do not need to append anything to the specified working copy root directory.'
+	write-output '	rem'
+	write-output '	set WCAPPEND='
+	write-output '	set ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT=%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT_BS%%WCAPPEND%'
+	write-output '	exit /b 0'
+	write-output ')'
+	write-output ''
+	write-output 'rem'
+	write-output 'rem For SVN we need to take the final part of the system URL and/or branch URL and append to the specified working copy path.'
+	write-output 'rem This is because the last path component will have a working copy directory created for it when we check out of SVN.'
+	write-output 'rem Note: beware of extra spaces at the end of the variable expansion.'
+	write-output 'rem'
+	write-output ('for /f "tokens=* delims=/" %%g in (' + "'echo %ODI_SCM_SCM_SYSTEM_SYSTEM_URL_FS%^| tr [/] [\n]') do (")
+	write-output '	set SCMSYSTEMURLLASTPATH=%%g'
+	write-output ')'
+	write-output ''
+	write-output 'if "!SCMSYSTEMURLLASTPATH!" == "" ('
+	write-output '	echo %EM% last path component of SCM system URL ^<%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%^> is empty 1>&2'
+	write-output '	exit /b 1'
+	write-output ')'
+	write-output ''
+	write-output ('for /f "tokens=* delims=/" %%g in (' + "'echo %ODI_SCM_SCM_SYSTEM_BRANCH_URL_FS%^| tr [/] [\n]') do (")
+	write-output '	set SCMBRANCHURLLASTPATH=%%g'
+	write-output ')'
+	write-output ''
+	write-output 'if "%SCMBRANCHURLLASTPATH%" == "" ('
+	write-output '	echo %EM% last path component of SCM branch URL ^<%ODI_SCM_SCM_SYSTEM_BRANCH_URL%^> is empty 1>&2'
+	write-output '	exit /b 1'
+	write-output ')'
+	write-output ''
+	write-output 'if "%SCMBRANCHURLLASTPATH%" == "." ('
+	write-output '	set WCAPPEND=\%SCMSYSTEMURLLASTPATH%'
+	write-output ') else ('
+	write-output '	set WCAPPEND=\%SCMBRANCHURLLASTPATH%'
+	write-output ')'
+	write-output ''
+	write-output 'set ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT=%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT_BS%%WCAPPEND%'
 }
 
 $FN = "OdiScmIni"
 $IM = $FN + ": INFO:"
 $EM = $FN + ": ERROR:"
-	
+
 $DebuggingActive = $False
 
 if ($args.Count -ne 1) {

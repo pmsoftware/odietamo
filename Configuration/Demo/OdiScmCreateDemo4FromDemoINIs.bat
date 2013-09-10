@@ -86,12 +86,14 @@ rem
 set ODI_SCM_INI=%ODI_SCM_HOME%\Configuration\Demo\Demo4\OdiScmStandardOdiDemoSourceSystem.ini
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSaveScriptSwitches.bat"
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmEnvSet.bat"
-if ERRORLEVEL 1 (
+set EXITSTATUS=%ERRORLEVEL%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmLoadScriptSwitches.bat"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
+
+if not "%EXITSTATUS%" == "0" (
 	echo %EM% setting environment for demo source system environment 1>&2
 	goto ExitFail
 )
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmLoadScriptSwitches.bat"
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
 
 set TEMPJARFILE=%TEMPDIR%\%PROC%_ClassPath.jar
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateOdiClassPathJar.bat" /p "%TEMPJARFILE%" >NUL
@@ -171,15 +173,14 @@ rem
 echo %IM% executing FitNesse acceptance test to unpack resources
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecFitNesseCmd.bat" /p "FitNesse.SuiteAcceptanceTests.SuiteFitDecoratorTests.MaxTimeDivision" "test"
 set EXITSTATUS=%ERRORLEVEL%
-if ERRORLEVEL 1 (
-	echo %EM% FitNesse acceptance test execution return non zero exit status ^<%EXITSTATUS%^> 1>&2
-	goto ExitFail
+if not "%EXITSTATUS%" == "1" (
+	echo %WM% FitNesse acceptance test execution return non zero exit status ^<%EXITSTATUS%^> 1>&2
 )
 
 rem
 rem Add the demo unit tests to the working copy.
 rem
-xcopy /e /i /h /q "%ODI_SCM_HOME%\Configuration\Demo\Demo4\FitNesseRoot\OdiScmDemo" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%\SvnRepoRoot\FitNesseRoot\OdiScmDemo" >NUL
+xcopy /e /i /h /q "%ODI_SCM_HOME%\Configuration\Demo\Demo4\FitNesseRoot\OdiScmDemo" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\FitNesseRoot\OdiScmDemo" >NUL
 if ERRORLEVEL 1 (
 	echo %EM% copying FitNesse unit tests to demo environment 1 working copy 1>&2
 )
