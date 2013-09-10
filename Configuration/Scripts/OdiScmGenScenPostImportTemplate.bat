@@ -14,30 +14,20 @@ if /i "%1" == "/b" (
 set EXITSTATUS=0
 set FILENO=%RANDOM%
 
-if "%TEMP%" == "" goto NoTempDir
-set TEMPDIR=%TEMP%
-goto GotTempDir
+call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmSetTempDir.bat"
+if ERRORLEVEL 1 (
+	echo %EM% creating temporary working directory 1>&2
+	goto ExitFail
+)
 
-:NoTempDir
-if "%TMP%" == "" goto NoTmpDir
-set TEMPDIR=%TMP%
-goto GotTempDir
-
-:NoTmpDir
-set TEMPDIR=%CD%
-
-:GotTempDir
 set EMPTYFILE=%TEMPDIR%\%RANDOM%_OdiScm_PreImport_EmptyFile.txt
 
-type NUL > %EMPTYFILE%
-if ERRORLEVEL 1 goto CreateEmptyFileFail
-goto CreateEmptyFileOk
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateEmptyFile.bat" "%EMPTYFILE%"
+if ERRORLEVEL 1 (
+	echo %EM% creating empty file ^<%EMPTYFILE%^> 1>&2
+	goto ExitFail
+)
 
-:CreateEmptyFileFail
-echo %EM creating empty file ^<%EMPTYFILE%^>
-goto ExitFail
-
-:CreateEmptyFileOk
 set TLSOutput=
 set TSOutput=
 
@@ -46,36 +36,28 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen20_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen20_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" <OdiScmGenScenDeleteOldSql> %STDOUTFILE% %STDERRFILE%
-if not ERRORLEVEL 1 goto BatchFileOk20
-
-echo %EM% Batch file OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL
-echo %EM% Check StdOut content in file ^<%STDOUTFILE%^>
-echo %EM% Check StdErr content in file ^<%STDERRFILE%^>
-echo %IM% StdErr content:
-type %STDERRFILE%
-
-set EXITSTATUS=1
-goto ExitFail
-
-:BatchFileOk20
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" <OdiScmGenScenDeleteOldSql> %STDOUTFILE% %STDERRFILE%
+if ERRORLEVEL 1 (
+	echo %EM% Batch file OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL 1>&2
+	echo %EM% Check StdOut content in file ^<%STDOUTFILE%^> 1>&2
+	echo %EM% Check StdErr content in file ^<%STDERRFILE%^> 1>&2
+	echo %IM% StdErr content: 1>&2
+	type %STDERRFILE% 1>&2
+	set EXITSTATUS=1
+	goto ExitFail
+)
 
 rem
 rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.
 rem 
 echo %IM% Batch file OdiScmJisqlRepo.bat returned zero ERRORLEVEL
 fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
-if not ERRORLEVEL 1 goto StdErrEmpty20
-
-echo %IM% StdErr content:
-type %STDERRFILE%
-
-set EXITSTATUS=1
-goto ExitFail
-
-set /a BATCHFILEERRCOUNT=0
-
-:StdErrEmpty20
+if ERRORLEVEL 1 (
+	echo %EM% StdErr content: 1>&2
+	type %STDERRFILE% 1>&2
+	set EXITSTATUS=1
+	goto ExitFail
+)
 
 set /a BATCHFILEERRCOUNT=0 >NUL 2>NUL
 
@@ -102,21 +84,23 @@ call :SetDateTimeStrings
 set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen30_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
 set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen30_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
 
-call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen30MarkUpSourceObjects.sql %STDOUTFILE% %STDERRFILE%
-if ERRORLEVEL 1 goto BatchFileNotOk30
-goto BatchFileOk30
+set TEMPSCRIPT=%TEMPDIR%\OdiScmGenScen30MarkUpSourceObjects.sql
+type "<OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen30MarkUpSourceObjects.sql" | sed s/"<OdiScmScenarioSourceMarkers>"/"%ODI_SCM_GENERATE_SCENARIO_SOURCE_MARKERS%"/g >%TEMPSCRIPT%
+if ERRORLEVEL 1 (
+	echo %EM% creating Scenario source object marking script file ^<%TEMPSCRIPT%^> 1>&2
+	goto ExitFail
+)
 
-:BatchFileNotOk30
-echo %EM% Batch file OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL
-echo %EM% Check StdOut content in file ^<%STDOUTFILE%^>
-echo %EM% Check StdErr content in file ^<%STDERRFILE%^>
-echo %IM% StdErr content:
-type %STDERRFILE%
-
-set EXITSTATUS=1
-goto ExitFail
-
-:BatchFileOk30
+call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" "%TEMPSCRIPT%" %STDOUTFILE% %STDERRFILE%
+if ERRORLEVEL 1 (
+	echo %EM% Batch file OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL 1>&2
+	echo %EM% Check StdOut content in file ^<%STDOUTFILE%^> 1>&2
+	echo %EM% Check StdErr content in file ^<%STDERRFILE%^> 1>&2
+	echo %EM% StdErr content: 1>&2
+	type %STDERRFILE% 1>&2
+	set EXITSTATUS=1
+	goto ExitFail
+)
 
 rem
 rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.

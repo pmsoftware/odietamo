@@ -16,16 +16,17 @@ INSERT
      , source_type_id
      , folder_id
      , project_id
-     , marker_group_code
+-----, marker_group_code
        )
 --
 -- Modified Interfaces with a Scenario.
 --
-SELECT p.i_pop
+SELECT DISTINCT         -- Because of multiple markers.
+       p.i_pop
      , 3100             -- For Interfaces.
      , p.i_folder
      , f.i_project
-     , gs.grp_state_code
+-----, gs.grp_state_code
   FROM snp_pop p
  INNER
   JOIN snp_folder f
@@ -41,10 +42,7 @@ SELECT p.i_pop
     ON s2.i_grp_state = gs.i_grp_state
  WHERE os.i_object = 3100
    AND (
-       gs.grp_state_code = 'ODISCM'
-   AND gs.grp_state_name = 'OdiScm'
-   AND s2.state_code = 'HAS_SCENARIO'
-   AND s2.state_name = 'Has Scenario'
+       '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
        )
    AND p.last_date >
        (
@@ -55,11 +53,12 @@ SELECT p.i_pop
 --
 -- Modified Procedures with a Scenario.
 --
-SELECT t.i_trt
+SELECT DISTINCT         -- Because of multiple markers.
+       t.i_trt
      , 3600             -- For Procedures.
      , t.i_folder
      , f.i_project
-     , gs.grp_state_code
+-----, gs.grp_state_code
   FROM snp_trt t
  INNER
   JOIN snp_folder f
@@ -75,10 +74,7 @@ SELECT t.i_trt
     ON s2.i_grp_state = gs.i_grp_state
  WHERE os.i_object = 3600
    AND (
-       gs.grp_state_code = 'ODISCM'
-   AND gs.grp_state_name = 'OdiScm'
-   AND s2.state_code = 'HAS_SCENARIO'
-   AND s2.state_name = 'Has Scenario'
+       '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
        ) 
    AND t.last_date >
        (
@@ -89,11 +85,12 @@ SELECT t.i_trt
 --
 -- Modified Packages with a Scenario.
 -- 
-SELECT p.i_package
+SELECT DISTINCT         -- Because of multiple markers.
+       p.i_package
      , 3200             -- For Packages.
      , p.i_folder
      , f.i_project
-     , gs.grp_state_code 
+-----, gs.grp_state_code 
   FROM snp_package p
  INNER
   JOIN snp_folder f
@@ -107,12 +104,9 @@ SELECT p.i_package
  INNER
   JOIN snp_grp_state gs
     ON s2.i_grp_state = gs.i_grp_state
- WHERE os.i_object = 3200    
+ WHERE os.i_object = 3200
    AND (
-       gs.grp_state_code = 'ODISCM'
-   AND gs.grp_state_name = 'OdiScm'
-   AND s2.state_code = 'HAS_SCENARIO'
-   AND s2.state_name = 'Has Scenario'
+       '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
        ) 
    AND p.last_date >
        (
@@ -136,14 +130,14 @@ INSERT
      , source_type_id
      , folder_id
      , project_id
-     , marker_group_code
+-----, marker_group_code
        )
-SELECT DISTINCT         -- Because of the use of SNP_STEP.
+SELECT DISTINCT         -- Because of the use of SNP_STEP, and multiple markers.
        p.i_package
      , 3200             -- For Packages.
      , p.i_folder
      , f.i_project
-     , gs.grp_state_code 
+-----, gs.grp_state_code 
   FROM snp_package p
  INNER
   JOIN snp_folder f
@@ -162,10 +156,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
     ON p.i_package = s.i_package
  WHERE os.i_object = 3200
    AND (
-       gs.grp_state_code = 'ODISCM'
-   AND gs.grp_state_name = 'OdiScm'
-   AND s2.state_code = 'HAS_SCENARIO'
-   AND s2.state_name = 'Has Scenario'
+       '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
        )
    AND s.i_pop
     IN (
@@ -193,14 +184,14 @@ INSERT
      , source_type_id
      , folder_id
      , project_id
-     , marker_group_code
+-----, marker_group_code
        )
-SELECT DISTINCT         -- Because of the use of SNP_STEP.
+SELECT DISTINCT         -- Because of the use of SNP_STEP, and multiple markers.
        p.i_package
      , 3200             -- For Packages.
      , p.i_folder
      , f.i_project
-     , gs.grp_state_code
+-----, gs.grp_state_code
   FROM snp_package p
  INNER
   JOIN snp_folder f
@@ -219,10 +210,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
     ON p.i_package = s.i_package
  WHERE os.i_object = 3200
    AND (
-       gs.grp_state_code = 'ODISCM'
-   AND gs.grp_state_name = 'OdiScm'
-   AND s2.state_code = 'HAS_SCENARIO'
-   AND s2.state_name = 'Has Scenario'
+       '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
        ) 
    AND s.i_trt
     IN (
@@ -255,14 +243,14 @@ INSERT
      , source_type_id
      , folder_id
      , project_id
-     , marker_group_code
+-----, marker_group_code
        )
-SELECT DISTINCT         -- Because of the use of SNP_STEP.
+SELECT DISTINCT         -- Because of the use of SNP_STEP, and multiple markers.
        p.i_package
      , 3200             -- For Packages.
      , p.i_folder
      , f.i_project
-     , gs.grp_state_code
+-----, gs.grp_state_code
   FROM snp_package p
  INNER
   JOIN snp_folder f
@@ -281,10 +269,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
     ON p.i_package = s.i_package
  WHERE os.i_object = 3200
    AND (
-       gs.grp_state_code = 'ODISCM'
-   AND gs.grp_state_name = 'OdiScm'
-   AND s2.state_code = 'HAS_SCENARIO'
-   AND s2.state_name = 'Has Scenario'
+       '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
        ) 
    AND s.i_var
     IN (
@@ -316,14 +301,14 @@ INSERT
      , source_type_id
      , folder_id
      , project_id
-     , marker_group_code
+-----, marker_group_code
        )
-SELECT DISTINCT         -- Because of the use of SNP_STEP.
+SELECT DISTINCT         -- Because of the use of SNP_STEP, and multiple markers.
        p.i_package
      , 3200             -- For Packages.
      , p.i_folder
      , f.i_project
-     , gs.grp_state_code
+-----, gs.grp_state_code
   FROM snp_package p
  INNER
   JOIN snp_folder f
@@ -342,10 +327,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
     ON p.i_package = s.i_package
  WHERE os.i_object = 3200
    AND (
-       gs.grp_state_code = 'ODISCM'
-   AND gs.grp_state_name = 'OdiScm'
-   AND s2.state_code = 'HAS_SCENARIO'
-   AND s2.state_name = 'Has Scenario'
+       '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
        )  
    AND (
        s.i_mod IN (
@@ -427,14 +409,14 @@ INSERT
      , source_type_id
      , folder_id
      , project_id
-     , marker_group_code
+-----, marker_group_code
        )
-SELECT DISTINCT         -- Because of the use of SNP_STEP.
+SELECT DISTINCT         -- Because of the use of SNP_STEP, and multiple markers.
        p.i_package
      , 3200             -- For Packages.
      , p.i_folder
      , f.i_project
-     , gs.grp_state_code
+-----, gs.grp_state_code
   FROM snp_package p
  INNER
   JOIN snp_folder f
@@ -453,10 +435,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
     ON p.i_package = s.i_package
  WHERE os.i_object = 3200
    AND (
-       gs.grp_state_code = 'ODISCM'
-   AND gs.grp_state_name = 'OdiScm'
-   AND s2.state_code = 'HAS_SCENARIO'
-   AND s2.state_name = 'Has Scenario'
+       '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
        ) 
    AND (
        s.i_table IN (
@@ -478,32 +457,6 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP.
                 )
 /
 
---
--- If there are any objects marked with both the current AND deprecated
--- marker groups then delete one of the entries.
---
-DELETE
-  FROM odiscm_genscen_sources
- WHERE (
-       source_object_id
-     , source_type_id
-     , marker_group_code
-       )
-    IN (
-       SELECT source_object_id
-            , source_type_id
-            , MIN(marker_group_code) -- Prefer the current marker group to the deprecated one.
-         FROM odiscm_genscen_sources
-        GROUP
-           BY source_object_id
-            , source_type_id
-       HAVING COUNT(*) > 1
-       )
-/
-
-COMMIT
-/
-
 ANALYZE TABLE odiscm_genscen_sources ESTIMATE STATISTICS
 /
 
@@ -511,6 +464,7 @@ ANALYZE TABLE odiscm_genscen_sources ESTIMATE STATISTICS
 
 DECLARE
     cRepId          CHAR(3);
+    iGrpState       snp_grp_state.i_grp_state%TYPE;
     iState          snp_state2.i_state%TYPE;
     iObjState       snp_obj_state.i_obj_state%TYPE;
 
@@ -524,10 +478,16 @@ BEGIN
     ;
     
     --
-    -- Get the last used (note last used, not next value as the column name suggests) State2 and ObjState IDs.
+    -- Get the last used (note last used, not next value as the column name suggests) SnpGrpState, State2 and ObjState IDs.
     --
     SELECT COALESCE(MAX(id_next),0) 
-	  INTO iState
+      INTO iGrpState
+      FROM snp_id
+     WHERE id_tbl = 'SNP_GRP_STATE'
+    ;
+
+    SELECT COALESCE(MAX(id_next),0) 
+      INTO iState
       FROM snp_id
      WHERE id_tbl = 'SNP_STATE2'
     ;
@@ -539,7 +499,7 @@ BEGIN
     ;
     
     --
-    -- Create the temporary marker, and object marking for every updated source project.
+    -- Create the temporary marker group for every project with source objects which require a scenario to be generated.
     --
     FOR c_project IN (
                      SELECT DISTINCT
@@ -549,8 +509,53 @@ BEGIN
                          BY project_id
                      )
     LOOP
-        dbms_output.put_line('ODISCM: Creating temporary ''Generate Scenario'' marker for project ' ||  c_project.project_id);
-
+        dbms_output.put_line('ODI-SCM: Creating temporary ''ODISCM_TEMPORARY'' marker group for project ' ||  c_project.project_id);
+        
+        iGrpState := iGrpState + 1;
+        INSERT
+          INTO snp_grp_state
+               (
+               i_grp_state
+             , i_project
+             , grp_state_name
+             , grp_state_code
+             , grp_order_disp
+             , tree_display
+             , ind_internal
+             , ind_multi_states
+             , ind_auto_increment
+             , int_version
+             , ind_change
+             , first_date
+             , first_user
+             , last_date
+             , last_user
+             , ext_version
+               )
+        VALUES (
+               TO_NUMBER(iGrpState || cRepId)
+             , c_project.project_id
+             , 'OdiScm Temporary'
+             , 'ODISCM_TEMPORARY'
+             , -99
+             , 'X'
+             , 'X'
+             , 'X'
+             , 'X'
+             , -1
+             , 'N'
+             , SYSDATE
+             , 'ODISCM'
+             , SYSDATE
+             , 'ODISCM'
+             , 'X'
+               )
+        ;
+        --
+        -- Create the temporary marker, and object marking for every updated source project.
+        --
+        dbms_output.put_line('ODISCM: Creating temporary ''GENERATE_SCENARIO'' marker for project ' ||  c_project.project_id);
+        
         iState := iState + 1;
         INSERT
           INTO snp_state2
@@ -571,8 +576,9 @@ BEGIN
              , first_user                    
              , last_user
                )
-        SELECT TO_NUMBER(iState || cRepId)
-             , sngs.i_grp_state
+        VALUES (
+               TO_NUMBER(iState || cRepId)
+             , TO_NUMBER(iGrpState || cRepId)
              , 'GENERATE_SCENARIO'
              , 'Generate Scenario'
              , -99                          -- State order
@@ -585,10 +591,8 @@ BEGIN
              , 'I'                          -- Ind Change
              , SYSDATE                      -- First Date
              , 'ODISCM'                     -- First User
-             , 'ODISCM'                     -- Last User 
-          FROM snp_grp_state sngs
-         WHERE sngs.grp_state_code = 'ODISCM'
-           AND sngs.i_project = c_project.project_id
+             , 'ODISCM'                     -- Last User
+               )
         ;
     END LOOP;
 
@@ -607,10 +611,8 @@ BEGIN
                       JOIN snp_state2 sns2
                         ON sngs.i_grp_state = sns2.i_grp_state
                      WHERE (
-                           sngs.grp_state_code = 'ODISCM'
-                       AND sngs.grp_state_name = 'OdiScm'
+                           sngs.grp_state_code = 'ODISCM_TEMPORARY'
                        AND sns2.state_code = 'GENERATE_SCENARIO'
-                       AND sns2.state_name = 'Generate Scenario'
                            )
                     )
     LOOP
@@ -619,35 +621,35 @@ BEGIN
         iObjState := iObjState + 1;
 
         INSERT
-            INTO snp_obj_state
-                 (
-                 i_obj_state
-               , i_state
-               , i_object
-               , i_instance
-               , info_text
-               , info_date
-               , info_num
-               , i_txt_memo
-               , last_date
-               , last_user
-                 )
-          VALUES (
-                 TO_NUMBER(iObjState || cRepId)
-               , c_object.i_state
-               , c_object.source_type_id
-               , c_object.source_object_id
-               , NULL
-               , NULL
-               , NULL
-               , NULL
-               , NULL
-               , NULL
-                 );
+          INTO snp_obj_state
+               (
+               i_obj_state
+             , i_state
+             , i_object
+             , i_instance
+             , info_text
+             , info_date
+             , info_num
+             , i_txt_memo
+             , last_date
+             , last_user
+               )
+        VALUES (
+               TO_NUMBER(iObjState || cRepId)
+             , c_object.i_state
+             , c_object.source_type_id
+             , c_object.source_object_id
+             , NULL
+             , NULL
+             , NULL
+             , NULL
+             , NULL
+             , NULL
+               )
+        ;
     END LOOP;   
 
     COMMIT;
-
 END;                     
 /
 

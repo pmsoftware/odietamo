@@ -36,8 +36,8 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-echo %IM% executing command ^<call ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat^" ^^^"%TEMPSTARTCMD%^^^" OdiStartScen -SCEN_NAME=OSFLUSH_REPOSITORY -SCEN_VERSION=-1 -CONTEXT=GLOBAL^>
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%^" OdiStartScen -SCEN_NAME=OSFLUSH_REPOSITORY -SCEN_VERSION=-1 -CONTEXT=GLOBAL %DiscardStdOut%
+echo %IM% executing command ^<call ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat^" ^^^"%TEMPSTARTCMD%^^^" OdiStartScen -SCEN_NAME=OSFLUSH_REPOSITORY -SCEN_VERSION=-1 -CONTEXT=%ODI_SCM_GENERATE_ORACLEDI_CONTEXT%^>
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%^" OdiStartScen -SCEN_NAME=OSFLUSH_REPOSITORY -SCEN_VERSION=-1 -CONTEXT=%ODI_SCM_GENERATE_ORACLEDI_CONTEXT% %DiscardStdOut%
 if ERRORLEVEL 1 (
 	echo %EM% executing repository flush process 1>&2
 	goto ExitFail

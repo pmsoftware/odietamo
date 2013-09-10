@@ -27,8 +27,7 @@ DECLARE
 						  || ', source_type_id                 INTEGER NOT NULL'
 						  || ', folder_id                      INTEGER NOT NULL'
 						  || ', project_id                     INTEGER NOT NULL'
-						  || ', marker_group_code              VARCHAR2(100)'
-						  || ', CONSTRAINT osgs_pk PRIMARY KEY (source_object_id, source_type_id, marker_group_code)'
+						  || ', CONSTRAINT osgs_pk PRIMARY KEY (source_object_id, source_type_id)'
 						  || ')';
 	l_crt_master_flush_ddl	VARCHAR(1000) := 'CREATE TABLE odiscm_master_flush_controls'
 						  || '('

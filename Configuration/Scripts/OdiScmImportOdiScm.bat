@@ -348,7 +348,7 @@ if %PRIMEMETADATA% == LAST (
 rem
 rem Configure the ODI-SCM ODI constants (variables).
 rem
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%^" OdiStartScen -SCEN_NAME=OSCONFIGURE -SCEN_VERSION=-1 -CONTEXT=GLOBAL
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%^" OdiStartScen -SCEN_NAME=OSCONFIGURE -SCEN_VERSION=-1 -CONTEXT=%ODI_SCM_GENERATE_ORACLEDI_CONTEXT%
 if ERRORLEVEL 1 (
 	echo %EM% setting ODI-SCM ODI repository SCM actions constants
 	goto ExitFail
