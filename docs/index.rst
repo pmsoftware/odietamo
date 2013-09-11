@@ -23,6 +23,7 @@ Features At A Glance
 * Full or Incremental ODI repository builds from the SCM system.
 * Full ODI repository builds from an existing working copy.
 * Automated generation of Scenarios.
+* Automated execution of FitNesse (e.g. DbFit) tests after building the ODI repository.
 * High performance object source code imports through object batching.
 * Integrates with Continuous Integration servers. E.g. Hudson / Jenkins.
 
