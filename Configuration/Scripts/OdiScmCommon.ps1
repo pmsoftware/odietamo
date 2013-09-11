@@ -258,7 +258,7 @@ function OrderOdiImports ($lstInFiles, $refLstOutFiles) {
 								# Swap the current item with the next item.
 								$tempFileListEntry = $sortFileList[$i]
 								$sortFileList[$i]  = $sortFileList[$i + 1]
-								$sortFileList[$i + 1]  = $tempFileListEntry
+								$sortFileList[$i + 1] = $tempFileListEntry
 								$blnSwapped = $True
 							}
 						}

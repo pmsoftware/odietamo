@@ -45,15 +45,19 @@ if not "%ODI_SCM_TOOLS_JISQL_ADDITIONAL_CLASSPATH%" == "" (
 	echo %IM% no additional class path specified in environment variable ODI_SCM_TOOLS_JISQL_ADDITIONAL_CLASSPATH
 )
 
-echo %IM% adding files from OracleDI drivers directory ^<%ODI_SCM_ORACLEDI_HOME%^> to class path
-for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_HOME%\drivers\*.jar 2^>NUL') do (
-	rem <nul set /p =%%f >> "%TEMPFILE%"
-	call :AddToManifest %%f
-)
-
-for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_HOME%\drivers\*.zip 2^>NUL') do (
-	rem <nul set /p =%%f >> "%TEMPFILE%"
-	call :AddToManifest %%f
+if EXIST "%ODI_SCM_ORACLEDI_HOME%\drivers" (
+	echo %IM% adding files from OracleDI drivers directory ^<%ODI_SCM_ORACLEDI_HOME%\drivers^> to class path
+	for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_HOME%\drivers\*.jar 2^>NUL') do (
+		rem <nul set /p =%%f >> "%TEMPFILE%"
+		call :AddToManifest %%f
+	)
+	for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_HOME%\drivers\*.zip 2^>NUL') do (
+		rem <nul set /p =%%f >> "%TEMPFILE%"
+		call :AddToManifest %%f
+	)
+) else (
+	echo %EM% OracleDI drivers directory ^<%ODI_SCM_ORACLEDI_HOME%\drivers^> not found 1>&2
+	goto ExitFail
 )
 
 if not "%ODI_SCM_ORACLEDI_COMMON%" == "" (
@@ -65,11 +69,13 @@ if not "%ODI_SCM_ORACLEDI_COMMON%" == "" (
 			rem <nul set /p =%%f >> "%TEMPFILE%"
 			call :AddToManifest %%f
 		)
-		
 		for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_COMMON%\*.zip 2^>NUL') do (
 			rem <nul set /p =%%f >> "%TEMPFILE%"
 			call :AddToManifest %%f
 		)
+	) else (
+		echo %EM% OracleDI common directory ^<%ODI_SCM_ORACLEDI_COMMON%^> not found 1>&2
+		goto ExitFail
 	)
 )
 
@@ -81,12 +87,14 @@ if not "%ODI_SCM_ORACLEDI_SDK%" == "" (
 		for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_SDK%\*.jar 2^>NUL') do (
 			rem <nul set /p =%%f >> "%TEMPFILE%"
 			call :AddToManifest %%f
-		)
-		
+		)		
 		for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_SDK%\*.zip 2^>NUL') do (
 			rem <nul set /p =%%f >> "%TEMPFILE%"
 			call :AddToManifest %%f
 		)
+	) else (
+		echo %EM% OracleDI SDK directory ^<%ODI_SCM_ORACLEDI_SDK%^> not found 1>&2
+		goto ExitFail
 	)
 )
 
@@ -97,11 +105,13 @@ if not "%ODI_SCM_ORACLEDI_ORACLE_HOME%" == "" (
 			rem <nul set /p =%%f >> "%TEMPFILE%"
 			call :AddToManifest %%f
 		)
-		
 		for /f %%f in ('dir /b /s %ODI_SCM_ORACLEDI_ORACLE_HOME%\*.zip 2^>NUL') do (
 			rem <nul set /p =%%f >> "%TEMPFILE%"
 			call :AddToManifest %%f
 		)
+	) else (
+		echo %EM% OracleDI Oracle Home directory ^<%ODI_SCM_ORACLEDI_ORACLE_HOME%^> not found 1>&2
+		goto ExitFail
 	)
 )
 
@@ -109,6 +119,14 @@ rem
 rem Ensure the Class-Path entry ends with a new line character (LF or CR).
 rem
 echo.>>"%TEMPFILE%"
+
+rem
+rem Ensure the JDK is available.
+rem
+if not EXIST "%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\jar.exe" (
+	echo %EM% Java JDK ^<jar.exe^> command not found in JDK bin directory ^<%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\jar.exe^> 1>&2
+	goto ExitFail
+)
 
 rem
 rem Make the JAR file.
