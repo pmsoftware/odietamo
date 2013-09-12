@@ -117,29 +117,30 @@ rem echo %IM% Jisql class path ^<%JISQL_CLASS_PATH%^>
 echo %IM% executing command ^<"%ODI_SCM_TOOLS_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH%;%ARGV6% com.xigole.util.sql.Jisql -user "%ARGV1%" -pass "%ARGV2%" -driver "%ARGV3%" -cstring "%ARGV4%" -c / -formatter default -delimiter=" " -noheader -trim -input "%ARGV5%" 1^>%STDOUTWORKFILE% 2^>%STDERRWORKFILE%^>
 
 "%ODI_SCM_TOOLS_JISQL_JAVA_HOME%\bin\java" -classpath "%JISQL_CLASS_PATH%;%ARGV6%" com.xigole.util.sql.Jisql -user "%ARGV1%" -pass "%ARGV2%" -driver "%ARGV3%" -cstring "%ARGV4%" -c / -formatter default -delimiter=" " -noheader -trim -input "%ARGV5%" 1>"%STDOUTWORKFILE%" 2>"%STDERRWORKFILE%"
-
 set EXITSTATUS=%ERRORLEVEL%
 
 if "%STDOUTFILE%" == "" (
 	type "%STDOUTWORKFILE%"
 ) else (
+	echo %IM% setting contents of target StdOut file ^<%STDOUTFILE%^>
 	type "%STDOUTWORKFILE%" > "%STDOUTFILE%"
 )
 
 if "%STDERRFILE%" == "" (
 	type "%STDERRWORKFILE%" 1>&2
 ) else (
+	echo %IM% setting contents of target StdErr file ^<%STDERRFILE%^>
 	type "%STDERRWORKFILE%" > "%STDERRFILE%"
 )
 
 if not "%EXITSTATUS%" == "0" (
-	echo %EM% executing SQL script ^<%ARGV5%^>
+	echo %EM% executing SQL script ^<%ARGV5%^> 1>&2
 	goto ExitFail
 )
 
 fc "%EMPTYFILE%" "%STDERRWORKFILE%" >NUL
 if ERRORLEVEL 1 (
-	echo %EM% Jisql command returned stderr text
+	echo %EM% Jisql command returned stderr text 1>&2
 	goto ExitFail
 )
 

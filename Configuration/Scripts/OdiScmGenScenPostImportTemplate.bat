@@ -65,6 +65,7 @@ rem
 rem Read the contents of the generated batch file and execute each line one at at time.
 rem
 setlocal enabledelayedexpansion
+echo %IM% reading commands from file ^<%STDOUTFILE%^>
 for /f "tokens=1 delims=" %%g in (%STDOUTFILE%) do (
 	call :TrimSpace %%g
 	echo %IM% Read command from stdout ^<!TSOutput!^>
@@ -163,6 +164,7 @@ rem
 rem Read the contents of the generated batch file and execute each line one at at time.
 rem
 setlocal enabledelayedexpansion
+echo %IM% reading commands from file ^<%STDOUTFILE%^>
 for /f "tokens=1 delims=" %%g in (%STDOUTFILE%) do (
 	call :TrimSpace %%g
 	echo %IM% Read command from stdout ^<!TSOutput!^>
@@ -273,7 +275,6 @@ goto :eof
 rem *************************************************************
 :TrimSpace
 rem *************************************************************
-echo TrimSpace
 set TrimSpaceOutput=%*
 set TSOutput=%TrimSpaceOutput%
 goto :eof

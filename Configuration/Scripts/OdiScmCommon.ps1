@@ -1366,9 +1366,11 @@ function GenerateUnitTestExecScript($strOutputFile) {
 	$arrOutFileLines += ')'
 	$arrOutFileLines += ''
 	$arrOutFileLines += ':ExitOk'
+	$arrOutFileLines += 'echo %IM% ends'
 	$arrOutFileLines += 'exit %IsBatchExit% 0'
 	$arrOutFileLines += ''
 	$arrOutFileLines += ':ExitFail'
+	$arrOutFileLines += 'echo %EM% starts 1>&2'
 	$arrOutFileLines += 'exit %IsBatchExit% 1'
 	
 	$arrOutFileLines | set-content $strOutputFile

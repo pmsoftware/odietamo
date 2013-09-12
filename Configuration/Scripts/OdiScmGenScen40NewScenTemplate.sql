@@ -1,5 +1,5 @@
 SELECT DISTINCT
-       'call <OdiScmOdiStartCmdBat> OdiGenerateAllScen -PROJECT='
+       'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmOdiStartCmdBat>" OdiGenerateAllScen -PROJECT='
     || project_id
     || ' -FOLDER='
     || folder_id
@@ -9,7 +9,7 @@ SELECT DISTINCT
  WHERE source_type_id = 3200
  UNION
 SELECT DISTINCT
-       'call <OdiScmOdiStartCmdBat> OdiGenerateAllScen -PROJECT='
+       'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmOdiStartCmdBat>" OdiGenerateAllScen -PROJECT='
     || project_id
     || ' -FOLDER='
     || folder_id
@@ -19,7 +19,7 @@ SELECT DISTINCT
  WHERE source_type_id = 3100
  UNION
 SELECT DISTINCT
-       'call <OdiScmOdiStartCmdBat> OdiGenerateAllScen -PROJECT='
+       'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmOdiStartCmdBat>" OdiGenerateAllScen -PROJECT='
     || project_id
     || ' -FOLDER='
     || folder_id
@@ -29,7 +29,7 @@ SELECT DISTINCT
  WHERE source_type_id = 3600
  UNION
 SELECT DISTINCT
-       'call <OdiScmOdiStartCmdBat> OdiGenerateAllScen -PROJECT='
+       'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmOdiStartCmdBat>" OdiGenerateAllScen -PROJECT='
     || project_id
     || ' -FOLDER='
     || folder_id
