@@ -122,9 +122,13 @@ echo.>>"%TEMPFILE%"
 
 rem
 rem Ensure the JDK is available.
+rem First create a displayable path (i.e. deal with infernal parentheses in paths!).
 rem
+set ODI_SCM_ORACLEDI_JAVA_HOME_ESC=%ODI_SCM_ORACLEDI_JAVA_HOME:(=^^(%
+set ODI_SCM_ORACLEDI_JAVA_HOME_ESC=%ODI_SCM_ORACLEDI_JAVA_HOME_ESC:)=^^)%
+	
 if not EXIST "%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\jar.exe" (
-	echo %EM% Java JDK ^<jar.exe^> command not found in JDK bin directory ^<%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\jar.exe^> 1>&2
+	echo %EM% Java JDK ^<jar.exe^> command not found in JDK bin directory ^<%ODI_SCM_ORACLEDI_JAVA_HOME_ESC%^> 1>&2
 	goto ExitFail
 )
 
