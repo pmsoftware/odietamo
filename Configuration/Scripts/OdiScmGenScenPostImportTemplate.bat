@@ -1,5 +1,5 @@
 @echo off
-setlocal
+
 set FN=OdiScmGenScenPostImport
 set IM=%FN%: INFO:
 set EM=%FN%: ERROR:
@@ -71,8 +71,7 @@ for /f "tokens=1 delims=" %%g in (%STDOUTFILE%) do (
 	echo %IM% Read command from stdout ^<!TSOutput!^>
 	call :ExecBatchCommand %TSOutput%
 )
-endlocal enabledelayedexpansion
-echo %IM% Completed execution of batch file commands with ^<%BATCHFILEERRCOUNT%^> errors
+echo %IM% completed execution of batch file commands with ^<%BATCHFILEERRCOUNT%^> errors
 if %BATCHFILEERRCOUNT%==0 goto BatchFileCompleted20
 
 set EXITSTATUS=1
@@ -163,14 +162,13 @@ set /a BATCHFILEERRCOUNT=0 >NUL 2>NUL
 rem
 rem Read the contents of the generated batch file and execute each line one at at time.
 rem
-setlocal enabledelayedexpansion
 echo %IM% reading commands from file ^<%STDOUTFILE%^>
 for /f "tokens=1 delims=" %%g in (%STDOUTFILE%) do (
 	call :TrimSpace %%g
 	echo %IM% Read command from stdout ^<!TSOutput!^>
 	call :ExecBatchCommand !TSOutput!
+	echo back from ExecBatchCommand: !BATCHFILEERRCOUNT!
 )
-endlocal enabledelayedexpansion
 echo %IM% Completed execution of batch file commands with ^<%BATCHFILEERRCOUNT%^> errors
 if %BATCHFILEERRCOUNT%==0 goto BatchFileCompleted40
 
@@ -265,10 +263,8 @@ rem *************************************************************
 :TrimLeadingSpace
 rem *************************************************************
 set TrimLeadingSpaceOutput=%~1
-setlocal enabledelayedexpansion
 for /f "tokens=* delims= " %%g in ("%TrimLeadingSpaceOutput%") do set TrimLeadingSpaceOutput=%%g
 for /l %%g in (1,1,100) do if "!TrimLeadingSpaceOutput:~0,1!"==" " set TrimLeadingSpaceOutput=!TrimLeadingSpaceOutput:~0!
-endlocal enabledelayedexpansion
 set TLSOutput=%TrimLeadingSpaceOutput%
 goto :eof
 
@@ -285,17 +281,16 @@ rem *************************************************************
 rem
 rem Execute a batch command read from a generated batch file.
 rem 
-echo %IM% ExecBatchCommand: Received command: %*
+echo %IM% date ^<%date%^> time ^<%time%^>
+echo %IM% subroutine ExecBatchCommand received command ^<%*^>
+
 %*
-if  ERRORLEVEL 1 goto ExecBatchCommandNotSuccess
-goto ExecBatchCommandSuccess
+if ERRORLEVEL 1 (
+	echo %EM% ExecBatchCommand: Command returned non-zero ERRORLEVEL
+	set /a BATCHFILEERRCOUNT=%BATCHFILEERRCOUNT%+1
+	goto ExecBatchCommandExit
+)
 
-:ExecBatchCommandNotSuccess
-echo %EM% ExecBatchCommand: Command returned non-zero ERRORLEVEL
-set /a BATCHFILEERRCOUNT=%BATCHFILEERRCOUNT%+1
-goto ExecBatchCommandExit
-
-:ExecBatchCommandSuccess
 echo %IM% ExecBatchCommand: Command returned zero ERRORLEVEL
 
 :ExecBatchCommandExit

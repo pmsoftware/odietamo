@@ -8,7 +8,7 @@ $ODIImportModeUpdate = 'SYNONYM_UPDATE'
 #
 # Strings used to correctly generate the ODI object imports for nestable object types.
 #
-$orderedExtensions = @("*.SnpTechno","*.SnpLang","*.SnpContext","*.SnpConnect","*.SnpPschema","*.SnpLschema","*.SnpProject","*.SnpGrpState","*.SnpFolder","*.SnpVar","*.SnpUfunc","*.SnpTrt","*.SnpModFolder","*.SnpModel","*.SnpSubModel","*.SnpTable","*.SnpJoin","*.SnpSequence","*.SnpPop","*.SnpPackage","*.SnpObjState")
+$orderedExtensions = @("*.SnpTechno","*.SnpLang","*.SnpContext","*.SnpConnect","*.SnpPschema","*.SnpLschema","*.SnpPschemaCont","*.SnpProject","*.SnpGrpState","*.SnpFolder","*.SnpVar","*.SnpUfunc","*.SnpTrt","*.SnpModFolder","*.SnpModel","*.SnpSubModel","*.SnpTable","*.SnpJoin","*.SnpSequence","*.SnpPop","*.SnpPackage","*.SnpObjState")
 $containerExtensions = @("*.SnpTechno","*.SnpConnect","*.SnpLschema","*.SnpModFolder","*.SnpModel","*.SnpSubModel","*.SnpProject","*.SnpFolder")
 $nestableContainerExtensions = @("*.SnpModFolder","*.SnpSubModel","*.SnpFolder")
 $nestableContainerExtensionParentFields = @("ParIModFolder","ISmodParent","ParIFolder")
