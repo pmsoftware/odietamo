@@ -90,6 +90,7 @@ rem SnpConext files contain the SnpContext/SnpLschema/SnpPschema mappings
 rem in our solution.
 rem
 dir /s /b /o:n %IMPORT_DIR%\*.SnpLschema >>%OBJLISTFILE% 2>NUL
+dir /s /b /o:n %IMPORT_DIR%\*.SnpPschemaCont >>%OBJLISTFILE% 2>NUL
 rem
 rem Work Repository objects last.
 rem

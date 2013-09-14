@@ -27,7 +27,7 @@ public class ConsolidateObjectSourceFiles {
 		
 		// ODI object source file extensions - as String array.
 		String[] arrStrOrderedExtensions = {
-				".SnpTechno", ".SnpLang", ".SnpContext", ".SnpConnect", ".SnpPschema", ".SnpLschema"
+				".SnpTechno", ".SnpLang", ".SnpContext", ".SnpConnect", ".SnpPschema", ".SnpLschema", ".SnpPschemaCont"
 				, ".SnpProject", ".SnpGrpState", ".SnpFolder", ".SnpVar", ".SnpUfunc", ".SnpTrt"
 				, ".SnpModFolder", ".SnpModel", ".SnpSubModel", ".SnpTable", ".SnpJoin", ".SnpSequence"
 				, ".SnpPop", ".SnpPackage", ".SnpObjState"

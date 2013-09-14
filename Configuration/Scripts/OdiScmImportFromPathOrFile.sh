@@ -146,6 +146,7 @@ then
 	# in our solution.
 	#
 	find "$IMPORT_DIR" . -name '*.SnpLschema' >>$OBJLISTFILE 2>/dev/null
+	find "$IMPORT_DIR" . -name '*.SnpPschemaCont' >>$OBJLISTFILE 2>/dev/null
 	#
 	# Work Repository objects last.
 	#

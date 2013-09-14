@@ -883,7 +883,7 @@ SELECT i_techno
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA_CONTEXT -SESSION_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA_CONTEXT.#oid.#o2id -OS.LogicalSchemaInternalID=#oid -OS.ContextInternalID=#oid]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA_CONTEXT -SESSION_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA_CONTEXT.#oid.#o2id -OS.LogicalSchemaInternalID=#oid -OS.ContextInternalID=#o2id]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -893,20 +893,19 @@ SELECT i_techno
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT i_lschema
+	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT pc.i_lschema
            AS oid
-     , i_context
+     , pc.i_context
            AS o2id
   FROM snp_pschema_cont pc
  INNER
   JOIN snp_lschema l
-    ON pc.i_context = l.i_context
+    ON pc.i_lschema = l.i_lschema
  INNER
   JOIN snp_pschema p
-    ON pc.i_pschema = c.i_pschema
+    ON pc.i_pschema = p.i_pschema
  INNER
-  JOIN snp_context c
-]]></Field>
+  JOIN snp_cont]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -916,7 +915,8 @@ SELECT i_techno
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[    ON pc.i_context = c.i_context
+	<Field name="Txt" type="java.lang.String"><![CDATA[ext c
+    ON pc.i_context = c.i_context
  WHERE l.last_date >=
        (
        SELECT flush_from_datetime
@@ -924,7 +924,7 @@ SELECT i_techno
         WHERE odi_user_name =
               (
               SELECT user_name
-                FROM snp_sessio]]></Field>
+                FROM snp_]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -934,7 +934,7 @@ SELECT i_techno
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[n@odiworkrep_data
+	<Field name="Txt" type="java.lang.String"><![CDATA[session@odiworkrep_data
                WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
               )
        )
@@ -942,7 +942,7 @@ SELECT i_techno
        '#OS.ExportReferencePhysicalArchitectureOnlyInd' = 'No'
     OR (
        c.context_name = 'REFERENCE'
-   AND c.context_code = ]]></Field>
+   AND c.context_c]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -952,7 +952,7 @@ SELECT i_techno
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA['REFERENCE'
+	<Field name="Txt" type="java.lang.String"><![CDATA[ode = 'REFERENCE'
    AND p.schema_name LIKE 'REF_%'
    AND p.ext_name LIKE 'REF_%'
        )
@@ -2088,7 +2088,7 @@ SELECT i_techno
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[674998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA_CONTEXT -SESSION_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA_CONTEXT.#oid.#o2id -OS.LogicalSchemaInternalID=#oid -OS.ContextInternalID=#oid]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA_CONTEXT -SESSION_NAME=OSUTL_EXPORT_PHYSICAL_SCHEMA_CONTEXT.#oid.#o2id -OS.LogicalSchemaInternalID=#oid -OS.ContextInternalID=#o2id]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
@@ -2104,17 +2104,17 @@ SELECT i_techno
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[675998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT i_lschema
+	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT pc.i_lschema
            AS oid
-     , i_context
+     , pc.i_context
            AS o2id
   FROM snp_pschema_cont pc
  INNER
   JOIN snp_lschema l
-    ON pc.i_context = l.i_context
+    ON pc.i_lschema = l.i_lschema
  INNER
   JOIN snp_pschema p
-    ON pc.i_pschema = c.i_pschema
+    ON pc.i_pschema = p.i_pschema
  INNER
   JOIN snp_context c
     ON pc.i_context = c.i_context

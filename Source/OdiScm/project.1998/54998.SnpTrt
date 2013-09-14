@@ -87,7 +87,7 @@
 	<Field name="DefV" type="java.lang.String"><![CDATA[master]]></Field>
 	<Field name="IndStore" type="java.lang.String"><![CDATA[S]]></Field>
 	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[3495998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[3569998]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.WCConfigMasterSubDir]]></Field>
@@ -99,7 +99,7 @@
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[3495998]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[3569998]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[The root subdirectory within the Working Copy (WC) root that exported master repository items are placed.
@@ -329,7 +329,7 @@ raise(a)]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[PschemaCont.temp -OS.ExportChildObjectsInd=yes]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[PschemaCont.<?=snpRef.getSession("SESS_NO") ?> -OS.ExportChildObjectsInd=yes]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -409,8 +409,7 @@ raise(a)]]></Field>
 #
 # Extract the SnpPschemaCont object from the SnpLschema export file.
 #
-fsrc = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/#OS.WCConfigMasterSubDir/#OS.LogicalSchemaInternalID.#OS.ContextInternalID.SnpPschemaCont.temp','r')
-ftr]]></Field>
+fsrc = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/#OS.WCConfigMasterSubDir/#OS.LogicalSchemaInternalID.#OS.ContextInternalID.SnpPschemaCont.<?=snpRef.getS]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -420,12 +419,12 @@ ftr]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[g = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.LogicalSchemaInternalID.#OS.ContextInternalID.SnpPschemaCont.<?=snpRef.getSession("SESS_NO") ?>.cleaned', 'w')
+	<Field name="Txt" type="java.lang.String"><![CDATA[ession("SESS_NO") ?>','r')
+ftrg = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.LogicalSchemaInternalID.#OS.ContextInternalID.SnpPschemaCont.<?=snpRef.getSession("SESS_NO") ?>.cleaned', 'w')
 
 try:
 	foundLschemaStart = 'false'
-	foundLschemaEnd = 'false'
-	foundSummaryS]]></Field>
+	foundLsche]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -435,17 +434,15 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[tart = 'false'
+	<Field name="Txt" type="java.lang.String"><![CDATA[maEnd = 'false'
+	foundSummaryStart = 'false'
 	foundSummaryEnd = 'false'
 	foundMappingStart = 'false'
 	foundMappingEnd = 'false'
 	foundSnpReferencedObjectStart = 'false'
 	foundSnpReferencedObjectEnd = 'false'
 	doneSummaryLine = 'false'
-	discardedObjectCount = 0
-
-	lsrc = ''
-	ltrg =]]></Field>
+	discardedObjec]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -455,7 +452,10 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ ''
+	<Field name="Txt" type="java.lang.String"><![CDATA[tCount = 0
+
+	lsrc = ''
+	ltrg = ''
 	lp1 = ''
 	lp2 = ''
 	lp3 = ''
@@ -474,9 +474,7 @@ try:
 			#print 'EOF'
 			break
 
-		#print 'lsrc: ' + lsrc
-
-		if foundLschemaS]]></Field>
+		#print 'lsrc]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -486,7 +484,9 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[tart == 'false':
+	<Field name="Txt" type="java.lang.String"><![CDATA[: ' + lsrc
+
+		if foundLschemaStart == 'false':
 			if lsrc.startswith('<Object class="com.sunopsis.dwg.dbobj.SnpLschema">'):
 				foundLschemaStart = 'true'
 			else:
@@ -494,8 +494,7 @@ try:
 			continue
 
 		if foundLschemaEnd == 'false':
-			if lsrc.startswith('</Object>'):
-				foundLsch]]></Field>
+			if lsrc.startswi]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -505,7 +504,8 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[emaEnd = 'true'
+	<Field name="Txt" type="java.lang.String"><![CDATA[th('</Object>'):
+				foundLschemaEnd = 'true'
 			continue
 
 		if foundSummaryStart == 'false':
@@ -514,8 +514,7 @@ try:
 				ftrg.write(lsrc)
 				continue
 
-		if foundSummaryStart == 'true':
-			if don]]></Field>
+		if foundSum]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -525,10 +524,10 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[eSummaryLine == 'false':
+	<Field name="Txt" type="java.lang.String"><![CDATA[maryStart == 'true':
+			if doneSummaryLine == 'false':
 				if lsrc.startswith('\t<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA['):
-					otherObjectCount = lsrc.replace('\t<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA[','')
-					otherObj]]></Field>
+					otherObjectCount = lsrc.replace('\t<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -538,11 +537,11 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ectCount = int(otherObjectCount.replace('SNPS_CDATA_END_TAG</Field>',''))				
+	<Field name="Txt" type="java.lang.String"><![CDATA["><![CDATA[','')
+					otherObjectCount = int(otherObjectCount.replace('SNPS_CDATA_END_TAG</Field>',''))				
 
 					ftrg.write('\t<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA[' + str(1) + 'SNPS_CDATA_END_TAG</Field>' + '\n')
 
-					doneSummaryLine = 'true'
 			]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
 </Object>
@@ -553,7 +552,8 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[		continue
+	<Field name="Txt" type="java.lang.String"><![CDATA[		doneSummaryLine = 'true'
+					continue
 				else:
 					ftrg.write(lsrc)
 					continue
@@ -562,7 +562,7 @@ try:
 				continue
 
 		# foundSummaryStart = false, foundSchemaStart = true, foundSchemaEnd = true.
-		if lsrc.startswith('<Object class="com.sunopsis.dwg.dbobj.SnpPschema]]></Field>
+		if lsrc.startswith('<Object class="com]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -572,7 +572,7 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[Cont">'):
+	<Field name="Txt" type="java.lang.String"><![CDATA[.sunopsis.dwg.dbobj.SnpPschemaCont">'):
 
 			foundMappingStart = 'true'
 
@@ -580,8 +580,7 @@ try:
 				# Something is afoot. Abort.
 				raise('Found SnpPschemaCont object after start of summary')
 
-			# Read the current mapping object and see if we need to discard it.
-			p]]></Field>
+			# Read the current mapping object and see ]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -591,7 +590,8 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[schemaContLines = []
+	<Field name="Txt" type="java.lang.String"><![CDATA[if we need to discard it.
+			pschemaContLines = []
 			pschemaContLines.append(lsrc)
 			blnGeneric = 'false'
 			blnMappedToRefContext = 'false'
@@ -600,7 +600,7 @@ try:
 				lp = fsrc.readline()
 				pschemaContLines.append(lp)
 
-				if lp.find('"<Field name="IContext" type]]></Field>
+				if lp.find]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -610,14 +610,12 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[="com.sunopsis.sql.DbInt"><![CDATA[' + str(#OS.ContextInternalID) + 'SNPS_CDATA_END_TAG</Field>'):
+	<Field name="Txt" type="java.lang.String"><![CDATA[('"<Field name="IContext" type="com.sunopsis.sql.DbInt"><![CDATA[' + str(#OS.ContextInternalID) + 'SNPS_CDATA_END_TAG</Field>'):
 					blnMappedToRefContext = 'true'
 
 				if lp.startswith('</Object>'):
 					foundMappingEnd = 'true'
-					blnGeneric = 'true'
-
-			if ('#OS.ExportRefer]]></Field>
+					blnGeneric = ']]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[11]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -627,12 +625,13 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[encePhysicalArchitectureOnlyInd' == 'No') or ('#OS.ExportReferencePhysicalArchitectureOnlyInd' == 'Yes' and blnMappedToRefContext == 'true'):
+	<Field name="Txt" type="java.lang.String"><![CDATA[true'
+
+			if ('#OS.ExportReferencePhysicalArchitectureOnlyInd' == 'No') or ('#OS.ExportReferencePhysicalArchitectureOnlyInd' == 'Yes' and blnMappedToRefContext == 'true'):
 				for outLine in pschemaContLines:
 					ftrg.write(outLine)
 
-			foundMappingStart = 'false'
-			foundMappin]]></Field>
+			foundMapping]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[12]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -642,13 +641,13 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[gEnd = 'false'
+	<Field name="Txt" type="java.lang.String"><![CDATA[Start = 'false'
+			foundMappingEnd = 'false'
 			continue
 
 		# foundSummaryStart = false, foundSchemaStart = true, foundSchemaEnd = true, not a LSC mapping start.
 		if lsrc.startswith('<Object class="com.sunopsis.dwg.DwgExportSummary">'):
-			foundSummaryStart = 'true'
-			ftrg.writ]]></Field>
+			foundSumm]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[13]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -658,7 +657,8 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[e(lsrc)
+	<Field name="Txt" type="java.lang.String"><![CDATA[aryStart = 'true'
+			ftrg.write(lsrc)
 			continue
 
 		# pass through other sub object types.
@@ -668,7 +668,7 @@ finally:
 	fsrc.close()
 	ftrg.close()
 
-fsrc = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.LogicalSchemaInternalID.#OS.ContextInternalID.SnpPschemaCont.<?=]]></Field>
+fsrc = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.LogicalSchemaInternalID.#OS.Contex]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[14]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -678,12 +678,11 @@ fsrc = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.LogicalSchemaI
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[snpRef.getSession("SESS_NO") ?>.cleaned', 'r')
+	<Field name="Txt" type="java.lang.String"><![CDATA[tInternalID.SnpPschemaCont.<?=snpRef.getSession("SESS_NO") ?>.cleaned', 'r')
 ftrg = open('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/#OS.WCConfigMasterSubDir/#OS.LogicalSchemaInternalID.#OS.ContextInternalID.SnpPschemaCont', 'w')
 
 try:
-	lsrc = fsrc.readline()
-	while (lsrc):]]></Field>
+	lsrc = ]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[15]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -693,15 +692,15 @@ try:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[
+	<Field name="Txt" type="java.lang.String"><![CDATA[fsrc.readline()
+	while (lsrc):
 		ftrg.write(lsrc)
 		lsrc = fsrc.readline()
 finally:
 	fsrc.close()
 	ftrg.close()
 
-os.remove('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/#OS.WCConfigMasterSubDir/#OS.LogicalSchemaInternalID.#OS.ContextInternalID.SnpPschemaCont.temp')
-os.remove(]]></Field>
+os.remove('<?=snpRef.getSchemaName("ODISCMWC_DATA", "D") ?>/#OS.WCConfigMasterSubDir/#OS.LogicalSchemaInternalID.#OS.ContextInternalID.Sn]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[16]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -711,7 +710,7 @@ os.remove(]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[84998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA['<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#OS.LogicalSchemaInternalID.#OS.ContextInternalID.SnpPschemaCont.<?=snpRef.getSession("SESS_NO") ?>.cleaned')]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[pPschemaCont.<?=snpRef.getSession("SESS_NO") ?>')]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[17]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -1052,7 +1051,7 @@ raise(a)]]></Field>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[670998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_OBJECT -OS.ExportClassName=SnpLschema -OS.ExportObjectInternalID=#LogicalSchemaInternalID -OS.ExportFilePathName=#WCConfigMasterSubDir -OS.ExportFileName=#LogicalSchemaInternalID.#ContextInternalID.SnpPschemaCont.temp -OS.ExportChildObjectsInd=yes]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[OdiStartScen -SCEN_NAME=OSUTL_EXPORT_OBJECT -OS.ExportClassName=SnpLschema -OS.ExportObjectInternalID=#LogicalSchemaInternalID -OS.ExportFilePathName=#WCConfigMasterSubDir -OS.ExportFileName=#LogicalSchemaInternalID.#ContextInternalID.SnpPschemaCont.<%=odiRef.getSession("SESS_NO")%> -OS.ExportChildObjectsInd=yes]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
@@ -1157,7 +1156,7 @@ raise(a)]]></Field>
 #
 # Extract the SnpPschemaCont object from the SnpLschema export file.
 #
-fsrc = open('<%=odiRef.getSchemaName("ODISCMWC_DATA","D")%>/#WCConfigMasterSubDir/#LogicalSchemaInternalID.#ContextInternalID.SnpPschemaCont.temp','r')
+fsrc = open('<%=odiRef.getSchemaName("ODISCMWC_DATA","D")%>/#WCConfigMasterSubDir/#LogicalSchemaInternalID.#ContextInternalID.SnpPschemaCont.<%=odiRef.getSession("SESS_NO")%>','r')
 ftrg = open('<%=odiRef.getSchemaName("ODISCMWC_DATA","W")%>/#LogicalSchemaInternalID.#ContextInternalID.SnpPschemaCont.<%=odiRef.getSession("SESS_NO")%>.cleaned', 'w')
 
 try:
@@ -1288,8 +1287,7 @@ finally:
 	fsrc.close()
 	ftrg.close()
 
-os.remove('<%=odiRef.getSchemaName("ODISCMWC_DATA","D")%>/#WCConfigMasterSubDir/#LogicalSchemaInternalID.#ContextInternalID.SnpPschemaCont.temp')
-os.remove('<%=odiRef.getSchemaName("ODISCMWC_DATA","W")%>/#LogicalSchemaInternalID.#ContextInternalID.SnpPschemaCont.<%=odiRef.getSession("SESS_NO")%>.cleaned')]]></Field>
+os.remove('<%=odiRef.getSchemaName("ODISCMWC_DATA","D")%>/#WCConfigMasterSubDir/#LogicalSchemaInternalID.#ContextInternalID.SnpPschemaCont.<%=odiRef.getSession("SESS_NO")%>')]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
