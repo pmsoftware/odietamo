@@ -173,7 +173,7 @@ rem
 echo %IM% executing FitNesse acceptance test to unpack resources
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecFitNesseCmd.bat" /p "FitNesse.SuiteAcceptanceTests.SuiteFitDecoratorTests.MaxTimeDivision" "test"
 set EXITSTATUS=%ERRORLEVEL%
-if not "%EXITSTATUS%" == "1" (
+if not "%EXITSTATUS%" == "0" (
 	echo %WM% FitNesse acceptance test execution return non zero exit status ^<%EXITSTATUS%^> 1>&2
 )
 
