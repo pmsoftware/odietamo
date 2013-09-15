@@ -64,11 +64,11 @@ if "%ODI_SCM_ORACLEDI_VERSION:~0,3%" == "10." (
 	set ODI_DEMO_BIN=%ODI_SCM_ORACLEDI_HOME%\bin
 ) else (
 	if not EXIST "%ODI_SCM_ORACLEDI_ORACLE_HOME%\oracledi\demo\bin\startdemo.bat" (
-		echo %EM% startdemo.bat script not found in ODI demo bin directory ^<%ODI_SCM_ORACLEDI_ORACLE_HOME%\demo\bin^> 1>&2
+		echo %EM% startdemo.bat script not found in ODI demo bin directory ^<%ODI_SCM_ORACLEDI_ORACLE_HOME%\oracledi\demo\bin^> 1>&2
 		goto ExitFail
 	)
 	if not EXIST "%ODI_SCM_ORACLEDI_ORACLE_HOME%\oracledi\demo\bin\stopdemo.bat" (
-		echo %EM% stopdemo.bat script not found in ODI demo bin directory ^<%ODI_SCM_ORACLEDI_ORACLE_HOME%\demo\bin^> 1>&2
+		echo %EM% stopdemo.bat script not found in ODI demo bin directory ^<%ODI_SCM_ORACLEDI_ORACLE_HOME%\oracledi\demo\bin^> 1>&2
 		goto ExitFail
 	)
 	set ODI_DEMO_HOME=%ODI_SCM_ORACLEDI_ORACLE_HOME%\oracledi\demo

@@ -17,8 +17,8 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-if not "%ARGC%" == "1" (
-	echo %EM% usage: %PROC% ^<output batch file path and name^> 1>&2
+if not "%ARGC%" == "2" (
+	echo %EM% usage: %PROC% ^<output batch file path and name^> ^<incremental ^| full ^> 1>&2
 	goto ExitFail
 )
 
@@ -33,7 +33,7 @@ if "%TEMPDIR%" == "" (
 	)
 )
 
-PowerShell -Command "& { %ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenerateUnitTestExecs.ps1 %ARGV1%; exit $LASTEXITCODE }"
+PowerShell -Command '& { %ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenerateUnitTestExecs.ps1 "%ARGV1%" "%ARGV2%"; exit $LASTEXITCODE }'
 if ERRORLEVEL 1 (
 	echo %EM% generating unit test execution script
 	goto ExitFail

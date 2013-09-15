@@ -30,12 +30,8 @@ SELECT i_project
          JOIN snp_grp_state gs
            ON s2.i_grp_state = gs.i_grp_state
         WHERE os.i_object = 3100 -- From SNP_OBJECT.
-          AND (
-              gs.grp_state_code = 'ODISCM'
-          AND gs.grp_state_name = 'OdiScm'
-          AND s2.state_code = 'HAS_SCENARIO'
-          AND s2.state_name = 'Has Scenario'
-              )
+          AND '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
+          <OdiScmModifiedObjectsOnlyFilterText>
         UNION
        --
        -- Procedures with a Scenario.
@@ -61,12 +57,8 @@ SELECT i_project
          JOIN snp_grp_state gs
            ON s2.i_grp_state = gs.i_grp_state
         WHERE os.i_object = 3600 -- From SNP_OBJECT.
-          AND (
-              gs.grp_state_code = 'ODISCM'
-          AND gs.grp_state_name = 'OdiScm'
-          AND s2.state_code = 'HAS_SCENARIO'
-          AND s2.state_name = 'Has Scenario'
-              ) 
+          AND '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%') 
+          <OdiScmModifiedObjectsOnlyFilterText>
               -- Procedures, not Knowledge Modules.
           AND t.i_folder IS NOT NULL
         UNION
@@ -91,12 +83,8 @@ SELECT i_project
          JOIN snp_grp_state gs
            ON s2.i_grp_state = gs.i_grp_state
         WHERE os.i_object = 3600 -- From SNP_OBJECT.
-          AND (
-              gs.grp_state_code = 'ODISCM'
-          AND gs.grp_state_name = 'OdiScm'
-          AND s2.state_code = 'HAS_SCENARIO'
-          AND s2.state_name = 'Has Scenario'
-              )
+          AND '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
+          <OdiScmModifiedObjectsOnlyFilterText>
               -- Project Knowledge Modules.
           AND t.i_folder IS NULL
         UNION
@@ -118,12 +106,8 @@ SELECT i_project
          JOIN snp_grp_state gs
            ON s2.i_grp_state = gs.i_grp_state
         WHERE os.i_object = 3600 -- From SNP_OBJECT.
-          AND (
-              gs.grp_state_code = 'ODISCM'
-          AND gs.grp_state_name = 'OdiScm'
-          AND s2.state_code = 'HAS_SCENARIO'
-          AND s2.state_name = 'Has Scenario'
-              )
+          AND '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
+          <OdiScmModifiedObjectsOnlyFilterText>
               -- Global Knowledge Modules.
           AND t.i_project IS NULL
         UNION
@@ -151,12 +135,8 @@ SELECT i_project
          JOIN snp_grp_state gs
            ON s2.i_grp_state = gs.i_grp_state
         WHERE os.i_object = 3200 -- From SNP_OBJECT.
-          AND (
-              gs.grp_state_code = 'ODISCM'
-          AND gs.grp_state_name = 'OdiScm'
-          AND s2.state_code = 'HAS_SCENARIO'
-          AND s2.state_name = 'Has Scenario'
-              )
+          AND '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
+          <OdiScmModifiedObjectsOnlyFilterText>
         UNION
        --
        -- Variables with a Scenario.
@@ -179,11 +159,7 @@ SELECT i_project
          JOIN snp_grp_state gs
            ON s2.i_grp_state = gs.i_grp_state
         WHERE os.i_object = 3500 -- From SNP_OBJECT.
-          AND (
-              gs.grp_state_code = 'ODISCM'
-          AND gs.grp_state_name = 'OdiScm'
-          AND s2.state_code = 'HAS_SCENARIO'
-          AND s2.state_name = 'Has Scenario'
-              )
+          AND '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
+          <OdiScmModifiedObjectsOnlyFilterText>
        )
 /

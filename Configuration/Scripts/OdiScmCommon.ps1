@@ -1231,7 +1231,7 @@ function SetOdiScmPostImportBatContent {
 #
 # Generate a batch file to execute the ODI object unit tests.
 #
-function GenerateUnitTestExecScript($strOutputFile) {
+function GenerateUnitTestExecScript($strOutputFile, $blnIncrementalInd) {
 	
 	$FN = "GenerateUnitTestExecScript"
 	$IM = $FN + ": INFO:"
@@ -1245,14 +1245,34 @@ function GenerateUnitTestExecScript($strOutputFile) {
 	if (!($OdiScmOutputNamesSet)) {
 		if (!(SetOutputNames)) {
 			write-host "$EM setting output file system object names"
-			return $False
+			return $ExitStatus
 		}
 	}
-	DebuggingPause
+	
+	$strGenerateUnitTestExecScriptContent = get-content "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmGenerateUnitTestExecs.sql"
+	if (!($?)) {
+		write-host "$EM getting content of script file <$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmGenerateUnitTestExecs.sql>"
+		return $False
+	}
+	
+	#
+	# Replace tokens in the script template and create a new script file.
+	#
+	$strFilterText = "   AND p.last_date > (SELECT import_start_datetime FROM odiscm_controls)"
+	$strGenerateUnitTestExecScriptContent = $strGenerateUnitTestExecScriptContent -replace "<OdiScmModifiedObjectsOnlyFilterText>", $strFilterText
+	$strGenerateUnitTestExecScriptContent = $strGenerateUnitTestExecScriptContent -replace "<OdiScmScenarioSourceMarkers>", $env:ODI_SCM_TEST_SCENARIO_SOURCE_MARKERS
+	
+	$strTempScriptFile = "$env:TEMPDIR\OdiScmGenerateUnitTestExecsExpanded.sql"
+	set-content -path $strTempScriptFile -value $strGenerateUnitTestExecScriptContent
+	if (!($?)) {
+		write-host "$EM setting content of script file <$strTempScriptFile>"
+		return $False
+	}
+	
 	#
 	# Generate the list of FitNesse command line calls.
 	#
-	$CmdOutput = ExecOdiRepositorySql "$ScriptsRootDir\OdiScmGenerateUnitTestExecs.sql" "$env:TEMPDIR" "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmJisqlRepo.bat"
+	$CmdOutput = ExecOdiRepositorySql "$strTempScriptFile" "$env:TEMPDIR" "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmJisqlRepo.bat"
 	if (! $CmdOutput) {
 		write-host "$EM error generating ODI unit test execution calls list"
 		return $ExitStatus
