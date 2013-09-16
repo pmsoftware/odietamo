@@ -12,17 +12,17 @@ SELECT i_project
        SELECT f.i_project
             , 'Interface'
                   AS object_type_name
-            , p.i_pop
+            , o.i_pop
                   AS i_object
-            , p.pop_name
+            , o.pop_name
                   AS object_name
-         FROM snp_pop p
+         FROM snp_pop o
         INNER
          JOIN snp_folder f
-           ON p.i_folder = f.i_folder
+           ON o.i_folder = f.i_folder
         INNER
          JOIN snp_obj_state os
-           ON p.i_pop = os.i_instance
+           ON o.i_pop = os.i_instance
         INNER
          JOIN snp_state2 s2
            ON os.i_state = s2.i_state
@@ -39,17 +39,17 @@ SELECT i_project
        SELECT f.i_project
             , 'Procedure'
                   AS object_type_name
-            , t.i_trt
+            , o.i_trt
                   AS i_object
-            , t.trt_name
+            , o.trt_name
                   AS object_name
-         FROM snp_trt t
+         FROM snp_trt o
         INNER
          JOIN snp_folder f
-           ON t.i_folder = f.i_folder
+           ON o.i_folder = f.i_folder
         INNER
          JOIN snp_obj_state os
-           ON t.i_trt = os.i_instance
+           ON o.i_trt = os.i_instance
         INNER
          JOIN snp_state2 s2
            ON os.i_state = s2.i_state
@@ -60,22 +60,22 @@ SELECT i_project
           AND '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%') 
           <OdiScmModifiedObjectsOnlyFilterText>
               -- Procedures, not Knowledge Modules.
-          AND t.i_folder IS NOT NULL
+          AND o.i_folder IS NOT NULL
         UNION
        --
        -- Knowledge Modules unit tests. Test independently of the Interfaces that use them.
        --
-       SELECT t.i_project
+       SELECT o.i_project
             , 'KnowledgeModule'
                   AS object_type_name
-            , t.i_trt
+            , o.i_trt
                   AS i_object
-            , t.trt_name
+            , o.trt_name
                   AS object_name
-         FROM snp_trt t
+         FROM snp_trt o
         INNER
          JOIN snp_obj_state os
-           ON t.i_trt = os.i_instance
+           ON o.i_trt = os.i_instance
         INNER
          JOIN snp_state2 s2
            ON os.i_state = s2.i_state
@@ -86,19 +86,19 @@ SELECT i_project
           AND '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
           <OdiScmModifiedObjectsOnlyFilterText>
               -- Project Knowledge Modules.
-          AND t.i_folder IS NULL
+          AND o.i_folder IS NULL
         UNION
-       SELECT t.i_project
+       SELECT o.i_project
             , 'KnowledgeModule'
                   AS object_type_name
-            , t.i_trt
+            , o.i_trt
                   AS i_object
-            , t.trt_name
+            , o.trt_name
                   AS object_name
-         FROM snp_trt t
+         FROM snp_trt o
         INNER
          JOIN snp_obj_state os
-           ON t.i_trt = os.i_instance
+           ON o.i_trt = os.i_instance
         INNER
          JOIN snp_state2 s2
            ON os.i_state = s2.i_state
@@ -109,7 +109,7 @@ SELECT i_project
           AND '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
           <OdiScmModifiedObjectsOnlyFilterText>
               -- Global Knowledge Modules.
-          AND t.i_project IS NULL
+          AND o.i_project IS NULL
         UNION
        --
        -- Packages with a Scenario.
@@ -117,17 +117,17 @@ SELECT i_project
        SELECT f.i_project
             , 'Package'
                   AS object_type_name
-            , p.i_package
+            , o.i_package
                   AS i_object
-            , p.pack_name
+            , o.pack_name
                   AS object_name
-         FROM snp_package p
+         FROM snp_package o
         INNER
          JOIN snp_folder f
-           ON p.i_folder = f.i_folder
+           ON o.i_folder = f.i_folder
         INNER
          JOIN snp_obj_state os
-           ON p.i_package = os.i_instance
+           ON o.i_package = os.i_instance
         INNER
          JOIN snp_state2 s2
            ON os.i_state = s2.i_state
@@ -141,17 +141,17 @@ SELECT i_project
        --
        -- Variables with a Scenario.
        -- 
-       SELECT v.i_project -- Null for Global variables.
+       SELECT o.i_project -- Null for Global variables.
             , 'Variable'
                   AS object_type_name
-            , v.i_var
+            , o.i_var
                   AS i_object
-            , v.var_name
+            , o.var_name
                   AS object_name
-         FROM snp_var v
+         FROM snp_var o
         INNER
          JOIN snp_obj_state os
-           ON v.i_var = os.i_instance
+           ON o.i_var = os.i_instance
         INNER
          JOIN snp_state2 s2
            ON os.i_state = s2.i_state

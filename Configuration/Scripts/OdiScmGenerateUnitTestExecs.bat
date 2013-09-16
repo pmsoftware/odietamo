@@ -33,7 +33,7 @@ if "%TEMPDIR%" == "" (
 	)
 )
 
-PowerShell -Command '& { %ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenerateUnitTestExecs.ps1 "%ARGV1%" "%ARGV2%"; exit $LASTEXITCODE }'
+PowerShell -Command "& { %ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenerateUnitTestExecs.ps1 '%ARGV1%' '%ARGV2%'; exit $LASTEXITCODE }"
 if ERRORLEVEL 1 (
 	echo %EM% generating unit test execution script
 	goto ExitFail

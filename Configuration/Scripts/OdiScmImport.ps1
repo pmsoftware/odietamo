@@ -210,7 +210,7 @@ function GenerateImport {
 	get-content $SCMConfigurationFile | set-content $SCMConfigurationBackUpFile
 	
 	#
-	# Get the list of files to import form the file system path.
+	# Get the list of files to import from the file system path.
 	#
 	$arrOdiObjSrcFiles = @()
 	if (!(GetFromFileSystem ([ref] $arrOdiObjSrcFiles))) {

@@ -167,7 +167,6 @@ for /f "tokens=1 delims=" %%g in (%STDOUTFILE%) do (
 	call :TrimSpace %%g
 	echo %IM% Read command from stdout ^<!TSOutput!^>
 	call :ExecBatchCommand !TSOutput!
-	echo back from ExecBatchCommand: !BATCHFILEERRCOUNT!
 )
 echo %IM% Completed execution of batch file commands with ^<%BATCHFILEERRCOUNT%^> errors
 if %BATCHFILEERRCOUNT%==0 goto BatchFileCompleted40

@@ -978,7 +978,7 @@ function SetOdiScmJisqlRepoBatContent {
 	$fileContent = $fileContent.Replace("<SECURITY_USER>",$OdiRepoSECURITY_USER)  
 	$fileContent = $fileContent.Replace("<SECURITY_UNENC_PWD>",$OdiRepoSECURITY_UNENC_PWD)
 	
-	set-content $OdiScmJisqlRepoBat -value $fileContent
+	set-content -path $OdiScmJisqlRepoBat -value $fileContent
 	
 	write-host "$IM completed modifying content of <$OdiScmJisqlRepoBat>"
 	write-host "$IM ends"
@@ -1094,7 +1094,7 @@ function SetOdiScmBuildNoteContent ($VersionRange) {
 	$NoteText = $NoteText.Replace("<VersionRange>"      , $VersionRange)
 	$NoteText = $NoteText.Replace("<WorkingCopyRootDir>", $WorkingCopyRootDir)
 	
-	set-content $OdiScmBuildNote $NoteText
+	set-content -path $OdiScmBuildNote $NoteText
 	if (!($?)) {
 		write-host "$EM setting build note tempate text in file <$OdiScmBuildNote>"
 		return $False
@@ -1231,7 +1231,7 @@ function SetOdiScmPostImportBatContent {
 #
 # Generate a batch file to execute the ODI object unit tests.
 #
-function GenerateUnitTestExecScript($strOutputFile, $blnIncrementalInd) {
+function GenerateUnitTestExecScript($strOutputFile, $strIncrementalOrFull) {
 	
 	$FN = "GenerateUnitTestExecScript"
 	$IM = $FN + ": INFO:"
@@ -1241,6 +1241,14 @@ function GenerateUnitTestExecScript($strOutputFile, $blnIncrementalInd) {
 	write-host "$IM starts"
 	$ExitStatus = $False
 	write-host "$IM output will be written to file <$strOutputFile>"
+	
+	$strGenType = $strIncrementalOrFull.ToLower()
+	
+	if (!(($strGenType -eq "incremental") -or ($strGenType -eq "full"))) {
+		write-host "$EM invalid test generation type <$strGenType> specified"
+		write-host "$EM generation type must be <incremental> or <full>"
+		return $False
+	}
 	
 	if (!($OdiScmOutputNamesSet)) {
 		if (!(SetOutputNames)) {
@@ -1258,9 +1266,19 @@ function GenerateUnitTestExecScript($strOutputFile, $blnIncrementalInd) {
 	#
 	# Replace tokens in the script template and create a new script file.
 	#
-	$strFilterText = "   AND p.last_date > (SELECT import_start_datetime FROM odiscm_controls)"
-	$strGenerateUnitTestExecScriptContent = $strGenerateUnitTestExecScriptContent -replace "<OdiScmModifiedObjectsOnlyFilterText>", $strFilterText
-	$strGenerateUnitTestExecScriptContent = $strGenerateUnitTestExecScriptContent -replace "<OdiScmScenarioSourceMarkers>", $env:ODI_SCM_TEST_SCENARIO_SOURCE_MARKERS
+	$strFilterText  = "AND o.last_date >" + [Environment]::NewLine
+	$strFilterText += "              (" + [Environment]::NewLine
+	$strFilterText += "              SELECT import_start_datetime" + [Environment]::NewLine
+	$strFilterText += "                FROM odiscm_controls" + [Environment]::NewLine
+	$strFilterText += "              )"
+	
+	if ($strGenType -eq "incremental") {
+		$strGenerateUnitTestExecScriptContent = $strGenerateUnitTestExecScriptContent -replace "<OdiScmModifiedObjectsOnlyFilterText>", $strFilterText
+	}
+	else {
+		$strGenerateUnitTestExecScriptContent = $strGenerateUnitTestExecScriptContent -replace "<OdiScmModifiedObjectsOnlyFilterText>", ""
+	}
+	$strGenerateUnitTestExecScriptContent = $strGenerateUnitTestExecScriptContent -replace "<OdiScmScenarioSourceMarkers>", "$env:ODI_SCM_GENERATE_SCENARIO_SOURCE_MARKERS"
 	
 	$strTempScriptFile = "$env:TEMPDIR\OdiScmGenerateUnitTestExecsExpanded.sql"
 	set-content -path $strTempScriptFile -value $strGenerateUnitTestExecScriptContent
@@ -1323,7 +1341,6 @@ function GenerateUnitTestExecScript($strOutputFile, $blnIncrementalInd) {
 	
 	foreach ($CmdOutputLine in $arrCmdOutput) {
 		
-		###write-host "$IM processing query result row <$CmdOutputLine>"
 		$strNoCR = $CmdOutputLine -replace "`r", ""
 		$strNoCR = $strNoCR -replace "`n", ""
 		$strNoCR = $strNoCR.Trim()
@@ -1351,7 +1368,7 @@ function GenerateUnitTestExecScript($strOutputFile, $blnIncrementalInd) {
 		$strTestPageFilePath = ($env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT).Replace("/","\") + "\" + ($env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_NAME).Replace(".","\") + "\" + $strTestPagePath.Replace(".","\")
 
 		$arrOutFileLines += 'if not EXIST "' + $strTestPageFilePath + '\content.txt" ('
-		$arrOutFileLines += ('	echo %EM% cannot find FitNesse test content file ^<' + $strTestPageFilePath + '^>')
+		$arrOutFileLines += ('	echo %EM% cannot find FitNesse test content file ^<' + $strTestPageFilePath + '^> 1>&2')
 		$arrOutFileLines += '	set TESTFAILURES=0'
 		$arrOutFileLines += '	set /a TOTALTESTPAGESMISSING=!TOTALTESTPAGESMISSING! + 1'
 		$arrOutFileLines += ') else ('
@@ -1393,7 +1410,7 @@ function GenerateUnitTestExecScript($strOutputFile, $blnIncrementalInd) {
 	$arrOutFileLines += 'echo %EM% starts 1>&2'
 	$arrOutFileLines += 'exit %IsBatchExit% 1'
 	
-	$arrOutFileLines | set-content $strOutputFile
+	$arrOutFileLines | set-content -path $strOutputFile
 	$ExitStatus = $True
 	
 	write-host "$IM ends"
@@ -1857,7 +1874,7 @@ function CreateConsolidatedOdiSourceFile ($fileList, $outFile) {
 	
 	$outRecordList += '</SunopsisExport>'
 	write-host "$IM starting to write file <$outFile>"
-	$outRecordList | set-content $outFile
+	$outRecordList | set-content -path $outFile
 	write-host "$IM finished writing file <$outFile>"
 	return $True
 }
