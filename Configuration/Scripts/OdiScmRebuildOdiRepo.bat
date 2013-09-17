@@ -151,7 +151,15 @@ if "%REBUILDSOURCE%" == "SCM" (
 rem
 rem Drop contents of existing repository schema.
 rem
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat^" /p %ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownOracleSchema.sql
+set TEARDOWNSCRIPT=%ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownOracleSchema.sql
+set TEARDOWNREPOSCRIPT=%TEMPDIR%\OdiScmTearDownRepoOracleSchema.sql
+cat "%TEARDOWNSCRIPT%" | sed s/"<OdiScmPhysicalSchemaName>"/"%ODI_SCM_ORACLEDI_SECU_USER%"/g > %TEARDOWNREPOSCRIPT%
+if ERRORLEVEL 1 (
+	echo %EM% creating Oracle repository schema tear down script ^<%TEARDOWNREPOSCRIPT%^> 1>&2
+	goto ExitFail
+)
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" /p "%TEARDOWNREPOSCRIPT%"
 if ERRORLEVEL 1 (
 	echo %EM% tearing down Oracle database schema ^<%ODI_SCM_ORACLEDI_SECU_USER%^> at ^<%ODI_SCM_ORACLEDI_SECU_URL%^> 1>&2
 	goto ExitFail

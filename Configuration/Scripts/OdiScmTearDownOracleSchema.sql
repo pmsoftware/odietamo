@@ -3,7 +3,8 @@
 DECLARE
 BEGIN   
     FOR c_repo_obj IN (
-                      SELECT object_name
+                      SELECT owner
+                           , object_name
                            , subobject_name
                            , object_type
                            , CASE WHEN object_type = 'TABLE'
@@ -11,13 +12,14 @@ BEGIN
                                   ELSE ''
                               END
                                  AS command_tail
-                        FROM user_objects
+                        FROM all_objects
                        WHERE object_type
                          NOT
                           IN (
                              'LOB'
                            , 'INDEX'
                              )
+                         AND UPPER(owner) = UPPER('<OdiScmPhysicalSchemaName>')
                        ORDER
                           BY CASE WHEN object_type = 'VIEW'
                                   THEN 1
@@ -46,11 +48,11 @@ BEGIN
                       )
     LOOP
         BEGIN
-            dbms_output.put_line('Dropping object ' || c_repo_obj.object_name || ' of type ' || c_repo_obj.object_type);
-            EXECUTE IMMEDIATE('DROP ' || c_repo_obj.object_type || ' ' || c_repo_obj.object_name || c_repo_obj.command_tail);
+            dbms_output.put_line('Dropping object ' || c_repo_obj.owner || '.' || c_repo_obj.object_name || ' of type ' || c_repo_obj.object_type);
+            EXECUTE IMMEDIATE('DROP ' || c_repo_obj.object_type || ' ' || c_repo_obj.owner || '.' || c_repo_obj.object_name || c_repo_obj.command_tail);
         EXCEPTION
             WHEN OTHERS
-                THEN raise_application_error(-20000, 'Cannot drop ' || c_repo_obj.object_type || ' ' || c_repo_obj.object_name);
+                THEN raise_application_error(-20000, 'Cannot drop ' || c_repo_obj.object_type || ' ' || c_repo_obj.owner || '.' || c_repo_obj.object_name);
         END;
     END LOOP;
 END;
