@@ -108,15 +108,23 @@ set ARGVALL=
 set /a ParamNo=%ParamNo% + 1
 
 rem
+rem Deal with any horrid characters so we can check if we've run out of arguments to process.
+rem
+set ARGNONASTIES=XXX %1 XXX
+set ARGNONASTIES=%ARGNONASTIES:;=$%
+set ARGNONASTIES=%ARGNONASTIES:"=$%
+
+rem
 rem Exit when we've run out of arguments to process.
 rem
-set ARGNOSEMICOLONS=XXX %~1 XXX
-set ARGNOSEMICOLONS=%ARGNOSEMICOLONS:;=$%
-if "%ARGNOSEMICOLONS%" == "XXX  XXX" (
+if "%ARGNONASTIES%" == "XXX  XXX" (
+	REM if "%1" == "" (
 	goto ExitOk
 )
+
 call set ARGN=%~1
 call set ARGV%ParamNo%=%ARGN%
+
 set /a ARGC=%ARGC% + 1
 set ARGVALL=%ARGVALL% %ARGN%
 
