@@ -1,4 +1,5 @@
 @echo off
+
 rem
 rem Remember if we need to use SETLOCAL then use with caution in this script as we need to return variable
 rem values to the caller.
@@ -109,10 +110,11 @@ set /a ParamNo=%ParamNo% + 1
 rem
 rem Exit when we've run out of arguments to process.
 rem
-if "%1" == "" (
+set ARGNOSEMICOLONS=XXX %~1 XXX
+set ARGNOSEMICOLONS=%ARGNOSEMICOLONS:;=$%
+if "%ARGNOSEMICOLONS%" == "XXX  XXX" (
 	goto ExitOk
 )
-
 call set ARGN=%~1
 call set ARGV%ParamNo%=%ARGN%
 set /a ARGC=%ARGC% + 1
