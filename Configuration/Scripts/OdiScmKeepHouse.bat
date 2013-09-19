@@ -10,7 +10,6 @@ if "%ODI_SCM_HOME%" == "" (
 
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
 echo %IM% starts
-echo on
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*
 if ERRORLEVEL 1 (
 	echo %EM% processing script arguments 1>&2

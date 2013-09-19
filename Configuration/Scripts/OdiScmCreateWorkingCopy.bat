@@ -134,11 +134,36 @@ if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
 )
 
 rem
+rem Delete the existing workspace if present.
+rem
+set TEMPGREPOUT=%TEMPDIR%\%PROC%_grep.txt
+tf workspaces | grep "%ARGV2%" >%TEMPGREPOUT%
+fc "%TEMPGREPOUT%" "%TEMPEMPTYFILE%" >NUL
+if ERRORLEVEL 1 (
+	rem
+	rem An existing workspace has been detected so destroy it.
+	rem
+	echo %IM% deleting existing TFS workspace ^<%ARGV2%^>
+	tf workspace /delete /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% %ARGV2% /noprompt
+	if ERRORLEVEL 1 (
+		echo %EM% creating TFS workspace ^<%ARGV2%^> 1>&2
+		goto ExitFail
+	)
+)
+
+rem
+rem Ensure the workspace does not exist.
+rem
+tf workspaces | grep "%ARGV2%" >%TEMPGREPOUT%
+fc "%TEMPGREPOUT%" "%TEMPEMPTYFILE%" >NUL
+if ERRORLEVEL 1 (
+	echo %EM% existing TFS workspace ^<%ARGV2%^> detected 1>&2
+	goto ExitFail
+)
+
+rem
 rem Create a TFS workspace.
 rem
-echo %IM% deleting existing TFS workspace ^<%ARGV2%^>
-tf workspace /delete /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% %ARGV2% /noprompt 2>NUL
-
 echo %IM% creating TFS workspace ^<%ARGV2%^>
 tf workspace /new /noprompt %ARGV2% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%
 if ERRORLEVEL 1 (
@@ -193,6 +218,7 @@ if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
 	tf get %ODI_SCM_SCM_SYSTEM_BRANCH_URL% %INITREV% /recursive /force /noprompt
 	if ERRORLEVEL 1 (
 		echo %EM% getting contents from SCM repository for TFS workspace ^<%ARGV2%^> 1>&2
+		echo %EM% current working directory is ^<%CD%^> 1>&2
 		goto ExitFail
 	)
 )

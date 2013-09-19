@@ -324,7 +324,6 @@ rem Commit the exported demo files to the SCM repository.
 rem
 set MSG=committing changes in demo environment 1 SVN repository working copy to SVN repository
 echo %IM% %MSG%
-echo on
 svn commit -m "Demo auto check in of initial demo export" %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%/SvnRepoRoot/*.* %DiscardStdOut% %DiscardStdErr%
 if ERRORLEVEL 1 (
 	echo %EM% %MSG% 1>&2
@@ -497,7 +496,6 @@ rem Commit the new and updated ODI object files to the SCM repository.
 rem
 set MSG=committing changes in demo environment 2 SVN repository working copy to SVN repository
 echo %IM% %MSG%
-echo on
 svn commit -m "Demo auto check in of initial demo export" %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%/SvnRepoRoot/*.* %DiscardStdOut% %DiscardStdErr%
 if ERRORLEVEL 1 (
 	echo %EM% %MSG% 1>&2
