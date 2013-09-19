@@ -11,9 +11,11 @@ As such the world of modern development processes and practices (DevOps) is clos
 
 We do that.
 
-And we do more.
+And we do more. 
 
-In fact, using our tools, we do Continous Integration.
+In fact, using our tools, we do Continuous Integration.
+
+And so can you!
 
 Welcome to ODI-SCM.
 
