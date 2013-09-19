@@ -101,7 +101,7 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Demo\OdiScmCopyOdiDemoDbFiles.bat" "%TEMPDIR%\hsql"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Demo\OdiScmCopyOdiDemoDbFiles.bat" /p "%TEMPDIR%\hsql"
 if ERRORLEVEL 1 (
 	echo %EM% copying HSQL demo files to directory ^<%TEMPDIR%\hsql^> 1>&2
 	goto ExitFail

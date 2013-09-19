@@ -7,17 +7,20 @@ Oracle Data Integrator (ODI) is Oracle's premier data integration/ETL/ELT tool.
 
 The source code is stored as data in the ODI repository and cannot be (easily) extracted out and stored in a modern source control tool.
 
-As such the world of modern development processes and practises (DevOps) is closed to projects and developers using this tool - unless one can develop software that 
-will extract the code and put it into source control.
+As such the world of modern development processes and practices (DevOps) is closed to projects and developers using this tool - unless one can develop software that will extract the code and put it into source control.
 
-We do just that.
+We do that.
+
+And we do more.
+
+In fact, using our tools, we do Continous Integration.
 
 Welcome to ODI-SCM.
 
 Features At A Glance
 --------------------
 
-* Automated export of ODI object for check-in to the SCM system.
+* Automated export of ODI objects for check-in to the SCM system.
 * Support for Apache Subversion and Microsoft Team Foundation (TFS) SCM systems.
 * Automated import of ODI object source code from the SCM system to the ODI repository.
 * Full or Incremental ODI repository builds from the SCM system.
