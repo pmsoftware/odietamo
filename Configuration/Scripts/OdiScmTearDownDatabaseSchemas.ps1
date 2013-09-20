@@ -1,4 +1,62 @@
-function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strDatabaseName, $strSchemaName, $strSqlScript) {
+function ExecHSqlSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strSchemaName, $strSqlScript) {
+	
+	$FN = "ExecHSqlSqlScript"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$DEBUG = $FN + ": DEBUG:"
+	
+	write-host "$IM starts"
+	
+	if (!(test-path $strSqlScript)) {
+		write-host "$EM SQL script file <$strSqlScript> is not accessible"
+	}
+	
+	if (("$env:TEMPDIR" -eq "") -or ("$env:TEMPDIR" -eq $Null)) {
+		write-host "$EM environment variable TEMPDIR is not set"
+		return $False
+	}
+	
+	$strJdbcDriver = "org.hsqldb.jdbcDriver"
+	
+	#
+	# Replace the ";" statement separators in the script.
+	#
+	$arrStrSetUpScriptContent = get-content -path $strSqlScript
+	$arrStrOut = @()
+	
+	if (($strSchemaName -ne "") -and ($strSchemaName -ne $Null)) {
+		$arrStrOut += "SET SCHEMA $strSchemaName"
+		$arrStrOut += "/"
+		$arrStrOut += ""
+	}
+	
+	foreach ($strLine in $arrStrSetUpScriptContent) {
+		if ($strLine -match ";$") {
+			$arrStrOut += ($strLine -replace ";$","/")
+		}
+		else {
+			$arrStrOut += $strLine
+		}
+	}
+	
+	$strNoGoSqlScript = "$env:TEMPDIR\ExecHSqlSqlScript_${strSchemaName}.sql"
+	set-content -path $strNoGoSqlScript -value $arrStrOut
+	
+	$strNoGoSqlScriptFileName = split-path $strNoGoSqlScript -leaf
+	$strStdOutLogFile = "$env:TEMPDIR\ExecHSqlSqlScript_${strSchemaName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\ExecHSqlSqlScript_${strSchemaName}_StdErr.log"
+	
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile
+	if (!($blnResult)) {
+		write-host "$EM executing SQL script file <$strNoGoSqlScript>"
+		return $False
+	}
+	
+	write-host "$IM ends"
+	return $True
+}
+
+function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strDatabaseName, $strSqlScript) {
 	
 	$FN = "ExecSqlServerSqlScript"
 	$IM = $FN + ": INFO:"
@@ -20,6 +78,7 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 	
 	#
 	# Specify the database in the JDBC URL.
+	# Note that we don't use "USE <database>" as this statement causes a warning message to be written to stderr.
 	#
 	if (($strJdbcUrl.ToLower().contains("database=")) -or ($strJdbcUrl.ToLower().contains("databasename="))) {
 		$strFullUrl = $strJdbcUrl
@@ -43,14 +102,72 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 		}
 	}
 	
-	$strNoGoSqlScript = "$env:TEMPDIR\ExecSqlServerSqlScript_${strDatabaseName}_${strSchemaName}.sql"
+	$strNoGoSqlScript = "$env:TEMPDIR\ExecSqlServerSqlScript_${strDatabaseName}.sql"
 	set-content -path $strNoGoSqlScript -value $arrStrOut
 	
 	$strNoGoSqlScriptFileName = split-path $strNoGoSqlScript -leaf
-	$strStdOutLogFile = "$env:TEMPDIR\ExecSqlServerSqlScript_${strDatabaseName}_${strSchemaName}_StdOut.log"
-	$strStdErrLogFile = "$env:TEMPDIR\ExecSqlServerSqlScript_${strDatabaseName}_${strSchemaName}_StdErr.log"
+	$strStdOutLogFile = "$env:TEMPDIR\ExecSqlServerSqlScript_${strDatabaseName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\ExecSqlServerSqlScript_${strDatabaseName}_StdErr.log"
 	
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile
+	if (!($blnResult)) {
+		write-host "$EM executing SQL script file <$strNoGoSqlScript>"
+		return $False
+	}
+	
+	write-host "$IM ends"
+	return $True
+}
+
+function ExecOracleSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strSchemaName, $strSqlScript) {
+	
+	$FN = "ExecOracleSqlScript"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$DEBUG = $FN + ": DEBUG:"
+	
+	write-host "$IM starts"
+	
+	if (!(test-path $strSqlScript)) {
+		write-host "$EM SQL script file <$strSqlScript> is not accessible"
+	}
+	
+	if (("$env:TEMPDIR" -eq "") -or ("$env:TEMPDIR" -eq $Null)) {
+		write-host "$EM environment variable TEMPDIR is not set"
+		return $False
+	}
+	
+	$strJdbcDriver = "org.hsqldb.jdbcDriver"
+	
+	#
+	# Replace the ";" statement separators in the script.
+	#
+	$arrStrSetUpScriptContent = get-content -path $strSqlScript
+	$arrStrOut = @()
+	
+	if (($strSchemaName -ne "") -and ($strSchemaName -ne $Null)) {
+		$arrStrOut += "ALTER SESSION SET CURRENT_SCHEMA = $strSchemaName"
+		$arrStrOut += "/"
+		$arrStrOut += ""
+	}
+	
+	foreach ($strLine in $arrStrSetUpScriptContent) {
+		if ($strLine -match ";$") {
+			$arrStrOut += ($strLine -replace ";$","/")
+		}
+		else {
+			$arrStrOut += $strLine
+		}
+	}
+	
+	$strNoGoSqlScript = "$env:TEMPDIR\ExecOracleSqlScript_${strSchemaName}.sql"
+	set-content -path $strNoGoSqlScript -value $arrStrOut
+	
+	$strNoGoSqlScriptFileName = split-path $strNoGoSqlScript -leaf
+	$strStdOutLogFile = "$env:TEMPDIR\ExecOracleSqlScript_${strSchemaName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\ExecOracleSqlScript_${strSchemaName}_StdErr.log"
+	
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile
 	if (!($blnResult)) {
 		write-host "$EM executing SQL script file <$strNoGoSqlScript>"
 		return $False
@@ -96,18 +213,23 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 	$arrStrSetUpScriptContent = get-content -path $strSqlScript
 	$arrStrOut = @()
 	
+	if (($strDatabaseName -ne "") -and ($strDatabaseName -ne $Null)) {
+		$arrStrOut += "DATABASE $strDatabaseName"
+		$arrStrOut += "/"
+		$arrStrOut += ""
+	}
+	
 	write-host "$IM changing end of statement markers"
 	$intLines = $arrStrSetUpScriptContent.length
 	write-host "$IM source script contains <$intLines> lines"
 	
 	foreach ($strLine in $arrStrSetUpScriptContent) {
-		if ($strLine.Contains(";")) {
-			$arrStrOut += ($strLine.Replace(";","/"))
+		if ($strLine -match ";$") {
+			$arrStrOut += ($strLine -replace ";$","/")
 		}
 		else {
 			$arrStrOut += $strLine
 		}
-		#write-host "$IM done <$($arrStrOut.length)> lines"
 	}
 	write-host "$IM completed changing end of statement markers"
 	
@@ -121,6 +243,118 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile
 	if (!($blnResult)) {
 		write-host "$EM executing SQL script file <$strNoGoSqlScript>"
+		return $False
+	}
+	
+	write-host "$IM ends"
+	return $True
+}
+
+function ExecDatabaseSqlScript ($strDbTypeName, $strUserName, $strUserPassword, $strJdbcUrl, $strDatabaseName, $strSchemaName, $strSqlScript) {
+	
+	$FN = "ExecDatabaseSqlScript"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$DEBUG = $FN + ": DEBUG:"
+	
+	write-host "$IM starts"
+	
+	switch ($strDbTypeName.ToLower()) {
+		
+		"oracle" {
+			$RetVal = ExecOracleSqlScript $strUserName $strUserPassword $strJdbcUrl $strSchemaName $strSqlScript
+		}
+		
+		"sqlserver" {
+			$RetVal = ExecSqlServerSqlScript $strUserName $strUserPassword $strJdbcUrl $strDatabaseName $strSchemaName $strSqlScript
+		}
+		
+		"teradata" {
+			$RetVal = ExecTeradataSqlScript $strUserName $strUserPassword $strJdbcUrl $strDatabaseName $strSqlScript
+		}
+		
+		"hsql" {
+			$RetVal = ExecHSqlSqlScript $strUserName $strUserPassword $strJdbcUrl $strSchemaName $strSqlScript
+		}
+		default {
+			write-host "$EM unrecognised database type <$strDbTypeName> specified"
+			return $False
+		}
+	}
+	
+	if (!($RetVal)) {
+		write-host "$EM executing SQL script <$strSqlScript>"
+		return $False
+	}
+	
+	write-host "$IM ends"
+	return $True
+}
+
+function TearDownHsqlSchema ($strUserName, $strUserPassword, $strJdbcUrl, $strSchemaName) {
+	
+	$FN = "TearDownHSQLSchema"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$DEBUG = $FN + ": DEBUG:"
+	
+	write-host "$IM starts"
+	
+	if (("$env:TEMPDIR" -eq "") -or ("$env:TEMPDIR" -eq $Null)) {
+		write-host "$EM environment variable TEMPDIR is not set"
+		return $False
+	}
+	
+	$strJdbcDriver = "org.hsqldb.jdbcDriver"
+	
+	#
+	# Set the target database name and schema name in the script.
+	#
+	$strTearDownTemplateContent = get-content -path "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmGenerateTearDownHSqlSchema.sql" | out-string
+	
+	if (($strSchemaName -ne "") -and ($strSchemaName -ne "")) {
+		$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmPhysicalSchemaFilter>", " WHERE table_schema = '$strSchemaName'"
+	}
+	
+	$strSqlScriptFile = "$env:TEMPDIR\OdiScmGenerateTearDownHSqlServerSchema_${strSchemaName}.sql"
+	set-content -path $strSqlScriptFile -value $strTearDownTemplateContent
+	
+	$strSqlScriptFileName = split-path $strSqlScriptFile -leaf
+	$strStdOutLogFile = "$env:TEMPDIR\TearDownHSqlSchema_${strSqlScriptFileName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\TearDownHSqlSchema_${strSqlScriptFileName}_StdErr.log"
+	
+	#
+	# Run the script to generate the DROP statements.
+	#
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strSqlScriptFile $strStdOutLogFile $strStdErrLogFile
+	if (!($blnResult)) {
+		write-host "$EM executing SQL script file <$strSqlScriptFile>"
+		return $False
+	}
+	
+	#
+	# Create the DROP statements script.
+	#
+	$strDropScriptFile = "$env:TEMPDIR\OdiScmTearDownHSqlSchema_${strUserName}.sql"
+	$arrQueryLine = get-content -path $strStdOutLogFile
+	
+	$arrTearDownScriptContent = @()
+	foreach ($strLine in $arrQueryLine) {
+		$arrTearDownScriptContent += ($strLine + [Environment]::NewLine + "/" + [Environment]::NewLine)
+	}
+	
+	set-content -path $strDropScriptFile -value $arrTearDownScriptContent
+	
+	#
+	# Run the DROP statements script.
+	#
+	$strDropScriptFileName = split-path $strDropScriptFile -leaf
+	$strStdOutLogFile = "$env:TEMPDIR\TearDownHSqlSchema_${strDropScriptFileName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\TearDownHSqlSchema_${strDropScriptFileName}_StdErr.log"
+	
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strDropScriptFile $strStdOutLogFile $strStdErrLogFile
+	if (!($blnResult)) {
+		write-host "$EM executing SQL script file <$strDropScriptFile>"
 		return $False
 	}
 	
@@ -178,24 +412,24 @@ function TearDownSqlServerSchema ($strUserName, $strUserPassword, $strJdbcUrl, $
 	}
 	
 	#
-	# Define the other objects drop script name.
+	# Create the DROP statements script.
 	#
 	$strDropScriptFile = "$env:TEMPDIR\OdiScmTearDownSqlServerSchema_${strUserName}.sql"
 	$arrQueryLine = get-content -path $strStdOutLogFile
 	
-	$arrTearDownOthersScriptContent = @()
+	$arrTearDownScriptContent = @()
 	foreach ($strLine in $arrQueryLine) {
-		$arrTearDownOthersScriptContent += ($strLine + [Environment]::NewLine + "/" + [Environment]::NewLine)
+		$arrTearDownScriptContent += ($strLine + [Environment]::NewLine + "/" + [Environment]::NewLine)
 	}
 	
-	set-content -path $strDropScriptFile -value $arrTearDownOthersScriptContent
+	set-content -path $strDropScriptFile -value $arrTearDownScriptContent
 	
 	#
 	# Run the DROP statements script.
 	#
 	$strDropScriptFileName = split-path $strDropScriptFile -leaf
-	$strStdOutLogFile = "$env:TEMPDIR\TearDownSqlServerSchemaSchema_${strDropScriptFileName}_StdOut.log"
-	$strStdErrLogFile = "$env:TEMPDIR\TearDownSqlServerSchemaSchema_${strDropScriptFileName}_StdErr.log"
+	$strStdOutLogFile = "$env:TEMPDIR\TearDownSqlServerSchema_${strDropScriptFileName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\TearDownSqlServerSchema_${strDropScriptFileName}_StdErr.log"
 	
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strDropScriptFile $strStdOutLogFile $strStdErrLogFile
 	if (!($blnResult)) {
@@ -409,6 +643,47 @@ function TearDownTeradataDatabase ($strUserName, $strUserPassword, $strJdbcUrl, 
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strDropScriptFile $strStdOutLogFile $strStdErrLogFile
 	if (!($blnResult)) {
 		write-host "$EM executing SQL script file <$strDropScriptFile>"
+		return $False
+	}
+	
+	write-host "$IM ends"
+	return $True
+}
+
+function TearDownDatabaseSchema ($strDbTypeName, $strUserName, $strUserPassword, $strJdbcUrl, $strDatabaseName, $strSchemaName) {
+	
+	$FN = "TearDownDatabaseSchema"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$DEBUG = $FN + ": DEBUG:"
+	
+	write-host "$IM starts"
+	
+	switch ($strDbTypeName.ToLower()) {
+		
+		"oracle" {
+			$RetVal = TearDownOracleSchema $strUserName $strUserPassword $strJdbcUrl $strSchemaName
+		}
+		
+		"sqlserver" {
+			$RetVal = TearDownSqlServerSchema $strUserName $strUserPassword $strJdbcUrl $strDatabaseName $strSchemaName
+		}
+		
+		"teradata" {
+			$RetVal = TearDownTeradataDatabase $strUserName $strUserPassword $strJdbcUrl $strDatabaseName
+		}
+		
+		"hsql" {
+			$RetVal = TearDownHSqlSchema $strUserName $strUserPassword $strJdbcUrl $strSchemaName
+		}
+		default {
+			write-host "$EM unrecognised database type <$strDbTypeName> specified"
+			return $False
+		}
+	}
+	
+	if (!($RetVal)) {
+		write-host "$EM tearing down database schema"
 		return $False
 	}
 	

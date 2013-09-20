@@ -362,7 +362,7 @@ function GenerateOdiImportScript ([array] $filesToImport) {
 				$extensionFileCount += 1
 				
 				$ImportText = "echo %IM% date ^<%date%^> time ^<%time%^>" + [Environment]::NewLine
-				$ImportText += "set MSG=importing file ^^^<" + $FileToImportName + "^^^> from directory ^^^<" + $FileToImportPathName + "^^^>" + [Environment]::NewLine
+				$ImportText += "set MSG=importing file ^^^<" + $fileToImport + "^^^>"
 				$ImportText += "echo %IM% %MSG%" + [Environment]::NewLine
 				
 				#
@@ -412,6 +412,278 @@ function GenerateOdiImportScript ([array] $filesToImport) {
 	
 	write-host "$IM ends"
 	return $ExitStatus
+}
+
+function GenerateDdlImportScript ([array] $arrStrFiles) {
+	
+	$FN = "GenerateDdlImportScript"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$DEBUG = $FN + ": DEBUG"
+	
+	write-host "$IM starts"
+	
+	$ExitStatus = $False
+	
+	write-host "$IM passed <$($arrStrFiles.length)> files to import"
+	write-host "$IM writing output to <$DdlImportScriptFile>"
+	
+	$OutScriptContent = @()
+	$OutScriptContent += '@echo off'
+	
+	$OutScriptContent += 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0'
+	$OutScriptContent += 'echo %IM% starts'
+	$OutScriptContent += ''
+	$OutScriptContent += 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*'
+	$OutScriptContent += 'if ERRORLEVEL 1 ('
+	$OutScriptContent += '	echo %EM% processing script arguments 1>&2'
+	$OutScriptContent += '	goto ExitFail'
+	$OutScriptContent += ')'
+	$OutScriptContent += ''
+	$OutScriptContent += 'set OLDPWD=%CD%'
+	
+	$intFileErrors = 0
+	
+	#
+	# Loop through each DDL script file and, for each, generate an environment tear down followed by an environment set up.
+	#
+	foreach ($strFile in $arrStrFiles) {
+		
+		$strFileName = split-path $strFile -leaf
+		
+		$arrStrFileNameParts = $strFileName.split("-")
+		
+		#
+		# Extract the file name parts and validate them.
+		#
+		$strDdlPrefix = $arrStrFileNameParts[0]
+		$strLogicalSchemaName = $arrStrFileNameParts[1]
+		$strRemainder = $arrStrFileNameParts[2]
+		$arrStrRemainderParts = $strRemainder.split(".")
+		$arrStrRemainderMain = $arrStrRemainderParts[0]
+		$arrStrRemainderExtension = $arrStrRemainderParts[1]
+		
+		if ($strDdlPrefix -ne "ddl") {
+			write-host "$EM file <$strFile> does not have expected name <ddl> prefix"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if ($arrStrRemainderExtension -ne "sql") {
+			write-host "$EM file <$strFile> does not have expected name <sql> extension"
+			$intFileErrors += 1
+			continue
+		}
+		
+		#
+		# Get the logical schema's physical mapping details from the corresponding environment variable.
+		#
+		$strLogicalSchemaEnvMapping = [Environment]::GetEnvironmentVariable($strLogicalSchemaName)
+		
+		if (($strLogicalSchemaEnvMapping -eq "") -or ($strLogicalSchemaEnvMapping -eq $Null)) {
+			write-host "$EM no value found for environment variable <ODI_SCM_PHYSICAL_SCHEMAS_${strLogicalSchemaEnvMapping}>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		$strLogSchemaEnvMappingParts = $strLogicalSchemaEnvMapping.split("|")
+		$strDataServerKeyName = $strLogicalSchemaEnvMappingParts[0]
+		$strDataServerKeyValue = $strLogicalSchemaEnvMappingParts[1]
+		
+		if ($strDataServerKeyName -ne "Data Server") {
+			write-host "$EM invalid value for environment variable <ODI_SCM_PHYSICAL_SCHEMAS_${strLogicalSchemaEnvMapping}>"
+			write-host "$EM expected <Data Server> in field position <1> but found <$strDataServerKeyName>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if ($strDataServerKeyValue -eq "") -or ($strDataServerKeyValue -eq $Null)) {
+			write-host "$EM invalid value for environment variable <ODI_SCM_PHYSICAL_SCHEMAS_${strLogicalSchemaEnvMapping}>"
+			write-host "$EM no value found for data server variable name in field position <2>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		$strDatabaseKeyName = $strLogicalSchemaEnvMappingParts[2]
+		$strDatabaseKeyValue = $strLogicalSchemaEnvMappingParts[3]
+		
+		$strDefPhysSchemaKeyName = $strLogicalSchemaEnvMappingParts[4]
+		$strDefPhysSchemaKeyValue = $strLogicalSchemaEnvMappingParts[5]
+		
+		$strTokensKeysName = $strLogicalSchemaEnvMappingParts[6]
+		$strTokensKeysValue = $strLogicalSchemaEnvMappingParts[7]
+		
+		if (($strTokensKeysName -ne "") -and ($strTokensKeysName -ne $Null) {
+			
+			$arrStrTokensKeyValuePairs = $strTokensKeysValue.split("/")
+			
+			foreach ($strTokensKeyValuePair in $arrStrTokensKeyValuePairs) {
+				$arrStrTokensKeyValuePairsParts = $strTokensKeyValuePair.split("=")
+				$strTokensKeyValuePairsPartsKeyName = $arrStrTokensKeyValuePairsParts[0]
+				$strTokensKeyValuePairsPartsKeyValue = $arrStrTokensKeyValuePairsParts[1]
+				write-host "$IM found text substitution key <$strTokensKeyValuePairsPartsKeyName> with value <$strTokensKeyValuePairsPartsKeyValue>"
+			}
+		}
+		
+		#
+		# Read the DDL script and replace any tokens specified in the environment variable.
+		#
+		$arrDdlScriptContent = get-content -path $strFile
+		
+		foreach ($strTokensKeyValuePair in $arrStrTokensKeyValuePairs) {
+			
+			$arrStrTokensKeyValuePairsParts = $strTokensKeyValuePair.split("=")
+			$strTokensKeyValuePairsPartsKeyName = $arrStrTokensKeyValuePairsParts[0]
+			$strTokensKeyValuePairsPartsKeyValue = $arrStrTokensKeyValuePairsParts[1]
+			
+			$arrDdlScriptContent = $arrDdlScriptContent -replace $strTokensKeyValuePairsPartsKeyName, $strTokensKeyValuePairsPartsKeyValue
+		}
+		
+		#
+		# Write the modified script content.
+		#
+		$strOutFile = $GenScriptDdlSrcDir + "\" + "substituted_" + $strFileName
+		set-content -path $strOutFile -value $arrDdlScriptContent
+		
+		#
+		# Get the logical schema's physical data server details from the corresponding environment variable.
+		#
+		$strDataServer = [Environment]::GetEnvironmentVariable($strDataServerKeyValue)
+		
+		if (($strDataServer -eq "") -or ($strDataServer -eq $Null)) {
+			write-host "$EM no value found for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		#
+		# Extract the data server field values and validate them.
+		#
+		$arrStrDataServerParts = $strDataServer.split("|")
+		$strDbmsTypeKeyName = $arrStrDataServerParts[0]
+		$strDbmsTypeKeyValue = $arrStrDataServerParts[1]
+		
+		if ($strDbmsTypeKeyName -ne "DBMS Type") {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM expected <DBMS Type> in field position <1> but found <$strDbmsTypeKeyName>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if ($strDataServerKeyValue -eq "") -or ($strDataServerKeyValue -eq $Null)) {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM no value found for DBMS type name in field position <2>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		$strJdbcUrlKeyName = $arrStrDataServerParts[2]
+		$strJdbcUrlKeyValue = $arrStrDataServerParts[3]
+		
+		if ($strJdbcUrlKeyName -ne "JDBC URL") {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM expected <JDBC URL> in field position <3> but found <$strJdbcUrlKeyName>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if ($strJdbcUrlKeyValue -eq "") -or ($strJdbcUrlKeyValue -eq $Null)) {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM no value found for JDBC URL in field position <4>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		$strUserNameKeyName = $arrStrDataServerParts[4]
+		$strUserNameKeyValue = $arrStrDataServerParts[5]
+		
+		if ($strUserNameKeyName -ne "User Name") {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM expected <User Name> in field position <5> but found <$strUserNameKeyName>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if ($strUserNameKeyValue -eq "") -or ($strUserNameKeyValue -eq $Null)) {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM no value found for user name in field position <6>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		$strPasswordKeyName = $arrStrDataServerParts[6]
+		$strPasswordKeyValue = $arrStrDataServerParts[7]
+		
+		if ($strPasswordKeyName -ne "Password") {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM expected <Password> in field position <7> but found <$strPasswordKeyName>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if ($strPasswordKeyValue -eq "") -or ($strPasswordKeyValue -eq $Null)) {
+			write-host "$WM no value found for password in field position <8>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		#
+		# Add the output script command to tear down the database environment.
+		#
+		$OutScriptContent += "echo %IM% date ^<%date%^> time ^<%time%^>"
+		$OutScriptContent += "set MSG=tearing down database environment ^<${strUserNameKeyValue}@${strJdbcUrlKeyValue}^>"
+		$OutScriptContent += "echo %IM% %MSG%"
+		
+		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownDatabaseSchema.bat" '
+		$strCmd += '"' + $strDbmsTypeKeyName + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
+		$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '"'
+		
+		$OutScriptContent += $strCmd
+		$OutScriptContent += 'if ERRORLEVEL 1 ('
+		$OutScriptContent += '	goto ExitFail'
+		$OutScriptContent += ')'
+		$OutScriptContent += ''
+		$OutScriptContent += 'echo %IM% database tear down completed succcessfully'
+		$OutScriptContent += ''
+		
+		#
+		# Add the output script command to set up the database environment.
+		#
+		$OutScriptContent += "echo %IM% date ^<%date%^> time ^<%time%^>"
+		$OutScriptContent += "set MSG=setting up database environment ^<${strUserNameKeyValue}@${strJdbcUrlKeyValue}^>"
+		$OutScriptContent += "echo %IM% %MSG%"
+		
+		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecDatabaseSqlScript.bat" '
+		$strCmd += '"' + $strDbmsTypeKeyName + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
+		$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '" "' + $strOutFile + '"'
+		
+		$OutScriptContent += $strCmd
+		$OutScriptContent += 'if ERRORLEVEL 1 ('
+		$OutScriptContent += '	goto ExitFail'
+		$OutScriptContent += ')'
+		$OutScriptContent += ''
+		$OutScriptContent += 'echo %IM% database set up completed succcessfully'
+		$OutScriptContent += ''
+	}
+	
+	#
+	# Script termination commands - the common Exit labels.
+	#
+	$OutScriptContent  = ':ExitOk'
+	$OutScriptContent += 'echo %IM% database set up completed'
+	$OutScriptContent += 'cd /d %OLDPWD%'
+	$OutScriptContent += 'exit %IsBatchExit% 0'
+	$OutScriptContent += ''
+	$OutScriptContent += ':ExitFail'
+	$OutScriptContent += '"echo %EM% %MSG%'
+	$OutScriptContent += 'cd /d %OLDPWD%'
+	$OutScriptContent += 'exit %IsBatchExit% 1'
+	
+	set-content -path $DdlImportScriptFile -value $OutScriptContent
+	write-host "$IM lines in generated script content <$(((get-content $DdlImportScriptFile).Count)-1)>"
+	
+	write-host "$IM ends"
+	return $True
 }
 
 function GetOdiScmConfiguration {
@@ -876,6 +1148,7 @@ function SetOutputNames {
 	#
 	$script:GenScriptRootDir = $LogRootDir + "\${OutputTag}"
 	$script:GenScriptConsObjSrcDir = $GenScriptRootDir + "\" + "ConsolidatedObjSources"
+	$script:GenScriptDdlSrcDir = $GenScriptRootDir + "\" + "ConsolidatedObjSources"
 	
 	$script:OdiScmOdiStartCmdBat = $GenScriptRootDir + "\OdiScmStartCmd_${OutputTag}.bat"
 	$script:OdiScmJisqlRepoBat = $GenScriptRootDir + "\OdiScmJisqlRepo_${OutputTag}.bat"
@@ -893,6 +1166,10 @@ function SetOutputNames {
 	$script:ImportScriptStubName = "OdiScmImport_" + ${OutputTag}
 	$script:OdiImportScriptName = $ImportScriptStubName + ".bat"
 	$script:OdiImportScriptFile = $GenScriptRootDir + "\$OdiImportScriptName"
+	
+	$script:DdlImportScriptStubName = "OdiScmDdlImport_" + ${OutputTag}
+	$script:DdlImportScriptName = $DdlImportScriptStubName + ".bat"
+	$script:DdlImportScriptFile = $GenScriptRootDir + "\$DdlImportScriptName"
 	
 	if (Test-Path $GenScriptRootDir) { 
 		write-host "$IM generated scripts root directory <$GenScriptRootDir> already exists"
