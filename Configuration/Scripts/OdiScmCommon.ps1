@@ -449,6 +449,8 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 	#
 	foreach ($strFile in $arrStrFiles) {
 		
+		write-host "$DEBUG processing file <$strFile>"
+		
 		$strFileName = split-path $strFile -leaf
 		
 		$arrStrFileNameParts = $strFileName.split("-")
@@ -497,7 +499,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			continue
 		}
 		
-		if ($strDataServerKeyValue -eq "") -or ($strDataServerKeyValue -eq $Null)) {
+		if (($strDataServerKeyValue -eq "") -or ($strDataServerKeyValue -eq $Null)) {
 			write-host "$EM invalid value for environment variable <ODI_SCM_PHYSICAL_SCHEMAS_${strLogicalSchemaEnvMapping}>"
 			write-host "$EM no value found for data server variable name in field position <2>"
 			$intFileErrors += 1
@@ -513,7 +515,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		$strTokensKeysName = $strLogicalSchemaEnvMappingParts[6]
 		$strTokensKeysValue = $strLogicalSchemaEnvMappingParts[7]
 		
-		if (($strTokensKeysName -ne "") -and ($strTokensKeysName -ne $Null) {
+		if (($strTokensKeysName -ne "") -and ($strTokensKeysName -ne $Null)) {
 			
 			$arrStrTokensKeyValuePairs = $strTokensKeysValue.split("/")
 			
@@ -570,7 +572,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			continue
 		}
 		
-		if ($strDataServerKeyValue -eq "") -or ($strDataServerKeyValue -eq $Null)) {
+		if (($strDataServerKeyValue -eq "") -or ($strDataServerKeyValue -eq $Null)) {
 			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
 			write-host "$EM no value found for DBMS type name in field position <2>"
 			$intFileErrors += 1
@@ -587,7 +589,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			continue
 		}
 		
-		if ($strJdbcUrlKeyValue -eq "") -or ($strJdbcUrlKeyValue -eq $Null)) {
+		if (($strJdbcUrlKeyValue -eq "") -or ($strJdbcUrlKeyValue -eq $Null)) {
 			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
 			write-host "$EM no value found for JDBC URL in field position <4>"
 			$intFileErrors += 1
@@ -604,7 +606,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			continue
 		}
 		
-		if ($strUserNameKeyValue -eq "") -or ($strUserNameKeyValue -eq $Null)) {
+		if (($strUserNameKeyValue -eq "") -or ($strUserNameKeyValue -eq $Null)) {
 			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
 			write-host "$EM no value found for user name in field position <6>"
 			$intFileErrors += 1
@@ -621,7 +623,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			continue
 		}
 		
-		if ($strPasswordKeyValue -eq "") -or ($strPasswordKeyValue -eq $Null)) {
+		if (($strPasswordKeyValue -eq "") -or ($strPasswordKeyValue -eq $Null)) {
 			write-host "$WM no value found for password in field position <8>"
 			$intFileErrors += 1
 			continue
