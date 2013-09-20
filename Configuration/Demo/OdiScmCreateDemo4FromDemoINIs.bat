@@ -155,9 +155,49 @@ echo %IM% pausing for demo target system database start up asynchronous process
 sleep 15
 
 rem
-rem Set the environment for demo environment 1.
+rem Add the source and target system DDL to demo environment 1 working copy.
 rem
-set ODI_SCM_INI=%DEMO_ENV1_INI%
+md "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL"
+if ERRORLEVEL 1(
+	echo %EM% creating working copy DDL directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL^> 1>&2
+	goto ExitFail
+)
+
+copy "%DEMO_HSQL_ROOT%\hsql\CREATE_SRC_ISOSQL.sql" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL\ddl-DEMOSRC-createtables.sql"
+if ERRORLEVEL 1(
+	echo %EM% copying source system DDL script to working copy directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL^> 1>&2
+	goto ExitFail
+)
+
+copy "%DEMO_HSQL_ROOT%\hsql\CREATE_TRG_ISOSQL.sql" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL\ddl-DEMOTRG-createtables.sql"
+if ERRORLEVEL 1(
+	echo %EM% copying target system DDL script to working copy directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL^> 1>&2
+	goto ExitFail
+)
+
+set MSG=adding source and target system DDL scripts to demo environment 1 SVN repository working copy
+echo %IM% %MSG%
+svn add %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%/SvnRepoRoot/*.* --force %DiscardStdOut% %DiscardStdErr%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
+
+rem
+rem Commit the exported demo files to the SCM repository.
+rem
+set MSG=committing changes in demo environment 1 SVN repository working copy to SVN repository
+echo %IM% %MSG%
+svn commit -m "Demo auto check in source and target system DDK scripts" %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%/SvnRepoRoot/*.* %DiscardStdOut% %DiscardStdErr%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
+
+rem
+rem Set the environment for demo environment 2.
+rem
+set ODI_SCM_INI=%DEMO_ENV2_INI%
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSaveScriptSwitches.bat"
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmEnvSet.bat"
 if ERRORLEVEL 1 (
@@ -166,6 +206,30 @@ if ERRORLEVEL 1 (
 )
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmLoadScriptSwitches.bat"
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
+
+set MSG=updating demo environment 2 SVN repository working copy from SVN repository and generating ODI code import scripts
+echo %IM% %MSG%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGet.bat^" /p %DiscardStdOut% %DiscardStdErr%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
+
+set MSG=executing generated ODI code import scripts to update demo environment 2 ODI repository
+echo %IM% %MSG%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Logs\DemoEnvironment2\OdiScmBuild_DemoEnvironment2.bat^" /p %DiscardStdOut% %DiscardStdErr%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
+
+set MSG=executing generated DDL import scripts to update demo source and target database environments
+echo %IM% %MSG%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Logs\DemoEnvironment2\OdiScmDdlImport_DemoEnvironment2.bat^" /p %DiscardStdOut% %DiscardStdErr%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
 
 rem
 rem Run a FitNesse acceptance test to unpack FitNesse resources.
@@ -182,15 +246,15 @@ rem Add the demo unit tests to the working copy.
 rem
 xcopy /e /i /h /q "%ODI_SCM_HOME%\Configuration\Demo\Demo4\FitNesseRoot\OdiScmDemo" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\FitNesseRoot\OdiScmDemo" >NUL
 if ERRORLEVEL 1 (
-	echo %EM% copying FitNesse unit tests to demo environment 1 working copy 1>&2
+	echo %EM% copying FitNesse unit tests to demo environment 2 working copy 1>&2
 )
 
 rem
-rem Execute the unit tests from demo environment 1 (the environment last updated by the demo).
+rem Execute the unit tests from demo environment 2.
 rem
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Logs\DemoEnvironment1\OdiScmExecUnitTests_DemoEnvironment1.bat" /p
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Logs\DemoEnvironment2\OdiScmExecUnitTests_DemoEnvironment1.bat" /p
 if ERRORLEVEL 1 (
-	echo %EM% executing demo environment 1 unit tests 1>&2
+	echo %EM% executing demo environment 2 unit tests 1>&2
 	goto ExitFail
 )
 

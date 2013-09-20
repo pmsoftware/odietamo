@@ -85,6 +85,15 @@ if ERRORLEVEL 1 (
 )
 
 rem
+rem Copy the HSQL DDL scripts.
+rem
+copy "%ODI_DEMO_HOME%\scripts\*.sql" "%ARGV1%" >NUL
+if ERRORLEVEL 1 (
+	echo %EM% copying demo HSQL database DDL script files 1>&2
+	goto ExitFail
+)
+
+rem
 rem Clear up any HSQL server.properties file.
 rem
 if EXIST "%ARGV1%\server.properties" (

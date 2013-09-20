@@ -430,7 +430,11 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 	
 	$OutScriptContent = @()
 	$OutScriptContent += '@echo off'
-	
+	$OutScriptContent += ''
+	$OutScriptContent += 'if "%ODI_SCM_HOME%" == "" ('
+	$OutScriptContent += '	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME'
+	$OutScriptContent += '	goto ExitFail'
+	$OutScriptContent += ')'
 	$OutScriptContent += 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0'
 	$OutScriptContent += 'echo %IM% starts'
 	$OutScriptContent += ''
@@ -632,9 +636,9 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		#
 		# Add the output script command to tear down the database environment.
 		#
-		$OutScriptContent += "echo %IM% date ^<%date%^> time ^<%time%^>"
-		$OutScriptContent += "set MSG=tearing down database environment ^<${strUserNameKeyValue}@${strJdbcUrlKeyValue}^>"
-		$OutScriptContent += "echo %IM% %MSG%"
+		$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
+		$OutScriptContent += 'set MSG=tearing down database environment ^<${strUserNameKeyValue}@${strJdbcUrlKeyValue}^>'
+		$OutScriptContent += 'echo %IM% %MSG%'
 		
 		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownDatabaseSchema.bat" '
 		$strCmd += '"' + $strDbmsTypeKeyName + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
@@ -651,9 +655,9 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		#
 		# Add the output script command to set up the database environment.
 		#
-		$OutScriptContent += "echo %IM% date ^<%date%^> time ^<%time%^>"
-		$OutScriptContent += "set MSG=setting up database environment ^<${strUserNameKeyValue}@${strJdbcUrlKeyValue}^>"
-		$OutScriptContent += "echo %IM% %MSG%"
+		$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
+		$OutScriptContent += 'set MSG=setting up database environment ^<${strUserNameKeyValue}@${strJdbcUrlKeyValue}^>'
+		$OutScriptContent += 'echo %IM% %MSG%'
 		
 		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecDatabaseSqlScript.bat" '
 		$strCmd += '"' + $strDbmsTypeKeyName + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
@@ -671,13 +675,13 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 	#
 	# Script termination commands - the common Exit labels.
 	#
-	$OutScriptContent  = ':ExitOk'
-	$OutScriptContent += 'echo %IM% database set up completed'
+	$OutScriptContent += ':ExitOk'
+	$OutScriptContent += 'echo %IM% database setup completed successfully'
 	$OutScriptContent += 'cd /d %OLDPWD%'
 	$OutScriptContent += 'exit %IsBatchExit% 0'
 	$OutScriptContent += ''
 	$OutScriptContent += ':ExitFail'
-	$OutScriptContent += '"echo %EM% %MSG%'
+	$OutScriptContent += 'echo %EM% %MSG%'
 	$OutScriptContent += 'cd /d %OLDPWD%'
 	$OutScriptContent += 'exit %IsBatchExit% 1'
 	
