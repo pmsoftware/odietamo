@@ -74,12 +74,6 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Demo\OdiScmCopyOdiDemoDbFiles.bat" /p "%DEMO_HSQL_ROOT%\hsql"
-if ERRORLEVEL 1 (
-	echo %EM% copying ODI standard demo HSQL database files to demo hsql directory ^<%DEMO_HSQL_ROOT%\hsql^> 1>&2
-	goto ExitFail
-)
-
 rem
 rem Set the environment for the demo source system database.
 rem
@@ -92,6 +86,15 @@ call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
 
 if not "%EXITSTATUS%" == "0" (
 	echo %EM% setting environment for demo source system environment 1>&2
+	goto ExitFail
+)
+
+rem
+rem Copy the standard ODI demo files after setting the environment in this shell level (ODI_SCM_ORACLEDI_VERSION is required).
+rem
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Demo\OdiScmCopyOdiDemoDbFiles.bat" /p "%DEMO_HSQL_ROOT%\hsql"
+if ERRORLEVEL 1 (
+	echo %EM% copying ODI standard demo HSQL database files to demo hsql directory ^<%DEMO_HSQL_ROOT%\hsql^> 1>&2
 	goto ExitFail
 )
 
@@ -155,22 +158,35 @@ echo %IM% pausing for demo target system database start up asynchronous process
 sleep 15
 
 rem
+rem Set the environment for demo environment 1 in this shell level.
+rem
+set ODI_SCM_INI=%DEMO_ENV1_INI%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSaveScriptSwitches.bat"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmEnvSet.bat"
+if ERRORLEVEL 1 (
+	echo %EM% setting environment for demo environment 1 1>&2
+	goto ExitFail
+)
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmLoadScriptSwitches.bat"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0
+
+rem
 rem Add the source and target system DDL to demo environment 1 working copy.
 rem
 md "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL"
-if ERRORLEVEL 1(
+if ERRORLEVEL 1 (
 	echo %EM% creating working copy DDL directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL^> 1>&2
 	goto ExitFail
 )
 
-copy "%DEMO_HSQL_ROOT%\hsql\CREATE_SRC_ISOSQL.sql" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL\ddl-DEMOSRC-createtables.sql"
-if ERRORLEVEL 1(
+copy "%DEMO_HSQL_ROOT%\hsql\CREATE_SRC_ISOSQL.sql" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL\ddl-HSQL_DEMO_SRC-createtables.sql"
+if ERRORLEVEL 1 (
 	echo %EM% copying source system DDL script to working copy directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL^> 1>&2
 	goto ExitFail
 )
 
-copy "%DEMO_HSQL_ROOT%\hsql\CREATE_TRG_ISOSQL.sql" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL\ddl-DEMOTRG-createtables.sql"
-if ERRORLEVEL 1(
+copy "%DEMO_HSQL_ROOT%\hsql\CREATE_TRG_ISOSQL.sql" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL\ddl-HSQL_DEMO_TARG-createtables.sql"
+if ERRORLEVEL 1 (
 	echo %EM% copying target system DDL script to working copy directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL^> 1>&2
 	goto ExitFail
 )
@@ -195,7 +211,7 @@ if ERRORLEVEL 1 (
 )
 
 rem
-rem Set the environment for demo environment 2.
+rem Set the environment for demo environment 2 in this shell level.
 rem
 set ODI_SCM_INI=%DEMO_ENV2_INI%
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSaveScriptSwitches.bat"
@@ -252,7 +268,7 @@ if ERRORLEVEL 1 (
 rem
 rem Execute the unit tests from demo environment 2.
 rem
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Logs\DemoEnvironment2\OdiScmExecUnitTests_DemoEnvironment1.bat" /p
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Logs\DemoEnvironment2\OdiScmExecUnitTests_DemoEnvironment2.bat" /p
 if ERRORLEVEL 1 (
 	echo %EM% executing demo environment 2 unit tests 1>&2
 	goto ExitFail

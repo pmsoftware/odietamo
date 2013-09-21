@@ -484,27 +484,27 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		#
 		# Get the logical schema's physical mapping details from the corresponding environment variable.
 		#
-		$strLogicalSchemaEnvMapping = [Environment]::GetEnvironmentVariable($strLogicalSchemaName)
+		$strLogicalSchemaEnvMapping = [Environment]::GetEnvironmentVariable("ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_" + $strLogicalSchemaName)
 		
 		if (($strLogicalSchemaEnvMapping -eq "") -or ($strLogicalSchemaEnvMapping -eq $Null)) {
-			write-host "$EM no value found for environment variable <ODI_SCM_PHYSICAL_SCHEMAS_${strLogicalSchemaEnvMapping}>"
+			write-host "$EM no value found for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
 			$intFileErrors += 1
 			continue
 		}
 		
-		$strLogSchemaEnvMappingParts = $strLogicalSchemaEnvMapping.split("|")
+		$strLogicalSchemaEnvMappingParts = $strLogicalSchemaEnvMapping.split("+")
 		$strDataServerKeyName = $strLogicalSchemaEnvMappingParts[0]
 		$strDataServerKeyValue = $strLogicalSchemaEnvMappingParts[1]
 		
 		if ($strDataServerKeyName -ne "Data Server") {
-			write-host "$EM invalid value for environment variable <ODI_SCM_PHYSICAL_SCHEMAS_${strLogicalSchemaEnvMapping}>"
+			write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
 			write-host "$EM expected <Data Server> in field position <1> but found <$strDataServerKeyName>"
 			$intFileErrors += 1
 			continue
 		}
 		
 		if (($strDataServerKeyValue -eq "") -or ($strDataServerKeyValue -eq $Null)) {
-			write-host "$EM invalid value for environment variable <ODI_SCM_PHYSICAL_SCHEMAS_${strLogicalSchemaEnvMapping}>"
+			write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
 			write-host "$EM no value found for data server variable name in field position <2>"
 			$intFileErrors += 1
 			continue
@@ -513,8 +513,26 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		$strDatabaseKeyName = $strLogicalSchemaEnvMappingParts[2]
 		$strDatabaseKeyValue = $strLogicalSchemaEnvMappingParts[3]
 		
+		if (($strDatabaseKeyName -ne "") -and ($strDatabaseKeyName -ne $Null)) {
+			if ($strDatabaseKeyName -ne "Database") {
+				write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
+				write-host "$EM expected <Database> in field position <3> but found <$strDatabaseKeyName>"
+				$intFileErrors += 1
+				continue
+			}
+		}
+		
 		$strDefPhysSchemaKeyName = $strLogicalSchemaEnvMappingParts[4]
 		$strDefPhysSchemaKeyValue = $strLogicalSchemaEnvMappingParts[5]
+		
+		if (($strDefPhysSchemaKeyName -ne "") -and ($strDefPhysSchemaKeyName -ne $Null)) {
+			if ($strDatabaseKeyName -ne "Schema") {
+				write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
+				write-host "$EM expected <Schema> in field position <5> but found <$strDatabaseKeyName>"
+				$intFileErrors += 1
+				continue
+			}
+		}
 		
 		$strTokensKeysName = $strLogicalSchemaEnvMappingParts[6]
 		$strTokensKeysValue = $strLogicalSchemaEnvMappingParts[7]
@@ -554,7 +572,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		#
 		# Get the logical schema's physical data server details from the corresponding environment variable.
 		#
-		$strDataServer = [Environment]::GetEnvironmentVariable($strDataServerKeyValue)
+		$strDataServer = [Environment]::GetEnvironmentVariable("ODI_SCM_DATA_SERVERS_" + $strDataServerKeyValue)
 		
 		if (($strDataServer -eq "") -or ($strDataServer -eq $Null)) {
 			write-host "$EM no value found for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
@@ -565,7 +583,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		#
 		# Extract the data server field values and validate them.
 		#
-		$arrStrDataServerParts = $strDataServer.split("|")
+		$arrStrDataServerParts = $strDataServer.split("+")
 		$strDbmsTypeKeyName = $arrStrDataServerParts[0]
 		$strDbmsTypeKeyValue = $arrStrDataServerParts[1]
 		
@@ -670,6 +688,11 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		$OutScriptContent += ''
 		$OutScriptContent += 'echo %IM% database set up completed succcessfully'
 		$OutScriptContent += ''
+	}
+	
+	if ($intFileErrors -gt 0) {
+		write-host "$EM total errors encountered <$intFileErrors>"
+		return $False
 	}
 	
 	#
