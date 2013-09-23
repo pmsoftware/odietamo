@@ -314,6 +314,11 @@ function TearDownHsqlSchema ($strUserName, $strUserPassword, $strJdbcUrl, $strSc
 	
 	if (($strSchemaName -ne "") -and ($strSchemaName -ne "")) {
 		$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmPhysicalSchemaFilter>", " WHERE table_schema = '$strSchemaName'"
+		$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmPhysicalSchemaFilter>", " WHERE table_schema = '$strSchemaName'"
+		$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmSchemaSelect>", "|| table_schema"
+	}
+	else {
+		$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmSchemaSelect>", ""
 	}
 	
 	$strSqlScriptFile = "$env:TEMPDIR\OdiScmGenerateTearDownHSqlServerSchema_${strSchemaName}.sql"
@@ -340,6 +345,9 @@ function TearDownHsqlSchema ($strUserName, $strUserPassword, $strJdbcUrl, $strSc
 	
 	$arrTearDownScriptContent = @()
 	foreach ($strLine in $arrQueryLine) {
+		if (($strLine -eq "") -or ($strLine -eq $Null)) {
+			continue
+		}
 		$arrTearDownScriptContent += ($strLine + [Environment]::NewLine + "/" + [Environment]::NewLine)
 	}
 	
@@ -419,7 +427,9 @@ function TearDownSqlServerSchema ($strUserName, $strUserPassword, $strJdbcUrl, $
 	
 	$arrTearDownScriptContent = @()
 	foreach ($strLine in $arrQueryLine) {
-		$arrTearDownScriptContent += ($strLine + [Environment]::NewLine + "/" + [Environment]::NewLine)
+		if ($strLine.Trim() -ne "") {
+			$arrTearDownScriptContent += ($strLine + [Environment]::NewLine + "/" + [Environment]::NewLine)
+		}
 	}
 	
 	set-content -path $strDropScriptFile -value $arrTearDownScriptContent

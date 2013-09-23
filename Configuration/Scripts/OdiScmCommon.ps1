@@ -306,7 +306,7 @@ function OrderOdiImports ($lstInFiles, $refLstOutFiles) {
 	return $ExitStatus
 }
 
-function GenerateOdiImportScript ([array] $filesToImport) {
+function GenerateOdiImportScript ([array] $arrStrFilesToImport) {
 	
 	$FN = "GenerateOdiImportScript"
 	$IM = $FN + ": INFO:"
@@ -317,7 +317,7 @@ function GenerateOdiImportScript ([array] $filesToImport) {
 	
 	$ExitStatus = $False
 	
-	write-host "$IM passed <$($filesToImport.length)> files to import"
+	write-host "$IM passed <$($arrStrFilesToImport.length)> files to import"
 	write-host "$IM writing output to <$OdiImportScriptFile>"
 	
 	$OutScriptHeader  = '@echo off' + [Environment]::NewLine
@@ -352,7 +352,7 @@ function GenerateOdiImportScript ([array] $filesToImport) {
 		
 		$extensionFileCount = 0
 		
-		foreach ($fileToImport in $filesToImport) {
+		foreach ($fileToImport in $arrStrFilesToImport) {
 			
 			if ($fileToImport.EndsWith($fileObjType)) {
 				
@@ -419,6 +419,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 	$FN = "GenerateDdlImportScript"
 	$IM = $FN + ": INFO:"
 	$EM = $FN + ": ERROR:"
+	$WM = $FN + ": WARNING:"
 	$DEBUG = $FN + ": DEBUG"
 	
 	write-host "$IM starts"
@@ -526,9 +527,9 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		$strDefPhysSchemaKeyValue = $strLogicalSchemaEnvMappingParts[5]
 		
 		if (($strDefPhysSchemaKeyName -ne "") -and ($strDefPhysSchemaKeyName -ne $Null)) {
-			if ($strDatabaseKeyName -ne "Schema") {
+			if ($strDefPhysSchemaKeyName -ne "Schema") {
 				write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
-				write-host "$EM expected <Schema> in field position <5> but found <$strDatabaseKeyName>"
+				write-host "$EM expected <Schema> in field position <5> but found <$strDefPhysSchemaKeyName>"
 				$intFileErrors += 1
 				continue
 			}
@@ -538,14 +539,11 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		$strTokensKeysValue = $strLogicalSchemaEnvMappingParts[7]
 		
 		if (($strTokensKeysName -ne "") -and ($strTokensKeysName -ne $Null)) {
-			
-			$arrStrTokensKeyValuePairs = $strTokensKeysValue.split("/")
-			
-			foreach ($strTokensKeyValuePair in $arrStrTokensKeyValuePairs) {
-				$arrStrTokensKeyValuePairsParts = $strTokensKeyValuePair.split("=")
-				$strTokensKeyValuePairsPartsKeyName = $arrStrTokensKeyValuePairsParts[0]
-				$strTokensKeyValuePairsPartsKeyValue = $arrStrTokensKeyValuePairsParts[1]
-				write-host "$IM found text substitution key <$strTokensKeyValuePairsPartsKeyName> with value <$strTokensKeyValuePairsPartsKeyValue>"
+			if ($strTokensKeysName -ne "Token Values") {
+				write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
+				write-host "$EM expected <Token Values> in field position <5> but found <$strTokensKeysName>"
+				$intFileErrors += 1
+				continue
 			}
 		}
 		
@@ -554,13 +552,18 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		#
 		$arrDdlScriptContent = get-content -path $strFile
 		
-		foreach ($strTokensKeyValuePair in $arrStrTokensKeyValuePairs) {
+		if (($strTokensKeysValue -ne "") -and ($strTokensKeysValue -ne $Null)) {
 			
-			$arrStrTokensKeyValuePairsParts = $strTokensKeyValuePair.split("=")
-			$strTokensKeyValuePairsPartsKeyName = $arrStrTokensKeyValuePairsParts[0]
-			$strTokensKeyValuePairsPartsKeyValue = $arrStrTokensKeyValuePairsParts[1]
+			$arrStrTokensKeyValuePairs = $strTokensKeysValue.split("/")
 			
-			$arrDdlScriptContent = $arrDdlScriptContent -replace $strTokensKeyValuePairsPartsKeyName, $strTokensKeyValuePairsPartsKeyValue
+			foreach ($strTokensKeyValuePair in $arrStrTokensKeyValuePairs) {
+				
+				$arrStrTokensKeyValuePairsParts = $strTokensKeyValuePair.split("=")
+				$strTokensKeyValuePairsPartsKeyName = $arrStrTokensKeyValuePairsParts[0]
+				$strTokensKeyValuePairsPartsKeyValue = $arrStrTokensKeyValuePairsParts[1]
+				
+				$arrDdlScriptContent = $arrDdlScriptContent -replace $strTokensKeyValuePairsPartsKeyName, $strTokensKeyValuePairsPartsKeyValue
+			}
 		}
 		
 		#
@@ -647,19 +650,17 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		
 		if (($strPasswordKeyValue -eq "") -or ($strPasswordKeyValue -eq $Null)) {
 			write-host "$WM no value found for password in field position <8>"
-			$intFileErrors += 1
-			continue
 		}
 		
 		#
 		# Add the output script command to tear down the database environment.
 		#
 		$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
-		$OutScriptContent += 'set MSG=tearing down database environment ^<${strUserNameKeyValue}@${strJdbcUrlKeyValue}^>'
+		$OutScriptContent += ('set MSG=tearing down database environment ^^^<' + $strUserNameKeyValue + '@' + $strJdbcUrlKeyValue + '^^^>')
 		$OutScriptContent += 'echo %IM% %MSG%'
 		
 		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownDatabaseSchema.bat" '
-		$strCmd += '"' + $strDbmsTypeKeyName + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
+		$strCmd += '"' + $strDbmsTypeKeyValue + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
 		$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '"'
 		
 		$OutScriptContent += $strCmd
@@ -667,18 +668,18 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		$OutScriptContent += '	goto ExitFail'
 		$OutScriptContent += ')'
 		$OutScriptContent += ''
-		$OutScriptContent += 'echo %IM% database tear down completed succcessfully'
+		$OutScriptContent += 'echo %IM% database tearDown completed succcessfully'
 		$OutScriptContent += ''
 		
 		#
 		# Add the output script command to set up the database environment.
 		#
 		$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
-		$OutScriptContent += 'set MSG=setting up database environment ^<${strUserNameKeyValue}@${strJdbcUrlKeyValue}^>'
+		$OutScriptContent += ('set MSG=setting up database environment ^^^<' + $strUserNameKeyValue + '@' + $strJdbcUrlKeyValue + '^^^>')
 		$OutScriptContent += 'echo %IM% %MSG%'
 		
 		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecDatabaseSqlScript.bat" '
-		$strCmd += '"' + $strDbmsTypeKeyName + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
+		$strCmd += '"' + $strDbmsTypeKeyValue + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
 		$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '" "' + $strOutFile + '"'
 		
 		$OutScriptContent += $strCmd
@@ -686,7 +687,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		$OutScriptContent += '	goto ExitFail'
 		$OutScriptContent += ')'
 		$OutScriptContent += ''
-		$OutScriptContent += 'echo %IM% database set up completed succcessfully'
+		$OutScriptContent += 'echo %IM% database setUp completed succcessfully'
 		$OutScriptContent += ''
 	}
 	
@@ -699,7 +700,6 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 	# Script termination commands - the common Exit labels.
 	#
 	$OutScriptContent += ':ExitOk'
-	$OutScriptContent += 'echo %IM% database setup completed successfully'
 	$OutScriptContent += 'cd /d %OLDPWD%'
 	$OutScriptContent += 'exit %IsBatchExit% 0'
 	$OutScriptContent += ''

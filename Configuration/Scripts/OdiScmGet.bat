@@ -17,5 +17,5 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-PowerShell -Command "& { %ODI_SCM_HOME%\Configuration\Scripts\OdiScmGet.ps1 ; exit $LASTEXITCODE }"
+PowerShell -Command "& { %ODI_SCM_HOME%\Configuration\Scripts\OdiScmGet.ps1 ; exit $LastExitCode }"
 exit %IsBatchExit% %ERRORLEVEL%

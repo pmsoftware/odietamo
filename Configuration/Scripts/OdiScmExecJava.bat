@@ -1,4 +1,5 @@
 @echo off
+echo running with args: %*
 
 rem
 rem Execute an OdiScm Java binary.

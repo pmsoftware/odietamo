@@ -109,7 +109,8 @@ rem
 rem Start the demo source system database.
 rem
 echo %IM% starting source system database with command ^<start "Demo Source System" "%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\java.exe" -classpath "%TEMPJARFILE%" org.hsqldb.Server -database.0 file:"%DEMO_HSQL_ROOT%\hsql\demo_src" -port 20001^>
-start "Demo Source System" "%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\java.exe" -classpath "%TEMPJARFILE%" org.hsqldb.Server -database.0 file:"%DEMO_HSQL_ROOT%\hsql\demo_src" -port 20001
+rem start "Demo Source System" "%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\java.exe" -classpath "%TEMPJARFILE%" org.hsqldb.Server -database.0 file:"%DEMO_HSQL_ROOT%\hsql\demo_src" -port 20001
+start "Demo Source System" "%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\java.exe" -classpath "%TEMPJARFILE%" org.hsqldb.Server -database.0 mem:demo_src -port 20001
 if ERRORLEVEL 1 (
 	echo %EM% starting demo source system database 1>&2
 	goto ExitFail
@@ -145,7 +146,8 @@ rem
 rem Start the demo target system database.
 rem
 echo %IM% starting target system database with command ^<start "Demo Target System" "%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\java.exe" -classpath "%TEMPJARFILE%" org.hsqldb.Server -database.0 file:"%DEMO_HSQL_ROOT%\hsql\demo_trg" -port 20002^>
-start "Demo Target System" "%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\java.exe" -classpath "%TEMPJARFILE%" org.hsqldb.Server -database.0 file:"%DEMO_HSQL_ROOT%\hsql\demo_trg" -port 20002
+rem start "Demo Target System" "%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\java.exe" -classpath "%TEMPJARFILE%" org.hsqldb.Server -database.0 file:"%DEMO_HSQL_ROOT%\hsql\demo_trg" -port 20002
+start "Demo Target System" "%ODI_SCM_ORACLEDI_JAVA_HOME%\bin\java.exe" -classpath "%TEMPJARFILE%" org.hsqldb.Server -database.0 mem:demo_trg -port 20002
 if ERRORLEVEL 1 (
 	echo %EM% starting demo target system database 1>&2
 	goto ExitFail
@@ -179,13 +181,13 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-copy "%DEMO_HSQL_ROOT%\hsql\CREATE_SRC_ISOSQL.sql" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL\ddl-HSQL_DEMO_SRC-createtables.sql"
+copy "%DEMO_HSQL_ROOT%\hsql\CREATE_SRC_ISOSQL.sql" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL\ddl-HSQL_DEMO_SRC-createtables.sql" >NUL
 if ERRORLEVEL 1 (
 	echo %EM% copying source system DDL script to working copy directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL^> 1>&2
 	goto ExitFail
 )
 
-copy "%DEMO_HSQL_ROOT%\hsql\CREATE_TRG_ISOSQL.sql" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL\ddl-HSQL_DEMO_TARG-createtables.sql"
+copy "%DEMO_HSQL_ROOT%\hsql\CREATE_TRG_ISOSQL.sql" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL\ddl-HSQL_DEMO_TARG-createtables.sql" >NUL
 if ERRORLEVEL 1 (
 	echo %EM% copying target system DDL script to working copy directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL^> 1>&2
 	goto ExitFail
@@ -204,7 +206,7 @@ rem Commit the exported demo files to the SCM repository.
 rem
 set MSG=committing changes in demo environment 1 SVN repository working copy to SVN repository
 echo %IM% %MSG%
-svn commit -m "Demo auto check in source and target system DDK scripts" %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%/SvnRepoRoot/*.* %DiscardStdOut% %DiscardStdErr%
+svn commit -m "Demo auto check in source and target system DDK scripts" %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%/SvnRepoRoot/. %DiscardStdOut% %DiscardStdErr%
 if ERRORLEVEL 1 (
 	echo %EM% %MSG% 1>&2
 	goto ExitFail
@@ -263,6 +265,7 @@ rem
 xcopy /e /i /h /q "%ODI_SCM_HOME%\Configuration\Demo\Demo4\FitNesseRoot\OdiScmDemo" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\FitNesseRoot\OdiScmDemo" >NUL
 if ERRORLEVEL 1 (
 	echo %EM% copying FitNesse unit tests to demo environment 2 working copy 1>&2
+	goto ExitFail
 )
 
 rem

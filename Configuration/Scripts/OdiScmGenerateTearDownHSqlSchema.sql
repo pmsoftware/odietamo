@@ -1,9 +1,9 @@
-SELECT 'DROP TABLE ' || table_schema || '.' || table_name
+SELECT 'DROP TABLE ' <OdiScmSchemaSelect> || '.' || table_name || ' CASCADE'
   FROM information_schema.tables
 <OdiScmPhysicalSchemaFilter>
 /
 
-SELECT 'DROP VIEW ' || table_schema || '.' || table_name
+SELECT 'DROP VIEW ' <OdiScmSchemaSelect> || table_name || ' CASCADE'
   FROM information_schema.views
 <OdiScmPhysicalSchemaFilter>
 /
