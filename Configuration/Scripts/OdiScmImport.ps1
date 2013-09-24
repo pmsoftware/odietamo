@@ -210,15 +210,27 @@ function GenerateImport {
 	get-content $SCMConfigurationFile | set-content $SCMConfigurationBackUpFile
 	
 	#
-	# Get the list of files to import from the file system path.
+	# Get the files form the file system.
 	#
-	$arrOdiObjSrcFiles = @()
-	if (!(GetFromFileSystem ([ref] $arrOdiObjSrcFiles))) {
-		write-host "$EM failure getting ODI object source files from file system path <$strSourcePathRootDir>"
+	$arrFsOdiFileList = @()
+	$arrFsDbDdlFileList = @()
+	$arrFsDbSplFileList = @()
+	$arrFsDbDmlFileList = @()
+	
+	$FsOdiFileListRef = [ref] $arrFsOdiFileList
+	$FsDbDdlFileListRef = [ref] $arrFsDbDdlFileList
+	$FsDbSplFileListRef = [ref] $arrFsDbSplFileList
+	$FsDbDmlFileListRef = [ref] $arrFsDbDmlFileList
+	
+	if (!(GetFromFileSystem $FsOdiFileListRef $FsDbDdlFileListRef $FsDbSplFileListRef $FsDbDmlFileListRef)) {
+		write-host "$EM failure getting latest code from the file system"
 		return $False
 	}
 	
-	write-host "$IM GetFromFileSystem returned <$($arrOdiObjSrcFiles.length)> ODI object source files to import"
+	write-host "$IM GetFromSCM returned <$($SCMOdiFileList.length)> ODI source files to import"
+	write-host "$IM                     <$($SCMDbDdlFileList.length)> DDL source files to import"
+	write-host "$IM                     <$($SCMDbSplFileList.length)> SPL source files to import"
+	write-host "$IM                     <$($SCMDbDmlFileList.length)> DML source files to import"
 	
 	#
 	# If the ODI source object import batch size is set to a value >1 then create a set of consolidated
@@ -348,7 +360,7 @@ function GenerateImport {
 #
 # Create a list of ordered ODI object source files from the working copy directory tree.
 #
-function GetFromFileSystem ([ref] $arrOdiObjSrcFiles) {
+function GetFromFileSystem ([ref] $refOdiFileList, [ref] $refDbDdlFileList, [ref] $refDbSplFileList, [ref] $refDbSqlFileList) {
 	
 	$FN = "GetFromFileSystem"
 	$IM = $FN + ": INFO:"
@@ -372,41 +384,10 @@ function GetFromFileSystem ([ref] $arrOdiObjSrcFiles) {
 		return $False
 	}
 	
-	write-host "$IM found <$($lstInFiles.length)> files to process"
-	
-	#
-	# The ODI object source files found in the file system.
-	#
-	$lstFiles = @()
-	
-	#
-	# Loop through each extension and extract files of that type to create the list of files.
-	#
-	foreach ($Extension in $orderedExtensions) {
-		
-		#
-		# Remove the asterisk from the file type name pattern.
-		#
-		$FileObjType = $Extension.Replace("*","")
-		$FileObjTypeExt = $FileObjType.replace(".","")
-		write-host "$IM processing object type <$FileObjTypeExt>"
-		
-		$FileToImportPathName = ""
-		
-		foreach ($file in $lstInFiles) {
-			if (($file.Name).EndsWith($FileObjType)) {
-				#
-				# This is an ODI source object file name.
-				#
-				$lstFiles += $file.FullName
-			}
-		}
+	if (!(BuildSourceFileLists $arrScmFiles $refOdiFileList $refDbDdlFileList $refDbSplFileList $refDbSqlFileList)) {
+		write-host "$EM building source file lists from SCM get output"
+		return $False
 	}
-	
-	#
-	# Sort the files into import dependency order.
-	#
-	OrderOdiImports $lstFiles $arrOdiObjSrcFiles
 	
 	write-host "$IM ends"
 	return $True

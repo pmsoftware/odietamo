@@ -143,6 +143,191 @@ function SetIniContent ($InputObject, $FilePath)
     }
 }
 
+function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $refDbDdlFileList, [ref] $refDbSplFileList, [ref] $refDbDmlFileList) {
+	
+	$FN = "BuildSourceFileLists"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$DM = $FN + ": DEBUG:"
+	
+	write-host "$IM starts"
+	$ExitStatus = $False
+	
+	#
+	# Extract ODI object source files from the file list.
+	#
+	$arrStrOdiFiles = @()
+	
+	foreach ($Extention in $orderedExtensions) {
+		#
+		# Remove the asterisk from the file type name pattern.
+		#
+		$strFileObjType = $Extention.Replace("*","")
+		$FileObjTypeExt = $strFileObjType.replace(".","")
+		write-host "$IM processing object type <$FileObjTypeExt>"
+		
+		foreach ($strFile in $arrStrInputFiles) {
+			
+			if ($strFile.EndsWith($strFileObjType)) {
+				#
+				# This is an ODI source object file name.
+				#
+				$arrStrOdiFiles += $strFile
+			}
+		}
+	}
+	
+	#
+	# Sort the ODI object source files into import dependency order.
+	#
+	if (!(OrderOdiImports $arrStrOdiFiles $refOdiFileList)) {
+		write-host "$EM ordering ODI source files"
+		return $ExitStatus
+	}
+	
+	#
+	# Extract database DDL script files from the file list.
+	#
+	$arrStrDdlFiles = @()
+	$strPattern = "^ddl\-.+\-.+\-.*\.sql"
+	
+	foreach ($strFile in $arrStrInputFiles) {
+		
+		$strFileName = split-path -path $strFile -leaf
+		
+		if ($strFileName -match $strPattern) {
+			write-host "$IM found DDL script file <$strFile>"
+			$arrStrDdlFiles += $strFile
+		}
+	}
+	
+	#
+	# Sort the DDL script array into file name (excluding the path) order.
+	#
+	$arrObjDdlFile = @()
+	foreach ($strFile in $arrStrDdlFiles) {
+		$objFile = new-object PSObject
+		$strFileName = split-path -path $strFile -leaf
+		add-member -inputobject $objFile -membertype noteproperty -name "FileName" -value $strFileName
+		add-member -inputobject $objFile -membertype noteproperty -name "FilePathName" -value $strFile
+		$arrObjDdlFile += $objFile
+	}
+	
+	$arrStrSortedDdlFiles = @()
+	
+	if ($arrObjDdlFile.length -gt 0) {
+		$arrStrSortedDdlFiles = $arrObjDdlFile | sort-object -property FileName
+	}
+	
+	#
+	# Copy the DDL script file list into the output list.
+	#
+	foreach ($strSortedDdlFile in $arrStrSortedDdlFiles) {
+		$refDbDdlFileList.value += $strSortedDdlFile.FilePathName
+	}
+	
+	#
+	# Extract database SPL (stored code) script files from the file list.
+	#
+	$arrStrSplFiles = @()
+	$strPattern = "^spl-obj-.*\.sql"
+	
+	foreach ($strFile in $arrStrInputFiles) {
+		
+		$strFileName = split-path -path $strFile -leaf
+		
+		if ($strFileName -match $strPattern) {
+			write-host "$IM found SPL script file <$strFile>"
+			$arrStrSplFiles += $strFile
+		}
+	}
+	
+	#
+	# Sort the SPL script array into file name (excluding the path) order.
+	#
+	$arrObjSplFile = @()
+	foreach ($strFile in $arrStrSplFiles) {
+		$objFile = new-object PSObject
+		$strFileName = split-path -path $strFile -leaf
+		add-member -inputobject $objFile -membertype noteproperty -name "FileName" -value $strFileName
+		add-member -inputobject $objFile -membertype noteproperty -name "FilePathName" -value $strFile
+		$arrObjSplFile += $objFile
+	}
+	
+	$arrStrSortedSplFiles = @()
+	
+	if ($arrObjSplFile.length -gt 0) {
+		$arrStrSortedSplFiles = $arrObjSplFile | sort-object -property FileName
+	}
+	
+	#
+	# Copy the SPL script file list into the output list.
+	#
+	foreach ($strSortedSplFile in $arrStrSortedSplFiles) {
+		$refDbSplFileList.value += $strSortedSplFile.FilePathName
+	}
+	
+	#
+	# Extract database DML script files from the file list.
+	#
+	$arrStrDmlFiles = @()
+	$intPatternNo = 0
+	
+	do {
+		$strVarName = "ODI_SCM_GENERATE_DML_SCRIPT_FILE_NAME_PATTERN_" + $intPatternNo
+		$strPattern = [Environment]::GetEnvironmentVariable($strVarName)
+		
+		if (($strPattern -ne "") -and ($strPattern -ne $Null)) {
+			
+			$blnProcessedPattern = $True
+			write-host "$IM processing database DML script file name pattern number <$intPatternNo> pattern string <$strPattern>"
+			
+			foreach ($strFile in $arrStrInputFiles) {
+				
+				$strFileName = split-path -path $strFile -leaf
+				
+				if ($strFileName -match $strPattern) {
+					write-host "$IM found SQL script file <$strFile>"
+					$arrStrDmlFiles += $strFile
+				}
+			}
+		}
+		else {
+			$blnProcessedPattern = $False
+		}
+	}
+	while ($blnProcessedPattern)
+	
+	#
+	# Sort the DML script array into file name (excluding the path) order.
+	#
+	$arrObjDmlFile = @()
+	
+	foreach ($strFile in $arrStrDmlFiles) {
+		$objFile = new-object PSObject
+		$strFileName = split-path -path $strFile -leaf
+		add-member -inputobject $objFile -membertype noteproperty -name "FileName" -value $strFileName
+		add-member -inputobject $objFile -membertype noteproperty -name "FilePathName" -value $strFile
+		$arrObjSqlFile += $objFile
+	}
+	
+	$arrStrSortedDmlFiles = @()
+	
+	if ($arrObjDmlFile.length -gt 0) {
+		$arrStrSortedDmlFiles = $arrObjDmlFile | sort-object -property FileName
+	}
+	
+	#
+	# Copy the SQL script file list into the output list.
+	#
+	foreach ($strSortedDmlFile in $arrStrSortedDmlFiles) {
+		$refDbDmlFileList.value += $strSortedDmlFile.FilePathName
+	}
+	
+	write-host "$IM ends"
+	return $True
+}
+
 #
 # Order the list of passed ODI object source files into import dependency order.
 #
@@ -406,8 +591,6 @@ function GenerateOdiImportScript ([array] $arrStrFilesToImport) {
 	$OutScriptTail += "exit %IsBatchExit% 1" + [Environment]::NewLine
 	$OutScriptTail | out-file $OdiImportScriptFile -encoding ASCII -append
 	
-	write-host "$IM lines in generated script content <$(((get-content $OdiImportScriptFile).Count)-1)>"
-	
 	$ExitStatus = $True
 	
 	write-host "$IM ends"
@@ -423,8 +606,6 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 	$DEBUG = $FN + ": DEBUG"
 	
 	write-host "$IM starts"
-	
-	$ExitStatus = $False
 	
 	write-host "$IM passed <$($arrStrFiles.length)> files to import"
 	write-host "$IM writing output to <$DdlImportScriptFile>"
@@ -449,12 +630,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 	
 	$intFileErrors = 0
 	
-	#
-	# Loop through each DDL script file and, for each, generate an environment tear down followed by an environment set up.
-	#
 	foreach ($strFile in $arrStrFiles) {
-		
-		write-host "$DEBUG processing file <$strFile>"
 		
 		$strFileName = split-path $strFile -leaf
 		
@@ -464,14 +640,21 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		# Extract the file name parts and validate them.
 		#
 		$strDdlPrefix = $arrStrFileNameParts[0]
-		$strLogicalSchemaName = $arrStrFileNameParts[1]
-		$strRemainder = $arrStrFileNameParts[2]
+		$strScopeType = $arrStrFileNameParts[1]
+		$strLogicalSchemaName = $arrStrFileNameParts[2]
+		$strRemainder = $arrStrFileNameParts[3]
 		$arrStrRemainderParts = $strRemainder.split(".")
 		$arrStrRemainderMain = $arrStrRemainderParts[0]
 		$arrStrRemainderExtension = $arrStrRemainderParts[1]
 		
 		if ($strDdlPrefix -ne "ddl") {
-			write-host "$EM file <$strFile> does not have expected name <ddl> prefix"
+			write-host "$EM DDL script file <$strFile> does not have expected name <ddl> prefix"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if (($strScopeType -ne "schema") -and ($strScopeType -ne "obj")) {
+			write-host "$EM DDL script file <$strFile> does not have recognised scope type <schema | obj> prefix"
 			$intFileErrors += 1
 			continue
 		}
@@ -569,7 +752,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		#
 		# Write the modified script content.
 		#
-		$strOutFile = $GenScriptDdlSrcDir + "\" + "substituted_" + $strFileName
+		$strOutFile = $GenScriptDbObjsDir + "\" + "substituted_" + $strFileName
 		set-content -path $strOutFile -value $arrDdlScriptContent
 		
 		#
@@ -649,35 +832,41 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		}
 		
 		if (($strPasswordKeyValue -eq "") -or ($strPasswordKeyValue -eq $Null)) {
-			write-host "$WM no value found for password in field position <8>"
+			write-host "$WM no value found for password in field position <8> for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
 		}
 		
-		#
-		# Add the output script command to tear down the database environment.
-		#
-		$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
-		$OutScriptContent += ('set MSG=tearing down database environment ^^^<' + $strUserNameKeyValue + '@' + $strJdbcUrlKeyValue + '^^^>')
+		if ($strScopeType -eq "schema") {
+			#
+			# Add the output script command to tear down the database schema.
+			#
+			$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
+			$OutScriptContent += ('set MSG=tearing down database environment ^^^<' + $strUserNameKeyValue + '@' + $strJdbcUrlKeyValue + '^^^>')
+			$OutScriptContent += 'echo %IM% %MSG%'
+			
+			$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownDatabaseSchema.bat" /p '
+			$strCmd += '"' + $strDbmsTypeKeyValue + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
+			$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '"'
+			
+			$OutScriptContent += $strCmd
+			$OutScriptContent += 'if ERRORLEVEL 1 ('
+			$OutScriptContent += '	goto ExitFail'
+			$OutScriptContent += ')'
+			$OutScriptContent += ''
+			$OutScriptContent += 'echo %IM% database tearDown completed succcessfully'
+			$OutScriptContent += ''
+			
+			#
+			# Add the output script command to set up the database environment.
+			#
+			$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
+			$OutScriptContent += ('set MSG=setting up database environment ^^^<' + $strUserNameKeyValue + '@' + $strJdbcUrlKeyValue + '^^^>')
+		}
+		else {
+			$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
+			$OutScriptContent += ('set MSG=executing object creation DDL script ^^^<' + $strOutFile + '^^^>')
+		}
+		
 		$OutScriptContent += 'echo %IM% %MSG%'
-		
-		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownDatabaseSchema.bat" '
-		$strCmd += '"' + $strDbmsTypeKeyValue + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
-		$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '"'
-		
-		$OutScriptContent += $strCmd
-		$OutScriptContent += 'if ERRORLEVEL 1 ('
-		$OutScriptContent += '	goto ExitFail'
-		$OutScriptContent += ')'
-		$OutScriptContent += ''
-		$OutScriptContent += 'echo %IM% database tearDown completed succcessfully'
-		$OutScriptContent += ''
-		
-		#
-		# Add the output script command to set up the database environment.
-		#
-		$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
-		$OutScriptContent += ('set MSG=setting up database environment ^^^<' + $strUserNameKeyValue + '@' + $strJdbcUrlKeyValue + '^^^>')
-		$OutScriptContent += 'echo %IM% %MSG%'
-		
 		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecDatabaseSqlScript.bat" '
 		$strCmd += '"' + $strDbmsTypeKeyValue + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
 		$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '" "' + $strOutFile + '"'
@@ -687,7 +876,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		$OutScriptContent += '	goto ExitFail'
 		$OutScriptContent += ')'
 		$OutScriptContent += ''
-		$OutScriptContent += 'echo %IM% database setUp completed succcessfully'
+		$OutScriptContent += 'echo %IM% DDL script execution completed succcessfully'
 		$OutScriptContent += ''
 	}
 	
@@ -709,7 +898,554 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 	$OutScriptContent += 'exit %IsBatchExit% 1'
 	
 	set-content -path $DdlImportScriptFile -value $OutScriptContent
-	write-host "$IM lines in generated script content <$(((get-content $DdlImportScriptFile).Count)-1)>"
+	
+	write-host "$IM ends"
+	return $True
+}
+
+function GenerateSplImportScript ([array] $arrStrFiles) {
+	
+	$FN = "GenerateSplImportScript"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$WM = $FN + ": WARNING:"
+	$DEBUG = $FN + ": DEBUG"
+	
+	write-host "$IM starts"
+	
+	write-host "$IM passed <$($arrStrFiles.length)> files to import"
+	write-host "$IM writing output to <$SplImportScriptFile>"
+	
+	$OutScriptContent = @()
+	$OutScriptContent += '@echo off'
+	$OutScriptContent += ''
+	$OutScriptContent += 'if "%ODI_SCM_HOME%" == "" ('
+	$OutScriptContent += '	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME'
+	$OutScriptContent += '	goto ExitFail'
+	$OutScriptContent += ')'
+	$OutScriptContent += 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0'
+	$OutScriptContent += 'echo %IM% starts'
+	$OutScriptContent += ''
+	$OutScriptContent += 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*'
+	$OutScriptContent += 'if ERRORLEVEL 1 ('
+	$OutScriptContent += '	echo %EM% processing script arguments 1>&2'
+	$OutScriptContent += '	goto ExitFail'
+	$OutScriptContent += ')'
+	$OutScriptContent += ''
+	$OutScriptContent += 'set OLDPWD=%CD%'
+	
+	$intFileErrors = 0
+	
+	foreach ($strFile in $arrStrFiles) {
+		
+		$strFileName = split-path $strFile -leaf
+		
+		$arrStrFileNameParts = $strFileName.split("-")
+		
+		#
+		# Extract the file name parts and validate them.
+		#
+		$strPrefix = $arrStrFileNameParts[0]
+		$strScopeType = $arrStrFileNameParts[1]
+		$strLogicalSchemaName = $arrStrFileNameParts[2]
+		$strRemainder = $arrStrFileNameParts[3]
+		$arrStrRemainderParts = $strRemainder.split(".")
+		$arrStrRemainderMain = $arrStrRemainderParts[0]
+		$arrStrRemainderExtension = $arrStrRemainderParts[1]
+		
+		if ($strPrefix -ne "spl") {
+			write-host "$EM SPL script file <$strFile> does not have expected name <spl> prefix"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if ($strScopeType -ne "obj") {
+			write-host "$EM SPL script file <$strFile> does not have recognised scope type <obj> prefix"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if ($arrStrRemainderExtension -ne "sql") {
+			write-host "$EM file <$strFile> does not have expected name <sql> extension"
+			$intFileErrors += 1
+			continue
+		}
+		
+		#
+		# Get the logical schema's physical mapping details from the corresponding environment variable.
+		#
+		$strLogicalSchemaEnvMapping = [Environment]::GetEnvironmentVariable("ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_" + $strLogicalSchemaName)
+		
+		if (($strLogicalSchemaEnvMapping -eq "") -or ($strLogicalSchemaEnvMapping -eq $Null)) {
+			write-host "$EM no value found for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		$strLogicalSchemaEnvMappingParts = $strLogicalSchemaEnvMapping.split("+")
+		$strDataServerKeyName = $strLogicalSchemaEnvMappingParts[0]
+		$strDataServerKeyValue = $strLogicalSchemaEnvMappingParts[1]
+		
+		if ($strDataServerKeyName -ne "Data Server") {
+			write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
+			write-host "$EM expected <Data Server> in field position <1> but found <$strDataServerKeyName>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if (($strDataServerKeyValue -eq "") -or ($strDataServerKeyValue -eq $Null)) {
+			write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
+			write-host "$EM no value found for data server variable name in field position <2>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		$strDatabaseKeyName = $strLogicalSchemaEnvMappingParts[2]
+		$strDatabaseKeyValue = $strLogicalSchemaEnvMappingParts[3]
+		
+		if (($strDatabaseKeyName -ne "") -and ($strDatabaseKeyName -ne $Null)) {
+			if ($strDatabaseKeyName -ne "Database") {
+				write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
+				write-host "$EM expected <Database> in field position <3> but found <$strDatabaseKeyName>"
+				$intFileErrors += 1
+				continue
+			}
+		}
+		
+		$strDefPhysSchemaKeyName = $strLogicalSchemaEnvMappingParts[4]
+		$strDefPhysSchemaKeyValue = $strLogicalSchemaEnvMappingParts[5]
+		
+		if (($strDefPhysSchemaKeyName -ne "") -and ($strDefPhysSchemaKeyName -ne $Null)) {
+			if ($strDefPhysSchemaKeyName -ne "Schema") {
+				write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
+				write-host "$EM expected <Schema> in field position <5> but found <$strDefPhysSchemaKeyName>"
+				$intFileErrors += 1
+				continue
+			}
+		}
+		
+		$strTokensKeysName = $strLogicalSchemaEnvMappingParts[6]
+		$strTokensKeysValue = $strLogicalSchemaEnvMappingParts[7]
+		
+		if (($strTokensKeysName -ne "") -and ($strTokensKeysName -ne $Null)) {
+			if ($strTokensKeysName -ne "Token Values") {
+				write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
+				write-host "$EM expected <Token Values> in field position <5> but found <$strTokensKeysName>"
+				$intFileErrors += 1
+				continue
+			}
+		}
+		
+		#
+		# Read the SPL script and replace any tokens specified in the environment variable.
+		#
+		$arrScriptContent = get-content -path $strFile
+		
+		if (($strTokensKeysValue -ne "") -and ($strTokensKeysValue -ne $Null)) {
+			
+			$arrStrTokensKeyValuePairs = $strTokensKeysValue.split("/")
+			
+			foreach ($strTokensKeyValuePair in $arrStrTokensKeyValuePairs) {
+				
+				$arrStrTokensKeyValuePairsParts = $strTokensKeyValuePair.split("=")
+				$strTokensKeyValuePairsPartsKeyName = $arrStrTokensKeyValuePairsParts[0]
+				$strTokensKeyValuePairsPartsKeyValue = $arrStrTokensKeyValuePairsParts[1]
+				
+				$arrScriptContent = $arrScriptContent -replace $strTokensKeyValuePairsPartsKeyName, $strTokensKeyValuePairsPartsKeyValue
+			}
+		}
+		
+		#
+		# Write the modified script content.
+		#
+		$strOutFile = $GenScriptDbObjsDir + "\" + "substituted_" + $strFileName
+		set-content -path $strOutFile -value $arrScriptContent
+		
+		#
+		# Get the logical schema's physical data server details from the corresponding environment variable.
+		#
+		$strDataServer = [Environment]::GetEnvironmentVariable("ODI_SCM_DATA_SERVERS_" + $strDataServerKeyValue)
+		
+		if (($strDataServer -eq "") -or ($strDataServer -eq $Null)) {
+			write-host "$EM no value found for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		#
+		# Extract the data server field values and validate them.
+		#
+		$arrStrDataServerParts = $strDataServer.split("+")
+		$strDbmsTypeKeyName = $arrStrDataServerParts[0]
+		$strDbmsTypeKeyValue = $arrStrDataServerParts[1]
+		
+		if ($strDbmsTypeKeyName -ne "DBMS Type") {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM expected <DBMS Type> in field position <1> but found <$strDbmsTypeKeyName>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if (($strDataServerKeyValue -eq "") -or ($strDataServerKeyValue -eq $Null)) {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM no value found for DBMS type name in field position <2>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		$strJdbcUrlKeyName = $arrStrDataServerParts[2]
+		$strJdbcUrlKeyValue = $arrStrDataServerParts[3]
+		
+		if ($strJdbcUrlKeyName -ne "JDBC URL") {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM expected <JDBC URL> in field position <3> but found <$strJdbcUrlKeyName>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if (($strJdbcUrlKeyValue -eq "") -or ($strJdbcUrlKeyValue -eq $Null)) {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM no value found for JDBC URL in field position <4>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		$strUserNameKeyName = $arrStrDataServerParts[4]
+		$strUserNameKeyValue = $arrStrDataServerParts[5]
+		
+		if ($strUserNameKeyName -ne "User Name") {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM expected <User Name> in field position <5> but found <$strUserNameKeyName>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if (($strUserNameKeyValue -eq "") -or ($strUserNameKeyValue -eq $Null)) {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM no value found for user name in field position <6>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		$strPasswordKeyName = $arrStrDataServerParts[6]
+		$strPasswordKeyValue = $arrStrDataServerParts[7]
+		
+		if ($strPasswordKeyName -ne "Password") {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM expected <Password> in field position <7> but found <$strPasswordKeyName>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if (($strPasswordKeyValue -eq "") -or ($strPasswordKeyValue -eq $Null)) {
+			write-host "$WM no value found for password in field position <8> for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+		}
+		
+		$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
+		$OutScriptContent += ('set MSG=executing object creation SPL script ^^^<' + $strOutFile + '^^^>')
+		$OutScriptContent += 'echo %IM% %MSG%'
+		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecDatabaseSqlScript.bat" '
+		$strCmd += '"' + $strDbmsTypeKeyValue + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
+		$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '" "' + $strOutFile + '"'
+		
+		$OutScriptContent += $strCmd
+		$OutScriptContent += 'if ERRORLEVEL 1 ('
+		$OutScriptContent += '	goto ExitFail'
+		$OutScriptContent += ')'
+		$OutScriptContent += ''
+		$OutScriptContent += 'echo %IM% SPL script execution completed succcessfully'
+		$OutScriptContent += ''
+	}
+	
+	if ($intFileErrors -gt 0) {
+		write-host "$EM total errors encountered <$intFileErrors>"
+		return $False
+	}
+	
+	#
+	# Script termination commands - the common Exit labels.
+	#
+	$OutScriptContent += ':ExitOk'
+	$OutScriptContent += 'cd /d %OLDPWD%'
+	$OutScriptContent += 'exit %IsBatchExit% 0'
+	$OutScriptContent += ''
+	$OutScriptContent += ':ExitFail'
+	$OutScriptContent += 'echo %EM% %MSG%'
+	$OutScriptContent += 'cd /d %OLDPWD%'
+	$OutScriptContent += 'exit %IsBatchExit% 1'
+	
+	set-content -path $SplImportScriptFile -value $OutScriptContent
+	
+	write-host "$IM ends"
+	return $True
+}
+
+function GenerateDmlExecutionScript ([array] $arrStrFiles) {
+	
+	$FN = "GenerateDmlExecutionScript"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$WM = $FN + ": WARNING:"
+	$DEBUG = $FN + ": DEBUG"
+	
+	write-host "$IM starts"
+	
+	write-host "$IM passed <$($arrStrFiles.length)> files to import"
+	write-host "$IM writing output to <$DmlExecutionScriptFile>"
+	
+	$OutScriptContent = @()
+	$OutScriptContent += '@echo off'
+	$OutScriptContent += ''
+	$OutScriptContent += 'if "%ODI_SCM_HOME%" == "" ('
+	$OutScriptContent += '	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME'
+	$OutScriptContent += '	goto ExitFail'
+	$OutScriptContent += ')'
+	$OutScriptContent += 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0'
+	$OutScriptContent += 'echo %IM% starts'
+	$OutScriptContent += ''
+	$OutScriptContent += 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*'
+	$OutScriptContent += 'if ERRORLEVEL 1 ('
+	$OutScriptContent += '	echo %EM% processing script arguments 1>&2'
+	$OutScriptContent += '	goto ExitFail'
+	$OutScriptContent += ')'
+	$OutScriptContent += ''
+	$OutScriptContent += 'set OLDPWD=%CD%'
+	
+	$intFileErrors = 0
+	
+	foreach ($strFile in $arrStrFiles) {
+		
+		$strFileName = split-path $strFile -leaf
+		
+		$arrStrFileNameParts = $strFileName.split("-")
+		
+		#
+		# Extract the file name parts and validate them.
+		#
+		$strDmlPrefix = $arrStrFileNameParts[0]
+		$strLogicalSchemaName = $arrStrFileNameParts[1]
+		$strRemainder = $arrStrFileNameParts[2]
+		$arrStrRemainderParts = $strRemainder.split(".")
+		$arrStrRemainderMain = $arrStrRemainderParts[0]
+		$arrStrRemainderExtension = $arrStrRemainderParts[1]
+		
+		if ($strDmlPrefix -ne "dml") {
+			write-host "$EM DML script file <$strFile> does not have expected name <dml> prefix"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if ($arrStrRemainderExtension -ne "sql") {
+			write-host "$EM file <$strFile> does not have expected name <sql> extension"
+			$intFileErrors += 1
+			continue
+		}
+		
+		#
+		# Get the logical schema's physical mapping details from the corresponding environment variable.
+		#
+		$strLogicalSchemaEnvMapping = [Environment]::GetEnvironmentVariable("ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_" + $strLogicalSchemaName)
+		
+		if (($strLogicalSchemaEnvMapping -eq "") -or ($strLogicalSchemaEnvMapping -eq $Null)) {
+			write-host "$EM no value found for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		$strLogicalSchemaEnvMappingParts = $strLogicalSchemaEnvMapping.split("+")
+		$strDataServerKeyName = $strLogicalSchemaEnvMappingParts[0]
+		$strDataServerKeyValue = $strLogicalSchemaEnvMappingParts[1]
+		
+		if ($strDataServerKeyName -ne "Data Server") {
+			write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
+			write-host "$EM expected <Data Server> in field position <1> but found <$strDataServerKeyName>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if (($strDataServerKeyValue -eq "") -or ($strDataServerKeyValue -eq $Null)) {
+			write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
+			write-host "$EM no value found for data server variable name in field position <2>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		$strDatabaseKeyName = $strLogicalSchemaEnvMappingParts[2]
+		$strDatabaseKeyValue = $strLogicalSchemaEnvMappingParts[3]
+		
+		if (($strDatabaseKeyName -ne "") -and ($strDatabaseKeyName -ne $Null)) {
+			if ($strDatabaseKeyName -ne "Database") {
+				write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
+				write-host "$EM expected <Database> in field position <3> but found <$strDatabaseKeyName>"
+				$intFileErrors += 1
+				continue
+			}
+		}
+		
+		$strDefPhysSchemaKeyName = $strLogicalSchemaEnvMappingParts[4]
+		$strDefPhysSchemaKeyValue = $strLogicalSchemaEnvMappingParts[5]
+		
+		if (($strDefPhysSchemaKeyName -ne "") -and ($strDefPhysSchemaKeyName -ne $Null)) {
+			if ($strDefPhysSchemaKeyName -ne "Schema") {
+				write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
+				write-host "$EM expected <Schema> in field position <5> but found <$strDefPhysSchemaKeyName>"
+				$intFileErrors += 1
+				continue
+			}
+		}
+		
+		$strTokensKeysName = $strLogicalSchemaEnvMappingParts[6]
+		$strTokensKeysValue = $strLogicalSchemaEnvMappingParts[7]
+		
+		if (($strTokensKeysName -ne "") -and ($strTokensKeysName -ne $Null)) {
+			if ($strTokensKeysName -ne "Token Values") {
+				write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
+				write-host "$EM expected <Token Values> in field position <5> but found <$strTokensKeysName>"
+				$intFileErrors += 1
+				continue
+			}
+		}
+		
+		#
+		# Read the DML script and replace any tokens specified in the environment variable.
+		#
+		$arrScriptContent = get-content -path $strFile
+		
+		if (($strTokensKeysValue -ne "") -and ($strTokensKeysValue -ne $Null)) {
+			
+			$arrStrTokensKeyValuePairs = $strTokensKeysValue.split("/")
+			
+			foreach ($strTokensKeyValuePair in $arrStrTokensKeyValuePairs) {
+				
+				$arrStrTokensKeyValuePairsParts = $strTokensKeyValuePair.split("=")
+				$strTokensKeyValuePairsPartsKeyName = $arrStrTokensKeyValuePairsParts[0]
+				$strTokensKeyValuePairsPartsKeyValue = $arrStrTokensKeyValuePairsParts[1]
+				
+				$arrScriptContent = $arrScriptContent -replace $strTokensKeyValuePairsPartsKeyName, $strTokensKeyValuePairsPartsKeyValue
+			}
+		}
+		
+		#
+		# Write the modified script content.
+		#
+		$strOutFile = $GenScriptDbObjsDir + "\" + "substituted_" + $strFileName
+		set-content -path $strOutFile -value $arrScriptContent
+		
+		#
+		# Get the logical schema's physical data server details from the corresponding environment variable.
+		#
+		$strDataServer = [Environment]::GetEnvironmentVariable("ODI_SCM_DATA_SERVERS_" + $strDataServerKeyValue)
+		
+		if (($strDataServer -eq "") -or ($strDataServer -eq $Null)) {
+			write-host "$EM no value found for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		#
+		# Extract the data server field values and validate them.
+		#
+		$arrStrDataServerParts = $strDataServer.split("+")
+		$strDbmsTypeKeyName = $arrStrDataServerParts[0]
+		$strDbmsTypeKeyValue = $arrStrDataServerParts[1]
+		
+		if ($strDbmsTypeKeyName -ne "DBMS Type") {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM expected <DBMS Type> in field position <1> but found <$strDbmsTypeKeyName>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if (($strDataServerKeyValue -eq "") -or ($strDataServerKeyValue -eq $Null)) {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM no value found for DBMS type name in field position <2>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		$strJdbcUrlKeyName = $arrStrDataServerParts[2]
+		$strJdbcUrlKeyValue = $arrStrDataServerParts[3]
+		
+		if ($strJdbcUrlKeyName -ne "JDBC URL") {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM expected <JDBC URL> in field position <3> but found <$strJdbcUrlKeyName>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if (($strJdbcUrlKeyValue -eq "") -or ($strJdbcUrlKeyValue -eq $Null)) {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM no value found for JDBC URL in field position <4>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		$strUserNameKeyName = $arrStrDataServerParts[4]
+		$strUserNameKeyValue = $arrStrDataServerParts[5]
+		
+		if ($strUserNameKeyName -ne "User Name") {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM expected <User Name> in field position <5> but found <$strUserNameKeyName>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if (($strUserNameKeyValue -eq "") -or ($strUserNameKeyValue -eq $Null)) {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM no value found for user name in field position <6>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		$strPasswordKeyName = $arrStrDataServerParts[6]
+		$strPasswordKeyValue = $arrStrDataServerParts[7]
+		
+		if ($strPasswordKeyName -ne "Password") {
+			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+			write-host "$EM expected <Password> in field position <7> but found <$strPasswordKeyName>"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if (($strPasswordKeyValue -eq "") -or ($strPasswordKeyValue -eq $Null)) {
+			write-host "$WM no value found for password in field position <8> for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
+		}
+		
+		$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
+		$OutScriptContent += ('set MSG=executing object creation DML script ^^^<' + $strOutFile + '^^^>')
+		
+		$OutScriptContent += 'echo %IM% %MSG%'
+		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecDatabaseSqlScript.bat" '
+		$strCmd += '"' + $strDbmsTypeKeyValue + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
+		$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '" "' + $strOutFile + '"'
+		
+		$OutScriptContent += $strCmd
+		$OutScriptContent += 'if ERRORLEVEL 1 ('
+		$OutScriptContent += '	goto ExitFail'
+		$OutScriptContent += ')'
+		$OutScriptContent += ''
+		$OutScriptContent += 'echo %IM% DML script execution completed succcessfully'
+		$OutScriptContent += ''
+	}
+	
+	if ($intFileErrors -gt 0) {
+		write-host "$EM total errors encountered <$intFileErrors>"
+		return $False
+	}
+	
+	#
+	# Script termination commands - the common Exit labels.
+	#
+	$OutScriptContent += ':ExitOk'
+	$OutScriptContent += 'cd /d %OLDPWD%'
+	$OutScriptContent += 'exit %IsBatchExit% 0'
+	$OutScriptContent += ''
+	$OutScriptContent += ':ExitFail'
+	$OutScriptContent += 'echo %EM% %MSG%'
+	$OutScriptContent += 'cd /d %OLDPWD%'
+	$OutScriptContent += 'exit %IsBatchExit% 1'
+	
+	set-content -path $DmlExecutionScriptFile -value $OutScriptContent
 	
 	write-host "$IM ends"
 	return $True
@@ -1177,7 +1913,7 @@ function SetOutputNames {
 	#
 	$script:GenScriptRootDir = $LogRootDir + "\${OutputTag}"
 	$script:GenScriptConsObjSrcDir = $GenScriptRootDir + "\" + "ConsolidatedObjSources"
-	$script:GenScriptDdlSrcDir = $GenScriptRootDir + "\" + "ConsolidatedObjSources"
+	$script:GenScriptDbObjsDir = $GenScriptRootDir + "\" + "DatabaseObjects"
 	
 	$script:OdiScmOdiStartCmdBat = $GenScriptRootDir + "\OdiScmStartCmd_${OutputTag}.bat"
 	$script:OdiScmJisqlRepoBat = $GenScriptRootDir + "\OdiScmJisqlRepo_${OutputTag}.bat"
@@ -1200,6 +1936,14 @@ function SetOutputNames {
 	$script:DdlImportScriptName = $DdlImportScriptStubName + ".bat"
 	$script:DdlImportScriptFile = $GenScriptRootDir + "\$DdlImportScriptName"
 	
+	$script:SplImportScriptStubName = "OdiScmSplImport_" + ${OutputTag}
+	$script:SplImportScriptName = $SplImportScriptStubName + ".bat"
+	$script:SplImportScriptFile = $GenScriptRootDir + "\$SplImportScriptName"
+	
+	$script:DmlExecutionScriptStubName = "OdiScmDmlExecution_" + ${OutputTag}
+	$script:DmlExecutionScriptName = $DmlExecutionScriptStubName + ".bat"
+	$script:DmlExecutionScriptFile = $GenScriptRootDir + "\$DmlExecutionScriptName"
+	
 	if (Test-Path $GenScriptRootDir) { 
 		write-host "$IM generated scripts root directory <$GenScriptRootDir> already exists"
 	}
@@ -1214,6 +1958,14 @@ function SetOutputNames {
 	else {  
 		write-host "$IM generated consolidated ODI object source files directory <$GenScriptConsObjSrcDir> already exists"
 		New-Item -itemtype directory $GenScriptConsObjSrcDir 
+	}
+	
+	if (Test-Path $GenScriptDbObjsDir) { 
+		write-host "$IM generated consolidated ODI object source files directory <$GenScriptDbObjsDir> already exists"
+	}
+	else {  
+		write-host "$IM generated consolidated ODI object source files directory <$GenScriptDbObjsDir> already exists"
+		New-Item -itemtype directory $GenScriptDbObjsDir 
 	}
 	
 	$script:GetLatestVersionOutputFile = $GenScriptRootDir + "\GetFromSCM_" + ${OutputTag} + ".txt"
