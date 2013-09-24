@@ -167,7 +167,7 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 		write-host "$IM processing object type <$FileObjTypeExt>"
 		
 		foreach ($strFile in $arrStrInputFiles) {
-			
+			write-host "$DM doing file <$strFile>"
 			if ($strFile.EndsWith($strFileObjType)) {
 				#
 				# This is an ODI source object file name.

@@ -210,27 +210,27 @@ function GenerateImport {
 	get-content $SCMConfigurationFile | set-content $SCMConfigurationBackUpFile
 	
 	#
-	# Get the files form the file system.
+	# Get the files from the file system.
 	#
-	$arrFsOdiFileList = @()
-	$arrFsDbDdlFileList = @()
-	$arrFsDbSplFileList = @()
-	$arrFsDbDmlFileList = @()
+	$arrStrOdiFileList = @()
+	$arrStrDbDdlFileList = @()
+	$arrStrDbSplFileList = @()
+	$arrStrDbDmlFileList = @()
 	
-	$FsOdiFileListRef = [ref] $arrFsOdiFileList
-	$FsDbDdlFileListRef = [ref] $arrFsDbDdlFileList
-	$FsDbSplFileListRef = [ref] $arrFsDbSplFileList
-	$FsDbDmlFileListRef = [ref] $arrFsDbDmlFileList
+	$FsOdiFileListRef = [ref] $arrStrOdiFileList
+	$FsDbDdlFileListRef = [ref] $arrStrDbDdlFileList
+	$FsDbSplFileListRef = [ref] $arrStrDbSplFileList
+	$FsDbDmlFileListRef = [ref] $arrStrDbDmlFileList
 	
 	if (!(GetFromFileSystem $FsOdiFileListRef $FsDbDdlFileListRef $FsDbSplFileListRef $FsDbDmlFileListRef)) {
 		write-host "$EM failure getting latest code from the file system"
 		return $False
 	}
 	
-	write-host "$IM GetFromSCM returned <$($SCMOdiFileList.length)> ODI source files to import"
-	write-host "$IM                     <$($SCMDbDdlFileList.length)> DDL source files to import"
-	write-host "$IM                     <$($SCMDbSplFileList.length)> SPL source files to import"
-	write-host "$IM                     <$($SCMDbDmlFileList.length)> DML source files to import"
+	write-host "$IM GetFromFileSystem returned <$($arrStrOdiFileList.length)> ODI source files to import"
+	write-host "$IM                            <$($arrStrDbDdlFileList.length)> DDL source files to import"
+	write-host "$IM                            <$($arrStrDbSplFileList.length)> SPL source files to import"
+	write-host "$IM                            <$($arrStrDbDmlFileList.length)> DML source files to import"
 	
 	#
 	# If the ODI source object import batch size is set to a value >1 then create a set of consolidated
@@ -238,32 +238,49 @@ function GenerateImport {
 	#
 	$ImpObjBatchSizeMax = $OdiScmConfig["Generate"]["Import Object Batch Size Max"]
 	
+	$ConsolidatedFileList = @()
+	
 	if (($ImpObjBatchSizeMax -ne "") -and ($ImpObjBatchSizeMax -ne $Null) -and ($ImpObjBatchSizeMax -ne "1")) {
 		
 		write-host "$IM consolidation of ODI object sources files requested"
 		write-host "$IM maximum batch size is <$ImpObjBatchSizeMax> ODI objects"
 		
 		$strInConsFileNamesList = $GenScriptRootDir + "\" + "OdiScmFilesToConsolidate.txt"
-		$arrOdiObjSrcFiles | set-content $strInConsFileNamesList
+		
+		#
+		# Set the content of the consolidation process input file.
+		# Be sure not to pipe content into set-content as previous file content is not overwritten when
+		# the piped data is any empty array.
+		#
+		set-content -path $strInConsFileNamesList -value $arrStrOdiFileList
 		$strOutConsFileNamesList = $GenScriptRootDir + "\" + "OdiScmConsolidatedOdiObjectSourceFiles.txt"
 		
-		$CmdLine = "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmExecJava.bat odietamo.OdiScm.ConsolidateObjectSourceFiles $strInConsFileNamesList $GenScriptConsObjSrcDir $strOutConsFileNamesList $ImpObjBatchSizeMax"
-		write-host "$IM executing command line <$CmdLine>"
-		
-		invoke-expression $CmdLine
+		$strCmdLineCmd   = "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmExecJava.bat"
+		$strCmdLineArgs  = 'odietamo.OdiScm.ConsolidateObjectSourceFiles ' + '"' + $strInConsFileNamesList + '" "' + $GenScriptConsObjSrcDir
+		$strCmdLineArgs += '" "' + $strOutConsFileNamesList + '" ' + $ImpObjBatchSizeMax
+		write-host "$IM executing command line <$strCmdLineCmd $strCmdLineArgs>"
+		$strCmdStdOutStdErr = & $strCmdLineCmd /p $strCmdLineArgs 2>&1
 		if ($LastExitCode -ne 0) {
-			write-host "$EM executing command <$CmdLine>"
+			write-host "$EM executing command <$strCmdLineCmd $strCmdLineArgs>"
+			write-host "$EM stdout/stderr output <$strCmdStdOutStdErr>"
 			return $False
 		}
 		
 		$ConsolidatedFileList = get-content $strOutConsFileNamesList
+		
+		if ($ConsolidatedFileList -eq $null) {
+			#
+			# Reinitialise the array as get-content returns $Null for an empty file.
+			#
+			$ConsolidatedFileList = @()
+		}
 	}
 	else {
 		#
 		# No batching of object source files.
 		#
 		write-host "$IM no consolidation of ODI object sources files requested"
-		$ConsolidatedFileList = $arrOdiObjSrcFiles
+		$ConsolidatedFileList = $arrStrOdiFileList
 	}
 	
 	#
@@ -271,6 +288,30 @@ function GenerateImport {
 	#
 	if (!(GenerateOdiImportScript $ConsolidatedFileList)) { 
 		write-host "$EM call to GenerateOdiImportScript failed"
+		return $ExitStatus
+	}
+	
+	#
+	# Generate the SQL DDL object import commands in the generated script.
+	#
+	if (!(GenerateDdlImportScript $arrStrDbDdlFileList)) { 
+		write-host "$EM call to GenerateDdlImportScript failed"
+		return $ExitStatus
+	}
+	
+	#
+	# Generate the SQL SPL object import commands in the generated script.
+	#
+	if (!(GenerateSplImportScript $arrStrDbSplFileList)) { 
+		write-host "$EM call to GenerateSplImportScript failed"
+		return $ExitStatus
+	}
+	
+	#
+	# Generate the SQL DML script execution commands in the generated script.
+	#
+	if (!(GenerateDmlExecutionScript $arrStrDbDmlFileList)) { 
+		write-host "$EM call to GenerateDmlExecutionScript failed"
 		return $ExitStatus
 	}
 	
@@ -378,13 +419,18 @@ function GetFromFileSystem ([ref] $refOdiFileList, [ref] $refDbDdlFileList, [ref
 	}
 	
 	write-host "$IM searching for files to import from directory tree <$strSourcePathRootDir>"
-	$lstInFiles = get-childitem $strSourcePathRootDir -recurse
+	$arrFlInFiles = get-childitem $strSourcePathRootDir -recurse
 	if (!($?)) {
 		write-host "$EM reading list of files from directory tree <$strSourcePathRootDir>"
 		return $False
 	}
 	
-	if (!(BuildSourceFileLists $arrScmFiles $refOdiFileList $refDbDdlFileList $refDbSplFileList $refDbSqlFileList)) {
+	$arrStrInFileNames = @()
+	foreach ($flFile in $arrFlInFiles) {
+		$arrStrInFileNames += $flFile.fullname
+	}
+	
+	if (!(BuildSourceFileLists $arrStrInFileNames $refOdiFileList $refDbDdlFileList $refDbSplFileList $refDbSqlFileList)) {
 		write-host "$EM building source file lists from SCM get output"
 		return $False
 	}
