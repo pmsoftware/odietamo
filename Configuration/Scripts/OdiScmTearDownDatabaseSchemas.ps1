@@ -204,7 +204,9 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 		$strFullUrl = $strJdbcUrl
 	}
 	else {
-		$strFullUrl = $strJdbcUrl + "/database=" + $strDatabaseName
+		if (($strDatabaseName -ne "") -and ($strDatabaseName -ne $Null)) {
+			$strFullUrl = $strJdbcUrl + "/database=" + $strDatabaseName
+		}
 	}
 	
 	#
@@ -741,7 +743,7 @@ function ExecSqlScript ($strUserName, $strUserPassword, $strJdbcDriver, $strJdbc
 		write-host "$EM executing command line <$strCmdLineCmd>"
 		write-host "$EM start of command output <"
 		write-host $strCmdStdOut
-		write-host "$EM > end of command output <"
+		write-host "$EM > end of command output"
 		return $False
 	}
 	
@@ -771,7 +773,7 @@ function ExecSqlScript ($strUserName, $strUserPassword, $strJdbcDriver, $strJdbc
 		write-host "$EM executing SQL script <$strSqlScriptFile>"
 		write-host "$EM start of command output <"
 		write-host $strCmdStdOut
-		write-host "$EM > end of command output <"
+		write-host "$EM > end of command output"
 		if (test-path $strStdErrLogFile) {
 			write-host "$IM command created StdErr file"
 			write-host "$IM start of StdErr file content <"
