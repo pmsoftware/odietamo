@@ -179,13 +179,13 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-copy "%DEMO_HSQL_ROOT%\hsql\CREATE_SRC_ISOSQL.sql" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL\ddl-schema-HSQL_DEMO_SRC-createtables.sql" >NUL
+copy "%DEMO_HSQL_ROOT%\hsql\CREATE_SRC_ISOSQL.sql" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL\ddl-schema-HSQL_DEMO_SRC-t1-createtables.sql" >NUL
 if ERRORLEVEL 1 (
 	echo %EM% copying source system DDL script to working copy directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL^> 1>&2
 	goto ExitFail
 )
 
-copy "%DEMO_HSQL_ROOT%\hsql\CREATE_TRG_ISOSQL.sql" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL\ddl-schema-HSQL_DEMO_TARG-createtables.sql" >NUL
+copy "%DEMO_HSQL_ROOT%\hsql\CREATE_TRG_ISOSQL.sql" "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL\ddl-schema-HSQL_DEMO_TARG-t1-createtables.sql" >NUL
 if ERRORLEVEL 1 (
 	echo %EM% copying target system DDL script to working copy directory ^<%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%\DatabaseDDL^> 1>&2
 	goto ExitFail

@@ -669,7 +669,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 	
 	for ($intCurrTier = 0; $intCurrTier -le $intMaxTierInt; $intCurrTier++) {
 	
-		foreach ($strFile in $arrFiles) {
+		foreach ($strFile in $arrStrFiles) {
 		
 			$strFileName = split-path $strFile -leaf
 			$arrStrFileNameParts = $strFileName.split("-")
@@ -1069,7 +1069,7 @@ function GenerateSplImportScript ([array] $arrStrFiles) {
 	
 	for ($intCurrTier = 0; $intCurrTier -le $intMaxTierInt; $intCurrTier++) {
 	
-		foreach ($strFile in $arrFiles) {
+		foreach ($strFile in $arrStrFiles) {
 		
 			$strFileName = split-path $strFile -leaf
 			$arrStrFileNameParts = $strFileName.split("-")
@@ -1414,8 +1414,12 @@ function GenerateDmlExecutionScript ([array] $arrStrFiles) {
 	
 	for ($intCurrTier = 0; $intCurrTier -le $intMaxTierInt; $intCurrTier++) {
 	
-		foreach ($strFile in $arrFiles) {
+		foreach ($strFile in $arrStrFiles) {
 		
+			if ($strFile -eq $Full) {
+				write-host "$IM doing file <$strFile> - but it's null!"
+				return $False
+			}
 			$strFileName = split-path $strFile -leaf
 			$arrStrFileNameParts = $strFileName.split("-")
 			$strTierNumber = $arrStrFileNameParts[3]
