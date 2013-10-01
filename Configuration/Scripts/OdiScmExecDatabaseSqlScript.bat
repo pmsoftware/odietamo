@@ -41,7 +41,7 @@ if ERRORLEVEL 1 (
 set TEMPPSSCRIPT=%TEMPDIR%\%PROC%_psscript.ps1
 
 echo . "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownDatabaseSchemas.ps1" >%TEMPPSSCRIPT%
-echo $RetVal = ExecDatabaseSqlScript "%ARGV1%" "%ARGV2%" "%ARGV3%" "%ARGV4%" "%ARGV5%" "%ARGV6%" "%ARGV7%" >>%TEMPPSSCRIPT%
+echo $RetVal = ExecDatabaseSqlScript '%ARGV1%' '%ARGV2%' '%ARGV3%' '%ARGV4%' '%ARGV5%' '%ARGV6%' '%ARGV7%' >>%TEMPPSSCRIPT%
 echo if (!($RetVal)) { >>%TEMPPSSCRIPT%
 echo 	exit 5 >>%TEMPPSSCRIPT%
 echo } >>%TEMPPSSCRIPT%

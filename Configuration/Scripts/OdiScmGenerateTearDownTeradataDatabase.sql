@@ -5,6 +5,12 @@ SELECT DISTINCT -- Because of multi column constraints/indices.
    AND childdb = '<OdiScmPhysicalSchemaName>'
 /
 
+SELECT 'DROP JOIN INDEX ' || TRIM(databasename) || '.' || TRIM(tablename)
+  FROM dbc.tables
+ WHERE tablekind = 'I'
+   AND databasename = '<OdiScmPhysicalSchemaName>'
+/
+
 SELECT 'DROP TABLE ' || TRIM(databasename) || '.' || TRIM(tablename)
   FROM dbc.tables
  WHERE (
@@ -17,12 +23,6 @@ SELECT 'DROP TABLE ' || TRIM(databasename) || '.' || TRIM(tablename)
 SELECT 'DROP VIEW ' || TRIM(databasename) || '.' || TRIM(tablename)
   FROM dbc.tables
  WHERE tablekind = 'V'
-   AND databasename = '<OdiScmPhysicalSchemaName>'
-/
-
-SELECT 'DROP JOIN INDEX ' || TRIM(databasename) || '.' || TRIM(tablename)
-  FROM dbc.tables
- WHERE tablekind = 'I'
    AND databasename = '<OdiScmPhysicalSchemaName>'
 /
 

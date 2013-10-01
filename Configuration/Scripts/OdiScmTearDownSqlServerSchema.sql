@@ -1,3 +1,14 @@
+SELECT 'ALTER TABLE ' + s.name + '.' + t.name + ' DROP CONSTRAINT ' + f.name
+  FROM sys.tables t
+ INNER
+  JOIN sys.schemas s
+    ON t.schema_id = s.schema_id
+ INNER
+  JOIN sys.foreign_keys f
+    ON t.object_id = f.parent_object_id
+ WHERE s.name = '<OdiScmPhysicalSchemaName>'
+/
+
 SELECT 'DROP TABLE ' + s.name + '.' + t.name
   FROM sys.tables t
  INNER

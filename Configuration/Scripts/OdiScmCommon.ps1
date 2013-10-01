@@ -202,26 +202,28 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 	#
 	# Sort the DDL script array into file name (excluding the path) order.
 	#
-	$arrObjDdlFile = @()
-	foreach ($strFile in $arrStrDdlFiles) {
-		$objFile = new-object PSObject
-		$strFileName = split-path -path $strFile -leaf
-		add-member -inputobject $objFile -membertype noteproperty -name "FileName" -value $strFileName
-		add-member -inputobject $objFile -membertype noteproperty -name "FilePathName" -value $strFile
-		$arrObjDdlFile += $objFile
-	}
+	# $arrObjDdlFile = @()
+	# foreach ($strFile in $arrStrDdlFiles) {
+		# $objFile = new-object PSObject
+		# $strFileName = split-path -path $strFile -leaf
+		# add-member -inputobject $objFile -membertype noteproperty -name "FileName" -value $strFileName
+		# add-member -inputobject $objFile -membertype noteproperty -name "FilePathName" -value $strFile
+		# $arrObjDdlFile += $objFile
+	# }
 	
-	$arrStrSortedDdlFiles = @()
+	# $arrStrSortedDdlFiles = @()
 	
-	if ($arrObjDdlFile.length -gt 0) {
-		$arrStrSortedDdlFiles = $arrObjDdlFile | sort-object -property FileName
-	}
+	# if ($arrObjDdlFile.length -gt 0) {
+		# $arrStrSortedDdlFiles = $arrObjDdlFile | sort-object -property FileName
+	# }
 	
 	#
 	# Copy the DDL script file list into the output list.
 	#
-	foreach ($strSortedDdlFile in $arrStrSortedDdlFiles) {
-		$refDbDdlFileList.value += $strSortedDdlFile.FilePathName
+	#foreach ($strSortedDdlFile in $arrStrSortedDdlFiles) {
+	foreach ($strDdlFile in $arrStrDdlFiles) {
+		#$refDbDdlFileList.value += $strSortedDdlFile.FilePathName
+		$refDbDdlFileList.value += $strDdlFile
 	}
 	
 	#
@@ -242,26 +244,29 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 	#
 	# Sort the SPL script array into file name (excluding the path) order.
 	#
-	$arrObjSplFile = @()
-	foreach ($strFile in $arrStrSplFiles) {
-		$objFile = new-object PSObject
-		$strFileName = split-path -path $strFile -leaf
-		add-member -inputobject $objFile -membertype noteproperty -name "FileName" -value $strFileName
-		add-member -inputobject $objFile -membertype noteproperty -name "FilePathName" -value $strFile
-		$arrObjSplFile += $objFile
-	}
+	# $arrObjSplFile = @()
+	# foreach ($strFile in $arrStrSplFiles) {
+		# $objFile = new-object PSObject
+		# $strFileName = split-path -path $strFile -leaf
+		# add-member -inputobject $objFile -membertype noteproperty -name "FileName" -value $strFileName
+		# add-member -inputobject $objFile -membertype noteproperty -name "FilePathName" -value $strFile
+		# $arrObjSplFile += $objFile
+	# }
 	
-	$arrStrSortedSplFiles = @()
+	# $arrStrSortedSplFiles = @()
 	
-	if ($arrObjSplFile.length -gt 0) {
-		$arrStrSortedSplFiles = $arrObjSplFile | sort-object -property FileName
-	}
+	# if ($arrObjSplFile.length -gt 0) {
+		# $arrStrSortedSplFiles = $arrObjSplFile | sort-object -property FileName
+	# }
 	
 	#
 	# Copy the SPL script file list into the output list.
 	#
-	foreach ($strSortedSplFile in $arrStrSortedSplFiles) {
-		$refDbSplFileList.value += $strSortedSplFile.FilePathName
+	#foreach ($strSortedSplFile in $arrStrSortedSplFiles) {
+	#foreach ($strSortedSplFile in $arrStrSortedSplFiles) {
+	foreach ($strSplFile in $arrStrSplFiles) {
+		#$refDbSplFileList.value += $strSortedSplFile.FilePathName
+		$refDbSplFileList.value += $strSplFile
 	}
 	
 	#
@@ -297,27 +302,29 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 	#
 	# Sort the DML script array into file name (excluding the path) order.
 	#
-	$arrObjDmlFile = @()
+	# $arrObjDmlFile = @()
 	
-	foreach ($strFile in $arrStrDmlFiles) {
-		$objFile = new-object PSObject
-		$strFileName = split-path -path $strFile -leaf
-		add-member -inputobject $objFile -membertype noteproperty -name "FileName" -value $strFileName
-		add-member -inputobject $objFile -membertype noteproperty -name "FilePathName" -value $strFile
-		$arrObjSqlFile += $objFile
-	}
+	# foreach ($strFile in $arrStrDmlFiles) {
+		# $objFile = new-object PSObject
+		# $strFileName = split-path -path $strFile -leaf
+		# add-member -inputobject $objFile -membertype noteproperty -name "FileName" -value $strFileName
+		# add-member -inputobject $objFile -membertype noteproperty -name "FilePathName" -value $strFile
+		# $arrObjSqlFile += $objFile
+	# }
 	
-	$arrStrSortedDmlFiles = @()
+	# $arrStrSortedDmlFiles = @()
 	
-	if ($arrObjDmlFile.length -gt 0) {
-		$arrStrSortedDmlFiles = $arrObjDmlFile | sort-object -property FileName
-	}
+	# if ($arrObjDmlFile.length -gt 0) {
+		# $arrStrSortedDmlFiles = $arrObjDmlFile | sort-object -property FileName
+	# }
 	
 	#
 	# Copy the SQL script file list into the output list.
 	#
-	foreach ($strSortedDmlFile in $arrStrSortedDmlFiles) {
-		$refDbDmlFileList.value += $strSortedDmlFile.FilePathName
+	#foreach ($strSortedDmlFile in $arrStrSortedDmlFiles) {
+	foreach ($strDmlFile in $arrStrDmlFiles) {
+		#$refDbDmlFileList.value += $strSortedDmlFile.FilePathName
+		$refDbDmlFileList.value += $strDmlFile
 	}
 	
 	write-host "$IM ends"
@@ -630,7 +637,13 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 	#
 	# Find the highest tier number in the list of files.
 	#
+	write-host "$DEBUG finding hightest DDL file tier number"
 	foreach ($strFile in $arrStrFiles) {
+		
+		if ($strFile -eq "" -or $strFile -eq $Null) {
+			write-host "$EM DDL source file path/name is invalid"
+			return $False
+		}
 		
 		$strFileName = split-path $strFile -leaf
 		
@@ -640,7 +653,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		if (!($strTierNumber.startswith("t"))) {
 			write-host "$EM DDL script file <$strFile> has unrecognised tier string prefix <$strTierNumber>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -648,7 +661,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		if (($strTierInt -as [int]) -eq $Null) {
 			write-host "$EM DDL script file <$strFile> has unrecognised tier number <$strTierInt>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -662,15 +675,26 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		return $False
 	}
 	
+	write-host "$IM highest DDL script tier number found <$intMaxTierInt>"
+	
 	#
 	# Sort the files into ascending tier order.
 	#
+	write-host "$IM sorting SPL files into tier number order"
+	
 	$arrTieredFiles = @()
 	
 	for ($intCurrTier = 0; $intCurrTier -le $intMaxTierInt; $intCurrTier++) {
-	
-		foreach ($strFile in $arrStrFiles) {
 		
+		$intTierFileCount = 0
+		
+		foreach ($strFile in $arrStrFiles) {
+			
+			if ($strFile -eq "" -or $strFile -eq $Null) {
+				write-host "$EM SPL source file path/name is invalid"
+				return $False
+			}
+			
 			$strFileName = split-path $strFile -leaf
 			$arrStrFileNameParts = $strFileName.split("-")
 			$strTierNumber = $arrStrFileNameParts[3]
@@ -678,16 +702,19 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			
 			if ($strTierInt -eq $intCurrTier) {
 				$arrTieredFiles += $strFile
+				$intTierFileCount++
 			}
 		}
+		write-host "$IM found <$intTierFileCount> tier <$intCurrTier> DDL script files"
 	}
 	
+	write-host "$IM building output script content"
 	$intFileErrors = 0
 	
 	foreach ($strFile in $arrTieredFiles) {
 		
 		$strFileName = split-path $strFile -leaf
-		
+		write-host "$IM processing file <$strFileName>"
 		$arrStrFileNameParts = $strFileName.split("-")
 		
 		#
@@ -702,7 +729,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		if ($strRemainder -eq $Null) {
 			write-host "$IM cannot split file name for file <$strFile>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -713,23 +740,25 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		if ($strDdlPrefix -ne "ddl") {
 			write-host "$EM DDL script file <$strFile> does not have expected name <ddl> prefix"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
 		if (($strScopeType -ne "schema") -and ($strScopeType -ne "obj")) {
 			write-host "$EM DDL script file <$strFile> does not have recognised scope type <schema | obj> prefix"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
 		if ($arrStrRemainderExtension -ne "sql") {
 			write-host "$EM file <$strFile> does not have expected name <sql> extension"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
+		
+		write-host "$DEBUG file name verified"
 		
 		#
 		# Get the logical schema's physical mapping details from the corresponding environment variable.
@@ -739,7 +768,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		if (($strLogicalSchemaEnvMapping -eq "") -or ($strLogicalSchemaEnvMapping -eq $Null)) {
 			write-host "$EM no value found for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -751,7 +780,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
 			write-host "$EM expected <Data Server> in field position <1> but found <$strDataServerKeyName>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -759,7 +788,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
 			write-host "$EM no value found for data server variable name in field position <2>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -771,7 +800,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 				write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
 				write-host "$EM expected <Database> in field position <3> but found <$strDatabaseKeyName>"
 				$intFileErrors += 1
-				DebuggingPause
+				#DebuggingPause
 				continue
 			}
 		}
@@ -784,7 +813,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 				write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
 				write-host "$EM expected <Schema> in field position <5> but found <$strDefPhysSchemaKeyName>"
 				$intFileErrors += 1
-				DebuggingPause
+				#DebuggingPause
 				continue
 			}
 		}
@@ -797,45 +826,48 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 				write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
 				write-host "$EM expected <Token Values> in field position <5> but found <$strTokensKeysName>"
 				$intFileErrors += 1
-				DebuggingPause
+				#DebuggingPause
 				continue
 			}
 		}
+		
+		write-host "$DEBUG processing content/tokens"
 		
 		#
 		# Read the DDL script and replace any tokens specified in the environment variable.
 		#
 		$arrDdlScriptContent = get-content -path $strFile
-		$arrStrOutDdlScriptContent = @()
+		#$arrStrOutDdlScriptContent = @()
 		
 		if (($strTokensKeysValue -ne "") -and ($strTokensKeysValue -ne $Null)) {
 			
 			$arrStrTokensKeyValuePairs = $strTokensKeysValue.split("/")
 			
 			foreach ($strTokensKeyValuePair in $arrStrTokensKeyValuePairs) {
-				
+				#write-host "$DEBUG processing token key/value pair <$strTokensKeyValuePair>"
 				$arrStrTokensKeyValuePairsParts = $strTokensKeyValuePair.split("=")
 				$strTokensKeyValuePairsPartsKeyName = $arrStrTokensKeyValuePairsParts[0]
 				$strTokensKeyValuePairsPartsKeyValue = $arrStrTokensKeyValuePairsParts[1]
 				
-				foreach ($strDdlScriptLine in $arrDdlScriptContent) {
-					if ($strDdlScriptLine.contains($strTokensKeyValuePairsPartsKeyName)) {
-						write-host "$IM replacing token in file <$strFile>"
-						write-host "$IM token <$strTokensKeyValuePairsPartsKeyName> value <$strTokensKeyValuePairsPartsKeyValue>"
-					}
-					$arrStrOutDdlScriptContent += ($strDdlScriptLine.replace($strTokensKeyValuePairsPartsKeyName, $strTokensKeyValuePairsPartsKeyValue))
-				}
+				$arrDdlScriptContent = $arrDdlScriptContent -replace $strTokensKeyValuePairsPartsKeyName, $strTokensKeyValuePairsPartsKeyValue
+				#foreach ($strDdlScriptLine in $arrDdlScriptContent) {
+					#write-host "$DEBUG doing input script line <$strDdlScriptLine>"
+					#if ($strDdlScriptLine.contains($strTokensKeyValuePairsPartsKeyName)) {
+						#write-host "$IM replacing token in file <$strFile>"
+						#write-host "$IM token <$strTokensKeyValuePairsPartsKeyName> value <$strTokensKeyValuePairsPartsKeyValue>"
+					#}
+					#$arrStrOutDdlScriptContent = $arrDdlScriptContent -replace $strTokensKeyValuePairsPartsKeyName, $strTokensKeyValuePairsPartsKeyValue
+					
+					#$arrStrOutDdlScriptContent += ($strDdlScriptLine.replace($strTokensKeyValuePairsPartsKeyName, $strTokensKeyValuePairsPartsKeyValue))
+				#}
 			}
-		}
-		else {
-			$arrStrOutDdlScriptContent = $arrDdlScriptContent
 		}
 		
 		#
 		# Write the modified script content.
 		#
 		$strOutFile = $GenScriptDbObjsDir + "\" + "substituted_" + $strFileName
-		set-content -path $strOutFile -value $arrStrOutDdlScriptContent
+		set-content -path $strOutFile -value $arrDdlScriptContent
 		
 		#
 		# Get the logical schema's physical data server details from the corresponding environment variable.
@@ -845,7 +877,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		if (($strDataServer -eq "") -or ($strDataServer -eq $Null)) {
 			write-host "$EM no value found for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -860,7 +892,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
 			write-host "$EM expected <DBMS Type> in field position <1> but found <$strDbmsTypeKeyName>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -868,7 +900,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
 			write-host "$EM no value found for DBMS type name in field position <2>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -879,7 +911,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
 			write-host "$EM expected <JDBC URL> in field position <3> but found <$strJdbcUrlKeyName>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -887,7 +919,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
 			write-host "$EM no value found for JDBC URL in field position <4>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -898,7 +930,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
 			write-host "$EM expected <User Name> in field position <5> but found <$strUserNameKeyName>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -906,7 +938,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
 			write-host "$EM no value found for user name in field position <6>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -917,7 +949,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			write-host "$EM invalid value for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
 			write-host "$EM expected <Password> in field position <7> but found <$strPasswordKeyName>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -957,7 +989,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		}
 		
 		$OutScriptContent += 'echo %IM% %MSG%'
-		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecDatabaseSqlScript.bat" '
+		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecDatabaseSqlScript.bat" /p '
 		$strCmd += '"' + $strDbmsTypeKeyValue + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
 		$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '" "' + $strOutFile + '"'
 		
@@ -970,8 +1002,8 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		$OutScriptContent += ''
 	}
 	
+	write-host "$IM total errors encountered <$intFileErrors>"
 	if ($intFileErrors -gt 0) {
-		write-host "$EM total errors encountered <$intFileErrors>"
 		return $False
 	}
 	
@@ -1189,7 +1221,7 @@ function GenerateSplImportScript ([array] $arrStrFiles) {
 		# Read the SPL script and replace any tokens specified in the environment variable.
 		#
 		$arrScriptContent = get-content -path $strFile
-		$arrStrOutScriptContent = @()
+		#$arrStrOutScriptContent = @()
 		
 		if (($strTokensKeysValue -ne "") -and ($strTokensKeysValue -ne $Null)) {
 			
@@ -1203,13 +1235,13 @@ function GenerateSplImportScript ([array] $arrStrFiles) {
 				
 				$arrScriptContent = $arrScriptContent -replace $strTokensKeyValuePairsPartsKeyName, $strTokensKeyValuePairsPartsKeyValue
 				
-				foreach ($strScriptLine in $arrScriptContent) {
-					if ($strScriptLine.contains($strTokensKeyValuePairsPartsKeyName)) {
-						write-host "$IM replacing token in file <$strFile>"
-						write-host "$IM token <$strTokensKeyValuePairsPartsKeyName> value <$strTokensKeyValuePairsPartsKeyValue>"
-					}
-					$arrStrOutScriptContent += ($strScriptLine.replace($strTokensKeyValuePairsPartsKeyName, $strTokensKeyValuePairsPartsKeyValue))
-				}
+				#foreach ($strScriptLine in $arrScriptContent) {
+				#	if ($strScriptLine.contains($strTokensKeyValuePairsPartsKeyName)) {
+				#		write-host "$IM replacing token in file <$strFile>"
+				#		write-host "$IM token <$strTokensKeyValuePairsPartsKeyName> value <$strTokensKeyValuePairsPartsKeyValue>"
+				#	}
+					#$arrStrOutScriptContent += ($strScriptLine.replace($strTokensKeyValuePairsPartsKeyName, $strTokensKeyValuePairsPartsKeyValue))
+				#}
 			}
 		}
 		
@@ -1644,7 +1676,7 @@ function GenerateDmlExecutionScript ([array] $arrStrFiles) {
 		$OutScriptContent += ('set MSG=executing object creation DML script ^^^<' + $strOutFile + '^^^>')
 		
 		$OutScriptContent += 'echo %IM% %MSG%'
-		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecDatabaseSqlScript.bat" '
+		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecDatabaseSqlScript.bat" /p '
 		$strCmd += '"' + $strDbmsTypeKeyValue + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
 		$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '" "' + $strOutFile + '"'
 		

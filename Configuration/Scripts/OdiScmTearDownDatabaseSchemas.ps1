@@ -67,6 +67,7 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 	
 	if (!(test-path $strSqlScript)) {
 		write-host "$EM SQL script file <$strSqlScript> is not accessible"
+		return $False
 	}
 	
 	if (("$env:TEMPDIR" -eq "") -or ("$env:TEMPDIR" -eq $Null)) {
@@ -84,17 +85,25 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 		$strFullUrl = $strJdbcUrl
 	}
 	else {
-		$strFullUrl = $strJdbcUrl + ";database=" + $strDatabaseName
+		$strFullUrl = $strJdbcUrl + ";databaseName=" + $strDatabaseName
 	}
+	write-host "$IM using full JDBC URL <$strFullUrl>"
 	
 	#
 	# Replace the "go" statement separators in the script.
 	#
 	$arrStrSetUpScriptContent = get-content -path $strSqlScript
+	if ($arrStrSetUpScriptContent -eq $Null) {
+		#
+		# Get-Content returns $Null for an empy file.
+		#
+		$arrStrSetUpScriptContent = @()
+	}
+	
 	$arrStrOut = @()
 	
 	foreach ($strLine in $arrStrSetUpScriptContent) {
-		if ($_ -match "^go$") {
+		if ($strLine -match "^go$") {
 			$arrStrOut += "/"
 		}
 		else {
@@ -137,7 +146,7 @@ function ExecOracleSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strS
 		return $False
 	}
 	
-	$strJdbcDriver = "org.hsqldb.jdbcDriver"
+	$strJdbcDriver = "oracle.jdbc.driver.OracleDriver"
 	
 	#
 	# Replace the ";" statement separators in the script.
@@ -186,6 +195,12 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 	
 	write-host "$IM starts"
 	
+	write-host "$IM User Name     <$strUserName>"
+	write-host "$IM User Password <$strUserPassword>"
+	write-host "$IM JDBC URL      <$strJdbcUrl>"
+	write-host "$IM Schema        <$strDatabaseName>"
+	write-host "$IM Script File   <$strSqlScript>"
+	
 	if (!(test-path $strSqlScript)) {
 		write-host "$EM SQL script file <$strSqlScript> is not accessible"
 	}
@@ -225,14 +240,16 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 	$intLines = $arrStrSetUpScriptContent.length
 	write-host "$IM source script contains <$intLines> lines"
 	
-	foreach ($strLine in $arrStrSetUpScriptContent) {
-		if ($strLine -match ";$") {
-			$arrStrOut += ($strLine -replace ";$","/")
-		}
-		else {
-			$arrStrOut += $strLine
-		}
-	}
+	# foreach ($strLine in $arrStrSetUpScriptContent) {
+		# if ($strLine -match ";$") {
+			# $arrStrOut += ($strLine -replace ";$","/")
+		# }
+		# else {
+			# $arrStrOut += $strLine
+		# }
+	# }
+	$arrStrOut += $arrStrSetUpScriptContent -replace ";$", "/"
+	
 	write-host "$IM completed changing end of statement markers"
 	
 	$strNoGoSqlScript = "$env:TEMPDIR\ExecTeradataSqlScript_${strDatabaseName}.sql"
@@ -260,6 +277,7 @@ function ExecDatabaseSqlScript ($strDbTypeName, $strUserName, $strUserPassword, 
 	$DEBUG = $FN + ": DEBUG:"
 	
 	write-host "$IM starts"
+	write-host "$DEBUG script file is <$strSqlScript>"
 	
 	switch ($strDbTypeName.ToLower()) {
 		
@@ -268,11 +286,12 @@ function ExecDatabaseSqlScript ($strDbTypeName, $strUserName, $strUserPassword, 
 		}
 		
 		"sqlserver" {
-			$RetVal = ExecSqlServerSqlScript $strUserName $strUserPassword $strJdbcUrl $strDatabaseName $strSchemaName $strSqlScript
+			# We cannot set a default schema in a SQL Server script so we don't pass it.
+			$RetVal = ExecSqlServerSqlScript $strUserName $strUserPassword $strJdbcUrl $strDatabaseName $strSqlScript
 		}
 		
 		"teradata" {
-			$RetVal = ExecTeradataSqlScript $strUserName $strUserPassword $strJdbcUrl $strDatabaseName $strSqlScript
+			$RetVal = ExecTeradataSqlScript $strUserName $strUserPassword $strJdbcUrl $strSchemaName $strSqlScript
 		}
 		
 		"hsql" {
@@ -315,7 +334,6 @@ function TearDownHsqlSchema ($strUserName, $strUserPassword, $strJdbcUrl, $strSc
 	$strTearDownTemplateContent = get-content -path "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmGenerateTearDownHSqlSchema.sql" | out-string
 	
 	if (($strSchemaName -ne "") -and ($strSchemaName -ne "")) {
-		$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmPhysicalSchemaFilter>", " WHERE table_schema = '$strSchemaName'"
 		$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmPhysicalSchemaFilter>", " WHERE table_schema = '$strSchemaName'"
 		$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmSchemaSelect>", "|| table_schema"
 	}
@@ -409,8 +427,9 @@ function TearDownSqlServerSchema ($strUserName, $strUserPassword, $strJdbcUrl, $
 		$strFullUrl = $strJdbcUrl
 	}
 	else {
-		$strFullUrl = $strJdbcUrl + ";database=" + $strDatabaseName
+		$strFullUrl = $strJdbcUrl + ";databaseName=" + $strDatabaseName
 	}
+	write-host "$IM using full JDBC URL <$strFullUrl>"
 	
 	#
 	# Run the script to generate the DROP statements.
@@ -426,6 +445,12 @@ function TearDownSqlServerSchema ($strUserName, $strUserPassword, $strJdbcUrl, $
 	#
 	$strDropScriptFile = "$env:TEMPDIR\OdiScmTearDownSqlServerSchema_${strUserName}.sql"
 	$arrQueryLine = get-content -path $strStdOutLogFile
+	if ($arrQueryLine -eq $Null) {
+		#
+		# Get-Content returns $Null for an empy file.
+		#
+		$arrQueryLine = @()
+	}
 	
 	$arrTearDownScriptContent = @()
 	foreach ($strLine in $arrQueryLine) {
@@ -443,7 +468,7 @@ function TearDownSqlServerSchema ($strUserName, $strUserPassword, $strJdbcUrl, $
 	$strStdOutLogFile = "$env:TEMPDIR\TearDownSqlServerSchema_${strDropScriptFileName}_StdOut.log"
 	$strStdErrLogFile = "$env:TEMPDIR\TearDownSqlServerSchema_${strDropScriptFileName}_StdErr.log"
 	
-	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strDropScriptFile $strStdOutLogFile $strStdErrLogFile
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strDropScriptFile $strStdOutLogFile $strStdErrLogFile
 	if (!($blnResult)) {
 		write-host "$EM executing SQL script file <$strDropScriptFile>"
 		return $False
@@ -507,13 +532,18 @@ function TearDownTeradataDatabase ($strUserName, $strUserPassword, $strJdbcUrl, 
 	
 	$strJdbcDriver = "com.teradata.jdbc.TeraDriver"
 	
+	if ($strDatabaseName -eq "" -or $strDatabaseName -eq $Null) {
+		write-host "$EM no Teradata database name specified"
+		return $False
+	}
+	
 	#
 	# Process unnamed FK constraints.
 	#
 	$strTearDownTemplateContent = get-content -path "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmGenerateTearDownTeradataDatabaseUnnamedFkConstraints.sql" | out-string
 	$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmPhysicalSchemaName>", $strDatabaseName
 	
-	$strSqlScriptFile = "$env:TEMPDIR\OdiScmGenTearDownTdUnnamedFkCons_${strUserName}.sql"
+	$strSqlScriptFile = "$env:TEMPDIR\OdiScmGenTearDownTdUnnamedFkCons_${strDatabaseName}.sql"
 	set-content -path $strSqlScriptFile -value $strTearDownTemplateContent
 	
 	$strSqlScriptFileName = split-path $strSqlScriptFile -leaf
@@ -529,7 +559,7 @@ function TearDownTeradataDatabase ($strUserName, $strUserPassword, $strJdbcUrl, 
 	#
 	# Define the unnamed FK constraints drop script name.
 	#
-	$strDropUnnamedFkConsScriptFile = "$env:TEMPDIR\OdiScmTearDownTdUnnamedFkCons_${strUserName}.sql"
+	$strDropUnnamedFkConsScriptFile = "$env:TEMPDIR\OdiScmTearDownTdUnnamedFkCons_${strDatabaseName}.sql"
 	
 	#
 	# Process the query results to consolidate the constraint columns.
@@ -616,7 +646,7 @@ function TearDownTeradataDatabase ($strUserName, $strUserPassword, $strJdbcUrl, 
 	$strTearDownTemplateContent = get-content -path "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmGenerateTearDownTeradataDatabase.sql" | out-string
 	$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmPhysicalSchemaName>", $strDatabaseName
 	
-	$strSqlScriptFile = "$env:TEMPDIR\OdiScmGenerateTearDownTeradataDatabase_${strUserName}.sql"
+	$strSqlScriptFile = "$env:TEMPDIR\OdiScmGenerateTearDownTeradataDatabase_${strDatabaseName}.sql"
 	set-content -path $strSqlScriptFile -value $strTearDownTemplateContent
 	
 	$strSqlScriptFileName = split-path $strSqlScriptFile -leaf
@@ -682,7 +712,7 @@ function TearDownDatabaseSchema ($strDbTypeName, $strUserName, $strUserPassword,
 		}
 		
 		"teradata" {
-			$RetVal = TearDownTeradataDatabase $strUserName $strUserPassword $strJdbcUrl $strDatabaseName
+			$RetVal = TearDownTeradataDatabase $strUserName $strUserPassword $strJdbcUrl $strSchemaName
 		}
 		
 		"hsql" {
@@ -738,6 +768,9 @@ function ExecSqlScript ($strUserName, $strUserPassword, $strJdbcDriver, $strJdbc
 	$strCmdStdOut = & $strCmdLineCmd /p $strCmdLineArgs 2>&1
 	if (($?) -and ($LastExitCode -eq 0)) {
 		write-host "$IM completed creation of JAR file <$strClassPathJarFile>"
+		write-host "$IM start of command output <"
+		write-host $strCmdStdOut
+		write-host "$IM > end of command output"
 	}
 	else {
 		write-host "$EM executing command line <$strCmdLineCmd>"
