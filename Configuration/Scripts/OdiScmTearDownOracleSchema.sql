@@ -12,38 +12,96 @@ BEGIN
                                   ELSE ''
                               END
                                  AS command_tail
-                        FROM all_objects
-                       WHERE object_type
-                         NOT
-                          IN (
-                             'LOB'
-                           , 'INDEX'
+                        FROM (
+                             SELECT log_owner
+                                        AS owner
+                                  , master
+                                        AS object_name
+                                  , NULL
+                                        AS subobject_name
+                                  , 'MATERIALIZED VIEW LOG ON'
+                                        AS object_type
+                               FROM all_mview_logs
+                              UNION
+                             SELECT owner
+                                  , object_name
+                                  , subobject_name
+                                  , object_type
+                               FROM all_objects
+                              WHERE
+                                NOT (
+                                    -- Ignore Materialised View log tables.
+                                    -- These have a table name of LIKE 'MLOG$_'.
+                                    object_type = 'TABLE'
+                                AND (
+                                    owner
+                                  , object_name
+                                    )
+                                 IN (
+                                    SELECT log_owner
+                                         , log_table
+                                      FROM all_mview_logs
+                                     WHERE UPPER(log_owner) = UPPER('<OdiScmPhysicalSchemaName>')
+                                    )
+                                    )
+                                AND
+                                NOT (
+                                    -- Ignore Materialised View tables.
+                                    object_type = 'TABLE'
+                                AND (
+                                    owner
+                                  , object_name
+                                    )
+                                 IN (
+                                    SELECT owner
+                                         , mview_name
+                                      FROM all_mviews
+                                     WHERE UPPER(owner) = UPPER('<OdiScmPhysicalSchemaName>')
+                                    )
+                                    )
+                                AND
+                                NOT (
+                                    -- Ignore Updatable Materialised View tables.
+                                    object_type = 'TABLE'
+                                AND object_name LIKE 'RUPD$_'
+                                    )
+                                AND
+                                NOT (
+                                    -- We drop these types of object when we drop their parent object.
+                                    object_type
+                                 IN (
+                                    'LOB'
+                                  , 'INDEX'
+                                    )
+                                    )
                              )
-                         AND UPPER(owner) = UPPER('<OdiScmPhysicalSchemaName>')
+                       WHERE UPPER(owner) = UPPER('<OdiScmPhysicalSchemaName>')
                        ORDER
-                          BY CASE WHEN object_type = 'VIEW'
-                                  THEN 1
+                          BY CASE WHEN object_type = 'TRIGGER'
+                                  THEN 100
                                   WHEN object_type = 'PROCEDURE'	-- Stand alone procedures.
                                    AND subobject_name IS NULL
-                                  THEN 2
+                                  THEN 200
                                   WHEN object_type = 'FUNCTION'		-- Stand alone functions.
                                    AND subobject_name IS NULL
-                                  THEN 3
+                                  THEN 300
                                   WHEN object_type = 'PROCEDURE'	-- Package procedures.
                                    AND subobject_name IS NOT NULL
-                                  THEN 4
+                                  THEN 400
                                   WHEN object_type = 'FUNCTION'		-- Package functions.
                                    AND subobject_name IS NOT NULL
-                                  THEN 5
-                                  WHEN object_type = 'TABLE'
-                                  THEN 6
+                                  THEN 500
                                   WHEN object_type = 'PACKAGE'
-                                  THEN 7
+                                  THEN 600
                                   WHEN object_type = 'PACKAGE BODY'
-                                  THEN 8
+                                  THEN 700
+                                  WHEN object_type = 'VIEW'
+                                  THEN 800
+                                  WHEN object_type = 'TABLE'
+                                  THEN 900
                                   WHEN object_type = 'DATABASE LINK'
-                                  THEN 7
-                                  ELSE 999
+                                  THEN 1000
+                                  ELSE 9999
                               END
                       )
     LOOP

@@ -48,7 +48,7 @@ echo else { >>%TEMPPSSCRIPT%
 echo 	exit 0 >>%TEMPPSSCRIPT%
 echo } >>%TEMPPSSCRIPT%
 
-echo %IM% execting temporary PowerShell script ^<%TEMPPSSCRIPT%^>
+rem echo %IM% execting temporary PowerShell script ^<%TEMPPSSCRIPT%^>
 PowerShell -Command "& { %TEMPPSSCRIPT% ; exit $LASTEXITCODE }"
 if ERRORLEVEL 1 (
 	echo %EM% execting temporary PowerShell script ^<%TEMPPSSCRIPT%^> 1>&2 

@@ -39,12 +39,13 @@ function ExecHSqlSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strSch
 		}
 	}
 	
-	$strNoGoSqlScript = "$env:TEMPDIR\ExecHSqlSqlScript_${strSchemaName}.sql"
+	$strSqlScriptName = split-path $strSqlScript -leaf
+	$strNoGoSqlScript = "$env:TEMPDIR\${strSqlScriptName}_${strSchemaName}.sql"
 	set-content -path $strNoGoSqlScript -value $arrStrOut
 	
 	$strNoGoSqlScriptFileName = split-path $strNoGoSqlScript -leaf
-	$strStdOutLogFile = "$env:TEMPDIR\ExecHSqlSqlScript_${strSchemaName}_StdOut.log"
-	$strStdErrLogFile = "$env:TEMPDIR\ExecHSqlSqlScript_${strSchemaName}_StdErr.log"
+	$strStdOutLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_${strSchemaName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_${strSchemaName}_StdErr.log"
 	
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile
 	if (!($blnResult)) {
@@ -111,12 +112,13 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 		}
 	}
 	
-	$strNoGoSqlScript = "$env:TEMPDIR\ExecSqlServerSqlScript_${strDatabaseName}.sql"
+	$strSqlScriptName = split-path $strSqlScript -leaf
+	$strNoGoSqlScript = "$env:TEMPDIR\${strSqlScriptName}_${strDatabaseName}.sql"
 	set-content -path $strNoGoSqlScript -value $arrStrOut
 	
 	$strNoGoSqlScriptFileName = split-path $strNoGoSqlScript -leaf
-	$strStdOutLogFile = "$env:TEMPDIR\ExecSqlServerSqlScript_${strDatabaseName}_StdOut.log"
-	$strStdErrLogFile = "$env:TEMPDIR\ExecSqlServerSqlScript_${strDatabaseName}_StdErr.log"
+	$strStdOutLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdErr.log"
 	
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile
 	if (!($blnResult)) {
@@ -169,12 +171,13 @@ function ExecOracleSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strS
 		}
 	}
 	
-	$strNoGoSqlScript = "$env:TEMPDIR\ExecOracleSqlScript_${strSchemaName}.sql"
+	$strSqlScriptName = split-path $strSqlScript -leaf
+	$strNoGoSqlScript = "$env:TEMPDIR\${strSqlScriptName}_${strSchemaName}.sql"
 	set-content -path $strNoGoSqlScript -value $arrStrOut
 	
 	$strNoGoSqlScriptFileName = split-path $strNoGoSqlScript -leaf
-	$strStdOutLogFile = "$env:TEMPDIR\ExecOracleSqlScript_${strSchemaName}_StdOut.log"
-	$strStdErrLogFile = "$env:TEMPDIR\ExecOracleSqlScript_${strSchemaName}_StdErr.log"
+	$strStdOutLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdErr.log"
 	
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile
 	if (!($blnResult)) {
@@ -252,12 +255,13 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 	
 	write-host "$IM completed changing end of statement markers"
 	
-	$strNoGoSqlScript = "$env:TEMPDIR\ExecTeradataSqlScript_${strDatabaseName}.sql"
+	$strSqlScriptName = split-path $strSqlScript -leaf
+	$strNoGoSqlScript = "$env:TEMPDIR\${strSqlScriptName}_${strDatabaseName}.sql"
 	set-content -path $strNoGoSqlScript -value $arrStrOut
 	
 	$strNoGoSqlScriptFileName = split-path $strNoGoSqlScript -leaf
-	$strStdOutLogFile = "$env:TEMPDIR\ExecTeradataSqlScript_${strDatabaseName}_StdOut.log"
-	$strStdErrLogFile = "$env:TEMPDIR\ExecTeradataSqlScript_${strDatabaseName}_StdErr.log"
+	$strStdOutLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdErr.log"
 	
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile
 	if (!($blnResult)) {
@@ -345,8 +349,8 @@ function TearDownHsqlSchema ($strUserName, $strUserPassword, $strJdbcUrl, $strSc
 	set-content -path $strSqlScriptFile -value $strTearDownTemplateContent
 	
 	$strSqlScriptFileName = split-path $strSqlScriptFile -leaf
-	$strStdOutLogFile = "$env:TEMPDIR\TearDownHSqlSchema_${strSqlScriptFileName}_StdOut.log"
-	$strStdErrLogFile = "$env:TEMPDIR\TearDownHSqlSchema_${strSqlScriptFileName}_StdErr.log"
+	$strStdOutLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdErr.log"
 	
 	#
 	# Run the script to generate the DROP statements.
@@ -360,7 +364,7 @@ function TearDownHsqlSchema ($strUserName, $strUserPassword, $strJdbcUrl, $strSc
 	#
 	# Create the DROP statements script.
 	#
-	$strDropScriptFile = "$env:TEMPDIR\OdiScmTearDownHSqlSchema_${strUserName}.sql"
+	$strDropScriptFile = "$env:TEMPDIR\OdiScmTearDownHSqlSchema_${strSchemaName}.sql"
 	$arrQueryLine = get-content -path $strStdOutLogFile
 	
 	$arrTearDownScriptContent = @()
@@ -377,8 +381,8 @@ function TearDownHsqlSchema ($strUserName, $strUserPassword, $strJdbcUrl, $strSc
 	# Run the DROP statements script.
 	#
 	$strDropScriptFileName = split-path $strDropScriptFile -leaf
-	$strStdOutLogFile = "$env:TEMPDIR\TearDownHSqlSchema_${strDropScriptFileName}_StdOut.log"
-	$strStdErrLogFile = "$env:TEMPDIR\TearDownHSqlSchema_${strDropScriptFileName}_StdErr.log"
+	$strStdOutLogFile = "$env:TEMPDIR\${strDropScriptFileName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\${strDropScriptFileName}_StdErr.log"
 	
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strDropScriptFile $strStdOutLogFile $strStdErrLogFile
 	if (!($blnResult)) {
@@ -413,12 +417,12 @@ function TearDownSqlServerSchema ($strUserName, $strUserPassword, $strJdbcUrl, $
 	$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmPhysicalSchemaName>", $strSchemaName
 	$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmDatabaseName>", $strDatabaseName
 	
-	$strSqlScriptFile = "$env:TEMPDIR\OdiScmTearDownSqlServerSchema_${strSchemaName}.sql"
+	$strSqlScriptFile = "$env:TEMPDIR\OdiScmTearDownSqlServerSchema_${strDatabaseName}.${strSchemaName}.sql"
 	set-content -path $strSqlScriptFile -value $strTearDownTemplateContent
 	
 	$strSqlScriptFileName = split-path $strSqlScriptFile -leaf
-	$strStdOutLogFile = "$env:TEMPDIR\TearDownSqlServerSchema_${strSqlScriptFileName}_StdOut.log"
-	$strStdErrLogFile = "$env:TEMPDIR\TearDownSqlServerSchema_${strSqlScriptFileName}_StdErr.log"
+	$strStdOutLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdErr.log"
 	
 	#
 	# Specify the database in the JDBC URL.
@@ -443,7 +447,7 @@ function TearDownSqlServerSchema ($strUserName, $strUserPassword, $strJdbcUrl, $
 	#
 	# Create the DROP statements script.
 	#
-	$strDropScriptFile = "$env:TEMPDIR\OdiScmTearDownSqlServerSchema_${strUserName}.sql"
+	$strDropScriptFile = "$env:TEMPDIR\OdiScmTearDownSqlServerSchema_${strDatabaseName}.${strSchemaName}.sql"
 	$arrQueryLine = get-content -path $strStdOutLogFile
 	if ($arrQueryLine -eq $Null) {
 		#
@@ -465,8 +469,8 @@ function TearDownSqlServerSchema ($strUserName, $strUserPassword, $strJdbcUrl, $
 	# Run the DROP statements script.
 	#
 	$strDropScriptFileName = split-path $strDropScriptFile -leaf
-	$strStdOutLogFile = "$env:TEMPDIR\TearDownSqlServerSchema_${strDropScriptFileName}_StdOut.log"
-	$strStdErrLogFile = "$env:TEMPDIR\TearDownSqlServerSchema_${strDropScriptFileName}_StdErr.log"
+	$strStdOutLogFile = "$env:TEMPDIR\${strDropScriptFileName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\${strDropScriptFileName}_StdErr.log"
 	
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strDropScriptFile $strStdOutLogFile $strStdErrLogFile
 	if (!($blnResult)) {
@@ -504,8 +508,8 @@ function TearDownOracleSchema ($strUserName, $strUserPassword, $strJdbcUrl, $str
 	set-content -path $strSqlScriptFile -value $strTearDownTemplateContent
 	
 	$strSqlScriptFileName = split-path $strSqlScriptFile -leaf
-	$strStdOutLogFile = "$env:TEMPDIR\TearDownOracleSchema_${strSqlScriptFileName}_StdOut.log"
-	$strStdErrLogFile = "$env:TEMPDIR\TearDownOracleSchema_${strSqlScriptFileName}_StdErr.log"
+	$strStdOutLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdErr.log"
 	
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strSqlScriptFile $strStdOutLogFile $strStdErrLogFile
 	if (!($blnResult)) {
@@ -547,8 +551,8 @@ function TearDownTeradataDatabase ($strUserName, $strUserPassword, $strJdbcUrl, 
 	set-content -path $strSqlScriptFile -value $strTearDownTemplateContent
 	
 	$strSqlScriptFileName = split-path $strSqlScriptFile -leaf
-	$strStdOutLogFile = "$env:TEMPDIR\GenTearDownTeradataDatabaseUnamedFkCons_${strSqlScriptFileName}_StdOut.log"
-	$strStdErrLogFile = "$env:TEMPDIR\GenTearDownTeradataDatabaseUnamedFkCons_${strSqlScriptFileName}_StdErr.log"
+	$strStdOutLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdErr.log"
 	
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strSqlScriptFile $strStdOutLogFile $strStdErrLogFile
 	if (!($blnResult)) {
@@ -625,21 +629,6 @@ function TearDownTeradataDatabase ($strUserName, $strUserPassword, $strJdbcUrl, 
 		}
 	}
 	
-	set-content -path $strDropUnnamedFkConsScriptFile -value $arrOutQueryLines
-	
-	#
-	# Run the script to drop the unnamed FK constraints.
-	#
-	$strSqlScriptFileName = split-path $strDropUnnamedFkConsScriptFile -leaf
-	$strStdOutLogFile = "$env:TEMPDIR\TearDownTeradataDatabaseUnamedFkCons_${strSqlScriptFileName}_StdOut.log"
-	$strStdErrLogFile = "$env:TEMPDIR\TearDownTeradataDatabaseUnamedFkCons_${strSqlScriptFileName}_StdErr.log"
-	
-	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strDropUnnamedFkConsScriptFile $strStdOutLogFile $strStdErrLogFile
-	if (!($blnResult)) {
-		write-host "$EM executing SQL script file <$strDropUnnamedFkConsScriptFile>"
-		return $False
-	}
-	
 	#
 	# Process all other objects.
 	#
@@ -650,8 +639,8 @@ function TearDownTeradataDatabase ($strUserName, $strUserPassword, $strJdbcUrl, 
 	set-content -path $strSqlScriptFile -value $strTearDownTemplateContent
 	
 	$strSqlScriptFileName = split-path $strSqlScriptFile -leaf
-	$strStdOutLogFile = "$env:TEMPDIR\TearDownTeradataDatabase_${strSqlScriptFileName}_StdOut.log"
-	$strStdErrLogFile = "$env:TEMPDIR\TearDownTeradataDatabase_${strSqlScriptFileName}_StdErr.log"
+	$strStdOutLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdErr.log"
 	
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strSqlScriptFile $strStdOutLogFile $strStdErrLogFile
 	if (!($blnResult)) {
@@ -660,9 +649,9 @@ function TearDownTeradataDatabase ($strUserName, $strUserPassword, $strJdbcUrl, 
 	}
 	
 	#
-	# Define the other objects drop script name.
+	# Define the *all* objects drop script name.
 	#
-	$strDropScriptFile = "$env:TEMPDIR\OdiScmTearDownTd_${strUserName}.sql"
+	$strDropScriptFile = "$env:TEMPDIR\OdiScmTearDownTd_${strDatabaseName}.sql"
 	$arrQueryLine = get-content -path $strStdOutLogFile
 	
 	$arrTearDownOthersScriptContent = @()
@@ -673,14 +662,16 @@ function TearDownTeradataDatabase ($strUserName, $strUserPassword, $strJdbcUrl, 
 		$arrTearDownOthersScriptContent += ($strLine + [Environment]::NewLine + "/" + [Environment]::NewLine)
 	}
 	
-	set-content -path $strDropScriptFile -value $arrTearDownOthersScriptContent
+	$arrStrDropAllObjsScriptContent  = $arrOutQueryLines
+	$arrStrDropAllObjsScriptContent += $arrTearDownOthersScriptContent
+	set-content -path $strDropScriptFile -value $arrStrDropAllObjsScriptContent
 	
 	#
 	# Run the script to drop the other objects.
 	#
 	$strDropScriptFileName = split-path $strDropScriptFile -leaf
-	$strStdOutLogFile = "$env:TEMPDIR\TearDownTeradataDatabase_${strDropScriptFileName}_StdOut.log"
-	$strStdErrLogFile = "$env:TEMPDIR\TearDownTeradataDatabase_${strDropScriptFileName}_StdErr.log"
+	$strStdOutLogFile = "$env:TEMPDIR\${strDropScriptFileName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\${strDropScriptFileName}_StdErr.log"
 	
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strDropScriptFile $strStdOutLogFile $strStdErrLogFile
 	if (!($blnResult)) {
@@ -747,32 +738,26 @@ function ExecSqlScript ($strUserName, $strUserPassword, $strJdbcDriver, $strJdbc
 		return $False
 	}
 	
-	write-host "$IM User Name     <$strUserName>"
-	write-host "$IM User Password <$strUserPassword>"
-	write-host "$IM JDBC Driver   <$strJdbcDriver>"
-	write-host "$IM JDBC URL      <$strJdbcUrl>"
+	# write-host "$IM User Name     <$strUserName>"
+	# write-host "$IM User Password <$strUserPassword>"
+	# write-host "$IM JDBC Driver   <$strJdbcDriver>"
+	# write-host "$IM JDBC URL      <$strJdbcUrl>"
 	write-host "$IM Script File   <$strSqlScriptFile>"
-	write-host "$IM StdOut File   <$strStdOutLogFile>"
-	write-host "$IM StdErr File   <$strStdErrLogFile>"
+	# write-host "$IM StdOut File   <$strStdOutLogFile>"
+	# write-host "$IM StdErr File   <$strStdErrLogFile>"
 	
 	$strClassPathJarFile = "$env:TEMPDIR\OdiScmExecSqlScript.jar"
 	
 	$strCmdLineCmd  = "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmCreateOdiClassPathJar.bat"
 	$strCmdLineArgs = '"' + $strClassPathJarFile + '"'
 	
-	write-host "$IM executing Jisql command line <$strCmdLineCmd $strCmdLineArgs>"
+	#write-host "$IM executing command line <$strCmdLineCmd $strCmdLineArgs>"
 	
 	#
 	# Execute the batch file process.
 	#
 	$strCmdStdOut = & $strCmdLineCmd /p $strCmdLineArgs 2>&1
-	if (($?) -and ($LastExitCode -eq 0)) {
-		write-host "$IM completed creation of JAR file <$strClassPathJarFile>"
-		write-host "$IM start of command output <"
-		write-host $strCmdStdOut
-		write-host "$IM > end of command output"
-	}
-	else {
+	if ((!($?)) -or ($LastExitCode -ne 0)) {
 		write-host "$EM executing command line <$strCmdLineCmd>"
 		write-host "$EM start of command output <"
 		write-host $strCmdStdOut
@@ -785,7 +770,7 @@ function ExecSqlScript ($strUserName, $strUserPassword, $strJdbcDriver, $strJdbc
 	$strCmdLineArgs += '"' + $strJdbcDriver + '" "' + $strJdbcUrl + '" "' + $strSqlScriptFile + '" "' + $strClassPathJarFile + '" "' + $strStdOutLogFile + '" '
 	$strCmdLineArgs += '"' + $strStdErrLogFile + '"'
 	
-	write-host "$IM executing command line <$strCmdLineCmd $strCmdLineArgs>"
+	#write-host "$IM executing command line <$strCmdLineCmd $strCmdLineArgs>"
 	
 	#
 	# Execute the batch file process.
@@ -799,6 +784,7 @@ function ExecSqlScript ($strUserName, $strUserPassword, $strJdbcDriver, $strJdbc
 				write-host "$IM start of StdErr file content <"
 				write-host "$strStdErrLogFileContent"
 				write-host "$IM > end of StdErr file content <"
+				return $False
 			}
 		}
 	}

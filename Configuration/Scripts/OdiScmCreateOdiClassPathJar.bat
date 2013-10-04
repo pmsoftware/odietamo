@@ -118,7 +118,7 @@ if not "%ODI_SCM_ORACLEDI_ORACLE_HOME%" == "" (
 rem
 rem Ensure the Class-Path entry ends with a new line character (LF or CR).
 rem
-echo.>>"%TEMPFILE%"
+rem echo.>>"%TEMPFILE%"
 
 rem
 rem Ensure the JDK is available.

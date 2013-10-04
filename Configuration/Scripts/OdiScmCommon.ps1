@@ -962,7 +962,19 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			# Add the output script command to tear down the database schema.
 			#
 			$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
-			$OutScriptContent += ('set MSG=tearing down database environment ^^^<' + $strUserNameKeyValue + '@' + $strJdbcUrlKeyValue + '^^^>')
+			
+			$strDbContainerName = ""
+			if ($strDatabaseKeyValue -ne "" -and $strDatabaseKeyValue -ne $Null) {
+				$strDbContainerName = $strDatabaseKeyValue
+			}
+			if ($strDefPhysSchemaKeyValue -ne "" -and $strDefPhysSchemaKeyValue -ne $Null) {
+				if ($strDbContainerName -ne "") {
+					$strDbContainerName += "."
+				}
+				$strDbContainerName += $strDatabaseKeyValue
+			}
+			
+			$OutScriptContent += ('set MSG=tearing down database environment ^^^<' + $strDbContainerName + '@' + $strJdbcUrlKeyValue + '^^^>')
 			$OutScriptContent += 'echo %IM% %MSG%'
 			
 			$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownDatabaseSchema.bat" /p '
@@ -981,7 +993,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			# Add the output script command to set up the database environment.
 			#
 			$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
-			$OutScriptContent += ('set MSG=setting up database environment ^^^<' + $strUserNameKeyValue + '@' + $strJdbcUrlKeyValue + '^^^>')
+			$OutScriptContent += ('set MSG=setting up database environment ^^^<' + $strDbContainerName + '@' + $strJdbcUrlKeyValue + '^^^>')
 		}
 		else {
 			$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
