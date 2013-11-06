@@ -74,6 +74,15 @@ BEGIN
                                   , 'INDEX'
                                     )
                                     )
+                              UNION
+                             SELECT owner
+                                  , db_link
+                                        AS object_name
+                                  , NULL
+                                        AS subobject_name
+                                  , 'DATABASE LINK'
+                                        AS object_type
+                               FROM all_db_links
                              )
                        WHERE UPPER(owner) = UPPER('<OdiScmPhysicalSchemaName>')
                        ORDER
@@ -106,8 +115,19 @@ BEGIN
                       )
     LOOP
         BEGIN
-            dbms_output.put_line('Dropping object ' || c_repo_obj.owner || '.' || c_repo_obj.object_name || ' of type ' || c_repo_obj.object_type);
-            EXECUTE IMMEDIATE('DROP ' || c_repo_obj.object_type || ' ' || c_repo_obj.owner || '.' || c_repo_obj.object_name || c_repo_obj.command_tail);
+            IF (c_repo_obj.object_type != 'DATABASE LINK')
+            THEN
+                dbms_output.put_line('Dropping object ' || c_repo_obj.owner || '.' || c_repo_obj.object_name || ' of type ' || c_repo_obj.object_type);
+                EXECUTE IMMEDIATE('DROP ' || c_repo_obj.object_type || ' ' || c_repo_obj.owner || '.' || c_repo_obj.object_name || c_repo_obj.command_tail);
+            ELSE
+                IF (USER = c_repo_obj.owner)
+                THEN
+                    dbms_output.put_line('Dropping database link ' || c_repo_obj.object_name || ' owned by ' || c_repo_obj.owner);
+                    EXECUTE IMMEDIATE('DROP DATABASE LINK ' || c_repo_obj.object_name);
+                ELSE
+                    raise_application_error(-20000, 'Cannot drop database link ' || c_repo_obj.owner || '.' || c_repo_obj.object_name || ' as it is owned by a different user to the logged in user (' || user || ')');
+                END IF;
+            END IF;
         EXCEPTION
             WHEN OTHERS
                 THEN raise_application_error(-20000, 'Cannot drop ' || c_repo_obj.object_type || ' ' || c_repo_obj.owner || '.' || c_repo_obj.object_name);

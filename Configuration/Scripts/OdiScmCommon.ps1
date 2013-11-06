@@ -2596,13 +2596,12 @@ function SetOutputNames {
 	$WM = $FN + ": WARNING:"
 	$DEBUG = $FN + ": DEBUG:"
 	
-	$script:OutputTag = $env:ODI_SCM_GENERATE_OUTPUT_TAG
-	
-	if (($OutputTag -eq $Null) -or ($OutputTag -eq "")) {
-		$OutputTag = ${VersionString}
+	if (($env:ODI_SCM_GENERATE_OUTPUT_TAG -eq $Null) -or ($env:ODI_SCM_GENERATE_OUTPUT_TAG -eq "")) {
+		$script:OutputTag = ${VersionString}
 		write-host "$IM using variable output tag <$OutputTag>"
 	}
 	else {
+		$script:OutputTag = $env:ODI_SCM_GENERATE_OUTPUT_TAG
 		write-host "$IM using fixed output tag <$OutputTag>"
 	}
 	
