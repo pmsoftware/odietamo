@@ -169,7 +169,7 @@ if ERRORLEVEL 1 goto MainExitFail
 rem
 rem Generate the unit test execution script.
 rem
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmHomeDir>\Configuration\Scripts\OdiScmGenerateUnitTestExecs.bat" /p "<OdiScmUnitTestExecBat>" "%ODI_SCM_GENERATE_BUILD_TEST_SCOPE%"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmHomeDir>\Configuration\Scripts\OdiScmGenerateUnitTestExecs.bat" /p "<OdiScmUnitTestExecBat>" "<OdiScmGenerateBuildTestScope>"
 if ERRORLEVEL 1 (
 	echo %EM% generating unit test execution script ^<OdiScmUnitTestExecBat^>
 	goto MainExitFail

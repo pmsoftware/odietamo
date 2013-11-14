@@ -79,6 +79,50 @@ goto ExitFail
 
 :BatchFileCompleted20
 
+rem
+rem Detect any existing temporary objects from previous runs (or, even worse, from the SCM system).
+rem
+call :SetDateTimeStrings
+
+set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen25_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
+set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen25_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
+
+call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" <OdiScmHomeDir>\Configuration\Scripts\OdiScmGenScen25ReportTempObjs.sql %STDOUTFILE% %STDERRFILE%
+if ERRORLEVEL 1 (
+	echo %EM% Batch file OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL
+	echo %EM% Check StdOut content in file ^<%STDOUTFILE%^>
+	echo %EM% Check StdErr content in file ^<%STDERRFILE%^>
+	echo %IM% StdErr content:
+	type %STDERRFILE%
+)
+
+rem
+rem The called batch file has returned a 0 errorlevel but check for anything in the stderr file.
+rem 
+echo %IM% Batch file OdiScmJisqlRepo.bat returned zero ERRORLEVEL
+fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
+if ERRORLEVEL 1 (
+	echo %EM% StdErr content: 1>&2
+	type %STDERRFILE% 1>&2
+	set EXITSTATUS=1
+	goto ExitFail
+)
+
+rem
+rem Check for any content in the stdout file (temporary object markers).
+rem
+fc %EMPTYFILE% %STDOUTFILE% >NUL 2>NUL
+if ERRORLEVEL 1 (
+	echo %EM% detected existing ODI-SCM temporary object marker objects in the ODI repository 1>&2
+	echo %EM% StdOut content: 1>&2
+	type %STDOUTFILE% 1>&2
+	set EXITSTATUS=1
+	goto ExitFail
+)
+
+rem
+rem Mark up any new or changed objects.
+rem
 call :SetDateTimeStrings
 
 set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen30_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt

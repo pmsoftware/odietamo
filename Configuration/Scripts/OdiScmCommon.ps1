@@ -3218,6 +3218,7 @@ function SetTopLevelScriptContent ($NextImportChangeSetRange) {
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiStandardsCheckScript>", $OdiScmConfig["Test"]["ODI Standards Script"])
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmGenerateImportResetsFlushControl>", $OdiScmConfig["Generate"]["Import Resets Flush Control"])
 	
+	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmGenerateBuildTestScope>", $env:ODI_SCM_GENERATE_BUILD_TEST_SCOPE)
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmFitNesseJavaHomeDir>", $env:ODI_SCM_TOOLS_FITNESSE_JAVA_HOME)
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmFitNesseHomeDir>", $env:ODI_SCM_TOOLS_FITNESSE_HOME)
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmFitNesseOutputFormat>", $env:ODI_SCM_TEST_FITNESSE_OUTPUT_FORMAT)
