@@ -161,7 +161,14 @@ So, the configuration file is really the persisted environment for the ODI-SCM c
 |                  |                               |directory containing the ``bin`` and|                                                             |
 |                  |                               |``usr`` directories.                |                                                             |
 +------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
-|Generate          |Export Ref Phys Arch Only      |Controls whether ODI-SCM export     |``No``                                                       |
+|Generate          |Build Test Scope               |Determines whether an incremental   |``incremental``                                              |
+|                  |                               |or full set of unit test executions |                                                             |
+|                  |                               |are generated, to be executed after |                                                             |
+|                  |                               |the completion of the build process.|                                                             |
+|                  |                               |Valid values are ``incremental`` and|                                                             |
+|                  |                               |``full``.                           |                                                             |
+|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                  |Export Ref Phys Arch Only      |Controls whether ODI-SCM export     |``No``                                                       |
 |                  |                               |operations (export and flush) will  |                                                             |
 |                  |                               |export non *reference* Topology     |                                                             |
 |                  |                               |objects. For more on this subject   |                                                             |

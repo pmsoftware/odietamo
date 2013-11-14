@@ -17,8 +17,7 @@ DELETE
        )
 /
 
-ANALYZE TABLE snp_obj_state ESTIMATE STATISTICS
-/
+
 
 DELETE
   FROM snp_state2
@@ -31,8 +30,19 @@ DELETE
        )
 /
 
+DELETE
+  FROM snp_grp_state
+ WHERE grp_state_code = 'ODISCM_TEMPORARY'
+/
+
 COMMIT
 /
 
+ANALYZE TABLE snp_obj_state ESTIMATE STATISTICS
+/
+
 ANALYZE TABLE snp_state2 ESTIMATE STATISTICS
+/
+
+ANALYZE TABLE snp_grp_state ESTIMATE STATISTICS
 /
