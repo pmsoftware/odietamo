@@ -69,7 +69,7 @@ echo %IM% reading commands from file ^<%STDOUTFILE%^>
 for /f "tokens=1 delims=" %%g in (%STDOUTFILE%) do (
 	call :TrimSpace %%g
 	echo %IM% Read command from stdout ^<!TSOutput!^>
-	call :ExecBatchCommand %TSOutput%
+	call :ExecBatchCommand !TSOutput!
 )
 echo %IM% completed execution of batch file commands with ^<%BATCHFILEERRCOUNT%^> errors
 if %BATCHFILEERRCOUNT%==0 goto BatchFileCompleted20

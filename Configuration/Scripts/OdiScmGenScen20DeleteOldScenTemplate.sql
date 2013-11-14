@@ -3,7 +3,7 @@
 -- We delete scenarios for objects that have been updated by an import process
 -- We don't care if the source object has been marked or not as 'should have a scenario'.
 --
-SELECT 'call <OdiScmOdiStartCmdBat> OdiDeleteScen "-SCEN_NAME='
+SELECT 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmOdiStartCmdBat>" OdiDeleteScen "-SCEN_NAME='
     || scen_name
     || '" "-SCEN_VERSION='
     || scen_version
