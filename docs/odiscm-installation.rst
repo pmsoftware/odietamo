@@ -168,6 +168,6 @@ Add a new environment variable ODI_SCM_HOME (My Computer -> Advanced -> Environm
 
 Next, add the ODI-SCM scripts directory::
 
-	C:\OdiScm\odietamo-master\Configuration\Scripts
+	%ODI_SCM_HOME%\Configuration\Scripts
 
-to the PATH environment variable ODI_SCM_HOME (My Computer -> Advanced -> Environment Variables) either in the User or System sections.
+to the PATH environment variable (My Computer -> Advanced -> Environment Variables) either in the User or System sections.
