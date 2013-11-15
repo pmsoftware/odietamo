@@ -956,7 +956,11 @@ SELECT i_techno
    AND p.schema_name LIKE 'REF_%'
    AND p.ext_name LIKE 'REF_%'
        )
-       )]]></Field>
+       )
+       --
+       -- Currently disabled as exported in SnpContext objects.
+       --
+   AND 1 = 0]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTask">
@@ -2137,7 +2141,11 @@ SELECT i_techno
    AND p.schema_name LIKE 'REF_%'
    AND p.ext_name LIKE 'REF_%'
        )
-       )]]></Field>
+       )
+       --
+       -- Currently disabled as exported in SnpContext objects.
+       --
+   AND 1 = 0]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>

@@ -506,14 +506,13 @@
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[ext c
     ON pc.i_context = c.i_context
- WHERE l.last_date >=
-       (
-       SELECT flush_from_datetime
-         FROM odiscm_master_flush_controls
-        WHERE odi_user_name =
-              (
-              SELECT user_name
-                FROM snp_]]></Field>
+ WHERE (
+       '#OS.ExportReferencePhysicalArchitectureOnlyInd' = 'No'
+    OR (
+       c.context_name = 'REFERENCE'
+   AND c.context_code = 'REFERENCE'
+   AND p.schema_name LIKE 'REF_%'
+   AND p.ext_name LIKE ]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -523,30 +522,14 @@
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[50998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[session@odiworkrep_data
-               WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
-              )
+	<Field name="Txt" type="java.lang.String"><![CDATA['REF_%'
        )
-   AND (
-       '#OS.ExportReferencePhysicalArchitectureOnlyInd' = 'No'
-    OR (
-       c.context_name = 'REFERENCE'
-   AND c.context_c]]></Field>
+       )
+       --
+       -- Currently disabled as exported in SnpContext objects.
+       --
+   AND 1 = 0]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[50998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ode = 'REFERENCE'
-   AND p.schema_name LIKE 'REF_%'
-   AND p.ext_name LIKE 'REF_%'
-       )
-       )]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
 		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[1]]></Field>
@@ -1194,18 +1177,7 @@
  INNER
   JOIN snp_context c
     ON pc.i_context = c.i_context
- WHERE l.last_date >=
-       (
-       SELECT flush_from_datetime
-         FROM odiscm_master_flush_controls
-        WHERE odi_user_name =
-              (
-              SELECT user_name
-                FROM snp_session@odiworkrep_data
-               WHERE sess_no = <%=odiRef.getSession("SESS_NO")%>
-              )
-       )
-   AND (
+ WHERE (
        '#ExportReferencePhysicalArchitectureOnlyInd' = 'No'
     OR (
        c.context_name = 'REFERENCE'
@@ -1213,7 +1185,11 @@
    AND p.schema_name LIKE 'REF_%'
    AND p.ext_name LIKE 'REF_%'
        )
-       )]]></Field>
+       )
+       --
+       -- Currently disabled as exported in SnpContext objects.
+       --
+   AND 1 = 0]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
@@ -1244,7 +1220,7 @@
 	<Field name="UeOrigNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="UeUsedNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="VarPlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[19]]></Field>
+	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[18]]></Field>
 	<Field name="OriginRepositoryID" type="com.sunopsis.sql.DbInt">null</Field>
 </Object>
 </SunopsisExport>
