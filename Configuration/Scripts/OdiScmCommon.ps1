@@ -574,7 +574,7 @@ function GenerateOdiImportScript ([array] $arrStrFilesToImport) {
 					$ImportText += 'call "' + $ScriptsRootDir + '\OdiScmFork.bat" ^"' + $OdiScmOdiStartCmdBat + '^" OdiImportObject ' + '-FILE_NAME=' + $SourceFile + " -IMPORT_MODE=$ODIImportModeUpdate -WORK_REP_NAME=$OdiRepoWORK_REP_NAME" + [Environment]::NewLine
 				}
 				$ImportText += "if ERRORLEVEL 1 goto ExitFail" + [Environment]::NewLine
-				$ImportText += "echo %IM% import of file ^<" + $FileToImportName + "^> completed succesfully" + [Environment]::NewLine
+				$ImportText += "echo %IM% import of file ^<" + $FileToImportName + "^> completed successfully" + [Environment]::NewLine
 				$ImportText | out-file -filepath $OdiImportScriptFile -encoding ASCII -append
 			}
 		}
