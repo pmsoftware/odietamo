@@ -57,7 +57,26 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%STARTCMDBAT%^" OdiStartScen -SCEN_NAME=%ARGV1% -SCEN_VERSION=-1 -CONTEXT=%ODI_SCM_TEST_ORACLEDI_CONTEXT%
+set /a ODIFIRSTVAR=%LASTARG% + 1
+set OUTSTRING=
+
+setlocal enabledelayedexpansion
+set VARORVAL=VAR
+
+for /l %%n in (%ODIFIRSTVAR%, 1, %ARGC%) do (
+	set VARNAME=ARGV%%n
+	if "!OUTSTRING!" == "" (
+		set OUTSTRING="
+	) else (
+		set OUTSTRING=!OUTSTRING! "
+	)
+	call :AppendStringDynamic !VARNAME!
+	set OUTSTRING=!OUTSTRING!"
+)
+
+set ODIVARVALS=%OUTSTRING%
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%STARTCMDBAT%" OdiStartScen "-SCEN_NAME=%ARGV1%" "-SCEN_VERSION=-1" "-CONTEXT=%EXECONTEXT%" %ODIVARVALS%
 if ERRORLEVEL 1 (
 	echo %EM% executing ODI Scenario ^<%ARGV1%^> in context ^<%ODI_SCM_TEST_ORACLEDI_CONTEXT%^> 1>&2
 	goto ExitFail
@@ -78,6 +97,16 @@ rem ===============================================
 rem -----------------------------------------------
 :ShowUsage
 rem -----------------------------------------------
-echo %EM% usage: %PROC% ^<ODI Scenario Name^>  [^<ODI Execution Context^>] [^<ODI Scenario Version^>] 1>&2
+echo %EM% usage: %PROC% ^<ODI Scenario Name^>  [^<ODI Execution Context^>] [^<ODI Scenario Version^>] [[^<ODI Variable Assignment 1^>]...[^<ODI Variable Assignment N>]] 1>&2
 echo %EM%      : default ODI Execution Context is value of environment variable ODI_SCM_TEST_ORACLEDI_CONTEXT 1>&2
 echo %EM%      : default ODI Scenario Version is -1 1>&2
+echo %EM%      : NOTE: variable assignments are specified as VAR=VAL and must be enclosed in double quotes 1>&2
+goto :eof
+
+rem -----------------------------------------------
+:AppendStringDynamic
+rem -----------------------------------------------
+set VARNAME=%1
+set VARVAL=%%%VARNAME%%%
+call set OUTSTRING=%OUTSTRING%%VARVAL%
+goto :eof
