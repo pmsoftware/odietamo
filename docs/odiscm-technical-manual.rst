@@ -121,6 +121,13 @@ So, the configuration file is really the persisted environment for the ODI-SCM c
 |                  |Working Copy Root              |The root directory of the SVN       |``C:/OdiScmWalkThrough/Repo2WorkingCopy``                    |
 |                  |                               |working copy / TFS workspace.       |                                                             |
 |                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                  |OracleDI Working Copy Root     |The root directory, relative to the |``src/oracledi``                                             |
+|                  |                               |working copy root directory, of the |                                                             |
+|                  |                               |ODI code.                           |                                                             |
+|                  |                               |Must be within the working copy     |                                                             |
+|                  |                               |directory tree. I.e. avoid using    |                                                             |
+|                  |                               |".." in this path.                  |                                                             |
+|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
 |                  |Working Root                   |The working directory where the     |``C:/OdiScmWalkThrough/Temp2``                               |
 |                  |                               |ODI-SCM export mechanism can create |                                                             |
 |                  |                               |temporary/working files.            |                                                             |

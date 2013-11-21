@@ -2230,6 +2230,13 @@ function GetOdiScmConfiguration {
 		}
 	}
 	
+	$OdiWorkingCopyRootDir = $OdiScmConfig["SCM System"]["OracleDI Working Copy Root"]
+	
+	if (($OdiWorkingCopyRootDir -eq $Null) -or ($OdiWorkingCopyRootDir -eq "")) {
+		write-host "$EM cannot retrieve OracleDI working copy root directory from configuration INI file"
+		return $False
+	}
+	
 	#
 	# Determine the ODI home directory to use.
 	#
@@ -3759,6 +3766,7 @@ function PrimeWriteHost {
 $VersionString = get-date -format "yyyyMMdd_HHmmss"
 
 $WorkingCopyRootDir = ""
+$OdiWorkingCopyRootDir = ""
 
 $ConfigurationFolder = $env:ODI_SCM_HOME + "\Configuration"
 

@@ -277,8 +277,8 @@ for /f %%g in ('dir /s /b "%TEMPOBJSDIR%\*.SnpConnect"') do (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
-	set WCROOT=%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT:\=/%
-	rem set WCROOT=!WCROOT!%WCAPPEND%
+	set WCROOT=%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%/%ODI_SCM_SCM_SYSTEM_ORACLEDI_WORKING_COPY_ROOT%
+	set WCROOT=!WCROOT:\=/!
 	set WCROOT=!WCROOT:/=\/!
 	cat "%%g.4" | sed s/"<OdiScmWorkingCopyDir>"/"!WCROOT!"/g > %%g.5
 	if ERRORLEVEL 1 (
