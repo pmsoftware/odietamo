@@ -355,7 +355,7 @@ MATCHED
                WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
               )
        )
-   AND 0 = 1 /*Disable Languages export to the SVN WC */]]></Field>
+   AND 0 = 1 /*Disable Languages export to the SCM WC */]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTask">
@@ -999,11 +999,13 @@ SELECT i_techno
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[11]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[UPDATE odiscm_master_flush_controls odfc
-   SET flush_from_datetime = flush_to_datetime
-     , last_updated_by_command_name = 'Flush Control Set Next: flush_from_datetime:=' || TO_CHAR(flush_to_datetime, 'YYYY-MM-DD HH24:MI:SS')
- WHERE odi_user_name ]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[= 
+       (
+       SELECT user_name
+         FROM snp_session@odiworkrep_data
+        WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
+       )]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
 		<Field name="Enc" type="java.lang.String">null</Field>
@@ -1012,13 +1014,11 @@ SELECT i_techno
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[11]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[= 
-       (
-       SELECT user_name
-         FROM snp_session@odiworkrep_data
-        WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
-       )]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[UPDATE odiscm_master_flush_controls odfc
+   SET flush_from_datetime = flush_to_datetime
+     , last_updated_by_command_name = 'Flush Control Set Next: flush_from_datetime:=' || TO_CHAR(flush_to_datetime, 'YYYY-MM-DD HH24:MI:SS')
+ WHERE odi_user_name ]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[168998]]></Field>
@@ -1336,7 +1336,7 @@ MATCHED
                WHERE sess_no = <%=odiRef.getSession("SESS_NO")%>
               )
        )
-   AND 0 = 1 /*Disable Languages export to the SVN WC */]]></Field>
+   AND 0 = 1 /*Disable Languages export to the SCM WC */]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>

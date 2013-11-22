@@ -9230,7 +9230,7 @@ i_pschema = -1]]></Field>
 	<Field name="KmDefault" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KmSrcTechno" type="java.lang.String">null</Field>
 	<Field name="KmTechno" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-15 23:05:30.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:37:28.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LChecksum" type="com.sunopsis.sql.DbInt"><![CDATA[3408]]></Field>
 	<Field name="LCode" type="java.lang.String">null</Field>
@@ -9240,7 +9240,7 @@ i_pschema = -1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScen">
 		<Field name="ExtVersion" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-11-15 23:05:40.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:37:39.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
 	<Field name="IndPromptParam" type="java.lang.String">null</Field>
@@ -9250,7 +9250,7 @@ i_pschema = -1]]></Field>
 	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[13998]]></Field>
 	<Field name="ITxtScen" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IVar" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-15 23:05:44.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:37:42.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="ScenName" type="java.lang.String"><![CDATA[OSUTL_EXPORT_MASTER_REPOSITORY]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[50998]]></Field>
@@ -9463,11 +9463,28 @@ i_pschema = -1]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[50998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[
- WHERE c.context_name = 'REFERENCE'
+ WHERE (
+       '#OS.ExportReferencePhysicalArchitectureOnlyInd' = 'No'
+    OR (
+       context_name = 'REFERENCE'
+   AND context_code = 'REFERENCE'
+   AND c.context_name = 'REFERENCE'
    AND c.context_code = 'REFERENCE'
-   AND p.schema_name LIKE 'REF_%'
-   AND p.ext_name LIKE 'REF_%']]></Field>
+   AND p.schema_name LIKE 'R]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[50998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[EF_%'
+   AND p.ext_name LIKE 'REF_%'
+       )
+       )]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTask">
 		<Field name="ColConnectId" type="java.lang.String">null</Field>
@@ -9518,8 +9535,13 @@ i_pschema = -1]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT i_context
            AS oid
   FROM snp_context
- WHERE context_name = 'REFERENCE'
-   AND context_code = 'REFERENCE']]></Field>
+ WHERE (
+       '#OS.ExportReferencePhysicalArchitectureOnlyInd' = 'No'
+    OR (
+       context_name = 'REFERENCE'
+   AND context_code = 'REFERENCE'
+       )
+       )]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTask">
@@ -9965,7 +9987,7 @@ i_pschema = -1]]></Field>
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:49:09.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:37:28.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[20]]></Field>
@@ -10002,18 +10024,25 @@ i_pschema = -1]]></Field>
  INNER
   JOIN snp_context c 
     ON pc.i_context = c.i_context
- WHERE c.context_name = 'REFERENCE'
+ WHERE (
+       '#ExportReferencePhysicalArchitectureOnlyInd' = 'No'
+    OR (
+       context_name = 'REFERENCE'
+   AND context_code = 'REFERENCE'
+   AND c.context_name = 'REFERENCE'
    AND c.context_code = 'REFERENCE'
    AND p.schema_name LIKE 'REF_%'
-   AND p.ext_name LIKE 'REF_%']]></Field>
+   AND p.ext_name LIKE 'REF_%'
+       )
+       )]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
-	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:44.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:37:28.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:44.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:37:28.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -10064,7 +10093,7 @@ i_pschema = -1]]></Field>
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:49:09.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:32:53.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[30]]></Field>
@@ -10092,16 +10121,21 @@ i_pschema = -1]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT i_context
            AS oid
   FROM snp_context
- WHERE context_name = 'REFERENCE'
-   AND context_code = 'REFERENCE']]></Field>
+ WHERE (
+       '#ExportReferencePhysicalArchitectureOnlyInd' = 'No'
+    OR (
+       context_name = 'REFERENCE'
+   AND context_code = 'REFERENCE'
+       )
+       )]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
-	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:44.0]]></Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:32:53.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:44.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:32:53.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -10152,7 +10186,7 @@ i_pschema = -1]]></Field>
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 22:07:35.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:37:28.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[40]]></Field>
@@ -10247,7 +10281,7 @@ i_pschema = -1]]></Field>
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-15 23:05:30.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:37:28.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[50]]></Field>
@@ -10340,7 +10374,7 @@ i_pschema = -1]]></Field>
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-15 23:05:30.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:37:28.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[60]]></Field>
@@ -10420,7 +10454,7 @@ i_pschema = -1]]></Field>
 	<Field name="KmDefault" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KmSrcTechno" type="java.lang.String">null</Field>
 	<Field name="KmTechno" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-15 23:02:24.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:33:18.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LChecksum" type="com.sunopsis.sql.DbInt"><![CDATA[3643]]></Field>
 	<Field name="LCode" type="java.lang.String">null</Field>
@@ -10430,7 +10464,7 @@ i_pschema = -1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScen">
 		<Field name="ExtVersion" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-11-15 23:02:34.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:38:01.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
 	<Field name="IndPromptParam" type="java.lang.String">null</Field>
@@ -10440,7 +10474,7 @@ i_pschema = -1]]></Field>
 	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[15998]]></Field>
 	<Field name="ITxtScen" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IVar" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-15 23:02:37.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:38:03.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="ScenName" type="java.lang.String"><![CDATA[OSUTL_FLUSH_MASTER_REPOSITORY]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
@@ -10759,7 +10793,7 @@ MATCHED
                WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
               )
        )
-   AND 0 = 1 /*Disable Languages export to the SVN WC */]]></Field>
+   AND 0 = 1 /*Disable Languages export to the SCM WC */]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTask">
@@ -11403,11 +11437,13 @@ SELECT i_techno
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[11]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[UPDATE odiscm_master_flush_controls odfc
-   SET flush_from_datetime = flush_to_datetime
-     , last_updated_by_command_name = 'Flush Control Set Next: flush_from_datetime:=' || TO_CHAR(flush_to_datetime, 'YYYY-MM-DD HH24:MI:SS')
- WHERE odi_user_name ]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[= 
+       (
+       SELECT user_name
+         FROM snp_session@odiworkrep_data
+        WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
+       )]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
 		<Field name="Enc" type="java.lang.String">null</Field>
@@ -11416,13 +11452,11 @@ SELECT i_techno
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[53998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[11]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[= 
-       (
-       SELECT user_name
-         FROM snp_session@odiworkrep_data
-        WHERE sess_no = <?=snpRef.getSession("SESS_NO") ?>
-       )]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[UPDATE odiscm_master_flush_controls odfc
+   SET flush_from_datetime = flush_to_datetime
+     , last_updated_by_command_name = 'Flush Control Set Next: flush_from_datetime:=' || TO_CHAR(flush_to_datetime, 'YYYY-MM-DD HH24:MI:SS')
+ WHERE odi_user_name ]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[168998]]></Field>
@@ -11437,9 +11471,9 @@ SELECT i_techno
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-11-15 23:02:24.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:33:18.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-15 23:02:24.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:33:18.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -11683,7 +11717,7 @@ MATCHED
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 16:15:54.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:33:18.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[20]]></Field>
@@ -11722,15 +11756,15 @@ MATCHED
                WHERE sess_no = <%=odiRef.getSession("SESS_NO")%>
               )
        )
-   AND 0 = 1 /*Disable Languages export to the SVN WC */]]></Field>
+   AND 0 = 1 /*Disable Languages export to the SCM WC */]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 15:29:58.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:33:18.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 15:29:58.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:33:18.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -12011,7 +12045,7 @@ SELECT i_techno
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 16:15:54.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-22 12:33:18.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[50]]></Field>
@@ -52315,7 +52349,7 @@ TFS "tf delete <file>"]]></Field>
 	<Field name="UeOrigNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="UeUsedNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="VarPlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[758]]></Field>
+	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[759]]></Field>
 	<Field name="OriginRepositoryID" type="com.sunopsis.sql.DbInt"><![CDATA[998]]></Field>
 </Object>
 </SunopsisExport>

@@ -249,11 +249,28 @@
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[50998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[
- WHERE c.context_name = 'REFERENCE'
+ WHERE (
+       '#OS.ExportReferencePhysicalArchitectureOnlyInd' = 'No'
+    OR (
+       context_name = 'REFERENCE'
+   AND context_code = 'REFERENCE'
+   AND c.context_name = 'REFERENCE'
    AND c.context_code = 'REFERENCE'
-   AND p.schema_name LIKE 'REF_%'
-   AND p.ext_name LIKE 'REF_%']]></Field>
+   AND p.schema_name LIKE 'R]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[50998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[EF_%'
+   AND p.ext_name LIKE 'REF_%'
+       )
+       )]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTask">
 		<Field name="ColConnectId" type="java.lang.String">null</Field>
@@ -304,8 +321,13 @@
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT i_context
            AS oid
   FROM snp_context
- WHERE context_name = 'REFERENCE'
-   AND context_code = 'REFERENCE']]></Field>
+ WHERE (
+       '#OS.ExportReferencePhysicalArchitectureOnlyInd' = 'No'
+    OR (
+       context_name = 'REFERENCE'
+   AND context_code = 'REFERENCE'
+       )
+       )]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTask">
@@ -800,13 +822,20 @@
  INNER
   JOIN snp_context c 
     ON pc.i_context = c.i_context
- WHERE c.context_name = 'REFERENCE'
+ WHERE (
+       '#ExportReferencePhysicalArchitectureOnlyInd' = 'No'
+    OR (
+       context_name = 'REFERENCE'
+   AND context_code = 'REFERENCE'
+   AND c.context_name = 'REFERENCE'
    AND c.context_code = 'REFERENCE'
    AND p.schema_name LIKE 'REF_%'
-   AND p.ext_name LIKE 'REF_%']]></Field>
+   AND p.ext_name LIKE 'REF_%'
+       )
+       )]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
-	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
@@ -890,13 +919,18 @@
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT i_context
            AS oid
   FROM snp_context
- WHERE context_name = 'REFERENCE'
-   AND context_code = 'REFERENCE']]></Field>
+ WHERE (
+       '#ExportReferencePhysicalArchitectureOnlyInd' = 'No'
+    OR (
+       context_name = 'REFERENCE'
+   AND context_code = 'REFERENCE'
+       )
+       )]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
-	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
+	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
 	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
@@ -1220,7 +1254,7 @@
 	<Field name="UeOrigNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="UeUsedNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="VarPlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[18]]></Field>
+	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[19]]></Field>
 	<Field name="OriginRepositoryID" type="com.sunopsis.sql.DbInt">null</Field>
 </Object>
 </SunopsisExport>

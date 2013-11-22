@@ -79,18 +79,14 @@ dir /s /b /o:n %IMPORT_DIR%\*.SnpTechno >>%OBJLISTFILE% 2>NUL
 dir /s /b /o:n %IMPORT_DIR%\*.SnpConnect >>%OBJLISTFILE% 2>NUL
 dir /s /b /o:n %IMPORT_DIR%\*.SnpPschema >>%OBJLISTFILE% 2>NUL
 rem
-rem SnpContext before SnpLschema because the SnpLschema files, not the
-rem SnpContext files contain the SnpContext/SnpLschema/SnpPschema mappings
-rem in our solution.
-rem
-dir /s /b /o:n %IMPORT_DIR%\*.SnpContext >>%OBJLISTFILE% 2>NUL
-rem
-rem SnpContext before SnpLschema because the SnpLschema files, not the
-rem SnpConext files contain the SnpContext/SnpLschema/SnpPschema mappings
+rem SnpLschema before SnpContext because the SnpContext files, not the
+rem SnpLschema files contain the SnpContext/SnpLschema/SnpPschema mappings
 rem in our solution.
 rem
 dir /s /b /o:n %IMPORT_DIR%\*.SnpLschema >>%OBJLISTFILE% 2>NUL
-dir /s /b /o:n %IMPORT_DIR%\*.SnpPschemaCont >>%OBJLISTFILE% 2>NUL
+rem Currently disabled as SnpPschemaCont objects are currently exported as part of SnpContext objects.
+rem dir /s /b /o:n %IMPORT_DIR%\*.SnpPschemaCont >>%OBJLISTFILE% 2>NUL
+dir /s /b /o:n %IMPORT_DIR%\*.SnpContext >>%OBJLISTFILE% 2>NUL
 rem
 rem Work Repository objects last.
 rem
