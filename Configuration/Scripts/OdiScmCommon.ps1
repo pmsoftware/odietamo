@@ -9,7 +9,7 @@ $ODIImportModeUpdate = 'SYNONYM_UPDATE'
 # Strings used to correctly generate the ODI object imports for nestable object types.
 #
 $orderedExtensions = @("*.SnpTechno","*.SnpLang","*.SnpConnect","*.SnpPschema","*.SnpLschema","*.SnpContext","*.SnpPschemaCont","*.SnpProject","*.SnpGrpState","*.SnpFolder","*.SnpVar","*.SnpUfunc","*.SnpTrt","*.SnpModFolder","*.SnpModel","*.SnpSubModel","*.SnpTable","*.SnpJoin","*.SnpSequence","*.SnpPop","*.SnpPackage","*.SnpObjState")
-$containerExtensions = @("*.SnpTechno","*.SnpConnect","*.SnpLschema","*.SnpModFolder","*.SnpModel","*.SnpSubModel","*.SnpProject","*.SnpFolder")
+$containerExtensions = @("*.SnpTechno","*.SnpConnect","*.SnpContext","*.SnpModFolder","*.SnpModel","*.SnpSubModel","*.SnpProject","*.SnpFolder")
 $nestableContainerExtensions = @("*.SnpModFolder","*.SnpSubModel","*.SnpFolder")
 $nestableContainerExtensionParentFields = @("ParIModFolder","ISmodParent","ParIFolder")
 $nestableContExtParBegin = '<Field name="XXXXXXXXXXXXXXXXXXXX" type="com.sunopsis.sql.DbInt"><![CDATA['

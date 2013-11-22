@@ -154,6 +154,21 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+REM Contexts.
+REM For the Global context we don't use SYNONYM_INSERT_UPDATE is this context might well exist already.
+REM We want to merge the demo mappings with any existing mappings for this context.
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%^" OdiImportObject -FILE_NAME=%ARGV1%\CTX_Global.xml -IMPORT_MODE=SYNONYM_UPDATE
+if ERRORLEVEL 1 (
+	echo %EM% exporting demo object
+	goto ExitFail
+)
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%^" OdiImportObject -FILE_NAME=%ARGV1%\CTX_Global.xml -IMPORT_MODE=SYNONYM_INSERT
+if ERRORLEVEL 1 (
+	echo %EM% exporting demo object
+	goto ExitFail
+)
+
 REM Models.
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPFILE%^" OdiImportObject -FILE_NAME=%ARGV1%\MOD_Orders_Application_-_HSQL.xml -IMPORT_MODE=SYNONYM_INSERT_UPDATE
 if ERRORLEVEL 1 (

@@ -167,7 +167,7 @@ for /f %%A in (%OBJLISTFILE%) do (
 	)
 	
 	set CONTAINEROBJTYPE=FALSE
-	for %%G in (SnpTechno SnpConnect SnpLschema SnpModFolder SnpModel SnpSubModel SnpProject SnpFolder) do (
+	for %%G in (SnpTechno SnpConnect SnpContext SnpModFolder SnpModel SnpSubModel SnpProject SnpFolder) do (
 		if "!IMPORTFILEEXT2!"=="" (
 			if !IMPORTFILEEXT!==%%G set CONTAINEROBJTYPE=TRUE
 		) else (
