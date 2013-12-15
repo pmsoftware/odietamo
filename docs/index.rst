@@ -46,6 +46,7 @@ Contents
    bugs-enhancement-suggestions
    contributing
    roadmap
+   references
    
 Internal Notes
 --------------

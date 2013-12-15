@@ -1,4 +1,3 @@
-=========================================================
 Demonstration 1 - ODI repository ping pong - step by step
 =========================================================
 
@@ -252,7 +251,7 @@ Export the Standard ODI demo repository from the Hypersonic SQL database
 ========================================================================
 
 Using ODI 10g
-~~~~~~~~~~~~~
+-------------
 
 If you're using ODI 10g then you should already have the Hypersonic SQL (HSQL) demo repository files in your ODI installation directories. The files you should find are:
 
@@ -261,7 +260,7 @@ If you're using ODI 10g then you should already have the Hypersonic SQL (HSQL) d
 * The Hypersonic SQL database files in ``<Your ODI home directory>\demo\hsql``.
 
 Using ODI 11g
-~~~~~~~~~~~~~
+-------------
 
 If you're using ODI 11g then you will need to install the standard ODI demo files into your ODI installation directories. The demo files are packaged in the ODI companion CD files ZIP archive. At the time of writing this file has the name ``ofm_odi_companion_generic_11.1.1.6.2_disk1_1o1.zip`` and can be downloaded from::
 
@@ -270,7 +269,7 @@ If you're using ODI 11g then you will need to install the standard ODI demo file
 Inside this ZIP file you find the file ``oracledi-demo.zip``. Unpack the contents of this file into the ``oracledi`` directory containing your ODI installation. I.e. unzipping the file should create the directory ``oracledi\demo`` in your ODI installation.
 
 Set the ODI-SCM environment for the standard ODI demo
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------------------------
 
 From the command prompt (cmd.exe), copy the pre-defined standard ODI demo environment configuration INI file to the demo directory::
 
@@ -313,7 +312,7 @@ Open the copied file (``C:\OdiScmWalkThrough\OdiScmExportStandardOdiDemo.ini``) 
 Save the file and close the text editor.
 
 Export the demo repository
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------
 
 First, tell ODI-SCM to use the new configuration INI file. From the command prompt::
 
@@ -529,9 +528,7 @@ From the command prompt, create a working directory::
 Create demo environment 2 ODI repository
 ----------------------------------------
 
-Create a second new Oracle user using the same process as the first, but with a user name and password of ``odirepofordemo2``::
-
-Connect to the database as the SYSTEM user (this user can create new users) using SQL*Plus::
+Create a second new Oracle user using the same process as the first, but with a user name and password of ``odirepofordemo2`` by connecting to the database as the SYSTEM user (this user can create new users) using SQL*Plus::
 
 	sqlplus system/xe@localhost:1521/xe
 
