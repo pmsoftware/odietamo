@@ -11,10 +11,10 @@ My Oracle Support:
 
 Sonra ODI repository book:
 
-	Sonra_ have published a book on the ODI_ repository.
+	Sonra_ have published a book_ on the ODI repository.
 
 .. _Sonra: http://sonra.io
-.. _ODI: http://sonra.io/odi-11g-repository-book-out-now/
+.. _book: http://sonra.io/odi-11g-repository-book-out-now/
 
 ODI SDK Examples:
 
