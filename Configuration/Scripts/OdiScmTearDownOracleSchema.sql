@@ -1,5 +1,3 @@
---SET SERVER OUTPUT ON SIZE 10000000;
-
 DECLARE
 BEGIN   
     FOR c_repo_obj IN (
