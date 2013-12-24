@@ -1,5 +1,3 @@
--- For SQL*Plus / TOAD usage only: SET SERVEROUTPUT ON SIZE 1000000;
-
 TRUNCATE
    TABLE odiscm_genscen_sources
 /
