@@ -550,7 +550,7 @@ function GenerateOdiImportScript ([array] $arrStrFilesToImport) {
 				$extensionFileCount += 1
 				
 				$ImportText = "echo %IM% date ^<%date%^> time ^<%time%^>" + [Environment]::NewLine
-				$ImportText += "set MSG=importing file ^^^<" + $fileToImport + "^^^>"
+				$ImportText += "set MSG=importing file ^^^<" + $fileToImport + "^^^>" + [Environment]::NewLine
 				$ImportText += "echo %IM% %MSG%" + [Environment]::NewLine
 				
 				#
