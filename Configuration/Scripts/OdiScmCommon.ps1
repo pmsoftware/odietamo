@@ -566,12 +566,12 @@ function GenerateOdiImportScript ([array] $arrStrFilesToImport) {
 				}
 				
 				if (!($containerExtensions -contains $ext)) {
-					$ImportText += 'call "' + $ScriptsRootDir + '\OdiScmFork.bat" ^"' + $OdiScmOdiStartCmdBat + '^" OdiImportObject ' + '-FILE_NAME=' + $SourceFile + " -IMPORT_MODE=$ODIImportModeInsertUpdate -WORK_REP_NAME=$OdiRepoWORK_REP_NAME" + [Environment]::NewLine
+					$ImportText += 'call "' + $ScriptsRootDir + '\OdiScmFork.bat" ^"' + $OdiScmOdiStartCmdBat + '^" OdiImportObject ' + '"-FILE_NAME=' + $SourceFile + '" ' + "-IMPORT_MODE=$ODIImportModeInsertUpdate -WORK_REP_NAME=$OdiRepoWORK_REP_NAME" + [Environment]::NewLine
 				}
 				else {
-					$ImportText += 'call "' + $ScriptsRootDir + '\OdiScmFork.bat" ^"' + $OdiScmOdiStartCmdBat + '^" OdiImportObject ' + '-FILE_NAME=' + $SourceFile + " -IMPORT_MODE=$ODIImportModeInsert -WORK_REP_NAME=$OdiRepoWORK_REP_NAME" + [Environment]::NewLine
+					$ImportText += 'call "' + $ScriptsRootDir + '\OdiScmFork.bat" ^"' + $OdiScmOdiStartCmdBat + '^" OdiImportObject ' + '"-FILE_NAME=' + $SourceFile + '" ' + "-IMPORT_MODE=$ODIImportModeInsert -WORK_REP_NAME=$OdiRepoWORK_REP_NAME" + [Environment]::NewLine
 					$ImportText += "if ERRORLEVEL 1 goto ExitFail" + [Environment]::NewLine
-					$ImportText += 'call "' + $ScriptsRootDir + '\OdiScmFork.bat" ^"' + $OdiScmOdiStartCmdBat + '^" OdiImportObject ' + '-FILE_NAME=' + $SourceFile + " -IMPORT_MODE=$ODIImportModeUpdate -WORK_REP_NAME=$OdiRepoWORK_REP_NAME" + [Environment]::NewLine
+					$ImportText += 'call "' + $ScriptsRootDir + '\OdiScmFork.bat" ^"' + $OdiScmOdiStartCmdBat + '^" OdiImportObject ' + '"-FILE_NAME=' + $SourceFile + '" ' + "-IMPORT_MODE=$ODIImportModeUpdate -WORK_REP_NAME=$OdiRepoWORK_REP_NAME" + [Environment]::NewLine
 				}
 				$ImportText += "if ERRORLEVEL 1 goto ExitFail" + [Environment]::NewLine
 				$ImportText += "echo %IM% import of file ^<" + $FileToImportName + "^> completed successfully" + [Environment]::NewLine
