@@ -30,6 +30,7 @@ echo %IM% Script is ^<%ARGV5%^>
 echo %IM% Class Path Base is ^<%ARGV6%^>
 echo %IM% StdOutFile is ^<%ARGV7%^>
 echo %IM% StdErrFile is ^<%ARGV8%^>
+echo %IM% FailIfStdErrOutput is ^<%ARGV9%^>
 
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
 if ERRORLEVEL 1 (
@@ -71,7 +72,26 @@ if "%ARGV8%"=="" (
 	set STDERRREDIRDISP=2^^^>!STDERRFILE!
 )
 
-:RunIt
+if "%ARGV9%"=="" (
+	echo %IM% FailIfStdErrOutput not specified. Defaulting to TRUE
+	echo %IM% SQL script stderr output will be treated as a failure
+	set FAILIFSTDERROUTPUT=TRUE
+) else (
+	if /i "%ARGV9%"=="TRUE" (
+		echo %IM% FailIfStdErrOutput specified
+		echo %IM% SQL script stderr output will be treated as a failure
+		set FAILIFSTDERROUTPUT=FALSE
+	) else (
+		if /i "%ARGV9%"=="FALSE" (
+			echo %IM% FailIfStdErrOutput specified
+			echo %IM% SQL script stderr output will not be treated as a failure
+		) else (
+			echo %EM% invalid value ^<%ARGV9%^> specified for FailIfStdErrOutput
+			goto ExitFail
+		)
+	)
+)
+
 if "%ODI_SCM_TOOLS_JISQL_HOME%" == "" (
 	echo %EM% environment variable ODI_SCM_TOOLS_JISQL_HOME is not set
 	goto ExitFail
@@ -114,7 +134,7 @@ set JAVA_TOOL_OPTIONS=
 set _JAVA_OPTIONS=
 
 rem echo %IM% Jisql class path ^<%JISQL_CLASS_PATH%^>
-echo %IM% executing command ^<"%ODI_SCM_TOOLS_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH%;%ARGV6% com.xigole.util.sql.Jisql -user "%ARGV1%" -pass "%ARGV2%" -driver "%ARGV3%" -cstring "%ARGV4%" -c / -formatter default -delimiter=" " -noheader -trim -input "%ARGV5%" 1^>%STDOUTWORKFILE% 2^>%STDERRWORKFILE%^>
+echo %IM% executing command ^<"%ODI_SCM_TOOLS_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH%;%ARGV6% com.xigole.util.sql.Jisql -user "%ARGV1%" -pass "%ARGV2%" -driver "%ARGV3%" -cstring "%ARGV4%" -c / -formatter default -delimiter=" " -noheader -trim -input "%ARGV5%" -debug 1^>%STDOUTWORKFILE% 2^>%STDERRWORKFILE%^>
 
 "%ODI_SCM_TOOLS_JISQL_JAVA_HOME%\bin\java" -classpath "%JISQL_CLASS_PATH%;%ARGV6%" com.xigole.util.sql.Jisql -user "%ARGV1%" -pass "%ARGV2%" -driver "%ARGV3%" -cstring "%ARGV4%" -c / -formatter default -delimiter=" " -noheader -trim -input "%ARGV5%" 1>"%STDOUTWORKFILE%" 2>"%STDERRWORKFILE%"
 set EXITSTATUS=%ERRORLEVEL%
@@ -140,8 +160,12 @@ if not "%EXITSTATUS%" == "0" (
 
 fc "%EMPTYFILE%" "%STDERRWORKFILE%" >NUL
 if ERRORLEVEL 1 (
-	echo %EM% Jisql command returned stderr text 1>&2
-	goto ExitFail
+	if "%FAILIFSTDERROUTPUT%" == "TRUE" (
+		echo %EM% Jisql command returned stderr text 1>&2
+		goto ExitFail
+	) else (
+		echo %IM% Jisql command returned stderr text
+	)
 )
 
 echo %IM% ends

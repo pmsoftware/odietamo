@@ -25,6 +25,7 @@ echo %IM% JDBC URL ^<%ARGV4%^>
 echo %IM% Database Name ^<%ARGV5%^>
 echo %IM% Default Schema Name ^<%ARGV6%^>
 echo %IM% Script File Name ^<%ARGV7%^>
+echo %IM% Replace End of Statement Markers Indicator ^<%ARGV8%^>
 
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
 if ERRORLEVEL 1 (
@@ -41,7 +42,7 @@ if ERRORLEVEL 1 (
 set TEMPPSSCRIPT=%TEMPDIR%\%PROC%_psscript.ps1
 
 echo . "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownDatabaseSchemas.ps1" >%TEMPPSSCRIPT%
-echo $RetVal = ExecDatabaseSqlScript '%ARGV1%' '%ARGV2%' '%ARGV3%' '%ARGV4%' '%ARGV5%' '%ARGV6%' '%ARGV7%' >>%TEMPPSSCRIPT%
+echo $RetVal = ExecDatabaseSqlScript '%ARGV1%' '%ARGV2%' '%ARGV3%' '%ARGV4%' '%ARGV5%' '%ARGV6%' '%ARGV7%' '%ARGV8%' >>%TEMPPSSCRIPT%
 echo if (!($RetVal)) { >>%TEMPPSSCRIPT%
 echo 	exit 5 >>%TEMPPSSCRIPT%
 echo } >>%TEMPPSSCRIPT%
@@ -49,7 +50,7 @@ echo else { >>%TEMPPSSCRIPT%
 echo 	exit 0 >>%TEMPPSSCRIPT%
 echo } >>%TEMPPSSCRIPT%
 
-echo %IM% execting temporary PowerShell script ^<%TEMPPSSCRIPT%^>
+echo %IM% executing temporary PowerShell script ^<%TEMPPSSCRIPT%^>
 PowerShell -Command "& { %TEMPPSSCRIPT% ; exit $LASTEXITCODE }"
 if ERRORLEVEL 1 (
 	echo %EM% execting temporary PowerShell script ^<%TEMPPSSCRIPT%^> 1>&2 

@@ -1,4 +1,4 @@
-function ExecHSqlSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strSchemaName, $strSqlScript) {
+function ExecHSqlSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strSchemaName, $strSqlScript, $blnReplaceEosMarker) {
 	
 	$FN = "ExecHSqlSqlScript"
 	$IM = $FN + ": INFO:"
@@ -22,6 +22,13 @@ function ExecHSqlSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strSch
 	# Replace the ";" statement separators in the script.
 	#
 	$arrStrSetUpScriptContent = get-content -path $strSqlScript
+	if ($arrStrSetUpScriptContent -eq $Null) {
+		#
+		# Get-Content returns $Null for an empy file.
+		#
+		$arrStrSetUpScriptContent = @()
+	}
+	
 	$arrStrOut = @()
 	
 	if (($strSchemaName -ne "") -and ($strSchemaName -ne $Null)) {
@@ -30,13 +37,11 @@ function ExecHSqlSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strSch
 		$arrStrOut += ""
 	}
 	
-	foreach ($strLine in $arrStrSetUpScriptContent) {
-		if ($strLine -match ";$") {
-			$arrStrOut += ($strLine -replace ";$","/")
-		}
-		else {
-			$arrStrOut += $strLine
-		}
+	#
+	# Replace end of statement markers to standard value.
+	#
+	if ($blnReplaceEosMarker) {
+		$arrStrOut += $arrStrSetUpScriptContent -replace ";$", "/"
 	}
 	
 	$strSqlScriptName = split-path $strSqlScript -leaf
@@ -47,9 +52,8 @@ function ExecHSqlSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strSch
 	$strStdOutLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_${strSchemaName}_StdOut.log"
 	$strStdErrLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_${strSchemaName}_StdErr.log"
 	
-	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile
-	if (!($blnResult)) {
-		write-host "$EM executing SQL script file <$strNoGoSqlScript>"
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile $True
+	if (!(TestSqlExecStatus $IM $EM $blnResult $strNoGoSqlScript $strStdErrLogFile)) {
 		return $False
 	}
 	
@@ -57,7 +61,7 @@ function ExecHSqlSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strSch
 	return $True
 }
 
-function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strDatabaseName, $strSqlScript) {
+function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strDatabaseName, $strSqlScript, $blnReplaceEosMarker) {
 	
 	$FN = "ExecSqlServerSqlScript"
 	$IM = $FN + ": INFO:"
@@ -103,13 +107,8 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 	
 	$arrStrOut = @()
 	
-	foreach ($strLine in $arrStrSetUpScriptContent) {
-		if ($strLine -match "^go$") {
-			$arrStrOut += "/"
-		}
-		else {
-			$arrStrOut += $strLine
-		}
+	if ($blnReplaceEosMarker) {
+		$arrStrOut += $arrStrSetUpScriptContent -replace "^go$", "/"
 	}
 	
 	$strSqlScriptName = split-path $strSqlScript -leaf
@@ -120,9 +119,31 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 	$strStdOutLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdOut.log"
 	$strStdErrLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdErr.log"
 	
-	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile
+	#
+	# For SQL Server we request that OdiScmJisql does not return a failure if stderr text is generated.
+	#
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile $False
+	
+	#
+	# For SQL Server we don't call TestSqlExecStatus here as we want to inspect any stderr file for warning only messages.
+	#
 	if (!($blnResult)) {
-		write-host "$EM executing SQL script file <$strNoGoSqlScript>"
+		write-host "$EM executing SQL script file <$strSqlScriptFile>"
+		if (test-path $strStdErrLogFile) {
+			$strStdErrLogFileContent = get-content -path $strStdErrLogFile
+			if ($strStdErrLogFileContent.length -gt 0) {
+				write-host "$IM command created StdErr output"
+				write-host "$IM start of StdErr file content <"
+				write-host "$strStdErrLogFileContent"
+				write-host "$IM > end of StdErr file content <"
+			}
+		}
+		return $False
+	}
+	
+	$blnWarningsOnly = StdErrFileContainsWarningsOnly $strStdErrLogFile "SQLException : SQL state: S0002 java.sql.SQLWarning: Warning:"
+	if (!($blnWarningsOnly)) {
+		write-host "$EM executing SQL script"
 		return $False
 	}
 	
@@ -130,7 +151,7 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 	return $True
 }
 
-function ExecOracleSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strSchemaName, $strSqlScript) {
+function ExecOracleSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strSchemaName, $strSqlScript, $blnReplaceEosMarker) {
 	
 	$FN = "ExecOracleSqlScript"
 	$IM = $FN + ": INFO:"
@@ -154,6 +175,13 @@ function ExecOracleSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strS
 	# Replace the ";" statement separators in the script.
 	#
 	$arrStrSetUpScriptContent = get-content -path $strSqlScript
+	if ($arrStrSetUpScriptContent -eq $Null) {
+		#
+		# Get-Content returns $Null for an empy file.
+		#
+		$arrStrSetUpScriptContent = @()
+	}
+	
 	$arrStrOut = @()
 	
 	if (($strSchemaName -ne "") -and ($strSchemaName -ne $Null)) {
@@ -162,13 +190,8 @@ function ExecOracleSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strS
 		$arrStrOut += ""
 	}
 	
-	foreach ($strLine in $arrStrSetUpScriptContent) {
-		if ($strLine -match ";$") {
-			$arrStrOut += ($strLine -replace ";$","/")
-		}
-		else {
-			$arrStrOut += $strLine
-		}
+	if ($blnReplaceEosMarker) {
+		$arrStrOut += $arrStrSetUpScriptContent -replace ";$", "/"
 	}
 	
 	$strSqlScriptName = split-path $strSqlScript -leaf
@@ -179,9 +202,8 @@ function ExecOracleSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strS
 	$strStdOutLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdOut.log"
 	$strStdErrLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdErr.log"
 	
-	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile
-	if (!($blnResult)) {
-		write-host "$EM executing SQL script file <$strNoGoSqlScript>"
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile $True
+	if (!(TestSqlExecStatus $IM $EM $blnResult $strNoGoSqlScript $strStdErrLogFile)) {
 		return $False
 	}
 	
@@ -189,7 +211,7 @@ function ExecOracleSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strS
 	return $True
 }
 
-function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strDatabaseName, $strSqlScript) {
+function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strDatabaseName, $strSqlScript, $blnReplaceEosMarker) {
 	
 	$FN = "ExecTeradataSqlScript"
 	$IM = $FN + ": INFO:"
@@ -228,9 +250,16 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 	}
 	
 	#
-	# Replace the "go" statement separators in the script.
+	# Replace the end of statement separators in the script.
 	#
 	$arrStrSetUpScriptContent = get-content -path $strSqlScript
+	if ($arrStrSetUpScriptContent -eq $Null) {
+		#
+		# Get-Content returns $Null for an empy file.
+		#
+		$arrStrSetUpScriptContent = @()
+	}
+	
 	$arrStrOut = @()
 	
 	if (($strDatabaseName -ne "") -and ($strDatabaseName -ne $Null)) {
@@ -243,15 +272,9 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 	$intLines = $arrStrSetUpScriptContent.length
 	write-host "$IM source script contains <$intLines> lines"
 	
-	# foreach ($strLine in $arrStrSetUpScriptContent) {
-		# if ($strLine -match ";$") {
-			# $arrStrOut += ($strLine -replace ";$","/")
-		# }
-		# else {
-			# $arrStrOut += $strLine
-		# }
-	# }
-	$arrStrOut += $arrStrSetUpScriptContent -replace ";$", "/"
+	if ($blnReplaceEosMarker) {
+		$arrStrOut += $arrStrSetUpScriptContent -replace ";$", "/"
+	}
 	
 	write-host "$IM completed changing end of statement markers"
 	
@@ -263,9 +286,24 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 	$strStdOutLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdOut.log"
 	$strStdErrLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdErr.log"
 	
-	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile $True
 	if (!($blnResult)) {
-		write-host "$EM executing SQL script file <$strNoGoSqlScript>"
+		write-host "$EM executing SQL script file <$strSqlScriptFile>"
+		if (test-path $strStdErrLogFile) {
+			$strStdErrLogFileContent = get-content -path $strStdErrLogFile
+			if ($strStdErrLogFileContent.length -gt 0) {
+				write-host "$IM command created StdErr output"
+				write-host "$IM start of StdErr file content <"
+				write-host "$strStdErrLogFileContent"
+				write-host "$IM > end of StdErr file content"
+			}
+		}
+		return $False
+	}
+	
+	$blnWarningsOnly = StdErrFileContainsWarningsOnly $strStdErrLogFile "SQLException : SQL state: HY000 java.sql.SQLWarning: [Teradata Database] "
+	if (!($blnWarningsOnly)) {
+		write-host "$EM executing SQL script"
 		return $False
 	}
 	
@@ -273,7 +311,7 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 	return $True
 }
 
-function ExecDatabaseSqlScript ($strDbTypeName, $strUserName, $strUserPassword, $strJdbcUrl, $strDatabaseName, $strSchemaName, $strSqlScript) {
+function ExecDatabaseSqlScript ($strDbTypeName, $strUserName, $strUserPassword, $strJdbcUrl, $strDatabaseName, $strSchemaName, $strSqlScript, $strReplaceEosMarkerInd) {
 	
 	$FN = "ExecDatabaseSqlScript"
 	$IM = $FN + ": INFO:"
@@ -283,23 +321,43 @@ function ExecDatabaseSqlScript ($strDbTypeName, $strUserName, $strUserPassword, 
 	write-host "$IM starts"
 	write-host "$DEBUG script file is <$strSqlScript>"
 	
+	$blnReplaceEosMarker = $False
+	
+	switch ($strReplaceEosMarkerInd.ToUpper()) {
+		"Y" {
+			$blnReplaceEosMarker = $True
+		}
+		
+		"YES" {
+			$blnReplaceEosMarker = $True
+		}
+		
+		"T" {
+			$blnReplaceEosMarker = $True
+		}
+		
+		"TRUE" {
+			$blnReplaceEosMarker = $True
+		}
+	}
+	
 	switch ($strDbTypeName.ToLower()) {
 		
 		"oracle" {
-			$RetVal = ExecOracleSqlScript $strUserName $strUserPassword $strJdbcUrl $strSchemaName $strSqlScript
+			$RetVal = ExecOracleSqlScript $strUserName $strUserPassword $strJdbcUrl $strSchemaName $strSqlScript $blnReplaceEosMarker
 		}
 		
 		"sqlserver" {
 			# We cannot set a default schema in a SQL Server script so we don't pass it.
-			$RetVal = ExecSqlServerSqlScript $strUserName $strUserPassword $strJdbcUrl $strDatabaseName $strSqlScript
+			$RetVal = ExecSqlServerSqlScript $strUserName $strUserPassword $strJdbcUrl $strDatabaseName $strSqlScript $blnReplaceEosMarker
 		}
 		
 		"teradata" {
-			$RetVal = ExecTeradataSqlScript $strUserName $strUserPassword $strJdbcUrl $strSchemaName $strSqlScript
+			$RetVal = ExecTeradataSqlScript $strUserName $strUserPassword $strJdbcUrl $strSchemaName $strSqlScript $blnReplaceEosMarker
 		}
 		
 		"hsql" {
-			$RetVal = ExecHSqlSqlScript $strUserName $strUserPassword $strJdbcUrl $strSchemaName $strSqlScript
+			$RetVal = ExecHSqlSqlScript $strUserName $strUserPassword $strJdbcUrl $strSchemaName $strSqlScript $blnReplaceEosMarker
 		}
 		default {
 			write-host "$EM unrecognised database type <$strDbTypeName> specified"
@@ -308,7 +366,7 @@ function ExecDatabaseSqlScript ($strDbTypeName, $strUserName, $strUserPassword, 
 	}
 	
 	if (!($RetVal)) {
-		write-host "$EM executing SQL script <$strSqlScript>"
+		write-host "$EM executing SQL script <$strSqlScript>" 
 		return $False
 	}
 	
@@ -355,9 +413,8 @@ function TearDownHsqlSchema ($strUserName, $strUserPassword, $strJdbcUrl, $strSc
 	#
 	# Run the script to generate the DROP statements.
 	#
-	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strSqlScriptFile $strStdOutLogFile $strStdErrLogFile
-	if (!($blnResult)) {
-		write-host "$EM executing SQL script file <$strSqlScriptFile>"
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strSqlScriptFile $strStdOutLogFile $strStdErrLogFile $True
+	if (!(TestSqlExecStatus $IM $EM $blnResult $strNoGoSqlScript $strStdErrLogFile)) {
 		return $False
 	}
 	
@@ -384,9 +441,8 @@ function TearDownHsqlSchema ($strUserName, $strUserPassword, $strJdbcUrl, $strSc
 	$strStdOutLogFile = "$env:TEMPDIR\${strDropScriptFileName}_StdOut.log"
 	$strStdErrLogFile = "$env:TEMPDIR\${strDropScriptFileName}_StdErr.log"
 	
-	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strDropScriptFile $strStdOutLogFile $strStdErrLogFile
-	if (!($blnResult)) {
-		write-host "$EM executing SQL script file <$strDropScriptFile>"
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strDropScriptFile $strStdOutLogFile $strStdErrLogFile $True
+	if (!(TestSqlExecStatus $IM $EM $blnResult $strNoGoSqlScript $strStdErrLogFile)) {
 		return $False
 	}
 	
@@ -438,9 +494,8 @@ function TearDownSqlServerSchema ($strUserName, $strUserPassword, $strJdbcUrl, $
 	#
 	# Run the script to generate the DROP statements.
 	#
-	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strSqlScriptFile $strStdOutLogFile $strStdErrLogFile
-	if (!($blnResult)) {
-		write-host "$EM executing SQL script file <$strSqlScriptFile>"
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strSqlScriptFile $strStdOutLogFile $strStdErrLogFile $True
+	if (!(TestSqlExecStatus $IM $EM $blnResult $strNoGoSqlScript $strStdErrLogFile)) {
 		return $False
 	}
 	
@@ -472,9 +527,8 @@ function TearDownSqlServerSchema ($strUserName, $strUserPassword, $strJdbcUrl, $
 	$strStdOutLogFile = "$env:TEMPDIR\${strDropScriptFileName}_StdOut.log"
 	$strStdErrLogFile = "$env:TEMPDIR\${strDropScriptFileName}_StdErr.log"
 	
-	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strDropScriptFile $strStdOutLogFile $strStdErrLogFile
-	if (!($blnResult)) {
-		write-host "$EM executing SQL script file <$strDropScriptFile>"
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strDropScriptFile $strStdOutLogFile $strStdErrLogFile $True
+	if (!(TestSqlExecStatus $IM $EM $blnResult $strNoGoSqlScript $strStdErrLogFile)) {
 		return $False
 	}
 	
@@ -511,11 +565,11 @@ function TearDownOracleSchema ($strUserName, $strUserPassword, $strJdbcUrl, $str
 	$strStdOutLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdOut.log"
 	$strStdErrLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdErr.log"
 	
-	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strSqlScriptFile $strStdOutLogFile $strStdErrLogFile
-	if (!($blnResult)) {
-		write-host "$EM executing SQL script file <$strSqlScriptFile>"
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strSqlScriptFile $strStdOutLogFile $strStdErrLogFile $True
+	if (!(TestSqlExecStatus $IM $EM $blnResult $strNoGoSqlScript $strStdErrLogFile)) {
 		return $False
 	}
+	
 	write-host "$IM ends"
 	return $True
 }
@@ -554,9 +608,8 @@ function TearDownTeradataDatabase ($strUserName, $strUserPassword, $strJdbcUrl, 
 	$strStdOutLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdOut.log"
 	$strStdErrLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdErr.log"
 	
-	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strSqlScriptFile $strStdOutLogFile $strStdErrLogFile
-	if (!($blnResult)) {
-		write-host "$EM executing SQL script file <$strSqlScriptFile>"
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strSqlScriptFile $strStdOutLogFile $strStdErrLogFile $True
+	if (!(TestSqlExecStatus $IM $EM $blnResult $strNoGoSqlScript $strStdErrLogFile)) {
 		return $False
 	}
 	
@@ -642,9 +695,8 @@ function TearDownTeradataDatabase ($strUserName, $strUserPassword, $strJdbcUrl, 
 	$strStdOutLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdOut.log"
 	$strStdErrLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdErr.log"
 	
-	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strSqlScriptFile $strStdOutLogFile $strStdErrLogFile
-	if (!($blnResult)) {
-		write-host "$EM executing SQL script file <$strSqlScriptFile>"
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strSqlScriptFile $strStdOutLogFile $strStdErrLogFile $True
+	if (!(TestSqlExecStatus $IM $EM $blnResult $strNoGoSqlScript $strStdErrLogFile)) {
 		return $False
 	}
 	
@@ -673,9 +725,8 @@ function TearDownTeradataDatabase ($strUserName, $strUserPassword, $strJdbcUrl, 
 	$strStdOutLogFile = "$env:TEMPDIR\${strDropScriptFileName}_StdOut.log"
 	$strStdErrLogFile = "$env:TEMPDIR\${strDropScriptFileName}_StdErr.log"
 	
-	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strDropScriptFile $strStdOutLogFile $strStdErrLogFile
-	if (!($blnResult)) {
-		write-host "$EM executing SQL script file <$strDropScriptFile>"
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strDropScriptFile $strStdOutLogFile $strStdErrLogFile $True
+	if (!(TestSqlExecStatus $IM $EM $blnResult $strNoGoSqlScript $strStdErrLogFile)) {
 		return $False
 	}
 	
@@ -724,7 +775,7 @@ function TearDownDatabaseSchema ($strDbTypeName, $strUserName, $strUserPassword,
 	return $True
 }
 
-function ExecSqlScript ($strUserName, $strUserPassword, $strJdbcDriver, $strJdbcUrl, $strSqlScriptFile, $strStdOutLogFile, $strStdErrLogFile) {
+function ExecSqlScript ($strUserName, $strUserPassword, $strJdbcDriver, $strJdbcUrl, $strSqlScriptFile, $strStdOutLogFile, $strStdErrLogFile, $blnFailIfStdErrOutput) {
 	
 	$FN = "ExecSqlScript"
 	$IM = $FN + ": INFO:"
@@ -738,13 +789,14 @@ function ExecSqlScript ($strUserName, $strUserPassword, $strJdbcDriver, $strJdbc
 		return $False
 	}
 	
-	# write-host "$IM User Name     <$strUserName>"
-	# write-host "$IM User Password <$strUserPassword>"
-	# write-host "$IM JDBC Driver   <$strJdbcDriver>"
-	# write-host "$IM JDBC URL      <$strJdbcUrl>"
-	write-host "$IM Script File   <$strSqlScriptFile>"
-	# write-host "$IM StdOut File   <$strStdOutLogFile>"
-	# write-host "$IM StdErr File   <$strStdErrLogFile>"
+	# write-host "$IM User Name          <$strUserName>"
+	# write-host "$IM User Password      <$strUserPassword>"
+	# write-host "$IM JDBC Driver        <$strJdbcDriver>"
+	# write-host "$IM JDBC URL           <$strJdbcUrl>"
+	write-host "$IM Script File          <$strSqlScriptFile>"
+	# write-host "$IM StdOut File        <$strStdOutLogFile>"
+	# write-host "$IM StdErr File        <$strStdErrLogFile>"
+	# write-host "$IM FailIfStdErrOutput <$blnFailIfStdErrOutput>"
 	
 	$strClassPathJarFile = "$env:TEMPDIR\OdiScmExecSqlScript.jar"
 	
@@ -768,7 +820,7 @@ function ExecSqlScript ($strUserName, $strUserPassword, $strJdbcDriver, $strJdbc
 	$strCmdLineCmd  = "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmJisql.bat"
 	$strCmdLineArgs = '"' + $strUserName + '" "' + $strUserPassword + '" '
 	$strCmdLineArgs += '"' + $strJdbcDriver + '" "' + $strJdbcUrl + '" "' + $strSqlScriptFile + '" "' + $strClassPathJarFile + '" "' + $strStdOutLogFile + '" '
-	$strCmdLineArgs += '"' + $strStdErrLogFile + '"'
+	$strCmdLineArgs += '"' + $strStdErrLogFile + '" "' + $blnFailIfStdErrOutput + '"'
 	
 	#write-host "$IM executing command line <$strCmdLineCmd $strCmdLineArgs>"
 	
@@ -776,40 +828,107 @@ function ExecSqlScript ($strUserName, $strUserPassword, $strJdbcDriver, $strJdbc
 	# Execute the batch file process.
 	#
 	$strCmdStdOut = & $strCmdLineCmd /p $strCmdLineArgs 2>&1
-	if (($?) -and ($LastExitCode -eq 0)) {
+	if ((!($?)) -or ($LastExitCode -ne 0)) {
+		write-host "$EM executing command line <$strCmdLineCmd>"
+		write-host "$EM start of command output <"
+		write-host $strCmdStdOut
+		write-host "$EM > end of command output"
+		return $False
+	}
+	
+	#
+	# Note: The caller of this function is responsible for checking the presence and content of the stderr file.
+	#       This is to allow for handling of different behaviours of different drivers reporting warnings and/or errors to stderr.
+	#
+	write-host "$IM ends"
+	return $True
+}
+
+function TestSqlExecStatus ($IM, $EM, $blnResult, $strSqlScriptFile, $strStdErrLogFile) {
+	
+	#
+	# Note that $IM and $EM are inherited from the caller.
+	#
+	
+	if (!($blnResult)) {
+		write-host "$EM executing SQL script file <$strSqlScriptFile>"
 		if (test-path $strStdErrLogFile) {
 			$strStdErrLogFileContent = get-content -path $strStdErrLogFile
 			if ($strStdErrLogFileContent.length -gt 0) {
 				write-host "$IM command created StdErr output"
 				write-host "$IM start of StdErr file content <"
 				write-host "$strStdErrLogFileContent"
-				write-host "$IM > end of StdErr file content <"
-				return $False
+				write-host "$IM > end of StdErr file content"
 			}
+		}
+		return $False
+	}
+	
+	#
+	# Check for any standard error output even if the command returned a successful exit status.
+	#
+	if (test-path $strStdErrLogFile) {
+		$strStdErrLogFileContent = get-content -path $strStdErrLogFile
+		if ($strStdErrLogFileContent.length -gt 0) {
+			write-host "$IM command created StdErr output"
+			write-host "$IM start of StdErr file content <"
+			write-host "$strStdErrLogFileContent"
+			write-host "$IM > end of StdErr file content"
+			return $False
+		}
+	}
+	
+	return $True
+}
+
+function StdErrFileContainsWarningsOnly ($strStdErrLogFile, $strWarningMessagePrefix) {
+	
+	#
+	# Note that $IM and $EM are inherited from the caller.
+	#
+	
+	#
+	# Check for any standard error output even if the command returned a successful exit status.
+	#
+	if (test-path $strStdErrLogFile) {
+		write-host "$IM command created StdErr output"
+		$arrStrStdErrLogFileContent = get-content -path $strStdErrLogFile
+		if ($arrStrStdErrLogFileContent -eq $Null) {
+			#
+			# Get-Content returns $Null for an empy file.
+			#
+			$arrStrStdErrLogFileContent = @()
+		}
+		
+		write-host "$IM start of StdErr file content <"
+		write-host "$arrStrStdErrLogFileContent"
+		write-host "$IM > end of StdErr file content"
+		
+		$blnStdErrFileContainsOnlyWarnings = $True
+		
+		foreach ($strStdErrLine in $arrStrStdErrLogFileContent) {
+			#
+			# Ignore warning messages.
+			#
+			if (!($strStdErrLine.StartsWith($strWarningMessagePrefix))) {
+				$blnStdErrFileContainsOnlyWarnings = $False
+			}
+		}
+		
+		if ($blnStdErrFileContainsOnlyWarnings) {
+			write-host "$IM command StdErr output contains only warning messages"
+		}
+		else {
+			write-host "$IM command StdErr output contains non warning messages"
+			return $False
 		}
 	}
 	else {
-		write-host "$EM executing SQL script <$strSqlScriptFile>"
-		write-host "$EM start of command output <"
-		write-host $strCmdStdOut
-		write-host "$EM > end of command output"
-		if (test-path $strStdErrLogFile) {
-			write-host "$IM command created StdErr file"
-			write-host "$IM start of StdErr file content <"
-			write-host (get-content $strStdErrLogFile)
-			write-host "$IM > end of StdErr file content <"
-		}
-		return $False
+		#
+		# There is no stderr text to examine.
+		#
+		return $True
 	}
 	
-	$arrStdErrContent = get-content -path $strStdErrLogFile
-	if ($arrStdErrContent.length -gt 0) {
-		write-host "$EM command line returned stderr text <"
-		write-host $arrStdErrContent
-		write-host "> end of stderr text <"
-		return $False
-	}
-	
-	write-host "$IM ends"
 	return $True
 }
