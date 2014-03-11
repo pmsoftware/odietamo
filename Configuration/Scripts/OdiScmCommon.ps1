@@ -849,7 +849,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 				$strTokensKeyValuePairsPartsKeyName = $arrStrTokensKeyValuePairsParts[0]
 				$strTokensKeyValuePairsPartsKeyValue = $arrStrTokensKeyValuePairsParts[1]
 				
-				$arrDdlScriptContent = $arrDdlScriptContent -replace $strTokensKeyValuePairsPartsKeyName, $strTokensKeyValuePairsPartsKeyValue
+				$arrDdlScriptContent = $arrDdlScriptContent -replace "\$strTokensKeyValuePairsPartsKeyName", $strTokensKeyValuePairsPartsKeyValue
 				#foreach ($strDdlScriptLine in $arrDdlScriptContent) {
 					#write-host "$DEBUG doing input script line <$strDdlScriptLine>"
 					#if ($strDdlScriptLine.contains($strTokensKeyValuePairsPartsKeyName)) {
@@ -1003,7 +1003,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		$OutScriptContent += 'echo %IM% %MSG%'
 		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecDatabaseSqlScript.bat" /p '
 		$strCmd += '"' + $strDbmsTypeKeyValue + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
-		$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '" "' + $strOutFile + '"'
+		$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '" "' + $strOutFile + '" "True"'
 		
 		$OutScriptContent += $strCmd
 		$OutScriptContent += 'if ERRORLEVEL 1 ('
@@ -1245,7 +1245,7 @@ function GenerateSplImportScript ([array] $arrStrFiles) {
 				$strTokensKeyValuePairsPartsKeyName = $arrStrTokensKeyValuePairsParts[0]
 				$strTokensKeyValuePairsPartsKeyValue = $arrStrTokensKeyValuePairsParts[1]
 				
-				$arrScriptContent = $arrScriptContent -replace $strTokensKeyValuePairsPartsKeyName, $strTokensKeyValuePairsPartsKeyValue
+				$arrScriptContent = $arrScriptContent -replace "\$strTokensKeyValuePairsPartsKeyName", $strTokensKeyValuePairsPartsKeyValue
 				
 				#foreach ($strScriptLine in $arrScriptContent) {
 				#	if ($strScriptLine.contains($strTokensKeyValuePairsPartsKeyName)) {
@@ -1348,7 +1348,7 @@ function GenerateSplImportScript ([array] $arrStrFiles) {
 		$OutScriptContent += 'echo %IM% %MSG%'
 		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecDatabaseSqlScript.bat" '
 		$strCmd += '"' + $strDbmsTypeKeyValue + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
-		$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '" "' + $strOutFile + '"'
+		$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '" "' + $strOutFile + '" "False"'
 		
 		$OutScriptContent += $strCmd
 		$OutScriptContent += 'if ERRORLEVEL 1 ('
@@ -1586,15 +1586,15 @@ function GenerateDmlExecutionScript ([array] $arrStrFiles) {
 				$strTokensKeyValuePairsPartsKeyName = $arrStrTokensKeyValuePairsParts[0]
 				$strTokensKeyValuePairsPartsKeyValue = $arrStrTokensKeyValuePairsParts[1]
 				
-				$arrScriptContent = $arrScriptContent -replace $strTokensKeyValuePairsPartsKeyName, $strTokensKeyValuePairsPartsKeyValue
+				$arrScriptContent = $arrScriptContent -replace "\$strTokensKeyValuePairsPartsKeyName", $strTokensKeyValuePairsPartsKeyValue
 				
-				foreach ($strScriptLine in $arrScriptContent) {
-					if ($strScriptLine.contains($strTokensKeyValuePairsPartsKeyName)) {
-						write-host "$IM replacing token in file <$strFile>"
-						write-host "$IM token <$strTokensKeyValuePairsPartsKeyName> value <$strTokensKeyValuePairsPartsKeyValue>"
-					}
-					$arrStrOutScriptContent += ($strScriptLine.replace($strTokensKeyValuePairsPartsKeyName, $strTokensKeyValuePairsPartsKeyValue))
-				}
+				# foreach ($strScriptLine in $arrScriptContent) {
+					# if ($strScriptLine.contains($strTokensKeyValuePairsPartsKeyName)) {
+						# write-host "$IM replacing token in file <$strFile>"
+						# write-host "$IM token <$strTokensKeyValuePairsPartsKeyName> value <$strTokensKeyValuePairsPartsKeyValue>"
+					# }
+					# $arrStrOutScriptContent += ($strScriptLine.replace($strTokensKeyValuePairsPartsKeyName, $strTokensKeyValuePairsPartsKeyValue))
+				# }
 			}
 		}
 		
@@ -1690,7 +1690,7 @@ function GenerateDmlExecutionScript ([array] $arrStrFiles) {
 		$OutScriptContent += 'echo %IM% %MSG%'
 		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecDatabaseSqlScript.bat" /p '
 		$strCmd += '"' + $strDbmsTypeKeyValue + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
-		$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '" "' + $strOutFile + '"'
+		$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '" "' + $strOutFile + '" "True"'
 		
 		$OutScriptContent += $strCmd
 		$OutScriptContent += 'if ERRORLEVEL 1 ('

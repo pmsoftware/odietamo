@@ -123,7 +123,6 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 	# For SQL Server we request that OdiScmJisql does not return a failure if stderr text is generated.
 	#
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile $False
-	
 	#
 	# For SQL Server we don't call TestSqlExecStatus here as we want to inspect any stderr file for warning only messages.
 	#
@@ -141,7 +140,7 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 		return $False
 	}
 	
-	$blnWarningsOnly = StdErrFileContainsWarningsOnly $strStdErrLogFile "SQLException : SQL state: S0002 java.sql.SQLWarning: Warning:"
+	$blnWarningsOnly = StdErrFileContainsWarningsOnly $strStdErrLogFile
 	if (!($blnWarningsOnly)) {
 		write-host "$EM executing SQL script"
 		return $False
@@ -202,8 +201,34 @@ function ExecOracleSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strS
 	$strStdOutLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdOut.log"
 	$strStdErrLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdErr.log"
 	
-	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile $True
+	#
+	# For Oracle we request that OdiScmJisql does not return a failure if stderr text is generated.
+	#
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile $False
+	#
+	# For Oracle we don't call TestSqlExecStatus here as we want to inspect any stderr file for warning only messages.
+	#
 	if (!(TestSqlExecStatus $IM $EM $blnResult $strNoGoSqlScript $strStdErrLogFile)) {
+		return $False
+	}
+	
+	if (!($blnResult)) {
+		write-host "$EM executing SQL script file <$strSqlScriptFile>"
+		if (test-path $strStdErrLogFile) {
+			$strStdErrLogFileContent = get-content -path $strStdErrLogFile
+			if ($strStdErrLogFileContent.length -gt 0) {
+				write-host "$IM command created StdErr output"
+				write-host "$IM start of StdErr file content <"
+				write-host "$strStdErrLogFileContent"
+				write-host "$IM > end of StdErr file content <"
+			}
+		}
+		return $False
+	}
+	
+	$blnWarningsOnly = StdErrFileContainsWarningsOnly $strStdErrLogFile
+	if (!($blnWarningsOnly)) {
+		write-host "$EM executing SQL script"
 		return $False
 	}
 	
@@ -286,7 +311,13 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 	$strStdOutLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdOut.log"
 	$strStdErrLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdErr.log"
 	
-	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile $True
+	#
+	# For Teradata we request that OdiScmJisql does not return a failure if stderr text is generated.
+	#
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile $False
+	#
+	# For Teradata we don't call TestSqlExecStatus here as we want to inspect any stderr file for warning only messages.
+	#
 	if (!($blnResult)) {
 		write-host "$EM executing SQL script file <$strSqlScriptFile>"
 		if (test-path $strStdErrLogFile) {
@@ -301,7 +332,7 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 		return $False
 	}
 	
-	$blnWarningsOnly = StdErrFileContainsWarningsOnly $strStdErrLogFile "SQLException : SQL state: HY000 java.sql.SQLWarning: [Teradata Database] "
+	$blnWarningsOnly = StdErrFileContainsWarningsOnly $strStdErrLogFile
 	if (!($blnWarningsOnly)) {
 		write-host "$EM executing SQL script"
 		return $False
@@ -881,7 +912,7 @@ function TestSqlExecStatus ($IM, $EM, $blnResult, $strSqlScriptFile, $strStdErrL
 	return $True
 }
 
-function StdErrFileContainsWarningsOnly ($strStdErrLogFile, $strWarningMessagePrefix) {
+function StdErrFileContainsWarningsOnly ($strStdErrLogFile) {
 	
 	#
 	# Note that $IM and $EM are inherited from the caller.
@@ -910,7 +941,7 @@ function StdErrFileContainsWarningsOnly ($strStdErrLogFile, $strWarningMessagePr
 			#
 			# Ignore warning messages.
 			#
-			if (!($strStdErrLine.StartsWith($strWarningMessagePrefix))) {
+			if (!($strStdErrLine -match "^SQLException : SQL state: .* java.sql.SQLWarning: ")) {
 				$blnStdErrFileContainsOnlyWarnings = $False
 			}
 		}
