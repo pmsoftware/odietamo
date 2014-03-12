@@ -208,10 +208,6 @@ function ExecOracleSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strS
 	#
 	# For Oracle we don't call TestSqlExecStatus here as we want to inspect any stderr file for warning only messages.
 	#
-	if (!(TestSqlExecStatus $IM $EM $blnResult $strNoGoSqlScript $strStdErrLogFile)) {
-		return $False
-	}
-	
 	if (!($blnResult)) {
 		write-host "$EM executing SQL script file <$strSqlScriptFile>"
 		if (test-path $strStdErrLogFile) {
