@@ -42,9 +42,12 @@ If you have to negotiate a web proxy server to download the Sphinx package, try 
 
 Note that the user name and password are only required when using authenticated proxy servers.
 
-Alternatively, one can download (from https://pypi.python.org/pypi/Sphinx) the package manually and install from the downloaded file ::
+Using easy_install
+~~~~~~~~~~~~~~~~~~
 
-    $ pip install sphinx --src=<path/to/downloaded/package/ZIP/file>
+An alternate way of install Sphinx can be found on this web page ::
+
+    http://sphinx-doc.org/latest/install.html#windows-install-python-and-sphinx
 
 First use
 ---------
