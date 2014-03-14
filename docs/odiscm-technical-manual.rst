@@ -139,7 +139,22 @@ So, the configuration file is really the persisted environment for the ODI-SCM c
 |                  |                               |process to destroy and recreate the |                                                             |
 |                  |                               |TFS workspace for the working copy. |                                                             |
 +------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
-|Tools             |Jisql Additional Classpath     |Additional Java class directories   |``C:\MyApp\bin;D:\AppLib\tools.jar;D:\AppLib\classes.zip``   |
+|Tools             |FitNesse Class Name            |The Java class name of the entry    |``fitnesse.FitNesse``          (for DbFit 1.1)               |
+|                  |                               |point to FitNesse. Used to execute  |                                                             |
+|                  |                               |ODI unit tests built with DbFit and |                                                             |
+|                  |                               |other FIT/SLIM fixtures via the     |``fitnesseMain.FitNesseMain``  (for DbFit 2.x)               |
+|                  |                               |FitNesse engine.                    |                                                             |
+|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                  |FitNesse Home                  |The home/installation diretory of   |``C:\dbfit-complete-2.1.0``                                  |
+|                  |                               |FitNesse.                           |                                                             |
+|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                  |FitNesse Java Home             |Path of the JVM (JRE or JDK) to be  |``C:\Program Files\Java\jdk1.6.0_45``                        |
+|                  |                               |used with FitNesse. This is the     |                                                             |
+|                  |                               |directory containing the ``bin``    |                                                             |
+|                  |                               |directory containing the            |                                                             |
+|                  |                               |``java.exe`` binary.                |                                                             |
+|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                  |Jisql Additional Classpath     |Additional Java class directories   |``C:\MyApp\bin;D:\AppLib\tools.jar;D:\AppLib\classes.zip``   |
 |                  |                               |and/or archives required for        |                                                             |
 |                  |                               |ODI-SCM operations against the ODI  |                                                             |
 |                  |                               |repository.                         |                                                             |

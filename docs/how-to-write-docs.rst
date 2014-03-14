@@ -36,6 +36,16 @@ code ::
 If you do not have pip on your box, errr, call me its a bit like open the box using the
 crowbar inside the box.
 
+If you have to negotiate a web proxy server to download the Sphinx package, try this version of the command ::
+
+    $ pip install sphinx --proxy=[<user>:<pass>@]<server>:<port>
+
+Note that the user name and password are only required when using authenticated proxy servers.
+
+Alternatively, one can download (from https://pypi.python.org/pypi/Sphinx) the package manually and install from the downloaded file ::
+
+    $ pip install sphinx --src=<path/to/downloaded/package/ZIP/file>
+
 First use
 ---------
 

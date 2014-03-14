@@ -123,26 +123,7 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 	# For SQL Server we request that OdiScmJisql does not return a failure if stderr text is generated.
 	#
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile $False
-	#
-	# For SQL Server we don't call TestSqlExecStatus here as we want to inspect any stderr file for warning only messages.
-	#
-	if (!($blnResult)) {
-		write-host "$EM executing SQL script file <$strSqlScriptFile>"
-		if (test-path $strStdErrLogFile) {
-			$strStdErrLogFileContent = get-content -path $strStdErrLogFile
-			if ($strStdErrLogFileContent.length -gt 0) {
-				write-host "$IM command created StdErr output"
-				write-host "$IM start of StdErr file content <"
-				write-host "$strStdErrLogFileContent"
-				write-host "$IM > end of StdErr file content <"
-			}
-		}
-		return $False
-	}
-	
-	$blnWarningsOnly = StdErrFileContainsWarningsOnly $strStdErrLogFile
-	if (!($blnWarningsOnly)) {
-		write-host "$EM executing SQL script"
+	if (!(TestSqlExecStatus $IM $EM $blnResult $strNoGoSqlScript $strStdErrLogFile)) {
 		return $False
 	}
 	
@@ -205,26 +186,7 @@ function ExecOracleSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strS
 	# For Oracle we request that OdiScmJisql does not return a failure if stderr text is generated.
 	#
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strJdbcUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile $False
-	#
-	# For Oracle we don't call TestSqlExecStatus here as we want to inspect any stderr file for warning only messages.
-	#
-	if (!($blnResult)) {
-		write-host "$EM executing SQL script file <$strSqlScriptFile>"
-		if (test-path $strStdErrLogFile) {
-			$strStdErrLogFileContent = get-content -path $strStdErrLogFile
-			if ($strStdErrLogFileContent.length -gt 0) {
-				write-host "$IM command created StdErr output"
-				write-host "$IM start of StdErr file content <"
-				write-host "$strStdErrLogFileContent"
-				write-host "$IM > end of StdErr file content <"
-			}
-		}
-		return $False
-	}
-	
-	$blnWarningsOnly = StdErrFileContainsWarningsOnly $strStdErrLogFile
-	if (!($blnWarningsOnly)) {
-		write-host "$EM executing SQL script"
+	if (!(TestSqlExecStatus $IM $EM $blnResult $strNoGoSqlScript $strStdErrLogFile)) {
 		return $False
 	}
 	
@@ -311,26 +273,7 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 	# For Teradata we request that OdiScmJisql does not return a failure if stderr text is generated.
 	#
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile $False
-	#
-	# For Teradata we don't call TestSqlExecStatus here as we want to inspect any stderr file for warning only messages.
-	#
-	if (!($blnResult)) {
-		write-host "$EM executing SQL script file <$strSqlScriptFile>"
-		if (test-path $strStdErrLogFile) {
-			$strStdErrLogFileContent = get-content -path $strStdErrLogFile
-			if ($strStdErrLogFileContent.length -gt 0) {
-				write-host "$IM command created StdErr output"
-				write-host "$IM start of StdErr file content <"
-				write-host "$strStdErrLogFileContent"
-				write-host "$IM > end of StdErr file content"
-			}
-		}
-		return $False
-	}
-	
-	$blnWarningsOnly = StdErrFileContainsWarningsOnly $strStdErrLogFile
-	if (!($blnWarningsOnly)) {
-		write-host "$EM executing SQL script"
+	if (!(TestSqlExecStatus $IM $EM $blnResult $strNoGoSqlScript $strStdErrLogFile)) {
 		return $False
 	}
 	
@@ -896,65 +839,35 @@ function TestSqlExecStatus ($IM, $EM, $blnResult, $strSqlScriptFile, $strStdErrL
 	#
 	if (test-path $strStdErrLogFile) {
 		$strStdErrLogFileContent = get-content -path $strStdErrLogFile
+		
 		if ($strStdErrLogFileContent.length -gt 0) {
 			write-host "$IM command created StdErr output"
 			write-host "$IM start of StdErr file content <"
 			write-host "$strStdErrLogFileContent"
 			write-host "$IM > end of StdErr file content"
-			return $False
-		}
-	}
-	
-	return $True
-}
-
-function StdErrFileContainsWarningsOnly ($strStdErrLogFile) {
-	
-	#
-	# Note that $IM and $EM are inherited from the caller.
-	#
-	
-	#
-	# Check for any standard error output even if the command returned a successful exit status.
-	#
-	if (test-path $strStdErrLogFile) {
-		write-host "$IM command created StdErr output"
-		$arrStrStdErrLogFileContent = get-content -path $strStdErrLogFile
-		if ($arrStrStdErrLogFileContent -eq $Null) {
+			
 			#
-			# Get-Content returns $Null for an empy file.
+			# Check the stderr text to see if it contains only JDBC warning messages.
 			#
-			$arrStrStdErrLogFileContent = @()
-		}
+			$blnStdErrFileContainsOnlyWarnings = $True
+			
+			foreach ($strStdErrLine in $arrStrStdErrLogFileContent) {
+				#
+				# Ignore warning messages.
+				#
+				if (!($strStdErrLine -match "^SQLException : SQL state: .* java.sql.SQLWarning: ")) {
+					$blnStdErrFileContainsOnlyWarnings = $False
+				}
+			}
 		
-		write-host "$IM start of StdErr file content <"
-		write-host "$arrStrStdErrLogFileContent"
-		write-host "$IM > end of StdErr file content"
-		
-		$blnStdErrFileContainsOnlyWarnings = $True
-		
-		foreach ($strStdErrLine in $arrStrStdErrLogFileContent) {
-			#
-			# Ignore warning messages.
-			#
-			if (!($strStdErrLine -match "^SQLException : SQL state: .* java.sql.SQLWarning: ")) {
-				$blnStdErrFileContainsOnlyWarnings = $False
+			if ($blnStdErrFileContainsOnlyWarnings) {
+				write-host "$IM command StdErr output contains only warning messages"
+			}
+			else {
+				write-host "$IM command StdErr output contains non warning messages"
+				return $False
 			}
 		}
-		
-		if ($blnStdErrFileContainsOnlyWarnings) {
-			write-host "$IM command StdErr output contains only warning messages"
-		}
-		else {
-			write-host "$IM command StdErr output contains non warning messages"
-			return $False
-		}
-	}
-	else {
-		#
-		# There is no stderr text to examine.
-		#
-		return $True
 	}
 	
 	return $True
