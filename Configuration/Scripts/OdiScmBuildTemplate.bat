@@ -130,6 +130,7 @@ rem
 rem Execute any user specified ODI standards check/report script.
 rem Note that the user might build the script to intentionally cause the build to fail.
 rem
+setlocal enabledelayedexpansion
 if not "<OdiStandardsCheckScript>" == "" (
 	set MSG=executing user defined ODI standards check/report script "<OdiStandardsCheckScript>"
 	echo %IM% %MSG%
@@ -138,7 +139,7 @@ if not "<OdiStandardsCheckScript>" == "" (
 	set STDOUTFILE=<GenScriptRootDir>\OdiScmStandardsCheck_StdOut_%SDTSYYYYMMDD%_%SDTSHHMMSSFF%.log
 	set STDERRFILE=<GenScriptRootDir>\OdiScmStandardsCheck_StdErr_%SDTSYYYYMMDD%_%SDTSHHMMSSFF%.log
 	rem
-	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" <OdiStandardsCheckScript> %STDOUTFILE% %STDERRFILE%
+	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" <OdiStandardsCheckScript> !STDOUTFILE! !STDERRFILE!
 	if ERRORLEVEL 1 (
 		echo %EM% Batch file ^<<OdiScmJisqlRepoBat>^> returned non-zero ERRORLEVEL
 		echo %IM% whilst running ODI standards check/report SQL script ^<<OdiStandardsCheckScript>^>
