@@ -238,6 +238,16 @@ So, the configuration file is really the persisted environment for the ODI-SCM c
 |                  |                               |control* metadata. Valid values are |                                                             |
 |                  |                               |``Yes`` and ``No``.                 |                                                             |
 |                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                  |Scenario Export Markers        |A sstring of one or more object     |``SMILEYS.SMILEY_2,MYMARKERS.MARKER17``                      |
+|                  |                               |markers used to indicate which      |                                                             |
+|                  |                               |source objects may have their       |                                                             |
+|                  |                               |Scenarios exported to the file      |                                                             |
+|                  |                               |system, and hence available to check|                                                             |
+|                  |                               |into the source code control system |                                                             |
+|                  |                               |rather than being removed from the  |                                                             |
+|                  |                               |export file created for the source  |                                                             |
+|                  |                               |object.                             |                                                             |
+|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
 |                  |Scenario Source Markers        |A string of one or more object      |``SMILEYS.SMILEY_2,PRIORITIES.PRIORITY_1``                   |
 |                  |                               |markers used to indicate which      |                                                             |
 |                  |                               |source objects should have a        |                                                             |

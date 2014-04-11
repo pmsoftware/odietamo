@@ -4,7 +4,7 @@ rem
 rem Check basic environment requirements.
 rem
 if "%ODI_SCM_HOME%" == "" (
-	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME
+	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME 1>&2
 	goto ExitFail
 )
 
@@ -19,7 +19,7 @@ if ERRORLEVEL 1 (
 )
 
 if "%ODI_SCM_INI%" == "" (
-	echo %EM% no configuration INI file specified in environment variable ODI_SCM_INI
+	echo %EM% no configuration INI file specified in environment variable ODI_SCM_INI 1>&2
 	goto ExitFail
 ) else (
 	echo %IM% using configuration INI file ^<%ODI_SCM_INI%^> 
@@ -30,7 +30,7 @@ rem Source the temporary working directory.
 rem
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
 if ERRORLEVEL 1 (
-	echo %EM% creating temporary working directory
+	echo %EM% creating temporary working directory 1>&2
 	goto ExitFail
 )
 
@@ -39,7 +39,7 @@ rem Define a temporary empty file.
 rem
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetEmptyFile.bat"
 if ERRORLEVEL 1 (
-	echo %EM% creating temporary empty file
+	echo %EM% creating temporary empty file 1>&2
 	goto ExitFail
 )
 
@@ -50,13 +50,13 @@ set TEMPFILE=%TEMPDIR%\%RANDOM%_OdiScmImportOdiScm_Configure.sql
 
 cat "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmConfigureRepositoryMetadataTemplate.sql" | sed s/"<OdiScmOdiUserName>"/%ODI_SCM_ORACLEDI_USER%/ > "%TEMPFILE%"
 if ERRORLEVEL 1 (
-	echo %EM% substituting ODI user name
+	echo %EM% substituting ODI user name 1>&2
 	goto ExitFail
 )
 
 cat "%TEMPFILE%" | sed s/"<SCMSystemTypeName>"/%ODI_SCM_SCM_SYSTEM_TYPE_NAME%/ > "%TEMPFILE%2"
 if ERRORLEVEL 1 (
-	echo %EM% substituting SCM system type name
+	echo %EM% substituting SCM system type name 1>&2
 	goto ExitFail
 )
 
@@ -89,55 +89,61 @@ if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "" (
 
 cat "%TEMPFILE%2" | sed s/"<SCMAddFileCommand>"/"%SCM_ADD_FILE_COMMAND%"/g > "%TEMPFILE%"
 if ERRORLEVEL 1 (
-	echo %EM% substituting SCM add file command
+	echo %EM% substituting SCM add file command 1>&2
 	goto ExitFail
 )
 
 cat "%TEMPFILE%" | sed s/"<SCMBasicCommand>"/"%SCM_BASIC_COMMAND%"/g > "%TEMPFILE%2"
 if ERRORLEVEL 1 (
-	echo %EM% substituting SCM basic command
+	echo %EM% substituting SCM basic command 1>&2
 	goto ExitFail
 )
 
 cat "%TEMPFILE%2" | sed s/"<SCMCheckFileInSourceControlCommand>"/"%SCM_CHECK_FILE_IN_SOURCE_CONTROL_COMMAND%"/g > "%TEMPFILE%"
 if ERRORLEVEL 1 (
-	echo %EM% substituting SCM check file under source control command
+	echo %EM% substituting SCM check file under source control command 1>&2
 	goto ExitFail
 )
 
 cat "%TEMPFILE%" | sed s/"<SCMCheckOutCommand>"/"%SCM_CHECK_OUT_COMMAND%"/g > "%TEMPFILE%2"
 if ERRORLEVEL 1 (
-	echo %EM% substituting SCM check out command
+	echo %EM% substituting SCM check out command 1>&2
 	goto ExitFail
 )
 
 cat "%TEMPFILE%2" | sed s/"<SCMRequiresCheckOut>"/"%SCM_REQUIRES_CHECK_OUT%"/g > "%TEMPFILE%"
 if ERRORLEVEL 1 (
-	echo %EM% substituting SCM system requires file check out indicator
+	echo %EM% substituting SCM system requires file check out indicator 1>&2
 	goto ExitFail
 )
 
 cat "%TEMPFILE%" | sed s/"<SCMWorkingCopyDeleteFileCommand>"/"%SCM_WC_CONFIG_DELETE_FILE_COMMAND%"/g > "%TEMPFILE%2"
 if ERRORLEVEL 1 (
-	echo %EM% substituting SCM working copy file deletion command
+	echo %EM% substituting SCM working copy file deletion command 1>&2
 	goto ExitFail
 )
 
 cat "%TEMPFILE%2" | sed s/"<ExportRefPhysArchOnly>"/"%ODI_SCM_GENERATE_EXPORT_REF_PHYS_ARCH_ONLY%"/g > "%TEMPFILE%"
 if ERRORLEVEL 1 (
-	echo %EM% substituting OdiScm export only reference physical architecture indicator
+	echo %EM% substituting OdiScm export only reference physical architecture indicator 1>&2
 	goto ExitFail
 )
 
 cat "%TEMPFILE%" | sed s/"<ExportCleansImportRepObjs>"/"%ODI_SCM_GENERATE_EXPORT_CLEANS_IMPORTREP_OBJECTS%"/g > "%TEMPFILE%"2
 if ERRORLEVEL 1 (
-	echo %EM% substituting OdiScm export only reference physical architecture indicator
+	echo %EM% substituting OdiScm export only reference physical architecture indicator 1>&2
 	goto ExitFail
 )
 
-cat "%TEMPFILE%"2 > "%TEMPFILE%"
+cat "%TEMPFILE%2" | sed s/"<ScenarioExportMarkers>"/"%ODI_SCM_GENERATE_SCENARIO_EXPORT_MARKERS%"/g > "%TEMPFILE%"
 if ERRORLEVEL 1 (
-	echo %EM% creating final substituted OdiScm configuration settings script
+	echo %EM% substituting OdiScm scenario export markers 1>&2
+	goto ExitFail
+)
+
+cat "%TEMPFILE%" > "%TEMPFILE%"2
+if ERRORLEVEL 1 (
+	echo %EM% creating final substituted OdiScm configuration settings script 1>&2
 	goto ExitFail
 )
 
@@ -152,11 +158,11 @@ rem
 rem Run the generated ODI-SCM repository infrastructure configuration script.
 rem
 echo %IM% configuring ODI-SCM metadata
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat^" %TEMPFILE% %STDOUTFILE% %STDERRFILE%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat^" %TEMPFILE%2 %STDOUTFILE% %STDERRFILE%
 if ERRORLEVEL 1 (
-	echo %EM% batch file OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL
-	echo %IM% StdErr content:
-	type %STDERRFILE%
+	echo %EM% batch file OdiScmJisqlRepo.bat returned non-zero ERRORLEVEL 1>&2
+	echo %IM% StdErr content: 1>&2
+	type %STDERRFILE% 1>&2
 	goto ExitFail
 )
 
@@ -166,8 +172,8 @@ rem
 echo %IM% Batch file OdiScmJisqlRepo.bat returned zero ERRORLEVEL
 fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
 if ERRORLEVEL 1 (
-	echo %IM% Batch file OdiScmJisqlRepo.bat returned StdErr content:
-	type %STDERRFILE%
+	echo %IM% Batch file OdiScmJisqlRepo.bat returned StdErr content: 1>&2
+	type %STDERRFILE% 1>&2
 	goto ExitFail
 )
 
