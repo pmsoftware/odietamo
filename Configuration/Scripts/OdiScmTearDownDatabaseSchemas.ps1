@@ -855,16 +855,17 @@ function TestSqlExecStatus ($IM, $EM, $blnResult, $strSqlScriptFile, $strStdErrL
 				#
 				# Ignore warning messages.
 				#
-				if (!($strStdErrLine -match "^SQLException : SQL state: .* java.sql.SQLWarning: ")) {
+				if (($strStdErrLine.Trim() -ne "") -and (!($strStdErrLine -match "^SQLException : SQL state: .* java.sql.SQLWarning: "))) {
+					write-host "$EM command StdErr output line <$strStdErrLine> contains non warning message"
 					$blnStdErrFileContainsOnlyWarnings = $False
 				}
 			}
-		
+			
 			if ($blnStdErrFileContainsOnlyWarnings) {
 				write-host "$IM command StdErr output contains only warning messages"
 			}
 			else {
-				write-host "$IM command StdErr output contains non warning messages"
+				write-host "$EM command StdErr output contains non warning messages"
 				return $False
 			}
 		}
