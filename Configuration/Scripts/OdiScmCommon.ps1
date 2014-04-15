@@ -158,6 +158,20 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 	#
 	$arrStrOdiFiles = @()
 	
+	$strWcRootDir = $env:ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT
+	$strWcRootDirUC = $strWcRootDir.ToUpper()
+	$strWcRootDirUCBS = $strWcRootDirUC.Replace("/","\")
+	
+	$strOdiWcRootDir = $env:ODI_SCM_SCM_SYSTEM_ORACLEDI_WORKING_COPY_ROOT
+	$strOdiWcRootDirUC = $strOdiWcRootDir.ToUpper()
+	$strOdiWcRootDirUCBS = $strOdiWcRootDirUC.Replace("/","\")
+	
+	$strOdiWcDirAbsUCBS = $strWcRootDirUCBS
+	
+	if ($strOdiWcRootDirUCBS -ne ".") {
+		$strOdiWcDirAbsUCBS += "\" + $strOdiWcRootDirBS
+	}
+	
 	foreach ($Extention in $orderedExtensions) {
 		#
 		# Remove the asterisk from the file type name pattern.
@@ -167,7 +181,11 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 		write-host "$IM processing object type <$FileObjTypeExt>"
 		
 		foreach ($strFile in $arrStrInputFiles) {
-			if ($strFile.EndsWith($strFileObjType)) {
+			
+			$strFileUC = $strFile.ToUpper()
+			$strFileUCBS = $strFileUC.Replace("/","\")
+			
+			if (($strFileUCBS.StartsWith($strOdiWcDirAbsUCBS)) -and ($strFile.EndsWith($strFileObjType))) {
 				#
 				# This is an ODI source object file name.
 				#
@@ -193,7 +211,6 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 	foreach ($strFile in $arrStrInputFiles) {
 		
 		$strFileName = split-path -path $strFile -leaf
-		
 		if ($strFileName -match $strPattern) {
 			$arrStrDdlFiles += $strFile
 		}
@@ -1024,11 +1041,13 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 	#
 	$OutScriptContent += ':ExitOk'
 	$OutScriptContent += 'cd /d %OLDPWD%'
+	$OutScriptContent += 'echo %IM% ends'
 	$OutScriptContent += 'exit %IsBatchExit% 0'
 	$OutScriptContent += ''
 	$OutScriptContent += ':ExitFail'
 	$OutScriptContent += 'echo %EM% %MSG%'
 	$OutScriptContent += 'cd /d %OLDPWD%'
+	$OutScriptContent += 'echo %EM% ends'
 	$OutScriptContent += 'exit %IsBatchExit% 1'
 	
 	set-content -path $DdlImportScriptFile -value $OutScriptContent
@@ -1369,11 +1388,13 @@ function GenerateSplImportScript ([array] $arrStrFiles) {
 	#
 	$OutScriptContent += ':ExitOk'
 	$OutScriptContent += 'cd /d %OLDPWD%'
+	$OutScriptContent += 'echo %IM% ends'
 	$OutScriptContent += 'exit %IsBatchExit% 0'
 	$OutScriptContent += ''
 	$OutScriptContent += ':ExitFail'
 	$OutScriptContent += 'echo %EM% %MSG%'
 	$OutScriptContent += 'cd /d %OLDPWD%'
+	$OutScriptContent += 'echo %EM% ends'
 	$OutScriptContent += 'exit %IsBatchExit% 1'
 	
 	set-content -path $SplImportScriptFile -value $OutScriptContent
@@ -1711,11 +1732,13 @@ function GenerateDmlExecutionScript ([array] $arrStrFiles) {
 	#
 	$OutScriptContent += ':ExitOk'
 	$OutScriptContent += 'cd /d %OLDPWD%'
+	$OutScriptContent += 'echo %IM% ends'
 	$OutScriptContent += 'exit %IsBatchExit% 0'
 	$OutScriptContent += ''
 	$OutScriptContent += ':ExitFail'
 	$OutScriptContent += 'echo %EM% %MSG%'
 	$OutScriptContent += 'cd /d %OLDPWD%'
+	$OutScriptContent += 'echo %EM% ends'
 	$OutScriptContent += 'exit %IsBatchExit% 1'
 	
 	set-content -path $DmlExecutionScriptFile -value $OutScriptContent

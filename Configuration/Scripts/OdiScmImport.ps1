@@ -412,15 +412,17 @@ function GetFromFileSystem ([ref] $refOdiFileList, [ref] $refDbDdlFileList, [ref
 	$EM = $FN + ": ERROR:"
 	$DEBUG = $FN + ": DEBUG:"
 	
-	$strSourcePathRootDir = $env:ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT + "/" + $env:ODI_SCM_SCM_SYSTEM_ORACLEDI_WORKING_COPY_ROOT
+	$strSourcePathRootDir = $env:ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT
 	if (!(test-path $strSourcePathRootDir)) {
 		write-host "$EM path <$strSourcePathRootDir> specified in environment variables ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT"
 		write-host "$EM and ODI_SCM_SCM_SYSTEM_ORACLEDI_WORKING_COPY_ROOT cannot be accessed"
 		return $False
 	}
 	
+	$strSourcePathRootDirBS = $strSourcePathRootDir.Replace("/","\")
+	
 	write-host "$IM searching for files to import from directory tree <$strSourcePathRootDir>"
-	$arrFlInFiles = get-childitem $strSourcePathRootDir -recurse
+	$arrFlInFiles = get-childitem $strSourcePathRootDirBS -recurse
 	if (!($?)) {
 		write-host "$EM reading list of files from directory tree <$strSourcePathRootDir>"
 		return $False
