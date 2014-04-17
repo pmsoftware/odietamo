@@ -118,14 +118,20 @@ rem The called batch file has returned a 0 errorlevel but check for anything in 
 rem 
 echo %IM% Batch file ^<<OdiScmJisqlRepoBat>^> returned zero ERRORLEVEL
 fc %EMPTYFILE% %STDERRFILE% >NUL 2>NUL
-if not ERRORLEVEL 1 goto MainOdiScmOdiStandardsCheck
+if ERRORLEVEL 1 (
+	echo %IM% StdErr content:
+	type %STDERRFILE%
+	goto MainExitFail
+)
 
-echo %IM% StdErr content:
-type %STDERRFILE%
+rem
+rem Execute the post import Scenario generation script.
+rem
+set MSG=executing OdiScm ODI scenario generation script "<OdiScmGenScenPostImportBat>"
+echo %IM% %MSG%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmGenScenPostImportBat>"
+if ERRORLEVEL 1 goto MainExitFail
 
-goto MainExitFail
-
-:MainOdiScmOdiStandardsCheck
 rem
 rem Execute any user specified ODI standards check/report script.
 rem Note that the user might build the script to intentionally cause the build to fail.
@@ -158,14 +164,6 @@ if not "<OdiStandardsCheckScript>" == "" (
 		goto MainExitFail
 	)
 )
-
-rem
-rem Execute the post import Scenario generation script.
-rem
-set MSG=executing OdiScm ODI scenario generation script "<OdiScmGenScenPostImportBat>"
-echo %IM% %MSG%
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmGenScenPostImportBat>"
-if ERRORLEVEL 1 goto MainExitFail
 
 rem
 rem Generate the unit test execution script.

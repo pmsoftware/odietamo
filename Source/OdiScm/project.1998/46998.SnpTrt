@@ -74,7 +74,7 @@
 	<Field name="DefV" type="java.lang.String"><![CDATA[tf.exe dir %s]]></Field>
 	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
 	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[3128998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[4315998]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[41998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.VCSCheckFileInSourceControlCommand]]></Field>
@@ -86,7 +86,7 @@
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[3128998]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4315998]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[The operating system command used to check that a file is under source control. The command must return a 0 exit status if the file is under source control else return a non zero exit status.
@@ -101,7 +101,7 @@ E.g.	tf.exe dir <file>
 	<Field name="DefV" type="java.lang.String"><![CDATA[tf.exe checkout /lock:none %s]]></Field>
 	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
 	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[3127998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[4312998]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[41998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.VCSCheckOutCommand]]></Field>
@@ -113,7 +113,7 @@ E.g.	tf.exe dir <file>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[3127998]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4312998]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[The operating system command used to check out files from the Version Control System before files are exported to the file system by the repository export or flush procedures.
@@ -121,6 +121,49 @@ E.g.	tf.exe dir <file>
 E.g.	tf.exe checkout <file>
 
 VCSs such as SVN do not require check-out operations in order to update a file in the file system. TFS generally leaves files read-only unless they have first been checked out.]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
+		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2012-06-11 11:12:57.0]]></Field>
+	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="DefV" type="java.lang.String"><![CDATA[Yes]]></Field>
+	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
+	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[4314998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[4313998]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[41998]]></Field>
+	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
+	<Field name="VarName" type="java.lang.String"><![CDATA[OS.VCSRequiresCheckOut]]></Field>
+	<Field name="VarParam" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
+		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4314998]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Yes]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
+		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4313998]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Valid values are: -
+	Yes
+	No
+
+"Yes" means that the Version Control System requires that files be checked out before they can be written to the file system (i.e. exported from ODI using the repository export or flush procedures). For example TFS.
+
+"No" means that the Version Control System does not require that files be checked out before they can be written to the file system (i.e. exported from ODI using the repository export or flush procedures). For example Subversion.
+
+]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenStep">
@@ -221,18 +264,6 @@ raise(a)]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[41998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[L_CHECKOUT_OBJECT: CheckOut Object: Checking file under source control command returned exit status <" + str(exitStatus) + ">"
-# TODO: make this more certain!
-print "OSUTL_CHECKOUT_OBJECT: CheckOut Object: Ends"]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
-		<Field name="Enc" type="java.lang.String">null</Field>
-	<Field name="EncKey" type="java.lang.String">null</Field>
-	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[41998]]></Field>
-	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[import os
 print "OSUTL_CHECKOUT_OBJECT: CheckOut Object: Starts"
 
@@ -251,7 +282,7 @@ checkOutStdFile = """<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/#O]]></Fie
 checkOutStdOutFile = checkOutStdFile + ".<?=snpRef.getSession("SESS_NO") ?>.stdout"
 checkOutStdErrFile = checkOutStdFile + ".<?=snpRef.getSession("SESS_NO") ?>.stderr"
 
-checkFileInSourceControlCommand = """#OS.VCSCheckFileInSource]]></Field>
+# Note that we redirect stderr here to stdout so that when we]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -261,9 +292,10 @@ checkFileInSourceControlCommand = """#OS.VCSCheckFileInSource]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[41998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ControlCommand >%s 2>%s""" % (checkOutFile,checkOutStdOutFile,checkOutStdErrFile)
-checkFileInSourceControlCommand = """#OS.VCSCheckFileInSourceControlCommand""" % (checkOutFile)
-checkOutCommand = """#OS.VCSCheckOutCommand >>%s 2>>%s""" % (checkOutFil]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[ check if the file is under source control and this code is
+# called via a generated startcmd.bat script then the stderr content does not indicate a command failure.
+# I.e. we trap the stderr in this case.
+checkFileInSourceControlCommand = """#OS.VCS]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -273,10 +305,12 @@ checkOutCommand = """#OS.VCSCheckOutCommand >>%s 2>>%s""" % (checkOutFil]]></Fie
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[41998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[e,checkOutStdOutFile,checkOutStdErrFile)
+	<Field name="Txt" type="java.lang.String"><![CDATA[CheckFileInSourceControlCommand >%s 2>&1""" % (checkOutFile,checkOutStdOutFile)
 
-checkFileInSourceControlErrMessage = """Error occurred checking source control status of file %s. See files %s and %s for details""" % (checkOutFile,checkOutStdOutFile,checkOutStdErrFile)
-checkOutErrMessage =]]></Field>
+if "#OS.VCSRequiresCheckOut" == "Yes":
+	checkOutCommand = """#OS.VCSCheckOutCommand >>%s 2>>%s""" % (checkOutFile,checkOutStdOutFile,checkOutStdErrFile)
+
+checkFileInSour]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -286,9 +320,8 @@ checkOutErrMessage =]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[41998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ """Error occurred checking out file %s. See files %s and %s for details""" % (checkOutFile,checkOutStdOutFile,checkOutStdErrFile)
-
-print "OSUTL_CHECKOUT_OBJECT: CheckOut Object: Checking file under source control with command <" + checkFileInSourceC]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[ceControlErrMessage = """Error occurred checking source control status of file %s. See files %s and %s for details""" % (checkOutFile,checkOutStdOutFile,checkOutStdErrFile)
+checkOutErrMessage = """Error occurred checking out file %s. See files %s and]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -298,11 +331,10 @@ print "OSUTL_CHECKOUT_OBJECT: CheckOut Object: Checking file under source contro
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[41998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ontrolCommand + ">"
-exitStatus = os.system(checkFileInSourceControlCommand)
-if exitStatus == 0:
-	print "OSUTL_CHECKOUT_OBJECT: CheckOut Object: Checking file out from source control system with command <" + checkOutCommand + ">"
-	# We assume that the]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[ %s for details""" % (checkOutFile,checkOutStdOutFile,checkOutStdErrFile)
+
+print "OSUTL_CHECKOUT_OBJECT: CheckOut Object: Checking file under source control with command <" + checkFileInSourceControlCommand + ">"
+exitStatus = os.system(checkFileInSou]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -312,14 +344,40 @@ if exitStatus == 0:
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[41998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ file exists under source control.
-	if os.system(checkOutCommand) <> 0 :
-		# An error occurred checking out the file.
-		raise checkOutErrMessage
+	<Field name="Txt" type="java.lang.String"><![CDATA[rceControlCommand)
+if exitStatus == 0:
+	if "#OS.VCSRequiresCheckOut" == "Yes":
+		print "OSUTL_CHECKOUT_OBJECT: CheckOut Object: Checking file out from source control system with command <" + checkOutCommand + ">"
+		# We assume that the file exists un]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[41998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[der source control.
+		if os.system(checkOutCommand) <> 0:
+			# An error occurred checking out the file.
+			raise checkOutErrMessage
 # else we assume that the command failed because the file is not under source control.
 else:
-	print "OSUT]]></Field>
-	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
+	print "OSUTL_CHECKOUT_OB]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
+		<Field name="Enc" type="java.lang.String">null</Field>
+	<Field name="EncKey" type="java.lang.String">null</Field>
+	<Field name="Nno" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[41998]]></Field>
+	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[JECT: CheckOut Object: Checking file under source control command returned exit status <" + str(exitStatus) + ">"
+# TODO: make this more certain!
+print "OSUTL_CHECKOUT_OBJECT: CheckOut Object: Ends"]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpLineTrt">
 		<Field name="AlwaysExe" type="java.lang.String"><![CDATA[1]]></Field>
@@ -459,9 +517,13 @@ checkOutStdFile = """<%=odiRef.getSchemaName("ODISCMWC_DATA","W")%>/#ExportFileN
 checkOutStdOutFile = checkOutStdFile + ".<%=odiRef.getSession("SESS_NO")%>.stdout"
 checkOutStdErrFile = checkOutStdFile + ".<%=odiRef.getSession("SESS_NO")%>.stderr"
 
-checkFileInSourceControlCommand = """#VCSCheckFileInSourceControlCommand >%s 2>%s""" % (checkOutFile,checkOutStdOutFile,checkOutStdErrFile)
-checkFileInSourceControlCommand = """#VCSCheckFileInSourceControlCommand""" % (checkOutFile)
-checkOutCommand = """#VCSCheckOutCommand >>%s 2>>%s""" % (checkOutFile,checkOutStdOutFile,checkOutStdErrFile)
+# Note that we redirect stderr here to stdout so that when we check if the file is under source control and this code is
+# called via a generated startcmd.bat script then the stderr content does not indicate a command failure.
+# I.e. we trap the stderr in this case.
+checkFileInSourceControlCommand = """#VCSCheckFileInSourceControlCommand >%s 2>&1""" % (checkOutFile,checkOutStdOutFile)
+
+if "#VCSRequiresCheckOut" == "Yes":
+	checkOutCommand = """#VCSCheckOutCommand >>%s 2>>%s""" % (checkOutFile,checkOutStdOutFile,checkOutStdErrFile)
 
 checkFileInSourceControlErrMessage = """Error occurred checking source control status of file %s. See files %s and %s for details""" % (checkOutFile,checkOutStdOutFile,checkOutStdErrFile)
 checkOutErrMessage = """Error occurred checking out file %s. See files %s and %s for details""" % (checkOutFile,checkOutStdOutFile,checkOutStdErrFile)
@@ -469,11 +531,12 @@ checkOutErrMessage = """Error occurred checking out file %s. See files %s and %s
 print "OSUTL_CHECKOUT_OBJECT: CheckOut Object: Checking file under source control with command <" + checkFileInSourceControlCommand + ">"
 exitStatus = os.system(checkFileInSourceControlCommand)
 if exitStatus == 0:
-	print "OSUTL_CHECKOUT_OBJECT: CheckOut Object: Checking file out from source control system with command <" + checkOutCommand + ">"
-	# We assume that the file exists under source control.
-	if os.system(checkOutCommand) <> 0 :
-		# An error occurred checking out the file.
-		raise checkOutErrMessage
+	if "#VCSRequiresCheckOut" == "Yes":
+		print "OSUTL_CHECKOUT_OBJECT: CheckOut Object: Checking file out from source control system with command <" + checkOutCommand + ">"
+		# We assume that the file exists under source control.
+		if os.system(checkOutCommand) <> 0:
+			# An error occurred checking out the file.
+			raise checkOutErrMessage
 # else we assume that the command failed because the file is not under source control.
 else:
 	print "OSUTL_CHECKOUT_OBJECT: CheckOut Object: Checking file under source control command returned exit status <" + str(exitStatus) + ">"
@@ -492,7 +555,7 @@ print "OSUTL_CHECKOUT_OBJECT: CheckOut Object: Ends"]]></Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
 </Object>
 <Object class="com.sunopsis.dwg.DwgExportSummary">
-		<Field name="ExpTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
+		<Field name="ExpTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
 	<Field name="InstObjNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="JoinColNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="JoinNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
@@ -502,14 +565,14 @@ print "OSUTL_CHECKOUT_OBJECT: CheckOut Object: Ends"]]></Field>
 	<Field name="MorigTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="MtxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="OrigTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA[11]]></Field>
+	<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA[12]]></Field>
 	<Field name="PlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="StepNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="TxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 	<Field name="UeOrigNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="UeUsedNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="VarPlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
+	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
 	<Field name="OriginRepositoryID" type="com.sunopsis.sql.DbInt">null</Field>
 </Object>
 </SunopsisExport>

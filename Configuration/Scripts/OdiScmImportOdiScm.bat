@@ -323,19 +323,22 @@ if ERRORLEVEL 1 (
 
 echo %IM% completed import of ODI-SCM work repository objects
 
-echo %IM% regenerating ODI-SCM ODI project scenarios
-if "%ODI_SCM_ODI_SCM_ORACLEDI_VERSION_MAJOR%" == "10." (
-	rem set ODI_SCM_PROJECT=1998
-	set ODI_SCM_PROJECT=OS
-) else (
-	set ODI_SCM_PROJECT=OS
-)
+rem echo %IM% regenerating ODI-SCM ODI project scenarios
+rem if "%ODI_SCM_ODI_SCM_ORACLEDI_VERSION_MAJOR%" == "10." (
+rem 	rem set ODI_SCM_PROJECT=1998
+rem 	set ODI_SCM_PROJECT=OS
+rem ) else (
+rem 	set ODI_SCM_PROJECT=OS
+rem )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%^" OdiGenerateAllScen -PROJECT=%ODI_SCM_PROJECT% -MODE=REPLACE -GENERATE_PACK=YES -GENERATE_POP=NO -GENERATE_TRT=YES -GENERATE_VAR=NO
-if ERRORLEVEL 1 (
-	echo %EM% regenerating ODI-SCM ODI project scenarios
-	goto ExitFail
-)
+rem 
+rem Don't regenerate the Scenarios - an ODI bug is preventing correct generation or regeneration, whereby the Scenario has no variables treated as 'startup paramaters'.
+rem 
+rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%^" OdiGenerateAllScen -PROJECT=%ODI_SCM_PROJECT% -MODE=REPLACE -GENERATE_PACK=YES -GENERATE_POP=NO -GENERATE_TRT=YES -GENERATE_VAR=NO
+rem if ERRORLEVEL 1 (
+rem 	echo %EM% regenerating ODI-SCM ODI project scenarios
+rem 	goto ExitFail
+rem )
 
 if %PRIMEMETADATA% == LAST (
 	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeRepoFlush.bat^" /p both
