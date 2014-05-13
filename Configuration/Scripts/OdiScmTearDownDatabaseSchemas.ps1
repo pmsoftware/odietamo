@@ -851,7 +851,7 @@ function TestSqlExecStatus ($IM, $EM, $blnResult, $strSqlScriptFile, $strStdErrL
 			#
 			$blnStdErrFileContainsOnlyWarnings = $True
 			
-			foreach ($strStdErrLine in $arrStrStdErrLogFileContent) {
+			foreach ($strStdErrLine in $strStdErrLogFileContent) {
 				#
 				# Ignore warning messages.
 				#
