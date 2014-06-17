@@ -26,7 +26,7 @@ SELECT 'DROP VIEW ' + s.name + '.' + t.name
 /
 
 SELECT 'DROP PROCEDURE ' + s.name + '.' + t.name
-  FROM sys.views t
+  FROM sys.procedures t
  INNER
   JOIN sys.schemas s
     ON t.schema_id = s.schema_id
