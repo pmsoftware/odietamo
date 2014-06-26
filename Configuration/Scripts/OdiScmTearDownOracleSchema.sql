@@ -98,16 +98,18 @@ BEGIN
                                   WHEN object_type = 'FUNCTION'		-- Package functions.
                                    AND subobject_name IS NOT NULL
                                   THEN 500
-                                  WHEN object_type = 'PACKAGE'
-                                  THEN 600
                                   WHEN object_type = 'PACKAGE BODY'
+                                  THEN 600
+                                  WHEN object_type = 'PACKAGE'
                                   THEN 700
                                   WHEN object_type = 'VIEW'
                                   THEN 800
-                                  WHEN object_type = 'TABLE'
+                                  WHEN object_type = 'SEQUENCE'
                                   THEN 900
-                                  WHEN object_type = 'DATABASE LINK'
+                                  WHEN object_type = 'TABLE'
                                   THEN 1000
+                                  WHEN object_type = 'DATABASE LINK'
+                                  THEN 1100
                                   ELSE 9999
                               END
                       )
