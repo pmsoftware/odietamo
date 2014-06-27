@@ -313,6 +313,7 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 		else {
 			$blnProcessedPattern = $False
 		}
+        $intPatternNo += 1
 	}
 	while ($blnProcessedPattern)
 	
@@ -1103,7 +1104,7 @@ function GenerateSplImportScript ([array] $arrStrFiles) {
 		if (!($strTierNumber.startswith("t"))) {
 			write-host "$EM DDL script file <$strFile> has unrecognised tier string prefix <$strTierNumber>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -1111,7 +1112,7 @@ function GenerateSplImportScript ([array] $arrStrFiles) {
 		if (($strTierInt -as [int]) -eq $Null) {
 			write-host "$EM DDL script file <$strFile> has unrecognised tier number <$strTierInt>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -1450,7 +1451,7 @@ function GenerateDmlExecutionScript ([array] $arrStrFiles) {
 		if (!($strTierNumber.startswith("t"))) {
 			write-host "$EM DDL script file <$strFile> has unrecognised tier string prefix <$strTierNumber>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -1458,7 +1459,7 @@ function GenerateDmlExecutionScript ([array] $arrStrFiles) {
 		if (($strTierInt -as [int]) -eq $Null) {
 			write-host "$EM DDL script file <$strFile> has unrecognised tier number <$strTierInt>"
 			$intFileErrors += 1
-			DebuggingPause
+			#DebuggingPause
 			continue
 		}
 		
@@ -1508,14 +1509,22 @@ function GenerateDmlExecutionScript ([array] $arrStrFiles) {
 		# Extract the file name parts and validate them.
 		#
 		$strDmlPrefix = $arrStrFileNameParts[0]
-		$strLogicalSchemaName = $arrStrFileNameParts[1]
-		$strRemainder = $arrStrFileNameParts[2]
+		$strScopeType = $arrStrFileNameParts[1]
+		$strLogicalSchemaName = $arrStrFileNameParts[2]
+		$strTierNumber = $arrStrFileNameParts[3]
+		$strRemainder = $arrStrFileNameParts[4]
 		$arrStrRemainderParts = $strRemainder.split(".")
 		$arrStrRemainderMain = $arrStrRemainderParts[0]
 		$arrStrRemainderExtension = $arrStrRemainderParts[1]
 		
 		if ($strDmlPrefix -ne "dml") {
 			write-host "$EM DML script file <$strFile> does not have expected name <dml> prefix"
+			$intFileErrors += 1
+			continue
+		}
+		
+		if ($strScopeType -ne "schema") {
+			write-host "$EM DML script file <$strFile> does not have recognised scope type <schema> prefix"
 			$intFileErrors += 1
 			continue
 		}
