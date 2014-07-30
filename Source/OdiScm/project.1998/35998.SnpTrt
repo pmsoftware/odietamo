@@ -56,19 +56,6 @@
 	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
-		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2011-07-29 16:49:46.0]]></Field>
-	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="DefV" type="java.lang.String">null</Field>
-	<Field name="IndStore" type="java.lang.String"><![CDATA[S]]></Field>
-	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[69998]]></Field>
-	<Field name="VarDatatype" type="java.lang.String"><![CDATA[N]]></Field>
-	<Field name="VarName" type="java.lang.String"><![CDATA[OS.ProcedureInternalID]]></Field>
-	<Field name="VarParam" type="java.lang.String"><![CDATA[1]]></Field>
-	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-</Object>
-<Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
 		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2014-04-11 16:13:01.0]]></Field>
 	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="DefV" type="java.lang.String"><![CDATA[ODISCM_AUTOMATION.ALLOW_SCENARIO_EXPORT]]></Field>
@@ -86,8 +73,8 @@
 	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="DefV" type="java.lang.String"><![CDATA[Yes]]></Field>
 	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
-	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[4249998]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[4248998]]></Field>
+	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[4332998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[4331998]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[69998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.VCSRequiresCheckOut]]></Field>
@@ -99,7 +86,7 @@
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4249998]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4332998]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[Yes]]></Field>
@@ -110,7 +97,7 @@
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4248998]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4331998]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[Valid values are: -
@@ -455,8 +442,8 @@ f.close()]]></Field>
  OUTER
   JOIN snp_grp_state gs
     ON s2.i_grp_state = gs.i_grp_state
- WHERE s.i_trt = #OS.ProcedureInternalID
-]]></Field>
+ WHERE s.i_trt = #OS.PackageInternalID
+  ]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -466,7 +453,7 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[69998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[       --
+	<Field name="Txt" type="java.lang.String"><![CDATA[     --
        -- Always allow ODI-SCM scenarios to be exported. 
        --
    AND
@@ -477,7 +464,7 @@ f.close()]]></Field>
        -- Allow non ODI-SCM scenarios to be exported if they have the appropriate marker.
        --
    AND
- ]]></Field>
+   ]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -487,7 +474,7 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[69998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[  NOT (
+	<Field name="Txt" type="java.lang.String"><![CDATA[NOT (
        NVL(os.i_object, -1) = 3200                            -- Value for Packages.
    AND '#OS.ScenarioExportMarkersText' LIKE ('%' || NVL(gs.grp_state_code,'XXX') || '.' || NVL(s2.state_code,'XXX') || '%')
        )]]></Field>
@@ -910,7 +897,8 @@ $$SNPS_END_KEY*/
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[DATE	AUTHOR		DESCRIPTION
 ==========	======		===========
-26-06-2012	M. Matten		Don't back-up/delete/restore scenarios of the ODI-SVN project.]]></Field>
+26-06-2012	M. Matten		Don't back-up/delete/restore scenarios of the ODI-SVN project.
+30-07-2014	M. Matten		Delete package scenarios, not procedure scenarios for packages!]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[6998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
@@ -1330,7 +1318,7 @@ f.close()]]></Field>
  OUTER
   JOIN snp_grp_state gs
     ON s2.i_grp_state = gs.i_grp_state
- WHERE s.i_trt = #ProcedureInternalID
+ WHERE s.i_trt = #PackageInternalID
        --
        -- Always allow ODI-SCM scenarios to be exported. 
        --
@@ -2169,7 +2157,7 @@ raise(a)]]></Field>
 	<Field name="MorigTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="MtxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="OrigTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-	<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA[33]]></Field>
+	<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA[32]]></Field>
 	<Field name="PlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="StepNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="TxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[23]]></Field>
