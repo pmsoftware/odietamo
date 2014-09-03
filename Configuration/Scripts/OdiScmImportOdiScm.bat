@@ -361,9 +361,11 @@ echo %IM% import of ODI-SCM ODI components completed successfully
 goto ExitOk
 
 :ExitFail
+echo %EM% ends
 exit %IsBatchExit% 1
 
 :ExitOk
+echo %IM% ends
 exit %IsBatchExit% 0
 
 rem *************************************************************

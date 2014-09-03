@@ -1,7 +1,7 @@
 --
 -- Generate list of scenarios to be deleted.
--- We delete scenarios for objects that have been updated by an import process
--- We don't care if the source object has been marked or not as 'should have a scenario'.
+-- We delete scenarios for objects that will be imported by an import process and that don't have
+-- the marker that allows the source object to retain its Scenario when its imported and exported.
 --
 SELECT 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmOdiStartCmdBat>" OdiDeleteScen "-SCEN_NAME='
     || scen_name
@@ -15,13 +15,11 @@ SELECT 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmOdiSt
          FROM snp_scen
         WHERE i_pop
            IN (
-              SELECT i.i_pop
-                FROM snp_pop i
-               WHERE i.last_date >
-                     (
-                     SELECT import_start_datetime
-                       FROM odiscm_controls
-                     )
+              -- All Interfaces that will be imported.
+              SELECT source_object_id
+                       AS i_pop
+                FROM odiscm_imports
+               WHERE source_type_id = 3100 -- Value for Interfaces.
                MINUS
                      -- Objects from the ODI-SCM project.
               SELECT i.i_pop
@@ -54,7 +52,7 @@ SELECT 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmOdiSt
                   ON s2.i_grp_state = gs.i_grp_state
                CROSS
                 JOIN odiscm_configurations osco
-               WHERE os.i_object = 3100                            -- Value for Interfaces.
+               WHERE os.i_object = 3100 -- Value for Interfaces.
                  AND osco.scenario_export_markers LIKE ('%' || NVL(gs.grp_state_code,'XXX') || '.' || NVL(s2.state_code,'XXX') || '%')
               )
         UNION
@@ -64,13 +62,11 @@ SELECT 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmOdiSt
          FROM snp_scen
         WHERE i_trt
            IN (
-              SELECT t.i_trt
-                FROM snp_trt t
-               WHERE t.last_date >
-                     (
-                     SELECT import_start_datetime
-                       FROM odiscm_controls
-                     )
+              -- All Procedures that will be imported.
+              SELECT source_object_id
+                       AS i_trt
+                FROM odiscm_imports
+               WHERE source_type_id = 3600 -- Value for Procedures.
                MINUS
                      -- Objects from the ODI-SCM project.
               SELECT t.i_trt
@@ -97,7 +93,7 @@ SELECT 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmOdiSt
                   ON s2.i_grp_state = gs.i_grp_state
                CROSS
                 JOIN odiscm_configurations osco
-               WHERE os.i_object = 3600                            -- Value for Procedures.
+               WHERE os.i_object = 3600 -- Value for Procedures.
                  AND osco.scenario_export_markers LIKE ('%' || NVL(gs.grp_state_code,'XXX') || '.' || NVL(s2.state_code,'XXX') || '%')
               )
         UNION
@@ -107,13 +103,11 @@ SELECT 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmOdiSt
          FROM snp_scen
         WHERE i_package
            IN (
-              SELECT a.i_package
-                FROM snp_package a
-               WHERE a.last_date >
-                     (
-                     SELECT import_start_datetime
-                       FROM odiscm_controls
-                     )
+              -- All Packages that will be imported.
+              SELECT source_object_id
+                       AS i_package
+                FROM odiscm_imports
+               WHERE source_type_id = 3200 -- Value for Packages.
                MINUS
                      -- Objects from the ODI-SCM project.
               SELECT a.i_package
@@ -146,7 +140,7 @@ SELECT 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmOdiSt
                   ON s2.i_grp_state = gs.i_grp_state
                CROSS
                 JOIN odiscm_configurations osco
-               WHERE os.i_object = 3200                            -- Value for Packages.
+               WHERE os.i_object = 3200 -- Value for Packages.
                  AND osco.scenario_export_markers LIKE ('%' || NVL(gs.grp_state_code,'XXX') || '.' || NVL(s2.state_code,'XXX') || '%')
               )
         UNION
@@ -156,13 +150,11 @@ SELECT 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmOdiSt
          FROM snp_scen
         WHERE i_var
            IN (
-              SELECT v.i_var
-                FROM snp_var v
-               WHERE v.last_date >
-                     (
-                     SELECT import_start_datetime
-                       FROM odiscm_controls
-                     )
+              -- All Variables that will be imported.
+              SELECT source_object_id
+                       AS i_var
+                FROM odiscm_imports
+               WHERE source_type_id = 3500 -- Value for Variables.
                MINUS
                      -- Objects from the ODI-SCM project.
               SELECT v.i_var
@@ -189,7 +181,7 @@ SELECT 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmOdiSt
                   ON s2.i_grp_state = gs.i_grp_state
                CROSS
                 JOIN odiscm_configurations osco
-               WHERE os.i_object = 3500                            -- Value for Variables.
+               WHERE os.i_object = 3500 -- Value for Variables.
                  AND osco.scenario_export_markers LIKE ('%' || NVL(gs.grp_state_code,'XXX') || '.' || NVL(s2.state_code,'XXX') || '%')
               )
        )

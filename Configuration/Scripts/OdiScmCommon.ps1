@@ -10,6 +10,7 @@ $ODIImportModeUpdate = 'SYNONYM_UPDATE'
 #
 $orderedExtensions = @("*.SnpTechno","*.SnpLang","*.SnpConnect","*.SnpPschema","*.SnpLschema","*.SnpContext","*.SnpPschemaCont","*.SnpProject","*.SnpGrpState","*.SnpFolder","*.SnpVar","*.SnpUfunc","*.SnpTrt","*.SnpModFolder","*.SnpModel","*.SnpSubModel","*.SnpTable","*.SnpJoin","*.SnpSequence","*.SnpPop","*.SnpPackage","*.SnpObjState")
 $containerExtensions = @("*.SnpTechno","*.SnpConnect","*.SnpContext","*.SnpModFolder","*.SnpModel","*.SnpSubModel","*.SnpProject","*.SnpFolder")
+$scenarioSourceExtensions = @("*.SnpVar","*.SnpTrt","*.SnpPop","*.SnpPackage")
 $nestableContainerExtensions = @("*.SnpModFolder","*.SnpSubModel","*.SnpFolder")
 $nestableContainerExtensionParentFields = @("ParIModFolder","ISmodParent","ParIFolder")
 $nestableContExtParBegin = '<Field name="XXXXXXXXXXXXXXXXXXXX" type="com.sunopsis.sql.DbInt"><![CDATA['
@@ -611,6 +612,83 @@ function GenerateOdiImportScript ([array] $arrStrFilesToImport) {
 	$OutScriptTail += "cd /d %OLDPWD%" + [Environment]::NewLine
 	$OutScriptTail += "exit %IsBatchExit% 1" + [Environment]::NewLine
 	$OutScriptTail | out-file $OdiImportScriptFile -encoding ASCII -append
+	
+	$ExitStatus = $True
+	
+	write-host "$IM ends"
+	return $ExitStatus
+}
+
+function GenerateOdiSrcObjIdInsertScript ([array] $arrStrFilesToImport) {
+	
+	$FN = "GenerateOdiSrcObjIdInsertScript"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$DEBUG = $FN + ": DEBUG"
+	
+	write-host "$IM starts"
+	
+	$templateText = get-content $OdiScmGenScenPreImpDelOldSqlTemplate | out-string
+	if (!($?)) {
+		write-host "$EM getting contents of template file <$OdiScmGenScenPreImpDelOldSqlTemplate>"
+		return $False
+	}
+	
+	write-host "$IM writing output to <$OdiScmGenScenPreImpDelOldSql>"
+	$ImportText = ""
+	
+	#
+	# Loop through each extension and file files for which to include object ID insert commands.
+	#
+	foreach ($ext in $scenarioSourceExtensions) {
+		
+		$fileObjType = $ext.Replace("*.","")
+		write-host "$IM processing object type <$fileObjType>"
+		
+		$extensionFileCount = 0
+		
+		foreach ($fileToImport in $arrStrFilesToImport) {
+			
+			if ($fileToImport.EndsWith($fileObjType)) {
+				
+				$FileToImportName = split-path $fileToImport -leaf
+				$FileToImportPathName = split-path $fileToImport -parent
+				$FileToImportID = $FileToImportName.split(".")
+				$extensionFileCount += 1
+				
+				switch ($fileObjType) {
+					"SnpPop" {
+						$FileToImportTypeID = 3100
+					}
+					"SnpTrt" {
+						$FileToImportTypeID = 3600
+					}
+					"SnpPackage" {
+						$FileToImportTypeID = 3200
+					}
+					"SnpVar" {
+						$FileToImportTypeID = 3500
+					}
+				}
+				
+				$ImportText += "INSERT" + [Environment]::NewLine
+				$ImportText += "  INTO odiscm_imports" + [Environment]::NewLine
+				$ImportText += "       (" + [Environment]::NewLine
+				$ImportText += "       source_object_id" + [Environment]::NewLine
+				$ImportText += "     , source_type_id" + [Environment]::NewLine
+				$ImportText += "       )" + [Environment]::NewLine
+				$ImportText += "VALUES (" + [Environment]::NewLine
+				$ImportText += "       " + $FileToImportID[0] + [Environment]::NewLine
+				$ImportText += "     , " + $FileToImportTypeID + [Environment]::NewLine
+				$ImportText += "       )" + [Environment]::NewLine
+				$ImportText += "/" + [Environment]::NewLine
+				$ImportText += "" + [Environment]::NewLine
+			}
+		}
+	}
+	
+	$outputText = $templateText.Replace("<OdiScmInsertSrcObjIds>",$ImportText)
+	$outputText | out-file -filepath $OdiScmGenScenPreImpDelOldSql -encoding ASCII
 	
 	$ExitStatus = $True
 	
@@ -2113,6 +2191,14 @@ function GenerateBuild ($StrSourceTypeName) {
 	}
 	
 	#
+	# Set up the pre-ODI import Scenario deletion generator script content.
+	#
+	if (!(SetOdiScmGenScenPreImpDelOldBatSqlContent)) {
+		write-host "$EM call to SetOdiScmGenScenPreImpDelOldBatSqlContent failed"
+		return $False
+	}
+	
+	#
 	# Set up the pre-ODI import script content.
 	#
 	if (!(SetOdiScmPreImportBatContent)) {
@@ -2160,26 +2246,6 @@ function GenerateBuild ($StrSourceTypeName) {
 	write-host "$IM ends"
 	return $True
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function GetOdiScmConfiguration {
 	
@@ -2655,6 +2721,8 @@ function SetOutputNames {
 	$script:OdiScmJisqlRepoBat = $GenScriptRootDir + "\OdiScmJisqlRepo_${OutputTag}.bat"
 	$script:OdiScmRepositoryBackUpBat = $GenScriptRootDir + "\OdiScmRepositoryBackUp_${OutputTag}.bat"
 	$script:OdiScmBuildBat = $GenScriptRootDir + "\OdiScmBuild_${OutputTag}.bat"
+	$script:OdiScmGenScenPreImpDelOldSql = $GenScriptRootDir + "\OdiScmGenScen15InsertSrcObjIds_${OutputTag}.sql"
+	$script:OdiScmGenScenPreImpDelOldBatSql = $GenScriptRootDir + "\OdiScmGenScen17PreImpDelOldBat_${OutputTag}.sql"
 	$script:OdiScmGenScenPreImportBat = $GenScriptRootDir + "\OdiScmGenScenPreImport_${OutputTag}.bat"
 	$script:OdiScmGenScenPostImportBat = $GenScriptRootDir + "\OdiScmGenScenPostImport_${OutputTag}.bat"
 	$script:OdiScmGenScenDeleteOldSql = $GenScriptRootDir + "\OdiScmGenScen20DeleteOldScen_${OutputTag}.sql"
@@ -2878,7 +2946,7 @@ function SetOdiScmBuildNoteContent ($VersionRange) {
 	
 	$NoteText = get-content $OdiScmBuildNoteTemplate | out-string
 	if (!($?)) {
-		write-host "$EM getting build note tempate text from template file <$OdiScmBuildNoteTemplate>"
+		write-host "$EM getting build note template text from template file <$OdiScmBuildNoteTemplate>"
 		return $False
 	}
 	
@@ -2890,7 +2958,7 @@ function SetOdiScmBuildNoteContent ($VersionRange) {
 	
 	set-content -path $OdiScmBuildNote $NoteText
 	if (!($?)) {
-		write-host "$EM setting build note tempate text in file <$OdiScmBuildNote>"
+		write-host "$EM setting build note template text in file <$OdiScmBuildNote>"
 		return $False
 	}
 	
@@ -2921,6 +2989,9 @@ function SetOdiScmPreImportBatContent {
 	$ScriptFileContent = $ScriptFileContent.Replace("<GenScriptRootDir>",$GenScriptRootDir)
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmJisqlRepoBat>",$OdiScmJisqlRepoBat)
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmHomeDir>",$OdiScmHomeDir)
+	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmGenScenPreImpDelOldSql>",$OdiScmGenScenPreImpDelOldSql)
+	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmGenScenPreImpDelOldBatSql>",$OdiScmGenScenPreImpDelOldBatSql)
+	
 	set-content -path $OdiScmGenScenPreImportBat -value $ScriptFileContent
 	
 	$ExitStatus = $True
@@ -2930,7 +3001,38 @@ function SetOdiScmPreImportBatContent {
 }
 
 #
-# Generate the Scenario deletion script generation script.
+# Generate the pre import Scenario deletion script generation script.
+#
+function SetOdiScmGenScenPreImpDelOldBatSqlContent {
+	
+	$FN = "SetOdiScmGenScenPreImpDelOldBatSqlContent"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	
+	write-host "$IM starts"
+	write-host "$IM using script template file <$OdiScmGenScenPreImpDelOldBatSqlTemplate>"
+	write-host "$IM setting content of pre ODI import script file <$OdiScmGenScenPreImpDelOldBatSql>"
+	
+	$ExitStatus = $False
+	
+	$ScriptFileContent = get-content $OdiScmGenScenPreImpDelOldBatSqlTemplate | out-string
+	
+	#
+	# Set the script path/names.
+	#
+	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmOdiStartCmdBat>",$OdiScmOdiStartCmdBat)
+	set-content -path $OdiScmGenScenPreImpDelOldBatSql -value $ScriptFileContent
+	
+	write-host "set content to: " $ScriptFileContent
+	
+	$ExitStatus = $True
+	
+	write-host "$IM ends"
+	return $ExitStatus
+}
+
+#
+# Generate the post import Scenario deletion script generation script.
 #
 function SetOdiScmGenScenDeleteOldSqlContent {
 	
@@ -2959,7 +3061,7 @@ function SetOdiScmGenScenDeleteOldSqlContent {
 }
 
 #
-# Generate the Scenario generation script generation script.
+# Generate the post import Scenario generation script generation script.
 #
 function SetOdiScmGenScenNewSqlContent {
 	
@@ -3828,6 +3930,8 @@ $OdiScmUpdateIniAwk = $ScriptsRootDir + "\OdiScmUpdateIni.awk"
 $OdiScmRepositoryBackUpBatTemplate = $ScriptsRootDir + "\OdiScmRepositoryBackUpTemplate.bat"
 $OdiScmJisqlRepoBatTemplate = $ScriptsRootDir + "\OdiScmJisqlRepoTemplate.bat"
 $OdiScmBuildBatTemplate = $ScriptsRootDir + "\OdiScmBuildTemplate.bat"
+$OdiScmGenScenPreImpDelOldSqlTemplate = $ScriptsRootDir + "\OdiScmGenScen15InsertSrcObjIdsTemplate.sql"
+$OdiScmGenScenPreImpDelOldBatSqlTemplate = $ScriptsRootDir + "\OdiScmGenScen17DeleteOldScenTemplate.sql"
 $OdiScmGenScenPreImportBatTemplate = $ScriptsRootDir + "\OdiScmGenScenPreImportTemplate.bat"
 $OdiScmGenScenPostImportBatTemplate = $ScriptsRootDir + "\OdiScmGenScenPostImportTemplate.bat"
 $OdiScmGenScenDeleteOldSqlTemplate = $ScriptsRootDir + "\OdiScmGenScen20DeleteOldScenTemplate.sql"

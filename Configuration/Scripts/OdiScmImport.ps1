@@ -296,6 +296,14 @@ function GenerateImport {
 	}
 	
 	#
+	# Generate the ODI Scenario source object ID insert commands script.
+	#
+	if (!(GenerateOdiSrcObjIdInsertScript $arrStrOdiFileList)) { 
+		write-host "$EM call to GenerateOdiSrcObjIdInsertScript failed"
+		return $ExitStatus
+	}
+	
+	#
 	# Generate the SQL DDL object import commands in the generated script.
 	#
 	if (!(GenerateDdlImportScript $arrStrDbDdlFileList)) { 
@@ -349,6 +357,14 @@ function GenerateImport {
 	if (!(SetOdiScmRepositoryBackUpBatContent)) {
 		write-host "$EM call to SetOdiScmRepositoryBackUpBatContent failed"
 		return $ExitStatus
+	}
+	
+	#
+	# Set up the pre-ODI import Scenario deletion generator script content.
+	#
+	if (!(SetOdiScmGenScenPreImpDelOldBatSqlContent)) {
+		write-host "$EM call to SetOdiScmGenScenPreImpDelOldBatSqlContent failed"
+		return $False
 	}
 	
 	#

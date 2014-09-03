@@ -22,6 +22,12 @@ DECLARE
 						  || ', export_cleans_importrep        VARCHAR2(3)'
 						  || ', scenario_export_markers        VARCHAR2(200)'
 						  || ')';
+	l_crt_imports_ddl		VARCHAR(1000) := 'CREATE TABLE odiscm_imports'
+						  || '('
+						  || '  source_object_id               INTEGER NOT NULL'
+						  || ', source_type_id                 INTEGER NOT NULL'
+						  || ', CONSTRAINT osim_pk PRIMARY KEY (source_object_id, source_type_id)'
+						  || ')';
 	l_crt_scen_ddl			VARCHAR(1000) := 'CREATE TABLE odiscm_genscen_sources'
 						  || '('
 						  || '  source_object_id               INTEGER NOT NULL'
@@ -80,6 +86,24 @@ BEGIN
 			WHEN OTHERS
 			THEN
 				raise_application_error(-20000, 'Cannot create or analyse table ODISCM_CONFIGURATIONS');
+		END;
+	END IF;
+	
+	SELECT COUNT(*)
+	  INTO l_count
+	  FROM user_tables
+	 WHERE table_name = 'ODISCM_IMPORTS'
+	;
+	
+	IF l_count = 0
+	THEN
+		BEGIN
+			EXECUTE IMMEDIATE l_crt_imports_ddl;
+			EXECUTE IMMEDIATE 'ANALYZE TABLE odiscm_imports ESTIMATE STATISTICS';
+		EXCEPTION
+			WHEN OTHERS
+			THEN
+				raise_application_error(-20000, 'Cannot create or analyse table ODISCM_IMPORTS');
 		END;
 	END IF;
 	

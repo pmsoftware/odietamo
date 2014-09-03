@@ -2,9 +2,9 @@
 <SunopsisExport>
 <Object class="com.sunopsis.dwg.dbobj.SnpTrt">
 		<Field name="ExtVersion" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
 	<Field name="IndJrnMethod" type="java.lang.String"><![CDATA[S]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IFolder" type="com.sunopsis.sql.DbInt"><![CDATA[2998]]></Field>
@@ -16,7 +16,7 @@
 	<Field name="KmDefault" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KmSrcTechno" type="java.lang.String">null</Field>
 	<Field name="KmTechno" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2014-08-31 12:59:32.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LChecksum" type="com.sunopsis.sql.DbInt"><![CDATA[3513]]></Field>
 	<Field name="LCode" type="java.lang.String">null</Field>
@@ -26,9 +26,9 @@
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScen">
 		<Field name="ExtVersion" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2014-08-31 12:59:56.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
 	<Field name="IndPromptParam" type="java.lang.String">null</Field>
 	<Field name="IPackage" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IPop" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
@@ -36,11 +36,54 @@
 	<Field name="ITrt" type="com.sunopsis.sql.DbInt"><![CDATA[45998]]></Field>
 	<Field name="ITxtScen" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IVar" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2014-08-31 13:00:02.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="ScenName" type="java.lang.String"><![CDATA[OSUTL_FLUSH_WORK_REPOSITORY]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[79998]]></Field>
 	<Field name="ScenVersion" type="java.lang.String"><![CDATA[001]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpVarScen">
+		<Field name="DefDate" type="java.sql.Timestamp"><![CDATA[2012-06-11 11:12:57.0]]></Field>
+	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="DefV" type="java.lang.String"><![CDATA[Yes]]></Field>
+	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
+	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[4366998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[4365998]]></Field>
+	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[79998]]></Field>
+	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
+	<Field name="VarName" type="java.lang.String"><![CDATA[OS.VCSRequiresCheckOut]]></Field>
+	<Field name="VarParam" type="java.lang.String"><![CDATA[1]]></Field>
+	<Field name="VarParamOrder" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
+		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2014-08-31 13:00:02.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4366998]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2014-08-31 13:00:02.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Yes]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+</Object>
+<Object class="com.sunopsis.dwg.dbobj.SnpExpTxt">
+		<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2014-08-31 13:00:02.0]]></Field>
+	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4365998]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2014-08-31 13:00:02.0]]></Field>
+	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[Valid values are: -
+	Yes
+	No
+
+"Yes" means that the Version Control System requires that files be checked out before they can be written to the file system (i.e. exported from ODI using the repository export or flush procedures). For example TFS.
+
+"No" means that the Version Control System does not require that files be checked out before they can be written to the file system (i.e. exported from ODI using the repository export or flush procedures). For example Subversion.
+
+]]></Field>
+	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenStep">
 		<Field name="ContextCode" type="java.lang.String">null</Field>
@@ -100,7 +143,8 @@
 	<Field name="OrdType" type="java.lang.String"><![CDATA[D]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[79998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[a='Current user=' + '<?=snpRef.getSession("SNP_USER_NAME") ?>'raise(a)]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[a='Current user,VCSRequiresCheckout=' + '<?=snpRef.getSession("SNP_USER_NAME") ?>,#OS.VCSRequiresCheckOut'
+raise(a)]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTask">
@@ -1446,9 +1490,9 @@ SELECT i_table
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2014-08-31 12:59:32.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2014-08-31 12:59:32.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -1477,7 +1521,7 @@ SELECT i_table
 	<Field name="DefLschemaName" type="java.lang.String">null</Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -1505,7 +1549,7 @@ SELECT i_table
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:58:12.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[180]]></Field>
@@ -1520,9 +1564,9 @@ SELECT i_table
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -1570,9 +1614,9 @@ SELECT i_table
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:58:12.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:58:12.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -1601,7 +1645,7 @@ SELECT i_table
 	<Field name="DefLschemaName" type="java.lang.String">null</Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -1629,7 +1673,7 @@ SELECT i_table
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[190]]></Field>
@@ -1644,9 +1688,9 @@ SELECT i_table
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -1673,9 +1717,9 @@ SELECT i_table
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -1698,7 +1742,7 @@ SELECT i_table
 	<Field name="DefLschemaName" type="java.lang.String">null</Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -1726,7 +1770,7 @@ SELECT i_table
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[200]]></Field>
@@ -1741,9 +1785,9 @@ SELECT i_table
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -1770,9 +1814,9 @@ SELECT i_table
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -1795,7 +1839,7 @@ SELECT i_table
 	<Field name="DefLschemaName" type="java.lang.String"><![CDATA[ODIWORKREP_DATA]]></Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[ORACLE]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -1823,7 +1867,7 @@ SELECT i_table
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[220]]></Field>
@@ -1846,9 +1890,9 @@ SELECT i_table
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -1871,7 +1915,7 @@ SELECT i_table
 	<Field name="DefLschemaName" type="java.lang.String">null</Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -1899,7 +1943,7 @@ SELECT i_table
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
@@ -1914,9 +1958,9 @@ SELECT i_table
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -1939,7 +1983,7 @@ SELECT i_table
 	<Field name="DefLschemaName" type="java.lang.String">null</Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[JYTHON]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[1]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -1967,7 +2011,7 @@ SELECT i_table
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2014-08-31 12:59:32.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
@@ -1976,15 +2020,16 @@ SELECT i_table
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[567998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[a='Current user=' + '<%=odiRef.getSession("SNP_USER_NAME")%>'raise(a)]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[a='Current user,VCSRequiresCheckout=' + '<%=odiRef.getSession("SNP_USER_NAME")%>,#VCSRequiresCheckout'
+raise(a)]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[3998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[U]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2014-08-31 12:59:32.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2014-08-31 12:59:32.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2007,7 +2052,7 @@ SELECT i_table
 	<Field name="DefLschemaName" type="java.lang.String"><![CDATA[ODIWORKREP_DATA]]></Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[ORACLE]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[1]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -2035,7 +2080,7 @@ SELECT i_table
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-21 13:37:37.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[15]]></Field>
@@ -2056,9 +2101,9 @@ SELECT i_table
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2081,7 +2126,7 @@ SELECT i_table
 	<Field name="DefLschemaName" type="java.lang.String"><![CDATA[ODIWORKREP_DATA]]></Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[ORACLE]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -2109,7 +2154,7 @@ SELECT i_table
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[20]]></Field>
@@ -2158,9 +2203,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2183,7 +2228,7 @@ MATCHED
 	<Field name="DefLschemaName" type="java.lang.String">null</Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -2211,7 +2256,7 @@ MATCHED
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-11-21 13:37:37.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[30]]></Field>
@@ -2226,9 +2271,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2255,9 +2300,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:52:57.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:52:57.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2280,7 +2325,7 @@ MATCHED
 	<Field name="DefLschemaName" type="java.lang.String">null</Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -2308,7 +2353,7 @@ MATCHED
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:52:57.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[40]]></Field>
@@ -2323,9 +2368,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2352,9 +2397,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:52:57.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:52:57.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2377,7 +2422,7 @@ MATCHED
 	<Field name="DefLschemaName" type="java.lang.String">null</Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -2405,7 +2450,7 @@ MATCHED
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:53:21.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[50]]></Field>
@@ -2420,9 +2465,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2458,9 +2503,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:53:21.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:53:21.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2483,7 +2528,7 @@ MATCHED
 	<Field name="DefLschemaName" type="java.lang.String">null</Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -2511,7 +2556,7 @@ MATCHED
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:53:21.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[60]]></Field>
@@ -2526,9 +2571,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2555,9 +2600,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:53:21.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:53:21.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2580,7 +2625,7 @@ MATCHED
 	<Field name="DefLschemaName" type="java.lang.String">null</Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -2608,7 +2653,7 @@ MATCHED
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:53:52.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[70]]></Field>
@@ -2623,9 +2668,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2663,9 +2708,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:53:52.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:53:52.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2688,7 +2733,7 @@ MATCHED
 	<Field name="DefLschemaName" type="java.lang.String">null</Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -2716,7 +2761,7 @@ MATCHED
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:53:52.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[80]]></Field>
@@ -2731,9 +2776,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2760,9 +2805,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:53:52.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:53:52.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2785,7 +2830,7 @@ MATCHED
 	<Field name="DefLschemaName" type="java.lang.String">null</Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -2813,7 +2858,7 @@ MATCHED
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:53:52.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[90]]></Field>
@@ -2828,9 +2873,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2857,9 +2902,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:53:52.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:53:52.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2882,7 +2927,7 @@ MATCHED
 	<Field name="DefLschemaName" type="java.lang.String">null</Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -2910,7 +2955,7 @@ MATCHED
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[100]]></Field>
@@ -2925,9 +2970,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2954,9 +2999,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -2979,7 +3024,7 @@ MATCHED
 	<Field name="DefLschemaName" type="java.lang.String">null</Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -3007,7 +3052,7 @@ MATCHED
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[110]]></Field>
@@ -3022,9 +3067,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -3051,9 +3096,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -3076,7 +3121,7 @@ MATCHED
 	<Field name="DefLschemaName" type="java.lang.String">null</Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -3104,7 +3149,7 @@ MATCHED
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[120]]></Field>
@@ -3119,9 +3164,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -3150,9 +3195,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -3175,7 +3220,7 @@ MATCHED
 	<Field name="DefLschemaName" type="java.lang.String">null</Field>
 	<Field name="DefPlanComp" type="java.lang.String">null</Field>
 	<Field name="DefTechno" type="java.lang.String"><![CDATA[SUNOPSIS_API]]></Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 13:16:46.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndErr" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IndLogMethod" type="java.lang.String">null</Field>
@@ -3203,7 +3248,7 @@ MATCHED
 	<Field name="KlmAfterInt" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KlmJrn" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="KxmUsed" type="java.lang.String">null</Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LogLevDet" type="java.lang.String"><![CDATA[3]]></Field>
 	<Field name="OrdTrt" type="com.sunopsis.sql.DbInt"><![CDATA[130]]></Field>
@@ -3218,9 +3263,9 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[0]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-06-15 15:04:05.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
@@ -3248,15 +3293,15 @@ MATCHED
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
-	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
-	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
+	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2013-07-08 08:54:49.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Enc" type="java.lang.String">null</Field>
 	<Field name="EncKey" type="java.lang.String">null</Field>
 </Object>
 <Object class="com.sunopsis.dwg.DwgExportSummary">
-		<Field name="ExpTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
+		<Field name="ExpTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 	<Field name="InstObjNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="JoinColNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="JoinNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
@@ -3266,7 +3311,7 @@ MATCHED
 	<Field name="MorigTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="MtxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="OrigTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-	<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA[41]]></Field>
+	<Field name="OtherObjectsNb" type="com.sunopsis.sql.DbInt"><![CDATA[42]]></Field>
 	<Field name="PlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="StepNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="TxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[34]]></Field>
@@ -3274,6 +3319,6 @@ MATCHED
 	<Field name="UeUsedNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="VarPlanAgentNb" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="ScenTxtNb" type="com.sunopsis.sql.DbInt"><![CDATA[55]]></Field>
-	<Field name="OriginRepositoryID" type="com.sunopsis.sql.DbInt">null</Field>
+	<Field name="OriginRepositoryID" type="com.sunopsis.sql.DbInt"><![CDATA[998]]></Field>
 </Object>
 </SunopsisExport>

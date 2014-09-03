@@ -330,6 +330,17 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+rem
+rem Align the working copy revision with the HEAD so we can check for conflicts in the next update.
+rem
+set MSG=aligning demo environment 1 SVN repository working copy to HEAD revision of SVN repository
+echo %IM% %MSG%
+svn update %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%/SvnRepoRoot %DiscardStdOut% %DiscardStdErr%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
+
 rem *************************************************************
 rem Demo environment 2.
 rem *************************************************************
@@ -497,6 +508,17 @@ rem
 set MSG=committing changes in demo environment 2 SVN repository working copy to SVN repository
 echo %IM% %MSG%
 svn commit -m "Demo auto check in of initial demo export" %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%/SvnRepoRoot/. %DiscardStdOut% %DiscardStdErr%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
+
+rem
+rem Align the working copy revision with the HEAD so we can check for conflicts in the next update.
+rem
+set MSG=aligning demo environment 2 SVN repository working copy to HEAD revision of SVN repository
+echo %IM% %MSG%
+svn update %ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT%/SvnRepoRoot %DiscardStdOut% %DiscardStdErr%
 if ERRORLEVEL 1 (
 	echo %EM% %MSG% 1>&2
 	goto ExitFail
