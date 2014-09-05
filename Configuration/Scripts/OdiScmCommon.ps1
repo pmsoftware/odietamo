@@ -3023,8 +3023,6 @@ function SetOdiScmGenScenPreImpDelOldBatSqlContent {
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmOdiStartCmdBat>",$OdiScmOdiStartCmdBat)
 	set-content -path $OdiScmGenScenPreImpDelOldBatSql -value $ScriptFileContent
 	
-	write-host "set content to: " $ScriptFileContent
-	
 	$ExitStatus = $True
 	
 	write-host "$IM ends"

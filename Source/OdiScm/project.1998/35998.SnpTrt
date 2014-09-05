@@ -73,8 +73,8 @@
 	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="DefV" type="java.lang.String"><![CDATA[Yes]]></Field>
 	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
-	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[4332998]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[4331998]]></Field>
+	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[4412998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[4411998]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[69998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.VCSRequiresCheckOut]]></Field>
@@ -86,7 +86,7 @@
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4332998]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4412998]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[Yes]]></Field>
@@ -97,7 +97,7 @@
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4331998]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4411998]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[Valid values are: -
@@ -442,8 +442,7 @@ f.close()]]></Field>
  OUTER
   JOIN snp_grp_state gs
     ON s2.i_grp_state = gs.i_grp_state
- WHERE s.i_trt = #OS.PackageInternalID
-  ]]></Field>
+ WHERE s.i_package = #OS.PackageInternalI]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -453,7 +452,8 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[69998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[     --
+	<Field name="Txt" type="java.lang.String"><![CDATA[D
+       --
        -- Always allow ODI-SCM scenarios to be exported. 
        --
    AND
@@ -463,8 +463,7 @@ f.close()]]></Field>
        --
        -- Allow non ODI-SCM scenarios to be exported if they have the appropriate marker.
        --
-   AND
-   ]]></Field>
+   AND]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -474,7 +473,8 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[69998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[NOT (
+	<Field name="Txt" type="java.lang.String"><![CDATA[
+   NOT (
        NVL(os.i_object, -1) = 3200                            -- Value for Packages.
    AND '#OS.ScenarioExportMarkersText' LIKE ('%' || NVL(gs.grp_state_code,'XXX') || '.' || NVL(s2.state_code,'XXX') || '%')
        )]]></Field>
@@ -1318,7 +1318,7 @@ f.close()]]></Field>
  OUTER
   JOIN snp_grp_state gs
     ON s2.i_grp_state = gs.i_grp_state
- WHERE s.i_trt = #PackageInternalID
+ WHERE s.i_package = #PackageInternalID
        --
        -- Always allow ODI-SCM scenarios to be exported. 
        --
