@@ -188,6 +188,22 @@ rem
 goto :eof
 
 rem *************************************************************
+:TrimLeadingSpace
+rem *************************************************************
+set TrimLeadingSpaceOutput=%~1
+for /f "tokens=* delims= " %%g in ("%TrimLeadingSpaceOutput%") do set TrimLeadingSpaceOutput=%%g
+for /l %%g in (1,1,100) do if "!TrimLeadingSpaceOutput:~0,1!"==" " set TrimLeadingSpaceOutput=!TrimLeadingSpaceOutput:~0!
+set TLSOutput=%TrimLeadingSpaceOutput%
+goto :eof
+
+rem *************************************************************
+:TrimSpace
+rem *************************************************************
+set TrimSpaceOutput=%*
+set TSOutput=%TrimSpaceOutput%
+goto :eof
+
+rem *************************************************************
 :ExecBatchCommand
 rem *************************************************************
 rem
