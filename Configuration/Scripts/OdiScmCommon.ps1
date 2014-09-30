@@ -1560,7 +1560,7 @@ function GenerateDmlExecutionScript ([array] $arrStrFiles) {
 	
 		foreach ($strFile in $arrStrFiles) {
 		
-			if ($strFile -eq $Full) {
+			if ($strFile -eq $Null) {
 				write-host "$IM doing file <$strFile> - but it's null!"
 				return $False
 			}
