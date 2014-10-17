@@ -37,10 +37,40 @@ rem
 set TEMPFILE=%TEMPDIR%\%PROC%_Maniftest.txt
 <nul set /p =Class-Path:> "%TEMPFILE%"
 
-rem TODO: get jars from this var and add separately.
 if not "%ODI_SCM_TOOLS_JISQL_ADDITIONAL_CLASSPATH%" == "" (
 	echo %IM% using additional class path from environment variable ODI_SCM_TOOLS_JISQL_ADDITIONAL_CLASSPATH
 	set JISQL_CLASS_PATH=%ODI_SCM_TOOLS_JISQL_ADDITIONAL_CLASSPATH%
+	rem Get jars from this variable and add separately.
+	rem For some reason "tokens=*" means that all tokens end up in the first output variable. Is this a bug?
+	for /f "tokens=1,2,3,4,5,6,7,8,9 delims=;" %%g in ("%ODI_SCM_TOOLS_JISQL_ADDITIONAL_CLASSPATH%") do (
+		if not "%%g" == "" (
+			call :AddToManifest %%g
+		)
+		if not "%%h" == "" (
+			call :AddToManifest %%h
+		)
+		if not "%%i" == "" (
+			call :AddToManifest %%i
+		)
+		if not "%%j" == "" (
+			call :AddToManifest %%j
+		)
+		if not "%%k" == "" (
+			call :AddToManifest %%k
+		)
+		if not "%%l" == "" (
+			call :AddToManifest %%l
+		)
+		if not "%%m" == "" (
+			call :AddToManifest %%m
+		)
+		if not "%%n" == "" (
+			call :AddToManifest %%n
+		)
+		if not "%%o" == "" (
+			call :AddToManifest %%o
+		)
+	)
 ) else (
 	echo %IM% no additional class path specified in environment variable ODI_SCM_TOOLS_JISQL_ADDITIONAL_CLASSPATH
 )

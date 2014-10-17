@@ -584,6 +584,30 @@ function GenerateOdiImportScript ([array] $arrStrFilesToImport) {
 					$ImportText += 'copy "' + $fileToImport + '" "' + $SourceFile + '" >NUL' + [Environment]::NewLine
 				}
 				
+				#
+				# Work around (yet another) bug in ODI (as of 11.1.1.7.0) where an SnpPop can't be imported
+				# unless it has the file name prefix "POP_".
+				#
+				if ($fileObjType -eq "SnpPop") {
+					$ImportText += "echo %IM% creating renamed SnpPop file for source file ^<$FileToImportName^>" + [Environment]::NewLine
+					$FileToImportPathName = "%TEMPDIR%"
+					$FileToImportName = "POP_" + $FileToImportName + ".xml"
+					$SourceFile = $FileToImportPathName + "\" + $FileToImportName
+					$ImportText += 'copy "' + $fileToImport + '" "' + $SourceFile + '" >NUL' + [Environment]::NewLine
+				}
+				
+				#
+				# Work around (yet another) bug in ODI (as of 11.1.1.7.0) where an SnpPackage can't be imported
+				# unless it has the file name prefix "PACK_".
+				#
+				if ($fileObjType -eq "SnpPackage") {
+					$ImportText += "echo %IM% creating renamed SnpPackage file for source file ^<$FileToImportName^>" + [Environment]::NewLine
+					$FileToImportPathName = "%TEMPDIR%"
+					$FileToImportName = "PACK_" + $FileToImportName + ".xml"
+					$SourceFile = $FileToImportPathName + "\" + $FileToImportName
+					$ImportText += 'copy "' + $fileToImport + '" "' + $SourceFile + '" >NUL' + [Environment]::NewLine
+				}
+				
 				if (!($containerExtensions -contains $ext)) {
 					$ImportText += 'call "' + $ScriptsRootDir + '\OdiScmFork.bat" ^"' + $OdiScmOdiStartCmdBat + '^" OdiImportObject ' + '"-FILE_NAME=' + $SourceFile + '" ' + "-IMPORT_MODE=$ODIImportModeInsertUpdate -WORK_REP_NAME=$OdiRepoWORK_REP_NAME" + [Environment]::NewLine
 				}
