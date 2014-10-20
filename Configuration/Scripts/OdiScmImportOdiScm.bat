@@ -120,7 +120,9 @@ cat "%TEMPFILE%" | sed s/"<OdiWorkRepoPassWord>"/%ODI_SCM_ORACLEDI_SECU_PASS%/ >
 if ERRORLEVEL 1 goto ScriptGenFail
 
 set CONNSTR=%ODI_SCM_ORACLEDI_SECU_URL_HOST%:%ODI_SCM_ORACLEDI_SECU_URL_PORT%\/%ODI_SCM_ORACLEDI_SECU_URL_SID%
+echo on
 cat "%TEMPFILE%2" | sed s/"<OdiWorkRepoConnectionString>"/%CONNSTR%/ > "%TEMPFILE%3"
+echo off
 if ERRORLEVEL 1 goto ScriptGenFail
 
 goto ScriptGenOk
@@ -255,6 +257,8 @@ REM ) else (
 	REM set WCAPPEND=
 REM )
 
+set URLFS=%ODI_SCM_ORACLEDI_SECU_URL:/=\/%
+
 for /f %%g in ('dir /s /b "%TEMPOBJSDIR%\*.SnpConnect"') do (
 	echo %IM% preparing data server file ^<%%g^>
 	cat "%%g" | sed s/"<OdiScmJavaDriverClass>"/"%ODI_SCM_ORACLEDI_SECU_DRIVER%"/g > %%g.1
@@ -272,7 +276,7 @@ for /f %%g in ('dir /s /b "%TEMPOBJSDIR%\*.SnpConnect"') do (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
 	)
-	cat "%%g.3" | sed s/"<OdiScmUrl>"/"%ODI_SCM_ORACLEDI_SECU_URL%"/g > %%g.4
+	cat "%%g.3" | sed s/"<OdiScmUrl>"/"%URLFS%"/g > %%g.4
 	if ERRORLEVEL 1 (
 		echo %EM% preparing OdiScm repository components for import
 		goto ExitFail
