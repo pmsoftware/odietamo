@@ -120,9 +120,7 @@ cat "%TEMPFILE%" | sed s/"<OdiWorkRepoPassWord>"/%ODI_SCM_ORACLEDI_SECU_PASS%/ >
 if ERRORLEVEL 1 goto ScriptGenFail
 
 set CONNSTR=%ODI_SCM_ORACLEDI_SECU_URL_HOST%:%ODI_SCM_ORACLEDI_SECU_URL_PORT%\/%ODI_SCM_ORACLEDI_SECU_URL_SID%
-echo on
 cat "%TEMPFILE%2" | sed s/"<OdiWorkRepoConnectionString>"/%CONNSTR%/ > "%TEMPFILE%3"
-echo off
 if ERRORLEVEL 1 goto ScriptGenFail
 
 goto ScriptGenOk
