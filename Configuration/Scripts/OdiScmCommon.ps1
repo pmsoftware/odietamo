@@ -30,7 +30,7 @@ function DebuggingPause {
 function LogDebug ($strSource, $strToPrint) {
 	
 	if ($DebuggingActive) {
-		write-host "$strSource: DEBUG: $strToPrint"
+		write-host "${strSource}: DEBUG: $strToPrint"
 	}
 	###DebuggingPause
 }
@@ -41,7 +41,7 @@ function LogDebugArray ($strSource, $strArrName, [array] $strToPrint) {
 	
 	if ($DebuggingActive) {
 		foreach ($x in $strToPrint) {
-			write-host "$strSource: DEBUG: $strArrName[$intIdx]: $x"
+			write-host "${strSource}: DEBUG: $strArrName[$intIdx]: $x"
 			$intIdx += 1
 		}
 	}
@@ -2589,21 +2589,42 @@ function GetOdiScmConfiguration {
 		return $False
 	}
 	
-	[array] $OdiIniSecuUrlParts = @([regex]::split($OdiRepoSECURITY_URL,":"))
+	# Supported formats:
+	# jdbc:oracle:thin:@localhost:1521:xe               (i.e. SID)
+	# jdbc:oracle:thin:@//localhost:1521/orcl.acme.com  (i.e. service name)
+	$strFixedAndVariable = $OdiRepoSECURITY_URL.split("@")
+	$strFixed = $strFixedAndVariable[0]
+	$strVariable = $strFixedAndVariable[1]
 	
-	$script:OdiRepoSECURITY_URL_SERVER = $OdiIniSecuUrlParts[3].Replace("@","")
+	if ($strVariable.StartsWith("//")) {
+		$strKeyValueFields = $strVariable.split(":")
+							
+		$script:OdiRepoSECURITY_URL_SERVER = $strKeyValueFields[0]
+		$script:OdiRepoSECURITY_URL_SERVER = $OdiRepoSECURITY_URL_SERVER.Substring(2)
+		
+		$strPortServiceName = $strKeyValueFields[1]
+		$strPortServiceNameParts = $strPortServiceName.split("/")
+		$script:OdiRepoSECURITY_URL_PORT = $strPortServiceNameParts[0]
+		$script:OdiRepoSECURITY_URL_SID = $strPortServiceNameParts[1]
+	}
+	else {
+		$strKeyValueFields = $strVariable.split(":")
+		
+		$script:OdiRepoSECURITY_URL_SERVER = $strKeyValueFields[0]
+		$script:OdiRepoSECURITY_URL_PORT = $strKeyValueFields[1]
+		$script:OdiRepoSECURITY_URL_SID = $strKeyValueFields[2]
+	}
+		
 	if ($OdiRepoSECURITY_URL_SERVER.length -eq 0) {
 		write-host "$EM no value for server field of connection parameter OracleDI Secu Url in INI file"
 		return $False
 	}
 	
-	$script:OdiRepoSECURITY_URL_PORT = $OdiIniSecuUrlParts[4]
 	if ($OdiRepoSECURITY_URL_PORT.length -eq 0) {
 		write-host "$EM no value for port field of connection parameter OracleDI Secu Url in INI file"
 		return $False
 	}
 	
-	$script:OdiRepoSECURITY_URL_SID = $OdiIniSecuUrlParts[5]
 	if ($OdiRepoSECURITY_URL_SID.length -eq 0) {
 		write-host "$EM no value for SID field of connection parameter OracleDI Secu Url in INI file"
 		return $False
@@ -2922,7 +2943,7 @@ function SetOdiScmRepoCreateInfractureSqlContent {
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiWorkRepoPassWord>",$OdiRepoSECURITY_UNENC_PWD)
 	
 	###$OraConn = "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=$OdiRepoSECURITY_URL_SERVER)(PORT=$OdiRepoSECURITY_URL_PORT))(CONNECT_DATA=(SID=$OdiRepoSECURITY_URL_SID))))"
-	$OraConn = "$OdiRepoSECURITY_URL_SERVER:$OdiRepoSECURITY_URL_PORT/$OdiRepoSECURITY_URL_SID"
+	$OraConn = "${OdiRepoSECURITY_URL_SERVER}:$OdiRepoSECURITY_URL_PORT/$OdiRepoSECURITY_URL_SID"
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiWorkRepoConnectionString>",$OraConn)
 	set-content -path $OdiScmRepoInfrastructureSetupSql -value $ScriptFileContent
 	

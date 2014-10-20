@@ -1,7 +1,7 @@
 @echo off
 
 rem ==========================================================================
-rem Drop and rebuild and ODI repository.
+rem Drop and rebuild an ODI repository.
 rem ==========================================================================
 
 rem
@@ -193,6 +193,15 @@ if "%ODI_MAJOR_VERSION%" == "10." (
 		echo %EM% creating ODI empty master/work repository 1>&2
 		goto ExitFail
 	)
+)
+
+rem
+rem Import ODI-SCM repository components.
+rem
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportOdiScm.bat" ExportPrimeLast
+if ERRORLEVEL 1 (
+	echo %EM% importing ODI-SCM repo components 1>&2
+	goto ExitFail
 )
 
 rem

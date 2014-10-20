@@ -10,7 +10,7 @@ function DebuggingPause {
 function LogDebug ($strSource, $strToPrint) {
 	
 	if ($DebuggingActive) {
-		write-host "$strSource: DEBUG: $strToPrint"
+		write-host "${strSource}: DEBUG: $strToPrint"
 	}
 	#DebuggingPause
 }
@@ -21,7 +21,7 @@ function LogDebugArray ($strSource, $strArrName, [array] $strToPrint) {
 	
 	if ($DebuggingActive) {
 		foreach ($x in $strToPrint) {
-			write-host "$strSource: DEBUG: $strArrName[$intIdx]: $x"
+			write-host "${strSource}: DEBUG: $strArrName[$intIdx]: $x"
 			$intIdx += 1
 		}
 	}
@@ -216,11 +216,32 @@ function CreateSetEnvScript
 					}
 					
 					if ($strEnvVarName -eq "ODI_SCM_ORACLEDI_SECU_URL") {
-						# jdbc:oracle:thin:@localhost:1521:xe
-						$strKeyValueFields = $strKeyValue.split(":")
-						$strUrlHost = $($strKeyValueFields[3]).replace("@","")
-						$strUrlPort = $strKeyValueFields[4]
-						$strUrlSID = $strKeyValueFields[5]
+						# Supported formats:
+						# jdbc:oracle:thin:@localhost:1521:xe               (i.e. SID)
+						# jdbc:oracle:thin:@//localhost:1521/orcl.acme.com  (i.e. service name)
+						$strFixedAndVariable = $strKeyValue.split("@")
+						$strFixed = $strFixedAndVariable[0]
+						$strVariable = $strFixedAndVariable[1]
+						
+						if ($strVariable.StartsWith("//")) {
+							$strKeyValueFields = $strVariable.split(":")
+							
+							$strUrlHost = $strKeyValueFields[0]
+							$strUrlHost = $strUrlHost.Substring(2)
+							
+							$strPortServiceName = $strKeyValueFields[1]
+							
+							$strPortServiceNameParts = $strPortServiceName.split("/")
+							$strUrlPort = $strPortServiceNameParts[0]
+							$strUrlSID = $strPortServiceNameParts[1]
+						}
+						else {
+							$strKeyValueFields = $strVariable.split(":")
+							
+							$strUrlHost = $strKeyValueFields[0]
+							$strUrlPort = $strKeyValueFields[1]
+							$strUrlSID = $strKeyValueFields[2]
+						}
 						
 						if ($strUrlHost -eq "" -or $strUrlHost -eq $Null) {
 							write-output "if defined ODI_SCM_ORACLEDI_SECU_URL_HOST set ODI_SCM_ORACLEDI_SECU_URL_HOST="
