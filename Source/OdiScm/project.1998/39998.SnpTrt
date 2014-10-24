@@ -60,8 +60,8 @@
 	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="DefV" type="java.lang.String"><![CDATA[Yes]]></Field>
 	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
-	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[4252998]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[4251998]]></Field>
+	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[4543998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[4542998]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[73998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.VCSRequiresCheckOut]]></Field>
@@ -73,7 +73,7 @@
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4252998]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4543998]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[Yes]]></Field>
@@ -84,7 +84,7 @@
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4251998]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4542998]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[Valid values are: -
@@ -404,7 +404,8 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[73998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT s.scen_name
+	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT DISTINCT -- In case object has multiple markers.
+       s.scen_name
      , s.scen_version
   FROM snp_scen s
  INNER
@@ -416,9 +417,7 @@ f.close()]]></Field>
     ON v.i_project = p.i_project
   LEFT
  OUTER
-  JOIN snp_obj_state os
-    ON v.i_var = os.i_instance    
- ]]></Field>
+  JO]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -428,7 +427,10 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[73998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ LEFT
+	<Field name="Txt" type="java.lang.String"><![CDATA[IN snp_obj_state os
+    ON v.i_var = os.i_instance    
+   AND os.i_object = 3500 -- Value for Variables.
+  LEFT
  OUTER
   JOIN snp_state2 s2
     ON os.i_state = s2.i_state
@@ -436,10 +438,7 @@ f.close()]]></Field>
  OUTER
   JOIN snp_grp_state gs
     ON s2.i_grp_state = gs.i_grp_state
- WHERE v.i_var = #OS.VariableInternalID
-       --
-       -- Always allow ODI-SCM scenarios to be exported. 
-]]></Field>
+ W]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -449,17 +448,14 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[73998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[       --
-   AND
-   NOT (
-       NVL(p.project_code,'!!') = 'OS'
-       )
+	<Field name="Txt" type="java.lang.String"><![CDATA[HERE v.i_var = #OS.VariableInternalID
        --
-       -- Allow non ODI-SCM scenarios to be exported if they have the appropriate marker.
+       -- Always allow ODI-SCM scenarios to be exported. 
        --
    AND
-   NOT (
-       NVL(os.i_object, -1) = 3500                ]]></Field>
+   NOT NVL(p.project_code,'!!') = 'OS'
+       --
+       -- Allow non ODI-SCM scenarios to be exported if they have the appropri]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -469,9 +465,10 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[73998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[            -- Value for Variables.
-   AND '#OS.ScenarioExportMarkersText' LIKE ('%' || NVL(gs.grp_state_code,'XXX') || '.' || NVL(s2.state_code,'XXX') || '%')
-       )]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA[ate marker.
+       --
+   AND
+   NOT '#OS.ScenarioExportMarkersText' LIKE ('%' || NVL(gs.grp_state_code,'XXX') || '.' || NVL(s2.state_code,'XXX') || '%')]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTask">
@@ -1738,7 +1735,8 @@ f.close()]]></Field>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[471998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT s.scen_name
+	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT DISTINCT -- In case object has multiple markers.
+       s.scen_name
      , s.scen_version
   FROM snp_scen s
  INNER
@@ -1752,6 +1750,7 @@ f.close()]]></Field>
  OUTER
   JOIN snp_obj_state os
     ON v.i_var = os.i_instance    
+   AND os.i_object = 3500 -- Value for Variables.
   LEFT
  OUTER
   JOIN snp_state2 s2
@@ -1765,17 +1764,12 @@ f.close()]]></Field>
        -- Always allow ODI-SCM scenarios to be exported. 
        --
    AND
-   NOT (
-       NVL(p.project_code,'!!') = 'OS'
-       )
+   NOT NVL(p.project_code,'!!') = 'OS'
        --
        -- Allow non ODI-SCM scenarios to be exported if they have the appropriate marker.
        --
    AND
-   NOT (
-       NVL(os.i_object, -1) = 3500                            -- Value for Variables.
-   AND '#ScenarioExportMarkersText' LIKE ('%' || NVL(gs.grp_state_code,'XXX') || '.' || NVL(s2.state_code,'XXX') || '%')
-       )]]></Field>
+   NOT '#ScenarioExportMarkersText' LIKE ('%' || NVL(gs.grp_state_code,'XXX') || '.' || NVL(s2.state_code,'XXX') || '%')]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>

@@ -216,31 +216,38 @@ function CreateSetEnvScript
 					}
 					
 					if ($strEnvVarName -eq "ODI_SCM_ORACLEDI_SECU_URL") {
-						# Supported formats:
-						# jdbc:oracle:thin:@localhost:1521:xe               (i.e. SID)
-						# jdbc:oracle:thin:@//localhost:1521/orcl.acme.com  (i.e. service name)
-						$strFixedAndVariable = $strKeyValue.split("@")
-						$strFixed = $strFixedAndVariable[0]
-						$strVariable = $strFixedAndVariable[1]
-						
-						if ($strVariable.StartsWith("//")) {
-							$strKeyValueFields = $strVariable.split(":")
+						if ($strKeyValue.StartsWith("jdbc:oracle:thin:@")) {
+							# For Oracle URLs, extract the server, port and SID/Service Name.
+							# Supported formats:
+							#   jdbc:oracle:thin:@localhost:1521:xe               (i.e. SID)
+							#   jdbc:oracle:thin:@//localhost:1521/orcl.acme.com  (i.e. service name)
+							$strFixedAndVariable = $strKeyValue.split("@")
+							$strFixed = $strFixedAndVariable[0]
+							$strVariable = $strFixedAndVariable[1]
 							
-							$strUrlHost = $strKeyValueFields[0]
-							$strUrlHost = $strUrlHost.Substring(2)
-							
-							$strPortServiceName = $strKeyValueFields[1]
-							
-							$strPortServiceNameParts = $strPortServiceName.split("/")
-							$strUrlPort = $strPortServiceNameParts[0]
-							$strUrlSID = $strPortServiceNameParts[1]
+							if ($strVariable.StartsWith("//")) {
+								$strKeyValueFields = $strVariable.split(":")
+								$strUrlHost = $strKeyValueFields[0]
+								$strUrlHost = $strUrlHost.Substring(2)
+								$strPortServiceName = $strKeyValueFields[1]
+								$strPortServiceNameParts = $strPortServiceName.split("/")
+								$strUrlPort = $strPortServiceNameParts[0]
+								$strUrlSID = $strPortServiceNameParts[1]
+							}
+							else {
+								$strKeyValueFields = $strVariable.split(":")
+								$strUrlHost = $strKeyValueFields[0]
+								$strUrlPort = $strKeyValueFields[1]
+								$strUrlSID = $strKeyValueFields[2]
+							}
 						}
 						else {
-							$strKeyValueFields = $strVariable.split(":")
-							
-							$strUrlHost = $strKeyValueFields[0]
-							$strUrlPort = $strKeyValueFields[1]
-							$strUrlSID = $strKeyValueFields[2]
+							# Provide support for the demo that uses HSQL demo environments.
+							$strKeyValueFields = $strKeyValue.split(":")
+							$strUrlHost = $strKeyValueFields[4]
+							$strUrlHost = $strUrlHost.Replace("//","")
+							$strUrlPort = $strKeyValueFields[4]
+							$strUrlSID = "NotApplicable"
 						}
 						
 						if ($strUrlHost -eq "" -or $strUrlHost -eq $Null) {

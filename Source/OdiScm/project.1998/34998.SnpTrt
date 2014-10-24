@@ -73,8 +73,8 @@
 	<Field name="DefN" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
 	<Field name="DefV" type="java.lang.String"><![CDATA[Yes]]></Field>
 	<Field name="IndStore" type="java.lang.String"><![CDATA[L]]></Field>
-	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[4246998]]></Field>
-	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[4245998]]></Field>
+	<Field name="ITxtDefT" type="com.sunopsis.sql.DbInt"><![CDATA[4540998]]></Field>
+	<Field name="ITxtVar" type="com.sunopsis.sql.DbInt"><![CDATA[4539998]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="VarDatatype" type="java.lang.String"><![CDATA[A]]></Field>
 	<Field name="VarName" type="java.lang.String"><![CDATA[OS.VCSRequiresCheckOut]]></Field>
@@ -86,7 +86,7 @@
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4246998]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4540998]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[Yes]]></Field>
@@ -97,7 +97,7 @@
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="IndChange" type="java.lang.String">null</Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4245998]]></Field>
+	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[4539998]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="LastUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[Valid values are: -
@@ -263,19 +263,18 @@ f.close()]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT s.scen_no
+           AS SCEN_NO
      , s.scen_name
+           AS SCEN_NAME
      , s.scen_version
+           AS SCEN_VERSION
   FROM snp_scen s
  INNER
   JOIN snp_pop i
     ON s.i_pop = i.i_pop
  INNER
   JOIN snp_folder f
-    ON i.i_folder = f.i_folder
- INNER
-  JOIN snp_project p
-    ON f.i_project = p.i_project
- WHERE]]></Field>
+    ON i.i_folder = f.i_f]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -285,7 +284,11 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ s.i_pop =#OS.InterfaceInternalID
+	<Field name="Txt" type="java.lang.String"><![CDATA[older
+ INNER
+  JOIN snp_project p
+    ON f.i_project = p.i_project
+ WHERE s.i_pop =#OS.InterfaceInternalID
    AND p.project_code <> 'OS']]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
@@ -336,19 +339,18 @@ f.close()]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT s.scen_no
+           AS SCEN_NO
      , s.scen_name
+           AS SCEN_NAME
      , s.scen_version
+           AS SCEN_VERSION
   FROM snp_scen s
  INNER
   JOIN snp_pop i
     ON s.i_pop = i.i_pop
  INNER
   JOIN snp_folder f
-    ON i.i_folder = f.i_folder
- INNER
-  JOIN snp_project p
-    ON f.i_project = p.i_project
- WHERE]]></Field>
+    ON i.i_folder = f.i_f]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -358,7 +360,11 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[4]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ s.i_pop =#OS.InterfaceInternalID
+	<Field name="Txt" type="java.lang.String"><![CDATA[older
+ INNER
+  JOIN snp_project p
+    ON f.i_project = p.i_project
+ WHERE s.i_pop =#OS.InterfaceInternalID
    AND p.project_code <> 'OS']]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
@@ -408,21 +414,18 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT s.scen_name
+	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT DISTINCT -- In case object has multiple markers.
+       s.scen_name
+           AS SCEN_NAME
      , s.scen_version
+           AS SCEN_VERSION
   FROM snp_scen s
  INNER
   JOIN snp_pop i
     ON s.i_pop = i.i_pop
  INNER
   JOIN snp_folder f
-    ON i.i_folder = f.i_folder
- INNER
-  JOIN snp_project p
-    ON f.i_project = p.i_project
-  LEFT
- OUTER
-  JOIN sn]]></Field>
+    ON i]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -432,19 +435,19 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[p_obj_state os
-    ON i.i_pop = os.i_instance    
+	<Field name="Txt" type="java.lang.String"><![CDATA[.i_folder = f.i_folder
+ INNER
+  JOIN snp_project p
+    ON f.i_project = p.i_project
+  LEFT
+ OUTER
+  JOIN snp_obj_state os
+    ON i.i_pop = os.i_instance
+   AND os.i_object = 3100 -- Value for Interfaces.
   LEFT
  OUTER
   JOIN snp_state2 s2
-    ON os.i_state = s2.i_state
-  LEFT
- OUTER
-  JOIN snp_grp_state gs
-    ON s2.i_grp_state = gs.i_grp_state
- WHERE s.i_pop = #OS.InterfaceInternalID
-       --
-      ]]></Field>
+    ON os.i]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -454,18 +457,17 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ -- Always allow ODI-SCM scenarios to be exported. 
+	<Field name="Txt" type="java.lang.String"><![CDATA[_state = s2.i_state
+  LEFT
+ OUTER
+  JOIN snp_grp_state gs
+    ON s2.i_grp_state = gs.i_grp_state
+ WHERE s.i_pop = #OS.InterfaceInternalID
+       --
+       -- Always allow ODI-SCM scenarios to be exported. 
        --
    AND
-   NOT (
-       p.project_code = 'OS'
-       )
-       --
-       -- Allow non ODI-SCM scenarios to be exported if they have the appropriate marker.
-       --
-   AND
-   NOT (
-       N]]></Field>
+   NOT p.project_code = 'OS]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -475,9 +477,12 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[5]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[VL(os.i_object, -1) = 3100                            -- Value for Interfaces.
-   AND '#OS.ScenarioExportMarkersText' LIKE ('%' || NVL(gs.grp_state_code,'XXX') || '.' || NVL(s2.state_code,'XXX') || '%')
-       )]]></Field>
+	<Field name="Txt" type="java.lang.String"><![CDATA['
+       --
+       -- Allow non ODI-SCM scenarios to be exported if they have the appropriate marker.
+       --
+   AND
+   NOT '#OS.ScenarioExportMarkersText' LIKE ('%' || NVL(gs.grp_state_code,'XXX') || '.' || NVL(s2.state_code,'XXX') || '%')]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[3]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTask">
@@ -527,7 +532,7 @@ f.close()]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[6]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT f.i_project
-           AS oid
+           AS OID
   FROM snp_pop p
  INNER
   JOIN snp_folder f
@@ -582,7 +587,7 @@ f.close()]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[7]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT f.i_project
-           AS o2id
+           AS O2ID
   FROM snp_pop p
  INNER
   JOIN snp_folder f
@@ -638,7 +643,7 @@ f.close()]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[8]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT f.i_project
-           AS o2id
+           AS O2ID
   FROM snp_pop p
  INNER
   JOIN snp_folder f
@@ -692,13 +697,15 @@ f.close()]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT
-ObjectInternalID,scen_no,scen_name,scen_version
+	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT OBJECTINTERNALID
+     , SCEN_NO
+     , SCEN_NAME
+     , SCEN_VERSION
 from 	TABLE
 /*$$SNPS_START_KEY
 SNP$CRDWG_TABLE
 SNP$CRTABLE_NAME=SnpScenList<?=snpRef.getSession("SESS_NO") ?>
-SNP$CRLOAD_FILE=<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/SnpScenList<?=snpRef]]></Field>
+SNP$CRLOAD_FILE=<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -708,7 +715,7 @@ SNP$CRLOAD_FILE=<?=snpRef.getSchemaName("ODISCMWC_DATA", "W") ?>/SnpScenList<?=s
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[.getSession("SESS_NO") ?>
+	<Field name="Txt" type="java.lang.String"><![CDATA[/SnpScenList<?=snpRef.getSession("SESS_NO") ?>
 SNP$CRFILE_FORMAT=D
 SNP$CRFILE_SEP_FIELD=2C
 SNP$CRFILE_SEP_LINE=0D0A
@@ -718,9 +725,7 @@ SNP$CRFILE_DEC_SEP=
 SNP$CR
 SNP$CRDWG_COL
 SNP$CRCOL_NAME=ObjectInternalID
-SNP$CRTYPE_NAME=STRING
-SNP$CRORDER=1
-]]></Field>
+SNP$CRTYPE_NAME=]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -730,7 +735,9 @@ SNP$CRORDER=1
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[SNP$CRLENGTH=30
+	<Field name="Txt" type="java.lang.String"><![CDATA[STRING
+SNP$CRORDER=1
+SNP$CRLENGTH=30
 SNP$CRPRECISION=30
 SNP$CR
 SNP$CRDWG_COL
@@ -743,8 +750,7 @@ SNP$CR
 SNP$CRDWG_COL
 SNP$CRCOL_NAME=scen_name
 SNP$CRTYPE_NAME=STRING
-SNP$CRORDER=3
-SNP$CRLENGTH=5]]></Field>
+SNP$CRO]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -754,7 +760,8 @@ SNP$CRLENGTH=5]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[9]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[00
+	<Field name="Txt" type="java.lang.String"><![CDATA[RDER=3
+SNP$CRLENGTH=500
 SNP$CRPRECISION=500
 SNP$CR
 SNP$CRDWG_COL
@@ -828,13 +835,15 @@ f.close()]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[!!! DISABLED BY CAUSING AN ERROR! !!!
-SELECT
-ObjectInternalID,scen_no,scen_name,scen_version
+SELECT OBJECTINTERNALID
+     , SCEN_NO
+     , SCEN_NAME
+     , SCEN_VERSION
 from 	TABLE
 /*$$SNPS_START_KEY
 SNP$CRDWG_TABLE
 SNP$CRTABLE_NAME=SnpScenList<?=snpRef.getSession("SESS_NO") ?>
-SNP$CRLOAD_FILE=<?=snpRef.getSchemaName("ODISCM]]></Field>
+SNP$CRLOAD_FILE=<?=snpRef.]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -844,7 +853,7 @@ SNP$CRLOAD_FILE=<?=snpRef.getSchemaName("ODISCM]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[WC_DATA", "W") ?>/SnpScenList<?=snpRef.getSession("SESS_NO") ?>
+	<Field name="Txt" type="java.lang.String"><![CDATA[getSchemaName("ODISCMWC_DATA", "W") ?>/SnpScenList<?=snpRef.getSession("SESS_NO") ?>
 SNP$CRFILE_FORMAT=D
 SNP$CRFILE_SEP_FIELD=2C
 SNP$CRFILE_SEP_LINE=0D0A
@@ -853,7 +862,7 @@ SNP$CRFILE_ENC_FIELD=
 SNP$CRFILE_DEC_SEP=
 SNP$CR
 SNP$CRDWG_COL
-SNP$CRCOL_NAME=ObjectInternalID]]></Field>
+SNP$CRCOL_]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[1]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -863,7 +872,7 @@ SNP$CRCOL_NAME=ObjectInternalID]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[
+	<Field name="Txt" type="java.lang.String"><![CDATA[NAME=ObjectInternalID
 SNP$CRTYPE_NAME=STRING
 SNP$CRORDER=1
 SNP$CRLENGTH=30
@@ -877,8 +886,7 @@ SNP$CRLENGTH=500
 SNP$CRPRECISION=500
 SNP$CR
 SNP$CRDWG_COL
-SNP$CRCOL_NAME=scen_name
-SNP$CRTYPE_NA]]></Field>
+SNP$CRCOL_NAME=sc]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[2]]></Field>
 </Object>
 <Object class="com.sunopsis.dwg.dbobj.SnpScenTxt">
@@ -888,7 +896,8 @@ SNP$CRTYPE_NA]]></Field>
 	<Field name="OrdType" type="java.lang.String"><![CDATA[C]]></Field>
 	<Field name="ScenNo" type="com.sunopsis.sql.DbInt"><![CDATA[68998]]></Field>
 	<Field name="ScenTaskNo" type="com.sunopsis.sql.DbInt"><![CDATA[10]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[ME=STRING
+	<Field name="Txt" type="java.lang.String"><![CDATA[en_name
+SNP$CRTYPE_NAME=STRING
 SNP$CRORDER=3
 SNP$CRLENGTH=500
 SNP$CRPRECISION=500
@@ -1106,8 +1115,11 @@ f.close()]]></Field>
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[367998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT s.scen_no
+           AS SCEN_NO
      , s.scen_name
+           AS SCEN_NAME
      , s.scen_version
+           AS SCEN_VERSION
   FROM snp_scen s
  INNER
   JOIN snp_pop i
@@ -1210,8 +1222,11 @@ f.close()]]></Field>
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[369998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT s.scen_no
+           AS SCEN_NO
      , s.scen_name
+           AS SCEN_NAME
      , s.scen_version
+           AS SCEN_VERSION
   FROM snp_scen s
  INNER
   JOIN snp_pop i
@@ -1307,8 +1322,11 @@ f.close()]]></Field>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[371998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT s.scen_name
+	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT DISTINCT -- In case object has multiple markers.
+       s.scen_name
+           AS SCEN_NAME
      , s.scen_version
+           AS SCEN_VERSION
   FROM snp_scen s
  INNER
   JOIN snp_pop i
@@ -1322,7 +1340,8 @@ f.close()]]></Field>
   LEFT
  OUTER
   JOIN snp_obj_state os
-    ON i.i_pop = os.i_instance    
+    ON i.i_pop = os.i_instance
+   AND os.i_object = 3100 -- Value for Interfaces.
   LEFT
  OUTER
   JOIN snp_state2 s2
@@ -1336,17 +1355,12 @@ f.close()]]></Field>
        -- Always allow ODI-SCM scenarios to be exported. 
        --
    AND
-   NOT (
-       p.project_code = 'OS'
-       )
+   NOT p.project_code = 'OS'
        --
        -- Allow non ODI-SCM scenarios to be exported if they have the appropriate marker.
        --
    AND
-   NOT (
-       NVL(os.i_object, -1) = 3100                            -- Value for Interfaces.
-   AND '#ScenarioExportMarkersText' LIKE ('%' || NVL(gs.grp_state_code,'XXX') || '.' || NVL(s2.state_code,'XXX') || '%')
-       )]]></Field>
+   NOT '#ScenarioExportMarkersText' LIKE ('%' || NVL(gs.grp_state_code,'XXX') || '.' || NVL(s2.state_code,'XXX') || '%')]]></Field>
 	<Field name="LangName" type="java.lang.String">null</Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
@@ -1431,7 +1445,7 @@ f.close()]]></Field>
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[373998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT f.i_project
-           AS oid
+           AS OID
   FROM snp_pop p
  INNER
   JOIN snp_folder f
@@ -1441,7 +1455,7 @@ f.close()]]></Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
 	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
@@ -1521,7 +1535,7 @@ f.close()]]></Field>
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[375998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT f.i_project
-           AS o2id
+           AS O2ID
   FROM snp_pop p
  INNER
   JOIN snp_folder f
@@ -1531,7 +1545,7 @@ f.close()]]></Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
 	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
@@ -1610,8 +1624,10 @@ f.close()]]></Field>
 <Object class="com.sunopsis.dwg.dbobj.SnpTxt">
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[377998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
-	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT
-ObjectInternalID,scen_no,scen_name,scen_version
+	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT OBJECTINTERNALID
+     , SCEN_NO
+     , SCEN_NAME
+     , SCEN_VERSION
 from 	TABLE
 /*$$SNPS_START_KEY
 SNP$CRDWG_TABLE
@@ -1740,8 +1756,10 @@ f.close()]]></Field>
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[379998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[!!! DISABLED BY CAUSING AN ERROR! !!!
-SELECT
-ObjectInternalID,scen_no,scen_name,scen_version
+SELECT OBJECTINTERNALID
+     , SCEN_NO
+     , SCEN_NAME
+     , SCEN_VERSION
 from 	TABLE
 /*$$SNPS_START_KEY
 SNP$CRDWG_TABLE
@@ -1867,7 +1885,7 @@ $$SNPS_END_KEY*/]]></Field>
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[381998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT root_i_folder
-           AS oid
+           AS OID
   FROM (
        SELECT CONNECT_BY_ROOT i_folder
                   AS root_i_folder
@@ -1973,7 +1991,7 @@ $$SNPS_END_KEY*/]]></Field>
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[383998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT f.i_project
-           AS o2id
+           AS O2ID
   FROM snp_pop p
  INNER
   JOIN snp_folder f
@@ -1983,7 +2001,7 @@ $$SNPS_END_KEY*/]]></Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
 	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
@@ -2132,7 +2150,7 @@ raise(a)]]></Field>
 		<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[386998]]></Field>
 	<Field name="TxtOrd" type="com.sunopsis.sql.DbInt"><![CDATA[0]]></Field>
 	<Field name="Txt" type="java.lang.String"><![CDATA[SELECT f.i_project
-           AS o2id
+           AS O2ID
   FROM snp_pop p
  INNER
   JOIN snp_folder f
@@ -2143,7 +2161,7 @@ raise(a)]]></Field>
 	<Field name="ITxtOrig" type="com.sunopsis.sql.DbInt"><![CDATA[4998]]></Field>
 	<Field name="SqlIndGrp" type="java.lang.String"><![CDATA[2]]></Field>
 	<Field name="IntVersion" type="com.sunopsis.sql.DbInt"><![CDATA[null]]></Field>
-	<Field name="IndChange" type="java.lang.String">null</Field>
+	<Field name="IndChange" type="java.lang.String"><![CDATA[I]]></Field>
 	<Field name="FirstDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
 	<Field name="FirstUser" type="java.lang.String"><![CDATA[SUPERVISOR]]></Field>
 	<Field name="LastDate" type="java.sql.Timestamp"><![CDATA[2001-01-01 00:00:00.0]]></Field>
