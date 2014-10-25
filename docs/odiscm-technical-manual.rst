@@ -50,10 +50,12 @@ So, the configuration file is really the persisted environment for the ODI-SCM c
 |                  |                               |class archives (JAR) files and the  |                                                             |
 |                  |                               |standard ODI demo files for the some|                                                             |
 |                  |                               |of the ODI-SCM demos. This entry is |                                                             |
-|                  |                               |required only when running the fast-|                                                             |
-|                  |                               |forward of ODI-SCM demos that use   |                                                             |
+|                  |                               |required when running the fast-     |                                                             |
+|                  |                               |forward of ODI-SCM demos, that use  |                                                             |
 |                  |                               |the standard ODI demo Hypersonic SQL|                                                             |
-|                  |                               |databases.                          |                                                             |
+|                  |                               |databases, and when creating        |                                                             |
+|                  |                               |master and work repositories using  |                                                             |
+|                  |                               |the ODI-SCM tools.                  |                                                             |
 |                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
 |                  |Pass                           |Unencoded password of the ODI user. |``SUNOPSIS``                                                 |
 |                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
@@ -258,6 +260,12 @@ So, the configuration file is really the persisted environment for the ODI-SCM c
 |                  |                               |*<Marker Group Code>.<Marker Code>* |                                                             |
 |                  |                               |Markers in the list are separated by|                                                             |
 |                  |                               |comma (``,``) characters.           |                                                             |
+|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                  |DML Script File Name Pattern N |Where N >= 0, a set of file name    |``dml.*\.sql``                                               |
+|                  |                               |regular expression patterns,        |                                                             |
+|                  |                               |that specify the names of database  |                                                             |
+|                  |                               |DML scripts to be executed following|                                                             |
+|                  |                               |all database DDL script execution.  |                                                             |
 +------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
 |Test              |ODI Standards Script           |An optional path and name of a SQL  |``C:\Scripts\DemoODINamingStandardTest.sql``                 |
 |                  |                               |script used to check the ODI code,  |                                                             |
@@ -384,6 +392,7 @@ A example configuration file with all sections and keys listed::
 	UnxUtils Home=C:\UnxUtils
 
 	[Generate]
+	DML Script File Name Pattern 0=^dml-schema-.*\.sql
 	Export Ref Phys Arch Only=No
 	Export Cleans ImportRep Objects=Yes
 	Import Object Batch Size Max=100
@@ -391,6 +400,7 @@ A example configuration file with all sections and keys listed::
 	OracleDI Context=GLOBAL
 	Output Tag=DemoEnvironment2
 	Scenario Source Markers=ODISCM.HAS_SCENARIO
+	Scenario Export Markers=ODISCM.ALLOW_SCENARIO_EXPORT
 
 	[Test]
 	ODI Standards Script=

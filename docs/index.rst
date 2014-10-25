@@ -21,16 +21,23 @@ Welcome to ODI-SCM.
 
 Features At A Glance
 --------------------
-
-* Automated export of ODI objects for check-in to the SCM system.
-* Support for Apache Subversion and Microsoft Team Foundation (TFS) SCM systems.
-* Automated import of ODI object source code from the SCM system to the ODI repository.
-* Full or Incremental ODI repository builds from the SCM system.
-* Full ODI repository builds from an existing working copy.
-* Automated generation of Scenarios.
-* Automated execution of FitNesse (e.g. DbFit) tests after building the ODI repository.
-* High performance object source code imports through object batching.
 * Integrates with Continuous Integration servers. E.g. Hudson / Jenkins.
+* Oracle Data Integrator Source Control & Build System
+
+  * Automated export of ODI objects for check-in to the SCM system.
+  * Support for Apache Subversion and Microsoft Team Foundation (TFS) SCM systems.
+  * Automated import of ODI object source code from the SCM system to the ODI repository.
+  * Full or Incremental ODI repository builds from the SCM system.
+  * Full ODI repository builds from an existing working copy.
+  * Automated generation of Scenarios.
+  * Automated execution of FitNesse (e.g. DbFit) tests after building the ODI repository.
+  * High performance object source code imports through object batching.
+  
+* Database Schema Build System
+
+  * Automated database schema tear-down.
+  * Automated database schema set-up from DDL scripts from the SCM system.
+  * Automated database DML script execution of DML scripts from the SCM system.
 
 Contents
 --------
