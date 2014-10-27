@@ -578,7 +578,10 @@ function GenerateOdiImportScript ([array] $arrStrFilesToImport) {
 				#
 				if ($fileObjType -eq "SnpProject") {
 					$ImportText += "echo %IM% creating renamed SnpProject file for source file ^<$FileToImportName^>" + [Environment]::NewLine
-					$FileToImportPathName = "%TEMPDIR%"
+					if (!($FileToImportName.StartsWith("Consolidated"))) {
+						# Create the renamed file copy in the Windows temp directory we created.
+						$FileToImportPathName = "%TEMPDIR%"
+					}
 					$FileToImportName = "PROJ_" + $FileToImportName + ".xml"
 					$SourceFile = $FileToImportPathName + "\" + $FileToImportName
 					$ImportText += 'copy "' + $fileToImport + '" "' + $SourceFile + '" >NUL' + [Environment]::NewLine
@@ -590,7 +593,10 @@ function GenerateOdiImportScript ([array] $arrStrFilesToImport) {
 				#
 				if ($fileObjType -eq "SnpPop") {
 					$ImportText += "echo %IM% creating renamed SnpPop file for source file ^<$FileToImportName^>" + [Environment]::NewLine
-					$FileToImportPathName = "%TEMPDIR%"
+					if (!($FileToImportName.StartsWith("Consolidated"))) {
+						# Create the renamed file copy in the temp directory we created.
+						$FileToImportPathName = "%TEMPDIR%"
+					}
 					$FileToImportName = "POP_" + $FileToImportName + ".xml"
 					$SourceFile = $FileToImportPathName + "\" + $FileToImportName
 					$ImportText += 'copy "' + $fileToImport + '" "' + $SourceFile + '" >NUL' + [Environment]::NewLine
@@ -602,8 +608,26 @@ function GenerateOdiImportScript ([array] $arrStrFilesToImport) {
 				#
 				if ($fileObjType -eq "SnpPackage") {
 					$ImportText += "echo %IM% creating renamed SnpPackage file for source file ^<$FileToImportName^>" + [Environment]::NewLine
-					$FileToImportPathName = "%TEMPDIR%"
+					if (!($FileToImportName.StartsWith("Consolidated"))) {
+						# Create the renamed file copy in the temp directory we created.
+						$FileToImportPathName = "%TEMPDIR%"
+					}
 					$FileToImportName = "PACK_" + $FileToImportName + ".xml"
+					$SourceFile = $FileToImportPathName + "\" + $FileToImportName
+					$ImportText += 'copy "' + $fileToImport + '" "' + $SourceFile + '" >NUL' + [Environment]::NewLine
+				}
+				
+				#
+				# Work around (yet another) bug in ODI (as of 11.1.1.7.0) where an SnpTable can't be imported
+				# unless it has the file name prefix "TAB_".
+				#
+				if ($fileObjType -eq "SnpTable") {
+					$ImportText += "echo %IM% creating renamed SnpTable file for source file ^<$FileToImportName^>" + [Environment]::NewLine
+					if (!($FileToImportName.StartsWith("Consolidated"))) {
+						# Create the renamed file copy in the temp directory we created.
+						$FileToImportPathName = "%TEMPDIR%"
+					}
+					$FileToImportName = "TAB_" + $FileToImportName + ".xml"
 					$SourceFile = $FileToImportPathName + "\" + $FileToImportName
 					$ImportText += 'copy "' + $fileToImport + '" "' + $SourceFile + '" >NUL' + [Environment]::NewLine
 				}
