@@ -368,6 +368,14 @@ function GenerateImport {
 	}
 	
 	#
+	# Set up the pre-ODI import object ID sequence tracking metadata update script content.
+	#
+	if (!(GenerateOdiSrcObjIdScript $arrStrOdiFileList)) {
+		write-host "$EM call to GenerateOdiSrcObjIdScript failed"
+		return $False
+	}
+	
+	#
 	# Set up the pre-ODI import script content.
 	#
 	if (!(SetOdiScmPreImportBatContent)) {

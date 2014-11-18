@@ -50,6 +50,12 @@ DECLARE
 						  || ', flush_to_datetime              DATE'
 						  || ', last_updated_by_command_name   VARCHAR2(500)'
 						  || ')';
+	l_crt_last_act_ids_ddl	VARCHAR(1000) := 'CREATE TABLE odiscm_last_actual_ids'
+						  || '('
+						  || '  repo_type_ind                  CHAR(1)'
+						  || ', table_name                     VARCHAR2(30)'
+						  || ', max_obj_seq                    NUMBER'
+						  || ')';
 	l_crt_work_link_ddl		VARCHAR(1000) := 'CREATE DATABASE LINK odiworkrep_data CONNECT TO <OdiWorkRepoUserName>'
 						  || '  IDENTIFIED BY <OdiWorkRepoPassWord> USING ''<OdiWorkRepoConnectionString>''';
 BEGIN
@@ -160,12 +166,30 @@ BEGIN
 				raise_application_error(-20000, 'Cannot create or analyse table ODISCM_WORK_FLUSH_CONTROLS');
 		END;
 	END IF;
-
+	
 	SELECT COUNT(*)
 	  INTO l_count
 	  FROM user_db_links
 	 WHERE db_link LIKE 'ODIWORKREP_DATA%'		-- Allow for DB links created with domain suffixes.
 	;
+	
+	SELECT COUNT(*)
+	  INTO l_count
+	  FROM user_tables
+	 WHERE table_name = 'ODISCM_LAST_ACTUAL_IDS'
+	;
+	
+	IF l_count = 0
+	THEN
+		BEGIN
+			EXECUTE IMMEDIATE l_crt_last_act_ids_ddl;
+			EXECUTE IMMEDIATE 'ANALYZE TABLE odiscm_last_actual_ids ESTIMATE STATISTICS';
+		EXCEPTION
+			WHEN OTHERS
+			THEN
+				raise_application_error(-20000, 'Cannot create or analyse table ODISCM_LAST_ACTUAL_IDS');
+		END;
+	END IF;
 	
 	IF l_count = 0
 	THEN

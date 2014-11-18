@@ -10,6 +10,12 @@ $ODIImportModeUpdate = 'SYNONYM_UPDATE'
 #
 $orderedExtensions = @("*.SnpTechno","*.SnpLang","*.SnpConnect","*.SnpPschema","*.SnpLschema","*.SnpContext","*.SnpPschemaCont","*.SnpProject","*.SnpGrpState","*.SnpFolder","*.SnpVar","*.SnpUfunc","*.SnpTrt","*.SnpModFolder","*.SnpModel","*.SnpSubModel","*.SnpTable","*.SnpJoin","*.SnpSequence","*.SnpPop","*.SnpPackage","*.SnpObjState")
 $containerExtensions = @("*.SnpTechno","*.SnpConnect","*.SnpContext","*.SnpModFolder","*.SnpModel","*.SnpSubModel","*.SnpProject","*.SnpFolder")
+
+$masterRepoExtensions = @("*.SnpTechno","*.SnpLang","*.SnpConnect","*.SnpPschema","*.SnpLschema","*.SnpContext","*.SnpPschemaCont")
+$workRepoExtensions = @("*.SnpProject","*.SnpGrpState","*.SnpFolder","*.SnpVar","*.SnpUfunc","*.SnpTrt","*.SnpModFolder","*.SnpModel","*.SnpSubModel","*.SnpTable","*.SnpJoin","*.SnpSequence","*.SnpPop","*.SnpPackage","*.SnpObjState")
+$masterRepoExtensionTabs = @("SNP_TECHNO","SNP_LANG","SNP_CONNECT","SNP_PSCHEMA","SNP_LSCHEMA","SNP_CONTEXT","SNP_PSCHEMA_CONT")
+$workRepoExtensionTabs = @("SNP_PROJECT","SNP_GRP_STATE","SNP_FOLDER","SNP_VAR","SNP_UFUNC","SNP_TRT","SNP_MOD_FOLDER","SNP_MODEL","SNP_SUB_MODEL","SNP_TABLE","SNP_JOIN","SNP_SEQUENCE","SNP_POP","SNP_PACKAGE","SNP_OBJ_STATE")
+
 $scenarioSourceExtensions = @("*.SnpVar","*.SnpTrt","*.SnpPop","*.SnpPackage")
 $nestableContainerExtensions = @("*.SnpModFolder","*.SnpSubModel","*.SnpFolder")
 $nestableContainerExtensionParentFields = @("ParIModFolder","ISmodParent","ParIFolder")
@@ -737,6 +743,138 @@ function GenerateOdiSrcObjIdInsertScript ([array] $arrStrFilesToImport) {
 	
 	$outputText = $templateText.Replace("<OdiScmInsertSrcObjIds>",$ImportText)
 	$outputText | out-file -filepath $OdiScmGenScenPreImpDelOldSql -encoding ASCII
+	
+	$ExitStatus = $True
+	
+	write-host "$IM ends"
+	return $ExitStatus
+}
+
+function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
+	
+	$FN = "GenerateOdiSrcObjIdScript"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$DEBUG = $FN + ": DEBUG"
+	
+	write-host "$IM starts"
+	
+	write-host "$IM writing output to <$OdiScmPreImpMergeSnpIDsSql>"
+	$SqlText = ""
+	
+	#
+	# Loop through each extension and file files for which to include SNP_ID or SNP_ENT_ID object ID insert commands.
+	#
+	$extensionCount = 0
+	
+	foreach ($ext in $masterRepoExtensions) {
+		
+		$extensionCount += 1
+		$extensionMaxID = "000"
+		
+		$fileObjType = $ext.Replace("*.","")
+		write-host "$IM processing object type <$fileObjType>"
+		
+		$extensionFileCount = 0
+		foreach ($fileToImport in $arrStrFilesToImport) {
+			
+			if ($fileToImport.EndsWith($fileObjType)) {
+				
+				$FileToImportName = split-path $fileToImport -leaf
+				$FileToImportPathName = split-path $fileToImport -parent
+				$FileToImportID = $FileToImportName.split(".")
+				$FileToImportRepoID = $FileToImportID[0].Substring($FileToImportID[0].length - 3)
+				$FileToImportObjID = $FileToImportID[0].Substring(0, $FileToImportID[0].length - 3)
+				
+				if ($FileToImportRepoID -eq $env:ODI_SCM_ORACLEDI_REPOSITORY_ID) {
+					if ($FileToImportObjID -gt $extensionMaxID) {
+						$extensionMaxID = $FileToImportObjID
+					}
+				}
+			}
+		}
+		
+		if ($extensionMaxID -ne "000") {
+			
+			$SqlText += "MERGE" + [Environment]::NewLine
+			$SqlText += " INTO snp_ent_id t" + [Environment]::NewLine
+			$SqlText += "USING (" + [Environment]::NewLine
+			$SqlText += "      SELECT '" + $masterRepoExtensionTabs[$extentionCount - 1] + "'" + [Environment]::NewLine
+			$SqlText += "                 AS id_tbl" + [Environment]::NewLine
+			$SqlText += "           , '" + $extensionMaxID + "'" + [Environment]::NewLine
+			$SqlText += "                 AS id_next" + [Environment]::NewLine
+			$SqlText += "           , 1" + [Environment]::NewLine
+			$SqlText += "                 AS id_seq" + [Environment]::NewLine
+			$SqlText += "        FROM dual" + [Environment]::NewLine
+			$SqlText += "      ) s" + [Environment]::NewLine
+			$SqlText += "   ON t.id_tbl = s.id_tbl" + [Environment]::NewLine
+			$SqlText += " WHEN MATCHED" + [Environment]::NewLine
+			$SqlText += " THEN UPDATE" + [Environment]::NewLine
+			$SqlText += "         SET t.id_next = s.id_next" + [Environment]::NewLine
+			$SqlText += " WHEN NOT MATCHED" + [Environment]::NewLine
+			$SqlText += "   ON INSERT (id_seq, id_tbl, id_next)" + [Environment]::NewLine
+			$SqlText += "      VALUES (s.id_seq, s.id_tbl, s.id_next)" + [Environment]::NewLine
+			$SqlText += "/" + [Environment]::NewLine
+			$SqlText += "" + [Environment]::NewLine
+		}
+	}
+	
+	foreach ($ext in $workRepoExtensions) {
+		
+		$extensionCount += 1
+		$extensionMaxID = "000"
+		
+		$fileObjType = $ext.Replace("*.","")
+		write-host "$IM processing object type <$fileObjType>"
+		
+		$extensionFileCount = 0
+		foreach ($fileToImport in $arrStrFilesToImport) {
+			
+			if ($fileToImport.EndsWith($fileObjType)) {
+				
+				$FileToImportName = split-path $fileToImport -leaf
+				$FileToImportPathName = split-path $fileToImport -parent
+				$FileToImportID = $FileToImportName.split(".")
+				$FileToImportRepoID = $FileToImportID[0].Substring($FileToImportID[0].length - 3)
+				$FileToImportObjID = $FileToImportID[0].Substring(0, $FileToImportID[0].length - 3)
+				
+				if ($FileToImportRepoID -eq $env:ODI_SCM_ORACLEDI_REPOSITORY_ID) {
+					if ($FileToImportObjID -gt $extensionMaxID) {
+						$extensionMaxID = $FileToImportObjID
+					}
+				}
+			}
+		}
+		
+		if ($extensionMaxID -ne "000") {
+			
+			$SqlText += "MERGE" + [Environment]::NewLine
+			$SqlText += " INTO snp_id t" + [Environment]::NewLine
+			$SqlText += "USING (" + [Environment]::NewLine
+			$SqlText += "      SELECT '" + $masterRepoExtensionTabs[$extentionCount - 1] + "'" + [Environment]::NewLine
+			$SqlText += "                 AS id_tbl" + [Environment]::NewLine
+			$SqlText += "           , '" + $extensionMaxID + "'" + [Environment]::NewLine
+			$SqlText += "                 AS id_next" + [Environment]::NewLine
+			$SqlText += "           , 1" + [Environment]::NewLine
+			$SqlText += "                 AS id_seq" + [Environment]::NewLine
+			$SqlText += "        FROM dual" + [Environment]::NewLine
+			$SqlText += "      ) s" + [Environment]::NewLine
+			$SqlText += "   ON t.id_tbl = s.id_tbl" + [Environment]::NewLine
+			$SqlText += " WHEN MATCHED" + [Environment]::NewLine
+			$SqlText += " THEN UPDATE" + [Environment]::NewLine
+			$SqlText += "         SET t.id_next = s.id_next" + [Environment]::NewLine
+			$SqlText += " WHEN NOT MATCHED" + [Environment]::NewLine
+			$SqlText += "   ON INSERT (id_seq, id_tbl, id_next)" + [Environment]::NewLine
+			$SqlText += "      VALUES (s.id_seq, s.id_tbl, s.id_next)" + [Environment]::NewLine
+			$SqlText += "/" + [Environment]::NewLine
+			$SqlText += "" + [Environment]::NewLine
+		}
+	}
+	
+	$SqlText += "COMMIT" + [Environment]::NewLine
+	$SqlText += "/" + [Environment]::NewLine
+	
+	$SqlText | out-file -filepath $OdiScmPreImpMergeSnpIDsSql -encoding ASCII
 	
 	$ExitStatus = $True
 	
@@ -2247,6 +2385,14 @@ function GenerateBuild ($StrSourceTypeName) {
 	}
 	
 	#
+	# Set up the pre-ODI import object ID sequence tracking metadata update script content.
+	#
+	if (!(GenerateOdiSrcObjIdScript $arrStrOdiFileList)) {
+		write-host "$EM call to GenerateOdiSrcObjIdScript failed"
+		return $False
+	}
+	
+	#
 	# Set up the pre-ODI import script content.
 	#
 	if (!(SetOdiScmPreImportBatContent)) {
@@ -2760,7 +2906,7 @@ function GetOdiScmConfiguration {
 }
 
 #
-# Set output file and directory name contants.
+# Set output file and directory name constants.
 #
 function SetOutputNames {
 	
@@ -2790,6 +2936,7 @@ function SetOutputNames {
 	$script:OdiScmJisqlRepoBat = $GenScriptRootDir + "\OdiScmJisqlRepo_${OutputTag}.bat"
 	$script:OdiScmRepositoryBackUpBat = $GenScriptRootDir + "\OdiScmRepositoryBackUp_${OutputTag}.bat"
 	$script:OdiScmBuildBat = $GenScriptRootDir + "\OdiScmBuild_${OutputTag}.bat"
+	$script:OdiScmPreImpMergeSnpIDsSql = $GenScriptRootDir + "\OdiScmPreImp13MergeSnpIDs_${OutputTag}.sql"
 	$script:OdiScmGenScenPreImpDelOldSql = $GenScriptRootDir + "\OdiScmGenScen15InsertSrcObjIds_${OutputTag}.sql"
 	$script:OdiScmGenScenPreImpDelOldBatSql = $GenScriptRootDir + "\OdiScmGenScen17PreImpDelOldBat_${OutputTag}.sql"
 	$script:OdiScmGenScenPreImportBat = $GenScriptRootDir + "\OdiScmGenScenPreImport_${OutputTag}.bat"
@@ -3060,6 +3207,7 @@ function SetOdiScmPreImportBatContent {
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmHomeDir>",$OdiScmHomeDir)
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmGenScenPreImpDelOldSql>",$OdiScmGenScenPreImpDelOldSql)
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmGenScenPreImpDelOldBatSql>",$OdiScmGenScenPreImpDelOldBatSql)
+	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmPreImpMergeSnpIDsSql>",$OdiScmPreImpMergeSnpIDsSql)
 	
 	set-content -path $OdiScmGenScenPreImportBat -value $ScriptFileContent
 	
@@ -3997,6 +4145,7 @@ $OdiScmUpdateIniAwk = $ScriptsRootDir + "\OdiScmUpdateIni.awk"
 $OdiScmRepositoryBackUpBatTemplate = $ScriptsRootDir + "\OdiScmRepositoryBackUpTemplate.bat"
 $OdiScmJisqlRepoBatTemplate = $ScriptsRootDir + "\OdiScmJisqlRepoTemplate.bat"
 $OdiScmBuildBatTemplate = $ScriptsRootDir + "\OdiScmBuildTemplate.bat"
+
 $OdiScmGenScenPreImpDelOldSqlTemplate = $ScriptsRootDir + "\OdiScmGenScen15InsertSrcObjIdsTemplate.sql"
 $OdiScmGenScenPreImpDelOldBatSqlTemplate = $ScriptsRootDir + "\OdiScmGenScen17DeleteOldScenTemplate.sql"
 $OdiScmGenScenPreImportBatTemplate = $ScriptsRootDir + "\OdiScmGenScenPreImportTemplate.bat"

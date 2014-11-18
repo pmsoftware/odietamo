@@ -83,6 +83,21 @@ echo %IM% stdOut content:
 type %STDOUTFILE%
 
 rem
+rem Update the last used sequence numbers (SNP_ID and SNP_ENT_ID) for source object IDs previously created in a repository
+rem with the same internal ID. Note that this update only manipulates IDs for parent objects (e.g. SnpTable but not SnpCol)
+rem that are imported and exported by ODI-SCM.
+rem
+set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen13_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
+set STDERRFILE=<GenScriptRootDir>\OdiScmGenScen13_Jisql_stderr_%YYYYMMDD%_%HHMM%.txt
+
+call "<OdiScmHomeDir>\Configuration\Scripts\OdiScmFork.bat" "<OdiScmJisqlRepoBat>" "<OdiScmPreImpMergeSnpIDsSql>" %STDOUTFILE% %STDERRFILE%
+set EXITSTATUS=%ERRORLEVEL%
+echo %IM% command exited with status ^<%EXITSTATUS%^>
+if not "%EXITSTATUS%" == "0" (
+	goto ExitFail
+)
+
+rem
 rem Insert the IDs of source objects that will be imported and could have existing Scenarios.
 rem
 set STDOUTFILE=<GenScriptRootDir>\OdiScmGenScen15_Jisql_stdout_%YYYYMMDD%_%HHMM%.txt
@@ -139,16 +154,6 @@ for /f "tokens=1 delims=" %%g in (%STDOUTFILE%) do (
 	echo %IM% Read command from stdout ^<!TSOutput!^>
 	call :ExecBatchCommand !TSOutput!
 )
-
-
-
-
-
-
-
-
-
-
 
 echo %IM% pre import actions completed successfully.
 goto Exit

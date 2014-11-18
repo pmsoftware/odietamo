@@ -10,8 +10,16 @@
 --
 -- First identify the actual last used IDs present in the repository.
 --
-CREATE TABLE odiscm_last_actual_ids
-AS
+TRUNCATE TABLE odiscm_last_actual_ids
+/
+
+INSERT
+  INTO odiscm_last_actual_ids
+       (
+       repo_type_ind
+     , table_name
+     , max_obj_seq
+       )
 SELECT objs.repo_type_ind
      , objs.table_name
      , objs.max_obj_seq     -- Although the column is called 'next' it appears to be used for 'last'.
@@ -243,6 +251,75 @@ SELECT objs.repo_type_ind
 ANALYZE TABLE odiscm_last_actual_ids ESTIMATE STATISTICS
 /
 
+--
+-- Handle any new tables in ODI11g.
+--
+DECLARE
+    l_count                 PLS_INTEGER := 0;
+    l_sql_full              VARCHAR2(10000);
+    l_sql                   VARCHAR2(5000) := 'INSERT'
+                                           || '  INTO odiscm_last_actual_ids'
+                                           || '       ('
+                                           || '       repo_type_ind'
+                                           || '     , table_name'
+                                           || '     , max_obj_seq'
+                                           || '       )'
+                                           || 'SELECT ''W'''
+                                           || '     , objs.table_name'
+                                           || '     , NVL(snid.id_next,0)'
+                                           || '     , objs.max_obj_seq'
+                                           || '  FROM ('
+                                           || '       SELECT table_name'
+                                           || '            , source_repo_id'
+                                           || '            , MAX(obj_seq)'
+                                           || '                  AS max_obj_seq'
+                                           || '         FROM ('
+                                           || '              SELECT table_name'
+                                           || '                   , SUBSTR(TO_CHAR(obj_id),-3)'
+                                           || '                         AS source_repo_id'
+                                           || '                   , TO_NUMBER(SUBSTR(TO_CHAR(obj_id),1,LENGTH(TO_CHAR(obj_id))-3))'
+                                           || '                         AS obj_seq'
+                                           || '                FROM ('
+                                           || '                     SELECT ''';
+    l_sql2                  VARCHAR2(5000) := '                            '''
+                                           || '                          , i_txt'
+                                           || '                       FROM snp_txt_header'
+                                           || '                     )'
+                                           || '              )'
+                                           || '        GROUP'
+                                           || '           BY table_name'
+                                           || '            , source_repo_id'
+                                           || '       ) objs'
+                                           || ' INNER'
+                                           || '  JOIN snp_loc_repw slrw'
+                                           || '    ON objs.source_repo_id = LPAD(slrw.rep_short_id,3,''0'')';
+BEGIN
+    SELECT COUNT(*)
+      INTO l_count
+      FROM user_tables
+     WHERE table_name
+        IN (
+           'SNP_TXT_HEADER'
+           )
+    ;
+    
+    IF l_count > 0
+    THEN
+        BEGIN
+            l_sql_full := l_sql || 'SNP_TXT_HEADER' || l_sql2;
+            EXECUTE IMMEDIATE l_sql_full;
+        EXCEPTION
+            WHEN OTHERS
+            THEN
+                raise_application_error(-20000, 'Cannot insert data for SNP_TXT_HEADER into table ODISCM_LAST_ACTUAL_IDS');
+        END;
+    END IF;
+END;
+/
+
+COMMIT
+/
+
 --------------------------------------------------------------------------------
 -- Master Repository tables.
 --------------------------------------------------------------------------------
@@ -338,7 +415,4 @@ SELECT 1
 /
 
 COMMIT
-/
-
-DROP TABLE odiscm_last_actual_ids
 /
