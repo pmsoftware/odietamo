@@ -46,7 +46,7 @@ SELECT objs.repo_type_ind
                          AS obj_seq
                 FROM (
                      SELECT 'SNP_AGENT'
-                         AS table_name
+                                AS table_name
                           , i_agent
                                 AS obj_id
                        FROM snp_agent
@@ -258,21 +258,20 @@ SELECT objs.repo_type_ind
 /
 
 --
--- Handle any new tables in ODI11g.
+-- Handle any new tables in ODI 11g.
 --
 DECLARE
     l_count                 PLS_INTEGER := 0;
-    l_sql_full              VARCHAR2(10000);
-    l_sql                   VARCHAR2(5000) := 'INSERT'
+    l_sql_full              VARCHAR2(20000);
+    l_sql                   VARCHAR2(5000) := 'INSERT '
                                            || '  INTO odiscm_last_actual_ids'
                                            || '       ('
                                            || '       repo_type_ind'
                                            || '     , table_name'
                                            || '     , max_obj_seq'
-                                           || '       )'
+                                           || '       ) '
                                            || 'SELECT ''W'''
                                            || '     , objs.table_name'
-                                           || '     , NVL(snid.id_next,0)'
                                            || '     , objs.max_obj_seq'
                                            || '  FROM ('
                                            || '       SELECT table_name'
@@ -287,8 +286,12 @@ DECLARE
                                            || '                         AS obj_seq'
                                            || '                FROM ('
                                            || '                     SELECT ''';
+    -- We insert the TABLE_NAME here.
     l_sql2                  VARCHAR2(5000) := '                            '''
-                                           || '                          , i_txt'
+                                           || '                                AS table_name'
+                                           || '                          , ';
+    -- We insert the internal ID column name here.
+    l_sql3                  VARCHAR2(5000) := '                                AS obj_id'
                                            || '                       FROM snp_txt_header'
                                            || '                     )'
                                            || '              )'
@@ -312,7 +315,8 @@ BEGIN
     IF l_count > 0
     THEN
         BEGIN
-            l_sql_full := l_sql || 'SNP_TXT_HEADER' || l_sql2;
+            l_sql_full := l_sql || 'SNP_TXT_HEADER' || l_sql2 || 'I_TXT' || l_sql3;
+            dbms_output.put_line('l_sql_full: ' || l_sql_full);
             EXECUTE IMMEDIATE l_sql_full;
         EXCEPTION
             WHEN OTHERS
