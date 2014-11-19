@@ -799,7 +799,7 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
 			$SqlText += "MERGE" + [Environment]::NewLine
 			$SqlText += " INTO snp_ent_id t" + [Environment]::NewLine
 			$SqlText += "USING (" + [Environment]::NewLine
-			$SqlText += "      SELECT '" + $masterRepoExtensionTabs[$extentionCount - 1] + "'" + [Environment]::NewLine
+			$SqlText += "      SELECT '" + $masterRepoExtensionTabs[$extensionCount - 1] + "'" + [Environment]::NewLine
 			$SqlText += "                 AS id_tbl" + [Environment]::NewLine
 			$SqlText += "           , '" + $extensionMaxID + "'" + [Environment]::NewLine
 			$SqlText += "                 AS id_next" + [Environment]::NewLine
@@ -807,17 +807,19 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
 			$SqlText += "                 AS id_seq" + [Environment]::NewLine
 			$SqlText += "        FROM dual" + [Environment]::NewLine
 			$SqlText += "      ) s" + [Environment]::NewLine
-			$SqlText += "   ON t.id_tbl = s.id_tbl" + [Environment]::NewLine
+			$SqlText += "   ON (t.id_tbl = s.id_tbl)" + [Environment]::NewLine
 			$SqlText += " WHEN MATCHED" + [Environment]::NewLine
 			$SqlText += " THEN UPDATE" + [Environment]::NewLine
 			$SqlText += "         SET t.id_next = s.id_next" + [Environment]::NewLine
 			$SqlText += " WHEN NOT MATCHED" + [Environment]::NewLine
-			$SqlText += "   ON INSERT (id_seq, id_tbl, id_next)" + [Environment]::NewLine
+			$SqlText += " THEN INSERT (id_seq, id_tbl, id_next)" + [Environment]::NewLine
 			$SqlText += "      VALUES (s.id_seq, s.id_tbl, s.id_next)" + [Environment]::NewLine
 			$SqlText += "/" + [Environment]::NewLine
 			$SqlText += "" + [Environment]::NewLine
 		}
 	}
+	
+	$extensionCount = 0
 	
 	foreach ($ext in $workRepoExtensions) {
 		
@@ -851,7 +853,7 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
 			$SqlText += "MERGE" + [Environment]::NewLine
 			$SqlText += " INTO snp_id t" + [Environment]::NewLine
 			$SqlText += "USING (" + [Environment]::NewLine
-			$SqlText += "      SELECT '" + $masterRepoExtensionTabs[$extentionCount - 1] + "'" + [Environment]::NewLine
+			$SqlText += "      SELECT '" + $workRepoExtensionTabs[$extensionCount - 1] + "'" + [Environment]::NewLine
 			$SqlText += "                 AS id_tbl" + [Environment]::NewLine
 			$SqlText += "           , '" + $extensionMaxID + "'" + [Environment]::NewLine
 			$SqlText += "                 AS id_next" + [Environment]::NewLine
