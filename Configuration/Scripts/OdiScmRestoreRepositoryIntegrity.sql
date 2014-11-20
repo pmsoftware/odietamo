@@ -279,10 +279,9 @@ DECLARE
                                            || '                   , TO_NUMBER(SUBSTR(TO_CHAR(obj_id),1,LENGTH(TO_CHAR(obj_id))-3))'
                                            || '                         AS obj_seq'
                                            || '                FROM ('
-                                           || '                     SELECT ''';
+                                           || '                     SELECT ';
     -- We insert the TABLE_NAME here.
-    l_sql2                  VARCHAR2(5000) := '                            '''
-                                           || '                                AS table_name'
+    l_sql2                  VARCHAR2(5000) := '                                AS table_name'
                                            || '                          , ';
     -- We insert the internal ID column name here.
     l_sql3                  VARCHAR2(5000) := '                                AS obj_id'
@@ -309,7 +308,7 @@ BEGIN
     IF l_count > 0
     THEN
         BEGIN
-            l_sql_full := l_sql || 'SNP_TXT_HEADER' || l_sql2 || 'I_TXT' || l_sql3;
+            l_sql_full := l_sql || '''SNP_TXT_HEADER''' || l_sql2 || 'I_TXT' || l_sql3;
             dbms_output.put_line('l_sql_full: ' || l_sql_full);
             EXECUTE IMMEDIATE l_sql_full;
         EXCEPTION
