@@ -4,9 +4,9 @@
 --
 DELETE
   FROM odiscm_imports
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 <OdiScmInsertSrcObjIds>
 
 COMMIT
-/
+<OdiScmGenerateSqlStatementDelimiter>

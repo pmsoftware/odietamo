@@ -2,7 +2,7 @@ UPDATE odiscm_master_flush_controls
    SET flush_from_datetime = SYSDATE
      , last_updated_by_command_name = 'OdiScmPrimeExportNowMaster.sql'
  WHERE odi_user_name = '<OdiScmUserName>'
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 INSERT
   INTO odiscm_master_flush_controls
@@ -23,8 +23,7 @@ SELECT '<OdiScmUserName>'
        SELECT odi_user_name
          FROM odiscm_master_flush_controls
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 COMMIT
-/
-
+<OdiScmGenerateSqlStatementDelimiter>

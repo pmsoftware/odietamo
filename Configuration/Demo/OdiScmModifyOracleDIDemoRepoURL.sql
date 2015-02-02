@@ -2,13 +2,13 @@ UPDATE snp_connect
    SET java_url = 'jdbc:hsqldb:hsql://localhost:9003'
  WHERE con_name = 'WORKREP'
    AND connect_type = 'R'
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 UPDATE snp_connect
    SET java_url = 'jdbc:hsqldb:hsql://localhost:9003'
  WHERE con_name = 'Security Connection'
    AND connect_type = 'R'
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 UPDATE snp_mtxt
    SET full_txt = 'jdbc:hsqldb:hsql://localhost:9003'
@@ -19,7 +19,7 @@ UPDATE snp_mtxt
         WHERE con_name = 'WORKREP'
           AND connect_type = 'R'
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 UPDATE snp_mtxt
    SET full_txt = 'jdbc:hsqldb:hsql://localhost:9003'
@@ -30,7 +30,7 @@ UPDATE snp_mtxt
         WHERE con_name = 'Security Connection'
           AND connect_type = 'R'
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 COMMIT
-/
+<OdiScmGenerateSqlStatementDelimiter>

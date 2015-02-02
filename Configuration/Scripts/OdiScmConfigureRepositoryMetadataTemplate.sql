@@ -10,7 +10,7 @@ UPDATE odiscm_configurations
      , export_cleans_importrep        = '<ExportCleansImportRepObjs>'
      , scenario_export_markers        = '<ScenarioExportMarkers>'
  WHERE odi_user_name = '<OdiScmOdiUserName>'
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 INSERT
   INTO odiscm_configurations
@@ -45,7 +45,7 @@ SELECT '<OdiScmOdiUserName>'
        SELECT odi_user_name
          FROM odiscm_configurations
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 COMMIT
-/
+<OdiScmGenerateSqlStatementDelimiter>

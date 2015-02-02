@@ -266,6 +266,12 @@ So, the configuration file is really the persisted environment for the ODI-SCM c
 |                  |                               |that specify the names of database  |                                                             |
 |                  |                               |DML scripts to be executed following|                                                             |
 |                  |                               |all database DDL script execution.  |                                                             |
+|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                  |SQL Statement Delimiter        |A string of one or more characters  |``//``                                                       |
+|                  |                               |used as statement delimiters when   |                                                             |
+|                  |                               |running user SQL scripts. Used to   |                                                             |
+|                  |                               |to avoid conflicts with strings in  |                                                             |
+|                  |                               |user SQL scripts.                   |                                                             |
 +------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
 |Test              |ODI Standards Script           |An optional path and name of a SQL  |``C:\Scripts\DemoODINamingStandardTest.sql``                 |
 |                  |                               |script used to check the ODI code,  |                                                             |

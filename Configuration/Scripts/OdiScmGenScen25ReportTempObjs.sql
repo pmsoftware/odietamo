@@ -17,7 +17,7 @@ SELECT 'I_OBJECT_STATE = '
                WHERE grp_state_code  = 'ODISCM_TEMPORARY'
               )
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 SELECT 'I_STATE = '
     || i_state
@@ -32,7 +32,7 @@ SELECT 'I_STATE = '
          FROM snp_grp_state
         WHERE grp_state_code  = 'ODISCM_TEMPORARY'
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 SELECT 'I_GRP_STATE = '
     || i_grp_state
@@ -40,4 +40,4 @@ SELECT 'I_GRP_STATE = '
     || grp_state_code
   FROM snp_grp_state
  WHERE grp_state_code = 'ODISCM_TEMPORARY'
-/
+<OdiScmGenerateSqlStatementDelimiter>

@@ -47,6 +47,7 @@ if ERRORLEVEL 1 (
 set RANDSTR=%RANDOM%
 set STDOUTWORKFILE=%TEMPDIR%\OdiScmJisql_StdOut_%RANDSTR%.txt
 set STDERRWORKFILE=%TEMPDIR%\OdiScmJisql_StdErr_%RANDSTR%.txt
+set TEMPSCRIPTFILE=%TEMPDIR%\OdiScmJisql_Script_%RANDSTR%.sql
 
 setlocal enabledelayedexpansion
 
@@ -105,6 +106,19 @@ if "%ODI_SCM_TOOLS_JISQL_JAVA_HOME%" == "" (
 echo %IM% using ODI_SCM_TOOLS_JISQL_JAVA_HOME ^<%ODI_SCM_TOOLS_JISQL_JAVA_HOME%^>
 set JISQL_LIB=%ODI_SCM_TOOLS_JISQL_HOME%\lib
 
+rem
+rem Replace end of statement markers where required.
+rem
+
+set ODI_SCM_GENERATE_SQL_STATEMENT_DELIMITER_ESC=%ODI_SCM_GENERATE_SQL_STATEMENT_DELIMITER:/=\/%
+
+echo sed s/^<OdiScmGenerateSqlStatementDelimiter^>/%ODI_SCM_GENERATE_SQL_STATEMENT_DELIMITER_ESC%/g
+sed s/^<OdiScmGenerateSqlStatementDelimiter^>/%ODI_SCM_GENERATE_SQL_STATEMENT_DELIMITER_ESC%/g < "%ARGV5%" > "%TEMPSCRIPTFILE%"
+if ERRORLEVEL 1 (
+	echo %EM% replacing end of statement markers in script file ^<%ARGV5%^> 1>&2
+	goto ExitFail
+)
+
 REM
 REM Build the class path.
 REM
@@ -134,9 +148,9 @@ set JAVA_TOOL_OPTIONS=
 set _JAVA_OPTIONS=
 
 rem echo %IM% Jisql class path ^<%JISQL_CLASS_PATH%^>
-echo %IM% executing command ^<"%ODI_SCM_TOOLS_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH%;%ARGV6% com.xigole.util.sql.Jisql -user "%ARGV1%" -pass "%ARGV2%" -driver "%ARGV3%" -cstring "%ARGV4%" -c / -formatter default -delimiter=" " -noheader -trim -input "%ARGV5%" -debug 1^>%STDOUTWORKFILE% 2^>%STDERRWORKFILE%^>
+echo %IM% executing command ^<"%ODI_SCM_TOOLS_JISQL_JAVA_HOME%\bin\java" -classpath %JISQL_CLASS_PATH%;%ARGV6% com.xigole.util.sql.Jisql -user "%ARGV1%" -pass "%ARGV2%" -driver "%ARGV3%" -cstring "%ARGV4%" -c %ODI_SCM_GENERATE_SQL_STATEMENT_DELIMITER% -formatter default -delimiter=" " -noheader -trim -input "%TEMPSCRIPTFILE%" -debug 1^>%STDOUTWORKFILE% 2^>%STDERRWORKFILE%^>
 
-"%ODI_SCM_TOOLS_JISQL_JAVA_HOME%\bin\java" -classpath "%JISQL_CLASS_PATH%;%ARGV6%" com.xigole.util.sql.Jisql -user "%ARGV1%" -pass "%ARGV2%" -driver "%ARGV3%" -cstring "%ARGV4%" -c / -formatter default -delimiter=" " -noheader -trim -input "%ARGV5%" 1>"%STDOUTWORKFILE%" 2>"%STDERRWORKFILE%"
+"%ODI_SCM_TOOLS_JISQL_JAVA_HOME%\bin\java" -classpath "%JISQL_CLASS_PATH%;%ARGV6%" com.xigole.util.sql.Jisql -user "%ARGV1%" -pass "%ARGV2%" -driver "%ARGV3%" -cstring "%ARGV4%" -c %ODI_SCM_GENERATE_SQL_STATEMENT_DELIMITER% -formatter default -delimiter=" " -noheader -trim -input "%TEMPSCRIPTFILE%" 1>"%STDOUTWORKFILE%" 2>"%STDERRWORKFILE%"
 set EXITSTATUS=%ERRORLEVEL%
 
 if "%STDOUTFILE%" == "" (

@@ -21,4 +21,4 @@ SELECT 'startcmd.bat OdiExportObject -CLASS_NAME=SnpLschema -I_OBJECT=' || i_lsc
    ALL
 SELECT 'startcmd.bat OdiExportObject -CLASS_NAME=SnpPschema -I_OBJECT=' || i_pschema || ' -FILE_NAME=PSC_' || REPLACE(REPLACE(REPLACE(ext_name, ' ', '_'),'/',''),'.','') || '.xml'
   FROM snp_pschema
-/
+<OdiScmGenerateSqlStatementDelimiter>

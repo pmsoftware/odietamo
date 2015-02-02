@@ -7,7 +7,7 @@ SELECT 'ALTER TABLE ' + s.name + '.' + t.name + ' DROP CONSTRAINT ' + f.name
   JOIN sys.foreign_keys f
     ON t.object_id = f.parent_object_id
  WHERE s.name = '<OdiScmPhysicalSchemaName>'
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 SELECT 'DROP TABLE ' + s.name + '.' + t.name
   FROM sys.tables t
@@ -15,7 +15,7 @@ SELECT 'DROP TABLE ' + s.name + '.' + t.name
   JOIN sys.schemas s
     ON t.schema_id = s.schema_id
  WHERE s.name = '<OdiScmPhysicalSchemaName>'
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 SELECT 'DROP VIEW ' + s.name + '.' + t.name
   FROM sys.views t
@@ -23,7 +23,7 @@ SELECT 'DROP VIEW ' + s.name + '.' + t.name
   JOIN sys.schemas s
     ON t.schema_id = s.schema_id
  WHERE s.name = '<OdiScmPhysicalSchemaName>'
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 SELECT 'DROP PROCEDURE ' + s.name + '.' + t.name
   FROM sys.procedures t
@@ -31,4 +31,4 @@ SELECT 'DROP PROCEDURE ' + s.name + '.' + t.name
   JOIN sys.schemas s
     ON t.schema_id = s.schema_id
  WHERE s.name = '<OdiScmPhysicalSchemaName>'
-/
+<OdiScmGenerateSqlStatementDelimiter>

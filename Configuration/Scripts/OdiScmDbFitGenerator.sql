@@ -28,7 +28,7 @@ CREATE
         , part_number
           )
 )
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
    CREATE
        OR
@@ -1886,3 +1886,4 @@ BEGIN
     COMMIT;
     
 END generate_tests;
+<OdiScmGenerateSqlStatementDelimiter>

@@ -20,7 +20,7 @@
 -- First identify the actual last used IDs present in the repository.
 --
 TRUNCATE TABLE odiscm_last_actual_ids
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 INSERT
   INTO odiscm_last_actual_ids
@@ -255,7 +255,7 @@ SELECT objs.repo_type_ind
  INNER
   JOIN snp_loc_repw slrw
     ON objs.source_repo_id = LPAD(slrw.rep_short_id,3,'0')
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 --
 -- Handle any new tables in ODI 11g.
@@ -324,13 +324,13 @@ BEGIN
         END;
     END IF;
 END;
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 COMMIT
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 ANALYZE TABLE odiscm_last_actual_ids ESTIMATE STATISTICS
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 --------------------------------------------------------------------------------
 -- Master Repository tables.
@@ -349,7 +349,7 @@ SELECT olai.table_name
     ON olai.table_name = seid.id_tbl
  WHERE olai.repo_type_ind = 'M'
    AND olai.max_obj_seq > NVL(seid.id_next,0)
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 --------------------------------------------------------------------------------
 -- Work Repository tables.
@@ -367,4 +367,4 @@ SELECT olai.table_name
     ON olai.table_name = seid.id_tbl
  WHERE olai.repo_type_ind = 'W'
    AND olai.max_obj_seq > NVL(seid.id_next,0)
-/
+<OdiScmGenerateSqlStatementDelimiter>

@@ -31,3 +31,4 @@ SELECT 'call startcmd.bat OdiExportObject -I_OBJECT=' || i_object || ' "-FILE_NA
             , 'SnpTechno'
          FROM snp_techno
        )
+<OdiScmGenerateSqlStatementDelimiter>

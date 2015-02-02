@@ -105,7 +105,7 @@ DELETE
               )
        )
 ------ Comment-out to here - to include ODI-SVN project scenarios.         
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 DELETE
   FROM snp_scen_task
@@ -210,7 +210,7 @@ DELETE
               )
        )
 ------ Comment-out to here - to include ODI-SVN project scenarios.                
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 DELETE
   FROM snp_scen_step
@@ -315,7 +315,7 @@ DELETE
               )
        )
 ------ Comment-out to here - to include ODI-SVN project scenarios.                
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 DELETE
   FROM snp_var_scen
@@ -420,7 +420,7 @@ DELETE
               )
        )
 ------ Comment-out to here - to include ODI-SVN project scenarios.                
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 DELETE
   FROM snp_step_report
@@ -525,7 +525,7 @@ DELETE
               )
        )
 ------ Comment-out to here - to include ODI-SVN project scenarios.                
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 DELETE
   FROM snp_scen_report
@@ -630,7 +630,7 @@ DELETE
               )
        )
 ------ Comment-out to here - to include ODI-SVN project scenarios.                
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 DELETE
   FROM snp_scen
@@ -735,7 +735,7 @@ DELETE
               )
        )
 ------ Comment-out to here - to include ODI-SVN project scenarios.                
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 COMMIT
-/
+<OdiScmGenerateSqlStatementDelimiter>

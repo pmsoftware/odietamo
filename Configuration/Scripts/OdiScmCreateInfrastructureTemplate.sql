@@ -203,4 +203,4 @@ BEGIN
 	END IF;
 
 END;
-/
+<OdiScmGenerateSqlStatementDelimiter>

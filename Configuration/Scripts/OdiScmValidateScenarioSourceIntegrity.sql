@@ -41,7 +41,7 @@ SELECT 1 / 0
            BY trt_name
        HAVING COUNT(*) > 1
        )
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 --
 -- Duplicate Packages.
@@ -81,7 +81,7 @@ SELECT 1 / 0
            BY pack_name
        HAVING COUNT(*) > 1
        )
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 --
 -- Duplicate Interfaces.
@@ -121,7 +121,7 @@ SELECT 1 / 0
            BY pop_name
        HAVING COUNT(*) > 1
        )
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 --
 -- Interfaces and Packages.
@@ -187,7 +187,7 @@ SELECT 1 / 0
                      )
               )
        )
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 --
 -- Interfaces and Procedures.
@@ -253,7 +253,7 @@ SELECT 1 / 0
                      )
               )
        )
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 --
 -- Packages and Procedures.
@@ -319,4 +319,4 @@ SELECT 1 / 0
                      )
               )
        )
-;
+<OdiScmGenerateSqlStatementDelimiter>

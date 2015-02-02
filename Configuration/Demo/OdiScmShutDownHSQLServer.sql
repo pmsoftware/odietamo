@@ -1,2 +1,2 @@
 SHUTDOWN COMPACT
-/
+<OdiScmGenerateSqlStatementDelimiter>

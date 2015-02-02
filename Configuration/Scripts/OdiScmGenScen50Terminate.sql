@@ -15,9 +15,7 @@ DELETE
                WHERE grp_state_code  = 'ODISCM_TEMPORARY'
               )
        )
-/
-
-
+<OdiScmGenerateSqlStatementDelimiter>
 
 DELETE
   FROM snp_state2
@@ -28,21 +26,21 @@ DELETE
          FROM snp_grp_state
         WHERE grp_state_code  = 'ODISCM_TEMPORARY'
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 DELETE
   FROM snp_grp_state
  WHERE grp_state_code = 'ODISCM_TEMPORARY'
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 COMMIT
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 ANALYZE TABLE snp_obj_state ESTIMATE STATISTICS
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 ANALYZE TABLE snp_state2 ESTIMATE STATISTICS
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 ANALYZE TABLE snp_grp_state ESTIMATE STATISTICS
-/
+<OdiScmGenerateSqlStatementDelimiter>

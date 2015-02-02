@@ -98,4 +98,4 @@ SELECT 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmOdiSt
                WHERE p.project_code = 'OS'
               )
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>

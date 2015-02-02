@@ -11,7 +11,7 @@
 -- First identify the actual last used IDs present in the repository.
 --
 TRUNCATE TABLE odiscm_last_actual_ids
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 INSERT
   INTO odiscm_last_actual_ids
@@ -246,10 +246,10 @@ SELECT objs.repo_type_ind
  INNER
   JOIN snp_loc_repw slrw
     ON objs.source_repo_id = LPAD(slrw.rep_short_id,3,'0')
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 ANALYZE TABLE odiscm_last_actual_ids ESTIMATE STATISTICS
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 --
 -- Handle any new tables in ODI 11g.
@@ -318,10 +318,10 @@ BEGIN
         END;
     END IF;
 END;
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 COMMIT
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 --------------------------------------------------------------------------------
 -- Master Repository tables.
@@ -345,7 +345,7 @@ UPDATE snp_ent_id seid
         WHERE olai.table_name = seid.id_tbl
           AND olai.repo_type_ind = 'M'        
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 --
 -- Create missing entries.
@@ -368,7 +368,7 @@ SELECT 1
        SELECT id_tbl
          FROM snp_ent_id
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 --------------------------------------------------------------------------------
 -- Work Repository tables.
@@ -392,7 +392,7 @@ UPDATE snp_id snid
         WHERE olai.table_name = snid.id_tbl
           AND olai.repo_type_ind = 'W'        
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 --
 -- Create missing entries.
@@ -415,7 +415,7 @@ SELECT 1
        SELECT id_tbl
          FROM snp_id
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 COMMIT
-/
+<OdiScmGenerateSqlStatementDelimiter>

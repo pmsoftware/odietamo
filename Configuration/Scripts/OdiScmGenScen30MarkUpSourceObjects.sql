@@ -1,6 +1,6 @@
 TRUNCATE
    TABLE odiscm_genscen_sources
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 --
 -- Identify modified source objects for which we must generate a Scenario.
@@ -111,10 +111,10 @@ SELECT DISTINCT         -- Because of multiple markers.
        SELECT import_start_datetime
          FROM odiscm_controls
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 COMMIT
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 --
 -- Second, indirectly.
@@ -170,7 +170,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP, and multiple markers.
                      , source_type_id
                   FROM odiscm_genscen_sources
                 )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 --
 -- Packages, with a Scenario, referencing a modified Procedure.
@@ -224,10 +224,10 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP, and multiple markers.
                      , source_type_id
                   FROM odiscm_genscen_sources
                 )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 COMMIT
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 --
 -- Third, other Package dependencies
@@ -286,7 +286,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP, and multiple markers.
                      , source_type_id
                   FROM odiscm_genscen_sources
                 )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 --
 -- Packages, with a Scenario, referencing a modified Model (or Sub Model, Data Store in the Model, or
@@ -395,7 +395,7 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP, and multiple markers.
                      , source_type_id
                   FROM odiscm_genscen_sources
                 )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 --
 -- Packages, with a Scenario, referencing a modified Data Store.
@@ -453,10 +453,10 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP, and multiple markers.
                      , source_type_id
                   FROM odiscm_genscen_sources
                 )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 ANALYZE TABLE odiscm_genscen_sources ESTIMATE STATISTICS
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 --SET SERVER OUTPUT ON SIZE 10000000;
 
@@ -649,13 +649,13 @@ BEGIN
 
     COMMIT;
 END;                     
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 ANALYZE TABLE snp_obj_state ESTIMATE STATISTICS
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 ANALYZE TABLE snp_state2 ESTIMATE STATISTICS
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 ANALYZE TABLE snp_grp_state ESTIMATE STATISTICS
-/
+<OdiScmGenerateSqlStatementDelimiter>

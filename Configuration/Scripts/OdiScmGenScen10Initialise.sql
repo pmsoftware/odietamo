@@ -13,11 +13,11 @@ EXISTS (
        SELECT 1
          FROM odiscm_controls
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 UPDATE odiscm_controls
   SET import_start_datetime = SYSDATE
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 COMMIT
-/
+<OdiScmGenerateSqlStatementDelimiter>

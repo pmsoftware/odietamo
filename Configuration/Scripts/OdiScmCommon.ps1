@@ -735,7 +735,7 @@ function GenerateOdiSrcObjIdInsertScript ([array] $arrStrFilesToImport) {
 				$ImportText += "       " + $FileToImportID[0] + [Environment]::NewLine
 				$ImportText += "     , " + $FileToImportTypeID + [Environment]::NewLine
 				$ImportText += "       )" + [Environment]::NewLine
-				$ImportText += "/" + [Environment]::NewLine
+				$ImportText += "<OdiScmGenerateSqlStatementDelimiter>" + [Environment]::NewLine
 				$ImportText += "" + [Environment]::NewLine
 			}
 		}
@@ -814,7 +814,7 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
 			$SqlText += " WHEN NOT MATCHED" + [Environment]::NewLine
 			$SqlText += " THEN INSERT (id_seq, id_tbl, id_next)" + [Environment]::NewLine
 			$SqlText += "      VALUES (s.id_seq, s.id_tbl, s.id_next)" + [Environment]::NewLine
-			$SqlText += "/" + [Environment]::NewLine
+			$SqlText += "<OdiScmGenerateSqlStatementDelimiter>" + [Environment]::NewLine
 			$SqlText += "" + [Environment]::NewLine
 		}
 	}
@@ -868,13 +868,13 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
 			$SqlText += " WHEN NOT MATCHED" + [Environment]::NewLine
 			$SqlText += " THEN INSERT (id_seq, id_tbl, id_next)" + [Environment]::NewLine
 			$SqlText += "      VALUES (s.id_seq, s.id_tbl, s.id_next)" + [Environment]::NewLine
-			$SqlText += "/" + [Environment]::NewLine
+			$SqlText += "<OdiScmGenerateSqlStatementDelimiter>" + [Environment]::NewLine
 			$SqlText += "" + [Environment]::NewLine
 		}
 	}
 	
 	$SqlText += "COMMIT" + [Environment]::NewLine
-	$SqlText += "/" + [Environment]::NewLine
+	$SqlText += "<OdiScmGenerateSqlStatementDelimiter>" + [Environment]::NewLine
 	
 	$SqlText | out-file -filepath $OdiScmPreImpMergeSnpIDsSql -encoding ASCII
 	

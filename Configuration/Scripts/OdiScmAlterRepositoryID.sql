@@ -2,7 +2,7 @@ SELECT 'ALTER TABLE ' || table_name || ' DISABLE CONSTRAINT ' || constraint_name
   FROM user_constraints
  WHERE constraint_type = 'R'
    AND status <> 'DISABLED'
-; 
+<OdiScmGenerateSqlStatementDelimiter>
 
 UPDATE snp_connect targ
    SET targ.i_txt_java_url =
@@ -21,7 +21,7 @@ UPDATE snp_connect targ
           AND SUBSTR(TO_CHAR(srce.i_txt_java_url), LENGTH(TO_CHAR(srce.i_txt_java_url)) - 3 + 1) = '<old repository ID>'
           AND srce.i_connect = targ.i_connect       
        )       
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 UPDATE snp_connect targ
    SET targ.i_connect =
@@ -40,7 +40,7 @@ UPDATE snp_connect targ
           AND SUBSTR(TO_CHAR(srce.i_connect), LENGTH(TO_CHAR(srce.i_connect)) - 3 + 1) = '<old repository ID>'
           AND srce.i_connect = targ.i_connect       
        )       
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 UPDATE snp_mtxt targ
    SET targ.i_txt =
@@ -59,7 +59,7 @@ UPDATE snp_mtxt targ
           AND SUBSTR(TO_CHAR(srce.i_txt), LENGTH(TO_CHAR(srce.i_txt)) - 3 + 1) = '<old repository ID>'
           AND srce.i_txt = targ.i_txt
        )
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 UPDATE snp_mtxt_part targ
    SET targ.i_txt =
@@ -78,7 +78,7 @@ UPDATE snp_mtxt_part targ
           AND SUBSTR(TO_CHAR(srce.i_txt), LENGTH(TO_CHAR(srce.i_txt)) - 3 + 1) = '<old repository ID>'
           AND srce.i_txt = targ.i_txt
        )
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 UPDATE snp_host targ
    SET targ.i_host =
@@ -97,7 +97,7 @@ UPDATE snp_host targ
           AND SUBSTR(TO_CHAR(srce.i_host), LENGTH(TO_CHAR(srce.i_host)) - 3 + 1) = '<old repository ID>'
           AND srce.i_host = targ.i_host
        )
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 UPDATE snp_host_mod targ
    SET i_host =
@@ -116,7 +116,7 @@ UPDATE snp_host_mod targ
           AND SUBSTR(TO_CHAR(srce.i_host), LENGTH(TO_CHAR(srce.i_host)) - 3 + 1) = '<old repository ID>'
           AND srce.i_host = targ.i_host
        )
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 UPDATE snp_loc_rep targ
    SET targ.rep_short_id =
@@ -133,7 +133,7 @@ UPDATE snp_loc_rep targ
         WHERE SUBSTR(TO_CHAR(srce.rep_short_id), LENGTH(TO_CHAR(srce.rep_short_id)) - 3 + 1) = '<old repository ID>'
           AND srce.rep_short_id = targ.rep_short_id
        )
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 UPDATE snp_loc_repw targ
    SET targ.rep_short_id =
@@ -150,7 +150,7 @@ UPDATE snp_loc_repw targ
         WHERE SUBSTR(TO_CHAR(srce.rep_short_id), LENGTH(TO_CHAR(srce.rep_short_id)) - 3 + 1) = '<old repository ID>'
           AND srce.rep_short_id = targ.rep_short_id
        )
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 UPDATE snp_rem_rep targ
    SET targ.i_connect =
@@ -167,7 +167,7 @@ UPDATE snp_rem_rep targ
         WHERE SUBSTR(TO_CHAR(srce.rep_id), LENGTH(TO_CHAR(srce.rep_id)) - 3 + 1) = '<old repository ID>'
           AND srce.rep_id = targ.rep_id
        )
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 UPDATE snp_rem_rep targ
    SET targ.rep_id =
@@ -184,13 +184,13 @@ UPDATE snp_rem_rep targ
         WHERE SUBSTR(TO_CHAR(srce.rep_id), LENGTH(TO_CHAR(srce.rep_id)) - 3 + 1) = '<old repository ID>'
           AND srce.rep_id = targ.rep_id
        )
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 COMMIT
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 SELECT 'ALTER TABLE ' || table_name || ' ENABLE CONSTRAINT ' || constraint_name || ';'
   FROM user_constraints
  WHERE constraint_type = 'R'
    AND status = 'DISABLED'
-;
+<OdiScmGenerateSqlStatementDelimiter>

@@ -18,4 +18,4 @@ BEGIN
 		END;
 	END IF;
 END;
-/
+<OdiScmGenerateSqlStatementDelimiter>

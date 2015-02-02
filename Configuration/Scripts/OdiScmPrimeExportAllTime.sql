@@ -12,7 +12,7 @@ VALUES (
      , NULL
      , 'Demo Set Up'
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 INSERT
   INTO odiscm_work_flush_controls
@@ -28,8 +28,8 @@ VALUES (
      , NULL
      , 'Demo Set Up'
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>
 
 COMMIT
-/
+<OdiScmGenerateSqlStatementDelimiter>
 

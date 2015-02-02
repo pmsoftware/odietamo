@@ -38,7 +38,7 @@ SELECT 'GRANT SELECT ON ' || table_name || ' TO <other_schema>;'
  WHERE table_name LIKE 'SNP_%'  
  ORDER
     BY table_name
-;
+<OdiScmGenerateSqlStatementDelimiter>
 
 --
 -- Run in repository schema B.
@@ -97,4 +97,4 @@ BEGIN
 	    dbms_output.put_line(l_txt);
 	END LOOP;
 END;
-/
+<OdiScmGenerateSqlStatementDelimiter>

@@ -162,4 +162,4 @@ SELECT i_project
           AND '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
           <OdiScmModifiedObjectsOnlyFilterText>
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>

@@ -193,4 +193,4 @@ SELECT 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmOdiSt
                  AND osco.scenario_export_markers LIKE ('%' || NVL(gs.grp_state_code,'XXX') || '.' || NVL(s2.state_code,'XXX') || '%')
               )
        )
-/
+<OdiScmGenerateSqlStatementDelimiter>

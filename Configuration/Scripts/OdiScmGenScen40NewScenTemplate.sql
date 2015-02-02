@@ -37,4 +37,4 @@ SELECT DISTINCT
     || ' -GENERATE_PACK=NO -GENERATE_POP=NO -GENERATE_TRT=NO -GENERATE_VAR=YES'
   FROM odiscm_genscen_sources
  WHERE source_type_id = 3500
-/
+<OdiScmGenerateSqlStatementDelimiter>

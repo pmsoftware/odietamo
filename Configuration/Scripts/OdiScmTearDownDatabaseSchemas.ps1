@@ -33,7 +33,7 @@ function ExecHSqlSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strSch
 	
 	if (($strSchemaName -ne "") -and ($strSchemaName -ne $Null)) {
 		$arrStrOut += "SET SCHEMA $strSchemaName"
-		$arrStrOut += "/"
+		$arrStrOut += "<OdiScmGenerateSqlStatementDelimiter>"
 		$arrStrOut += ""
 	}
 	
@@ -41,7 +41,7 @@ function ExecHSqlSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strSch
 	# Replace end of statement markers to standard value.
 	#
 	if ($blnReplaceEosMarker) {
-		$arrStrOut += $arrStrSetUpScriptContent -replace ";$", "/"
+		$arrStrOut += $arrStrSetUpScriptContent -replace ";$", "<OdiScmGenerateSqlStatementDelimiter>"
 	}
 	
 	$strSqlScriptName = split-path $strSqlScript -leaf
@@ -108,7 +108,7 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 	$arrStrOut = @()
 	
 	if ($blnReplaceEosMarker) {
-		$arrStrOut += $arrStrSetUpScriptContent -replace "^go$", "/"
+		$arrStrOut += $arrStrSetUpScriptContent -replace "^go$", "<OdiScmGenerateSqlStatementDelimiter>"
 	}
 	
 	$strSqlScriptName = split-path $strSqlScript -leaf
@@ -166,12 +166,12 @@ function ExecOracleSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strS
 	
 	if (($strSchemaName -ne "") -and ($strSchemaName -ne $Null)) {
 		$arrStrOut += "ALTER SESSION SET CURRENT_SCHEMA = $strSchemaName"
-		$arrStrOut += "/"
+		$arrStrOut += "<OdiScmGenerateSqlStatementDelimiter>"
 		$arrStrOut += ""
 	}
 	
 	if ($blnReplaceEosMarker) {
-		$arrStrOut += $arrStrSetUpScriptContent -replace ";$", "/"
+		$arrStrOut += $arrStrSetUpScriptContent -replace ";$", "<OdiScmGenerateSqlStatementDelimiter>"
 	}
 	
 	$strSqlScriptName = split-path $strSqlScript -leaf
@@ -247,7 +247,7 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 	
 	if (($strDatabaseName -ne "") -and ($strDatabaseName -ne $Null)) {
 		$arrStrOut += "DATABASE $strDatabaseName"
-		$arrStrOut += "/"
+		$arrStrOut += "<OdiScmGenerateSqlStatementDelimiter>"
 		$arrStrOut += ""
 	}
 	
@@ -256,7 +256,7 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 	write-host "$IM source script contains <$intLines> lines"
 	
 	if ($blnReplaceEosMarker) {
-		$arrStrOut += $arrStrSetUpScriptContent -replace ";$", "/"
+		$arrStrOut += $arrStrSetUpScriptContent -replace ";$", "<OdiScmGenerateSqlStatementDelimiter>"
 	}
 	
 	write-host "$IM completed changing end of statement markers"
@@ -399,7 +399,7 @@ function TearDownHsqlSchema ($strUserName, $strUserPassword, $strJdbcUrl, $strSc
 		if (($strLine -eq "") -or ($strLine -eq $Null)) {
 			continue
 		}
-		$arrTearDownScriptContent += ($strLine + [Environment]::NewLine + "/" + [Environment]::NewLine)
+		$arrTearDownScriptContent += ($strLine + [Environment]::NewLine + "<OdiScmGenerateSqlStatementDelimiter>" + [Environment]::NewLine)
 	}
 	
 	set-content -path $strDropScriptFile -value $arrTearDownScriptContent
@@ -484,7 +484,7 @@ function TearDownSqlServerSchema ($strUserName, $strUserPassword, $strJdbcUrl, $
 	$arrTearDownScriptContent = @()
 	foreach ($strLine in $arrQueryLine) {
 		if ($strLine.Trim() -ne "") {
-			$arrTearDownScriptContent += ($strLine + [Environment]::NewLine + "/" + [Environment]::NewLine)
+			$arrTearDownScriptContent += ($strLine + [Environment]::NewLine + "<OdiScmGenerateSqlStatementDelimiter>" + [Environment]::NewLine)
 		}
 	}
 	
@@ -623,7 +623,7 @@ function TearDownTeradataDatabase ($strUserName, $strUserPassword, $strJdbcUrl, 
 				#
 				$strAlter  = "ALTER TABLE " + $strCurrChildTable + " DROP FOREIGN KEY (" + $strCurrChildKeyCols + ") "
 				$strAlter += "REFERENCES " + $strCurrParentTable + " (" + $strCurrParentKeyCols + ")"
-				$strAlter += [Environment]::NewLine + "/" + [Environment]::NewLine
+				$strAlter += [Environment]::NewLine + "<OdiScmGenerateSqlStatementDelimiter>" + [Environment]::NewLine
 				$arrOutQueryLines += $strAlter
 				
 				#
@@ -681,7 +681,7 @@ function TearDownTeradataDatabase ($strUserName, $strUserPassword, $strJdbcUrl, 
 		if (($strLine -eq "") -or ($strLine -eq $Null)) {
 			continue
 		}
-		$arrTearDownOthersScriptContent += ($strLine + [Environment]::NewLine + "/" + [Environment]::NewLine)
+		$arrTearDownOthersScriptContent += ($strLine + [Environment]::NewLine + "<OdiScmGenerateSqlStatementDelimiter>" + [Environment]::NewLine)
 	}
 	
 	$arrStrDropAllObjsScriptContent  = $arrOutQueryLines

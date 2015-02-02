@@ -134,4 +134,4 @@ BEGIN
         END;
     END LOOP;
 END;
-/
+<OdiScmGenerateSqlStatementDelimiter>

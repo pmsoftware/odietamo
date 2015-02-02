@@ -15,4 +15,4 @@ SELECT TRIM(childdb) || '.' || TRIM(childtable)
      , parenttable
      , childkeycolumn
      , parentkeycolumn
-/
+<OdiScmGenerateSqlStatementDelimiter>
