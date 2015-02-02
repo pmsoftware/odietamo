@@ -111,8 +111,6 @@ rem Replace end of statement markers where required.
 rem
 
 set ODI_SCM_GENERATE_SQL_STATEMENT_DELIMITER_ESC=%ODI_SCM_GENERATE_SQL_STATEMENT_DELIMITER:/=\/%
-
-echo sed s/^<OdiScmGenerateSqlStatementDelimiter^>/%ODI_SCM_GENERATE_SQL_STATEMENT_DELIMITER_ESC%/g
 sed s/^<OdiScmGenerateSqlStatementDelimiter^>/%ODI_SCM_GENERATE_SQL_STATEMENT_DELIMITER_ESC%/g < "%ARGV5%" > "%TEMPSCRIPTFILE%"
 if ERRORLEVEL 1 (
 	echo %EM% replacing end of statement markers in script file ^<%ARGV5%^> 1>&2
