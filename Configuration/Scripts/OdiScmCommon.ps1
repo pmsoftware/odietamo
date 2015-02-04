@@ -38,7 +38,6 @@ function LogDebug ($strSource, $strToPrint) {
 	if ($DebuggingActive) {
 		write-host "${strSource}: DEBUG: $strToPrint"
 	}
-	###DebuggingPause
 }
 
 function LogDebugArray ($strSource, $strArrName, [array] $strToPrint) {
@@ -755,7 +754,7 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
 	$FN = "GenerateOdiSrcObjIdScript"
 	$IM = $FN + ": INFO:"
 	$EM = $FN + ": ERROR:"
-	$DEBUG = $FN + ": DEBUG"
+	$DEBUG = $FN + ": DEBUG:"
 	
 	write-host "$IM starts"
 	
@@ -766,12 +765,12 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
 	# Loop through each extension and file files for which to include SNP_ID or SNP_ENT_ID object ID insert commands.
 	#
 	$extensionCount = 0
+	$strMtxtExtensionID = 0
 	
 	foreach ($ext in $masterRepoExtensions) {
 		
 		$extensionCount += 1
-		$extensionMaxID = "000"
-		
+		$extensionMaxID = 0
 		$fileObjType = $ext.Replace("*.","")
 		write-host "$IM processing object type <$fileObjType>"
 		
@@ -785,6 +784,7 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
 				$FileToImportID = $FileToImportName.split(".")
 				$FileToImportRepoID = $FileToImportID[0].Substring($FileToImportID[0].length - 3)
 				$FileToImportObjID = $FileToImportID[0].Substring(0, $FileToImportID[0].length - 3)
+				$FileToImportObjID = [int]::Parse($FileToImportObjID)
 				
 				if ($FileToImportRepoID -eq $env:ODI_SCM_ORACLEDI_REPOSITORY_ID) {
 					if ($FileToImportObjID -gt $extensionMaxID) {
@@ -792,9 +792,53 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
 					}
 				}
 			}
+			
+			#
+			# Look for any SnpMtxt object within the source files.
+			#
+			$arrFileRecords = get-content $fileToImport
+			$blnFoundMtxt = $False
+			
+			foreach ($strFileRec in $arrFileRecords) {
+			
+				if (!($blnFoundMtxt)) {
+					if ($strFileRec.Contains('<Object class="com.sunopsis.dwg.dbobj.SnpMtxt">')) {
+						# Find the ITxt for this SnpMtxt object. Examples: -
+						# 	ODI 10g: <Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[2120]]></Field>
+						# 	ODI 11g: <Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[2036999]]></Field>
+						$blnFoundMtxt = $True
+						continue
+					}
+				}
+				else {
+					if ($strFileRec.Contains('</Object>')) {
+						$blnFoundMtxt = $False
+						continue
+					}
+					else {
+						if ($strFileRec.Contains('<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[')) {
+							$strSnpMtxtFullID = $strFileRec.Replace('<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[',"")
+							$strSnpMtxtFullID = $strSnpMtxtFullID.Replace(']]></Field>',"").Trim()
+							$strSnpMtxtFullLen = $strSnpMtxtFullID.Length
+							$strSnpMtxtID = $strSnpMtxtFullID.Substring(0, ($strSnpMtxtFullLen - 3))
+							$strSnpMtxtID = [int]::Parse($strSnpMtxtID)
+							$strSnpMtxtRepoID = $strSnpMtxtFullID.Substring(($strSnpMtxtFullLen - 3), 3)
+							
+							if ($strSnpMtxtRepoID -eq $env:ODI_SCM_ORACLEDI_REPOSITORY_ID) {
+								if ($strSnpMtxtID -gt $strMtxtExtensionID) {
+									$strMtxtExtensionID = $strSnpMtxtID
+								}
+							}
+							
+							$blnFoundMtxt = $True
+							continue
+						}
+					}
+				}
+			}
 		}
 		
-		if ($extensionMaxID -ne "000") {
+		if ($extensionMaxID -ne 0) {
 			
 			$SqlText += "MERGE" + [Environment]::NewLine
 			$SqlText += " INTO snp_ent_id t" + [Environment]::NewLine
@@ -819,12 +863,36 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
 		}
 	}
 	
+	if ($strMtxtExtensionID -ne 0) {
+		
+		$SqlText += "MERGE" + [Environment]::NewLine
+		$SqlText += " INTO snp_ent_id t" + [Environment]::NewLine
+		$SqlText += "USING (" + [Environment]::NewLine
+		$SqlText += "      SELECT 'SNP_MTXT'" + [Environment]::NewLine
+		$SqlText += "                 AS id_tbl" + [Environment]::NewLine
+		$SqlText += "           , '" + $strMtxtExtensionID + "'" + [Environment]::NewLine
+		$SqlText += "                 AS id_next" + [Environment]::NewLine
+		$SqlText += "           , 1" + [Environment]::NewLine
+		$SqlText += "                 AS id_seq" + [Environment]::NewLine
+		$SqlText += "        FROM dual" + [Environment]::NewLine
+		$SqlText += "      ) s" + [Environment]::NewLine
+		$SqlText += "   ON (t.id_tbl = s.id_tbl)" + [Environment]::NewLine
+		$SqlText += " WHEN MATCHED" + [Environment]::NewLine
+		$SqlText += " THEN UPDATE" + [Environment]::NewLine
+		$SqlText += "         SET t.id_next = s.id_next" + [Environment]::NewLine
+		$SqlText += " WHEN NOT MATCHED" + [Environment]::NewLine
+		$SqlText += " THEN INSERT (id_seq, id_tbl, id_next)" + [Environment]::NewLine
+		$SqlText += "      VALUES (s.id_seq, s.id_tbl, s.id_next)" + [Environment]::NewLine
+		$SqlText += "<OdiScmGenerateSqlStatementDelimiter>" + [Environment]::NewLine
+		$SqlText += "" + [Environment]::NewLine
+	}
+	
 	$extensionCount = 0
 	
 	foreach ($ext in $workRepoExtensions) {
 		
 		$extensionCount += 1
-		$extensionMaxID = "000"
+		$extensionMaxID = 0
 		
 		$fileObjType = $ext.Replace("*.","")
 		write-host "$IM processing object type <$fileObjType>"
@@ -839,6 +907,7 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
 				$FileToImportID = $FileToImportName.split(".")
 				$FileToImportRepoID = $FileToImportID[0].Substring($FileToImportID[0].length - 3)
 				$FileToImportObjID = $FileToImportID[0].Substring(0, $FileToImportID[0].length - 3)
+				$FileToImportObjID = [int]::Parse($FileToImportObjID)
 				
 				if ($FileToImportRepoID -eq $env:ODI_SCM_ORACLEDI_REPOSITORY_ID) {
 					if ($FileToImportObjID -gt $extensionMaxID) {
@@ -848,7 +917,7 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
 			}
 		}
 		
-		if ($extensionMaxID -ne "000") {
+		if ($extensionMaxID -ne 0) {
 			
 			$SqlText += "MERGE" + [Environment]::NewLine
 			$SqlText += " INTO snp_id t" + [Environment]::NewLine
@@ -921,7 +990,6 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 	#
 	# Find the highest tier number in the list of files.
 	#
-	write-host "$DEBUG finding hightest DDL file tier number"
 	foreach ($strFile in $arrStrFiles) {
 		
 		if ($strFile -eq "" -or $strFile -eq $Null) {
