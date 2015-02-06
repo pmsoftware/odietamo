@@ -130,6 +130,8 @@ if (!($?)) {
 #
 $strStdOutFile = $OutStartCmdBat + ".stdout"
 $strStdErrFile = $OutStartCmdBat + ".stderr"
+$strStdErrNoWarnsFile = $OutStartCmdBat + ".NoWarns.stderr"
+$strStdErrOnlyWarnsFile = $OutStartCmdBat + ".OnlyWarns.stderr"
 $strEmptyFile = $OutStartCmdBat + ".empty"
 
 $strProc = $OutWrapperBatFile.replace(".bat","")
@@ -139,6 +141,7 @@ $ScriptFileContent += "@echo off" + [Environment]::NewLine
 $ScriptFileContent += "set PROC=" + $strProc + [Environment]::NewLine
 $ScriptFileContent += "set IM=" + $strProc + ": INFO:" + [Environment]::NewLine
 $ScriptFileContent += "set EM=" + $strProc + ": ERROR:" + [Environment]::NewLine
+$ScriptFileContent += "set WM=" + $strProc + ": WARNING:" + [Environment]::NewLine
 
 $ScriptFileContent += 'type NUL 1>"' + $strEmptyFile + '"' + [Environment]::NewLine
 $ScriptFileContent += "if ERRORLEVEL 1 (" + [Environment]::NewLine
@@ -158,7 +161,32 @@ $ScriptFileContent += '	type "' + $strStdErrFile + '"' + [Environment]::NewLine
 $ScriptFileContent += "	echo ^>" + [Environment]::NewLine
 $ScriptFileContent += "	goto ExitFail" + [Environment]::NewLine
 $ScriptFileContent += ")" + [Environment]::NewLine
-$ScriptFileContent += 'fc "' + $strEmptyFile + '" "' + $strStdErrFile + '" >NUL' + [Environment]::NewLine
+
+#
+# Bugs in JRockit present messages about performance counters, on Windows, being inaccessible. Report them.
+#
+$ScriptFileContent += 'grep "\[WARN \]\[osal   \]" "' + $strStdErrFile + '" > "' + ${strStdErrOnlyWarnsFile} + '"' + [Environment]::NewLine
+#
+# ODI writes info messages about SqlUnload starting/finishing to stderr. Grrrrrrr. Report them.
+#
+$ScriptFileContent += 'grep "NOTIFICATION ODI-.*: SqlUnload" "' + ${strStdErrFile} + '" >> "' + ${strStdErrOnlyWarnsFile} + '"' + [Environment]::NewLine
+$ScriptFileContent += 'fc "' + $strEmptyFile + '" "' + ${strStdErrOnlyWarnsFile} + '" >NUL' + [Environment]::NewLine
+$ScriptFileContent += "if ERRORLEVEL 1 (" + [Environment]::NewLine
+$ScriptFileContent += "	echo %WM% command StdErr text contains warning text ^<" + [Environment]::NewLine
+$ScriptFileContent += '	type "' + $strStdErrOnlyWarnsFile + '"' + [Environment]::NewLine
+$ScriptFileContent += "	echo ^>" + [Environment]::NewLine
+$ScriptFileContent += ")" + [Environment]::NewLine
+$ScriptFileContent += [Environment]::NewLine
+
+#
+# Bugs in JRockit present messages about performance counters, on Windows, being inaccessible. Ignore them.
+#
+$ScriptFileContent += 'grep -v "\[WARN \]\[osal   \]" "' + $strStdErrFile + '" > "' + "${strStdErrNoWarnsFile}.1" + '"' + [Environment]::NewLine
+#
+# ODI writes info messages about SqlUnload starting/finishing to stderr. Grrrrrrr. Ignore them.
+#
+$ScriptFileContent += 'grep -v "NOTIFICATION ODI-.*: SqlUnload" "' + "${strStdErrNoWarnsFile}.1" + '" > "' + "${strStdErrNoWarnsFile}.2" + '"' + [Environment]::NewLine
+$ScriptFileContent += 'fc "' + $strEmptyFile + '" "' + "${strStdErrNoWarnsFile}.2" + '" >NUL' + [Environment]::NewLine
 $ScriptFileContent += "if ERRORLEVEL 1 (" + [Environment]::NewLine
 $ScriptFileContent += "	echo %EM% calling OracleDI command. StdErr text ^<" + [Environment]::NewLine
 $ScriptFileContent += '	type "' + $strStdErrFile + '"' + [Environment]::NewLine
