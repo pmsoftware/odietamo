@@ -253,7 +253,7 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 	# Extract database SPL (stored code) script files from the file list.
 	#
 	$arrStrSplFiles = @()
-	$strPattern = "^spl-obj-.*\.sql"
+	$strPattern = "^spl-schema-.*\.sql"
 	
 	foreach ($strFile in $arrStrInputFiles) {
 		
@@ -1436,7 +1436,7 @@ function GenerateSplImportScript ([array] $arrStrFiles) {
 		$strTierNumber = $arrStrFileNameParts[3]
 		
 		if (!($strTierNumber.startswith("t"))) {
-			write-host "$EM DDL script file <$strFile> has unrecognised tier string prefix <$strTierNumber>"
+			write-host "$EM SPL script file <$strFile> has unrecognised tier string prefix <$strTierNumber>"
 			$intFileErrors += 1
 			#DebuggingPause
 			continue
@@ -1444,7 +1444,7 @@ function GenerateSplImportScript ([array] $arrStrFiles) {
 		
 		$strTierInt = $strTierNumber.substring(1)
 		if (($strTierInt -as [int]) -eq $Null) {
-			write-host "$EM DDL script file <$strFile> has unrecognised tier number <$strTierInt>"
+			write-host "$EM SPL script file <$strFile> has unrecognised tier number <$strTierInt>"
 			$intFileErrors += 1
 			#DebuggingPause
 			continue
@@ -1783,7 +1783,7 @@ function GenerateDmlExecutionScript ([array] $arrStrFiles) {
 		$strTierNumber = $arrStrFileNameParts[3]
 		
 		if (!($strTierNumber.startswith("t"))) {
-			write-host "$EM DDL script file <$strFile> has unrecognised tier string prefix <$strTierNumber>"
+			write-host "$EM DML script file <$strFile> has unrecognised tier string prefix <$strTierNumber>"
 			$intFileErrors += 1
 			#DebuggingPause
 			continue
@@ -1791,7 +1791,7 @@ function GenerateDmlExecutionScript ([array] $arrStrFiles) {
 		
 		$strTierInt = $strTierNumber.substring(1)
 		if (($strTierInt -as [int]) -eq $Null) {
-			write-host "$EM DDL script file <$strFile> has unrecognised tier number <$strTierInt>"
+			write-host "$EM DML script file <$strFile> has unrecognised tier number <$strTierInt>"
 			$intFileErrors += 1
 			#DebuggingPause
 			continue
@@ -2329,7 +2329,7 @@ function GenerateBuild ($StrSourceTypeName) {
 	write-host "$IM GetFromSCM returned <$($arrStrOdiFileList.length)> ODI source files to import"
 	write-host "$IM                     <$($arrStrDbDdlFileList.length)> DDL source files to import"
 	write-host "$IM                     <$($arrStrDbSplFileList.length)> SPL source files to import"
-	write-host "$IM                     <$($arrStrDbDmlFileList.length)> DML source files to import"
+	write-host "$IM                     <$($arrStrDbDmlFileList.length)> DML source files to execute"
 	
 	#
 	# If the ODI source object import batch size is set to a value >1 then create a set of consolidated

@@ -43,6 +43,9 @@ function ExecHSqlSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strSch
 	if ($blnReplaceEosMarker) {
 		$arrStrOut += $arrStrSetUpScriptContent -replace ";$", "<OdiScmGenerateSqlStatementDelimiter>"
 	}
+	else {
+		$arrStrOut = $arrStrSetUpScriptContent
+	}
 	
 	$strSqlScriptName = split-path $strSqlScript -leaf
 	$strNoGoSqlScript = "$env:TEMPDIR\${strSqlScriptName}_${strSchemaName}.sql"
@@ -66,6 +69,7 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 	$FN = "ExecSqlServerSqlScript"
 	$IM = $FN + ": INFO:"
 	$EM = $FN + ": ERROR:"
+	$WM = $FN + ": WARNING:"
 	$DEBUG = $FN + ": DEBUG:"
 	
 	write-host "$IM starts"
@@ -92,6 +96,7 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 	else {
 		$strFullUrl = $strJdbcUrl + ";databaseName=" + $strDatabaseName
 	}
+	
 	write-host "$IM using full JDBC URL <$strFullUrl>"
 	
 	#
@@ -100,15 +105,22 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 	$arrStrSetUpScriptContent = get-content -path $strSqlScript
 	if ($arrStrSetUpScriptContent -eq $Null) {
 		#
-		# Get-Content returns $Null for an empy file.
+		# Get-Content returns $Null for an empty file.
 		#
+		write-host "$WM input SQL script file <$strSqlScript> is empty"
 		$arrStrSetUpScriptContent = @()
+	}
+	else {
+		write-host "$IM input SQL script file <$strSqlScript> contains <" $arrStrSetUpScriptContent.length "> lines"
 	}
 	
 	$arrStrOut = @()
 	
 	if ($blnReplaceEosMarker) {
 		$arrStrOut += $arrStrSetUpScriptContent -replace "^go$", "<OdiScmGenerateSqlStatementDelimiter>"
+	}
+	else {
+		$arrStrOut = $arrStrSetUpScriptContent
 	}
 	
 	$strSqlScriptName = split-path $strSqlScript -leaf
@@ -172,6 +184,9 @@ function ExecOracleSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strS
 	
 	if ($blnReplaceEosMarker) {
 		$arrStrOut += $arrStrSetUpScriptContent -replace ";$", "<OdiScmGenerateSqlStatementDelimiter>"
+	}
+	else {
+		$arrStrOut = $arrStrSetUpScriptContent
 	}
 	
 	$strSqlScriptName = split-path $strSqlScript -leaf
@@ -257,6 +272,9 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 	
 	if ($blnReplaceEosMarker) {
 		$arrStrOut += $arrStrSetUpScriptContent -replace ";$", "<OdiScmGenerateSqlStatementDelimiter>"
+	}
+	else {
+		$arrStrOut = $arrStrSetUpScriptContent
 	}
 	
 	write-host "$IM completed changing end of statement markers"
