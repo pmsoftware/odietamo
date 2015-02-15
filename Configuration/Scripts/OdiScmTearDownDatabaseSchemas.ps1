@@ -117,6 +117,7 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 	$arrStrOut = @()
 	
 	if ($blnReplaceEosMarker) {
+		write-host "$DEBUG replacing statement delimiters with standard ODI-SCM delimiter"
 		$arrStrOut += $arrStrSetUpScriptContent -replace "^go$", "<OdiScmGenerateSqlStatementDelimiter>"
 	}
 	else {
@@ -126,6 +127,7 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 	$strSqlScriptName = split-path $strSqlScript -leaf
 	$strNoGoSqlScript = "$env:TEMPDIR\${strSqlScriptName}_${strDatabaseName}.sql"
 	set-content -path $strNoGoSqlScript -value $arrStrOut
+	write-host "$IM output SQL script file <$strNoGoSqlScript> contains <" $arrStrOut.length "> lines"
 	
 	$strNoGoSqlScriptFileName = split-path $strNoGoSqlScript -leaf
 	$strStdOutLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdOut.log"
@@ -308,8 +310,7 @@ function ExecDatabaseSqlScript ($strDbTypeName, $strUserName, $strUserPassword, 
 	
 	write-host "$IM starts"
 	write-host "$DEBUG script file is <$strSqlScript>"
-	
-	$blnReplaceEosMarker = $False
+	write-host "$DEBUG replace end of statement delimiters flag is <$strReplaceEosMarkerInd>"
 	
 	switch ($strReplaceEosMarkerInd.ToUpper()) {
 		"Y" {
@@ -327,7 +328,30 @@ function ExecDatabaseSqlScript ($strDbTypeName, $strUserName, $strUserPassword, 
 		"TRUE" {
 			$blnReplaceEosMarker = $True
 		}
+		
+		"N" {
+			$blnReplaceEosMarker = $False
+		}
+		
+		"NO" {
+			$blnReplaceEosMarker = $False
+		}
+		
+		"F" {
+			$blnReplaceEosMarker = $False
+		}
+		
+		"FALSE" {
+			$blnReplaceEosMarker = $False
+		}
+		
+		default {
+			write-host "$EM invalid value specified for parameter <strReplaceEosMarkerInd>"
+			return $False
+		}
 	}
+	
+	write-host "$DEBUG blnReplaceEosMarker <$blnReplaceEosMarker>"
 	
 	switch ($strDbTypeName.ToLower()) {
 		
