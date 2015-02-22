@@ -1032,7 +1032,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 	#
 	# Sort the files into ascending tier order.
 	#
-	write-host "$IM sorting SPL files into tier number order"
+	write-host "$IM sorting DDL files into tier number order"
 	
 	$arrTieredFiles = @()
 	
@@ -1043,7 +1043,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		foreach ($strFile in $arrStrFiles) {
 			
 			if ($strFile -eq "" -or $strFile -eq $Null) {
-				write-host "$EM SPL source file path/name is invalid"
+				write-host "$EM DDL source file path/name is invalid"
 				return $False
 			}
 			
@@ -1182,8 +1182,6 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 				continue
 			}
 		}
-		
-		write-host "$DEBUG processing content/tokens"
 		
 		#
 		# Read the DDL script and replace any tokens specified in the environment variable.
@@ -1436,7 +1434,7 @@ function GenerateSplImportScript ([array] $arrStrFiles) {
 		$strTierNumber = $arrStrFileNameParts[3]
 		
 		if (!($strTierNumber.startswith("t"))) {
-			write-host "$EM DDL script file <$strFile> has unrecognised tier string prefix <$strTierNumber>"
+			write-host "$EM SPL script file <$strFile> has unrecognised tier string prefix <$strTierNumber>"
 			$intFileErrors += 1
 			#DebuggingPause
 			continue
@@ -1444,7 +1442,7 @@ function GenerateSplImportScript ([array] $arrStrFiles) {
 		
 		$strTierInt = $strTierNumber.substring(1)
 		if (($strTierInt -as [int]) -eq $Null) {
-			write-host "$EM DDL script file <$strFile> has unrecognised tier number <$strTierInt>"
+			write-host "$EM SPL script file <$strFile> has unrecognised tier number <$strTierInt>"
 			$intFileErrors += 1
 			#DebuggingPause
 			continue
@@ -1696,8 +1694,52 @@ function GenerateSplImportScript ([array] $arrStrFiles) {
 		if (($strPasswordKeyValue -eq "") -or ($strPasswordKeyValue -eq $Null)) {
 			write-host "$WM no value found for password in field position <8> for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
 		}
+	
+	# For now, treat all SPL scripts as schema wide (until we can rename the scripts in source control!)
+	$strScopeType = "schema"
+	if ($strScopeType -eq "schema") {
+			#
+			# Add the output script command to tear down the database schema.
+			#
+			$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
+			
+			$strDbContainerName = ""
+			if ($strDatabaseKeyValue -ne "" -and $strDatabaseKeyValue -ne $Null) {
+				$strDbContainerName = $strDatabaseKeyValue
+			}
+			if ($strDefPhysSchemaKeyValue -ne "" -and $strDefPhysSchemaKeyValue -ne $Null) {
+				if ($strDbContainerName -ne "") {
+					$strDbContainerName += "."
+				}
+				$strDbContainerName += $strDatabaseKeyValue
+			}
+			
+			$OutScriptContent += ('set MSG=tearing down database environment ^^^<' + $strDbContainerName + '@' + $strJdbcUrlKeyValue + '^^^>')
+			$OutScriptContent += 'echo %IM% %MSG%'
+			
+			$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownDatabaseSchema.bat" /p '
+			$strCmd += '"' + $strDbmsTypeKeyValue + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
+			$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '"'
+			
+			$OutScriptContent += $strCmd
+			$OutScriptContent += 'if ERRORLEVEL 1 ('
+			$OutScriptContent += '	goto ExitFail'
+			$OutScriptContent += ')'
+			$OutScriptContent += ''
+			$OutScriptContent += 'echo %IM% database tearDown completed succcessfully'
+			$OutScriptContent += ''
+			
+			#
+			# Add the output script command to set up the database environment.
+			#
+			$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
+			$OutScriptContent += ('set MSG=setting up database environment ^^^<' + $strDbContainerName + '@' + $strJdbcUrlKeyValue + '^^^>')
+		}
+		else {
+			$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
+			$OutScriptContent += ('set MSG=executing object creation DDL script ^^^<' + $strOutFile + '^^^>')
+		}
 		
-		$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
 		$OutScriptContent += ('set MSG=executing object creation SPL script ^^^<' + $strOutFile + '^^^>')
 		$OutScriptContent += 'echo %IM% %MSG%'
 		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecDatabaseSqlScript.bat" '

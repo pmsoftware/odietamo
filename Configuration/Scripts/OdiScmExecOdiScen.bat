@@ -76,7 +76,6 @@ for /l %%n in (%ODIFIRSTVAR%, 1, %ARGC%) do (
 
 set ODIVARVALS=%OUTSTRING%
 
-echo using starcmd script of %STARTCMDBAT%
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%STARTCMDBAT%" OdiStartScen "-SCEN_NAME=%ARGV1%" "-SCEN_VERSION=-1" "-CONTEXT=%EXECONTEXT%" %ODIVARVALS%
 if ERRORLEVEL 1 (
 	echo %EM% executing ODI Scenario ^<%ARGV1%^> in context ^<%ODI_SCM_TEST_ORACLEDI_CONTEXT%^> 1>&2
