@@ -26,9 +26,6 @@ if "%ARGV1%" == "" (
 set LASTARG=1
 set OTHERARGS=%ARGVALL%
 
-echo %IM% using execution context ^<%ODI_SCM_TEST_ORACLEDI_CONTEXT%^> from environment
-set EXECONTEXT=%ODI_SCM_TEST_ORACLEDI_CONTEXT%
-
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
 if ERRORLEVEL 1 (
 	echo %EM% creating temporary working directory 1>&2
@@ -61,8 +58,8 @@ for /l %%n in (%ODIFIRSTVAR%, 1, %ARGC%) do (
 
 set ODIVARVALS=%OUTSTRING%
 
-echo %DM% using RestartSess script of %RESTARTSESSBAT%
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%RESTARTSESSBAT%" "%ARGV1%" "%ARGV2%" "%ARGV3%" "%ARGV4%" "%ARGV5%" "%ARGV6%" "%ARGV7%" "%ARGV8%" "%ARGV9%"
+echo %DM% using RestartSession script of %RESTARTSESSBAT%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%RESTARTSESSBAT%" %ARGV1%
 if ERRORLEVEL 1 (
 	echo %EM% restarting ODI Session ^<%ARGV1%^> 1>&2
 	goto ExitFail
@@ -83,10 +80,7 @@ rem ===============================================
 rem -----------------------------------------------
 :ShowUsage
 rem -----------------------------------------------
-echo %EM% usage: %PROC% ^<ODI Scenario Name^>  [^<ODI Execution Context^>] [^<ODI Scenario Version^>] [[^<ODI Variable Assignment 1^>]...[^<ODI Variable Assignment N>]] 1>&2
-echo %EM%      : default ODI Execution Context is value of environment variable ODI_SCM_TEST_ORACLEDI_CONTEXT 1>&2
-echo %EM%      : default ODI Scenario Version is -1 1>&2
-echo %EM%      : NOTE: variable assignments are specified as VAR=VAL and must be enclosed in double quotes 1>&2
+echo %EM% usage: %PROC% ^<ODI Session Number^>
 goto :eof
 
 rem -----------------------------------------------

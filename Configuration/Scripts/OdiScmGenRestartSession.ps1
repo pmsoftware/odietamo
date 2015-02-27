@@ -121,7 +121,7 @@ $OutRestartSessBat = $OutDir + "\" + $OutRestartSessBatFile
 #
 set-content -path $OutRestartSessBat -value $OutExpandedRestartSessScriptFileContent
 if (!($?)) {
-	write-output "$EM writing RestartSess script file <$OutRestartSessBat>"
+	write-output "$EM writing RestartSession script file <$OutRestartSessBat>"
 	exit 1
 }
 
@@ -149,8 +149,8 @@ $ScriptFileContent += "	echo %EM% creating empty file ^<" + $strEmptyFile + "^>"
 $ScriptFileContent += "	goto ExitFail" + [Environment]::NewLine
 $ScriptFileContent += ")" + [Environment]::NewLine
 
-$ScriptFileContent += "echo %IM% executing OracleDI command ^<%*^>" + [Environment]::NewLine
-$ScriptFileContent += 'call "' + $OutRestartSessBat + '" %*' 
+$ScriptFileContent += "echo %IM% restarting OracleDI session ^<%1^>" + [Environment]::NewLine
+$ScriptFileContent += 'call "' + $OutRestartSessBat + '" %1' 
 $ScriptFileContent += ' 1>"' + $strStdOutFile +'"'
 $ScriptFileContent += ' 2>"' + $strStdErrFile +'"'
 $ScriptFileContent += [Environment]::NewLine
