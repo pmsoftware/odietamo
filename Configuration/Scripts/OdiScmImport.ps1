@@ -110,9 +110,14 @@ function GenerateImport {
 	#
 	# Get the latest Revision number from the SCM repository.
 	#
-	write-host "$IM getting latest Revision number from the SCM repository"
+	write-host "$IM getting latest Revision number from the SCM system"
 	$HighChangeSetNumber = GetNewChangeSetNumber
+	if ($HighChangeSetNumber -eq $False) {
+		write-host "$EM getting new ChangeSet/revision number from SCM system"
+		return $False
+	}
 	write-host "$IM latest Revision number returned is <$HighChangeSetNumber>"
+	
 	$difference = $LocalODIControlChangeSet + "~" + $HighChangeSetNumber
 	write-host "$IM new revision range to apply to the local working copy is <$difference>"
 	

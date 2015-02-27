@@ -2247,9 +2247,14 @@ function GenerateBuild ($StrSourceTypeName) {
 	#
 	# Get the latest Revision number from the SCM repository.
 	#
-	write-host "$IM getting latest Revision number from the SCM repository"
+	write-host "$IM getting latest Revision number from the SCM system"
 	$HighChangeSetNumber = GetNewChangeSetNumber
+	if ($HighChangeSetNumber -eq $False) {
+		write-host "$EM getting new ChangeSet/revision number from SCM system"
+		return $False
+	}
 	write-host "$IM latest Revision number returned is <$HighChangeSetNumber>"
+	
 	$difference = $LocalODIControlChangeSet + "~" + $HighChangeSetNumber
 	write-host "$IM new revision range to apply to the local working copy is <$difference>"
 	
@@ -3778,10 +3783,23 @@ function GetNewChangeSetNumber {
 	
 	$SCMSystemTypeName = $OdiScmConfig["SCM System"]["Type Name"]
 	
+	$objNewChangeSetNumber = $Null
+	
 	switch ($SCMSystemTypeName) {
-		"TFS" { GetNewTFSChangeSetNumber }
-		"SVN" { GetNewSVNRevisionNumber }
+		"TFS" { 
+			$objNewChangeSetNumber = GetNewTFSChangeSetNumber
+		}
+		"SVN" {
+			$objNewChangeSetNumber = GetNewSVNRevisionNumber
+		}
 	}
+	
+	if ($objNewChangeSetNumber -eq $False) {
+		write-host "$EM getting new ChangeSet/revision number from SCM system"
+		return $False
+	}
+	
+	return $objNewChangeSetNumber
 }
 
 #
@@ -3855,7 +3873,7 @@ function GetNewTFSChangeSetNumber {
 	$CmdStdOutStdErr = invoke-expression $CmdLine | foreach { $_.ToString() } | out-string
 	$changesetText = $CmdStdOutStdErr -replace "\r", " "
 	$changesetText = $changesetText -replace "\n", " "
-	LogDebug "$FN" "cleaned commnand output <$changesetText>"
+	LogDebug "$FN" "cleaned command output <$changesetText>"
 	
 	$TfDeniedAccessTextHead = "needs Read permission(s) for at least one item in changeset"
 	$TfDeniedAccessTextTail = "."
@@ -3871,6 +3889,13 @@ function GetNewTFSChangeSetNumber {
 		$TfChangeSetTextLen = $TfChangeSetText.length
 		$ChangeSetTextChangeSetPos = $changesetText.IndexOf($TfChangeSetText)
 		$ChangeSetTextUserPos = $changesetText.IndexOf($TfUserText)
+		if (($ChangeSetTextUserPos - $ChangeSetTextChangeSetPos - $TfChangeSetTextLen - 1) -lt 0) {
+			write-host "$EM calculating position of ChangeSet number in ChangeSet text"
+			write-host "$EM start of ChangeSet text <"
+			write-host $changesetText
+			write-host "$EM > end of ChangeSet text"
+			return $False
+		}
 		$newChangeset = $changesetText.Substring($ChangeSetTextChangeSetPos + $TfChangeSetTextLen, $ChangeSetTextUserPos - $ChangeSetTextChangeSetPos - $TfChangeSetTextLen - 1)
 	}
 	

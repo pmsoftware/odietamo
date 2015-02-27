@@ -35,10 +35,10 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-set RESTARTSSSBAT=%TEMPDIR%\%PROC%_RestartSess.bat
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenRestartSess.bat^" /p %RESTARTSESSBAT%
+set RESTARTSESSBAT=%TEMPDIR%\%PROC%_RestartSess.bat
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenRestartSession.bat" /p %RESTARTSESSBAT%
 if ERRORLEVEL 1 (
-	echo %EM% creating RestartSess batch script file ^<%RESTARTSESSBAT%^> 1>&2
+	echo %EM% creating RestartSession batch script file ^<%RESTARTSESSBAT%^> 1>&2
 	goto ExitFail
 )
 
