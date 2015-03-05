@@ -253,7 +253,7 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 	# Extract database SPL (stored code) script files from the file list.
 	#
 	$arrStrSplFiles = @()
-	$strPattern = "^spl-obj-.*\.sql"
+	$strPattern = "^spl\-.+\-.+\-.*\.sql"
 	
 	foreach ($strFile in $arrStrInputFiles) {
 		
@@ -1504,9 +1504,10 @@ function GenerateSplImportScript ([array] $arrStrFiles) {
 			continue
 		}
 		
-		if ($strScopeType -ne "obj") {
-			write-host "$EM SPL script file <$strFile> does not have recognised scope type <obj> prefix"
+		if (($strScopeType -ne "schema") -and ($strScopeType -ne "obj")) {
+			write-host "$EM SPL script file <$strFile> does not have recognised scope type <schema | obj> prefix"
 			$intFileErrors += 1
+			#DebuggingPause
 			continue
 		}
 		
