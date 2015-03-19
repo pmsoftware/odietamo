@@ -170,6 +170,7 @@ $ScriptFileContent += 'grep "\[WARN \]\[osal   \]" "' + $strStdErrFile + '" > "'
 # ODI writes info messages about SqlUnload starting/finishing to stderr. Grrrrrrr. Report them.
 #
 $ScriptFileContent += 'grep "NOTIFICATION ODI-.*: SqlUnload" "' + ${strStdErrFile} + '" >> "' + ${strStdErrOnlyWarnsFile} + '"' + [Environment]::NewLine
+$ScriptFileContent += 'grep "NOTIFICATION ODI-1020: Session .* ended with status D \(DONE\)" "' + ${strStdErrFile} + '" >> "' + ${strStdErrOnlyWarnsFile} + '"' + [Environment]::NewLine
 $ScriptFileContent += 'fc "' + $strEmptyFile + '" "' + ${strStdErrOnlyWarnsFile} + '" >NUL' + [Environment]::NewLine
 $ScriptFileContent += "if ERRORLEVEL 1 (" + [Environment]::NewLine
 $ScriptFileContent += "	echo %WM% command StdErr text contains warning text ^<" + [Environment]::NewLine
@@ -186,7 +187,8 @@ $ScriptFileContent += 'grep -v "\[WARN \]\[osal   \]" "' + $strStdErrFile + '" >
 # ODI writes info messages about SqlUnload starting/finishing to stderr. Grrrrrrr. Ignore them.
 #
 $ScriptFileContent += 'grep -v "NOTIFICATION ODI-.*: SqlUnload" "' + "${strStdErrNoWarnsFile}.1" + '" > "' + "${strStdErrNoWarnsFile}.2" + '"' + [Environment]::NewLine
-$ScriptFileContent += 'fc "' + $strEmptyFile + '" "' + "${strStdErrNoWarnsFile}.2" + '" >NUL' + [Environment]::NewLine
+$ScriptFileContent += 'grep -v "NOTIFICATION ODI-1020: Session .* ended with status D \(DONE\)" "' + "${strStdErrNoWarnsFile}.2" + '" > "' + "${strStdErrNoWarnsFile}.3" + '"' + [Environment]::NewLine
+$ScriptFileContent += 'fc "' + $strEmptyFile + '" "' + "${strStdErrNoWarnsFile}.3" + '" >NUL' + [Environment]::NewLine
 $ScriptFileContent += "if ERRORLEVEL 1 (" + [Environment]::NewLine
 $ScriptFileContent += "	echo %EM% calling OracleDI command. StdErr text ^<" + [Environment]::NewLine
 $ScriptFileContent += '	type "' + $strStdErrFile + '"' + [Environment]::NewLine
