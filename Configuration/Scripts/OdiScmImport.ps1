@@ -248,6 +248,7 @@ function GenerateImport {
 	$ImpObjBatchSizeMax = $OdiScmConfig["Generate"]["Import Object Batch Size Max"]
 	
 	$ConsolidatedFileList = @()
+	$blnConsolidatedFilesList = $False
 	
 	if (($ImpObjBatchSizeMax -ne "") -and ($ImpObjBatchSizeMax -ne $Null) -and ($ImpObjBatchSizeMax -ne "1")) {
 		
@@ -282,6 +283,9 @@ function GenerateImport {
 			# Reinitialise the array as get-content returns $Null for an empty file.
 			#
 			$ConsolidatedFileList = @()
+		}
+		else {
+			$blnConsolidatedFilesList = $True
 		}
 	}
 	else {
@@ -375,7 +379,7 @@ function GenerateImport {
 	#
 	# Set up the pre-ODI import object ID sequence tracking metadata update script content.
 	#
-	if (!(GenerateOdiSrcObjIdScript $arrStrOdiFileList)) {
+	if (!(GenerateOdiSrcObjIdScript $ConsolidatedFileList $blnConsolidatedFilesList)) {
 		write-host "$EM call to GenerateOdiSrcObjIdScript failed"
 		return $False
 	}

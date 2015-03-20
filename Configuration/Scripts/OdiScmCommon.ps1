@@ -8,13 +8,29 @@ $ODIImportModeUpdate = 'SYNONYM_UPDATE'
 #
 # Strings used to correctly generate the ODI object imports for nestable object types.
 #
-$orderedExtensions = @("*.SnpTechno","*.SnpLang","*.SnpConnect","*.SnpPschema","*.SnpLschema","*.SnpContext","*.SnpPschemaCont","*.SnpProject","*.SnpGrpState","*.SnpFolder","*.SnpVar","*.SnpUfunc","*.SnpTrt","*.SnpModFolder","*.SnpModel","*.SnpSubModel","*.SnpTable","*.SnpJoin","*.SnpSequence","*.SnpPop","*.SnpPackage","*.SnpObjState")
+$orderedExtensions = @("*.SnpTechno", "*.SnpLang", "*.SnpConnect", "*.SnpPschema", "*.SnpLschema", "*.SnpContext", "*.SnpPschemaCont", "*.SnpProject", "*.SnpGrpState", "*.SnpFolder","*.SnpVar", "*.SnpUfunc", "*.SnpTrt", "*.SnpModFolder", "*.SnpModel", "*.SnpSubModel", "*.SnpTable", "*.SnpJoin", "*.SnpSequence", "*.SnpPop", "*.SnpPackage", "*.SnpObjState")
 $containerExtensions = @("*.SnpTechno","*.SnpConnect","*.SnpContext","*.SnpModFolder","*.SnpModel","*.SnpSubModel","*.SnpProject","*.SnpFolder")
 
-$masterRepoExtensions = @("*.SnpTechno","*.SnpLang","*.SnpConnect","*.SnpPschema","*.SnpLschema","*.SnpContext","*.SnpPschemaCont")
-$workRepoExtensions = @("*.SnpProject","*.SnpGrpState","*.SnpFolder","*.SnpVar","*.SnpUfunc","*.SnpTrt","*.SnpModFolder","*.SnpModel","*.SnpSubModel","*.SnpTable","*.SnpJoin","*.SnpSequence","*.SnpPop","*.SnpPackage","*.SnpObjState")
-$masterRepoExtensionTabs = @("SNP_TECHNO","SNP_LANG","SNP_CONNECT","SNP_PSCHEMA","SNP_LSCHEMA","SNP_CONTEXT","SNP_PSCHEMA_CONT")
-$workRepoExtensionTabs = @("SNP_PROJECT","SNP_GRP_STATE","SNP_FOLDER","SNP_VAR","SNP_UFUNC","SNP_TRT","SNP_MOD_FOLDER","SNP_MODEL","SNP_SUB_MODEL","SNP_TABLE","SNP_JOIN","SNP_SEQUENCE","SNP_POP","SNP_PACKAGE","SNP_OBJ_STATE")
+$masterRepoExtensions = @("*.SnpTechno", "*.SnpLang", "*.SnpConnect", "*.SnpPschema", "*.SnpLschema", "*.SnpContext", "*.SnpPschemaCont")
+$masterRepoExtensionTabs = @("SNP_TECHNO", "SNP_LANG", "SNP_CONNECT", "SNP_PSCHEMA", "SNP_LSCHEMA", "SNP_CONTEXT", "SNP_PSCHEMA_CONT")
+#
+# ODI class names of objects in export code XML for which we need to analyse internal IDs in order to adjust SNP_ENT_ID.
+#
+$masterRepoClassNames = @("SnpTechno", "SnpLang", "SnpConnect", "SnpPschema", "SnpLschema", "SnpContext", "SnpMtxt", "SnpExpTxt", "SnpExpTxtHeader", "SnpAction", "SnpAgent", "SnpData", "SnpDt", "SnpField", "SnpFlexField", "SnpGrpAction", "SnpIndexType", "SnpLangElt", "SnpMeth", "SnpModule", "SnpObject", "SnpPlanAgent", "SnpProfile", "SnpPwdPolicy", "SnpPwdRule", "SnpSubLang", "SnpUser")
+$masterRepoClassIdNames = @("ITechno", "ILang", "IConnect", "IPschema", "ILschema", "IContext", "ITxt", "ITxt", "ITxt", "IAction", "IAgent", "IData", "IDt", "IField", "IFf", "IGrpAction", "IIndexType", "ILangElt", "IMeth", "IModule", "IObjects", "IPlanAgent", "IProf", "IPwdPolicy", "IPwdRule", "ISubLang", "IWuser")
+$masterRepoClassTableNames = @("SNP_TECHNO", "SNP_LANG", "SNP_CONNECT", "SNP_PSCHEMA", "SNP_LSCHEMA", "SNP_CONTEXT", "SNP_MTXT", "SNP_EXP_TXT", "SNP_EXP_TXT_HEADER", "SNP_ACTION", "SNP_AGENT", "SNP_DATA", "SNP_DT", "SNP_FIELD", "SNP_FLEX_FIELD", "SNP_GRP_ACTION", "SNP_INDEX_TYPE", "SNP_LANG_ELT", "SNP_METH", "SNP_MODULE", "SNP_OBJECT", "SNP_PLAN_AGENT", "SNP_PROFILE", "SNP_PWD_POLICY", "SNP_PWD_RULE", "SNP_SUB_LANG", "SNP_USER")
+
+$workRepoExtensions = @("*.SnpProject", "*.SnpGrpState", "*.SnpFolder", "*.SnpVar", "*.SnpUfunc", "*.SnpTrt", "*.SnpModFolder", "*.SnpModel", "*.SnpSubModel", "*.SnpTable", "*.SnpJoin", "*.SnpSequence", "*.SnpPop", "*.SnpPackage", "*.SnpObjState")
+$workRepoExtensionTabs = @("SNP_PROJECT", "SNP_GRP_STATE", "SNP_FOLDER", "SNP_VAR", "SNP_UFUNC", "SNP_TRT", "SNP_MOD_FOLDER", "SNP_MODEL", "SNP_SUB_MODEL", "SNP_TABLE", "SNP_JOIN", "SNP_SEQUENCE", "SNP_POP", "SNP_PACKAGE", "SNP_OBJ_STATE")
+#
+# ODI class names of objects in export code XML for which we need to analyse internal IDs in order to adjust SNP_ID.
+#
+$workRepoClassNames = @("SnpProject", "SnpGrpState", "SnpFolder", "SnpVar", "SnpUserExit", "SnpUfunc", "SnpTrt", "SnpModFolder", "SnpModel", "SnpSubModel", "SnpTable", "SnpJoin", "SnpSequence", "SnpPop", "SnpPackage", "SnpObjState", "SnpLpInst", "SnpObjectTrace", "SnpTxt", "SnpTxtHeader", "SnpCol", "SnpCond", "SnpDataSet", "SnpDiagram", "SnpEntity", "SnpEss", "SnpLink", "SnpLinkCoord", "SnpLoadPlan", "SnpLookup", "SnpPartition", "SnpPopClause", "SnpPopCol", "SnpScen", "SnpScenFolder", "SnpSolution", "SnpSourceTab", "SnpSrcSet", "SnpState", "SnpState2", "SnpStep", "SnpUfuncImpl")
+#, "SnpOrigTxt" - these object types do not have the usual format. They can be less that 4 digits so they cannot be comprised of an object ID and a repo ID.
+$workRepoClassIdNames = @("IProject", "IGrpState", "IFolder", "IVar", "IUserExit", "IUfunc", "ITrt", "IModFolder", "IMod", "ISmod", "ITable", "IJoin", "SeqId", "IPop", "IPackage", "IObjState", "ILpInst", "IObjTrace", "ITxt", "ITxt", "ICol", "ICond", "IDataSet", "IDiagram", "IEntity", "IEss", "ILink", "ICoord", "ILoadPlan", "ILookup", "IPartition", "IPopClause", "IPopCol", "ScenNo", "IScenFolder", "ISolution", "ISourceTab", "ISrcSet", "IState", "IState", "IStep", "IUfuncImpl")
+#, "ITxtOrig" - these object types do not have the usual format. They can be less that 4 digits so they cannot be comprised of an object ID and a repo ID.
+$workRepoClassTableNames = @("SNP_PROJECT", "SNP_GRP_STATE", "SNP_FOLDER", "SNP_VAR", "SNP_USER_EXIT", "SNP_UFUNC", "SNP_TRT", "SNP_MOD_FOLDER", "SNP_MODEL", "SNP_SUB_MODEL", "SNP_TABLE", "SNP_JOIN", "SNP_SEQUENCE", "SNP_POP", "SNP_PACKAGE", "SNP_OBJ_STATE", "SNP_LP_INST", "SNP_OBJ_TRACE", "SNP_TXT", "SNP_TXT_HEADER", "SNP_COL", "SNP_COND", "SNP_DATA_SET", "SNP_DIAGRAM", "SNP_ENTITY", "SNP_ESS", "SNP_LINK", "SNP_LINK_COORD", "SNP_LOAD_PLAN", "SNP_LOOKUP", "SNP_PARTITION", "SNP_POP_CLAUSE", "SNP_POP_COL", "SNP_SCEN", "SNP_SCEN_FOLDER", "SNP_SOLUTION", "SNP_SOURCE_TAB", "SNP_SRC_SET", "SNP_STATE", "SNP_STATE2", "SNP_STEP", "SNP_UFUNC_IMPL")
+#, "SNP_ORIG_TXT" - these object types do not have the usual format. They can be less that 4 digits so they cannot be comprised of an object ID and a repo ID.
 
 $scenarioSourceExtensions = @("*.SnpVar","*.SnpTrt","*.SnpPop","*.SnpPackage")
 $nestableContainerExtensions = @("*.SnpModFolder","*.SnpSubModel","*.SnpFolder")
@@ -749,7 +765,7 @@ function GenerateOdiSrcObjIdInsertScript ([array] $arrStrFilesToImport) {
 	return $ExitStatus
 }
 
-function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
+function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport, $blnConsolidatedFilesList) {
 	
 	$FN = "GenerateOdiSrcObjIdScript"
 	$IM = $FN + ": INFO:"
@@ -762,90 +778,179 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
 	$SqlText = ""
 	
 	#
-	# Loop through each extension and file files for which to include SNP_ID or SNP_ENT_ID object ID insert commands.
+	# Analyse each ODI source file and look for objects previously created in a repository with our repository ID.
+	# First initialise arrays to store the highest ID found for each object type.
 	#
-	$extensionCount = 0
-	$strMtxtExtensionID = 0
+	$arrMasterRepoID = @()
+	foreach ($strClassName in $masterRepoClassNames) {
+		# Create and initialise a new element of the object IDs array.
+		$arrMasterRepoID += -1
+	}
 	
-	foreach ($ext in $masterRepoExtensions) {
+	$arrWorkRepoID = @()
+	foreach ($strClassName in $workRepoClassNames) {
+		# Create and initialise a new element of the object IDs array.
+		$arrWorkRepoID += -1
+	}
+	
+	#set-content "c:\DebugDir\arrStrFilesToImport.txt" $arrStrFilesToImport
+	#
+	#for ($intClassIdx = 0; $intClassIdx -lt $masterRepoClassNames.length; $intClassIdx++) {
+	#	write-host "$DEBUG intClassIdx <$intClassIdx> masterRepoClassName <" $masterRepoClassNames[$intClassIdx] "> ID attribute <" $masterRepoClassIdNames[$intClassIdx] "> table name <" $masterRepoClassTableNames[$intClassIdx] ">"
+	#}
+	#for ($intClassIdx = 0; $intClassIdx -lt $workRepoClassNames.length; $intClassIdx++) {
+	#	write-host "$DEBUG intClassIdx <$intClassIdx> workRepoClassName <" $workRepoClassNames[$intClassIdx] "> ID attribute <" $workRepoClassIdNames[$intClassIdx] "> table name <" $workRepoClassTableNames[$intClassIdx] ">"
+	#}
+	
+	foreach ($strFileToImport in $arrStrFilesToImport) {
+		$strFileName = split-path -path $strFileToImport -leaf
+		write-host "$IM analysing file <$strFileName>"
 		
-		$extensionCount += 1
-		$extensionMaxID = 0
-		$fileObjType = $ext.Replace("*.","")
-		write-host "$IM processing object type <$fileObjType>"
+		$strFileToImportName = split-path $strFileToImport -leaf
+		$strFileToImportNameParts = $strFileToImportName.split(".")
+		$strFileToImportNameClassName = $strFileToImportNameParts[1]
 		
-		$extensionFileCount = 0
-		foreach ($fileToImport in $arrStrFilesToImport) {
-			
-			if ($fileToImport.EndsWith($fileObjType)) {
+		if (!($blnConsolidatedFilesList)) {
+			$strFileToImportRepoID = $strFileToImportNameParts[0].Substring($strFileToImportNameParts[0].length - 3)
+			$strFileToImportObjID =  $strFileToImportNameParts[0].Substring(0, $strFileToImportNameParts[0].length - 3)
+			$strFileToImportObjID = [int]::Parse($strFileToImportObjID)
+		}
+		
+		$arrStrFileRecords = get-content $strFileToImport
+		
+		if ($masterRepoClassNames.Contains($strFileToImportNameClassName) {
+			#
+			# Look for each master repository class in the current file and in the file name.
+			#
+			for ($intClassIdx = 0; $intClassIdx -lt $masterRepoClassNames.length; $intClassIdx++) {
+				$strClassName = $masterRepoClassNames[$intClassIdx]
+				$strClassIDName = $masterRepoClassIDNames[$intClassIdx]
 				
-				$FileToImportName = split-path $fileToImport -leaf
-				$FileToImportPathName = split-path $fileToImport -parent
-				$FileToImportID = $FileToImportName.split(".")
-				$FileToImportRepoID = $FileToImportID[0].Substring($FileToImportID[0].length - 3)
-				$FileToImportObjID = $FileToImportID[0].Substring(0, $FileToImportID[0].length - 3)
-				$FileToImportObjID = [int]::Parse($FileToImportObjID)
-				
-				if ($FileToImportRepoID -eq $env:ODI_SCM_ORACLEDI_REPOSITORY_ID) {
-					if ($FileToImportObjID -gt $extensionMaxID) {
-						$extensionMaxID = $FileToImportObjID
+				#
+				# We only examine file names for object IDs if we're not using a set of consolidated files.
+				#
+				if (!($blnConsolidatedFilesList)) {
+					if ($strFileToImport.EndsWith($strClassName)) {
+						if ($strFileToImportRepoID -eq $env:ODI_SCM_ORACLEDI_REPOSITORY_ID) {
+							if ($strFileToImportObjID -gt $arrMasterRepoID[$intClassIdx]) {
+								$arrMasterRepoID[$intClassIdx] = $strFileToImportObjID
+							}
+						}
 					}
 				}
-			}
-			
-			#
-			# Look for any SnpMtxt object within the source files.
-			#
-			$arrFileRecords = get-content $fileToImport
-			$blnFoundMtxt = $False
-			
-			foreach ($strFileRec in $arrFileRecords) {
-			
-				if (!($blnFoundMtxt)) {
-					if ($strFileRec.Contains('<Object class="com.sunopsis.dwg.dbobj.SnpMtxt">')) {
-						# Find the ITxt for this SnpMtxt object. Examples: -
-						# 	ODI 10g: <Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[2120]]></Field>
-						# 	ODI 11g: <Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[2036999]]></Field>
-						$blnFoundMtxt = $True
-						continue
-					}
-				}
-				else {
-					if ($strFileRec.Contains('</Object>')) {
-						$blnFoundMtxt = $False
-						continue
+				
+				$blnFoundObj = $False
+				foreach ($strFileRec in $arrStrFileRecords) {
+					if (!($blnFoundObj)) {
+						if ($strFileRec.Contains('<Object class="com.sunopsis.dwg.dbobj.' + $strClassName + '">')) {
+							# Find the ID attribute for this object object. Examples: -
+							# 	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[2120]]></Field>
+							$blnFoundObj = $True
+							continue
+						}
 					}
 					else {
-						if ($strFileRec.Contains('<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[')) {
-							$strSnpMtxtFullID = $strFileRec.Replace('<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[',"")
-							$strSnpMtxtFullID = $strSnpMtxtFullID.Replace(']]></Field>',"").Trim()
-							$strSnpMtxtFullLen = $strSnpMtxtFullID.Length
-							$strSnpMtxtID = $strSnpMtxtFullID.Substring(0, ($strSnpMtxtFullLen - 3))
-							$strSnpMtxtID = [int]::Parse($strSnpMtxtID)
-							$strSnpMtxtRepoID = $strSnpMtxtFullID.Substring(($strSnpMtxtFullLen - 3), 3)
-							
-							if ($strSnpMtxtRepoID -eq $env:ODI_SCM_ORACLEDI_REPOSITORY_ID) {
-								if ($strSnpMtxtID -gt $strMtxtExtensionID) {
-									$strMtxtExtensionID = $strSnpMtxtID
+						if ($strFileRec.Contains('</Object>')) {
+							$blnFoundObj = $False
+							continue
+						}
+						else {
+							if ($strFileRec.Contains('<Field name="' + $strClassIDName + '" type="com.sunopsis.sql.DbInt"><![CDATA[')) {
+								$strObjFullID = $strFileRec.Replace('<Field name="' + $strClassIDName + '" type="com.sunopsis.sql.DbInt"><![CDATA[',"")
+								$strObjFullID = $strObjFullID.Replace(']]></Field>',"").Trim()
+								$strObjFullLen = $strObjFullID.Length
+								$strObjID = $strObjFullID.Substring(0, ($strObjFullLen - 3))
+								$strObjID = [int]::Parse($strObjID)
+								$strObjRepoID = $strObjFullID.Substring(($strObjFullLen - 3), 3)
+								
+								if ($strObjRepoID -eq $env:ODI_SCM_ORACLEDI_REPOSITORY_ID) {
+									if ($strObjID -gt $arrMasterRepoID[$intClassIdx]) {
+										$arrMasterRepoID[$intClassIdx] = $strObjID
+									}
 								}
 							}
-							
-							$blnFoundMtxt = $True
-							continue
 						}
 					}
 				}
 			}
 		}
-		
-		if ($extensionMaxID -ne 0) {
-			
+		else {
+			if ($workRepoClassNames.Contains($strFileToImportNameClassName) {
+				#
+				# Look for each work repository class in the current file and in the file name.
+				#
+				for ($intClassIdx = 0; $intClassIdx -lt $workRepoClassNames.length; $intClassIdx++) {
+					$strClassName = $workRepoClassNames[$intClassIdx]
+					$strClassIDName = $workRepoClassIDNames[$intClassIdx]
+					
+					#
+					# We only examine file names for object IDs if we're not using a set of consolidated files.
+					#
+					if (!($blnConsolidatedFilesList)) {
+						if ($strFileToImport.EndsWith($strClassName)) {
+							if ($strFileToImportRepoID -eq $env:ODI_SCM_ORACLEDI_REPOSITORY_ID) {
+								if ($strFileToImportObjID -gt $arrWorkRepoID[$intClassIdx]) {
+									$arrWorkRepoID[$intClassIdx] = $strFileToImportObjID
+								}
+							}
+						}
+					}
+					
+					$blnFoundObj = $False
+					foreach ($strFileRec in $arrStrFileRecords) {
+						if (!($blnFoundObj)) {
+							if ($strFileRec.Contains('<Object class="com.sunopsis.dwg.dbobj.' + $strClassName + '">')) {
+								# Find the ID attribute for this object object. Examples: -
+								# 	<Field name="ITxt" type="com.sunopsis.sql.DbInt"><![CDATA[2120]]></Field>
+								$blnFoundObj = $True
+								continue
+							}
+						}
+						else {
+							if ($strFileRec.Contains('</Object>')) {
+								$blnFoundObj = $False
+								continue
+							}
+							else {
+								if ($strFileRec.Contains('<Field name="' + $strClassIDName + '" type="com.sunopsis.sql.DbInt"><![CDATA[')) {
+									$strObjFullID = $strFileRec.Replace('<Field name="' + $strClassIDName + '" type="com.sunopsis.sql.DbInt"><![CDATA[',"")
+									$strObjFullID = $strObjFullID.Replace(']]></Field>',"").Trim()
+									$strObjFullLen = $strObjFullID.Length
+									$strObjID = $strObjFullID.Substring(0, ($strObjFullLen - 3))
+									$strObjID = [int]::Parse($strObjID)
+									$strObjRepoID = $strObjFullID.Substring(($strObjFullLen - 3), 3)
+									
+									if ($strObjRepoID -eq $env:ODI_SCM_ORACLEDI_REPOSITORY_ID) {
+										if ($strObjID -gt $arrWorkRepoID[$intClassIdx]) {
+											$arrWorkRepoID[$intClassIdx] = $strObjID
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			else {
+				write-host "$EM unrecognised file type <$strFileToImportNameClassName> in file name <$strFileToImportName>"
+				return $False
+			}
+		}
+	}
+	
+	#
+	# Build the SQL to update the SNP_ENT_ID table.
+	#
+	for ($intClassIdx = 0; $intClassIdx -lt $masterRepoClassNames.length; $intClassIdx++) {
+		write-host "creating SQL for class: " $masterRepoClassNames[$intClassIdx]
+		write-host " highest found ID is: " $arrMasterRepoID[$intClassIdx]
+		if ($arrMasterRepoID[$intClassIdx] -ne -1) {
 			$SqlText += "MERGE" + [Environment]::NewLine
 			$SqlText += " INTO snp_ent_id t" + [Environment]::NewLine
 			$SqlText += "USING (" + [Environment]::NewLine
-			$SqlText += "      SELECT '" + $masterRepoExtensionTabs[$extensionCount - 1] + "'" + [Environment]::NewLine
+			$SqlText += "      SELECT '" + $masterRepoClassTableNames[$intClassIdx] + "'" + [Environment]::NewLine
 			$SqlText += "                 AS id_tbl" + [Environment]::NewLine
-			$SqlText += "           , '" + $extensionMaxID + "'" + [Environment]::NewLine
+			$SqlText += "           , " + $arrMasterRepoID[$intClassIdx] + [Environment]::NewLine
 			$SqlText += "                 AS id_next" + [Environment]::NewLine
 			$SqlText += "           , 1" + [Environment]::NewLine
 			$SqlText += "                 AS id_seq" + [Environment]::NewLine
@@ -855,6 +960,7 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
 			$SqlText += " WHEN MATCHED" + [Environment]::NewLine
 			$SqlText += " THEN UPDATE" + [Environment]::NewLine
 			$SqlText += "         SET t.id_next = s.id_next" + [Environment]::NewLine
+			$SqlText += "       WHERE s.id_next > t.id_next" + [Environment]::NewLine
 			$SqlText += " WHEN NOT MATCHED" + [Environment]::NewLine
 			$SqlText += " THEN INSERT (id_seq, id_tbl, id_next)" + [Environment]::NewLine
 			$SqlText += "      VALUES (s.id_seq, s.id_tbl, s.id_next)" + [Environment]::NewLine
@@ -863,68 +969,53 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
 		}
 	}
 	
-	if ($strMtxtExtensionID -ne 0) {
-		
-		$SqlText += "MERGE" + [Environment]::NewLine
-		$SqlText += " INTO snp_ent_id t" + [Environment]::NewLine
-		$SqlText += "USING (" + [Environment]::NewLine
-		$SqlText += "      SELECT 'SNP_MTXT'" + [Environment]::NewLine
-		$SqlText += "                 AS id_tbl" + [Environment]::NewLine
-		$SqlText += "           , '" + $strMtxtExtensionID + "'" + [Environment]::NewLine
-		$SqlText += "                 AS id_next" + [Environment]::NewLine
-		$SqlText += "           , 1" + [Environment]::NewLine
-		$SqlText += "                 AS id_seq" + [Environment]::NewLine
-		$SqlText += "        FROM dual" + [Environment]::NewLine
-		$SqlText += "      ) s" + [Environment]::NewLine
-		$SqlText += "   ON (t.id_tbl = s.id_tbl)" + [Environment]::NewLine
-		$SqlText += " WHEN MATCHED" + [Environment]::NewLine
-		$SqlText += " THEN UPDATE" + [Environment]::NewLine
-		$SqlText += "         SET t.id_next = s.id_next" + [Environment]::NewLine
-		$SqlText += " WHEN NOT MATCHED" + [Environment]::NewLine
-		$SqlText += " THEN INSERT (id_seq, id_tbl, id_next)" + [Environment]::NewLine
-		$SqlText += "      VALUES (s.id_seq, s.id_tbl, s.id_next)" + [Environment]::NewLine
-		$SqlText += "<OdiScmGenerateSqlStatementDelimiter>" + [Environment]::NewLine
-		$SqlText += "" + [Environment]::NewLine
+	#
+	# Build the SQL to update the SNP_ID table.
+	#
+	# We need to merge values for SnpTxt/SnpTxtHeader and SnpExpTxt/SnpExpTxtHeader.
+	#
+	$intExpTxtID = -1
+	$intTxtID = -1
+	
+	for ($intClassIdx = 0; $intClassIdx -lt $workRepoClassNames.length; $intClassIdx++) {
+		if (($workRepoClassNames[$intClassIdx] -eq "SnpExpTxt") -or ($workRepoClassNames[$intClassIdx] -eq "SnpExpTxtHeader")) {
+			if ($arrWorkRepoID[$intClassIdx] -gt $intExpTxtID) {
+				$intExpTxtID = $arrWorkRepoID[$intClassIdx]
+			}
+		}
 	}
 	
-	$extensionCount = 0
+	for ($intClassIdx = 0; $intClassIdx -lt $workRepoClassNames.length; $intClassIdx++) {
+		if (($workRepoClassNames[$intClassIdx] -eq "SnpTxt") -or ($workRepoClassNames[$intClassIdx] -eq "SnpTxtHeader")) {
+			if ($arrWorkRepoID[$intClassIdx] -gt $intTxtID) {
+				$intTxtID = $arrWorkRepoID[$intClassIdx]
+			}
+		}
+	}
 	
-	foreach ($ext in $workRepoExtensions) {
+	for ($intClassIdx = 0; $intClassIdx -lt $workRepoClassNames.length; $intClassIdx++) {
+		write-host "creating SQL for class: " $workRepoClassNames[$intClassIdx]
+		write-host " highest found ID is: " $arrWorkRepoID[$intClassIdx]
 		
-		$extensionCount += 1
-		$extensionMaxID = 0
-		
-		$fileObjType = $ext.Replace("*.","")
-		write-host "$IM processing object type <$fileObjType>"
-		
-		$extensionFileCount = 0
-		foreach ($fileToImport in $arrStrFilesToImport) {
-			
-			if ($fileToImport.EndsWith($fileObjType)) {
-				
-				$FileToImportName = split-path $fileToImport -leaf
-				$FileToImportPathName = split-path $fileToImport -parent
-				$FileToImportID = $FileToImportName.split(".")
-				$FileToImportRepoID = $FileToImportID[0].Substring($FileToImportID[0].length - 3)
-				$FileToImportObjID = $FileToImportID[0].Substring(0, $FileToImportID[0].length - 3)
-				$FileToImportObjID = [int]::Parse($FileToImportObjID)
-				
-				if ($FileToImportRepoID -eq $env:ODI_SCM_ORACLEDI_REPOSITORY_ID) {
-					if ($FileToImportObjID -gt $extensionMaxID) {
-						$extensionMaxID = $FileToImportObjID
-					}
-				}
+		if (($workRepoClassNames[$intClassIdx] -eq "SnpExpTxt") -or ($workRepoClassNames[$intClassIdx] -eq "SnpExpTxtHeader")) {
+			$intOutID = $intExpTxtID
+		}
+		else {
+			if (($workRepoClassNames[$intClassIdx] -eq "SnpTxt") -or ($workRepoClassNames[$intClassIdx] -eq "SnpTxtHeader")) {
+				$intOutID = $intTxtID
+			}
+			else {
+				$intOutID = $arrWorkRepoID[$intClassIdx]
 			}
 		}
 		
-		if ($extensionMaxID -ne 0) {
-			
+		if ($arrWorkRepoID[$intClassIdx] -ne -1) {
 			$SqlText += "MERGE" + [Environment]::NewLine
 			$SqlText += " INTO snp_id t" + [Environment]::NewLine
 			$SqlText += "USING (" + [Environment]::NewLine
-			$SqlText += "      SELECT '" + $workRepoExtensionTabs[$extensionCount - 1] + "'" + [Environment]::NewLine
+			$SqlText += "      SELECT '" + $workRepoClassTableNames[$intClassIdx] + "'" + [Environment]::NewLine
 			$SqlText += "                 AS id_tbl" + [Environment]::NewLine
-			$SqlText += "           , '" + $extensionMaxID + "'" + [Environment]::NewLine
+			$SqlText += "           , " + $intOutID + [Environment]::NewLine
 			$SqlText += "                 AS id_next" + [Environment]::NewLine
 			$SqlText += "           , 1" + [Environment]::NewLine
 			$SqlText += "                 AS id_seq" + [Environment]::NewLine
@@ -934,6 +1025,7 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport) {
 			$SqlText += " WHEN MATCHED" + [Environment]::NewLine
 			$SqlText += " THEN UPDATE" + [Environment]::NewLine
 			$SqlText += "         SET t.id_next = s.id_next" + [Environment]::NewLine
+			$SqlText += "       WHERE s.id_next > t.id_next" + [Environment]::NewLine
 			$SqlText += " WHEN NOT MATCHED" + [Environment]::NewLine
 			$SqlText += " THEN INSERT (id_seq, id_tbl, id_next)" + [Environment]::NewLine
 			$SqlText += "      VALUES (s.id_seq, s.id_tbl, s.id_next)" + [Environment]::NewLine
@@ -1109,8 +1201,6 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			#DebuggingPause
 			continue
 		}
-		
-		write-host "$DEBUG file name verified"
 		
 		#
 		# Get the logical schema's physical mapping details from the corresponding environment variable.
@@ -2386,6 +2476,7 @@ function GenerateBuild ($StrSourceTypeName) {
 	$ImpObjBatchSizeMax = $OdiScmConfig["Generate"]["Import Object Batch Size Max"]
 	
 	$ConsolidatedFileList = @()
+	$blnConsolidatedFilesList = $False
 	
 	if (($ImpObjBatchSizeMax -ne "") -and ($ImpObjBatchSizeMax -ne $Null) -and ($ImpObjBatchSizeMax -ne "1")) {
 		
@@ -2420,6 +2511,9 @@ function GenerateBuild ($StrSourceTypeName) {
 			# Reinitialise the array as get-content returns $Null for an empty file.
 			#
 			$ConsolidatedFileList = @()
+		}
+		else {
+			$blnConsolidatedFilesList = $True
 		}
 	}
 	else {
@@ -2505,7 +2599,7 @@ function GenerateBuild ($StrSourceTypeName) {
 	#
 	# Set up the pre-ODI import object ID sequence tracking metadata update script content.
 	#
-	if (!(GenerateOdiSrcObjIdScript $arrStrOdiFileList)) {
+	if (!(GenerateOdiSrcObjIdScript $ConsolidatedFileList $blnConsolidatedFilesList)) {
 		write-host "$EM call to GenerateOdiSrcObjIdScript failed"
 		return $False
 	}
