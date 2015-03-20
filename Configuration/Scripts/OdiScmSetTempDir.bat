@@ -2,14 +2,18 @@ rem if not "%TEMPDIR%" == "" (
 rem 	exit /b 0
 rem )
 
-if "%TEMP%" == "" (
-	if "%TMP%" == "" (
-		set TEMPDIR=%CD%
+if "%ODI_SCM_MISC_TEMP_ROOT%" == "" (
+	if "%TEMP%" == "" (
+		if "%TMP%" == "" (
+			set TEMPDIR=%CD%
+		) else (
+			set TEMPDIR=%TMP%
+		)
 	) else (
-		set TEMPDIR=%TMP%
+		set TEMPDIR=%TEMP%
 	)
 ) else (
-	set TEMPDIR=%TEMP%
+	set TEMPDIR=%ODI_SCM_MISC_TEMP_ROOT%
 )
 
 set TEMPDIR=%TEMPDIR%\OdiScm
@@ -41,7 +45,7 @@ if EXIST "%TEMPDIR%" (
 	rem if ERRORLEVEL 1 (
 	rem	echo %EM% deleting existing temporary directory ^<%TEMPDIR%^> 1>&2
 	rem	exit /b 1
-	rem)
+	rem )
 	set CHECKTEMPDIR=YES
 ) else (
 	set CHECKTEMPDIR=NO
