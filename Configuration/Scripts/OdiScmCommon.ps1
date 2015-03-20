@@ -818,7 +818,7 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport, $blnConsolidat
 		
 		$arrStrFileRecords = get-content $strFileToImport
 		
-		if ($masterRepoClassNames.Contains($strFileToImportNameClassName) {
+		if ($masterRepoClassNames.Contains($strFileToImportNameClassName)) {
 			#
 			# Look for each master repository class in the current file and in the file name.
 			#
@@ -875,7 +875,7 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport, $blnConsolidat
 			}
 		}
 		else {
-			if ($workRepoClassNames.Contains($strFileToImportNameClassName) {
+			if ($workRepoClassNames.Contains($strFileToImportNameClassName)) {
 				#
 				# Look for each work repository class in the current file and in the file name.
 				#
