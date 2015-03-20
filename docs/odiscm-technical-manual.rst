@@ -347,6 +347,11 @@ So, the configuration file is really the persisted environment for the ODI-SCM c
 |Misc              |Resources Root                 |Path of the directory used for      |``C:\OdiScmResources``                                       |
 |                  |                               |miscellaneous resource files.       |                                                             |
 +------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                  |Temp Root                      |Path of the directory used for      |``C:\Temp``                                                  |
+|                  |                               |general temporary, working, files.  |                                                             |
+|                  |                               |Used to override the default use of |                                                             |
+|                  |                               |%TEMP%-else-%TMP% to place files.   |                                                             |
++------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
 
 A example configuration file with all sections and keys listed::
 
