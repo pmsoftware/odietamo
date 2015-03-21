@@ -10,26 +10,30 @@ $ODIImportModeUpdate = 'SYNONYM_UPDATE'
 #
 $orderedExtensions = @("*.SnpTechno", "*.SnpLang", "*.SnpConnect", "*.SnpPschema", "*.SnpLschema", "*.SnpContext", "*.SnpPschemaCont", "*.SnpProject", "*.SnpGrpState", "*.SnpFolder","*.SnpVar", "*.SnpUfunc", "*.SnpTrt", "*.SnpModFolder", "*.SnpModel", "*.SnpSubModel", "*.SnpTable", "*.SnpJoin", "*.SnpSequence", "*.SnpPop", "*.SnpPackage", "*.SnpObjState")
 $containerExtensions = @("*.SnpTechno","*.SnpConnect","*.SnpContext","*.SnpModFolder","*.SnpModel","*.SnpSubModel","*.SnpProject","*.SnpFolder")
-
-$masterRepoExtensions = @("*.SnpTechno", "*.SnpLang", "*.SnpConnect", "*.SnpPschema", "*.SnpLschema", "*.SnpContext", "*.SnpPschemaCont")
-$masterRepoExtensionTabs = @("SNP_TECHNO", "SNP_LANG", "SNP_CONNECT", "SNP_PSCHEMA", "SNP_LSCHEMA", "SNP_CONTEXT", "SNP_PSCHEMA_CONT")
 #
-# ODI class names of objects in export code XML for which we need to analyse internal IDs in order to adjust SNP_ENT_ID.
+# Valid exported master repository code XML file name extensions.
 #
-$masterRepoClassNames = @("SnpTechno", "SnpLang", "SnpConnect", "SnpPschema", "SnpLschema", "SnpContext", "SnpMtxt", "SnpExpTxt", "SnpExpTxtHeader", "SnpAction", "SnpAgent", "SnpData", "SnpDt", "SnpField", "SnpFlexField", "SnpGrpAction", "SnpIndexType", "SnpLangElt", "SnpMeth", "SnpModule", "SnpObject", "SnpPlanAgent", "SnpProfile", "SnpPwdPolicy", "SnpPwdRule", "SnpSubLang", "SnpUser")
-$masterRepoClassIdNames = @("ITechno", "ILang", "IConnect", "IPschema", "ILschema", "IContext", "ITxt", "ITxt", "ITxt", "IAction", "IAgent", "IData", "IDt", "IField", "IFf", "IGrpAction", "IIndexType", "ILangElt", "IMeth", "IModule", "IObjects", "IPlanAgent", "IProf", "IPwdPolicy", "IPwdRule", "ISubLang", "IWuser")
-$masterRepoClassTableNames = @("SNP_TECHNO", "SNP_LANG", "SNP_CONNECT", "SNP_PSCHEMA", "SNP_LSCHEMA", "SNP_CONTEXT", "SNP_MTXT", "SNP_EXP_TXT", "SNP_EXP_TXT_HEADER", "SNP_ACTION", "SNP_AGENT", "SNP_DATA", "SNP_DT", "SNP_FIELD", "SNP_FLEX_FIELD", "SNP_GRP_ACTION", "SNP_INDEX_TYPE", "SNP_LANG_ELT", "SNP_METH", "SNP_MODULE", "SNP_OBJECT", "SNP_PLAN_AGENT", "SNP_PROFILE", "SNP_PWD_POLICY", "SNP_PWD_RULE", "SNP_SUB_LANG", "SNP_USER")
-
-$workRepoExtensions = @("*.SnpProject", "*.SnpGrpState", "*.SnpFolder", "*.SnpVar", "*.SnpUfunc", "*.SnpTrt", "*.SnpModFolder", "*.SnpModel", "*.SnpSubModel", "*.SnpTable", "*.SnpJoin", "*.SnpSequence", "*.SnpPop", "*.SnpPackage", "*.SnpObjState")
-$workRepoExtensionTabs = @("SNP_PROJECT", "SNP_GRP_STATE", "SNP_FOLDER", "SNP_VAR", "SNP_UFUNC", "SNP_TRT", "SNP_MOD_FOLDER", "SNP_MODEL", "SNP_SUB_MODEL", "SNP_TABLE", "SNP_JOIN", "SNP_SEQUENCE", "SNP_POP", "SNP_PACKAGE", "SNP_OBJ_STATE")
+$masterRepoExtensions = @("SnpTechno", "SnpLang", "SnpConnect", "SnpPschema", "SnpLschema", "SnpContext", "SnpPschemaCont")
+#####$masterRepoExtensionTabs = @("SNP_TECHNO", "SNP_LANG", "SNP_CONNECT", "SNP_PSCHEMA", "SNP_LSCHEMA", "SNP_CONTEXT", "SNP_PSCHEMA_CONT")
 #
-# ODI class names of objects in export code XML for which we need to analyse internal IDs in order to adjust SNP_ID.
+# ODI class names of objects in exported code XML for which we need to analyse internal IDs in order to adjust SNP_ENT_ID.
 #
-$workRepoClassNames = @("SnpProject", "SnpGrpState", "SnpFolder", "SnpVar", "SnpUserExit", "SnpUfunc", "SnpTrt", "SnpModFolder", "SnpModel", "SnpSubModel", "SnpTable", "SnpJoin", "SnpSequence", "SnpPop", "SnpPackage", "SnpObjState", "SnpLpInst", "SnpObjectTrace", "SnpTxt", "SnpTxtHeader", "SnpCol", "SnpCond", "SnpDataSet", "SnpDiagram", "SnpEntity", "SnpEss", "SnpLink", "SnpLinkCoord", "SnpLoadPlan", "SnpLookup", "SnpPartition", "SnpPopClause", "SnpPopCol", "SnpScen", "SnpScenFolder", "SnpSolution", "SnpSourceTab", "SnpSrcSet", "SnpState", "SnpState2", "SnpStep", "SnpUfuncImpl")
+$masterRepoClassNames = @("SnpTechno", "SnpLang", "SnpConnect", "SnpPschema", "SnpLschema", "SnpContext", "SnpMtxt", "SnpAction", "SnpAgent", "SnpData", "SnpDt", "SnpField", "SnpFlexField", "SnpGrpAction", "SnpIndexType", "SnpLangElt", "SnpMeth", "SnpModule", "SnpObject", "SnpPlanAgent", "SnpProfile", "SnpPwdPolicy", "SnpPwdRule", "SnpSubLang", "SnpUser")
+$masterRepoClassIdNames = @("ITechno", "ILang", "IConnect", "IPschema", "ILschema", "IContext", "ITxt", "IAction", "IAgent", "IData", "IDt", "IField", "IFf", "IGrpAction", "IIndexType", "ILangElt", "IMeth", "IModule", "IObjects", "IPlanAgent", "IProf", "IPwdPolicy", "IPwdRule", "ISubLang", "IWuser")
+$masterRepoClassTableNames = @("SNP_TECHNO", "SNP_LANG", "SNP_CONNECT", "SNP_PSCHEMA", "SNP_LSCHEMA", "SNP_CONTEXT", "SNP_MTXT", "SNP_ACTION", "SNP_AGENT", "SNP_DATA", "SNP_DT", "SNP_FIELD", "SNP_FLEX_FIELD", "SNP_GRP_ACTION", "SNP_INDEX_TYPE", "SNP_LANG_ELT", "SNP_METH", "SNP_MODULE", "SNP_OBJECT", "SNP_PLAN_AGENT", "SNP_PROFILE", "SNP_PWD_POLICY", "SNP_PWD_RULE", "SNP_SUB_LANG", "SNP_USER")
+#
+# Valid exported work repository code XML file name extensions.
+#
+$workRepoExtensions = @("SnpProject", "SnpGrpState", "SnpFolder", "SnpVar", "SnpUfunc", "SnpTrt", "SnpModFolder", "SnpModel", "SnpSubModel", "SnpTable", "SnpJoin", "SnpSequence", "SnpPop", "SnpPackage", "SnpObjState")
+#####$workRepoExtensionTabs = @("SNP_PROJECT", "SNP_GRP_STATE", "SNP_FOLDER", "SNP_VAR", "SNP_UFUNC", "SNP_TRT", "SNP_MOD_FOLDER", "SNP_MODEL", "SNP_SUB_MODEL", "SNP_TABLE", "SNP_JOIN", "SNP_SEQUENCE", "SNP_POP", "SNP_PACKAGE", "SNP_OBJ_STATE")
+#
+# ODI class names of objects in exported code XML for which we need to analyse internal IDs in order to adjust SNP_ID.
+#
+$workRepoClassNames = @("SnpProject", "SnpGrpState", "SnpFolder", "SnpVar", "SnpUserExit", "SnpUfunc", "SnpTrt", "SnpModFolder", "SnpModel", "SnpSubModel", "SnpTable", "SnpJoin", "SnpSequence", "SnpPop", "SnpPackage", "SnpObjState", "SnpExpTxt", "SnpExpTxtHeader", "SnpLpInst", "SnpObjectTrace", "SnpTxt", "SnpTxtHeader", "SnpCol", "SnpCond", "SnpDataSet", "SnpDiagram", "SnpEntity", "SnpEss", "SnpLink", "SnpLinkCoord", "SnpLoadPlan", "SnpLookup", "SnpPartition", "SnpPopClause", "SnpPopCol", "SnpScen", "SnpScenFolder", "SnpSolution", "SnpSourceTab", "SnpSrcSet", "SnpState", "SnpState2", "SnpStep", "SnpUfuncImpl")
 #, "SnpOrigTxt" - these object types do not have the usual format. They can be less that 4 digits so they cannot be comprised of an object ID and a repo ID.
-$workRepoClassIdNames = @("IProject", "IGrpState", "IFolder", "IVar", "IUserExit", "IUfunc", "ITrt", "IModFolder", "IMod", "ISmod", "ITable", "IJoin", "SeqId", "IPop", "IPackage", "IObjState", "ILpInst", "IObjTrace", "ITxt", "ITxt", "ICol", "ICond", "IDataSet", "IDiagram", "IEntity", "IEss", "ILink", "ICoord", "ILoadPlan", "ILookup", "IPartition", "IPopClause", "IPopCol", "ScenNo", "IScenFolder", "ISolution", "ISourceTab", "ISrcSet", "IState", "IState", "IStep", "IUfuncImpl")
+$workRepoClassIdNames = @("IProject", "IGrpState", "IFolder", "IVar", "IUserExit", "IUfunc", "ITrt", "IModFolder", "IMod", "ISmod", "ITable", "IJoin", "SeqId", "IPop", "IPackage", "IObjState", "ITxt", "ITxt", "ILpInst", "IObjTrace", "ITxt", "ITxt", "ICol", "ICond", "IDataSet", "IDiagram", "IEntity", "IEss", "ILink", "ICoord", "ILoadPlan", "ILookup", "IPartition", "IPopClause", "IPopCol", "ScenNo", "IScenFolder", "ISolution", "ISourceTab", "ISrcSet", "IState", "IState", "IStep", "IUfuncImpl")
 #, "ITxtOrig" - these object types do not have the usual format. They can be less that 4 digits so they cannot be comprised of an object ID and a repo ID.
-$workRepoClassTableNames = @("SNP_PROJECT", "SNP_GRP_STATE", "SNP_FOLDER", "SNP_VAR", "SNP_USER_EXIT", "SNP_UFUNC", "SNP_TRT", "SNP_MOD_FOLDER", "SNP_MODEL", "SNP_SUB_MODEL", "SNP_TABLE", "SNP_JOIN", "SNP_SEQUENCE", "SNP_POP", "SNP_PACKAGE", "SNP_OBJ_STATE", "SNP_LP_INST", "SNP_OBJ_TRACE", "SNP_TXT", "SNP_TXT_HEADER", "SNP_COL", "SNP_COND", "SNP_DATA_SET", "SNP_DIAGRAM", "SNP_ENTITY", "SNP_ESS", "SNP_LINK", "SNP_LINK_COORD", "SNP_LOAD_PLAN", "SNP_LOOKUP", "SNP_PARTITION", "SNP_POP_CLAUSE", "SNP_POP_COL", "SNP_SCEN", "SNP_SCEN_FOLDER", "SNP_SOLUTION", "SNP_SOURCE_TAB", "SNP_SRC_SET", "SNP_STATE", "SNP_STATE2", "SNP_STEP", "SNP_UFUNC_IMPL")
+$workRepoClassTableNames = @("SNP_PROJECT", "SNP_GRP_STATE", "SNP_FOLDER", "SNP_VAR", "SNP_USER_EXIT", "SNP_UFUNC", "SNP_TRT", "SNP_MOD_FOLDER", "SNP_MODEL", "SNP_SUB_MODEL", "SNP_TABLE", "SNP_JOIN", "SNP_SEQUENCE", "SNP_POP", "SNP_PACKAGE", "SNP_OBJ_STATE", "SNP_EXP_TXT", "SNP_EXP_TXT_HEADER", "SNP_LP_INST", "SNP_OBJ_TRACE", "SNP_TXT", "SNP_TXT_HEADER", "SNP_COL", "SNP_COND", "SNP_DATA_SET", "SNP_DIAGRAM", "SNP_ENTITY", "SNP_ESS", "SNP_LINK", "SNP_LINK_COORD", "SNP_LOAD_PLAN", "SNP_LOOKUP", "SNP_PARTITION", "SNP_POP_CLAUSE", "SNP_POP_COL", "SNP_SCEN", "SNP_SCEN_FOLDER", "SNP_SOLUTION", "SNP_SOURCE_TAB", "SNP_SRC_SET", "SNP_STATE", "SNP_STATE2", "SNP_STEP", "SNP_UFUNC_IMPL")
 #, "SNP_ORIG_TXT" - these object types do not have the usual format. They can be less that 4 digits so they cannot be comprised of an object ID and a repo ID.
 
 $scenarioSourceExtensions = @("*.SnpVar","*.SnpTrt","*.SnpPop","*.SnpPackage")
@@ -773,7 +777,6 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport, $blnConsolidat
 	$DEBUG = $FN + ": DEBUG:"
 	
 	write-host "$IM starts"
-	
 	write-host "$IM writing output to <$OdiScmPreImpMergeSnpIDsSql>"
 	$SqlText = ""
 	
@@ -801,10 +804,12 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport, $blnConsolidat
 	#for ($intClassIdx = 0; $intClassIdx -lt $workRepoClassNames.length; $intClassIdx++) {
 	#	write-host "$DEBUG intClassIdx <$intClassIdx> workRepoClassName <" $workRepoClassNames[$intClassIdx] "> ID attribute <" $workRepoClassIdNames[$intClassIdx] "> table name <" $workRepoClassTableNames[$intClassIdx] ">"
 	#}
+	write-host "$IM starting analysis of code export files for repository ID <$env:ODI_SCM_ORACLEDI_REPOSITORY_ID>"
 	
 	foreach ($strFileToImport in $arrStrFilesToImport) {
+		
 		$strFileName = split-path -path $strFileToImport -leaf
-		write-host "$IM analysing file <$strFileName>"
+		$arrStrFileRecords = get-content $strFileToImport
 		
 		$strFileToImportName = split-path $strFileToImport -leaf
 		$strFileToImportNameParts = $strFileToImportName.split(".")
@@ -816,9 +821,8 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport, $blnConsolidat
 			$strFileToImportObjID = [int]::Parse($strFileToImportObjID)
 		}
 		
-		$arrStrFileRecords = get-content $strFileToImport
-		
-		if ($masterRepoClassNames.Contains($strFileToImportNameClassName)) {
+		if ($masterRepoExtensions -contains "$strFileToImportNameClassName") {
+			write-host "$IM analysing master repository code export file <$strFileName>"
 			#
 			# Look for each master repository class in the current file and in the file name.
 			#
@@ -875,7 +879,8 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport, $blnConsolidat
 			}
 		}
 		else {
-			if ($workRepoClassNames.Contains($strFileToImportNameClassName)) {
+			if ($workRepoExtensions -contains "$strFileToImportNameClassName") {
+				write-host "$IM analysing work repository code export file <$strFileName>"
 				#
 				# Look for each work repository class in the current file and in the file name.
 				#
@@ -932,7 +937,7 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport, $blnConsolidat
 				}
 			}
 			else {
-				write-host "$EM unrecognised file type <$strFileToImportNameClassName> in file name <$strFileToImportName>"
+				write-host "$EM unrecognised file type <$strFileToImportNameClassName> in code export file name <$strFileToImportName>"
 				return $False
 			}
 		}
@@ -942,15 +947,16 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport, $blnConsolidat
 	# Build the SQL to update the SNP_ENT_ID table.
 	#
 	for ($intClassIdx = 0; $intClassIdx -lt $masterRepoClassNames.length; $intClassIdx++) {
-		write-host "creating SQL for class: " $masterRepoClassNames[$intClassIdx]
-		write-host " highest found ID is: " $arrMasterRepoID[$intClassIdx]
+		$strClassName = $masterRepoClassNames[$intClassIdx]
+		$intOutID = $arrMasterRepoID[$intClassIdx]
+		write-host "$IM highest ID found for class <$strClassName> is <$intOutID>"
 		if ($arrMasterRepoID[$intClassIdx] -ne -1) {
 			$SqlText += "MERGE" + [Environment]::NewLine
 			$SqlText += " INTO snp_ent_id t" + [Environment]::NewLine
 			$SqlText += "USING (" + [Environment]::NewLine
 			$SqlText += "      SELECT '" + $masterRepoClassTableNames[$intClassIdx] + "'" + [Environment]::NewLine
 			$SqlText += "                 AS id_tbl" + [Environment]::NewLine
-			$SqlText += "           , " + $arrMasterRepoID[$intClassIdx] + [Environment]::NewLine
+			$SqlText += "           , " + $intOutID + [Environment]::NewLine
 			$SqlText += "                 AS id_next" + [Environment]::NewLine
 			$SqlText += "           , 1" + [Environment]::NewLine
 			$SqlText += "                 AS id_seq" + [Environment]::NewLine
@@ -994,22 +1000,21 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport, $blnConsolidat
 	}
 	
 	for ($intClassIdx = 0; $intClassIdx -lt $workRepoClassNames.length; $intClassIdx++) {
-		write-host "creating SQL for class: " $workRepoClassNames[$intClassIdx]
-		write-host " highest found ID is: " $arrWorkRepoID[$intClassIdx]
+		$strClassName = $workRepoClassNames[$intClassIdx]
 		
-		if (($workRepoClassNames[$intClassIdx] -eq "SnpExpTxt") -or ($workRepoClassNames[$intClassIdx] -eq "SnpExpTxtHeader")) {
+		if (($strClassName -eq "SnpExpTxt") -or ($strClassName -eq "SnpExpTxtHeader")) {
 			$intOutID = $intExpTxtID
 		}
 		else {
-			if (($workRepoClassNames[$intClassIdx] -eq "SnpTxt") -or ($workRepoClassNames[$intClassIdx] -eq "SnpTxtHeader")) {
+			if (($strClassName -eq "SnpTxt") -or ($strClassName -eq "SnpTxtHeader")) {
 				$intOutID = $intTxtID
 			}
 			else {
 				$intOutID = $arrWorkRepoID[$intClassIdx]
 			}
 		}
-		
-		if ($arrWorkRepoID[$intClassIdx] -ne -1) {
+		write-host "$IM highest ID found for class <$strClassName> is <$intOutID>"
+		if ($intOutID -ne -1) {
 			$SqlText += "MERGE" + [Environment]::NewLine
 			$SqlText += " INTO snp_id t" + [Environment]::NewLine
 			$SqlText += "USING (" + [Environment]::NewLine
