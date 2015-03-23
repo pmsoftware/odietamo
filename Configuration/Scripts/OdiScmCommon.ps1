@@ -949,7 +949,7 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport, $blnConsolidat
 	for ($intClassIdx = 0; $intClassIdx -lt $masterRepoClassNames.length; $intClassIdx++) {
 		$strClassName = $masterRepoClassNames[$intClassIdx]
 		$intOutID = $arrMasterRepoID[$intClassIdx]
-		write-host "$IM highest ID found for class <$strClassName> is <$intOutID>"
+		###write-host "$DEBUG highest ID found for class <$strClassName> is <$intOutID>"
 		if ($arrMasterRepoID[$intClassIdx] -ne -1) {
 			$SqlText += "MERGE" + [Environment]::NewLine
 			$SqlText += " INTO snp_ent_id t" + [Environment]::NewLine
@@ -1013,7 +1013,7 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport, $blnConsolidat
 				$intOutID = $arrWorkRepoID[$intClassIdx]
 			}
 		}
-		write-host "$IM highest ID found for class <$strClassName> is <$intOutID>"
+		###write-host "$DEBUG highest ID found for class <$strClassName> is <$intOutID>"
 		if ($intOutID -ne -1) {
 			$SqlText += "MERGE" + [Environment]::NewLine
 			$SqlText += " INTO snp_id t" + [Environment]::NewLine
