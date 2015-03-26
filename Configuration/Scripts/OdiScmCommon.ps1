@@ -613,6 +613,21 @@ function GenerateOdiImportScript ([array] $arrStrFilesToImport) {
 				}
 				
 				#
+				# Work around (yet another) bug in ODI (as of 11.1.1.7.0) where an SnpModel can't be imported
+				# unless it has the file name prefix "MOD_".
+				#
+				if ($fileObjType -eq "SnpModel") {
+					$ImportText += "echo %IM% creating renamed SnpModel file for source file ^<$FileToImportName^>" + [Environment]::NewLine
+					if (!($FileToImportName.StartsWith("Consolidated"))) {
+						# Create the renamed file copy in the temp directory we created.
+						$FileToImportPathName = "%TEMPDIR%"
+					}
+					$FileToImportName = "MOD_" + $FileToImportName + ".xml"
+					$SourceFile = $FileToImportPathName + "\" + $FileToImportName
+					$ImportText += 'copy "' + $fileToImport + '" "' + $SourceFile + '" >NUL' + [Environment]::NewLine
+				}
+				
+				#
 				# Work around (yet another) bug in ODI (as of 11.1.1.7.0) where an SnpPop can't be imported
 				# unless it has the file name prefix "POP_".
 				#
@@ -813,12 +828,18 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport, $blnConsolidat
 		
 		$strFileToImportName = split-path $strFileToImport -leaf
 		$strFileToImportNameParts = $strFileToImportName.split(".")
-		$strFileToImportNameClassName = $strFileToImportNameParts[1]
+		$strFileToImportNameClassName = $strFileToImportNameParts[$strFileToImportNameParts.length - 1]
+		###$strFileToImportNameClassName = $strFileToImportNameParts[1]
 		
 		if (!($blnConsolidatedFilesList)) {
 			$strFileToImportRepoID = $strFileToImportNameParts[0].Substring($strFileToImportNameParts[0].length - 3)
 			$strFileToImportObjID =  $strFileToImportNameParts[0].Substring(0, $strFileToImportNameParts[0].length - 3)
 			$strFileToImportObjID = [int]::Parse($strFileToImportObjID)
+		}
+		
+		if ((!($masterRepoExtensions -contains "$strFileToImportNameClassName")) -and (!($workRepoExtensions -contains "$strFileToImportNameClassName"))) {
+			write-host "$WM ignoring file type <$strFileToImportNameClassName> in code export file name <$strFileToImportName>"
+			continue
 		}
 		
 		if ($masterRepoExtensions -contains "$strFileToImportNameClassName") {
@@ -935,10 +956,6 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport, $blnConsolidat
 						}
 					}
 				}
-			}
-			else {
-				write-host "$EM unrecognised file type <$strFileToImportNameClassName> in code export file name <$strFileToImportName>"
-				return $False
 			}
 		}
 	}
