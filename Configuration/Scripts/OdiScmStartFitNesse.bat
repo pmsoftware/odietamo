@@ -27,56 +27,28 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-set TEMPFILE=%TEMPDIR%\%PROC%_EnvVarsList.txt
-set ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_ > "%TEMPFILE%"
-if ERRORLEVEL 1 (
-	echo %EM% extracting logical-to-physical schema mapping environment variables to working file ^<%TEMPDIR%^> 1>&2
-	goto ExitFail
-)
-
+set TEMPSYSPROPFILE=%TEMPDIR%\%PROC%_JavaSystemProperties.txt
 set JAVA_SYSTEM_PROPERTIES_STRING=
 
-setlocal enabledelayedexpansion
-rem
-rem Example environment variable format: -
-rem    HSQL_DEMO_SRC=Data Server+DS_HSQL_DEMO_SRC+Database++Schema+PUBLIC+
-rem
-for /f "tokens=1,2 delims==" %%g in (%TEMPFILE%) do (
-	set ENV_VAR_NAME=%%g
-	set ENV_VAR_VAL=%%h
-	set ENV_VAR_VAL=!ENV_VAR_VAL:++=+ +!
-	set LOGICAL_SCHEMA_NAME=!ENV_VAR_NAME:ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_=!
-	rem
-	rem Extract the physical database and/or schema name from the environment variable value.
-	rem
-	for /f "tokens=1,2,3,4,5,6,7 delims=+" %%i in ("!ENV_VAR_VAL!") do (
-		set DATABASE_NAME=%%l
-		set SCHEMA_NAME=%%n
-	)
-	set JAVA_SYSTEM_PROPERTY_VALUE=
-
-	if not "!DATABASE_NAME!" == " " (
-		set JAVA_SYSTEM_PROPERTY_VALUE=!DATABASE_NAME!
-		if not "!SCHEMA_NAME!" == " " (
-			set JAVA_SYSTEM_PROPERTY_VALUE=!JAVA_SYSTEM_PROPERTY_VALUE!.!SCHEMA_NAME!
-		)
-	) else (
-		if not "!SCHEMA_NAME!" == " " (
-			set JAVA_SYSTEM_PROPERTY_VALUE=!SCHEMA_NAME!
-		)
-	)
-	if not "!JAVA_SYSTEM_PROPERTY_VALUE!" == "" (
-		set JAVA_SYSTEM_PROPERTIES_STRING=!JAVA_SYSTEM_PROPERTIES_STRING! -D!LOGICAL_SCHEMA_NAME!=!JAVA_SYSTEM_PROPERTY_VALUE!
-	)
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateFitNesseSysPropsString.bat" /p "%TEMPSYSPROPFILE%"
+if ERRORLEVEL 1 (
+	echo %EM% creating Java system properties file ^<%TEMPSYSPROPFILE%^> 1>&2
+	goto ExitFail
 )
 
-if not EXIST "%ODI_SCM_TOOLS_FITNESSE_HOME%\startFitnesse.bat" (
-	echo %EM% cannot find FitNesse startup script ^<startFitnesse.bat^> in FitNesse home directory ^<%ODI_SCM_TOOLS_FITNESSE_HOME%^> 1>&2
+if not EXIST "%TEMPSYSPROPFILE%" (
+	echo %EM% missing Java system property file ^<%TEMPSYSPROPFILE%^> 1>&2
 	goto ExitFail
+)
+
+setlocal enabledelayedexpansion
+for /f "tokens=* delims=¬" %%g in (%TEMPSYSPROPFILE%) do (
+		set JAVA_SYSTEM_PROPERTIES_STRING=%%g
 )
 
 set TEMPFILE=%TEMPDIR%\%PROC%_startFitNesse.bat
-echo cd /d %ODI_SCM_TOOLS_FITNESSE_HOME%> "%TEMPFILE%"
+echo cd /d %ODI_SCM_TOOLS_FITNESSE_HOME:/=\%> "%TEMPFILE%"
+
 
 for /f "tokens=* delims=¬" %%g in (%ODI_SCM_TOOLS_FITNESSE_HOME%\startFitnesse.bat) do (
 	set INLINE=%%g

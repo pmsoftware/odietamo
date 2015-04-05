@@ -18,6 +18,12 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
+if ERRORLEVEL 1 (
+	echo %EM% creating working directory ^<%TEMPDIR%^> 1>&2
+	goto ExitFail
+)
+
 if "%ARGV1%" == "" (
 	echo %EM% missing FitNesse test path argument 1>&2
 	call :ShowUsage
@@ -33,28 +39,31 @@ if "%ARGV2%" == "" (
 if not "%ARGV3%" == "" (
 	set OUTDIR=%ARGV3%
 ) else (
-	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
-	if ERRORLEVEL 1 (
-		echo %EM% creating temporary working directory
-		goto ExitFail
-	)
 	set OUTDIR=%TEMPDIR%
+)
+
+set TEMPSYSPROPFILE=%TEMPDIR%\%PROC%_JavaSystemProperties.txt
+set JAVA_SYSTEM_PROPERTIES_STRING=
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateFitNesseSysPropsString.bat" /p "%TEMPSYSPROPFILE%"
+if ERRORLEVEL 1 (
+	echo %EM% creating Java system properties file ^<%TEMPSYSPROPFILE%^> 1>&2
+	goto ExitFail
+)
+
+if not EXIST "%TEMPSYSPROPFILE%" (
+	echo %EM% missing Java system property file ^<%TEMPSYSPROPFILE%^> 1>&2
+	goto ExitFail
+)
+
+setlocal enabledelayedexpansion
+for /f "tokens=* delims=¬" %%g in (%TEMPSYSPROPFILE%) do (
+		set JAVA_SYSTEM_PROPERTIES_STRING=%%g
 )
 
 set FITNESSEHOMEDIR=%ODI_SCM_TOOLS_FITNESSE_HOME:/=\%
 
-rem set TEMPFILE=%TEMPDIR%\fitnesse_jars.txt
-
-rem dir /b "%ODI_SCM_TOOLS_FITNESSE_HOME%\lib\fitnesse-*.jar" > "%TEMPFILE%"
-rem if ERRORLEVEL 1 (
-	rem echo %EM% cannot find Fitnesse JAR file in Fitnesse lib directory ^<%ODI_SCM_TOOLS_FITNESSE_HOME%\lib^> 1>&2
-	rem goto ExitFail
-rem )
-
-rem set /p ODI_SCM_FITNESSE_JAR_FILE=<"%TEMPFILE%"
-
-set FITNESSECMD="%ODI_SCM_TOOLS_FITNESSE_JAVA_HOME%\bin\java.exe" -cp "%ODI_SCM_TOOLS_FITNESSE_HOME%\lib\*"
-rem set FITNESSECMD=%FITNESSECMD% -jar "%ODI_SCM_TOOLS_FITNESSE_HOME%\lib\%ODI_SCM_FITNESSE_JAR_FILE%"
+set FITNESSECMD="%ODI_SCM_TOOLS_FITNESSE_JAVA_HOME%\bin\java.exe" %JAVA_SYSTEM_PROPERTIES_STRING% -cp "%ODI_SCM_TOOLS_FITNESSE_HOME%\lib\*"
 set FITNESSECMD=%FITNESSECMD% %ODI_SCM_TOOLS_FITNESSE_CLASS_NAME%
 set FITNESSECMD=%FITNESSECMD% -d "%ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT%" -r "%ODI_SCM_TEST_FITNESSE_ROOT_PAGE_NAME%"
 set FITNESSECMD=%FITNESSECMD% -p %ODI_SCM_TEST_FITNESSE_PORT%
