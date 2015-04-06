@@ -28,7 +28,6 @@ set ODI_SCM_TOOLS_ORACLE_HOME=<OracleHomeDir>
 set ODI_SCM_TOOLS_FITNESSE_JAVA_HOME=<OdiScmFitNesseJavaHomeDir>
 set ODI_SCM_TOOLS_FITNESSE_HOME=<OdiScmFitNesseHomeDir>
 set ODI_SCM_TEST_FITNESSE_OUTPUT_FORMAT=<OdiScmFitNesseOutputFormat>
-set ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT=<OdiScmFitNesseRootPageRoot>
 set ODI_SCM_TEST_FITNESSE_ROOT_PAGE_NAME=<OdiScmFitNesseRootPageName>
 set ODI_SCM_TEST_FITNESSE_UNIT_TEST_ROOT_PAGE_NAME=<OdiScmFitNesseUnitTestPageName>
 
@@ -168,7 +167,7 @@ if not "<OdiStandardsCheckScript>" == "" (
 rem
 rem Generate the unit test execution script.
 rem
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmHomeDir>\Configuration\Scripts\OdiScmGenerateUnitTestExecs.bat" /p "<OdiScmUnitTestExecBat>" "<OdiScmGenerateBuildTestScope>"
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "<OdiScmHomeDir>\Configuration\Scripts\OdiScmGenerateUnitTestExecs.bat" /p "<OdiScmUnitTestExecBat>" "<OdiScmGenerateBuildTestScope>" "<OdiScmGenerateODIScenarioUnitTestExecutionType>"
 if ERRORLEVEL 1 (
 	echo %EM% generating unit test execution script ^<OdiScmUnitTestExecBat^>
 	goto MainExitFail

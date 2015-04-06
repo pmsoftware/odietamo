@@ -3576,7 +3576,7 @@ function SetOdiScmPostImportBatContent {
 #
 # Generate a batch file to execute the ODI object unit tests.
 #
-function GenerateUnitTestExecScript($strOutputFile, $strIncrementalOrFull) {
+function GenerateUnitTestExecScript($strOutputFile, $strIncrementalOrFull, $strIndividualOrSuite) {
 	
 	$FN = "GenerateUnitTestExecScript"
 	$IM = $FN + ": INFO:"
@@ -3595,6 +3595,21 @@ function GenerateUnitTestExecScript($strOutputFile, $strIncrementalOrFull) {
 		return $False
 	}
 	
+	$strTestsOrSuite = $strIndividualOrSuite.ToLower()
+	
+	if (!(($strTestsOrSuite -eq "individual") -or ($strTestsOrSuite -eq "suite"))) {
+		write-host "$EM invalid test generation type <$strTestsOrSuite> specified"
+		write-host "$EM generation type must be <individual> or <suite>"
+		return $False
+	}
+	
+	if (($strGenType -eq "incremental") -and ($strTestsOrSuite -eq "suite")) {
+		write-host "$EM invalid parameter argument combination:"
+		write-host "$EM incremental test execution can be specified only with individual ODI scenario"
+		write-host "$EM test execution, not suite-level execution"
+		return $False
+	}
+	
 	if (!($OdiScmOutputNamesSet)) {
 		if (!(SetOutputNames)) {
 			write-host "$EM setting output file system object names"
@@ -3602,43 +3617,45 @@ function GenerateUnitTestExecScript($strOutputFile, $strIncrementalOrFull) {
 		}
 	}
 	
-	$strGenerateUnitTestExecScriptContent = get-content "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmGenerateUnitTestExecs.sql"
-	if (!($?)) {
-		write-host "$EM getting content of script file <$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmGenerateUnitTestExecs.sql>"
-		return $False
-	}
-	
-	#
-	# Replace tokens in the script template and create a new script file.
-	#
-	$strFilterText  = "AND o.last_date >" + [Environment]::NewLine
-	$strFilterText += "              (" + [Environment]::NewLine
-	$strFilterText += "              SELECT import_start_datetime" + [Environment]::NewLine
-	$strFilterText += "                FROM odiscm_controls" + [Environment]::NewLine
-	$strFilterText += "              )"
-	
-	if ($strGenType -eq "incremental") {
-		$strGenerateUnitTestExecScriptContent = $strGenerateUnitTestExecScriptContent -replace "<OdiScmModifiedObjectsOnlyFilterText>", $strFilterText
-	}
-	else {
-		$strGenerateUnitTestExecScriptContent = $strGenerateUnitTestExecScriptContent -replace "<OdiScmModifiedObjectsOnlyFilterText>", ""
-	}
-	$strGenerateUnitTestExecScriptContent = $strGenerateUnitTestExecScriptContent -replace "<OdiScmScenarioSourceMarkers>", "$env:ODI_SCM_GENERATE_SCENARIO_SOURCE_MARKERS"
-	
-	$strTempScriptFile = "$env:TEMPDIR\OdiScmGenerateUnitTestExecsExpanded.sql"
-	set-content -path $strTempScriptFile -value $strGenerateUnitTestExecScriptContent
-	if (!($?)) {
-		write-host "$EM setting content of script file <$strTempScriptFile>"
-		return $False
-	}
-	
-	#
-	# Generate the list of FitNesse command line calls.
-	#
-	$CmdOutput = ExecOdiRepositorySql "$strTempScriptFile" "$env:TEMPDIR" "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmJisqlRepo.bat"
-	if (! $CmdOutput) {
-		write-host "$EM error generating ODI unit test execution calls list"
-		return $ExitStatus
+	if ($strTestsOrSuite -eq "individual") {
+		$strGenerateUnitTestExecScriptContent = get-content "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmGenerateUnitTestExecs.sql"
+		if (!($?)) {
+			write-host "$EM getting content of script file <$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmGenerateUnitTestExecs.sql>"
+			return $False
+		}
+		
+		if ($strGenType -eq "incremental") {
+			#
+			# Replace tokens in the script template and create a new script file.
+			#
+			$strFilterText  = "AND o.last_date >" + [Environment]::NewLine
+			$strFilterText += "              (" + [Environment]::NewLine
+			$strFilterText += "              SELECT import_start_datetime" + [Environment]::NewLine
+			$strFilterText += "                FROM odiscm_controls" + [Environment]::NewLine
+			$strFilterText += "              )"
+		
+			$strGenerateUnitTestExecScriptContent = $strGenerateUnitTestExecScriptContent -replace "<OdiScmModifiedObjectsOnlyFilterText>", $strFilterText
+		}
+		else {
+			$strGenerateUnitTestExecScriptContent = $strGenerateUnitTestExecScriptContent -replace "<OdiScmModifiedObjectsOnlyFilterText>", ""
+		}
+		$strGenerateUnitTestExecScriptContent = $strGenerateUnitTestExecScriptContent -replace "<OdiScmScenarioSourceMarkers>", "$env:ODI_SCM_GENERATE_SCENARIO_SOURCE_MARKERS"
+		
+		$strTempScriptFile = "$env:TEMPDIR\OdiScmGenerateUnitTestExecsExpanded.sql"
+		set-content -path $strTempScriptFile -value $strGenerateUnitTestExecScriptContent
+		if (!($?)) {
+			write-host "$EM setting content of script file <$strTempScriptFile>"
+			return $False
+		}
+		
+		#
+		# Generate the list of FitNesse command line calls.
+		#
+		$CmdOutput = ExecOdiRepositorySql "$strTempScriptFile" "$env:TEMPDIR" "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmJisqlRepo.bat"
+		if (! $CmdOutput) {
+			write-host "$EM error generating ODI unit test execution calls list"
+			return $ExitStatus
+		}
 	}
 	
 	#
@@ -3675,70 +3692,140 @@ function GenerateUnitTestExecScript($strOutputFile, $strIncrementalOrFull) {
 	$arrOutFileLines += ')'
 	$arrOutFileLines += ''
 	$arrOutFileLines += 'set TOTALTESTPAGES=0'
+	$arrOutFileLines += 'set TOTALTESTSUITES=0'
 	$arrOutFileLines += 'set TOTALTESTFAILURES=0'
 	$arrOutFileLines += 'set TOTALTESTPAGEPASSES=0'
+	$arrOutFileLines += 'set TOTALTESTSUITEPASSES=0'
 	$arrOutFileLines += 'set TOTALTESTPAGEFAILURES=0'
+	$arrOutFileLines += 'set TOTALTESTSUITEFAILURES=0'
 	$arrOutFileLines += 'set TOTALTESTPAGESMISSING=0'
+	$arrOutFileLines += 'set TOTALTESTSUITESMISSING=0'
 	$arrOutFileLines += 'setlocal enabledelayedexpansion'
 	$arrOutFileLines += ''
 	
-	$arrCmdOutput = ($CmdOutput -replace "ExecOdiRepositorySql:", "").split("`n")
-	
-	foreach ($CmdOutputLine in $arrCmdOutput) {
+	if ($strTestsOrSuite -eq "individual") {
+		#
+		# Build the calls to each ODI object, marked as having a scenario, unit test.
+		#
+		$arrCmdOutput = ($CmdOutput -replace "ExecOdiRepositorySql:", "").split("`n")
 		
-		$strNoCR = $CmdOutputLine -replace "`r", ""
-		$strNoCR = $strNoCR -replace "`n", ""
-		$strNoCR = $strNoCR.Trim()
-		$arrOutputLineParts = $strNoCR.split("/")
-		$strOdiObj = "Type:" + $arrOutputLineParts[1] + '/ID:' + $arrOutputLineParts[2] + '/Name:' + $arrOutputLineParts[3]
-		$arrOutFileLines += ('echo %IM% executing unit tests for ODI object ^<' + $strOdiObj + '^>')
-		$arrOutFileLines += 'set /a TOTALTESTPAGES=%TOTALTESTPAGES% + 1'
+		foreach ($CmdOutputLine in $arrCmdOutput) {
+			
+			$strNoCR = $CmdOutputLine -replace "`r", ""
+			$strNoCR = $strNoCR -replace "`n", ""
+			$strNoCR = $strNoCR.Trim()
+			$arrOutputLineParts = $strNoCR.split("/")
+			$strOdiObj = "Type:" + $arrOutputLineParts[1] + '/ID:' + $arrOutputLineParts[2] + '/Name:' + $arrOutputLineParts[3]
+			$arrOutFileLines += ('echo %IM% executing unit tests for ODI object ^<' + $strOdiObj + '^>')
+			$arrOutFileLines += 'set /a TOTALTESTPAGES=%TOTALTESTPAGES% + 1'
+			
+			$strFitNesseCmd  = 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat"'
+			$strFitNesseCmd += ' ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecFitNesseCmd.bat^" /p '
+			
+			$strTestPagePath = ""
+			
+			if ($env:ODI_SCM_TEST_FITNESSE_UNIT_TEST_ROOT_PAGE_NAME -ne "") {
+				$strTestPagePath += ($env:ODI_SCM_TEST_FITNESSE_UNIT_TEST_ROOT_PAGE_NAME + '.')
+			}
+			
+			if (($arrOutputLineParts[0] -ne "") -and ($arrOutputLineParts[0] -ne $Null)) {
+				$strTestPagePath += ('OdiProject' + $arrOutputLineParts[0] + '.')
+			}
+			
+			$strTestPagePath += ('Odi' + $arrOutputLineParts[1] + $arrOutputLineParts[2])
+			$strFitNesseCmd += ($strTestPagePath + " test " + $GenScriptRootDir + "\UnitTestResults")
+			
+			#
+			# Use the FitNesse root page directory override if specified, else the working copy root directory.
+			#
+			if ("$env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT" -ne "") {
+				$strTestPageFilePath = ($env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT).Replace("/","\")
+			}
+			else {
+				$strTestPageFilePath = ($env:ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT).Replace("/","\")
+			}
+			$strTestPageFilePath += "\" + ($env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_NAME).Replace(".","\") + "\" + $strTestPagePath.Replace(".","\")
+			
+			$arrOutFileLines += 'if not EXIST "' + $strTestPageFilePath + '\content.txt" ('
+			$arrOutFileLines += ('	echo %EM% cannot find FitNesse test content file ^<' + $strTestPageFilePath + '^> 1>&2')
+			$arrOutFileLines += '	set TESTFAILURES=0'
+			$arrOutFileLines += '	set /a TOTALTESTPAGESMISSING=!TOTALTESTPAGESMISSING! + 1'
+			$arrOutFileLines += ') else ('
+			$arrOutFileLines += ('	' + $strFitNesseCmd)
+			$arrOutFileLines += '	set TESTFAILURES=!ERRORLEVEL!'
+			$arrOutFileLines += '	if not "!TESTFAILURES!" == "0" ('
+			$arrOutFileLines += '		echo %EM% tests failed 1>&2'
+			$arrOutFileLines += '		set /a TOTALTESTFAILURES=!TOTALTESTFAILURES! + !TESTFAILURES!'
+			$arrOutFileLines += '		set /a TOTALTESTPAGEFAILURES=!TOTALTESTPAGEFAILURES! + 1'
+			$arrOutFileLines += '	) else ('
+			$arrOutFileLines += '		echo %IM% tests passed'
+			$arrOutFileLines += '		set /a TOTALTESTPAGEPASSES=!TOTALTESTPAGEPASSES! + 1'
+			$arrOutFileLines += '	)'
+			$arrOutFileLines += ')'
+			$arrOutFileLines += 'set /a TOTALTESTFAILURES=!TOTALTESTFAILURES! + !TESTFAILURES!'
+			$arrOutFileLines += ''
+		}
+	}
+	else {
+		#
+		# Build the call to the test suite.
+		#
+		$arrOutFileLines += ('echo %IM% executing unit test suite')
+		$arrOutFileLines += 'set /a TOTALTESTSUITES=%TOTALTESTSUITES% + 1'
 		
 		$strFitNesseCmd  = 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat"'
-		$strFitNesseCmd += ' ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecFitNesseCmd.bat^" /p '
+		$strFitNesseCmd += ' "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecFitNesseCmd.bat" /p '
 		
 		$strTestPagePath = ""
 		
 		if ($env:ODI_SCM_TEST_FITNESSE_UNIT_TEST_ROOT_PAGE_NAME -ne "") {
-			$strTestPagePath += ($env:ODI_SCM_TEST_FITNESSE_UNIT_TEST_ROOT_PAGE_NAME + '.')
+			$strTestPagePath += ($env:ODI_SCM_TEST_FITNESSE_UNIT_TEST_ROOT_PAGE_NAME)
 		}
 		
-		if (($arrOutputLineParts[0] -ne "") -and ($arrOutputLineParts[0] -ne $Null)) {
-			$strTestPagePath += ('OdiProject' + $arrOutputLineParts[0] + '.')
+		$strFitNesseCmd += ($strTestPagePath + " suite " + $GenScriptRootDir + "\UnitTestResults")
+		
+		#
+		# Use the FitNesse root page directory override if specified, else the working copy root directory.
+		#
+		if ("$env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT" -ne "") {
+			$strTestPageFilePath = ($env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT).Replace("/","\")
 		}
+		else {
+			$strTestPageFilePath = ($env:ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT).Replace("/","\")
+		}
+		$strTestPageFilePath += "\" + ($env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_NAME).Replace(".","\") + "\" + $strTestPagePath.Replace(".","\")
 		
-		$strTestPagePath += ('Odi' + $arrOutputLineParts[1] + $arrOutputLineParts[2])
-		$strFitNesseCmd += ($strTestPagePath + " test " + $GenScriptRootDir + "\UnitTestResults")
-		
-		$strTestPageFilePath = ($env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT).Replace("/","\") + "\" + ($env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_NAME).Replace(".","\") + "\" + $strTestPagePath.Replace(".","\")
-
 		$arrOutFileLines += 'if not EXIST "' + $strTestPageFilePath + '\content.txt" ('
 		$arrOutFileLines += ('	echo %EM% cannot find FitNesse test content file ^<' + $strTestPageFilePath + '^> 1>&2')
 		$arrOutFileLines += '	set TESTFAILURES=0'
-		$arrOutFileLines += '	set /a TOTALTESTPAGESMISSING=!TOTALTESTPAGESMISSING! + 1'
+		$arrOutFileLines += '	set /a TOTALTESTSUITESMISSING=!TOTALTESTSUITESMISSING! + 1'
 		$arrOutFileLines += ') else ('
 		$arrOutFileLines += ('	' + $strFitNesseCmd)
 		$arrOutFileLines += '	set TESTFAILURES=!ERRORLEVEL!'
 		$arrOutFileLines += '	if not "!TESTFAILURES!" == "0" ('
 		$arrOutFileLines += '		echo %EM% tests failed 1>&2'
 		$arrOutFileLines += '		set /a TOTALTESTFAILURES=!TOTALTESTFAILURES! + !TESTFAILURES!'
-		$arrOutFileLines += '		set /a TOTALTESTPAGEFAILURES=!TOTALTESTPAGEFAILURES! + 1'
+		$arrOutFileLines += '		set /a TOTALTESTSUITEFAILURES=!TOTALTESTSUITEFAILURES! + 1'
 		$arrOutFileLines += '	) else ('
 		$arrOutFileLines += '		echo %IM% tests passed'
-		$arrOutFileLines += '		set /a TOTALTESTPAGEPASSES=!TOTALTESTPAGEPASSES! + 1'
+		$arrOutFileLines += '		set /a TOTALTESTSUITEPASSES=!TOTALTESTSUITEPASSES! + 1'
 		$arrOutFileLines += '	)'
 		$arrOutFileLines += ')'
 		$arrOutFileLines += 'set /a TOTALTESTFAILURES=!TOTALTESTFAILURES! + !TESTFAILURES!'
-		$arrOutFileLines += ''
+		$arrOutFileLines += ''		
 	}
 	
 	$arrOutFileLines += 'echo %IM% total test pages attempted ^<%TOTALTESTPAGES%^>'
 	$arrOutFileLines += 'echo %IM% total test page failures ^<%TOTALTESTPAGEFAILURES%^>'
 	$arrOutFileLines += 'echo %IM% total test page passes ^<%TOTALTESTPAGEPASSES%^>'
 	$arrOutFileLines += 'echo %IM% total test pages missing ^<%TOTALTESTPAGESMISSING%^>'
+	$arrOutFileLines += 'echo %IM% total test suites attempted ^<%TOTALTESTSUITES%^>'
+	$arrOutFileLines += 'echo %IM% total test suites failures ^<%TOTALTESTSUITEFAILURES%^>'
+	$arrOutFileLines += 'echo %IM% total test suites passes ^<%TOTALTESTSUITEPASSES%^>'
+	$arrOutFileLines += 'echo %IM% total test suites missing ^<%TOTALTESTSUITESMISSING%^>'
 	$arrOutFileLines += 'echo %IM% total test failures ^<%TOTALTESTFAILURES%^>'
 	$arrOutFileLines += ''
-	$arrOutFileLines += 'set /a TOTALFAILURES=%TOTALTESTFAILURES% + %TOTALTESTPAGESMISSING%'
+	$arrOutFileLines += 'set /a TOTALFAILURES=%TOTALTESTFAILURES% + %TOTALTESTPAGESMISSING% + %TOTALTESTSUITESMISSING%'
 	$arrOutFileLines += ''
 	$arrOutFileLines += 'echo %IM% total failures ^<%TOTALFAILURES%^>'
 	$arrOutFileLines += ''
@@ -3809,10 +3896,10 @@ function SetTopLevelScriptContent ($NextImportChangeSetRange) {
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmGenerateImportResetsFlushControl>", $OdiScmConfig["Generate"]["Import Resets Flush Control"])
 	
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmGenerateBuildTestScope>", $env:ODI_SCM_GENERATE_BUILD_TEST_SCOPE)
+	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmGenerateODIScenarioUnitTestExecutionType>", $env:ODI_SCM_GENERATE_ODI_SCENARIO_UNIT_TEST_EXECUTION_TYPE)
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmFitNesseJavaHomeDir>", $env:ODI_SCM_TOOLS_FITNESSE_JAVA_HOME)
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmFitNesseHomeDir>", $env:ODI_SCM_TOOLS_FITNESSE_HOME)
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmFitNesseOutputFormat>", $env:ODI_SCM_TEST_FITNESSE_OUTPUT_FORMAT)
-	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmFitNesseRootPageRoot>", $env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT)
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmFitNesseRootPageName>", $env:ODI_SCM_TEST_FITNESSE_ROOT_PAGE_NAME)
 	$ScriptFileContent = $ScriptFileContent.Replace("<OdiScmFitNesseUnitTestPageName>", $env:ODI_SCM_TEST_FITNESSE_UNIT_TEST_ROOT_PAGE_NAME)
 	
