@@ -265,6 +265,8 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+echo SO DID 6100.SnpObjState get into demo repo 1???
+pause
 rem
 rem Re-align the internal ID tracking metadata as we're importing objects into this repository that were originally created in a repository
 rem with this same internal ID - in this script we're recreating what the user would have done.
