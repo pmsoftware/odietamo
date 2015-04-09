@@ -51,7 +51,7 @@ if ERRORLEVEL 1 (
 )
 
 set STARTCMDBAT=%TEMPDIR%\%PROC%_StartCmd.bat
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat^" /p %STARTCMDBAT%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.bat" /p %STARTCMDBAT%
 if ERRORLEVEL 1 (
 	echo %EM% creating StartCmd batch script file ^<%STARTCMDBAT%^> 1>&2
 	goto ExitFail
@@ -75,8 +75,7 @@ for /l %%n in (%ODIFIRSTVAR%, 1, %ARGC%) do (
 )
 
 set ODIVARVALS=%OUTSTRING%
-
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%STARTCMDBAT%" OdiStartScen "-SCEN_NAME=%ARGV1%" "-SCEN_VERSION=-1" "-CONTEXT=%EXECONTEXT%" %ODIVARVALS%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%STARTCMDBAT%" OdiStartScen "-SCEN_NAME=%ARGV1%" "-SCEN_VERSION=%SCENVER%" "-CONTEXT=%EXECONTEXT%" %ODIVARVALS%
 if ERRORLEVEL 1 (
 	echo %EM% executing ODI Scenario ^<%ARGV1%^> in context ^<%EXECONTEXT%^> 1>&2
 	goto ExitFail
