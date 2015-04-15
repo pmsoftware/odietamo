@@ -495,8 +495,26 @@ function TearDownSqlServerSchema ($strUserName, $strUserPassword, $strJdbcUrl, $
 	#
 	# Specify the database in the JDBC URL.
 	#
+	$strConnStart = ""
+	$strRest = ""
+	
 	if (($strJdbcUrl.ToLower().contains("database=")) -or ($strJdbcUrl.ToLower().contains("databasename="))) {
-		$strFullUrl = $strJdbcUrl
+		if ($strJdbcUrl.ToLower().contains("database=")) {
+			$strDatabaseNameAttr = "database="
+		}
+		else {
+			$strDatabaseNameAttr = "databasename="
+		}
+		$intDatabaseNameAttrStart = $strJdbcUrl.ToLower().IndexOf("${strDatabaseNameAttr}")
+		$strRest = $strJdbcUrl.Substring($intDatabaseNameAttrStart)
+		$intNextAttrStart = $strRest.IndexOf(";")
+		if ($intNextAttrStart > 0)  {
+			$strRest = $strRest.Substring($intNextAttrStart)
+		}
+		else {
+			$strRest = ""
+		}
+		$strFullUrl = $strJdbcUrl.Substring(0, $intDatabaseNameAttrStart) + "databaseName=" + $strDatabaseName + $strRest
 	}
 	else {
 		$strFullUrl = $strJdbcUrl + ";databaseName=" + $strDatabaseName
@@ -822,7 +840,7 @@ function ExecSqlScript ($strUserName, $strUserPassword, $strJdbcDriver, $strJdbc
 	#
 	$strCmdStdOut = & $strCmdLineCmd /p $strCmdLineArgs 2>&1
 	if ((!($?)) -or ($LastExitCode -ne 0)) {
-		write-host "$EM executing command line <$strCmdLineCmd>"
+		write-host "$EM executing command line <$strCmdLineCmd /p $strCmdLineArgs 2>&1>"
 		write-host "$EM start of command output <"
 		write-host $strCmdStdOut
 		write-host "$EM > end of command output"
@@ -841,7 +859,7 @@ function ExecSqlScript ($strUserName, $strUserPassword, $strJdbcDriver, $strJdbc
 	#
 	$strCmdStdOut = & $strCmdLineCmd /p $strCmdLineArgs 2>&1
 	if ((!($?)) -or ($LastExitCode -ne 0)) {
-		write-host "$EM executing command line <$strCmdLineCmd>"
+		write-host "$EM executing command line <$strCmdLineCmd /p $strCmdLineArgs 2>&1"
 		write-host "$EM start of command output <"
 		write-host $strCmdStdOut
 		write-host "$EM > end of command output"
