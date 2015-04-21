@@ -186,10 +186,15 @@ $ScriptFileContent += 'grep -v "\[WARN \]\[osal   \]" "' + $strStdErrFile + '" >
 # ODI writes info messages about SqlUnload starting/finishing to stderr. Grrrrrrr. Ignore them.
 #
 $ScriptFileContent += 'grep -v "NOTIFICATION ODI-.*: SqlUnload" "' + "${strStdErrNoWarnsFile}.1" + '" > "' + "${strStdErrNoWarnsFile}.2" + '"' + [Environment]::NewLine
-$ScriptFileContent += 'fc "' + $strEmptyFile + '" "' + "${strStdErrNoWarnsFile}.2" + '" >NUL' + [Environment]::NewLine
+#
+# ODI writes Jython info messages about processing new JARs to stderr. Grrrrrrr. Ignore them.
+#
+$ScriptFileContent += 'grep -v "\*sys-package-mgr\*: processing modified jar" "' + "${strStdErrNoWarnsFile}.2" + '" > "' + "${strStdErrNoWarnsFile}.3" + '"' + [Environment]::NewLine
+
+$ScriptFileContent += 'fc "' + $strEmptyFile + '" "' + "${strStdErrNoWarnsFile}.3" + '" >NUL' + [Environment]::NewLine
 $ScriptFileContent += "if ERRORLEVEL 1 (" + [Environment]::NewLine
 $ScriptFileContent += "	echo %EM% calling OracleDI command. StdErr text ^<" + [Environment]::NewLine
-$ScriptFileContent += '	type "' + $strStdErrFile + '"' + [Environment]::NewLine
+$ScriptFileContent += '	type "' + "${strStdErrNoWarnsFile}.3" + '"' + [Environment]::NewLine
 $ScriptFileContent += "	echo ^>" + [Environment]::NewLine
 $ScriptFileContent += "	goto ExitFail" + [Environment]::NewLine
 $ScriptFileContent += ")" + [Environment]::NewLine
