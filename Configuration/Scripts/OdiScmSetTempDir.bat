@@ -34,7 +34,7 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-set TEMPDIR=%TEMPDIR%\OdiScm_%YYYYMMDD%_%HHMMSSFF%
+set TEMPDIR=%TEMPDIR%\OdiScm_%YYYYMMDD%_%HHMMSSFF%_%RANDOM%
 
 :CheckDirExists
 if EXIST "%TEMPDIR%" (
