@@ -884,6 +884,14 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport, $blnConsolidat
 								$strObjFullID = $strFileRec.Replace('<Field name="' + $strClassIDName + '" type="com.sunopsis.sql.DbInt"><![CDATA[',"")
 								$strObjFullID = $strObjFullID.Replace(']]></Field>',"").Trim()
 								$strObjFullLen = $strObjFullID.Length
+								if ($strObjFullID.Length -lt 4) {
+									write-host "$EM found strObjFullID <$strObjFullID> with length less than 4 characters"
+									write-host "$EM file <$strFileToImport>"
+									write-host "$EM record <$strFileRec>"
+									write-host "$EM class name <$strClassName>"
+									write-host "$EM ID attribute name <$strClassIDName>"
+									return $False
+								}
 								$strObjID = $strObjFullID.Substring(0, ($strObjFullLen - 3))
 								$strObjID = [int]::Parse($strObjID)
 								$strObjRepoID = $strObjFullID.Substring(($strObjFullLen - 3), 3)
@@ -942,6 +950,14 @@ function GenerateOdiSrcObjIdScript ([array] $arrStrFilesToImport, $blnConsolidat
 									$strObjFullID = $strFileRec.Replace('<Field name="' + $strClassIDName + '" type="com.sunopsis.sql.DbInt"><![CDATA[',"")
 									$strObjFullID = $strObjFullID.Replace(']]></Field>',"").Trim()
 									$strObjFullLen = $strObjFullID.Length
+									if ($strObjFullID.Length -lt 4) {
+										write-host "$EM found strObjFullID <$strObjFullID> with length less than 4 characters"
+										write-host "$EM file <$strFileToImport>"
+										write-host "$EM record <$strFileRec>"
+										write-host "$EM class name <$strClassName>"
+										write-host "$EM ID attribute name <$strClassIDName>"
+										return $False
+									}
 									$strObjID = $strObjFullID.Substring(0, ($strObjFullLen - 3))
 									$strObjID = [int]::Parse($strObjID)
 									$strObjRepoID = $strObjFullID.Substring(($strObjFullLen - 3), 3)
