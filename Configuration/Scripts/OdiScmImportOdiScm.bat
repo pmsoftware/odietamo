@@ -325,22 +325,26 @@ if ERRORLEVEL 1 (
 
 echo %IM% completed import of ODI-SCM work repository objects
 
-rem echo %IM% regenerating ODI-SCM ODI project scenarios
-rem if "%ODI_SCM_ODI_SCM_ORACLEDI_VERSION_MAJOR%" == "10." (
-rem 	rem set ODI_SCM_PROJECT=1998
-rem 	set ODI_SCM_PROJECT=OS
-rem ) else (
-rem 	set ODI_SCM_PROJECT=OS
-rem )
+echo %IM% regenerating ODI-SCM ODI project scenarios
+if not "%ODI_SCM_ODI_SCM_ORACLEDI_VERSION_MAJOR%" == "10." (
+	set ODI_SCM_PROJECT=OS
+) else (
+	set ODI_SCM_PROJECT=1998
+)
 
 rem 
-rem Don't regenerate the Scenarios - an ODI bug is preventing correct generation or regeneration, whereby the Scenario has no variables treated as 'startup paramaters'.
+rem Don't regenerate the Scenarios in ODI 10g - an ODI bug is preventing correct generation or regeneration, whereby the Scenario has no variables treated as 'startup paramaters'.
+rem
+rem ODI 11g complains when specifying a project internal ID of "1998" (ODI-SCM) but accepts the project code "OS" in the following call but gladly accepts the internal ID when
+rem used in conjunction with the folder ID and/or the marker group and/or source object type.
 rem 
-rem call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%^" OdiGenerateAllScen -PROJECT=%ODI_SCM_PROJECT% -MODE=REPLACE -GENERATE_PACK=YES -GENERATE_POP=NO -GENERATE_TRT=YES -GENERATE_VAR=NO
-rem if ERRORLEVEL 1 (
-rem 	echo %EM% regenerating ODI-SCM ODI project scenarios
-rem 	goto ExitFail
-rem )
+if not "%ODI_SCM_ODI_SCM_ORACLEDI_VERSION_MAJOR%" == "10." (
+	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%TEMPSTARTCMD%^" OdiGenerateAllScen -PROJECT=%ODI_SCM_PROJECT% -MODE=REPLACE -GENERATE_PACK=YES -GENERATE_POP=NO -GENERATE_TRT=YES -GENERATE_VAR=NO
+	if ERRORLEVEL 1 (
+		echo %EM% regenerating ODI-SCM ODI project scenarios
+		goto ExitFail
+	)
+)
 
 if %PRIMEMETADATA% == LAST (
 	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmPrimeRepoFlush.bat^" /p both
