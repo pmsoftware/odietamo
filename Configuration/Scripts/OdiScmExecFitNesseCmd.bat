@@ -116,8 +116,14 @@ if ERRORLEVEL 1 (
 )
 
 rem
-rem Execute the FitNesse command.
+rem Execute the FitNesse command from the FitNesse home directory.
 rem
+cd "%FITNESSEHOMEDIR%"
+if ERRORLEVEL 1 (
+	echo %EM% cannot change working directory to FitNesse home directory ^<%FITNESSEHOMEDIR%^>
+	goto ExitFail
+)
+
 echo %IM% running command ^<%FITNESSECMD%^>
 %FITNESSECMD% >"%FITNESSEOUTPUTLOG%" 2>"%FITNESSEOUTPUTLOG%.stderr.txt" 
 set EXITSTATUS=%ERRORLEVEL%

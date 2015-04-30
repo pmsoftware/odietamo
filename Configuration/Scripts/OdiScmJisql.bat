@@ -109,7 +109,7 @@ set JISQL_LIB=%ODI_SCM_TOOLS_JISQL_HOME%\lib
 rem
 rem Replace end of statement markers where required.
 rem
-
+echo %IM% replacing standard ODI-SCM statement delimiter into temporary file ^<%TEMPSCRIPTFILE%^>
 set ODI_SCM_GENERATE_SQL_STATEMENT_DELIMITER_ESC=%ODI_SCM_GENERATE_SQL_STATEMENT_DELIMITER:/=\/%
 sed s/^<OdiScmGenerateSqlStatementDelimiter^>/%ODI_SCM_GENERATE_SQL_STATEMENT_DELIMITER_ESC%/g < "%ARGV5%" > "%TEMPSCRIPTFILE%"
 if ERRORLEVEL 1 (
