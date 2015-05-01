@@ -118,7 +118,7 @@ if ERRORLEVEL 1 (
 rem
 rem Execute the FitNesse command from the FitNesse home directory.
 rem
-cd "%FITNESSEHOMEDIR%"
+cd /d "%FITNESSEHOMEDIR%"
 if ERRORLEVEL 1 (
 	echo %EM% cannot change working directory to FitNesse home directory ^<%FITNESSEHOMEDIR%^>
 	goto ExitFail
