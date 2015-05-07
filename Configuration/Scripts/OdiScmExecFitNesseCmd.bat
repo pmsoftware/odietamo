@@ -65,14 +65,21 @@ set FITNESSEHOMEDIR=%ODI_SCM_TOOLS_FITNESSE_HOME:/=\%
 
 set FITNESSECMD="%ODI_SCM_TOOLS_FITNESSE_JAVA_HOME%\bin\java.exe" %JAVA_SYSTEM_PROPERTIES_STRING% -cp "%ODI_SCM_TOOLS_FITNESSE_HOME%\lib\*"
 set FITNESSECMD=%FITNESSECMD% %ODI_SCM_TOOLS_FITNESSE_CLASS_NAME%
+
 if "%ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT%" == "" (
 	set FITNESSECMD=%FITNESSECMD% -d "%ODI_SCM_SCM_SYSTEM_WORKING_COPY_CODE_ROOT%"
 ) else (
 	set FITNESSECMD=%FITNESSECMD% -d "%ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT%"
 )
+
 set FITNESSECMD=%FITNESSECMD% -r "%ODI_SCM_TEST_FITNESSE_ROOT_PAGE_NAME%"
 set FITNESSECMD=%FITNESSECMD% -p %ODI_SCM_TEST_FITNESSE_PORT%
 set FITNESSECMD=%FITNESSECMD% -c "%ARGV1%?%ARGV2%&format=%ODI_SCM_TEST_FITNESSE_OUTPUT_FORMAT%"
+
+rem
+rem Prevent (omit) FitNesse from updating FitNesseRoot content. E.g. newer documentation, etc.
+rem
+set FITNESSECMD=%FITNESSECMD% -o
 
 setlocal enabledelayedexpansion
 
@@ -116,6 +123,12 @@ if ERRORLEVEL 1 (
 )
 
 rem
+rem Set the correct JVM for FitNesse.
+rem
+set JAVA_HOME=%ODI_SCM_TOOLS_FITNESSE_JAVA_HOME%
+set PATH=%ODI_SCM_TOOLS_FITNESSE_JAVA_HOME%\bin;%PATH%
+
+rem
 rem Execute the FitNesse command from the FitNesse home directory.
 rem
 cd /d "%FITNESSEHOMEDIR%"
@@ -123,6 +136,8 @@ if ERRORLEVEL 1 (
 	echo %EM% cannot change working directory to FitNesse home directory ^<%FITNESSEHOMEDIR%^>
 	goto ExitFail
 )
+
+echo CWD is %CD%
 
 echo %IM% running command ^<%FITNESSECMD%^>
 %FITNESSECMD% >"%FITNESSEOUTPUTLOG%" 2>"%FITNESSEOUTPUTLOG%.stderr.txt" 
