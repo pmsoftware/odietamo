@@ -58,6 +58,12 @@ if "%ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT%" == "" (
 	set CMDLINE=%CMDLINE% -d "%ODI_SCM_TEST_FITNESSE_ROOT_PAGE_ROOT%"
 )
 set CMDLINE=%CMDLINE% -r "%ODI_SCM_TEST_FITNESSE_ROOT_PAGE_NAME%"
+
+rem
+rem Prevent (omit) FitNesse from updating FitNesseRoot content. E.g. newer documentation, etc.
+rem
+set CMDLINE=%CMDLINE% -o
+
 rem Be sure to retain the space before the redirection here so that the command interpreter doesn't try to redirect stdin!
 echo %CMDLINE% >> "%TEMPFILE%"
 
