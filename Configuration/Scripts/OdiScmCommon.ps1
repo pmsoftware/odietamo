@@ -643,6 +643,21 @@ function GenerateOdiImportScript ([array] $arrStrFilesToImport) {
 				}
 				
 				#
+				# Work around (yet another) bug in ODI (as of 11.1.1.7.0) where an SnpTrt can't be imported
+				# unless it has the file name prefix "TRT_".
+				#
+				if ($fileObjType -eq "SnpTrt") {
+					$ImportText += "echo %IM% creating renamed SnpTrt file for source file ^<$FileToImportName^>" + [Environment]::NewLine
+					if (!($FileToImportName.StartsWith("Consolidated"))) {
+						# Create the renamed file copy in the temp directory we created.
+						$FileToImportPathName = "%TEMPDIR%"
+					}
+					$FileToImportName = "TRT_" + $FileToImportName + ".xml"
+					$SourceFile = $FileToImportPathName + "\" + $FileToImportName
+					$ImportText += 'copy "' + $fileToImport + '" "' + $SourceFile + '" >NUL' + [Environment]::NewLine
+				}
+				
+				#
 				# Work around (yet another) bug in ODI (as of 11.1.1.7.0) where an SnpPackage can't be imported
 				# unless it has the file name prefix "PACK_".
 				#
