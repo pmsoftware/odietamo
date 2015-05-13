@@ -1,4 +1,4 @@
-$FN = "OdiScmGenStartCmd"
+$FN = "OdiScmGenRestartSess"
 $IM = $FN + ": INFO:"
 $EM = $FN + ": ERROR:"
 
@@ -10,8 +10,8 @@ $EM = $FN + ": ERROR:"
 #
 # Validate arguments.
 #
-if ($args.count -ne 1) {
-	write-output "$EM usage: $FN <output path and file name>"
+if ($args.count -ne 2) {
+	write-output "$EM usage: $FN <output path and file name> <startcmd | restartsession>"
 	exit 1
 }
 
@@ -20,17 +20,31 @@ if (($env:ODI_SCM_ORACLEDI_HOME -eq $Null) -or ($env:ODI_SCM_ORACLEDI_HOME -eq "
 	exit 1
 }
 
-$StartCmdBat = $env:ODI_SCM_ORACLEDI_HOME + "\bin\startcmd.bat"
+if ($args[1] -ne "startcmd" -and $args[1] -ne "restartsession") {
+	$strErrMsg = "$EM invalid output script type <" + $args[1] + ">"
+	write-output $strErrMsg
+	exit 1
+}
 
-if (!(test-path $StartCmdBat)) {
-	write-output "$EM ODI startcmd.bat batch script not found in ODI bin directory <$env:ODI_SCM_ORACLEDI_HOME\bin>"
+if ($args[1] -eq "startcmd") {
+	$SourceBatType = "StartCmd"
+	$SourceBat = $env:ODI_SCM_ORACLEDI_HOME + "\bin\startcmd.bat"
+}
+else {
+	$SourceBatType = "RestartSession"
+	$SourceBat = $env:ODI_SCM_ORACLEDI_HOME + "\bin\restartsession.bat"
+}
+
+if (!(test-path $SourceBat)) {
+	$strErrMsg = "$EM ODI batch script <" + $args[1] + ".bat> not found in ODI bin directory <$env:ODI_SCM_ORACLEDI_HOME\bin>"
+	write-output $strErrMsg
 	exit 1
 }
 
 $OdiParamsBat = $env:ODI_SCM_ORACLEDI_HOME + "\bin\odiparams.bat"
 
 if (!(test-path $OdiParamsBat)) {
-	write-output "$EM ODI odiparams.bat batch script not found in ODI bin directory <$env:ODI_SCM_ORACLEDI_HOME\bin>"
+	write-output "$EM ODI batch script <odiparams.bat> not found in ODI bin directory <$env:ODI_SCM_ORACLEDI_HOME\bin>"
 	exit 1
 }
 
@@ -73,18 +87,18 @@ $arrOdiParamsOutText += "REM OdiScm: end of Jython package cache priming inserti
 $arrOdiParamsOutText += "REM"
 
 #
-# Define the script text that calls odiparams.bat from startcmd.bat.
+# Define the script text that calls odiparams.bat from restartsession.bat.
 # We will replace the call with the actual odiparams.bat script text.
 #
-$StartCmdOdiParamsCallText = '^call \"%ODI_HOME%\\bin\\odiparams.bat.*$'
+$OdiParamsCallText = '^call \"%ODI_HOME%\\bin\\odiparams.bat.*$'
 
 #
-# Load startcmd.bat into an array.
+# Load restartsession.bat into an array.
 #
-$arrStartCmdContent = get-content $StartCmdBat
+$arrSourceBatContent = get-content $SourceBat
 
-$OutStartCmdScriptFileContent = $arrStartCmdContent | foreach {
-	if ($_ -match $StartCmdOdiParamsCallText) {
+$OutScriptFileContent = $arrSourceBatContent | foreach {
+	if ($_ -match $OdiParamsCallText) {
 		#
 		# Replace the call to odiparams.bat in the pipeline output.
 		#
@@ -103,7 +117,7 @@ $OutStartCmdScriptFileContent = $arrStartCmdContent | foreach {
 #
 # Expand variable values and complete SET statements.
 #
-$OutExpandedStartCmdScriptFileContent = OdiExpandedBatchScriptText $OutStartCmdScriptFileContent
+$OutExpandedScriptFileContent = OdiExpandedBatchScriptText $OutScriptFileContent
 
 #
 # Define output file names.
@@ -112,27 +126,27 @@ $OutWrapperBat = $args[0]
 $OutWrapperBatFile = split-path $OutWrapperBat -leaf
 $OutDir = split-path $OutWrapperBat -parent
 
-$OutStartCmdBatFile = $OutWrapperBatFile -replace ".bat$", ""
-$OutStartCmdBatFile += "_OdiScmStartCmd.bat"
-$OutStartCmdBat = $OutDir + "\" + $OutStartCmdBatFile
+$OutBatFile = $OutWrapperBatFile -replace ".bat$", ""
+$OutBatFile += "_OdiScm" + $strSourcBatType + ".bat"
+$OutBat = $OutDir + "\" + $OutBatFile
 
 #
-# Create the StartCmd script file.
+# Create the output script file.
 #
-set-content -path $OutStartCmdBat -value $OutExpandedStartCmdScriptFileContent
+set-content -path $OutBat -value $OutExpandedScriptFileContent
 if (!($?)) {
-	write-output "$EM writing StartCmd script file <$OutStartCmdBat>"
+	write-output "$EM writing output script file <$OutBat>"
 	exit 1
 }
 
 #
-# Create the wrapper script, used to capture and stderr from the startcmd script.
+# Create the wrapper script, used to capture stderr from the output script.
 #
-$strStdOutFile = $OutStartCmdBat + ".stdout"
-$strStdErrFile = $OutStartCmdBat + ".stderr"
-$strStdErrNoWarnsFile = $OutStartCmdBat + ".NoWarns.stderr"
-$strStdErrOnlyWarnsFile = $OutStartCmdBat + ".OnlyWarns.stderr"
-$strEmptyFile = $OutStartCmdBat + ".empty"
+$strStdOutFile = $OutBat + ".stdout"
+$strStdErrFile = $OutBat + ".stderr"
+$strStdErrNoWarnsFile = $OutBat + ".NoWarns.stderr"
+$strStdErrOnlyWarnsFile = $OutBat + ".OnlyWarns.stderr"
+$strEmptyFile = $OutBat + ".empty"
 
 $strProc = $OutWrapperBatFile.replace(".bat","")
 
@@ -149,8 +163,14 @@ $ScriptFileContent += "	echo %EM% creating empty file ^<" + $strEmptyFile + "^>"
 $ScriptFileContent += "	goto ExitFail" + [Environment]::NewLine
 $ScriptFileContent += ")" + [Environment]::NewLine
 
-$ScriptFileContent += "echo %IM% executing OracleDI command ^<%*^>" + [Environment]::NewLine
-$ScriptFileContent += 'call "' + $OutStartCmdBat + '" %*' 
+if ($strSourceBatType -eq "StartCmd") {
+	$ScriptFileContent += "echo %IM% executing OracleDI command ^<%*^>" + [Environment]::NewLine
+}
+else {
+	$ScriptFileContent += "echo %IM% restarting OracleDI session ^<%1^>" + [Environment]::NewLine
+}
+
+$ScriptFileContent += 'call "' + $OutBat + '" %1' 
 $ScriptFileContent += ' 1>"' + $strStdOutFile +'"'
 $ScriptFileContent += ' 2>"' + $strStdErrFile +'"'
 $ScriptFileContent += [Environment]::NewLine
@@ -167,9 +187,12 @@ $ScriptFileContent += ")" + [Environment]::NewLine
 #
 $ScriptFileContent += 'grep "\[WARN \]\[osal   \]" "' + $strStdErrFile + '" > "' + ${strStdErrOnlyWarnsFile} + '"' + [Environment]::NewLine
 #
-# ODI writes info messages about SqlUnload starting/finishing to stderr. Grrrrrrr. Report them.
+# ODI writes info messages to stderr. Grrrrrrr. Report them.
 #
 $ScriptFileContent += 'grep "NOTIFICATION ODI-.*: SqlUnload" "' + ${strStdErrFile} + '" >> "' + ${strStdErrOnlyWarnsFile} + '"' + [Environment]::NewLine
+$ScriptFileContent += 'grep "NOTIFICATION ODI-1020: Session .* ended with status D \(DONE\)" "' + ${strStdErrFile} + '" >> "' + ${strStdErrOnlyWarnsFile} + '"' + [Environment]::NewLine
+$ScriptFileContent += 'grep "\*sys-package-mgr\*: processing modified jar" "' + ${strStdErrFile} + '" >> "' + ${strStdErrOnlyWarnsFile} + '"' + [Environment]::NewLine
+
 $ScriptFileContent += 'fc "' + $strEmptyFile + '" "' + ${strStdErrOnlyWarnsFile} + '" >NUL' + [Environment]::NewLine
 $ScriptFileContent += "if ERRORLEVEL 1 (" + [Environment]::NewLine
 $ScriptFileContent += "	echo %WM% command StdErr text contains warning text ^<" + [Environment]::NewLine
@@ -181,17 +204,15 @@ $ScriptFileContent += [Environment]::NewLine
 #
 # Bugs in JRockit present messages about performance counters, on Windows, being inaccessible. Ignore them.
 #
-$ScriptFileContent += 'grep -v "\[WARN \]\[osal   \]" "' + $strStdErrFile + '" > "' + "${strStdErrNoWarnsFile}.1" + '"' + [Environment]::NewLine
+$ScriptFileContent += 'grep -v "\[WARN \]\[osal   \]" "' + ${strStdErrFile} + '" > "' + "${strStdErrNoWarnsFile}.1" + '"' + [Environment]::NewLine
 #
-# ODI writes info messages about SqlUnload starting/finishing to stderr. Grrrrrrr. Ignore them.
+# ODI writes info messages to stderr. Grrrrrrr. Ignore them.
 #
 $ScriptFileContent += 'grep -v "NOTIFICATION ODI-.*: SqlUnload" "' + "${strStdErrNoWarnsFile}.1" + '" > "' + "${strStdErrNoWarnsFile}.2" + '"' + [Environment]::NewLine
-#
-# ODI writes Jython info messages about processing new JARs to stderr. Grrrrrrr. Ignore them.
-#
-$ScriptFileContent += 'grep -v "\*sys-package-mgr\*: processing modified jar" "' + "${strStdErrNoWarnsFile}.2" + '" > "' + "${strStdErrNoWarnsFile}.3" + '"' + [Environment]::NewLine
+$ScriptFileContent += 'grep -v "NOTIFICATION ODI-1020: Session .* ended with status D \(DONE\)" "' + "${strStdErrNoWarnsFile}.2" + '" > "' + "${strStdErrNoWarnsFile}.3" + '"' + [Environment]::NewLine
+$ScriptFileContent += 'grep -v "\*sys-package-mgr\*: processing modified jar" "' + "${strStdErrNoWarnsFile}.3" + '" > "' + "${strStdErrNoWarnsFile}.4" + '"' + [Environment]::NewLine
 
-$ScriptFileContent += 'fc "' + $strEmptyFile + '" "' + "${strStdErrNoWarnsFile}.3" + '" >NUL' + [Environment]::NewLine
+$ScriptFileContent += 'fc "' + $strEmptyFile + '" "' + "${strStdErrNoWarnsFile}.4" + '" >NUL' + [Environment]::NewLine
 $ScriptFileContent += "if ERRORLEVEL 1 (" + [Environment]::NewLine
 $ScriptFileContent += "	echo %EM% calling OracleDI command. StdErr text ^<" + [Environment]::NewLine
 $ScriptFileContent += '	type "' + "${strStdErrNoWarnsFile}.3" + '"' + [Environment]::NewLine

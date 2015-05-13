@@ -94,9 +94,9 @@ if EXIST "%OUTFILE%" (
 rem
 rem Note the rediretion of stdin in the following call. Without this the PowerShell process hangs when called from Java.
 rem
-powershell -file "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.ps1" "%OUTFILE%" <NUL
+powershell -file "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenOdiExec.ps1" "%OUTFILE%" "startcmd" <NUL
 if ERRORLEVEL 1 (
-	echo %EM% executing PowerShell script ^<%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenStartCmd.ps1^>
+	echo %EM% executing PowerShell script ^<%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenOdiExec.ps1^>
 	goto ExitFail
 )
 
