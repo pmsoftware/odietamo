@@ -1,4 +1,4 @@
-$FN = "OdiScmGenRestartSess"
+$FN = "OdiScmGenOdiExec"
 $IM = $FN + ": INFO:"
 $EM = $FN + ": ERROR:"
 
@@ -20,18 +20,18 @@ if (($env:ODI_SCM_ORACLEDI_HOME -eq $Null) -or ($env:ODI_SCM_ORACLEDI_HOME -eq "
 	exit 1
 }
 
-if ($args[1] -ne "startcmd" -and $args[1] -ne "restartsession") {
+if (($args[1] -ne "startcmd") -and ($args[1] -ne "restartsession")) {
 	$strErrMsg = "$EM invalid output script type <" + $args[1] + ">"
 	write-output $strErrMsg
 	exit 1
 }
 
 if ($args[1] -eq "startcmd") {
-	$SourceBatType = "StartCmd"
+	$strSourceBatType = "StartCmd"
 	$SourceBat = $env:ODI_SCM_ORACLEDI_HOME + "\bin\startcmd.bat"
 }
 else {
-	$SourceBatType = "RestartSession"
+	$strSourceBatType = "RestartSession"
 	$SourceBat = $env:ODI_SCM_ORACLEDI_HOME + "\bin\restartsession.bat"
 }
 
@@ -87,14 +87,11 @@ $arrOdiParamsOutText += "REM OdiScm: end of Jython package cache priming inserti
 $arrOdiParamsOutText += "REM"
 
 #
-# Define the script text that calls odiparams.bat from restartsession.bat.
+# Define the script text that calls odiparams.bat from the batch script.
 # We will replace the call with the actual odiparams.bat script text.
 #
 $OdiParamsCallText = '^call \"%ODI_HOME%\\bin\\odiparams.bat.*$'
 
-#
-# Load restartsession.bat into an array.
-#
 $arrSourceBatContent = get-content $SourceBat
 
 $OutScriptFileContent = $arrSourceBatContent | foreach {
@@ -127,7 +124,7 @@ $OutWrapperBatFile = split-path $OutWrapperBat -leaf
 $OutDir = split-path $OutWrapperBat -parent
 
 $OutBatFile = $OutWrapperBatFile -replace ".bat$", ""
-$OutBatFile += "_OdiScm" + $strSourcBatType + ".bat"
+$OutBatFile += "_OdiScm" + $strSourceBatType + ".bat"
 $OutBat = $OutDir + "\" + $OutBatFile
 
 #
@@ -163,14 +160,22 @@ $ScriptFileContent += "	echo %EM% creating empty file ^<" + $strEmptyFile + "^>"
 $ScriptFileContent += "	goto ExitFail" + [Environment]::NewLine
 $ScriptFileContent += ")" + [Environment]::NewLine
 
-if ($strSourceBatType -eq "StartCmd") {
+if ($strSourceBatType -eq "startcmd") {
 	$ScriptFileContent += "echo %IM% executing OracleDI command ^<%*^>" + [Environment]::NewLine
 }
 else {
 	$ScriptFileContent += "echo %IM% restarting OracleDI session ^<%1^>" + [Environment]::NewLine
 }
 
-$ScriptFileContent += 'call "' + $OutBat + '" %1' 
+$ScriptFileContent += 'call "' + $OutBat + '" ' 
+
+if ($strSourceBatType -eq "startcmd") {
+	$ScriptFileContent += "%*"
+}
+else {
+	$ScriptFileContent += "%1"
+}
+
 $ScriptFileContent += ' 1>"' + $strStdOutFile +'"'
 $ScriptFileContent += ' 2>"' + $strStdErrFile +'"'
 $ScriptFileContent += [Environment]::NewLine
@@ -224,7 +229,6 @@ $ScriptFileContent += ":ExitOk" + [Environment]::NewLine
 $ScriptFileContent += "exit 0" + [Environment]::NewLine
 $ScriptFileContent += ":ExitFail" + [Environment]::NewLine
 $ScriptFileContent += "exit 1" + [Environment]::NewLine
-
 set-content -path $OutWrapperBat -value $ScriptFileContent
 if (!($?)) {
 	write-output "$EM writing output file"

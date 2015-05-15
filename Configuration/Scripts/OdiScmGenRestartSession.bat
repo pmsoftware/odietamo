@@ -92,7 +92,7 @@ if EXIST "%OUTFILE%" (
 )
 
 rem
-rem Note the rediretion of stdin in the following call. Without this the PowerShell process hangs when called from Java.
+rem Note the redirection of stdin in the following call. Without this the PowerShell process hangs when called from Java.
 rem
 powershell -file "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenOdiExec.ps1" "%OUTFILE%" "restartsession" <NUL
 if ERRORLEVEL 1 (
