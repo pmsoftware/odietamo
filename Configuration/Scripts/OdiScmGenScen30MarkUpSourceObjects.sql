@@ -156,20 +156,26 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP, and multiple markers.
    AND (
        '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
        )
-   AND s.i_pop
-    IN (
-       SELECT source_object_id
-         FROM odiscm_genscen_sources
-        WHERE source_type_id = 3100
-       )
    AND (
        p.i_package
      , 3200
-       ) NOT IN (
-                SELECT source_object_id
-                     , source_type_id
-                  FROM odiscm_genscen_sources
-                )
+       )
+   NOT
+    IN (
+       SELECT source_object_id
+            , source_type_id
+         FROM odiscm_genscen_sources
+       )
+   AND s.i_pop
+    IN (
+       SELECT o.i_pop
+         FROM snp_pop o
+        WHERE o.last_date >
+              (
+              SELECT import_start_datetime
+                FROM odiscm_controls
+              )
+       )
 <OdiScmGenerateSqlStatementDelimiter>
 
 --
@@ -210,20 +216,26 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP, and multiple markers.
    AND (
        '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
        ) 
-   AND s.i_trt
-    IN (
-       SELECT source_object_id
-         FROM odiscm_genscen_sources
-        WHERE source_type_id = 3600 -- For Procedures.
-       )
    AND (
        p.i_package
      , 3200
-       ) NOT IN (
-                SELECT source_object_id
-                     , source_type_id
-                  FROM odiscm_genscen_sources
-                )
+       )
+   NOT
+    IN (
+       SELECT source_object_id
+            , source_type_id
+         FROM odiscm_genscen_sources
+       )
+   AND s.i_trt
+    IN (
+       SELECT o.i_trt
+         FROM snp_trt o
+        WHERE o.last_date >
+              (
+              SELECT import_start_datetime
+                FROM odiscm_controls
+              )
+       )
 <OdiScmGenerateSqlStatementDelimiter>
 
 COMMIT
@@ -269,23 +281,26 @@ SELECT DISTINCT         -- Because of the use of SNP_STEP, and multiple markers.
    AND (
        '<OdiScmScenarioSourceMarkers>' LIKE ('%' || gs.grp_state_code || '.' || s2.state_code || '%')
        ) 
-   AND s.i_var
-    IN (
-       SELECT i_var
-         FROM snp_var
-        WHERE last_date >= (
-                           SELECT import_start_datetime
-                             FROM odiscm_controls
-                           )
-       )
    AND (
        p.i_package
      , 3200
-       ) NOT IN (
-                SELECT source_object_id
-                     , source_type_id
-                  FROM odiscm_genscen_sources
-                )
+       )
+   NOT
+    IN (
+       SELECT source_object_id
+            , source_type_id
+         FROM odiscm_genscen_sources
+       )
+   AND s.i_var
+    IN (
+       SELECT o.i_var
+         FROM snp_var o
+        WHERE o.last_date >
+              (
+              SELECT import_start_datetime
+                FROM odiscm_controls
+              )
+       )
 <OdiScmGenerateSqlStatementDelimiter>
 
 --
