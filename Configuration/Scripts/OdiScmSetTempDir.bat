@@ -34,13 +34,18 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-set TEMPDIR=%TEMPDIR%\OdiScm_%YYYYMMDD%_%HHMMSSFF%_%RANDOM%
+set TEMPDIR=%TEMPDIR%\%YYYYMMDD%_%HHMMSSFF%
+
+for /f "tokens=1" %%g in ('set ^| md5sum') do (
+	set MD5HASH=%%g
+)
+
+set TEMPDIR=%TEMPDIR%_%MD5HASH%
 
 :CheckDirExists
 if EXIST "%TEMPDIR%" (
 	echo %WM% temporary directory ^<%TEMPDIR%^> already exists
 	set TEMPDIR=%TEMPDIR%_
-	echo %IM% using alternate path ^<%TEMPDIR%^>
 	rem rd /s /q "%TEMPDIR%" >NUL 2>NUL
 	rem if ERRORLEVEL 1 (
 	rem	echo %EM% deleting existing temporary directory ^<%TEMPDIR%^> 1>&2
@@ -52,12 +57,18 @@ if EXIST "%TEMPDIR%" (
 )
 
 if "%CHECKTEMPDIR%" == "YES" (
+	echo %IM% using alternate path ^<%TEMPDIR%^>
 	goto CheckDirExists
 )
 
 md "%TEMPDIR%"
 if ERRORLEVEL 1 (
 	echo %EM% creating temporary directory ^<%TEMPDIR%^> 1>&2
+	goto ExitFail
+)
+
+if not EXIST "%TEMPDIR%" (
+	echo %EM% verifying creation of temporary directory ^<%TEMPDIR%^> 1>&2
 	goto ExitFail
 )
 
