@@ -44,6 +44,13 @@ function GenerateOdiImport {
 	}
 	
 	#
+	# Set a dummy revision number to which the ODI metadata will be set (currently required to be set).
+	# We choose an invalid number so indicate that no imports directly driven by changes in an SCM
+	# system (i.e. the OdiScmGet process) have been run.
+	#
+	$HighChangeSetNumber = 1
+	
+	#
 	# Create a backup of the configuration INI file.
 	#
 	$SCMConfigurationBackUpFile = $GenScriptRootDir + "\" + $SCMConfigurationFileName + ".BackUp"
@@ -154,7 +161,7 @@ function GenerateOdiImport {
 	# Set up the OdiScm next import metadata update script.
 	# Note that we use a dummy revision number for imports (rather than the Get process).
 	#
-	if (!(SetOdiScmRepoSetNextImportSqlContent -1)) {
+	if (!(SetOdiScmRepoSetNextImportSqlContent $HighChangeSetNumber)) {
 		write-host "$EM call to SetOdiScmRepoSetNextImportSqlContent failed"
 		return $ExitStatus
 	}
