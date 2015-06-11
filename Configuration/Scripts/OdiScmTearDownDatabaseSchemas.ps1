@@ -110,9 +110,6 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 		write-host "$WM input SQL script file <$strSqlScript> is empty"
 		$arrStrSetUpScriptContent = @()
 	}
-	else {
-		write-host "$IM input SQL script file <$strSqlScript> contains <" $arrStrSetUpScriptContent.length "> lines"
-	}
 	
 	$arrStrOut = @()
 	

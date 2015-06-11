@@ -295,7 +295,7 @@ function BuildSplSourceFileList ($arrStrInputFiles, [ref] $refDbSplFileList) {
 	$strPattern = "^spl\-.+\-.+\-.*\.sql"
 	
 	foreach ($strFile in $arrStrInputFiles) {
-		
+
 		$strFileName = split-path -path $strFile -leaf
 		
 		if ($strFileName -match $strPattern) {

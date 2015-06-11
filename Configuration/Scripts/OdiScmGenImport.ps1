@@ -450,6 +450,7 @@ function GetFromFileSystem ([ref] $refFileList) {
 	$DEBUG = $FN + ": DEBUG:"
 	
 	$strSourcePathRootDir = $env:ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT
+
 	if (!(test-path $strSourcePathRootDir)) {
 		write-host "$EM path <$strSourcePathRootDir> specified in environment variables ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT"
 		write-host "$EM and ODI_SCM_SCM_SYSTEM_ORACLEDI_WORKING_COPY_ROOT cannot be accessed"
