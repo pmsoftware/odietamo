@@ -4096,10 +4096,16 @@ function GetNewTFSChangeSetNumber {
 	$SCMGlobalUserName = $OdiScmConfig["SCM System"]["Global User Name"]
 	$SCMGlobalUserPassword = $OdiScmConfig["SCM System"]["Global User Password"]
 	
+	if (($env:ODI_SCM_TOOLS_TEAM_EXPLORER_EVERYWHERE_JAVA_HOME -ne "") -and ($env:ODI_SCM_TOOLS_TEAM_EXPLORER_EVERYWHERE_JAVA_HOME -ne $Null)) {
+		$strJavaHome = $env:ODI_SCM_TOOLS_TEAM_EXPLORER_EVERYWHERE_JAVA_HOME
+		$strJavaHome = $strJavaHome.Replace("/", "\")
+		$env:PATH = $strJavaHome + "\bin;" + $env:PATH
+	}
+	
 	#
 	# Generate a unique file name (with path included).
 	#
-	$CmdLine = "tf.exe changeset /latest /noprompt /collection:$SCMSystemUrl 2>&1"
+	$CmdLine = "tf changeset /latest /noprompt /collection:$SCMSystemUrl 2>&1"
 	if ($SCMGlobalUserName -ne "" -and $SCMGlobalUserName -ne $Null) {
 		# Note: the single quotes are required to prevent Invoke-Expression interpreting the comma as a list/array.
 		$CmdLine += " '/login:$SCMGlobalUserName,$SCMGlobalUserPassword'"
