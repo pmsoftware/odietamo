@@ -180,6 +180,10 @@ So, the configuration file is really the persisted environment for the ODI-SCM c
 |                  |                               |containing the ``imp.exe`` and      |                                                             |
 |                  |                               |``exp.exe`` binaries.               |                                                             |
 |                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                  |Team Explorer Everywhere Java  |Path of the JVM (JRE or JDK) home   |``C:\Program Files\Java\jdk1.6.0_45``                        |
+|                  |Home                           |directory to use with Microsoft     |                                                             |
+|                  |                               |TEE, if appropriate.                |                                                             |
+|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
 |                  |UnxUtils Home                  |Path of the UnxUtils distribution   |``C:\UnxUtils``                                              |
 |                  |                               |home directory. This is the         |                                                             |
 |                  |                               |directory containing the ``bin`` and|                                                             |
