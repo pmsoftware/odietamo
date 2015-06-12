@@ -166,22 +166,19 @@ function SetIniContent ($InputObject, $FilePath)
 			}
 			add-content -path $outFile -value ""
 		}
-    }
+	}
 }
 
-function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $refDbDdlFileList, [ref] $refDbSplFileList, [ref] $refDbDmlFileList) {
+function BuildOdiSourceFileList ($arrStrInputFiles, [ref] $refOdiFileList) {
 	
-	$FN = "BuildSourceFileLists"
+	$FN = "BuildOdiSourceFileList"
 	$IM = $FN + ": INFO:"
 	$EM = $FN + ": ERROR:"
 	$DM = $FN + ": DEBUG:"
 	
 	write-host "$IM starts"
-	$ExitStatus = $False
 	
-	#
-	# Extract ODI object source files from the file list.
-	#
+	write-host "$IM received" $arrStrInputFiles.length "files to examine"
 	$arrStrOdiFiles = @()
 	
 	$strWcRootDir = $env:ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT
@@ -207,7 +204,7 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 		write-host "$IM processing object type <$FileObjTypeExt>"
 		
 		foreach ($strFile in $arrStrInputFiles) {
-			
+		
 			$strFileUC = $strFile.ToUpper()
 			$strFileUCBS = $strFileUC.Replace("/","\")
 			
@@ -225,12 +222,23 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 	#
 	if (!(OrderOdiImports $arrStrOdiFiles $refOdiFileList)) {
 		write-host "$EM ordering ODI source files"
-		return $ExitStatus
+		return $False
 	}
 	
-	#
-	# Extract database DDL script files from the file list.
-	#
+	write-host "$IM ends"
+	return $True
+}
+
+function BuildDdlSourceFileList ($arrStrInputFiles, [ref] $refDbDdlFileList) {
+	
+	$FN = "BuildDdlSourceFileList"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$DM = $FN + ": DEBUG:"
+	
+	write-host "$IM starts"
+	
+	write-host "$IM received" $arrStrInputFiles.length "files to examine"
 	$arrStrDdlFiles = @()
 	$strPattern = "^ddl\-.+\-.+\-.*\.sql"
 	
@@ -269,14 +277,25 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 		$refDbDdlFileList.value += $strDdlFile
 	}
 	
-	#
-	# Extract database SPL (stored code) script files from the file list.
-	#
+	write-host "$IM ends"
+	return $True
+}
+
+function BuildSplSourceFileList ($arrStrInputFiles, [ref] $refDbSplFileList) {
+	
+	$FN = "BuildSplSourceFileList"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$DM = $FN + ": DEBUG:"
+	
+	write-host "$IM starts"
+	
+	write-host "$IM received" $arrStrInputFiles.length "files to examine"
 	$arrStrSplFiles = @()
 	$strPattern = "^spl\-.+\-.+\-.*\.sql"
 	
 	foreach ($strFile in $arrStrInputFiles) {
-		
+
 		$strFileName = split-path -path $strFile -leaf
 		
 		if ($strFileName -match $strPattern) {
@@ -312,9 +331,20 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 		$refDbSplFileList.value += $strSplFile
 	}
 	
-	#
-	# Extract database DML script files from the file list.
-	#
+	write-host "$IM ends"
+	return $True
+}
+
+function BuildDmlSourceFileList ($arrStrInputFiles, [ref] $refDbDmlFileList) {
+	
+	$FN = "BuildDmlSourceFileList"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$DM = $FN + ": DEBUG:"
+	
+	write-host "$IM starts"
+	
+	write-host "$IM received" $arrStrInputFiles.length "files to examine"
 	$arrStrDmlFiles = @()
 	$intPatternNo = 0
 	
@@ -339,7 +369,7 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 		else {
 			$blnProcessedPattern = $False
 		}
-        $intPatternNo += 1
+		$intPatternNo += 1
 	}
 	while ($blnProcessedPattern)
 	
@@ -369,6 +399,40 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 	foreach ($strDmlFile in $arrStrDmlFiles) {
 		#$refDbDmlFileList.value += $strSortedDmlFile.FilePathName
 		$refDbDmlFileList.value += $strDmlFile
+	}
+	
+	write-host "$IM ends"
+	return $True
+}
+
+function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $refDbDdlFileList, [ref] $refDbSplFileList, [ref] $refDbDmlFileList) {
+	
+	$FN = "BuildSourceFileLists"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$DM = $FN + ": DEBUG:"
+	
+	write-host "$IM starts"
+	$ExitStatus = $False
+	
+	if (!(BuildOdiSourceFileList $arrStrInputFiles $refOdiFileList)) {
+		write-host "$EM creating ODI source file list"
+		return $False
+	}
+	
+	if (!(BuildDdlSourceFileList $arrStrInputFiles $refDbDdlFileList)) {
+		write-host "$EM creating DDL source file list"
+		return $False
+	}
+	
+	if (!(BuildSplSourceFileList $arrStrInputFiles $refDbSplFileList)) {
+		write-host "$EM creating SPL source file list"
+		return $False
+	}
+	
+	if (!(BuildDmlSourceFileList $arrStrInputFiles $refDbDmlFileList)) {
+		write-host "$EM creating DML source file list"
+		return $False
 	}
 	
 	write-host "$IM ends"
@@ -2022,7 +2086,7 @@ function GenerateDmlExecutionScript ([array] $arrStrFiles) {
 	foreach ($strFile in $arrTieredFiles) {
 		
 		$strFileName = split-path $strFile -leaf
-		
+		write-host "$IM processing file <$strFileName>"
 		$arrStrFileNameParts = $strFileName.split("-")
 		
 		#

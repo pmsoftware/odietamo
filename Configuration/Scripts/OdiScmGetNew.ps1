@@ -257,40 +257,18 @@ function GetIncremental {
 	#
 	# Get the update from the SCM system.
 	#
-	$arrStrFileList = @()
 	$arrStrOdiFileList = @()
 	$arrStrDbDdlFileList = @()
 	$arrStrDbSplFileList = @()
 	$arrStrDbDmlFileList = @()
 	
-	$scmFileListRef = [ref] $arrStrFileList
-	$refOdiFileList = [ref] $arrStrOdiFileList
-	$refDbDdlFileList = [ref] $arrStrDbDdlFileList
-	$refDbSplFileList = [ref] $arrStrDbSplFileList
-	$refDbDmlFileList = [ref] $arrStrDbDmlFileList
+	$arrStrOdiFileListRef = [ref] $arrStrOdiFileList
+	$arrStrDbDdlFileListRef = [ref] $arrStrDbDdlFileList
+	$arrStrDbSplFileListRef = [ref] $arrStrDbSplFileList
+	$arrStrDbDmlFileListRef = [ref] $arrStrDbDmlFileList
 	
-	if (!(GetFromSCM $HighChangeSetNumber $scmFileListRef)) {
+	if (!(GetFromSCM $HighChangeSetNumber $arrStrOdiFileListRef $arrStrDbDdlFileListRef $arrStrDbSplFileListRef $arrStrDbDmlFileListRef)) {
 		write-host "$EM failure getting latest code from the SCM repository"
-		return $False
-	}
-	
-	if (!(BuildOdiSourceFileList $arrStrFileList $refOdiFileList)) {
-		write-host "$EM building source file lists from SCM get output"
-		return $False
-	}
-	
-	if (!(BuildDdlSourceFileList $arrStrFileList $refDbDdlFileList)) {
-		write-host "$EM building source file lists from SCM get output"
-		return $False
-	}
-	
-	if (!(BuildSplSourceFileList $arrStrFileList $refDbSplFileList)) {
-		write-host "$EM building source file lists from SCM get output"
-		return $False
-	}
-	
-	if (!(BuildDmlSourceFileList $arrStrFileList $refDbDmlFileList)) {
-		write-host "$EM building source file lists from SCM get output"
 		return $False
 	}
 	
@@ -496,7 +474,7 @@ function GetIncremental {
 #
 # Get a list of new/changed files from the SCM system.
 #
-function GetFromSCM ($HighChangeSetNumber, [ref] $refFileList) {
+function GetFromSCM ($HighChangeSetNumber, [ref] $refOdiFileList, [ref] $refDbDdlFileList, [ref] $refDbSplFileList, [ref] $refDbSqlFileList) {
 	
 	$FN = "GetFromSCM"
 	$IM = $FN + ": INFO:"
@@ -531,13 +509,12 @@ function GetFromSCM ($HighChangeSetNumber, [ref] $refFileList) {
 		return $ExitStatus
 	}
 	
-	# Copy the list to the referenced output list.
-	foreach ($strFile in $arrScmFiles) {
-		$refFileList.value += $strFile
+	if (!(BuildSourceFileLists $arrScmFiles $refOdiFileList $refDbDdlFileList $refDbSplFileList $refDbSqlFileList)) {
+		write-host "$EM building source file lists from SCM get output"
+		return $False
 	}
 	
 	$ExitStatus = $True
-	
 	write-host "$IM ends"
 	return $ExitStatus
 }
@@ -733,6 +710,7 @@ function GetFromTFS ($HighChangeSetNumber, [ref] $refFileList) {
 		$strJavaHome = $strJavaHome.Replace("/", "\")
 		$env:PATH = $strJavaHome + "\bin;" + $env:PATH
 	}
+	
 	$CmdLine = "tf get $SCMBranchUrl /overwrite /preview /recursive /noprompt /version:C" + $HighChangeSetNumber + " $SCMAuthText >$GetLatestVersionOutputFile 2>&1"
 	write-host "$IM executing command <$CmdLine>"
 	invoke-expression $CmdLine
@@ -758,7 +736,7 @@ function GetFromTFS ($HighChangeSetNumber, [ref] $refFileList) {
 		return $ExitStatus
 	}
 	
-	$CmdLine = "tf.exe get $SCMBranchUrl /overwrite /recursive /noprompt /version:C" + $HighChangeSetNumber + " $SCMAuthText >$GetLatestVersionOutputFile 2>&1"
+	$CmdLine = "tf get $SCMBranchUrl /overwrite /recursive /noprompt /version:C" + $HighChangeSetNumber + " $SCMAuthText >$GetLatestVersionOutputFile 2>&1"
 	write-host "$IM executing command <$CmdLine>"
 	invoke-expression $CmdLine
 	if ($LastExitCode -ge 2) {

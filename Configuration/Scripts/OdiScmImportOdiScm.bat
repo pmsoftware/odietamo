@@ -112,6 +112,7 @@ if ERRORLEVEL 1 (
 rem
 rem Create a version of the ODI-SCM infrastructure setup script for this repository.
 rem
+echo on
 set TEMPFILE=%TEMPDIR%\%RANDOM%_OdiScmImportOdiScm_CreateInfrastructure.sql
 cat "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmCreateInfrastructureTemplate.sql" | sed s/"<OdiWorkRepoUserName>"/%ODI_SCM_ORACLEDI_SECU_USER%/ > "%TEMPFILE%"
 if ERRORLEVEL 1 goto ScriptGenFail

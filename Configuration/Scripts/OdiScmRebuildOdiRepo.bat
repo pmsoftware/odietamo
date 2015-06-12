@@ -224,7 +224,7 @@ if DEFINED ODI_SCM_GENERATE_OUTPUT_TAG (
 )
 
 rem
-rem Execute either the OdiScmGet or OdiScmImport process depending upon the build source.
+rem Execute either the OdiScmGet or OdiScmGenImport process depending upon the build source.
 rem
 if "%REBUILDSOURCE%" == "SCM" (
 	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGet.bat^" /p
@@ -233,7 +233,7 @@ if "%REBUILDSOURCE%" == "SCM" (
 		goto ExitFail
 	)
 ) else (
-	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImport.bat^" /p
+	call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Configuration\Scripts\OdiScmGenImport.bat^" "odi" /p
 	if ERRORLEVEL 1 (
 		echo %EM% executing OdiScmImport process 1>&2
 		goto ExitFail
