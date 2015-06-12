@@ -961,3 +961,4 @@ else {
 	write-host "$EM call to GetIncremental returned unrecognised exit status"
 	exit 2
 }
+
