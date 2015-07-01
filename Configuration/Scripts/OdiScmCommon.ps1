@@ -3401,8 +3401,35 @@ function SetOdiScmRepositoryBackUpBatContent {
 	$FN = "SetOdiScmRepositoryBackUpBatContent"
 	$IM = $FN + ": INFO:"
 	$EM = $FN + ": ERROR:"
+	$DM = $FN + ": DEBUG:"
 	
 	write-host "$IM starts"
+
+	#
+	# Get the list of repository tables that must be backed-up.
+	#
+	$CmdOutput = ExecOdiRepositorySql "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmGenerateRepositoryBackupTableList.sql" $GenScriptRootDir $OdiScmJisqlRepoBat
+	if (! $CmdOutput) {
+		write-host "$EM error generating ODI repository backup table list"
+		return $False
+	}
+	
+	$strOnlyTables = $CmdOutput -replace "^ExecOdiRepositorySql:", "" | out-string
+	$strOnlyTables = $strOnlyTables -replace "`n", ""
+	$strOnlyTables = $strOnlyTables -replace "`r", ""
+	$arrStrTables = $strOnlyTables.Split(":")
+	
+	$strTableList = ""
+	
+	foreach ($strLine in $arrStrTables) {
+		$strTrimLine = $strLine.Trim()
+		if ($strTrimLine -ne "") {
+			if ($strTableList -ne "") {
+				$strTableList += ","
+			}
+		}
+		$strTableList += $strTrimLine
+	}
 	
 	#
 	# Set up the OdiScm ODI repository back-up script.
@@ -3416,6 +3443,7 @@ function SetOdiScmRepositoryBackUpBatContent {
 	
 	$ExportFileName = "$GenScriptRootDir" + "\OdiScmExportBackUp_${OdiRepoSECURITY_USER}_${OdiRepoSECURITY_URL_SERVER}_${OdiRepoSECURITY_URL_SID}_${VersionString}.dmp"
 	$ScriptFileContent = $ScriptFileContent.Replace("<ExportBackUpFile>",$ExportFileName)
+	$ScriptFileContent = $ScriptFileContent.Replace("<TableList>",$strTableList)
 	
 	set-content -path $OdiScmRepositoryBackUpBat -value $ScriptFileContent
 	
