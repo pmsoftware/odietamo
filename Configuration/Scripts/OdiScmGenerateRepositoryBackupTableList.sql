@@ -3,4 +3,6 @@ SELECT table_name || ':'
  WHERE table_name
    NOT
   LIKE '%SESS%'
+   AND table_name
+   NOT '%SCEN_TASK%'
 <OdiScmGenerateSqlStatementDelimiter>
