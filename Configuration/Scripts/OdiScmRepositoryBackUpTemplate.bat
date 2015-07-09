@@ -16,7 +16,7 @@ rem Note: imp.exe and exp.exe write all messages to stderr for some reason.
 rem We reroute them so we can check for any stderr in larger, surrounding OdiScm processes.
 rem This does of course mean that we lose the ability to pinpoint stderr from exp.exe.
 rem
-"%ORACLE_HOME%\bin\exp.exe" <OdiWorkRepoUserName>/<OdiWorkRepoPassWord>@<OdiWorkRepoServer>:<OdiWorkRepoPort>/<OdiWorkRepoSID> file=<ExportBackUpFile> statistics=none tables=<TableList> 2>&1
+"%ORACLE_HOME%\bin\exp.exe" <OdiWorkRepoUserName>/<OdiWorkRepoPassWord>@<OdiWorkRepoServer>:<OdiWorkRepoPort>/<OdiWorkRepoSID> file=<ExportBackUpFile> statistics=none tables=<TableList> direct=y recordlength=65535 buffer=100000000 2>&1
 if ERRORLEVEL 1 goto ExportFail
 goto ExportOk
 
