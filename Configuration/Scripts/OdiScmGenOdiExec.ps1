@@ -196,7 +196,7 @@ $ScriptFileContent += 'grep "\[WARN \]\[osal   \]" "' + $strStdErrFile + '" > "'
 #
 $ScriptFileContent += 'grep "NOTIFICATION ODI-.*: SqlUnload" "' + ${strStdErrFile} + '" >> "' + ${strStdErrOnlyWarnsFile} + '"' + [Environment]::NewLine
 $ScriptFileContent += 'grep "NOTIFICATION ODI-1020: Session .* ended with status D" "' + ${strStdErrFile} + '" >> "' + ${strStdErrOnlyWarnsFile} + '"' + [Environment]::NewLine
-$ScriptFileContent += 'grep "\*sys-package-mgr\*: processing new jar" "' + ${strStdErrFile} + '" >> "' + ${strStdErrOnlyWarnsFile} + '"' + [Environment]::NewLine
+$ScriptFileContent += 'grep "\*sys-package-mgr\*: processing modified jar" "' + ${strStdErrFile} + '" >> "' + ${strStdErrOnlyWarnsFile} + '"' + [Environment]::NewLine
 
 $ScriptFileContent += 'fc "' + $strEmptyFile + '" "' + ${strStdErrOnlyWarnsFile} + '" >NUL' + [Environment]::NewLine
 $ScriptFileContent += "if ERRORLEVEL 1 (" + [Environment]::NewLine
@@ -215,7 +215,7 @@ $ScriptFileContent += 'grep -v "\[WARN \]\[osal   \]" "' + ${strStdErrFile} + '"
 #
 $ScriptFileContent += 'grep -v "NOTIFICATION ODI-.*: SqlUnload" "' + "${strStdErrNoWarnsFile}.1" + '" > "' + "${strStdErrNoWarnsFile}.2" + '"' + [Environment]::NewLine
 $ScriptFileContent += 'grep -v "NOTIFICATION ODI-1020: Session .* ended with status D" "' + "${strStdErrNoWarnsFile}.2" + '" > "' + "${strStdErrNoWarnsFile}.3" + '"' + [Environment]::NewLine
-$ScriptFileContent += 'grep -v "\*sys-package-mgr\*: processing new jar" "' + "${strStdErrNoWarnsFile}.3" + '" > "' + "${strStdErrNoWarnsFile}.4" + '"' + [Environment]::NewLine
+$ScriptFileContent += 'grep -v "\*sys-package-mgr\*: processing modified jar" "' + "${strStdErrNoWarnsFile}.3" + '" > "' + "${strStdErrNoWarnsFile}.4" + '"' + [Environment]::NewLine
 
 $ScriptFileContent += 'fc "' + $strEmptyFile + '" "' + "${strStdErrNoWarnsFile}.4" + '" >NUL' + [Environment]::NewLine
 $ScriptFileContent += "if ERRORLEVEL 1 (" + [Environment]::NewLine
