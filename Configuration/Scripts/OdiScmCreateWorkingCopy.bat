@@ -137,14 +137,16 @@ rem
 rem Delete the existing workspace if present.
 rem
 set TEMPGREPOUT=%TEMPDIR%\%PROC%_grep.txt
-tf workspaces | grep "%ARGV2%" >%TEMPGREPOUT%
-fc "%TEMPGREPOUT%" "%TEMPEMPTYFILE%" >NUL
+rem Note that we use "call" to invoke "tf" as is this is "tf.cmd" (TEE) then any EXIT in "tf.cmd" needs to be correctly handled.
+call tf workspaces >%TEMPGREPOUT%
+grep "%ARGV2%" %TEMPGREPOUT% >%TEMPGREPOUT%2
+fc "%TEMPGREPOUT%2" "%TEMPEMPTYFILE%" >NUL
 if ERRORLEVEL 1 (
 	rem
 	rem An existing workspace has been detected so destroy it.
 	rem
 	echo %IM% deleting existing TFS workspace ^<%ARGV2%^>
-	tf workspace /delete /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% %ARGV2% /noprompt
+	call tf workspace /delete /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% %ARGV2% /noprompt
 	if ERRORLEVEL 1 (
 		echo %EM% creating TFS workspace ^<%ARGV2%^> 1>&2
 		goto ExitFail
@@ -154,7 +156,9 @@ if ERRORLEVEL 1 (
 rem
 rem Ensure the workspace does not exist.
 rem
-tf workspaces | grep "%ARGV2%" >%TEMPGREPOUT%
+rem Note that we use "call" to invoke "tf" as is this is "tf.cmd" (TEE) then any EXIT in "tf.cmd" needs to be correctly handled.
+call tf workspaces >%TEMPGREPOUT%
+grep "%ARGV2%" %TEMPGREPOUT% >%TEMPGREPOUT%
 fc "%TEMPGREPOUT%" "%TEMPEMPTYFILE%" >NUL
 if ERRORLEVEL 1 (
 	echo %EM% existing TFS workspace ^<%ARGV2%^> detected 1>&2
@@ -165,21 +169,40 @@ rem
 rem Create a TFS workspace.
 rem
 echo %IM% creating TFS workspace ^<%ARGV2%^>
-tf workspace /new /noprompt %ARGV2% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%
+rem Note that we use "call" to invoke "tf" as is this is "tf.cmd" (TEE) then any EXIT in "tf.cmd" needs to be correctly handled.
+call tf workspace /new /noprompt %ARGV2% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%
 if ERRORLEVEL 1 (
 	echo %EM% creating TFS workspace ^<%ARGV2%^> 1>&2
 	goto ExitFail
 )
 
-echo %IM% deleting default folder mapping for TFS workspace ^<%ARGV2%^>
-tf workfold /noprompt /unmap /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% /workspace:%ARGV2% $/
+rem Check for the existence of a default folder mapping for "$/" (created by tf.exe but not tf.cmd).
+set TEMPFILE=%TEMPDIR%\OdiScmCreateWorkingCopyTfsFolderMappingCheck.txt
+echo %IM% checking for existence of default folder mapping in workspace ^<%ARGV2%^>
+rem Note that we use "call" to invoke "tf" as is this is "tf.cmd" (TEE) then any EXIT in "tf.cmd" needs to be correctly handled.
+call tf workfold /workspace:%ARGV2% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% > "%TEMPFILE%"
 if ERRORLEVEL 1 (
-	echo %EM% deleting default folder mapping for TFS workspace ^<%ARGV2%^> 1>&2
+	echo %EM% verifying mapping for TFS workspace ^<%ARGV2%^> to directory ^<%WCROOT%^> 1>&2
 	goto ExitFail
 )
 
+grep \$\/ "%TEMPFILE%" >NUL 2>&1
+set EL=%ERRORLEVEL%
+if "%EL%" == "1" (
+	echo %IM% no default folder mapping detected for TFS workspace ^<%ARGV2%^>
+) else (
+	echo %IM% deleting default folder mapping for TFS workspace ^<%ARGV2%^>
+	rem Note that we use "call" to invoke "tf" as is this is "tf.cmd" (TEE) then any EXIT in "tf.cmd" needs to be correctly handled.
+	call tf workfold /noprompt /unmap /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% /workspace:%ARGV2% $/
+	if ERRORLEVEL 1 (
+		echo %EM% deleting default folder mapping for TFS workspace ^<%ARGV2%^> 1>&2
+		goto ExitFail
+	)
+)
+
 echo %IM% creating mapping for TFS workspace ^<%ARGV2%^> to branch URL ^<%ODI_SCM_SCM_SYSTEM_BRANCH_URL%^>
-tf workfold /map "%ODI_SCM_SCM_SYSTEM_BRANCH_URL%" "%WCROOT%" /workspace:%ARGV2% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%
+rem Note that we use "call" to invoke "tf" as is this is "tf.cmd" (TEE) then any EXIT in "tf.cmd" needs to be correctly handled.
+call tf workfold /map "%ODI_SCM_SCM_SYSTEM_BRANCH_URL%" "%WCROOT%" /workspace:%ARGV2% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL%
 if ERRORLEVEL 1 (
 	echo %EM% creating mapping for TFS workspace ^<%ARGV2%^> to branch URL ^<%ODI_SCM_SCM_SYSTEM_BRANCH_URL%^> 1>&2
 	goto ExitFail
@@ -187,7 +210,8 @@ if ERRORLEVEL 1 (
 
 set TEMPFILE=%TEMPDIR%\OdiScmCreateWorkingCopyTfsWorkspaceCheck.txt
 echo %IM% verifying mapping for TFS workspace ^<%ARGV2%^> to directory ^<%WCROOT%^>
-tf workfold /workspace:%ARGV2% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% > "%TEMPFILE%"
+rem Note that we use "call" to invoke "tf" as is this is "tf.cmd" (TEE) then any EXIT in "tf.cmd" needs to be correctly handled.
+call tf workfold /workspace:%ARGV2% /collection:%ODI_SCM_SCM_SYSTEM_SYSTEM_URL% > "%TEMPFILE%"
 if ERRORLEVEL 1 (
 	echo %EM% verifying mapping for TFS workspace ^<%ARGV2%^> to directory ^<%WCROOT%^> 1>&2
 	goto ExitFail
@@ -215,7 +239,8 @@ if "%ODI_SCM_SCM_SYSTEM_TYPE_NAME%" == "SVN" (
 	)
 ) else (
 	echo %IM% getting contents from SCM repository for TFS workspace ^<%ARGV2%^>
-	tf get %ODI_SCM_SCM_SYSTEM_BRANCH_URL% %INITREV% /recursive /force /noprompt
+	rem Note that we use "call" to invoke "tf" as is this is "tf.cmd" (TEE) then any EXIT in "tf.cmd" needs to be correctly handled.
+	call tf get %ODI_SCM_SCM_SYSTEM_BRANCH_URL% %INITREV% /recursive /force /noprompt
 	if ERRORLEVEL 1 (
 		echo %EM% getting contents from SCM repository for TFS workspace ^<%ARGV2%^> 1>&2
 		echo %EM% current working directory is ^<%CD%^> 1>&2
