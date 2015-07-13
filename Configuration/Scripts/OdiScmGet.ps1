@@ -758,7 +758,7 @@ function GetFromTFS ($HighChangeSetNumber, [ref] $refFileList) {
 		return $ExitStatus
 	}
 	
-	$CmdLine = "tf.exe get $SCMBranchUrl /overwrite /recursive /noprompt /version:C" + $HighChangeSetNumber + " $SCMAuthText >$GetLatestVersionOutputFile 2>&1"
+	$CmdLine = "tf get $SCMBranchUrl /overwrite /recursive /noprompt /version:C" + $HighChangeSetNumber + " $SCMAuthText >$GetLatestVersionOutputFile 2>&1"
 	write-host "$IM executing command <$CmdLine>"
 	invoke-expression $CmdLine
 	if ($LastExitCode -ge 2) {
