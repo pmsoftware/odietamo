@@ -378,6 +378,7 @@ function GetIncremental {
 		return $ExitStatus
 	}
 	
+	
 	#
 	# Generate the SQL SPL object import commands in the generated script.
 	#

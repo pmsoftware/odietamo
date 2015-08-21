@@ -535,7 +535,7 @@ switch ($strType) {
 	}
 	default {
 		write-host "$EM invalid generation type <$strType> specified"
-		write-host "$IM valid options: all | odi | ddl | spl | dml"
+		write-host "$IM valid options: all | odi | ddl | ddl-patch | spl | dml"
 		$blnRes = $False
 	}
 }
