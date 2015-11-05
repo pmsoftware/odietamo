@@ -582,8 +582,19 @@ function TearDownOracleSchema ($strUserName, $strUserPassword, $strJdbcUrl, $str
 	#
 	# Set the target schema name in the script.
 	#
+	$strDropWithPurge = $env:ODI_SCM_ORACLEDI_DROP_WITH_PURGE
+	$strDropWithPurge = $strDropWithPurge.ToUpper()
+
+	if ($strDropWithPurge -eq "YES") {
+		$strPurge = "PURGE"
+	}
+	else {
+		$strPurge = ""
+	}
+
 	$strTearDownTemplateContent = get-content -path "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmTearDownOracleSchema.sql" | out-string
 	$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmPhysicalSchemaName>", $strSchemaName
+	$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmPurge>", $strPurge
 	
 	$strSqlScriptFile = "$env:TEMPDIR\OdiScmTearDownOracleSchema_${strSchemaName}.sql"
 	set-content -path $strSqlScriptFile -value $strTearDownTemplateContent

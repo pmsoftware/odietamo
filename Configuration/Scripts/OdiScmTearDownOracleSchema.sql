@@ -118,7 +118,7 @@ BEGIN
             IF (c_repo_obj.object_type != 'DATABASE LINK')
             THEN
                 dbms_output.put_line('Dropping object ' || c_repo_obj.owner || '.' || c_repo_obj.object_name || ' of type ' || c_repo_obj.object_type);
-                EXECUTE IMMEDIATE('DROP ' || c_repo_obj.object_type || ' ' || c_repo_obj.owner || '.' || c_repo_obj.object_name || c_repo_obj.command_tail);
+                EXECUTE IMMEDIATE('DROP ' || c_repo_obj.object_type || ' ' || c_repo_obj.owner || '.' || c_repo_obj.object_name || c_repo_obj.command_tail || ' <OdiScmPurge>');
             ELSE
                 IF (USER = c_repo_obj.owner)
                 THEN
