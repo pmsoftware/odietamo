@@ -29,6 +29,13 @@ So, the configuration file is really the persisted environment for the ODI-SCM c
 |                  |Common                         |Path of ODI 11g common libraries    |``C:\oracle\product\11.1.1\Oracle_ODI_1\oracledi.common``    |
 |                  |                               |directory.                          |                                                             |
 |                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                  |Drop With Purge                |Determines whether repository tables|``Yes``                                                      |
+|                  |                               |are purged from the Oracle database |                                                             |
+|                  |                               |rather than sent to the recycle bin |                                                             |
+|                  |                               |(dependent upon the DB settings)    |                                                             |
+|                  |                               |Allowable values are ``Yes`` and    |                                                             |
+|                  |                               |``No``.                             |                                                             |
+|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
 |                  |Encoded Pass                   |Encoded password of the ODI user.   |``fJyaPZ,YfyDCeWogjrmEZOr``                                  |
 |                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
 |                  |Home                           |Path of ODI home directory.         |``C:\OraHome_1\oracledi`` 10g                                |
@@ -350,7 +357,7 @@ So, the configuration file is really the persisted environment for the ODI-SCM c
 +------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
 |Misc              |Resources Root                 |Path of the directory used for      |``C:\OdiScmResources``                                       |
 |                  |                               |miscellaneous resource files.       |                                                             |
-+------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
 |                  |Temp Root                      |Path of the directory used for      |``C:\Temp``                                                  |
 |                  |                               |general temporary, working, files.  |                                                             |
 |                  |                               |Used to override the default use of |                                                             |
@@ -369,6 +376,7 @@ A example configuration file with all sections and keys listed::
 	;Common=
 	;SDK=
 	;For ODI11g, enable Common and SDK.
+	Drop With Purge=Yes
 	Common=C:\oracle\product\11.1.1\Oracle_ODI_1\oracledi.common
 	SDK=C:\oracle\product\11.1.1\Oracle_ODI_1\oracledi.sdk
 	Encoded Pass=fJyaPZ,YfyDCeWogjrmEZOr
@@ -398,15 +406,18 @@ A example configuration file with all sections and keys listed::
 	Workspace Name=
 
 	[Tools]
+	FitNesse Class Name=fitnesseMain.FitNesseMain
 	FitNesse Java Home=C:\Program Files\Java\jdk1.6.0_45
 	FitNesse Home=C:\dbfit-complete-2.0.0-rc5
 	Jisql Additional Classpath=
 	Jisql Home=C:\Jisql\jisql-2.0.11
 	Jisql Java Home=C:\Program Files\Java\jdk1.6.0_45
 	Oracle Home=C:\oraclexe\app\oracle\product\11.2.0\server
+	Team Explorer Everywhere Java Home=C:\TEE
 	UnxUtils Home=C:\UnxUtils
 
 	[Generate]
+	Build Test Scope=full
 	DML Script File Name Pattern 0=^dml-schema-.*\.sql
 	Export Ref Phys Arch Only=No
 	Export Cleans ImportRep Objects=Yes
@@ -416,6 +427,7 @@ A example configuration file with all sections and keys listed::
 	Output Tag=DemoEnvironment2
 	Scenario Source Markers=ODISCM.HAS_SCENARIO
 	Scenario Export Markers=ODISCM.ALLOW_SCENARIO_EXPORT
+	SQL Statement Delimiter=//
 
 	[Test]
 	ODI Standards Script=
@@ -427,13 +439,18 @@ A example configuration file with all sections and keys listed::
 	FitNesse Unit Test Root Page Name=OdiScmDemo
 	OracleDI Context=GLOBAL
 
+	[Import Controls]
+	OracleDI Imported Revision=12345
+	Working Copy Revision=12345
+
 	[Notify]
 	User Name=
 	Email Address=
 	SMTP Server=
 
 	[Misc]
-	Resources Root=
+	Resources Root=C:\OdiScmResources
+	Temp Root=X:\Temp\OdiScm
 
 The *Get* Process
 -----------------

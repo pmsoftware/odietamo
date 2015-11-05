@@ -159,7 +159,20 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" /p "%TEARDOWNREPOSCRIPT%"
+if /i "%ODI_SCM_ORACLEDI_DROP_WITH_PURGE%" == "YES" (
+	set DROPPURGE=PURGE
+) else (
+	set DROPPURGE=
+)
+
+set TEARDOWNREPOSCRIPT2=%TEMPDIR%\OdiScmTearDownRepoOracleSchema_2.sql
+cat "%TEARDOWNREPOSCRIPT%" | sed s/"<OdiScmPurge>"/%DROPPURGE%/g > %TEARDOWNREPOSCRIPT2%
+if ERRORLEVEL 1 (
+	echo %EM% creating Oracle repository schema tear down script ^<%TEARDOWNREPOSCRIPT2%^> 1>&2
+	goto ExitFail
+)
+
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmJisqlRepo.bat" /p "%TEARDOWNREPOSCRIPT2%"
 if ERRORLEVEL 1 (
 	echo %EM% tearing down Oracle database schema ^<%ODI_SCM_ORACLEDI_SECU_USER%^> at ^<%ODI_SCM_ORACLEDI_SECU_URL%^> 1>&2
 	goto ExitFail
