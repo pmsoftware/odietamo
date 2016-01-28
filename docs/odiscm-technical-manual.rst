@@ -13,356 +13,406 @@ process) and import the source code into the ODI repository (the generated outpu
 
 So, the configuration file is really the persisted environment for the ODI-SCM command system. This, together with the ODI-SCM metadata that is maintained in ODI respository forms the complete system configuration.
 
-+------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
-|Section Name      |Key Name                       |Key Description                     |Example Values                                               |
-+==================+===============================+====================================+=============================================================+
-|OracleDI          |Admin Pass                     |Password of the database user with  |``xe``                                                       |
-|                  |                               |DBA privileges. Used when creating  |                                                             |
-|                  |                               |database users when creating ODI    |                                                             |
-|                  |                               |repositories.                       |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Admin User                     |User name of the database user with |``system``                                                   |
-|                  |                               |DBA privileges. Used when creating  |                                                             |
-|                  |                               |database users when creating ODI    |                                                             |
-|                  |                               |repositories.                       |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Common                         |Path of ODI 11g common libraries    |``C:\oracle\product\11.1.1\Oracle_ODI_1\oracledi.common``    |
-|                  |                               |directory.                          |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Drop With Purge                |Determines whether repository tables|``Yes``                                                      |
-|                  |                               |are purged from the Oracle database |                                                             |
-|                  |                               |rather than sent to the recycle bin |                                                             |
-|                  |                               |(dependent upon the DB settings)    |                                                             |
-|                  |                               |Allowable values are ``Yes`` and    |                                                             |
-|                  |                               |``No``.                             |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Encoded Pass                   |Encoded password of the ODI user.   |``fJyaPZ,YfyDCeWogjrmEZOr``                                  |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Home                           |Path of ODI home directory.         |``C:\OraHome_1\oracledi`` 10g                                |
-|                  |                               |                                    |``C:\oracle\product\11.1.1\Oracle_ODI_1\oracledi\agent`` 11g |
-|                  |                               |This is the directory containing the|                                                             |
-|                  |                               |``bin`` directory that contains the |                                                             |
-|                  |                               |startcmd.bat script                 |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Java Home                      |Path of the JDK to be used with ODI.|``C:\Program Files\Java\jdk1.6.0_45``                        |
-|                  |                               |This is the directory containing the|                                                             |
-|                  |                               |``bin`` directory containing the    |                                                             |
-|                  |                               |``java.exe`` binary.                |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Oracle Home                    |Path of the Oracle Home for the ODI |``C:\oracle\product\11.1.1\Oracle_ODI_1``                    |
-|                  |                               |installation. This is normally the  |                                                             |
-|                  |                               |parent directory of the ODI Home    |                                                             |
-|                  |                               |directory. This path is used to find|                                                             |
-|                  |                               |additional resources such as Java   |                                                             |
-|                  |                               |class archives (JAR) files and the  |                                                             |
-|                  |                               |standard ODI demo files for the some|                                                             |
-|                  |                               |of the ODI-SCM demos. This entry is |                                                             |
-|                  |                               |required when running the fast-     |                                                             |
-|                  |                               |forward of ODI-SCM demos, that use  |                                                             |
-|                  |                               |the standard ODI demo Hypersonic SQL|                                                             |
-|                  |                               |databases, and when creating        |                                                             |
-|                  |                               |master and work repositories using  |                                                             |
-|                  |                               |the ODI-SCM tools.                  |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Pass                           |Unencoded password of the ODI user. |``SUNOPSIS``                                                 |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Repository ID                  |ID number of the master and work    |``100``                                                      |
-|                  |                               |repository. Used by operations that |                                                             |
-|                  |                               |create an ODI repository, such as   |                                                             |
-|                  |                               |the AutoRebuild process.            |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |SDK                            |Path of the ODI 11g SDK root        |``C:\oracle\product\11.1.1\Oracle_ODI_1\oracledi.sdk``       |
-|                  |                               |directory.                          |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Secu Driver                    |Class name of the JDBC driver used  |``oracle.jdbc.driver.OracleDriver``                          |
-|                  |                               |to connect to the ODI repository.   |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Secu Encoded Pass              |Encoded password of the ODI master  |``gofpxBz5aa37kmG6I3eLyhVkiscy``                             |
-|                  |                               |respository database user/owner.    |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Secu Pass                      |Unencoded password of the ODI master|``odirepofordemo2``                                          |
-|                  |                               |repository database user/owner.     |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Secu URL                       |JDBC URL of the ODI master          |``jdbc:oracle:thin:@localhost:1521:xe``                      |
-|                  |                               |repository.                         |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Secu User                      |Name of the ODI master repository   |``odirepofordemo2``                                          |
-|                  |                               |database user/owner.                |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Secu Work Rep                  |Name of the ODI work repository     |``WORKREP``                                                  |
-|                  |                               |attached to the master repository.  |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |User                           |User name of the ODI user.          |``SUPERVISOR``                                               |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Version                        |Version number of ODI.              |``11.1.1.6.4``                                               |
-|                  |                               |Currently only the major version    |                                                             |
-|                  |                               |number is significant to ODI-SCM.   |``10.``                                                      | 
-|                  |                               |solution.                           |                                                             |
-+------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
-|SCM System        |Branch URL                     |The least significant part of the   |``$/MyTFSProject/Master/SubProj1``                           |
-|                  |                               |SCM URL. Typically, for TFS this is |                                                             |
-|                  |                               |the Project and branch/folder path  |``OSSApps/MyApp``                                            |
-|                  |                               |and for SVN this is the path within |                                                             |
-|                  |                               |the root of the repository.         |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Global User Name               |A user name to use to logon to the  |``somedomain\anotheruser``                                   |
-|                  |                               |SCM system instead of the default   |                                                             |
-|                  |                               |user. For SVN the *default user* is |                                                             |
-|                  |                               |the cached user, previously used to |                                                             |
-|                  |                               |access the SVN repository. For TFS  |                                                             |
-|                  |                               |the *default user* is the currently |                                                             |
-|                  |                               |logged in Windows user.             |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Global User Password           |The password of the user specified  |``thesecretstring``                                          |
-|                  |                               |in the Global User Name key, if     |                                                             |
-|                  |                               |any.                                |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |System URL                     |The most significant part of the SCM|``http://mytfsvr:1234/tfs``                                  |
-|                  |                               |URL. Typically, for TFS this is the |                                                             |
-|                  |                               |server and Team Project Collection, |``file:///C:/OdiScmWalkThrough/SvnRepoRoot``                 |
-|                  |                               |and for SVN this is the repository  |                                                             |
-|                  |                               |root URL.                           |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Type Name                      |The name of the type of SCM system. |``SVN``                                                      |
-|                  |                               |temporary/working files.            |                                                             |
-|                  |                               |Must be set to SVN or TFS.          |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Working Copy Root              |The root directory of the SVN       |``C:/OdiScmWalkThrough/Repo2WorkingCopy``                    |
-|                  |                               |working copy / TFS workspace.       |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |OracleDI Working Copy Root     |The root directory, relative to the |``src/oracledi``                                             |
-|                  |                               |working copy root directory, of the |                                                             |
-|                  |                               |ODI code.                           |                                                             |
-|                  |                               |Must be within the working copy     |                                                             |
-|                  |                               |directory tree. I.e. avoid using    |                                                             |
-|                  |                               |".." in this path.                  |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Working Root                   |The working directory where the     |``C:/OdiScmWalkThrough/Temp2``                               |
-|                  |                               |ODI-SCM export mechanism can create |                                                             |
-|                  |                               |temporary/working files.            |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Workspace Name                 |The Team Foundation (Server, TFS)   |``myworkspace1``                                             |
-|                  |                               |workspace name of the working copy. |                                                             |
-|                  |                               |temporary/working files. Currently  |                                                             |
-|                  |                               |used only by the OdiScmAutoRebuild  |                                                             |
-|                  |                               |process to destroy and recreate the |                                                             |
-|                  |                               |TFS workspace for the working copy. |                                                             |
-+------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
-|Tools             |FitNesse Class Name            |The Java class name of the entry    |``fitnesse.FitNesse``          (for DbFit 1.1)               |
-|                  |                               |point to FitNesse. Used to execute  |                                                             |
-|                  |                               |ODI unit tests built with DbFit and |                                                             |
-|                  |                               |other FIT/SLIM fixtures via the     |``fitnesseMain.FitNesseMain``  (for DbFit 2.x)               |
-|                  |                               |FitNesse engine.                    |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |FitNesse Home                  |The home/installation diretory of   |``C:\dbfit-complete-2.1.0``                                  |
-|                  |                               |FitNesse.                           |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |FitNesse Java Home             |Path of the JVM (JRE or JDK) to be  |``C:\Program Files\Java\jdk1.6.0_45``                        |
-|                  |                               |used with FitNesse. This is the     |                                                             |
-|                  |                               |directory containing the ``bin``    |                                                             |
-|                  |                               |directory containing the            |                                                             |
-|                  |                               |``java.exe`` binary.                |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Jisql Additional Classpath     |Additional Java class directories   |``C:\MyApp\bin;D:\AppLib\tools.jar;D:\AppLib\classes.zip``   |
-|                  |                               |and/or archives required for        |                                                             |
-|                  |                               |ODI-SCM operations against the ODI  |                                                             |
-|                  |                               |repository.                         |                                                             |
-|                  |                               |                                    |                                                             |
-|                  |                               |No longer used, in general.         |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Jisql Home                     |Path of the Jisql home directory.   |``C:\Jisql\jisql-2.0.11``                                    |
-|                  |                               |This is the directory containing the|                                                             |
-|                  |                               |``runit.bat`` script and the ``lib``|                                                             |
-|                  |                               |directory.                          |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Jisql Java Home                |Path of the JVM (JRE or JDK) home   |``C:\Program Files\Java\jdk1.6.0_45``                        |
-|                  |                               |directory to use with Jisql.        |                                                             |
-|                  |                               |This is the directory containing the|                                                             |
-|                  |                               |``bin`` directory containing the    |                                                             |
-|                  |                               |``java.exe`` binary.                |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Oracle Home                    |Path of the Oracle client home      |``C:\oraclexe\app\oracle\product\11.2.0\server``             |
-|                  |                               |directory. This is the the directory|                                                             |
-|                  |                               |containing the ``bin`` directory    |                                                             |
-|                  |                               |containing the ``imp.exe`` and      |                                                             |
-|                  |                               |``exp.exe`` binaries.               |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Team Explorer Everywhere Java  |Path of the JVM (JRE or JDK) home   |``C:\Program Files\Java\jdk1.6.0_45``                        |
-|                  |Home                           |directory to use with Microsoft     |                                                             |
-|                  |                               |TEE, if appropriate.                |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |UnxUtils Home                  |Path of the UnxUtils distribution   |``C:\UnxUtils``                                              |
-|                  |                               |home directory. This is the         |                                                             |
-|                  |                               |directory containing the ``bin`` and|                                                             |
-|                  |                               |``usr`` directories.                |                                                             |
-+------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
-|Generate          |Build Test Scope               |Determines whether an incremental   |``incremental``                                              |
-|                  |                               |or full set of unit test executions |                                                             |
-|                  |                               |are generated, to be executed after |                                                             |
-|                  |                               |the completion of the build process.|                                                             |
-|                  |                               |Valid values are ``incremental`` and|                                                             |
-|                  |                               |``full``.                           |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Export Ref Phys Arch Only      |Controls whether ODI-SCM export     |``No``                                                       |
-|                  |                               |operations (export and flush) will  |                                                             |
-|                  |                               |export non *reference* Topology     |                                                             |
-|                  |                               |objects. For more on this subject   |                                                             |
-|                  |                               |see the *Reference Topology*        |                                                             |
-|                  |                               |section in the ODI-SCM Technical    |                                                             |
-|                  |                               |Manual. Valid values are ``Yes`` and|                                                             |
-|                  |                               |``No``.                             |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Export Cleans ImportRep Objects|Controls whether the ODI-SCM export |``Yes``                                                      |
-|                  |                               |will remove SnpMImportRep and       |                                                             |
-|                  |                               |SnpImportRep objects from ODI object|                                                             |
-|                  |                               |source files. Removing these allows |                                                             |
-|                  |                               |ODI-SCM to populate a repository    |                                                             |
-|                  |                               |from source object files where the  |                                                             |
-|                  |                               |repository is not the original      |                                                             |
-|                  |                               |repository having the repository's  |                                                             |
-|                  |                               |ID. The operation is normally       |                                                             |
-|                  |                               |blocked by the ODI import API but   |                                                             |
-|                  |                               |ODI-SCM makes this operation safe.  |                                                             |
-|                  |                               |Not applicable to ODI 10g.          |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |OracleDI Context               |The code of the ODI context used to |``GLOBAL``                                                   |
-|                  |                               |execute ODI-SCM operations, such as |                                                             |
-|                  |                               |flushing out code or configuring the|                                                             |
-|                  |                               |components.                         |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Output Tag                     |The character string used as part of|``DemoEnvironment2``                                         |
-|                  |                               |the names of the directories and    |                                                             |
-|                  |                               |files generated by the OdiScmGet    |                                                             |
-|                  |                               |process. If empty, then a tag       |                                                             |
-|                  |                               |composed of the current date and    |                                                             |
-|                  |                               |is used.                            |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Import Object Batch Size Max   |The maximum number of ODI object    |``200``                                                      |
-|                  |                               |source files imported in a single   |                                                             |
-|                  |                               |import operation.                   |                                                             |
-|                  |                               |*Massive* import performance gains  |                                                             |
-|                  |                               |can be achieved by specifying a     |                                                             |
-|                  |                               |value for this option. Valid values |                                                             |
-|                  |                               |are positive integers. A value of   |                                                             |
-|                  |                               |``1`` means *no optimisation*.      |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Import Resets Flush Control    |Controls whether the ODI-SCM import |``Yes``                                                      |
-|                  |                               |process updates the ODI-SCM *flush  |                                                             |
-|                  |                               |control* metadata. Valid values are |                                                             |
-|                  |                               |``Yes`` and ``No``.                 |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Scenario Export Markers        |A sstring of one or more object     |``SMILEYS.SMILEY_2,MYMARKERS.MARKER17``                      |
-|                  |                               |markers used to indicate which      |                                                             |
-|                  |                               |source objects may have their       |                                                             |
-|                  |                               |Scenarios exported to the file      |                                                             |
-|                  |                               |system, and hence available to check|                                                             |
-|                  |                               |into the source code control system |                                                             |
-|                  |                               |rather than being removed from the  |                                                             |
-|                  |                               |export file created for the source  |                                                             |
-|                  |                               |object.                             |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Scenario Source Markers        |A string of one or more object      |``SMILEYS.SMILEY_2,PRIORITIES.PRIORITY_1``                   |
-|                  |                               |markers used to indicate which      |                                                             |
-|                  |                               |source objects should have a        |                                                             |
-|                  |                               |Scenario generated, by ODI-SCM,     |                                                             |
-|                  |                               |after being imported into the ODI   |                                                             |
-|                  |                               |repository. The format of a marker  |                                                             |
-|                  |                               |in the list of markers is:          |                                                             |
-|                  |                               |*<Marker Group Code>.<Marker Code>* |                                                             |
-|                  |                               |Markers in the list are separated by|                                                             |
-|                  |                               |comma (``,``) characters.           |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |DML Script File Name Pattern N |Where N >= 0, a set of file name    |``dml.*\.sql``                                               |
-|                  |                               |regular expression patterns,        |                                                             |
-|                  |                               |that specify the names of database  |                                                             |
-|                  |                               |DML scripts to be executed following|                                                             |
-|                  |                               |all database DDL script execution.  |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |SQL Statement Delimiter        |A string of one or more characters  |``//``                                                       |
-|                  |                               |used as statement delimiters when   |                                                             |
-|                  |                               |running user SQL scripts. Used to   |                                                             |
-|                  |                               |to avoid conflicts with strings in  |                                                             |
-|                  |                               |user SQL scripts.                   |                                                             |
-+------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
-|Test              |ODI Standards Script           |An optional path and name of a SQL  |``C:\Scripts\DemoODINamingStandardTest.sql``                 |
-|                  |                               |script used to check the ODI code,  |                                                             |
-|                  |                               |in the repository, for naming,      |                                                             |
-|                  |                               |design, etc, standards violations.  |                                                             |
-|                  |                               |If specified this script will be run|                                                             |
-|                  |                               |as part of the ODI-SCM generated ODI|                                                             |
-|                  |                               |imports. The author of the script   |                                                             |
-|                  |                               |can choose to simply highlight the  |                                                             |
-|                  |                               |issues, or cause a failure in the   |                                                             |
-|                  |                               |imports, by coding the script       |                                                             |
-|                  |                               |appropriately.                      |                                                             |
-|                  |                               |Applies only to incremental builds  |                                                             |
-|                  |                               |only. I.e. not to the initial build |                                                             |
-|                  |                               |of an empty repositroy.             |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |FitNesse Output Format         |The output format of FitNesse tests.|``text``                                                     |
-|                  |                               |Valid values are ``html`` and       |                                                             |
-|                  |                               |``text``. ``html`` format is useful |                                                             |
-|                  |                               |for debugging test failures but     |                                                             |
-|                  |                               |``text`` format is required for the |                                                             |
-|                  |                               |correct detection of test failures  |                                                             |
-|                  |                               |whilst running post build tests.    |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |FitNesse Port                  |The TCP port that FitNesse will use |``8086``                                                     |
-|                  |                               |for its test runner processes, such |                                                             |
-|                  |                               |as fit.FitServer or the SLiM test   |                                                             |
-|                  |                               |runner.                             |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |FitNesse Root Page Root        |The path of the root FitNesse page. |``C:\MyWorkingCopy\FitNesseRoot``                            |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |FitNesse Root Page Name        |The name of the root FitNesse page. |``FitNesseRoot``                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |FitNesse Unit Test Root Page   |The parent page path of the ODI     |``MyProject.EtL.UnitTests``                                  |
-|                  |Name                           |object unit test FitNesse pages.    |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |OracleDI Context               |The code of the ODI context used to |``GLOBAL``                                                   |
-|                  |                               |execute post build tests.           |                                                             |
-+------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
-|Import Controls   |OracleDI Imported Revision     |Tracks the highest revision number, |``123``                                                      |
-|                  |                               |from the SCM system, that has been  |                                                             |
-|                  |                               |imported into the ODI repository.   |                                                             |
-|                  |                               |This entry is updated by ODI-SCM    |                                                             |
-|                  |                               |generated ODI import scripts.       |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Working Copy Revision          |Tracks the highest revision number, |``123``                                                      |
-|                  |                               |from the SCM system, that has been  |                                                             |
-|                  |                               |applied to the working copy.        |                                                             |
-|                  |                               |This entry is updated by the        |                                                             |
-|                  |                               |OdiScmGet process.                  |                                                             |
-+------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
-|Notify            |User Name                      |Tracks the highest revision number, |``Mark Matten``                                              |
-|                  |                               |from the SCM system, that has been  |                                                             |
-|                  |                               |imported into the ODI repository.   |                                                             |
-|                  |                               |This entry is updated by ODI-SCM    |                                                             |
-|                  |                               |generated ODI import scripts.       |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Email Address                  |The email address used to notify the|``mattenm@odietamo.org.uk``                                  |
-|                  |                               |user of the completion (success or  |                                                             |
-|                  |                               |failure) of build processes.        |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |SMTP Server                    |The host name or IP addresss of an  |``mail.yourdomain.co.uk``                                    |
-|                  |                               |SMTP server used to send email      |                                                             |
-|                  |                               |notifications.                      |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |On Build Status                |Whether to send a notification on   |``both``                                                     |
-|                  |                               |build *success*, build *failure*,   |                                                             |
-|                  |                               |*both* or *neither*.                |                                                             |
-|                  |                               |Valid values are ``success``,       |                                                             |
-|                  |                               |``failure``, ``both`` and           |                                                             |
-|                  |                               |``neither``.                        |                                                             |
-+------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
-|Misc              |Resources Root                 |Path of the directory used for      |``C:\OdiScmResources``                                       |
-|                  |                               |miscellaneous resource files.       |                                                             |
-|                  +-------------------------------+------------------------------------+-------------------------------------------------------------+
-|                  |Temp Root                      |Path of the directory used for      |``C:\Temp``                                                  |
-|                  |                               |general temporary, working, files.  |                                                             |
-|                  |                               |Used to override the default use of |                                                             |
-|                  |                               |%TEMP%-else-%TMP% to place files.   |                                                             |
-+------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
++--------------------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
+|Section Name                    |Key Name                       |Key Description                     |Example Values                                               |
++================================+===============================+====================================+=============================================================+
+|OracleDI                        |Admin Pass                     |Password of the database user with  |``xe``                                                       |
+|                                |                               |DBA privileges. Used when creating  |                                                             |
+|                                |                               |database users when creating ODI    |                                                             |
+|                                |                               |repositories.                       |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Admin User                     |User name of the database user with |``system``                                                   |
+|                                |                               |DBA privileges. Used when creating  |                                                             |
+|                                |                               |database users when creating ODI    |                                                             |
+|                                |                               |repositories.                       |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Common                         |Path of ODI 11g common libraries    |``C:\oracle\product\11.1.1\Oracle_ODI_1\oracledi.common``    |
+|                                |                               |directory.                          |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Drop With Purge                |Determines whether repository tables|``Yes``                                                      |
+|                                |                               |are purged from the Oracle database |                                                             |
+|                                |                               |rather than sent to the recycle bin |                                                             |
+|                                |                               |(dependent upon the DB settings)    |                                                             |
+|                                |                               |Allowable values are ``Yes`` and    |                                                             |
+|                                |                               |``No``.                             |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Encoded Pass                   |Encoded password of the ODI user.   |``fJyaPZ,YfyDCeWogjrmEZOr``                                  |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Home                           |Path of ODI home directory.         |``C:\OraHome_1\oracledi`` 10g                                |
+|                                |                               |                                    |``C:\oracle\product\11.1.1\Oracle_ODI_1\oracledi\agent`` 11g |
+|                                |                               |This is the directory containing the|                                                             |
+|                                |                               |``bin`` directory that contains the |                                                             |
+|                                |                               |startcmd.bat script                 |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Java Home                      |Path of the JDK to be used with ODI.|``C:\Program Files\Java\jdk1.6.0_45``                        |
+|                                |                               |This is the directory containing the|                                                             |
+|                                |                               |``bin`` directory containing the    |                                                             |
+|                                |                               |``java.exe`` binary.                |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Oracle Home                    |Path of the Oracle Home for the ODI |``C:\oracle\product\11.1.1\Oracle_ODI_1``                    |
+|                                |                               |installation. This is normally the  |                                                             |
+|                                |                               |parent directory of the ODI Home    |                                                             |
+|                                |                               |directory. This path is used to find|                                                             |
+|                                |                               |additional resources such as Java   |                                                             |
+|                                |                               |class archives (JAR) files and the  |                                                             |
+|                                |                               |standard ODI demo files for the some|                                                             |
+|                                |                               |of the ODI-SCM demos. This entry is |                                                             |
+|                                |                               |required when running the fast-     |                                                             |
+|                                |                               |forward of ODI-SCM demos, that use  |                                                             |
+|                                |                               |the standard ODI demo Hypersonic SQL|                                                             |
+|                                |                               |databases, and when creating        |                                                             |
+|                                |                               |master and work repositories using  |                                                             |
+|                                |                               |the ODI-SCM tools.                  |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Pass                           |Unencoded password of the ODI user. |``SUNOPSIS``                                                 |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Repository ID                  |ID number of the master and work    |``100``                                                      |
+|                                |                               |repository. Used by operations that |                                                             |
+|                                |                               |create an ODI repository, such as   |                                                             |
+|                                |                               |the AutoRebuild process.            |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |SDK                            |Path of the ODI 11g SDK root        |``C:\oracle\product\11.1.1\Oracle_ODI_1\oracledi.sdk``       |
+|                                |                               |directory.                          |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Secu Driver                    |Class name of the JDBC driver used  |``oracle.jdbc.driver.OracleDriver``                          |
+|                                |                               |to connect to the ODI repository.   |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Secu Encoded Pass              |Encoded password of the ODI master  |``gofpxBz5aa37kmG6I3eLyhVkiscy``                             |
+|                                |                               |respository database user/owner.    |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Secu Pass                      |Unencoded password of the ODI master|``odirepofordemo2``                                          |
+|                                |                               |repository database user/owner.     |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Secu URL                       |JDBC URL of the ODI master          |``jdbc:oracle:thin:@localhost:1521:xe``                      |
+|                                |                               |repository.                         |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Secu User                      |Name of the ODI master repository   |``odirepofordemo2``                                          |
+|                                |                               |database user/owner.                |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Secu Work Rep                  |Name of the ODI work repository     |``WORKREP``                                                  |
+|                                |                               |attached to the master repository.  |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |User                           |User name of the ODI user.          |``SUPERVISOR``                                               |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Version                        |Version number of ODI.              |``11.1.1.6.4``                                               |
+|                                |                               |Currently only the major version    |                                                             |
+|                                |                               |number is significant to ODI-SCM.   |``10.``                                                      | 
+|                                |                               |solution.                           |                                                             |
++--------------------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
+|SCM System                      |Branch URL                     |The least significant part of the   |``$/MyTFSProject/Master/SubProj1``                           |
+|                                |                               |SCM URL. Typically, for TFS this is |                                                             |
+|                                |                               |the Project and branch/folder path  |``OSSApps/MyApp``                                            |
+|                                |                               |and for SVN this is the path within |                                                             |
+|                                |                               |the root of the repository.         |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Global User Name               |A user name to use to logon to the  |``somedomain\anotheruser``                                   |
+|                                |                               |SCM system instead of the default   |                                                             |
+|                                |                               |user. For SVN the *default user* is |                                                             |
+|                                |                               |the cached user, previously used to |                                                             |
+|                                |                               |access the SVN repository. For TFS  |                                                             |
+|                                |                               |the *default user* is the currently |                                                             |
+|                                |                               |logged in Windows user.             |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Global User Password           |The password of the user specified  |``thesecretstring``                                          |
+|                                |                               |in the Global User Name key, if     |                                                             |
+|                                |                               |any.                                |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |System URL                     |The most significant part of the SCM|``http://mytfsvr:1234/tfs``                                  |
+|                                |                               |URL. Typically, for TFS this is the |                                                             |
+|                                |                               |server and Team Project Collection, |``file:///C:/OdiScmWalkThrough/SvnRepoRoot``                 |
+|                                |                               |and for SVN this is the repository  |                                                             |
+|                                |                               |root URL.                           |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Type Name                      |The name of the type of SCM system. |``SVN``                                                      |
+|                                |                               |temporary/working files.            |                                                             |
+|                                |                               |Must be set to SVN or TFS.          |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Working Copy Root              |The root directory of the SVN       |``C:/OdiScmWalkThrough/Repo2WorkingCopy``                    |
+|                                |                               |working copy / TFS workspace.       |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |OracleDI Working Copy Root     |The root directory, relative to the |``src/oracledi``                                             |
+|                                |                               |working copy root directory, of the |                                                             |
+|                                |                               |ODI code.                           |                                                             |
+|                                |                               |Must be within the working copy     |                                                             |
+|                                |                               |directory tree. I.e. avoid using    |                                                             |
+|                                |                               |".." in this path.                  |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Working Root                   |The working directory where the     |``C:/OdiScmWalkThrough/Temp2``                               |
+|                                |                               |ODI-SCM export mechanism can create |                                                             |
+|                                |                               |temporary/working files.            |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Workspace Name                 |The Team Foundation (Server, TFS)   |``myworkspace1``                                             |
+|                                |                               |workspace name of the working copy. |                                                             |
+|                                |                               |temporary/working files. Currently  |                                                             |
+|                                |                               |used only by the OdiScmAutoRebuild  |                                                             |
+|                                |                               |process to destroy and recreate the |                                                             |
+|                                |                               |TFS workspace for the working copy. |                                                             |
++--------------------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
+|Tools                           |FitNesse Class Name            |The Java class name of the entry    |``fitnesse.FitNesse``          (for DbFit 1.1)               |
+|                                |                               |point to FitNesse. Used to execute  |                                                             |
+|                                |                               |ODI unit tests built with DbFit and |                                                             |
+|                                |                               |other FIT/SLIM fixtures via the     |``fitnesseMain.FitNesseMain``  (for DbFit 2.x)               |
+|                                |                               |FitNesse engine.                    |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |FitNesse Home                  |The home/installation diretory of   |``C:\dbfit-complete-2.1.0``                                  |
+|                                |                               |FitNesse.                           |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |FitNesse Java Home             |Path of the JVM (JRE or JDK) to be  |``C:\Program Files\Java\jdk1.6.0_45``                        |
+|                                |                               |used with FitNesse. This is the     |                                                             |
+|                                |                               |directory containing the ``bin``    |                                                             |
+|                                |                               |directory containing the            |                                                             |
+|                                |                               |``java.exe`` binary.                |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Jisql Additional Classpath     |Additional Java class directories   |``C:\MyApp\bin;D:\AppLib\tools.jar;D:\AppLib\classes.zip``   |
+|                                |                               |and/or archives required for        |                                                             |
+|                                |                               |ODI-SCM operations against the ODI  |                                                             |
+|                                |                               |repository.                         |                                                             |
+|                                |                               |                                    |                                                             |
+|                                |                               |No longer used, in general.         |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Jisql Home                     |Path of the Jisql home directory.   |``C:\Jisql\jisql-2.0.11``                                    |
+|                                |                               |This is the directory containing the|                                                             |
+|                                |                               |``runit.bat`` script and the ``lib``|                                                             |
+|                                |                               |directory.                          |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Jisql Java Home                |Path of the JVM (JRE or JDK) home   |``C:\Program Files\Java\jdk1.6.0_45``                        |
+|                                |                               |directory to use with Jisql.        |                                                             |
+|                                |                               |This is the directory containing the|                                                             |
+|                                |                               |``bin`` directory containing the    |                                                             |
+|                                |                               |``java.exe`` binary.                |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Oracle Home                    |Path of the Oracle client home      |``C:\oraclexe\app\oracle\product\11.2.0\server``             |
+|                                |                               |directory. This is the the directory|                                                             |
+|                                |                               |containing the ``bin`` directory    |                                                             |
+|                                |                               |containing the ``imp.exe`` and      |                                                             |
+|                                |                               |``exp.exe`` binaries.               |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Team Explorer Everywhere Java  |Path of the JVM (JRE or JDK) home   |``C:\Program Files\Java\jdk1.6.0_45``                        |
+|                                |Home                           |directory to use with Microsoft     |                                                             |
+|                                |                               |TEE, if appropriate.                |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |UnxUtils Home                  |Path of the UnxUtils distribution   |``C:\UnxUtils``                                              |
+|                                |                               |home directory. This is the         |                                                             |
+|                                |                               |directory containing the ``bin`` and|                                                             |
+|                                |                               |``usr`` directories.                |                                                             |
++--------------------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
+|Generate                        |Build Test Scope               |Determines whether an incremental   |``incremental``                                              |
+|                                |                               |or full set of unit test executions |                                                             |
+|                                |                               |are generated, to be executed after |                                                             |
+|                                |                               |the completion of the build process.|                                                             |
+|                                |                               |Valid values are ``incremental`` and|                                                             |
+|                                |                               |``full``.                           |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Export Ref Phys Arch Only      |Controls whether ODI-SCM export     |``No``                                                       |
+|                                |                               |operations (export and flush) will  |                                                             |
+|                                |                               |export non *reference* Topology     |                                                             |
+|                                |                               |objects. For more on this subject   |                                                             |
+|                                |                               |see the *Reference Topology*        |                                                             |
+|                                |                               |section in the ODI-SCM Technical    |                                                             |
+|                                |                               |Manual. Valid values are ``Yes`` and|                                                             |
+|                                |                               |``No``.                             |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Export Cleans ImportRep Objects|Controls whether the ODI-SCM export |``Yes``                                                      |
+|                                |                               |will remove SnpMImportRep and       |                                                             |
+|                                |                               |SnpImportRep objects from ODI object|                                                             |
+|                                |                               |source files. Removing these allows |                                                             |
+|                                |                               |ODI-SCM to populate a repository    |                                                             |
+|                                |                               |from source object files where the  |                                                             |
+|                                |                               |repository is not the original      |                                                             |
+|                                |                               |repository having the repository's  |                                                             |
+|                                |                               |ID. The operation is normally       |                                                             |
+|                                |                               |blocked by the ODI import API but   |                                                             |
+|                                |                               |ODI-SCM makes this operation safe.  |                                                             |
+|                                |                               |Not applicable to ODI 10g.          |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |OracleDI Context               |The code of the ODI context used to |``GLOBAL``                                                   |
+|                                |                               |execute ODI-SCM operations, such as |                                                             |
+|                                |                               |flushing out code or configuring the|                                                             |
+|                                |                               |components.                         |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Output Tag                     |The character string used as part of|``DemoEnvironment2``                                         |
+|                                |                               |the names of the directories and    |                                                             |
+|                                |                               |files generated by the OdiScmGet    |                                                             |
+|                                |                               |process. If empty, then a tag       |                                                             |
+|                                |                               |composed of the current date and    |                                                             |
+|                                |                               |is used.                            |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Import Object Batch Size Max   |The maximum number of ODI object    |``200``                                                      |
+|                                |                               |source files imported in a single   |                                                             |
+|                                |                               |import operation.                   |                                                             |
+|                                |                               |*Massive* import performance gains  |                                                             |
+|                                |                               |can be achieved by specifying a     |                                                             |
+|                                |                               |value for this option. Valid values |                                                             |
+|                                |                               |are positive integers. A value of   |                                                             |
+|                                |                               |``1`` means *no optimisation*.      |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Import Resets Flush Control    |Controls whether the ODI-SCM import |``Yes``                                                      |
+|                                |                               |process updates the ODI-SCM *flush  |                                                             |
+|                                |                               |control* metadata. Valid values are |                                                             |
+|                                |                               |``Yes`` and ``No``.                 |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Scenario Export Markers        |A sstring of one or more object     |``SMILEYS.SMILEY_2,MYMARKERS.MARKER17``                      |
+|                                |                               |markers used to indicate which      |                                                             |
+|                                |                               |source objects may have their       |                                                             |
+|                                |                               |Scenarios exported to the file      |                                                             |
+|                                |                               |system, and hence available to check|                                                             |
+|                                |                               |into the source code control system |                                                             |
+|                                |                               |rather than being removed from the  |                                                             |
+|                                |                               |export file created for the source  |                                                             |
+|                                |                               |object.                             |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Scenario Source Markers        |A string of one or more object      |``SMILEYS.SMILEY_2,PRIORITIES.PRIORITY_1``                   |
+|                                |                               |markers used to indicate which      |                                                             |
+|                                |                               |source objects should have a        |                                                             |
+|                                |                               |Scenario generated, by ODI-SCM,     |                                                             |
+|                                |                               |after being imported into the ODI   |                                                             |
+|                                |                               |repository. The format of a marker  |                                                             |
+|                                |                               |in the list of markers is:          |                                                             |
+|                                |                               |*<Marker Group Code>.<Marker Code>* |                                                             |
+|                                |                               |Markers in the list are separated by|                                                             |
+|                                |                               |comma (``,``) characters.           |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |DML Script File Name Pattern N |Where N >= 0, a set of file name    |``dml.*\.sql``                                               |
+|                                |                               |regular expression patterns,        |                                                             |
+|                                |                               |that specify the names of database  |                                                             |
+|                                |                               |DML scripts to be executed following|                                                             |
+|                                |                               |all database DDL script execution.  |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |SQL Statement Delimiter        |A string of one or more characters  |``//``                                                       |
+|                                |                               |used as statement delimiters when   |                                                             |
+|                                |                               |running user SQL scripts. Used to   |                                                             |
+|                                |                               |to avoid conflicts with strings in  |                                                             |
+|                                |                               |user SQL scripts.                   |                                                             |
++--------------------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
+|Test                            |ODI Standards Script           |An optional path and name of a SQL  |``C:\Scripts\DemoODINamingStandardTest.sql``                 |
+|                                |                               |script used to check the ODI code,  |                                                             |
+|                                |                               |in the repository, for naming,      |                                                             |
+|                                |                               |design, etc, standards violations.  |                                                             |
+|                                |                               |If specified this script will be run|                                                             |
+|                                |                               |as part of the ODI-SCM generated ODI|                                                             |
+|                                |                               |imports. The author of the script   |                                                             |
+|                                |                               |can choose to simply highlight the  |                                                             |
+|                                |                               |issues, or cause a failure in the   |                                                             |
+|                                |                               |imports, by coding the script       |                                                             |
+|                                |                               |appropriately.                      |                                                             |
+|                                |                               |Applies only to incremental builds  |                                                             |
+|                                |                               |only. I.e. not to the initial build |                                                             |
+|                                |                               |of an empty repositroy.             |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |FitNesse Output Format         |The output format of FitNesse tests.|``text``                                                     |
+|                                |                               |Valid values are ``html`` and       |                                                             |
+|                                |                               |``text``. ``html`` format is useful |                                                             |
+|                                |                               |for debugging test failures but     |                                                             |
+|                                |                               |``text`` format is required for the |                                                             |
+|                                |                               |correct detection of test failures  |                                                             |
+|                                |                               |whilst running post build tests.    |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |FitNesse Port                  |The TCP port that FitNesse will use |``8086``                                                     |
+|                                |                               |for its test runner processes, such |                                                             |
+|                                |                               |as fit.FitServer or the SLiM test   |                                                             |
+|                                |                               |runner.                             |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |FitNesse Root Page Root        |The path of the root FitNesse page. |``C:\MyWorkingCopy\FitNesseRoot``                            |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |FitNesse Root Page Name        |The name of the root FitNesse page. |``FitNesseRoot``                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |FitNesse Unit Test Root Page   |The parent page path of the ODI     |``MyProject.EtL.UnitTests``                                  |
+|                                |Name                           |object unit test FitNesse pages.    |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |OracleDI Context               |The code of the ODI context used to |``GLOBAL``                                                   |
+|                                |                               |execute post build tests.           |                                                             |
++--------------------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
+|Import Controls                 |OracleDI Imported Revision     |Tracks the highest revision number, |``123``                                                      |
+|                                |                               |from the SCM system, that has been  |                                                             |
+|                                |                               |imported into the ODI repository.   |                                                             |
+|                                |                               |This entry is updated by ODI-SCM    |                                                             |
+|                                |                               |generated ODI import scripts.       |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Working Copy Revision          |Tracks the highest revision number, |``123``                                                      |
+|                                |                               |from the SCM system, that has been  |                                                             |
+|                                |                               |applied to the working copy.        |                                                             |
+|                                |                               |This entry is updated by the        |                                                             |
+|                                |                               |OdiScmGet process.                  |                                                             |
++--------------------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
+|Notify                          |User Name                      |Tracks the highest revision number, |``Mark Matten``                                              |
+|                                |                               |from the SCM system, that has been  |                                                             |
+|                                |                               |imported into the ODI repository.   |                                                             |
+|                                |                               |This entry is updated by ODI-SCM    |                                                             |
+|                                |                               |generated ODI import scripts.       |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Email Address                  |The email address used to notify the|``mattenm@odietamo.org.uk``                                  |
+|                                |                               |user of the completion (success or  |                                                             |
+|                                |                               |failure) of build processes.        |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |SMTP Server                    |The host name or IP addresss of an  |``mail.yourdomain.co.uk``                                    |
+|                                |                               |SMTP server used to send email      |                                                             |
+|                                |                               |notifications.                      |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |On Build Status                |Whether to send a notification on   |``both``                                                     |
+|                                |                               |build *success*, build *failure*,   |                                                             |
+|                                |                               |*both* or *neither*.                |                                                             |
+|                                |                               |Valid values are ``success``,       |                                                             |
+|                                |                               |``failure``, ``both`` and           |                                                             |
+|                                |                               |``neither``.                        |                                                             |
++--------------------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
+|Misc                            |Resources Root                 |Path of the directory used for      |``C:\OdiScmResources``                                       |
+|                                |                               |miscellaneous resource files.       |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Temp Root                      |Path of the directory used for      |``C:\Temp``                                                  |
+|                                |                               |general temporary, working, files.  |                                                             |
+|                                |                               |Used to override the default use of |                                                             |
+|                                |                               |%TEMP%-else-%TMP% to place files.   |                                                             |
++--------------------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
+|Data Servers                    |<Data Server Name>             |A repeating key of varying name.    |``hrsy1=DBMS Type+mysql+JDBC URL+jdbc:mysql:myDbServer12+User|
+|                                |                               |                                    |Name+usr3+Password+psswd3``                                  |
+|                                |                               |JDBC connection properties for a    |                                                             |
+|                                |                               |data server type to which database  |                                                             |
+|                                |                               |objects will be deployed.           |                                                             |
+|                                |                               |                                    |                                                             |
+|                                |                               |Properties and their values are     |                                                             |
+|                                |                               |separated by "\+".                  |                                                             |
+|                                |                               |                                    |                                                             |
+|                                |                               |The properties must appear be in the|                                                             |
+|                                |                               |following format: -                 |                                                             |
+|                                |                               |                                    |                                                             |
+|                                |                               |* Key name: ``DBMS Type``           |                                                             |
+|                                |                               |* Key value: <DBMS type name>       |                                                             |
+|                                |                               |* Key name: ``JDBC URL``            |                                                             |
+|                                |                               |* Key value: <JDBC URL>             |                                                             |
+|                                |                               |* Key name: ``User Name``           |                                                             |
+|                                |                               |* Key value: <user name>            |                                                             |
+|                                |                               |* Key name: ``Password``            |                                                             |
+|                                |                               |* Key value: <password>             |                                                             |
+|                                |                               |* Key name: ``Drop With Purge``     |                                                             |
+|                                |                               |* Key value: <``yes`` | ``no``>     |                                                             |
+|                                |                               |                                    |                                                             |
+|                                |                               |Note that the "Drop With Purge"     |                                                             |
+|                                |                               |key is only relevant for Oracle     |                                                             |
+|                                |                               |data servers.                       |                                                             |
++--------------------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
+|Logical Physical Schema Mappings|<Logical Schema Name>          |A repeating key of varying name.    |``billing=Data Server+s1+Database+billdb4+Schema+billing_main|
+|                                |                               |                                    |+Token Values+ReplaceThis=WithThis/AndThis=ByThis``          |
+|                                |                               |Physical schemas into which database|                                                             |
+|                                |                               |objects will be deployed, from DDL  |                                                             |
+|                                |                               |and SPL scripts, and into which meta|                                                             |
+|                                |                               |/reference data will created, from  |                                                             |
+|                                |                               |DML scripts, from the SCM system.   |                                                             |
+|                                |                               |                                    |                                                             |
+|                                |                               |Properties and their values are     |                                                             |
+|                                |                               |separated by "\+".                  |                                                             |
+|                                |                               |                                    |                                                             |
+|                                |                               |The properties must appear be in the|                                                             |
+|                                |                               |following format: -                 |                                                             |
+|                                |                               |                                    |                                                             |
+|                                |                               |* Key name: ``Data Server``         |                                                             |
+|                                |                               |* Key value: <data server name>     |                                                             |
+|                                |                               |* Key name: ``Database``            |                                                             |
+|                                |                               |* Key value: <database name>        |                                                             |
+|                                |                               |* Key name: ``Schema``              |                                                             |
+|                                |                               |* Key value: <schema name>          |                                                             |
+|                                |                               |* Key name: ``Token Values``        |                                                             |
+|                                |                               |* Key value: <"/" separated values> |                                                             |
++--------------------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
 
 A example configuration file with all sections and keys listed::
 
@@ -451,6 +501,12 @@ A example configuration file with all sections and keys listed::
 	[Misc]
 	Resources Root=C:\OdiScmResources
 	Temp Root=X:\Temp\OdiScm
+	
+	[Data Servers]
+	hrsy1=DBMS Type+mysql+JDBC URL+jdbc:mysql:myDbServer12+User Name+usr3+Password+psswd3
+	
+	[Logical Physical Schema Mappings]
+	billing=Data Server+hrsy1+Database+billdb4+Schema++Token Values+ReplaceThis=WithThis/AndThis=ByThis
 
 The *Get* Process
 -----------------
