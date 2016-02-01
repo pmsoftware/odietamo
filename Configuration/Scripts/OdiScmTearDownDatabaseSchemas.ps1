@@ -142,6 +142,107 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 	return $True
 }
 
+function ExecMySqlSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strDatabaseName, $strSqlScript, $blnReplaceEosMarker) {
+	
+	$FN = "ExecMySqlSqlScript"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$WM = $FN + ": WARNING:"
+	$DEBUG = $FN + ": DEBUG:"
+	
+	write-host "$IM starts"
+	
+	write-host "$IM User Name     <$strUserName>"
+	write-host "$IM User Password <$strUserPassword>"
+	write-host "$IM JDBC URL      <$strJdbcUrl>"
+	write-host "$IM Schema        <$strDatabaseName>"
+	write-host "$IM Script File   <$strSqlScript>"
+	
+	if (!(test-path $strSqlScript)) {
+		write-host "$EM SQL script file <$strSqlScript> is not accessible"
+		return $False
+	}
+	
+	if (("$env:TEMPDIR" -eq "") -or ("$env:TEMPDIR" -eq $Null)) {
+		write-host "$EM environment variable TEMPDIR is not set"
+		return $False
+	}
+	
+	$strJdbcDriver = "com.mysql.jdbc.Driver"
+	
+	#
+	# Specify the database in the JDBC URL.
+	#
+	if ($strJdbcUrl.ToLower() -match "[^:]/") {
+		$strFullUrl = $strJdbcUrl
+	}
+	else {
+		if ($strFullUrl.Contains("?")) {
+			$intPropertiesPos = $strFullUrl.IndexOf("?")
+			$strUrlBegin = $strFullUrl.Substring(0, $intPropertiesPos)
+			$strUrlEnd = $strFullUrl.Substring($intPropertiesPos)
+			$strFullUrl = $strUrlBegin + "/" + $strDatabaseName
+		}
+		else {
+			$strFullUrl = $strJdbcUrl + "/" + $strDatabaseName
+		}
+	}
+	
+	write-host "$IM using full JDBC URL <$strFullUrl>"
+	
+	#
+	# Replace the end of statement separators in the script.
+	#
+	$arrStrSetUpScriptContent = get-content -path $strSqlScript
+	if ($arrStrSetUpScriptContent -eq $Null) {
+		#
+		# Get-Content returns $Null for an empy file.
+		#
+		$arrStrSetUpScriptContent = @()
+	}
+	
+	$arrStrOut = @()
+	
+	if (($strDatabaseName -ne "") -and ($strDatabaseName -ne $Null)) {
+		$arrStrOut += "USE $strDatabaseName"
+		$arrStrOut += "<OdiScmGenerateSqlStatementDelimiter>"
+		$arrStrOut += ""
+	}
+	
+	write-host "$IM changing end of statement markers"
+	$intLines = $arrStrSetUpScriptContent.length
+	write-host "$IM source script contains <$intLines> lines"
+	
+	if ($blnReplaceEosMarker) {
+		write-host "$DEBUG replacing statement delimiters with standard ODI-SCM delimiter"
+		$arrStrOut += $arrStrSetUpScriptContent -replace "^;$", "<OdiScmGenerateSqlStatementDelimiter>"
+	}
+	else {
+		$arrStrOut = $arrStrSetUpScriptContent
+	}
+	
+	write-host "$IM completed changing end of statement markers"
+	
+	$strSqlScriptName = split-path $strSqlScript -leaf
+	$strNoGoSqlScript = "$env:TEMPDIR\${strSqlScriptName}_${strDatabaseName}.sql"
+	set-content -path $strNoGoSqlScript -value $arrStrOut
+	
+	$strNoGoSqlScriptFileName = split-path $strNoGoSqlScript -leaf
+	$strStdOutLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdErr.log"
+	
+	#
+	# For MySQL we request that OdiScmJisql does not return a failure if stderr text is generated.
+	#
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strNoGoSqlScript $strStdOutLogFile $strStdErrLogFile $False
+	if (!(TestSqlExecStatus $IM $EM $blnResult $strNoGoSqlScript $strStdErrLogFile)) {
+		return $False
+	}
+	
+	write-host "$IM ends"
+	return $True
+}
+
 function ExecOracleSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $strSchemaName, $strSqlScript, $blnReplaceEosMarker) {
 	
 	$FN = "ExecOracleSqlScript"
@@ -213,6 +314,7 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 	$FN = "ExecTeradataSqlScript"
 	$IM = $FN + ": INFO:"
 	$EM = $FN + ": ERROR:"
+	$WM = $FN + ": WARNING:"
 	$DEBUG = $FN + ": DEBUG:"
 	
 	write-host "$IM starts"
@@ -246,6 +348,8 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 		}
 	}
 	
+	write-host "$IM using full JDBC URL <$strFullUrl>"
+	
 	#
 	# Replace the end of statement separators in the script.
 	#
@@ -270,6 +374,7 @@ function ExecTeradataSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $st
 	write-host "$IM source script contains <$intLines> lines"
 	
 	if ($blnReplaceEosMarker) {
+		write-host "$DEBUG replacing statement delimiters with standard ODI-SCM delimiter"
 		$arrStrOut += $arrStrSetUpScriptContent -replace ";$", "<OdiScmGenerateSqlStatementDelimiter>"
 	}
 	else {
@@ -368,6 +473,9 @@ function ExecDatabaseSqlScript ($strDbTypeName, $strUserName, $strUserPassword, 
 		"hsql" {
 			$RetVal = ExecHSqlSqlScript $strUserName $strUserPassword $strJdbcUrl $strSchemaName $strSqlScript $blnReplaceEosMarker
 		}
+		"mysql" {
+			$RetVal = ExecMySqlSqlScript $strUserName $strUserPassword $strJdbcUrl $strDatabaseName $strSqlScript $blnReplaceEosMarker
+		}
 		default {
 			write-host "$EM unrecognised database type <$strDbTypeName> specified"
 			return $False
@@ -404,7 +512,7 @@ function TearDownHsqlSchema ($strUserName, $strUserPassword, $strJdbcUrl, $strSc
 	#
 	$strTearDownTemplateContent = get-content -path "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmGenerateTearDownHSqlSchema.sql" | out-string
 	
-	if (($strSchemaName -ne "") -and ($strSchemaName -ne "")) {
+	if (($strSchemaName -ne $Null) -and ($strSchemaName -ne "")) {
 		$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmPhysicalSchemaFilter>", " WHERE table_schema = '$strSchemaName'"
 		$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmSchemaSelect>", "|| table_schema"
 	}
@@ -556,6 +664,109 @@ function TearDownSqlServerSchema ($strUserName, $strUserPassword, $strJdbcUrl, $
 	
 	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strDropScriptFile $strStdOutLogFile $strStdErrLogFile $True
 	if (!(TestSqlExecStatus $IM $EM $blnResult $strNoGoSqlScript $strStdErrLogFile)) {
+		return $False
+	}
+	
+	write-host "$IM ends"
+	return $True
+}
+
+function TearDownMySqlSchema ($strUserName, $strUserPassword, $strJdbcUrl, $strDatabaseName) {
+	
+	$FN = "TearDownMySqlSchema"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$DEBUG = $FN + ": DEBUG:"
+	
+	write-host "$IM starts"
+	
+	if (("$env:TEMPDIR" -eq "") -or ("$env:TEMPDIR" -eq $Null)) {
+		write-host "$EM environment variable TEMPDIR is not set"
+		return $False
+	}
+	
+	$strJdbcDriver = "com.mysql.jdbc.Driver"
+	
+	#
+	# Set the target database name in the script.
+	#
+	$strTearDownTemplateContent = get-content -path "$env:ODI_SCM_HOME\Configuration\Scripts\OdiScmGenerateTearDownMySqlSchema.sql" | out-string
+	$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmDatabaseName>", $strDatabaseName
+	
+	if (($strDatabaseName -ne $Null) -and ($strDatabaseName -ne "")) {
+		$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmPhysicalSchemaFilter>", " WHERE table_schema = '$strDatabaseName'"
+		$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmConstraintPhysicalSchemaFilter>", " WHERE constraint_schema = '$strDatabaseName'"
+		$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmSchemaSelect>", ($strDatabaseName + ".")
+	}
+	else {
+		$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmPhysicalSchemaFilter>", ""
+		$strTearDownTemplateContent = $strTearDownTemplateContent -replace "<OdiScmSchemaSelect>", ""
+	}
+	
+	$strSqlScriptFile = "$env:TEMPDIR\OdiScmTearDownMySqlSchema_${strDatabaseName}.sql"
+	set-content -path $strSqlScriptFile -value $strTearDownTemplateContent
+	
+	$strSqlScriptFileName = split-path $strSqlScriptFile -leaf
+	$strStdOutLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\${strSqlScriptFileName}_StdErr.log"
+	
+	#
+	# Specify the database in the JDBC URL.
+	#
+	if ($strJdbcUrl.ToLower() -match "[^:]/") {
+		$strFullUrl = $strJdbcUrl
+	}
+	else {
+		if ($strFullUrl.Contains("?")) {
+			$intPropertiesPos = $strFullUrl.IndexOf("?")
+			$strUrlBegin = $strFullUrl.Substring(0, $intPropertiesPos)
+			$strUrlEnd = $strFullUrl.Substring($intPropertiesPos)
+			$strFullUrl = $strUrlBegin + "/" + $strDatabaseName
+		}
+		else {
+			$strFullUrl = $strJdbcUrl + "/" + $strDatabaseName
+		}
+	}
+	write-host "$IM using full JDBC URL <$strFullUrl>"
+	
+	#
+	# Run the script to generate the DROP statements.
+	#
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strSqlScriptFile $strStdOutLogFile $strStdErrLogFile $True
+	if (!(TestSqlExecStatus $IM $EM $blnResult $strSqlScriptFile $strStdErrLogFile)) {
+		return $False
+	}
+	
+	#
+	# Create the DROP statements script.
+	#
+	$strDropScriptFile = "$env:TEMPDIR\OdiScmTearDownMySqlSchema_${strDatabaseName}.sql"
+	$arrQueryLine = get-content -path $strStdOutLogFile
+	if ($arrQueryLine -eq $Null) {
+		#
+		# Get-Content returns $Null for an empy file.
+		#
+		$arrQueryLine = @()
+	}
+	
+	$arrTearDownScriptContent = @()
+	foreach ($strLine in $arrQueryLine) {
+		if ($strLine.Trim() -ne "") {
+			$arrTearDownScriptContent += ($strLine + [Environment]::NewLine + "<OdiScmGenerateSqlStatementDelimiter>" + [Environment]::NewLine)
+		}
+	}
+	
+	set-content -path $strDropScriptFile -value $arrTearDownScriptContent
+	
+	#
+	# Run the DROP statements script.
+	#
+	$strDropScriptFileName = split-path $strDropScriptFile -leaf
+	$strStdOutLogFile = "$env:TEMPDIR\${strDropScriptFileName}_StdOut.log"
+	$strStdErrLogFile = "$env:TEMPDIR\${strDropScriptFileName}_StdErr.log"
+	
+	$blnResult = ExecSqlScript $strUserName $strUserPassword $strJdbcDriver $strFullUrl $strDropScriptFile $strStdOutLogFile $strStdErrLogFile $True
+	if (!(TestSqlExecStatus $IM $EM $blnResult $strDropScriptFile $strStdErrLogFile)) {
 		return $False
 	}
 	
@@ -797,6 +1008,9 @@ function TearDownDatabaseSchema ($strDbTypeName, $strUserName, $strUserPassword,
 		
 		"hsql" {
 			$RetVal = TearDownHSqlSchema $strUserName $strUserPassword $strJdbcUrl $strSchemaName
+		}
+		"mysql" {
+			$RetVal = TearDownMySqlSchema $strUserName $strUserPassword $strJdbcUrl $strDatabaseName
 		}
 		default {
 			write-host "$EM unrecognised database type <$strDbTypeName> specified"

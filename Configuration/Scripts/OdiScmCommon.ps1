@@ -1469,7 +1469,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 		if (($strTokensKeysName -ne "") -and ($strTokensKeysName -ne $Null)) {
 			if ($strTokensKeysName -ne "Token Values") {
 				write-host "$EM invalid value for environment variable <ODI_SCM_LOGICAL_PHYSICAL_SCHEMA_MAPPINGS_${strLogicalSchemaName}>"
-				write-host "$EM expected <Token Values> in field position <5> but found <$strTokensKeysName>"
+				write-host "$EM expected <Token Values> in field position <7> but found <$strTokensKeysName>"
 				$intFileErrors += 1
 				continue
 			}
@@ -1581,6 +1581,30 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 			write-host "$WM no value found for password in field position <8> for environment variable <ODI_SCM_DATA_SERVERS_${strDataServer}>"
 		}
 		
+		$strDropWithPurgeKeysName = $arrStrDataServerParts[8]
+		$strDropWithPurgeKeysValue = $arrStrDataServerParts[9]
+		
+		if (($strDropWithPurgeKeysName -ne "") -and ($strDropWithPurgeKeysName -ne $Null)) {
+			if ($strDropWithPurgeKeysName -ne "Drop With Purge") {
+				write-host "$EM invalid value for environment variable <DI_SCM_DATA_SERVERS_${strDataServer}>"
+				write-host "$EM expected <Drop With Purge> in field position <9> but found <$strDropWithPurgeKeysName>"
+				$intFileErrors += 1
+				continue
+			}
+			else {
+				if (($strDropWithPurgeKeysValue.ToUpper() -ne "YES") -and ($strDropWithPurgeKeysValue.ToUpper() -ne "NO")) {
+					write-host "$EM invalid value for environment variable <DI_SCM_DATA_SERVERS_${strDataServer}>"
+					write-host "$EM expected <Yes|No> in field position <10> but found <$strDropWithPurgeKeysValue>"
+				}
+			}
+		}
+		else {
+			#
+			# Default the Drop with Purge option to "NO".
+			#
+			$strDropWithPurgeKeysValue = "NO"
+		}
+		
 		if ($strScopeType -eq "schema") {
 			if ($strScriptType -ne "patch") {
 				#
@@ -1604,7 +1628,7 @@ function GenerateDdlImportScript ([array] $arrStrFiles) {
 				
 				$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownDatabaseSchema.bat" /p '
 				$strCmd += '"' + $strDbmsTypeKeyValue + '" "' + $strUserNameKeyValue + '" "' + $strPasswordKeyValue + '" "' + $strJdbcUrlKeyValue + '" '
-				$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '"'
+				$strCmd += '"' + $strDatabaseKeyValue + '" "' + $strDefPhysSchemaKeyValue + '" "' + $strDropWithPurgeKeysValue + '"'
 				
 				$OutScriptContent += $strCmd
 				$OutScriptContent += 'if ERRORLEVEL 1 ('
