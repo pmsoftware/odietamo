@@ -140,11 +140,9 @@ if ERRORLEVEL 1 (
 echo CWD is %CD%
 
 echo %IM% running command ^<%FITNESSECMD%^>
-%FITNESSECMD% >"%FITNESSEOUTPUTLOG%" 2>"%FITNESSEOUTPUTLOG%.stderr.txt" 
+echo %IM% a copy of stdout output will be redirected to file ^<%FITNESSEOUTPUTLOG%^>
+%FITNESSECMD% 2>"%FITNESSEOUTPUTLOG%.stderr.txt" | tee "%FITNESSEOUTPUTLOG%"
 set EXITSTATUS=%ERRORLEVEL%
-echo %IM% FitNesse stdout output ^<
-cat "%FITNESSEOUTPUTLOG%"
-echo %IM% ^> end of FitNesse stdout output
 
 fc "%FITNESSEOUTPUTLOG%.empty" "%FITNESSEOUTPUTLOG%.stderr.txt" 1>NUL 2>NUL
 if ERRORLEVEL 1 (
