@@ -24,6 +24,7 @@ echo %IM% User Password is ^<%ARGV3%^>
 echo %IM% JDBC URL ^<%ARGV4%^>
 echo %IM% Database Name ^<%ARGV5%^>
 echo %IM% Schema Name ^<%ARGV6%^>
+echo %IM% Drop With Purge ^<%ARGV7%^>
 
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
 if ERRORLEVEL 1 (
@@ -40,7 +41,7 @@ if ERRORLEVEL 1 (
 set TEMPPSSCRIPT=%TEMPDIR%\%PROC%_psscript.ps1
 
 echo . "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmTearDownDatabaseSchemas.ps1" >%TEMPPSSCRIPT%
-echo $RetVal = TearDownDatabaseSchema '%ARGV1%' '%ARGV2%' '%ARGV3%' '%ARGV4%' '%ARGV5%' '%ARGV6%' >>%TEMPPSSCRIPT%
+echo $RetVal = TearDownDatabaseSchema '%ARGV1%' '%ARGV2%' '%ARGV3%' '%ARGV4%' '%ARGV5%' '%ARGV6%' '%ARGV7%' >>%TEMPPSSCRIPT%
 echo if (!($RetVal)) { >>%TEMPPSSCRIPT%
 echo 	exit 5 >>%TEMPPSSCRIPT%
 echo } >>%TEMPPSSCRIPT%
