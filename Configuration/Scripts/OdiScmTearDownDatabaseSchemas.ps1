@@ -124,7 +124,6 @@ function ExecSqlServerSqlScript ($strUserName, $strUserPassword, $strJdbcUrl, $s
 	$strSqlScriptName = split-path $strSqlScript -leaf
 	$strNoGoSqlScript = "$env:TEMPDIR\${strSqlScriptName}_${strDatabaseName}.sql"
 	set-content -path $strNoGoSqlScript -value $arrStrOut
-	write-host "$IM output SQL script file <$strNoGoSqlScript> contains <" $arrStrOut.length "> lines"
 	
 	$strNoGoSqlScriptFileName = split-path $strNoGoSqlScript -leaf
 	$strStdOutLogFile = "$env:TEMPDIR\${strNoGoSqlScriptFileName}_StdOut.log"
@@ -774,7 +773,7 @@ function TearDownMySqlSchema ($strUserName, $strUserPassword, $strJdbcUrl, $strD
 	return $True
 }
 
-function TearDownOracleSchema ($strUserName, $strUserPassword, $strJdbcUrl, $strSchemaName) {
+function TearDownOracleSchema ($strUserName, $strUserPassword, $strJdbcUrl, $strSchemaName, $strDropWithPurgeInd) {
 	
 	$FN = "TearDownOracleSchema"
 	$IM = $FN + ": INFO:"
@@ -793,10 +792,9 @@ function TearDownOracleSchema ($strUserName, $strUserPassword, $strJdbcUrl, $str
 	#
 	# Set the target schema name in the script.
 	#
-	$strDropWithPurge = $env:ODI_SCM_ORACLEDI_DROP_WITH_PURGE
-	$strDropWithPurge = $strDropWithPurge.ToUpper()
+	$strDropWithPurgeInd = $strDropWithPurgeInd.ToUpper()
 
-	if ($strDropWithPurge -eq "YES") {
+	if ($strDropWithPurgeInd -eq "YES") {
 		$strPurge = "PURGE"
 	}
 	else {
@@ -983,7 +981,7 @@ function TearDownTeradataDatabase ($strUserName, $strUserPassword, $strJdbcUrl, 
 	return $True
 }
 
-function TearDownDatabaseSchema ($strDbTypeName, $strUserName, $strUserPassword, $strJdbcUrl, $strDatabaseName, $strSchemaName) {
+function TearDownDatabaseSchema ($strDbTypeName, $strUserName, $strUserPassword, $strJdbcUrl, $strDatabaseName, $strSchemaName, $strDropWithPurgeInd) {
 	
 	$FN = "TearDownDatabaseSchema"
 	$IM = $FN + ": INFO:"
@@ -995,7 +993,7 @@ function TearDownDatabaseSchema ($strDbTypeName, $strUserName, $strUserPassword,
 	switch ($strDbTypeName.ToLower()) {
 		
 		"oracle" {
-			$RetVal = TearDownOracleSchema $strUserName $strUserPassword $strJdbcUrl $strSchemaName
+			$RetVal = TearDownOracleSchema $strUserName $strUserPassword $strJdbcUrl $strSchemaName $strDropWithPurgeInd
 		}
 		
 		"sqlserver" {
