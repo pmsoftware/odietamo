@@ -18,18 +18,24 @@ if ERRORLEVEL 1 (
 )
 
 if "%ARGV1%" == "" (
-	echo %EM% missing Package path/name argument 1>&2
+	echo %EM% missing package path/name argument 1>&2
 	call :ShowUsage
 	goto ExitFail
 )
 
-set LASTARG=1
+if "%ARGV2%" == "" (
+	echo %EM% missing server name argument 1>&2
+	call :ShowUsage
+	goto ExitFail
+)
+
+set LASTARG=2
 set OTHERARGS=%ARGVALL%
 
-if not "%ARGV2%" == "" (
-	echo %IM% execution context ^<%ARGV2%^> specified to override environment context ^<%ODI_SCM_TEST_ORACLEDI_CONTEXT%^>
-	set EXECONTEXT=%ARGV2%
-	set LASTARG=2
+if not "%ARGV3%" == "" (
+	echo %IM% execution context ^<%ARGV3%^> specified to override environment context ^<%ODI_SCM_TEST_ORACLEDI_CONTEXT%^>
+	set EXECONTEXT=%ARGV3%
+	set LASTARG=3
 ) else (
 	echo %IM% using execution context ^<%ODI_SCM_TEST_ORACLEDI_CONTEXT%^> from environment
 	set EXECONTEXT=%ODI_SCM_TEST_ORACLEDI_CONTEXT%
@@ -63,7 +69,7 @@ for /l %%n in (%SSISFIRSTVAR%, 1, %ARGC%) do (
 )
 
 set SSISVARVALS=%OUTPARAMS%
-set DTEXECCMD=dtexec /ISServer "\SSISDB\%ARGV2%\%ARGV1%" /Server "%ODI_SCM_SSIS_SERVER%" /Parameter "$ServerOption::SYNCHRONIZED(Boolean)";True
+set DTEXECCMD=dtexec /ISServer "\SSISDB\%ARGV3%\%ARGV1%" /Server "%ARGV2%" /Parameter "$ServerOption::SYNCHRONIZED(Boolean)";True
 
 if not "%SSISVARVALS%" == "" (
 	set DTEXECCMD=%DTEXECCMD% %SSISVARVALS%
