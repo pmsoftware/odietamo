@@ -402,6 +402,7 @@ if ERRORLEVEL 1 (
 for /f %%g in ('wc -l "%ASCONFIGSETTINGSFILE%"') do (
 	if not "%%g" == "1" (
 		echo %EM% found multiple SSAS deployment configuration ^(*.configsettings^) files 1>&2
+		goto ExitFail
 	)
 )
 
