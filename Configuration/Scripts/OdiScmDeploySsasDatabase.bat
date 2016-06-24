@@ -395,13 +395,14 @@ if ERRORLEVEL 1 (
 
 grep \\OdiScmBuildPath\\ "%ASCONFIGSETTINGSFILE%.2" > "%ASCONFIGSETTINGSFILE%"
 if ERRORLEVEL 1 (
-	echo %EM% searching for ODI-SCM solution configuration SSAS deployment configuration ^(*.configsettings^) files  1>&2
+	echo %EM% searching for OdiScmBuildPath in configuration SSAS deployment configuration ^(*.configsettings^) files  1>&2
 	goto ExitFail
 )
 
 for /f %%g in ('wc -l "%ASCONFIGSETTINGSFILE%"') do (
 	if not "%%g" == "1" (
 		echo %EM% found multiple SSAS deployment configuration ^(*.configsettings^) files 1>&2
+		goto ExitFail
 	)
 )
 
