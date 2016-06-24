@@ -702,7 +702,7 @@ set OUTFILE=%3
 
 echo %INTEXT% | sed "s/<%TAG%>//g" | sed "s/<\/%TAG%>//g" > %OUTFILE%
 if ERRORLEVEL 1 (
-	echo %EM% splitting string to temporary file ^<%OUTFILE%^> 1>&2
+	echo %EM% removing tag ^<%TAG%^> from input string 1>&2
 	exit /b 1
 )
 
