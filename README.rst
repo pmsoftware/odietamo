@@ -10,13 +10,14 @@ that the source code for ODI is not stored as text in a IDE, but as metadata dis
 This meant that every assumption about Agile development methodologies working with ODI is......broken.
 
 However we have developed a solution to bi-directionally output the entire source code of an ODI repository
-in and out of a traditional SCM, and do so at a granualrity of a "script" (ODI Interface, Procedure, Package, ...) - thus changes to a single script
-in one teamn can be safely merged with others and only where teams truly are in conflict will a merge conflict be raised.
+in and out of a traditional SCM, and do so at a granualrity of an object (ODI Interface, Procedure, Package, DataStore, Model, Variable, you name it...) - thus changes to a single object
+in one team can be safely merged with others and only where teams truly are in conflict will a merge conflict be raised.
 
 But we didn't just stop there. We added support for the folliwing:-
+
 * Database environment tear-down and set-up (DDL, stored code units, DML script execution - e.g. reference data set-up).
 * Command-line integration with Continuous Integration tools (Hudon, Jenkins, etc).
-* Utilisation test automation tools (FitNesse/DbFit).
+* Utilisation of open source test automation tools (FitNesse/DbFit).
 
 Further reading - read the docs at: - http://odietamo.readthedocs.org
 
@@ -29,10 +30,12 @@ MSBI-CI
 
 Having seen great success in improving efficiency and quality in ODI-related projects we've taken our approach to the MSBI stack.
 
-Support added so far: -
+Support added so far:
+
 * Automated execution of SSIS packages (during CI builds) or in dev/test/prod environments.
 * Automated deployment of SSAS databases (dimensions and cubes) (during CI builds) or in dev/test/prod environments.
 * Automated processing of SSAS databases (dimensions and cubes) (during CI builds) or in dev/test/prod environments.
 
-Coming soon: -
+Coming soon:
+
 * Automated deployment and configuration of SSIS packages (during CI builds) or to dev/test/prod environments.
