@@ -13,7 +13,7 @@ However we have developed a solution to bi-directionally output the entire sourc
 in and out of a traditional SCM, and do so at a granualrity of an object (ODI Interface, Procedure, Package, DataStore, Model, Variable, you name it...) - thus changes to a single object
 in one team can be safely merged with others and only where teams truly are in conflict will a merge conflict be raised.
 
-But we didn't just stop there. We added support for the folliwing:-
+But we didn't just stop there. We added support for the following:-
 
 * Database environment tear-down and set-up (DDL, stored code units, DML script execution - e.g. reference data set-up).
 * Command-line integration with Continuous Integration tools (Hudon, Jenkins, etc).
