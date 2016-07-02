@@ -23,22 +23,28 @@ if "%ARGV1%" == "" (
 	goto ExitFail
 )
 
-if "%ARGV2%" == "" (
-	echo %EM% missing server name argument 1>&2
-	call :ShowUsage
-	goto ExitFail
-)
-
-set LASTARG=2
+set LASTARG=1
 set OTHERARGS=%ARGVALL%
 
-if not "%ARGV3%" == "" (
-	echo %IM% execution context ^<%ARGV3%^> specified to override environment context ^<%ODI_SCM_TEST_ORACLEDI_CONTEXT%^>
-	set EXECONTEXT=%ARGV3%
-	set LASTARG=3
-) else (
-	echo %IM% using execution context ^<%ODI_SCM_TEST_ORACLEDI_CONTEXT%^> from environment
-	set EXECONTEXT=%ODI_SCM_TEST_ORACLEDI_CONTEXT%
+set INHERITCONTEXT=Y
+
+if not "%ARGV2%" == "" (
+	if not "%ARGV2%" == "OdiScmInherit" (
+		set INHERITCONTEXT=N
+		echo %IM% execution context ^<%ARGV2%^> specified to override environment context ^<%ODI_SCM_SSIS_EXECUTION_ENVIROMENT%^>
+		set EXECONTEXT=%ARGV2%
+		set LASTARG=2
+	)
+)
+
+if "%INHERITCONTEXT%" == "Y" (
+	echo %IM% using execution context ^<%ODI_SCM_SSIS_EXECUTION_ENVIROMENT%^> from environment
+	set EXECONTEXT=%ODI_SCM_SSIS_EXECUTION_ENVIROMENT%
+)
+
+if "%ODI_SCM_SSIS_SERVER_NAME%" == ""
+	echo %EM% integration services server name not specified in environment variable ^<ODI_SCM_SSIS_SERVER_NAME^> 1>&2
+	goto ExitFail
 )
 
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetTempDir.bat"
@@ -69,7 +75,7 @@ for /l %%n in (%SSISFIRSTVAR%, 1, %ARGC%) do (
 )
 
 set SSISVARVALS=%OUTPARAMS%
-set DTEXECCMD=dtexec /ISServer "\SSISDB\%ARGV3%\%ARGV1%" /Server "%ARGV2%" /Parameter "$ServerOption::SYNCHRONIZED(Boolean)";True
+set DTEXECCMD=dtexec /ISServer "\SSISDB\%EXECONTEXT%\%ARGV1%" /Server "%ARGV2%" /Parameter "$ServerOption::SYNCHRONIZED(Boolean)";True
 
 if not "%SSISVARVALS%" == "" (
 	set DTEXECCMD=%DTEXECCMD% %SSISVARVALS%
@@ -124,8 +130,8 @@ rem ===============================================
 rem -----------------------------------------------
 :ShowUsage
 rem -----------------------------------------------
-echo %EM% usage: %PROC% ^<SSIS Package Path and Name^>  [^<Execution Context^>] [[^<SSIS Property Assignment 1^>]...[^<SSIS Property Assignment N>]] 1>&2
-echo %EM%      : default SSIS Execution Context is value of environment variable ODI_SCM_TEST_ORACLEDI_CONTEXT 1>&2
+echo %EM% usage: %PROC% ^<SSIS Package Path and Name^> [^<Execution Environment Name^>] [[^<SSIS Property Assignment 1^>]...[^<SSIS Property Assignment N>]] 1>&2
+echo %EM%      : default SSIS Execution Environment Name is value of environment variable ODI_SCM_SSIS_EXECUTION_ENVIROMENT 1>&2
 echo %EM%      : NOTE: variable assignments are specified as VAR=VAL and must be enclosed in double quotes 1>&2
 goto :eof
 
