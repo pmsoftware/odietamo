@@ -403,6 +403,60 @@ function GenerateDmlImport {
 	return $ExitStatus
 }
 
+function GenerateSsasImport {
+	
+	$FN = "GenerateSsasImport"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$DEBUG = $FN + ": DEBUG:"
+	
+	write-host "$IM starts"
+	$ExitStatus = $False
+	
+	if (!(SetOutputNames)) {
+		write-host "$EM error setting output file and directory names"
+		return $False
+	}
+	
+	#
+	# Get the files from the file system.
+	#
+	$arrStrFileList = @()
+	$arrStrSsasFileList = @()
+	
+	$FsFileListRef = [ref] $arrStrFileList
+	$FsSsasFileListRef = [ref] $arrStrSsasFileList
+	
+	if (!(GetFromFileSystem $FsFileListRef)) {
+		write-host "$EM failure getting source code file list from the file system"
+		return $False
+	}
+	
+	if (!(BuildSsasSourceFileList $arrStrFileList $FsSsasFileListRef)) {
+		write-host "$EM building SSAS source file list from file system source file list"
+		return $False
+	}
+	
+	write-host "$IM found <$($arrStrSsasFileList.length)> SSAS source files to import"
+	
+	#
+	# Generate the SSAS object import commands in the generated script.
+	#
+	if (!(GenerateSsasImportScript $arrStrSsasFileList)) { 
+		write-host "$EM call to GenerateSsasImportScript failed"
+		return $ExitStatus
+	}
+	
+	write-host "$IM Execute the following script to perform the SSAS source code processing"
+	write-host "$IM"
+	write-host "$IM <$SsasImportScriptFile>"
+	
+	$ExitStatus = $True
+	
+	write-host "$IM ends"
+	return $ExitStatus
+}
+
 function GenerateAllImports {
 	
 	$FN = "GetFromFileSystem"
@@ -430,6 +484,11 @@ function GenerateAllImports {
 	
 	if (!(GenerateDmlImport)) {
 		write-host "$EM generating DML import scripts"
+		return $ExitStatus
+	}
+	
+	if (!(GenerateSsasImport)) {
+		write-host "$EM generating SSAS import scripts"
 		return $ExitStatus
 	}
 	
@@ -533,9 +592,12 @@ switch ($strType) {
 	"dml" {
 		$blnRes = GenerateDmlImport
 	}
+	"ssas" {
+		$blnRes = GenerateSsasImport
+	}
 	default {
 		write-host "$EM invalid generation type <$strType> specified"
-		write-host "$IM valid options: all | odi | ddl | ddl-patch | spl | dml"
+		write-host "$IM valid options: all | odi | ddl | ddl-patch | spl | dml | ssas"
 		$blnRes = $False
 	}
 }
