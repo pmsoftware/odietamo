@@ -23,9 +23,11 @@ if /i not "%ARGV1%" == "all" (
 			if /i not "%ARGV1%" == "ddl-patch" (
 				if /i not "%ARGV1%" == "spl" (
 					if /i not "%ARGV1%" == "dml" (
-						echo %EM% invalid generation type ^<%ARGV1%^> specified 1>&2
-						echo %IM% valid options: all ^| odi ^| ddl ^| ddl-patch ^| spl ^| dml
-						goto ExitFail
+						if /i not "%ARGV1%" == "ssas" (
+							echo %EM% invalid generation type ^<%ARGV1%^> specified 1>&2
+							echo %IM% valid options: all ^| odi ^| ddl ^| ddl-patch ^| spl ^| dml ^| ssas
+							goto ExitFail
+						)
 					)
 				)
 			)

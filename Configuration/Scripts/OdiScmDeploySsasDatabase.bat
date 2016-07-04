@@ -352,19 +352,29 @@ for /f "tokens=*" %%g in (%PROJDATASOURCEFILES%) do (
 	)
 )
 
+set BUILDFILE=%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSsasBuildTemplate.proj
+
 rem
-rem Create the build project file.
+rem Note that multi-line IF statements don't work well when other command text can contain brackets.
 rem
-set BUILDFILE=%TEMPDIR%\build.xml
-copy "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSsasBuildTemplate.proj" "%BUILDFILE%" >NUL 2>&1
-if ERRORLEVEL 1 (
-	echo %EM% failed to copy SSAS build template file ^<%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSsasBuildTemplate.proj^> 2>&1
-	goto ExitFail
-)
+
+set MSBUILDPATH=
+if not "%ODI_SCM_TOOLS_MSBUILD_HOME%" == "" set MSBUILDPATH=%ODI_SCM_TOOLS_MSBUILD_HOME%\bin;
+set PATH=%MSBUILDPATH%%PATH%
+
+set VISUALSTUDIOPATH=
+set VSBUILDPROPERTYTEXT=
+if not "%ODI_SCM_TOOLS_VISUAL_STUDIO_HOME%" == "" set VISUALSTUDIOPATH=%ODI_SCM_TOOLS_VISUAL_STUDIO_HOME%\Common7\IDE
+if not "%ODI_SCM_TOOLS_VISUAL_STUDIO_HOME%" == "" set VSBUILDPROPERTYTEXT=/property:devEnvTool="!VISUALSTUDIOPATH!\devenv.com"
+
+set SMSSPATH=
+set SMSSPROPERTYTEXT=
+if not "%ODI_SCM_TOOLS_SQL_SERVER_MANAGEMENT_STUDIO_HOME%" == "" set SMSSPATH=%ODI_SCM_TOOLS_SQL_SERVER_MANAGEMENT_STUDIO_HOME%\Tools\Binn\ManagementStudio
+if not "%ODI_SCM_TOOLS_SQL_SERVER_MANAGEMENT_STUDIO_HOME%" == "" set SMSSPROPERTYTEXT=/property:ssasDeployTool="!SMSSPATH!\Microsoft.AnalysisServices.Deployment.exe"
 
 set BUILDLOG=%TEMPDIR%\OdiScmASDatabaseBuild.log
-echo %IM% executing command ^<msbuild "%BUILDFILE%" /target:buildCube /property:solutionPath="%TEMPDIR%\solution" /property:env="OdiScm"^>
-msbuild "%BUILDFILE%" /target:buildCube /property:solutionPath="%TEMPDIR%\solution" /property:env="OdiScm" >%BUILDLOG% 2>&1
+echo %IM% executing command ^<msbuild "%BUILDFILE%" /target:buildCube /property:solutionPath="%TEMPDIR%\solution" /property:env="OdiScm" %VSBUILDPROPERTYTEXT%^>
+msbuild "%BUILDFILE%" /target:buildCube /property:solutionPath="%TEMPDIR%\solution" /property:env="OdiScm" %VSBUILDPROPERTYTEXT% >%BUILDLOG% 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% failed to build Analysis Services project 2>&1
 	echo %EM% check log file ^<%BUILDLOG%^> for details 2>&1
@@ -600,8 +610,8 @@ if ERRORLEVEL 1 (
 )
 
 set DEPLOYLOG=%TEMPDIR%\OdiScmASDatabaseDeploy.log
-echo %IM% executing command ^<msbuild "%BUILDFILE%" /target:deployCube /property:buildPath="%TEMPDIR%\solution" /property:env="OdiScm"^>
-msbuild "%BUILDFILE%" /target:deployCube /property:buildPath="%TEMPDIR%\solution" /property:env="OdiScm" >%DEPLOYLOG% 2>&1
+echo %IM% executing command ^<msbuild "%BUILDFILE%" /target:deployCube /property:buildPath="%TEMPDIR%\solution" /property:env="OdiScm" %SMSSPROPERTYTEXT%^>
+msbuild "%BUILDFILE%" /target:deployCube /property:buildPath="%TEMPDIR%\solution" /property:env="OdiScm" >%DEPLOYLOG% %SMSSPROPERTYTEXT% 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% failed to deploy Analysis Services project 2>&1
 	echo %EM% check log file ^<%DEPLOYLOG%^> for details 2>&1

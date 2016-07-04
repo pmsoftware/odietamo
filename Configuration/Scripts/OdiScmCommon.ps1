@@ -441,9 +441,9 @@ function BuildSsasSourceFileList ($arrStrInputFiles, [ref] $refSsasFileList) {
 	}
 	
 	#
-	# Look for SSAS solutions.
+	# Look for SSAS projects.
 	#
-	$Extension = "*.sln"
+	$Extension = "*.dwproj"
 	#
 	# Remove the asterisk from the file type name pattern.
 	#
@@ -459,7 +459,7 @@ function BuildSsasSourceFileList ($arrStrInputFiles, [ref] $refSsasFileList) {
 		
 		if (($strFileUCBS.StartsWith($strOdiWcDirAbsUCBS)) -and ($strFile.EndsWith($strFileObjType))) {
 			#
-			# This is an SSAS solution file.
+			# This is an SSAS project file.
 			#
 			$arrStrSsasFiles += $strFile
 		}
@@ -2534,21 +2534,21 @@ function GenerateSsasImportScript ([array] $arrStrFiles) {
 	
 	foreach ($strFile in $arrStrFiles) {
 		
-		$strSolutionPathName = split-path $strFile -parent
-		$strSolutionFileName = split-path $strFile -leaf
-		$strSolutionFileNameNoExt = $strSolutionFileName.Replace(".sln", "")
+		$strProjectPathName = split-path $strFile -parent
+		$strProjectFileName = split-path $strFile -leaf
+		$strProjectFileNameNoExt = $strSolutionFileName.Replace(".dwproj", "")
 		
 		write-host "$IM processing file <$strFileName>"
 		$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
 		$OutScriptContent += ('set MSG=setting up SSAS environment ^^^<' + $strDbContainerName + '@' + $strJdbcUrlKeyValue + '^^^>')
 		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmDeploySsasDatabase.bat" /p '
-		$strCmd += '"' + $strSolutionFileNameNoExt + '" "' + $strSolutionFileNameNoExt + '"'
+		$strCmd += '"' + $strProjectPathName + '" "' + $strProjectFileNameNoExt + '"'
 		$OutScriptContent += $strCmd
 		$OutScriptContent += 'if ERRORLEVEL 1 ('
 		$OutScriptContent += '	goto ExitFail'
 		$OutScriptContent += ')'
 		$OutScriptContent += ''
-		$OutScriptContent += 'echo %IM% database tearDown completed succcessfully'
+		$OutScriptContent += 'echo %IM% Analysys Services database setup completed succcessfully'
 		$OutScriptContent += ''
 	}
 	

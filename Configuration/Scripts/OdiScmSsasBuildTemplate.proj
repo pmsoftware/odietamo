@@ -13,6 +13,10 @@
     <buildPath></buildPath>
     <!-- The version (2008, 2012, 2012) of the SSAS solution being built. This property affects which version of Visual Studio is used to build the solution -->
     <ssasVersion Condition="'$(ssasVersion)'==''">2014</ssasVersion>
+    <!-- The location of the devenv.com tool used to build SSAS projects -->
+    <devEnvTool></devEnvTool>
+    <!-- The location of the Microsoft.AnalysisServices.Deployment.exe tool used to deploy SSAS projects -->
+    <ssasDeployTool></ssasDeployTool>
   </PropertyGroup>
   <Target Name="BuildCube">
     <Message Text="Building Cube..."/>
@@ -28,14 +32,14 @@
     </PropertyGroup>
     <Message Text='OdiScm: INFO: solutionPath: $(solutionPath)'/>
     <Message Text="Building project %(CubeProjectFiles.FullPath)"/>
-    <Exec Command='"$(DevEnvTool)" "%(CubeProjectFiles.FullPath)" /Build "$(env)" /projectconfig "$(env)"' />
+    <Exec Command='"$(devEnvTool)" "%(CubeProjectFiles.FullPath)" /Build "$(env)" /projectconfig "$(env)"' />
   </Target>
   <Target Name="DeployCube">
     <Message Text="Deploying Cube..."/>
     <PropertyGroup>
-      <SSASDeployTool Condition="'$(SSISDeployTool)'=='' And '$(ssasVersion)'=='2008'" >C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\Microsoft.AnalysisServices.Deployment.exe</SSASDeployTool>
-      <SSASDeployTool Condition="'$(SSASDeployTool)'=='' And '$(ssasVersion)'=='2012'" >C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\ManagementStudio\Microsoft.AnalysisServices.Deployment.exe</SSASDeployTool>
-      <SSASDeployTool Condition="'$(SSASDeployTool)'=='' And '$(ssasVersion)'=='2014'" >C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio\Microsoft.AnalysisServices.Deployment.exe</SSASDeployTool>
+      <ssasDeployTool Condition="'$(ssasDeployTool)'=='' And '$(ssasVersion)'=='2008'" >C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\Microsoft.AnalysisServices.Deployment.exe</ssasDeployTool>
+      <ssasDeployTool Condition="'$(ssasDeployTool)'=='' And '$(ssasVersion)'=='2012'" >C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\ManagementStudio\Microsoft.AnalysisServices.Deployment.exe</ssasDeployTool>
+      <ssasDeployTool Condition="'$(ssasDeployTool)'=='' And '$(ssasVersion)'=='2014'" >C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio\Microsoft.AnalysisServices.Deployment.exe</ssasDeployTool>
     </PropertyGroup>
     <ItemGroup>
       <!-- The SSAS  Project deployment wizard build file -->
@@ -43,6 +47,6 @@
     </ItemGroup>
     <Message Text='OdiScm: INFO: buildPath: $(buildPath)'/>
     <Message Text='OdiScm: INFO: deploying file: %(SSASDatabaseFile.FullPath)'/>
-    <Exec Command='"$(SSASDeployTool)" "%(SSASDatabaseFile.FullPath)" /s' />
+    <Exec Command='"$(ssasDeployTool)" "%(SSASDatabaseFile.FullPath)" /s' />
   </Target>
 </Project>
