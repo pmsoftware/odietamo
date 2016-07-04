@@ -414,6 +414,66 @@ function BuildDmlSourceFileList ($arrStrInputFiles, [ref] $refDbDmlFileList) {
 	return $True
 }
 
+function BuildSsasSourceFileList ($arrStrInputFiles, [ref] $refSsasFileList) {
+	
+	$FN = "BuildSsasSourceFileList"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$DM = $FN + ": DEBUG:"
+	
+	write-host "$IM starts"
+	
+	write-host "$IM received" $arrStrInputFiles.length "files to examine"
+	$arrStrSsasFiles = @()
+	
+	$strWcRootDir = $env:ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT
+	$strWcRootDirUC = $strWcRootDir.ToUpper()
+	$strWcRootDirUCBS = $strWcRootDirUC.Replace("/","\")
+	
+	$strOdiWcRootDir = $env:ODI_SCM_SCM_SYSTEM_SQL_SERVER_AS_WORKING_COPY_ROOT
+	$strOdiWcRootDirUC = $strOdiWcRootDir.ToUpper()
+	$strOdiWcRootDirUCBS = $strOdiWcRootDirUC.Replace("/","\")
+	
+	$strOdiWcDirAbsUCBS = $strWcRootDirUCBS
+	
+	if ($strOdiWcRootDirUCBS -ne ".") {
+		$strOdiWcDirAbsUCBS += "\" + $strOdiWcRootDirBS
+	}
+	
+	#
+	# Look for SSAS solutions.
+	#
+	$Extension = "*.sln"
+	#
+	# Remove the asterisk from the file type name pattern.
+	#
+	$strFileObjType = $Extension.Replace("*","")
+	$FileObjTypeExt = $strFileObjType.Replace(".","")
+	
+	write-host "$IM processing object type <$FileObjTypeExt>"
+	
+	foreach ($strFile in $arrStrInputFiles) {
+		
+		$strFileUC = $strFile.ToUpper()
+		$strFileUCBS = $strFileUC.Replace("/","\")
+		
+		if (($strFileUCBS.StartsWith($strOdiWcDirAbsUCBS)) -and ($strFile.EndsWith($strFileObjType))) {
+			#
+			# This is an SSAS solution file.
+			#
+			$arrStrSsasFiles += $strFile
+		}
+	}
+	
+	foreach ($strFile in $arrStrSsasFiles) {
+		#$refDbSplFileList.value += $strSortedSplFile.FilePathName
+		$refSsasFileList.value += $strFile
+	}
+	
+	write-host "$IM ends"
+	return $True
+}
+
 function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $refDbDdlFileList, [ref] $refDbSplFileList, [ref] $refDbDmlFileList) {
 	
 	$FN = "BuildSourceFileLists"
@@ -441,6 +501,11 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 	
 	if (!(BuildDmlSourceFileList $arrStrInputFiles $refDbDmlFileList)) {
 		write-host "$EM creating DML source file list"
+		return $False
+	}
+	
+	if (!(BuildSsasSourceFileList $arrStrInputFiles $refSsasFileList)) {
+		write-host "$EM creating SSAS source file list"
 		return $False
 	}
 	
@@ -2433,6 +2498,80 @@ function GenerateDmlExecutionScript ([array] $arrStrFiles) {
 	return $True
 }
 
+function GenerateSsasImportScript ([array] $arrStrFiles) {
+	
+	$FN = "GenerateSsasImportScript"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$WM = $FN + ": WARNING:"
+	$DEBUG = $FN + ": DEBUG"
+	
+	write-host "$IM starts"
+	
+	write-host "$IM passed <$($arrStrFiles.length)> files to import"
+	write-host "$IM writing output to <$SsasImportScriptFile>"
+	
+	$OutScriptContent = @()
+	$OutScriptContent += '@echo off'
+	$OutScriptContent += ''
+	$OutScriptContent += 'if "%ODI_SCM_HOME%" == "" ('
+	$OutScriptContent += '	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME'
+	$OutScriptContent += '	goto ExitFail'
+	$OutScriptContent += ')'
+	$OutScriptContent += 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0'
+	$OutScriptContent += 'echo %IM% starts'
+	$OutScriptContent += ''
+	$OutScriptContent += 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*'
+	$OutScriptContent += 'if ERRORLEVEL 1 ('
+	$OutScriptContent += '	echo %EM% processing script arguments 1>&2'
+	$OutScriptContent += '	goto ExitFail'
+	$OutScriptContent += ')'
+	$OutScriptContent += ''
+	$OutScriptContent += 'set OLDPWD=%CD%'
+	
+	$intFileErrors = 0
+	$intMaxTierInt = 0
+	
+	foreach ($strFile in $arrStrFiles) {
+		
+		$strSolutionPathName = split-path $strFile -parent
+		$strSolutionFileName = split-path $strFile -leaf
+		$strSolutionFileNameNoExt = $strSolutionFileName.Replace(".sln", "")
+		
+		write-host "$IM processing file <$strFileName>"
+		$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
+		$OutScriptContent += ('set MSG=setting up SSAS environment ^^^<' + $strDbContainerName + '@' + $strJdbcUrlKeyValue + '^^^>')
+		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmDeploySsasDatabase.bat" /p '
+		$strCmd += '"' + $strSolutionFileNameNoExt + '" "' + $strSolutionFileNameNoExt + '"'
+		$OutScriptContent += $strCmd
+		$OutScriptContent += 'if ERRORLEVEL 1 ('
+		$OutScriptContent += '	goto ExitFail'
+		$OutScriptContent += ')'
+		$OutScriptContent += ''
+		$OutScriptContent += 'echo %IM% database tearDown completed succcessfully'
+		$OutScriptContent += ''
+	}
+	
+	#
+	# Script termination commands - the common Exit labels.
+	#
+	$OutScriptContent += ':ExitOk'
+	$OutScriptContent += 'cd /d %OLDPWD%'
+	$OutScriptContent += 'echo %IM% ends'
+	$OutScriptContent += 'exit %IsBatchExit% 0'
+	$OutScriptContent += ''
+	$OutScriptContent += ':ExitFail'
+	$OutScriptContent += 'echo %EM% %MSG%'
+	$OutScriptContent += 'cd /d %OLDPWD%'
+	$OutScriptContent += 'echo %EM% ends'
+	$OutScriptContent += 'exit %IsBatchExit% 1'
+	
+	set-content -path $SsasImportScriptFile -value $OutScriptContent
+	
+	write-host "$IM ends"
+	return $True
+}
+
 #############################################################################################################
 ## TODO: TURN THIS INTO THE CENTRAL BUILD GENERATOR CALLED FROM THE GET AND IMPORT ENTRY POINTS.
 #############################################################################################################
@@ -2771,6 +2910,14 @@ function GenerateBuild ($StrSourceTypeName) {
 	#
 	if (!(GenerateDmlExecutionScript $arrStrDbDmlFileList)) { 
 		write-host "$EM call to GenerateDmlExecutionScript failed"
+		return $False
+	}
+	
+	#
+	# Generate the SSAS deployment commands in the generated script.
+	#
+	if (!(GenerateSsasImportScript $arrStrSsasFileList)) { 
+		write-host "$EM call to GenerateSsasImportScript failed"
 		return $False
 	}
 	
@@ -3397,6 +3544,10 @@ function SetOutputNames {
 	$script:DmlExecutionScriptStubName = "OdiScmDmlExecution_" + ${OutputTag}
 	$script:DmlExecutionScriptName = $DmlExecutionScriptStubName + ".bat"
 	$script:DmlExecutionScriptFile = $GenScriptRootDir + "\$DmlExecutionScriptName"
+	
+	$script:SsasImportScriptStubName = "OdiScmSsasImport_" + ${OutputTag}
+	$script:SsasImportScriptName = $SsasImportScriptStubName + ".bat"
+	$script:SsasImportScriptFile = $GenScriptRootDir + "\$SsasImportScriptName"
 	
 	if (Test-Path $GenScriptRootDir) { 
 		write-host "$IM generated scripts root directory <$GenScriptRootDir> already exists"

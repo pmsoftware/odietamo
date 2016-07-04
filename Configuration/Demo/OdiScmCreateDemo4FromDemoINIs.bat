@@ -257,6 +257,30 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+set MSG=executing SPL import scripts to update demo source and target database environments
+echo %IM% %MSG%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Logs\DemoEnvironment2\OdiScmSplImport_DemoEnvironment2.bat^" /p %DiscardStdOut% %DiscardStdErr%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
+
+set MSG=executing DML execution scripts to update demo source and target database environments
+echo %IM% %MSG%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Logs\DemoEnvironment2\OdiScmDmlExecution_DemoEnvironment2.bat^" /p %DiscardStdOut% %DiscardStdErr%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
+
+set MSG=executing SSAS import scripts to update demo source and target environments
+echo %IM% %MSG%
+call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" ^"%ODI_SCM_HOME%\Logs\DemoEnvironment2\OdiScmSsasImport_DemoEnvironment2.bat^" /p %DiscardStdOut% %DiscardStdErr%
+if ERRORLEVEL 1 (
+	echo %EM% %MSG% 1>&2
+	goto ExitFail
+)
+
 rem
 rem Run a FitNesse acceptance test to unpack FitNesse resources.
 rem

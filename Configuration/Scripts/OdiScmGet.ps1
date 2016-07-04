@@ -262,12 +262,14 @@ function GetIncremental {
 	$arrStrDbDdlFileList = @()
 	$arrStrDbSplFileList = @()
 	$arrStrDbDmlFileList = @()
+	$arrStrSsasFileList = @()
 	
 	$scmFileListRef = [ref] $arrStrFileList
 	$refOdiFileList = [ref] $arrStrOdiFileList
 	$refDbDdlFileList = [ref] $arrStrDbDdlFileList
 	$refDbSplFileList = [ref] $arrStrDbSplFileList
 	$refDbDmlFileList = [ref] $arrStrDbDmlFileList
+	$refSsasFileList = [ref] $arrStrSsasFileList
 	
 	if (!(GetFromSCM $HighChangeSetNumber $scmFileListRef)) {
 		write-host "$EM failure getting latest code from the SCM repository"
@@ -294,10 +296,16 @@ function GetIncremental {
 		return $False
 	}
 	
+	if (!(BuildSsasSourceFileList $arrStrFileList $refSsasFileList)) {
+		write-host "$EM building source file lists from SCM get output"
+		return $False
+	}
+	
 	write-host "$IM GetFromSCM returned <$($arrStrOdiFileList.length)> ODI source files to import"
 	write-host "$IM                     <$($arrStrDbDdlFileList.length)> DDL source files to import"
 	write-host "$IM                     <$($arrStrDbSplFileList.length)> SPL source files to import"
 	write-host "$IM                     <$($arrStrDbDmlFileList.length)> DML source files to import"
+	write-host "$IM                     <$($arrStrSsasFileList.length)> SSAS source files to import"
 	
 	#
 	# If the ODI source object import batch size is set to a value >1 then create a set of consolidated
@@ -378,7 +386,6 @@ function GetIncremental {
 		return $ExitStatus
 	}
 	
-	
 	#
 	# Generate the SQL SPL object import commands in the generated script.
 	#
@@ -392,6 +399,14 @@ function GetIncremental {
 	#
 	if (!(GenerateDmlExecutionScript $arrStrDbDmlFileList)) { 
 		write-host "$EM call to GenerateDmlExecutionScript failed"
+		return $ExitStatus
+	}
+	
+	#
+	# Generate the SSAS script execution commands in the generated script.
+	#
+	if (!(GenerateSsasImportScript $arrStrSsasFileList)) { 
+		write-host "$EM call to GenerateSsasImportScript failed"
 		return $ExitStatus
 	}
 	
