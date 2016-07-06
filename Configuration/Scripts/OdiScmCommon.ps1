@@ -441,9 +441,9 @@ function BuildSsasSourceFileList ($arrStrInputFiles, [ref] $refSsasFileList) {
 	}
 	
 	#
-	# Look for SSAS projects.
+	# Look for SSAS solutions.
 	#
-	$Extension = "*.dwproj"
+	$Extension = "*.sln"
 	#
 	# Remove the asterisk from the file type name pattern.
 	#
@@ -2534,15 +2534,15 @@ function GenerateSsasImportScript ([array] $arrStrFiles) {
 	
 	foreach ($strFile in $arrStrFiles) {
 		
-		$strProjectPathName = split-path $strFile -parent
-		$strProjectFileName = split-path $strFile -leaf
-		$strProjectFileNameNoExt = $strSolutionFileName.Replace(".dwproj", "")
+		$strSolutionPathName = split-path $strFile -parent
+		$strSolutionFileName = split-path $strFile -leaf
+		$strSolutionFileNameNoExt = $strSolutionFileName.Replace(".sln", "")
 		
 		write-host "$IM processing file <$strFileName>"
 		$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
 		$OutScriptContent += ('set MSG=setting up SSAS environment ^^^<' + $strDbContainerName + '@' + $strJdbcUrlKeyValue + '^^^>')
 		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmDeploySsasDatabase.bat" /p '
-		$strCmd += '"' + $strProjectPathName + '" "' + $strProjectFileNameNoExt + '"'
+		$strCmd += '"' + $strSolutionPathName + '" "' + $strSolutionFileNameNoExt + '"'
 		$OutScriptContent += $strCmd
 		$OutScriptContent += 'if ERRORLEVEL 1 ('
 		$OutScriptContent += '	goto ExitFail'
