@@ -81,6 +81,10 @@ if "%ASDBNAME%" == "" (
 )
 
 call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecSsisPackage.bat" "MOICommonUtilities\MOIProcessASDatabaseFull.dtsx" "%ASSERVERNAME%" "%ODI_SCM_TEST_ORACLEDI_CONTEXT%" "$Package::ASConnection_InitialCatalog;%ASDBNAME%"
+if ERRORLEVEL 1 (
+	echo %EM% processing SSAS database 1>&2
+	goto ExitFail
+)
 
 exit %IsBatchExit% 0
 
