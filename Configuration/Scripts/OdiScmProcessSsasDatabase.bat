@@ -27,7 +27,7 @@ if "%ODI_SCM_ORACLEDI_HOME%"=="" (
 )
 
 if "%ARGV1%" == "" (
-	echo %EM% missing Analysis Services database name
+	echo %EM% missing Analysis Services database name 1>&2
 	goto ExitFail
 )
 
