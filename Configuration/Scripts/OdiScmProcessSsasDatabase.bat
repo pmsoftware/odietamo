@@ -21,7 +21,7 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-if "%ODI_SCM_ORACLEDI_HOME%"=="" (
+if "%ODI_SCM_ORACLEDI_HOME%" == "" (
 	echo ERROR: variable ODI_SCM_ORACLEDI_HOME not set 1>&2
 	goto ExitFail
 )
@@ -57,7 +57,6 @@ for /f "tokens=2,4 delims=+" %%g in ("%KEYVAL%") do (
 set KEYNAME=ODI_SCM_DATA_SERVERS_%ASSERVERKEY%
 call :GetStringDynamic %KEYNAME%
 set KEYVAL=%OUTSTRING%
-echo KEYVAL ::: %KEYVAL%
 
 for /f "tokens=2,4 delims=+" %%g in ("%KEYVAL%") do (
 	set ASSERVERTYPE=%%g
@@ -80,15 +79,51 @@ if "%ASDBNAME%" == "" (
 	goto ExitFail
 )
 
-call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmExecSsisPackage.bat" "MOICommonUtilities\MOIProcessASDatabaseFull.dtsx" "%ASSERVERNAME%" "%ODI_SCM_TEST_ORACLEDI_CONTEXT%" "$Package::ASConnection_InitialCatalog;%ASDBNAME%"
-if ERRORLEVEL 1 (
+rem
+rem Ideally we'd call OdiScmExecSsisPackage.bat for this call but getting escaped double quotes passed through to it is seemingly impossible.
+rem
+set DTEXECCMD=dtexec /ISServer "\SSISDB\%ODI_SCM_TEST_ORACLEDI_CONTEXT%\MOICommonUtilities\MOIProcessASDatabaseFull.dtsx" /Server "%ASSERVERNAME%" /Parameter "$ServerOption::SYNCHRONIZED(Boolean)";True /Parameter "$Project::ASServerName";"\"%ASSERVERNAME%\"" /Parameter "$Project::ASDatabaseName";"\"%ASDBNAME%\"" 
+%DTEXECCMD%
+set EL=%ERRORLEVEL%
+
+if %EL% GTR 0 (
 	echo %EM% processing SSAS database 1>&2
-	goto ExitFail
+	if %EL% == 6 (
+		echo %EM% The utility encountered an internal error of syntactic or semantic errors in the command line 1>&2
+		goto ExitFail
+	) else (
+		if %EL% == 5 (
+			echo %EM% The utility was unable to load the requested package. The Package could not be loaded 1>&2
+			goto ExitFail
+		) else (
+			if %EL% == 4 (
+				echo %EM% The utility was unable to locate the requested package. The Package could not be found 1>&2
+				goto ExitFail
+			) else (
+				if %EL% == 3 (
+					echo %EM% The Package was cancelled by user 1>&2
+					goto ExitFail
+				) else (
+					if %EL% == 1 (
+						echo %EM% The Package failed 1>&2
+						goto ExitFail
+					) else (
+						if %EL% GTR 0 (
+							echo %EM% Unrecognised exit status ^<%EL%^> 1>&2
+							goto ExitFail
+						)
+					)
+				)
+			)
+		)
+	)
 )
 
+echo %IM% ends
 exit %IsBatchExit% 0
 
 :ExitFail
+echo %EM% ends 1>&2
 exit %IsBatchExit% 1
 
 rem -----------------------------------------------
