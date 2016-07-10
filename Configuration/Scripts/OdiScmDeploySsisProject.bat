@@ -45,6 +45,20 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
+set MSBUILDPATH=
+if not "%ODI_SCM_TOOLS_MSBUILD_HOME%" == "" set MSBUILDPATH=%ODI_SCM_TOOLS_MSBUILD_HOME%\bin;
+set PATH=%MSBUILDPATH%%PATH%
+
+set VISUALSTUDIOPATH=
+set VSBUILDPROPERTYTEXT=
+if not "%ODI_SCM_TOOLS_VISUAL_STUDIO_HOME%" == "" set VISUALSTUDIOPATH=%ODI_SCM_TOOLS_VISUAL_STUDIO_HOME%\Common7\IDE
+if not "%ODI_SCM_TOOLS_VISUAL_STUDIO_HOME%" == "" set VSBUILDPROPERTYTEXT=/property:devEnvTool="%VISUALSTUDIOPATH%\devenv.com"
+
+set DTSBINPATH=
+set DTSPROPERTYTEXT=
+if not "%ODI_SCM_TOOLS_SQL_SERVER_HOME%" == "" set ISDEPLOYPATH=%ODI_SCM_TOOLS_SQL_SERVER_HOME%\DTS\Binn
+if not "%ODI_SCM_TOOLS_SQL_SERVER_HOME%" == "" set ISDEPLOYPROPERTYTEXT=/property:ssisDeployTool="%ISDEPLOYPATH%\ISDeploymentWizard.exe"
+
 set BUILDFILE=%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSsisBuildTemplate.proj
 set BUILDLOG=%TEMPDIR%\OdiScmISProjectBuild.log
 
@@ -72,8 +86,8 @@ rem For package-model deployments use dtutil.exe.
 rem E.g.: dtutil /file CreateSalesForecastInput.dtsx /copy SQL;CreateSalesForecastInput /destserver "SERVERNAME\INSTANCENAME".
 set DEPLOYLOG=%TEMPDIR%\OdiScmISProjectDeploy.log
 
-echo %IM% executing command ^<msbuild "%BUILDFILE%" /target:deploy /property:buildPath="%TEMPDIR%\solution" /property:deployServer="%ODI_SCM_SSIS_SERVER_NAME%" /property:deployFolder="%ODI_SCM_SSIS_CATALOGUE_PATH%"^>
-msbuild "%BUILDFILE%" /target:deploy /property:buildPath="%TEMPDIR%\solution" /property:deployServer="%ODI_SCM_SSIS_SERVER_NAME%" /property:deployFolder="%ODI_SCM_SSIS_CATALOGUE_PATH%" >%DEPLOYLOG% 2>&1
+echo %IM% executing command ^<msbuild "%BUILDFILE%" /target:deploy /property:buildPath="%TEMPDIR%\solution" /property:deployServer="%ODI_SCM_SSIS_SERVER_NAME%" /property:deployFolder="%ODI_SCM_SSIS_CATALOGUE_PATH%" %ISDEPLOYPROPERTYTEXT%^>
+msbuild "%BUILDFILE%" /target:deploy /property:buildPath="%TEMPDIR%\solution" /property:deployServer="%ODI_SCM_SSIS_SERVER_NAME%" /property:deployFolder="%ODI_SCM_SSIS_CATALOGUE_PATH%" %ISDEPLOYPROPERTYTEXT% >%DEPLOYLOG% 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% failed to deploy Integration Services project 2>&1
 	echo %EM% check log file ^<%DEPLOYLOG%^> for details 2>&1

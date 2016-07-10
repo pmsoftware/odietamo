@@ -192,7 +192,7 @@ function BuildOdiSourceFileList ($arrStrInputFiles, [ref] $refOdiFileList) {
 	$strOdiWcDirAbsUCBS = $strWcRootDirUCBS
 	
 	if ($strOdiWcRootDirUCBS -ne ".") {
-		$strOdiWcDirAbsUCBS += "\" + $strOdiWcRootDirBS
+		$strOdiWcDirAbsUCBS += "\" + $strOdiWcRootDirUCBS
 	}
 	
 	foreach ($Extention in $orderedExtensions) {
@@ -414,6 +414,65 @@ function BuildDmlSourceFileList ($arrStrInputFiles, [ref] $refDbDmlFileList) {
 	return $True
 }
 
+function BuildSsisSourceFileList ($arrStrInputFiles, [ref] $refSsisFileList) {
+	
+	$FN = "BuildSsisSourceFileList"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$DM = $FN + ": DEBUG:"
+	
+	write-host "$IM starts"
+	
+	write-host "$IM received" $arrStrInputFiles.length "files to examine"
+	$arrStrSsisFiles = @()
+	
+	$strWcRootDir = $env:ODI_SCM_SCM_SYSTEM_WORKING_COPY_ROOT
+	$strWcRootDirUC = $strWcRootDir.ToUpper()
+	$strWcRootDirUCBS = $strWcRootDirUC.Replace("/","\")
+	
+	$strSsisWcRootDir = $env:ODI_SCM_SCM_SYSTEM_SQL_SERVER_IS_WORKING_COPY_ROOT
+	$strSsisWcRootDirUC = $strSsisWcRootDir.ToUpper()
+	$strSsisWcRootDirUCBS = $strSsisWcRootDirUC.Replace("/","\")
+	
+	$strSsisWcDirAbsUCBS = $strWcRootDirUCBS
+	
+	if ($strSsisWcRootDirUCBS -ne ".") {
+		$strSsisWcDirAbsUCBS += "\" + $strSsisWcRootDirUCBS
+	}
+	
+	#
+	# Look for SSIS solutions.
+	#
+	$Extension = "*.sln"
+	#
+	# Remove the asterisk from the file type name pattern.
+	#
+	$strFileObjType = $Extension.Replace("*","")
+	$FileObjTypeExt = $strFileObjType.Replace(".","")
+	
+	write-host "$IM processing object type <$FileObjTypeExt>"
+	
+	foreach ($strFile in $arrStrInputFiles) {
+		
+		$strFileUC = $strFile.ToUpper()
+		$strFileUCBS = $strFileUC.Replace("/","\")
+		
+		if (($strFileUCBS.StartsWith($strSsisWcDirAbsUCBS)) -and ($strFile.EndsWith($strFileObjType))) {
+			#
+			# This is an SSIS solution file.
+			#
+			$arrStrSsisFiles += $strFile
+		}
+	}
+	
+	foreach ($strFile in $arrStrSsisFiles) {
+		$refSsisFileList.value += $strFile
+	}
+	
+	write-host "$IM ends"
+	return $True
+}
+
 function BuildSsasSourceFileList ($arrStrInputFiles, [ref] $refSsasFileList) {
 	
 	$FN = "BuildSsasSourceFileList"
@@ -430,14 +489,14 @@ function BuildSsasSourceFileList ($arrStrInputFiles, [ref] $refSsasFileList) {
 	$strWcRootDirUC = $strWcRootDir.ToUpper()
 	$strWcRootDirUCBS = $strWcRootDirUC.Replace("/","\")
 	
-	$strOdiWcRootDir = $env:ODI_SCM_SCM_SYSTEM_SQL_SERVER_AS_WORKING_COPY_ROOT
-	$strOdiWcRootDirUC = $strOdiWcRootDir.ToUpper()
-	$strOdiWcRootDirUCBS = $strOdiWcRootDirUC.Replace("/","\")
+	$strSsasWcRootDir = $env:ODI_SCM_SCM_SYSTEM_SQL_SERVER_AS_WORKING_COPY_ROOT
+	$strSsasWcRootDirUC = $strSsasWcRootDir.ToUpper()
+	$strSsasWcRootDirUCBS = $strSsasWcRootDirUC.Replace("/","\")
 	
-	$strOdiWcDirAbsUCBS = $strWcRootDirUCBS
+	$strSsasWcDirAbsUCBS = $strWcRootDirUCBS
 	
-	if ($strOdiWcRootDirUCBS -ne ".") {
-		$strOdiWcDirAbsUCBS += "\" + $strOdiWcRootDirBS
+	if ($strSsasWcRootDirUCBS -ne ".") {
+		$strSsasWcDirAbsUCBS += "\" + $strSsasWcRootDirUCBS
 	}
 	
 	#
@@ -457,9 +516,9 @@ function BuildSsasSourceFileList ($arrStrInputFiles, [ref] $refSsasFileList) {
 		$strFileUC = $strFile.ToUpper()
 		$strFileUCBS = $strFileUC.Replace("/","\")
 		
-		if (($strFileUCBS.StartsWith($strOdiWcDirAbsUCBS)) -and ($strFile.EndsWith($strFileObjType))) {
+		if (($strFileUCBS.StartsWith($strSsasWcDirAbsUCBS)) -and ($strFile.EndsWith($strFileObjType))) {
 			#
-			# This is an SSAS project file.
+			# This is an SSAS solution file.
 			#
 			$arrStrSsasFiles += $strFile
 		}
@@ -501,6 +560,11 @@ function BuildSourceFileLists ($arrStrInputFiles, [ref] $refOdiFileList, [ref] $
 	
 	if (!(BuildDmlSourceFileList $arrStrInputFiles $refDbDmlFileList)) {
 		write-host "$EM creating DML source file list"
+		return $False
+	}
+	
+	if (!(BuildSsisSourceFileList $arrStrInputFiles $refSsisFileList)) {
+		write-host "$EM creating SSIS source file list"
 		return $False
 	}
 	
@@ -2498,6 +2562,79 @@ function GenerateDmlExecutionScript ([array] $arrStrFiles) {
 	return $True
 }
 
+function GenerateSsisImportScript ([array] $arrStrFiles) {
+	
+	$FN = "GenerateSsisImportScript"
+	$IM = $FN + ": INFO:"
+	$EM = $FN + ": ERROR:"
+	$WM = $FN + ": WARNING:"
+	$DEBUG = $FN + ": DEBUG"
+	
+	write-host "$IM starts"
+	
+	write-host "$IM passed <$($arrStrFiles.length)> files to import"
+	write-host "$IM writing output to <$SsisImportScriptFile>"
+	
+	$OutScriptContent = @()
+	$OutScriptContent += '@echo off'
+	$OutScriptContent += ''
+	$OutScriptContent += 'if "%ODI_SCM_HOME%" == "" ('
+	$OutScriptContent += '	echo OdiScm: ERROR no OdiScm home directory specified in environment variable ODI_SCM_HOME'
+	$OutScriptContent += '	goto ExitFail'
+	$OutScriptContent += ')'
+	$OutScriptContent += 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmSetMsgPrefixes.bat" %~0'
+	$OutScriptContent += 'echo %IM% starts'
+	$OutScriptContent += ''
+	$OutScriptContent += 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmProcessScriptArgs.bat" %*'
+	$OutScriptContent += 'if ERRORLEVEL 1 ('
+	$OutScriptContent += '	echo %EM% processing script arguments 1>&2'
+	$OutScriptContent += '	goto ExitFail'
+	$OutScriptContent += ')'
+	$OutScriptContent += ''
+	$OutScriptContent += 'set OLDPWD=%CD%'
+	
+	$intFileErrors = 0
+	$intMaxTierInt = 0
+	
+	foreach ($strFile in $arrStrFiles) {
+		
+		$strSolutionPathName = split-path $strFile -parent
+		$strSolutionFileName = split-path $strFile -leaf
+		
+		write-host "$IM processing file <$strSolutionFileName>"
+		$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
+		$OutScriptContent += ('set MSG=setting up SSIS solution ^^^<' + $strSolutionFileName + '^^^>')
+		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmDeploySsisProject.bat" /p '
+		$strCmd += '"' + $strSolutionPathName + '"'
+		$OutScriptContent += $strCmd
+		$OutScriptContent += 'if ERRORLEVEL 1 ('
+		$OutScriptContent += '	goto ExitFail'
+		$OutScriptContent += ')'
+		$OutScriptContent += ''
+		$OutScriptContent += 'echo %IM% Integration Services project setup completed succcessfully'
+		$OutScriptContent += ''
+	}
+	
+	#
+	# Script termination commands - the common Exit labels.
+	#
+	$OutScriptContent += ':ExitOk'
+	$OutScriptContent += 'cd /d %OLDPWD%'
+	$OutScriptContent += 'echo %IM% ends'
+	$OutScriptContent += 'exit %IsBatchExit% 0'
+	$OutScriptContent += ''
+	$OutScriptContent += ':ExitFail'
+	$OutScriptContent += 'echo %EM% %MSG%'
+	$OutScriptContent += 'cd /d %OLDPWD%'
+	$OutScriptContent += 'echo %EM% ends'
+	$OutScriptContent += 'exit %IsBatchExit% 1'
+	
+	set-content -path $SsisImportScriptFile -value $OutScriptContent
+	
+	write-host "$IM ends"
+	return $True
+}
+
 function GenerateSsasImportScript ([array] $arrStrFiles) {
 	
 	$FN = "GenerateSsasImportScript"
@@ -2538,9 +2675,9 @@ function GenerateSsasImportScript ([array] $arrStrFiles) {
 		$strSolutionFileName = split-path $strFile -leaf
 		$strSolutionFileNameNoExt = $strSolutionFileName.Replace(".sln", "")
 		
-		write-host "$IM processing file <$strFileName>"
+		write-host "$IM processing file <$strSolutionFileName>"
 		$OutScriptContent += 'echo %IM% date ^<%date%^> time ^<%time%^>'
-		$OutScriptContent += ('set MSG=setting up SSAS environment ^^^<' + $strDbContainerName + '@' + $strJdbcUrlKeyValue + '^^^>')
+		$OutScriptContent += ('set MSG=setting up SSAS solution ^^^<' + $strSolutionFileName + '^^^>')
 		$strCmd =  'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmDeploySsasDatabase.bat" /p '
 		$strCmd += '"' + $strSolutionPathName + '" "' + $strSolutionFileNameNoExt + '"'
 		$OutScriptContent += $strCmd
@@ -2910,6 +3047,14 @@ function GenerateBuild ($StrSourceTypeName) {
 	#
 	if (!(GenerateDmlExecutionScript $arrStrDbDmlFileList)) { 
 		write-host "$EM call to GenerateDmlExecutionScript failed"
+		return $False
+	}
+	
+	#
+	# Generate the SSIS deployment commands in the generated script.
+	#
+	if (!(GenerateSsisImportScript $arrStrSsisFileList)) { 
+		write-host "$EM call to GenerateSsisImportScript failed"
 		return $False
 	}
 	
@@ -3544,6 +3689,10 @@ function SetOutputNames {
 	$script:DmlExecutionScriptStubName = "OdiScmDmlExecution_" + ${OutputTag}
 	$script:DmlExecutionScriptName = $DmlExecutionScriptStubName + ".bat"
 	$script:DmlExecutionScriptFile = $GenScriptRootDir + "\$DmlExecutionScriptName"
+	
+	$script:SsisImportScriptStubName = "OdiScmSsisImport_" + ${OutputTag}
+	$script:SsisImportScriptName = $SsisImportScriptStubName + ".bat"
+	$script:SsisImportScriptFile = $GenScriptRootDir + "\$SsisImportScriptName"
 	
 	$script:SsasImportScriptStubName = "OdiScmSsasImport_" + ${OutputTag}
 	$script:SsasImportScriptName = $SsasImportScriptStubName + ".bat"

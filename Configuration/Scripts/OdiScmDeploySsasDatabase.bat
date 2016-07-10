@@ -369,8 +369,8 @@ if not "%ODI_SCM_TOOLS_VISUAL_STUDIO_HOME%" == "" set VSBUILDPROPERTYTEXT=/prope
 
 set SMSSPATH=
 set SMSSPROPERTYTEXT=
-if not "%ODI_SCM_TOOLS_SQL_SERVER_MANAGEMENT_STUDIO_HOME%" == "" set SMSSPATH=%ODI_SCM_TOOLS_SQL_SERVER_MANAGEMENT_STUDIO_HOME%\Tools\Binn\ManagementStudio
-if not "%ODI_SCM_TOOLS_SQL_SERVER_MANAGEMENT_STUDIO_HOME%" == "" set SMSSPROPERTYTEXT=/property:ssasDeployTool="!SMSSPATH!\Microsoft.AnalysisServices.Deployment.exe"
+if not "%ODI_SCM_TOOLS_SQL_SERVER_HOME%" == "" set SMSSPATH=%ODI_SCM_TOOLS_SQL_SERVER_HOME%\Tools\Binn\ManagementStudio
+if not "%ODI_SCM_TOOLS_SQL_SERVER_HOME%" == "" set SMSSPROPERTYTEXT=/property:ssasDeployTool="!SMSSPATH!\Microsoft.AnalysisServices.Deployment.exe"
 
 set BUILDLOG=%TEMPDIR%\OdiScmASDatabaseBuild.log
 echo %IM% executing command ^<msbuild "%BUILDFILE%" /target:buildCube /property:solutionPath="%TEMPDIR%\solution" /property:env="OdiScm" %VSBUILDPROPERTYTEXT%^>

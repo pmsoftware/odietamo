@@ -33,7 +33,7 @@
     </PropertyGroup>
     <Message Text='OdiScm: INFO: solutionPath: $(solutionPath)'/>
     <Message Text="Cleaning project %(SsisProjectFiles.FullPath)"/>
-    <Exec Command='"$(DevEnvTool)" "%(SsisProjectFiles.FullPath)" /clean'/>
+    <Exec Command='"$(devEnvTool)" "%(SsisProjectFiles.FullPath)" /clean'/>
   </Target>
 
   <Target Name="build">
