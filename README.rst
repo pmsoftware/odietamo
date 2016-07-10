@@ -35,7 +35,8 @@ Support added so far:
 * Automated execution of SSIS packages (during CI builds) or in dev/test/prod environments.
 * Automated deployment of SSAS databases (dimensions and cubes) (during CI builds) or in dev/test/prod environments.
 * Automated processing of SSAS databases (dimensions and cubes) (during CI builds) or in dev/test/prod environments.
+* Automated deployment of SSIS packages (during CI builds) or to dev/test/prod environments.
 
 Coming soon:
 
-* Automated deployment and configuration of SSIS packages (during CI builds) or to dev/test/prod environments.
+* Automated configuration of SSIS packages (during CI builds) or to dev/test/prod environments.
