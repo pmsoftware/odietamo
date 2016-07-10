@@ -117,6 +117,20 @@ So, the configuration file is really the persisted environment for the ODI-SCM c
 |                                |                               |in the Global User Name key, if     |                                                             |
 |                                |                               |any.                                |                                                             |
 |                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |SQL Server AS Working Copy Root|The root directory, relative to the |``src/ssas``                                                 |
+|                                |                               |working copy root directory, of the |                                                             |
+|                                |                               |SSAS code.                          |                                                             |
+|                                |                               |Must be within the working copy     |                                                             |
+|                                |                               |directory tree. I.e. avoid using    |                                                             |
+|                                |                               |".." in this path.                  |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |SQL Server IS Working Copy Root|The root directory, relative to the |``src/ssis``                                                 |
+|                                |                               |working copy root directory, of the |                                                             |
+|                                |                               |SSIS code.                          |                                                             |
+|                                |                               |Must be within the working copy     |                                                             |
+|                                |                               |directory tree. I.e. avoid using    |                                                             |
+|                                |                               |".." in this path.                  |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
 |                                |System URL                     |The most significant part of the SCM|``http://mytfsvr:1234/tfs``                                  |
 |                                |                               |URL. Typically, for TFS this is the |                                                             |
 |                                |                               |server and Team Project Collection, |``file:///C:/OdiScmWalkThrough/SvnRepoRoot``                 |
@@ -181,11 +195,27 @@ So, the configuration file is really the persisted environment for the ODI-SCM c
 |                                |                               |``bin`` directory containing the    |                                                             |
 |                                |                               |``java.exe`` binary.                |                                                             |
 |                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |MSBuild Home                   |Path of the Microsoft MSBuild build |``C:\Program Files (x86)\MSBuild\12.0``                      |
+|                                |                               |tool home directory. This is the    |                                                             |
+|                                |                               |directory containing the ``bin``    |                                                             |
+|                                |                               |directory containing the            |                                                             |
+|                                |                               |``msbuild.exe`` binary.             |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
 |                                |Oracle Home                    |Path of the Oracle client home      |``C:\oraclexe\app\oracle\product\11.2.0\server``             |
-|                                |                               |directory. This is the the directory|                                                             |
+|                                |                               |directory. This is the directory    |                                                             |
 |                                |                               |containing the ``bin`` directory    |                                                             |
 |                                |                               |containing the ``imp.exe`` and      |                                                             |
 |                                |                               |``exp.exe`` binaries.               |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |SQL Server Home                |Path of the SQL Server client home  |``C:\Program Files (x86)\Microsoft SQL Server\120``          |
+|                                |                               |directory. This is the directory    |                                                             |
+|                                |                               |containing the subdirectories that  |                                                             |
+|                                |                               |contain the deployment tools for    |                                                             |
+|                                |                               |SSIS and SSAS projects.             |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Visual Studio Home             |Path of the Visual Studio command   |``C:\Program Files (x86)\Microsoft Visual Studio 12.0``      |
+|                                |                               |line interface, ``devenv.com``, used|                                                             |
+|                                |                               |to build SSIS and SSAS projects.    |                                                             |
 |                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
 |                                |Team Explorer Everywhere Java  |Path of the JVM (JRE or JDK) home   |``C:\Program Files\Java\jdk1.6.0_45``                        |
 |                                |Home                           |directory to use with Microsoft     |                                                             |
@@ -413,6 +443,16 @@ So, the configuration file is really the persisted environment for the ODI-SCM c
 |                                |                               |* Key name: ``Token Values``        |                                                             |
 |                                |                               |* Key value: <"/" separated values> |                                                             |
 +--------------------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
+|SSIS                            |Server Name                    |The name of the Integration Services|``mysqlserver01``                                            |
+|                                |                               |server from which packages are      |                                                             |
+|                                |                               |executed and to which projects are  |                                                             |
+|                                |                               |deployed.                           |                                                             |
+|                                +-------------------------------+------------------------------------+-------------------------------------------------------------+
+|                                |Catalogue Path                 |The Integration Services catalogue  |``MyFolder``                                                 |
+|                                |                               |(SSISDB) path from which packages   |                                                             |
+|                                |                               |are executed and to which projects  |                                                             |
+|                                |                               |are deployed.                       |                                                             |
++--------------------------------+-------------------------------+------------------------------------+-------------------------------------------------------------+
 
 A example configuration file with all sections and keys listed::
 
@@ -448,7 +488,10 @@ A example configuration file with all sections and keys listed::
 	Branch URL=.
 	Global User Name=
 	Global User Password=
+	OracleDI Working Copy Root=src/oracledi
 	System URL=file:///C:/OdiScmWalkThrough/SvnRepoRoot
+	SQL Server AS Working Copy Root=src/ssas
+	SQL Server IS Working Copy Root=src/ssis
 	Type Name=SVN
 	Working Copy Root=C:/OdiScmWalkThrough/Repo2WorkingCopy
 	Working Root=C:/OdiScmWalkThrough/Temp2
@@ -462,9 +505,12 @@ A example configuration file with all sections and keys listed::
 	Jisql Additional Classpath=
 	Jisql Home=C:\Jisql\jisql-2.0.11
 	Jisql Java Home=C:\Program Files\Java\jdk1.6.0_45
+	MSBuild Home=C:\Program Files (x86)\MSBuild\12.0
 	Oracle Home=C:\oraclexe\app\oracle\product\11.2.0\server
+	SQL Server Home=C:\Program Files (x86)\Microsoft SQL Server\120
 	Team Explorer Everywhere Java Home=C:\TEE
 	UnxUtils Home=C:\UnxUtils
+	Visual Studio Home=C:\Program Files (x86)\Microsoft Visual Studio 12.0
 
 	[Generate]
 	Build Test Scope=full
@@ -507,6 +553,10 @@ A example configuration file with all sections and keys listed::
 	
 	[Logical Physical Schema Mappings]
 	billing=Data Server+hrsy1+Database+billdb4+Schema++Token Values+ReplaceThis=WithThis/AndThis=ByThis
+	
+	[SSIS]
+	Server Name=mysqlserver01
+	Catalogue Path=MyFolder
 
 The *Get* Process
 -----------------
