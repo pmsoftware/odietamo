@@ -262,6 +262,7 @@ function GetIncremental {
 	$arrStrDbDdlFileList = @()
 	$arrStrDbSplFileList = @()
 	$arrStrDbDmlFileList = @()
+	$arrStrSsisFileList = @()
 	$arrStrSsasFileList = @()
 	
 	$scmFileListRef = [ref] $arrStrFileList
@@ -269,6 +270,7 @@ function GetIncremental {
 	$refDbDdlFileList = [ref] $arrStrDbDdlFileList
 	$refDbSplFileList = [ref] $arrStrDbSplFileList
 	$refDbDmlFileList = [ref] $arrStrDbDmlFileList
+	$refSsisFileList = [ref] $arrStrSsisFileList
 	$refSsasFileList = [ref] $arrStrSsasFileList
 	
 	if (!(GetFromSCM $HighChangeSetNumber $scmFileListRef)) {
@@ -296,6 +298,11 @@ function GetIncremental {
 		return $False
 	}
 	
+	if (!(BuildSsisSourceFileList $arrStrFileList $refSsisFileList)) {
+		write-host "$EM building source file lists from SCM get output"
+		return $False
+	}
+	
 	if (!(BuildSsasSourceFileList $arrStrFileList $refSsasFileList)) {
 		write-host "$EM building source file lists from SCM get output"
 		return $False
@@ -305,6 +312,7 @@ function GetIncremental {
 	write-host "$IM                     <$($arrStrDbDdlFileList.length)> DDL source files to import"
 	write-host "$IM                     <$($arrStrDbSplFileList.length)> SPL source files to import"
 	write-host "$IM                     <$($arrStrDbDmlFileList.length)> DML source files to import"
+	write-host "$IM                     <$($arrStrSsisFileList.length)> SSIS source files to import"
 	write-host "$IM                     <$($arrStrSsasFileList.length)> SSAS source files to import"
 	
 	#
@@ -399,6 +407,14 @@ function GetIncremental {
 	#
 	if (!(GenerateDmlExecutionScript $arrStrDbDmlFileList)) { 
 		write-host "$EM call to GenerateDmlExecutionScript failed"
+		return $ExitStatus
+	}
+	
+	#
+	# Generate the SSIS script execution commands in the generated script.
+	#
+	if (!(GenerateSsisImportScript $arrStrSsisFileList)) { 
+		write-host "$EM call to GenerateSsisImportScript failed"
 		return $ExitStatus
 	}
 	
