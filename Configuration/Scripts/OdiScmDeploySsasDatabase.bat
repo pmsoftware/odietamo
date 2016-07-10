@@ -611,7 +611,7 @@ if ERRORLEVEL 1 (
 
 set DEPLOYLOG=%TEMPDIR%\OdiScmASDatabaseDeploy.log
 echo %IM% executing command ^<msbuild "%BUILDFILE%" /target:deployCube /property:buildPath="%TEMPDIR%\solution" /property:env="OdiScm" %SMSSPROPERTYTEXT%^>
-msbuild "%BUILDFILE%" /target:deployCube /property:buildPath="%TEMPDIR%\solution" /property:env="OdiScm" %SMSSPROPERTYTEXT% >%DEPLOYLOG%2>&1
+msbuild "%BUILDFILE%" /target:deployCube /property:buildPath="%TEMPDIR%\solution" /property:env="OdiScm" %SMSSPROPERTYTEXT% >%DEPLOYLOG% 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% failed to deploy Analysis Services project 2>&1
 	echo %EM% check log file ^<%DEPLOYLOG%^> for details 2>&1
