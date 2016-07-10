@@ -39,9 +39,6 @@ if ERRORLEVEL 1 (
 	goto ExitFail
 )
 
-rem
-rem Copy the solution and modify the target deployment server and database names.
-rem
 xcopy /i /s "%ARGV1%" "%TEMPDIR%\solution" >NUL 2>&1
 if ERRORLEVEL 1 (
 	echo %EM% copying solution files to temporary working directory 1>&2
