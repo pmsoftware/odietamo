@@ -27,12 +27,12 @@ if "%ODI_SCM_ORACLEDI_HOME%" == "" (
 )
 
 if "%ODI_SCM_SSIS_SERVER_NAME%" == "" (
-	echo ERROR: variable ODI_SCM_SSIS_SERVER_NAME not set 1>&2
+	echo %EM% variable ODI_SCM_SSIS_SERVER_NAME not set 1>&2
 	goto ExitFail
 )
 
 if "%ODI_SCM_SSIS_CATALOGUE_PATH%" == "" (
-	echo ERROR: variable ODI_SCM_SSIS_CATALOGUE_PATH not set 1>&2
+	echo %EM% variable ODI_SCM_SSIS_CATALOGUE_PATH not set 1>&2
 	goto ExitFail
 )
 

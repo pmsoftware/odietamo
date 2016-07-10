@@ -1,32 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Project ToolsVersion="4.0" DefaultTargets="build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-<<<<<<< HEAD
 
-  <!-- <Import Project="C:\Program Files (x86)\MSBuild\ExtensionPack\4.0\MSBuild.ExtensionPack.tasks"/>	-->
   <PropertyGroup Label="Mandatory">
     <!-- These properties should be set by the caller. If they are not specified, the defaults are used -->
     <!-- Build configuration-->
     <env>OdiScm</env>
     <!-- Used with the deploy target only-->
+    <ssisDeployTool></ssisDeployTool>
     <deployServer></deployServer>
     <deployFolder></deployFolder>
-=======
-  <!-- <Import Project="C:\Program Files (x86)\MSBuild\ExtensionPack\4.0\MSBuild.ExtensionPack.tasks"/>	-->
-  <PropertyGroup Label="Mandatory">
-    <!-- These properties should be set by the caller. If they are not specified, the defaults are used -->
-    <!-- Target Environment Variable-->
-    <env>OdiScm</env>
-    <!-- The path and name of the deployment zip file. Used with the Deploy target only-->
-    <deployFile></deployFile>
->>>>>>> Early drafts of SSIS build/deploy
-    <!-- The path to the BI solution (the folder containing the sub folders for Dimodelo, Cube, Custom projects) -->
+    <!-- The path to the BI solution -->
     <solutionPath></solutionPath>
-    <!-- The path to the build folder(the folder where build output is written. The folder contains the sub folders for Dimodelo, Cube, Custom projects) -->
+    <!-- The path to the build folder(the folder where build output is written. -->
     <buildPath></buildPath>
-    <!-- The version (2008, 2012, 2012) of the SSIS solution being built. This property affects which version of Visual Studio is used to build the solution -->
+    <!-- The version (2008, 2012, 2014) of the SSIS solution being built. This property affects which version of Visual Studio is used to build the solution -->
     <ssisVersion Condition="'$(ssisVersion)'==''">2014</ssisVersion>
+    <devEnvTool></devEnvTool>
   </PropertyGroup>
-<<<<<<< HEAD
 
   <Target Name="clean">
     <Message Text="Cleaning Project..."/>
@@ -53,55 +43,30 @@
     </ItemGroup>
     <PropertyGroup>
       <!-- path to the command line Visual Studio executable devenv.com -->
-=======
-  <Target Name="BuildProject">
-    <Message Text="Building Project..."/>
-    <ItemGroup>
-       <!-- The SSIS Project file -->
-       <SsisProjectFiles Include="$(solutionPath)\**\*.dtproj" />
-    </ItemGroup>
-    <PropertyGroup>
-      <!-- path to the command line Visual Studio executable devenv.exe -->
->>>>>>> Early drafts of SSIS build/deploy
       <devEnvTool Condition="'$(devEnvTool)'=='' And '$(ssisVersion)'=='2008'" >C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\devenv.com</devEnvTool>
       <devEnvTool Condition="'$(devEnvTool)'=='' And '$(ssisVersion)'=='2012'" >C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\devenv.com</devEnvTool>
       <devEnvTool Condition="'$(devEnvTool)'=='' And '$(ssisVersion)'=='2014'" >C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.com</devEnvTool>
     </PropertyGroup>
     <Message Text='OdiScm: INFO: solutionPath: $(solutionPath)'/>
     <Message Text="Building project %(SsisProjectFiles.FullPath)"/>
-<<<<<<< HEAD
-    <Exec Command='"$(DevEnvTool)" "%(SsisProjectFiles.FullPath)" /Build "$(env)" /projectconfig "$(env)"' />
+    <Exec Command='"$(devEnvTool)" "%(SsisProjectFiles.FullPath)" /build "$(env)" /projectconfig "$(env)"' />
   </Target>
 
   <Target Name="deploy">
-=======
-    <Exec Command='"$(DevEnvTool)" "%(SsisProjectFiles.FullPath)" /Build "$(env)" /project "MOICommonUtilities" /projectconfig "$(env)"' />
-  </Target>
-  <Target Name="DeployProject">
->>>>>>> Early drafts of SSIS build/deploy
     <Message Text="Deploying Project..."/>
     <PropertyGroup>
       <!-- path to the command line Visual Studio executable devenv.exe -->
-      <SSISDeployTool Condition="'$(SSISDeployTool)'=='' And '$(ssisVersion)'=='2008'" >C:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\ISDeploymentWizard.exe</SSISDeployTool>
-      <SSISDeployTool Condition="'$(SSISDeployTool)'=='' And '$(ssisVersion)'=='2012'" >C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\ISDeploymentWizard.exe</SSISDeployTool>
-      <SSISDeployTool Condition="'$(SSISDeployTool)'=='' And '$(ssisVersion)'=='2014'" >C:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn\ISDeploymentWizard.exe</SSISDeployTool>
+      <ssisDeployTool Condition="'$(ssisDeployTool)'=='' And '$(ssisVersion)'=='2008'" >C:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\ISDeploymentWizard.exe</ssisDeployTool>
+      <ssisDeployTool Condition="'$(ssisDeployTool)'=='' And '$(ssisVersion)'=='2012'" >C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\ISDeploymentWizard.exe</ssisDeployTool>
+      <ssisDeployTool Condition="'$(ssisDeployTool)'=='' And '$(ssisVersion)'=='2014'" >C:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn\ISDeploymentWizard.exe</ssisDeployTool>
     </PropertyGroup>
     <ItemGroup>
       <!-- The SSIS Project deployment wizard build file -->
-<<<<<<< HEAD
       <SSISProjectFile Include="$(buildPath)\**\OdiScmBuildPath\**\*.ispac"></SSISProjectFile>
     </ItemGroup>
     <Message Text='OdiScm: INFO: buildPath: $(buildPath)'/>
     <Message Text='OdiScm: INFO: deploying file: %(SSISProjectFile.FullPath)'/>
-    <Exec Command='"$(SSISDeployTool)" /SP:"%(SSISProjectFile.FullPath)" /S /ST:File /DS:$(deployServer) /DP:/SSISDB/$(deployFolder)/%(SSISProjectFile.Filename)'/>
+    <Exec Command='"$(ssisDeployTool)" /SP:"%(SSISProjectFile.FullPath)" /S /ST:File /DS:$(deployServer) /DP:/SSISDB/$(deployFolder)/%(SSISProjectFile.Filename)'/>
   </Target>
 
-=======
-      <SSISProjectFile Include="$(buildPath)\**\OdiScmBuildPath\*.ispac"></SSISProjectFile>
-    </ItemGroup>
-    <Message Text='OdiScm: INFO: buildPath: $(buildPath)'/>
-    <Message Text='OdiScm: INFO: deploying file: %(SSISProjectFile.FullPath)'/>
-    <Exec Command='"$(SSISDeployTool)" "%(SSISProjectFile.FullPath)" /s' />
-  </Target>
->>>>>>> Early drafts of SSIS build/deploy
 </Project>
