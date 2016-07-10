@@ -141,8 +141,20 @@ echo CWD is %CD%
 
 echo %IM% running command ^<%FITNESSECMD%^>
 echo %IM% a copy of stdout output will be redirected to file ^<%FITNESSEOUTPUTLOG%^>
-%FITNESSECMD% 2>"%FITNESSEOUTPUTLOG%.stderr.txt" | tee "%FITNESSEOUTPUTLOG%"
+echo %IM% note that no stdout/stderr output will be written until all tests have completed execution
+%FITNESSECMD% 2>"%FITNESSEOUTPUTLOG%.stderr.txt"
 set EXITSTATUS=%ERRORLEVEL%
+
+type "%FITNESSEOUTPUTLOG%"
+
+rem
+rem Exit with the non zero exit status from the FitNesse command in preference to a the value we use
+rem when detecting output to stderr.
+rem
+if not "%EXITSTATUS%" == "0" (
+	echo %EM% executing FitNesse command ^<%FITNESSECMD%^> 1>&2
+	goto ExitFail
+)
 
 fc "%FITNESSEOUTPUTLOG%.empty" "%FITNESSEOUTPUTLOG%.stderr.txt" 1>NUL 2>NUL
 if ERRORLEVEL 1 (
@@ -152,15 +164,6 @@ if ERRORLEVEL 1 (
 	set STDERRTEXT=TRUE
 ) else (
 	set STDERRTEXT=
-)
-
-rem
-rem Exit with the non zero exit status from the FitNesse command in preference to a the value we use
-rem when detecting output to stderr.
-rem
-if not "%EXITSTATUS%" == "0" (
-	echo %EM% executing FitNesse command ^<%FITNESSECMD%^> 1>&2
-	goto ExitFail
 )
 
 :ExitOk

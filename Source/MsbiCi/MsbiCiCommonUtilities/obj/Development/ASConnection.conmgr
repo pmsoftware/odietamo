@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="ASConnection"
+  DTS:DTSID="{DDDFB900-CE45-47CB-81E9-A821E72321A6}"
+  DTS:CreationName="MSOLAP100">
+  <DTS:PropertyExpression
+    DTS:Name="ConnectionString">"Provider=MSOLAP.6;DataSource=" + @[$Project::ASServerName]</DTS:PropertyExpression>
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Provider=MSOLAP.6;DataSource=;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

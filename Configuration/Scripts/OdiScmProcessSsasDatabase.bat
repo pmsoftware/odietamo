@@ -26,6 +26,16 @@ if "%ODI_SCM_ORACLEDI_HOME%" == "" (
 	goto ExitFail
 )
 
+if "%ODI_SCM_SSIS_SERVER_NAME%" == "" (
+	echo ERROR: variable ODI_SCM_SSIS_SERVER_NAME not set 1>&2
+	goto ExitFail
+)
+
+if "%ODI_SCM_SSIS_CATALOGUE_PATH%" == "" (
+	echo ERROR: variable ODI_SCM_SSIS_CATALOGUE_PATH not set 1>&2
+	goto ExitFail
+)
+
 if "%ARGV1%" == "" (
 	echo %EM% missing Analysis Services database name 1>&2
 	goto ExitFail
@@ -82,7 +92,8 @@ if "%ASDBNAME%" == "" (
 rem
 rem Ideally we'd call OdiScmExecSsisPackage.bat for this call but getting escaped double quotes passed through to it is seemingly impossible.
 rem
-set DTEXECCMD=dtexec /ISServer "\SSISDB\%ODI_SCM_TEST_ORACLEDI_CONTEXT%\MOICommonUtilities\MOIProcessASDatabaseFull.dtsx" /Server "%ASSERVERNAME%" /Parameter "$ServerOption::SYNCHRONIZED(Boolean)";True /Parameter "$Project::ASServerName";"\"%ASSERVERNAME%\"" /Parameter "$Project::ASDatabaseName";"\"%ASDBNAME%\"" 
+set DTEXECCMD=dtexec /ISServer "\SSISDB\%ODI_SCM_SSIS_CATALOGUE_PATH%\MsbiCiCommonUtilities\ProcessASDatabaseFull.dtsx" /Server "%ODI_SCM_SSIS_SERVER_NAME%" /Parameter "$ServerOption::SYNCHRONIZED(Boolean)";True /Parameter "$Project::ASServerName";"\"%ASSERVERNAME%\"" /Parameter "$Project::ASDatabaseName";"\"%ASDBNAME%\"" 
+echo %IM% executing command ^<%DTEXECCMD%^>
 %DTEXECCMD%
 set EL=%ERRORLEVEL%
 
