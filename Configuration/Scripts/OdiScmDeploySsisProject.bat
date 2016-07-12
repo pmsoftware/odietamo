@@ -18,12 +18,12 @@ if ERRORLEVEL 1 (
 )
 
 if "%ODI_SCM_SSIS_SERVER_NAME%" == "" (
-	echo %EM% variable ODI_SCM_SSIS_SERVER_NAME not set 1>&2
+	echo %EM% variable ^<ODI_SCM_SSIS_SERVER_NAME^> not set 1>&2
 	goto ExitFail
 )
 
 if "%ODI_SCM_SSIS_CATALOGUE_PATH%" == "" (
-	echo %EM% variable ODI_SCM_SSIS_CATALOGUE_PATH not set 1>&2
+	echo %EM% variable ^<ODI_SCM_SSIS_CATALOGUE_PATH^> not set 1>&2
 	goto ExitFail
 )
 
