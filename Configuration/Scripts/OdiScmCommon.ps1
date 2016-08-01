@@ -2592,6 +2592,15 @@ function GenerateSsisImportScript ([array] $arrStrFiles) {
 	$OutScriptContent += ')'
 	$OutScriptContent += ''
 	$OutScriptContent += 'set OLDPWD=%CD%'
+	$OutScriptContent += ''
+	$OutScriptContent += 'echo %IM% deploying ODI-SCM MSBI-CI SSIS components'
+	$OutScriptContent += 'call "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmFork.bat" "%ODI_SCM_HOME%\Configuration\Scripts\OdiScmImportMsbiCi.bat"'
+	$OutScriptContent += 'if ERRORLEVEL 1 ('
+	$OutScriptContent += '	goto ExitFail'
+	$OutScriptContent += ')'
+	$OutScriptContent += ''
+	$OutScriptContent += 'echo %IM% ODI-SCM MSBI-CI SSIS components setup completed successfully'
+	$OutScriptContent += ''
 	
 	$intFileErrors = 0
 	$intMaxTierInt = 0
